@@ -1,0 +1,2911 @@
+@node Types and Classes
+@chapter Types and Classes
+@menu
+* Introduction to Types and Classes::
+* Types::
+* Classes::
+
+Dictionary
+
+* nil (Type)::
+* boolean::
+* function (System Class)::
+* compiled-function::
+* generic-function::
+* standard-generic-function::
+* class::
+* built-in-class::
+* structure-class::
+* standard-class::
+* method::
+* standard-method::
+* structure-object::
+* standard-object::
+* method-combination::
+* t (System Class)::
+* satisfies::
+* member (Type Specifier)::
+* not (Type Specifier)::
+* and (Type Specifier)::
+* or (Type Specifier)::
+* values (Type Specifier)::
+* eql (Type Specifier)::
+* coerce::
+* deftype::
+* subtypep::
+* type-of::
+* typep::
+* type-error::
+* type-error-datum; type-error-expected-type::
+* simple-type-error::
+@end menu
+
+@node Introduction to Types and Classes
+@section Introduction to Types and Classes
+
+A @term{type} is a (possibly infinite) set of @term{objects}.
+An @term{object} can belong to more than one @term{type}.
+@term{Types} are never explicitly represented as @term{objects} by @clisp{}.
+Instead, they are referred to indirectly by the use of @term{type specifiers},
+which are @term{objects} that denote @term{types}.
+
+New @term{types} can be defined using @code{deftype}, @code{defstruct},
+@code{defclass}, and @code{define-condition}.
+
+@Thefunction{typep}, a set membership test, is used to determine
+whether a given @term{object} is of a given @term{type}.  The function
+@code{subtypep}, a subset test, is used to determine whether a
+given @term{type} is a @term{subtype} of another given @term{type}.  The
+function @code{type-of} returns a particular @term{type} to
+which a given @term{object} belongs, even though that @term{object}
+must belong to one or more other @term{types} as well.
+(For example, every @term{object} is @oftype{t},
+but @code{type-of} always returns a @term{type specifier}
+for a @term{type} more specific than @code{t}.)
+
+@term{Objects}, not @term{variables}, have @term{types}.
+Normally, any @term{variable} can have any @term{object} as its @term{value}.
+It is possible to declare that a @term{variable} takes on only
+values of a given @term{type} by making an explicit @term{type declaration}.
+@term{Types} are arranged in a directed acyclic graph, except
+for the presence of equivalences.
+
+@term{Declarations} can be made about @term{types} using @t{declare},
+@code{proclaim}, @code{declaim}, or @code{the}.
+For more information about @term{declarations},
+see @ref{Declarations, Section 3.3 (Declarations)}.
+
+Among the fundamental @term{objects} of the @CLOS{}@spc{}are @term{classes}.
+A @term{class} determines the structure and behavior of a set of
+other @term{objects}, which are called its @term{instances}.
+Every @term{object} is a @term{direct instance} of a @term{class}.
+The @term{class} of an @term{object} determines the set of
+operations that can be performed on the @term{object}.
+For more information, see @ref{Classes, Section 4.3 (Classes)}.
+
+It is possible to write @term{functions} that have behavior @term{specialized}
+to the class of the @term{objects} which are their @term{arguments}.
+For more information, see @ref{Generic Functions and Methods, Section 7.6 (Generic Functions and Methods)}.
+
+The @term{class} of the @term{class} of an @term{object}
+is called its @newterm{metaclass}.
+For more information about @term{metaclasses},
+see @ref{Meta-Objects, Section 7.4 (Meta-Objects)}.
+
+@node Types
+@section Types
+
+
+@menu
+* Data Type Definition::
+* Type Relationships::
+* Type Specifiers::
+@end menu
+@node Data Type Definition
+@subsection Data Type Definition
+
+Information about @term{type} usage is located in
+the sections specified in @ref{TypeInfoXrefs, Figure 4.1}.
+@ref{ObjectSystemClasses, Figure 4.7}@spc{}lists some @term{classes}
+that are particularly relevant to the @CLOS{}.
+@ref{StandardizedConditionTypes, Figure 9.1}@spc{}lists the defined @term{condition} @term{types}.
+
+
+
+@float Figure,TypeInfoXrefs
+@cartouche
+@multitable{@ref{Condition System Concepts, Section 9.1 (Condition System Concepts)}}{All types---read and print syntax}
+
+@item @hfil{}@b{Section} @tab Data Type
+@item @ref{Classes, Section 4.3 (Classes)} @tab Object System types
+@item @ref{Slots, Section 7.5 (Slots)} @tab Object System types
+@item @ref{Objects, Chapter 7 (Objects)} @tab Object System types
+@item @ref{Generic Functions and Methods, Section 7.6 (Generic Functions and Methods)} @tab Object System types
+@item @ref{Condition System Concepts, Section 9.1 (Condition System Concepts)} @tab Condition System types
+@item @ref{Types and Classes, Chapter 4 (Types and Classes)} @tab Miscellaneous types
+@item @ref{Syntax, Chapter 2 (Syntax)} @tab All types---read and print syntax
+@item @ref{The Lisp Printer, Section 22.1 (The Lisp Printer)} @tab All types---print syntax
+@item @ref{Compilation, Section 3.2 (Compilation)} @tab All types---compilation issues
+@end multitable
+@end cartouche
+@caption{Cross-References to Data Type Information}
+@end float
+
+
+
+@node Type Relationships
+@subsection Type Relationships
+
+
+@itemize @bullet{}
+
+@item
+@Thetypes{cons}, @code{symbol}, @code{array}, @code{number},
+@code{character}, @code{hash-table},
+@code{function},
+@code{readtable}, @code{package}, @code{pathname}, @code{stream},
+@code{random-state}, @code{condition}, @code{restart},
+and any single other @term{type} created by @code{defstruct},
+@code{define-condition},
+or @code{defclass} are @term{pairwise} @term{disjoint},
+except for type relations explicitly established by specifying
+@term{superclasses} in @code{defclass}
+or @code{define-condition}
+or the @kwd{include} option of @code{destruct}.
+
+
+
+@item Any two @term{types} created by @code{defstruct} are
+@term{disjoint} unless
+one is a @term{supertype} of the other by virtue of
+the @code{defstruct} @kwd{include} option.
+
+@editornote{KMP: The comments in the source say gray suggested some change
+from ``common superclass'' to ``common subclass'' in the following, but the
+result looks suspicious to me.}
+
+@item
+Any two @term{distinct} @term{classes} created by @code{defclass}
+or @code{define-condition}
+are @term{disjoint} unless they have a common @term{subclass} or
+one @term{class} is a @term{subclass} of the other.
+
+
+@item
+An implementation may be extended to add other @term{subtype}
+relationships between the specified @term{types}, as long as they do
+not violate the type relationships and disjointness requirements
+specified here.  An implementation may define additional @term{types}
+that are @term{subtypes} or @term{supertypes} of any
+specified @term{types}, as long as each additional @term{type} is
+a @subtypeof{t} and a @supertypeof{nil} and the disjointness requirements
+are not violated.
+
+At the discretion of the implementation, either @code{standard-object}
+or @code{structure-object} might appear in any class precedence list
+for a @term{system class} that does not already specify either
+@code{standard-object} or @code{structure-object}.  If it does,
+it must precede @theclass{t} and follow all other @term{standardized} @term{classes}.
+@end itemize
+
+
+
+@node Type Specifiers
+@subsection Type Specifiers
+
+
+@term{Type specifiers} can be @term{symbols}, @term{classes}, or @term{lists}.
+@ref{StandardizedAtomicTypeSpecs, Figure 4.2}@spc{}lists @term{symbols} that are
+@term{standardized} @term{atomic type specifiers}, and
+@ref{StandardizedCompoundTypeSpecNames, Figure 4.3}@spc{}lists
+@term{standardized} @term{compound type specifier} @term{names}.
+For syntax information, see the dictionary entry for the corresponding @term{type specifier}.
+It is possible to define new @term{type specifiers} using
+@code{defclass},
+@code{define-condition},
+@code{defstruct},
+or
+@code{deftype}.
+
+
+
+
+@float Figure,StandardizedAtomicTypeSpecs
+@cartouche
+@multitable{floating-point-invalid-operation}{method-combination}{standard-generic-function}
+
+@item arithmetic-error @tab function @tab simple-condition
+@item array @tab generic-function @tab simple-error
+@item atom @tab hash-table @tab simple-string
+@item base-char @tab integer @tab simple-type-error
+@item base-string @tab keyword @tab simple-vector
+@item bignum @tab list @tab simple-warning
+@item bit @tab logical-pathname @tab single-float
+@item bit-vector @tab long-float @tab standard-char
+@item broadcast-stream @tab method @tab standard-class
+@item built-in-class @tab method-combination @tab standard-generic-function
+@item cell-error @tab nil @tab standard-method
+@item character @tab null @tab standard-object
+@item class @tab number @tab storage-condition
+@item compiled-function @tab package @tab stream
+@item complex @tab package-error @tab stream-error
+@item concatenated-stream @tab parse-error @tab string
+@item condition @tab pathname @tab string-stream
+@item cons @tab print-not-readable @tab structure-class
+@item control-error @tab program-error @tab structure-object
+@item division-by-zero @tab random-state @tab style-warning
+@item double-float @tab ratio @tab symbol
+@item echo-stream @tab rational @tab synonym-stream
+@item end-of-file @tab reader-error @tab t
+@item error @tab readtable @tab two-way-stream
+@item extended-char @tab real @tab type-error
+@item file-error @tab restart @tab unbound-slot
+@item file-stream @tab sequence @tab unbound-variable
+@item fixnum @tab serious-condition @tab undefined-function
+@item float @tab short-float @tab unsigned-byte
+@item floating-point-inexact @tab signed-byte @tab vector
+@item floating-point-invalid-operation @tab simple-array @tab warning
+@item floating-point-overflow @tab simple-base-string @tab
+@item floating-point-underflow @tab simple-bit-vector @tab
+@end multitable
+@end cartouche
+@caption{Standardized Atomic Type Specifiers}
+@end float
+
+
+
+@indent{}
+If a @term{type specifier} is a @term{list}, the @term{car} of the @term{list}
+is a @term{symbol}, and the rest of the @term{list} is subsidiary
+@term{type} information.  Such a @term{type specifier} is called
+a @newterm{compound type specifier}.
+Except as explicitly stated otherwise,
+the subsidiary items can be unspecified.
+The unspecified subsidiary items are indicated
+by writing @f{*}.  For example, to completely specify
+a @term{vector}, the @term{type} of the elements
+and the length of the @term{vector} must be present.
+
+@lisp
+ (vector double-float 100)
+@end lisp
+
+The following leaves the length unspecified:
+
+@lisp
+ (vector double-float *)
+@end lisp
+
+The following leaves the element type unspecified:
+
+@lisp
+ (vector * 100)
+@end lisp
+
+Suppose that two @term{type specifiers} are the same except that the first
+has a @f{*} where the second has a more explicit specification.
+Then the second denotes a @term{subtype}
+of the @term{type} denoted by the first.
+
+If a @term{list} has one or more unspecified items at the end,
+those items can be dropped.
+If dropping all occurrences of @f{*} results in a @term{singleton} @term{list},
+then the parentheses can be dropped as well (the list can be replaced
+by the @term{symbol} in its @term{car}).
+For example,
+@tt{(vector double-float *)}
+can be abbreviated to @tt{(vector double-float)},
+and @tt{(vector * *)} can be abbreviated to @tt{(vector)}
+and then to
+@tt{vector}.
+
+
+
+@float Figure,StandardizedCompoundTypeSpecNames
+@cartouche
+@multitable{double-float}{simple-array}{simple-base-string}
+
+@item and @tab long-float @tab simple-base-string
+@item array @tab member @tab simple-bit-vector
+@item base-string @tab mod @tab simple-string
+@item bit-vector @tab not @tab simple-vector
+@item complex @tab or @tab single-float
+@item cons @tab rational @tab string
+@item double-float @tab real @tab unsigned-byte
+@item eql @tab satisfies @tab values
+@item float @tab short-float @tab vector
+@item function @tab signed-byte @tab
+@item integer @tab simple-array @tab
+@end multitable
+@end cartouche
+@caption{Standardized Compound Type Specifier Names}
+@end float
+
+
+@Thenextfigure{}@spc{}show the @term{defined names} that can be used as
+@term{compound type specifier} @term{names}
+but that cannot be used as @term{atomic type specifiers}.
+
+
+@float Figure,fig4.4
+@cartouche
+@multitable{member}{mod}{satisfies}
+
+@item and @tab mod @tab satisfies
+@item eql @tab not @tab values
+@item member @tab or @tab
+@end multitable
+@end cartouche
+@caption{Standardized Compound-Only Type Specifier Names}
+@end float
+
+
+New @term{type specifiers} can come into existence in two ways.
+
+@itemize @bullet{}
+@item
+Defining a structure by using @code{defstruct} without using
+the @kwd{type} specifier or defining a @term{class} by using
+@code{defclass}
+or @code{define-condition}
+automatically causes the name of the structure
+or class to be a new @term{type specifier} @term{symbol}.
+@item
+@code{deftype} can be used to define
+@cindex derived type specifier
+@dfn{derived type specifiers},
+which act as `abbreviations' for other @term{type specifiers}.
+@end itemize
+
+
+A @term{class} @term{object} can be used as a @term{type specifier}.
+When used this way, it denotes the set of all members of that @term{class}.
+
+@Thenextfigure{}@spc{}shows some @term{defined names} relating to
+@term{types} and @term{declarations}.
+
+
+
+@float Figure,TypesAndDeclsNames
+@cartouche
+@multitable{define-condition}{defstruct}{subtypep}
+
+@item coerce @tab defstruct @tab subtypep
+@item declaim @tab deftype @tab the
+@item declare @tab ftype @tab type
+@item defclass @tab locally @tab type-of
+@item define-condition @tab proclaim @tab typep
+@end multitable
+@end cartouche
+@caption{Defined names relating to types and declarations.}
+@end float
+
+
+@Thenextfigure{}@spc{}shows all @term{defined names} that are @term{type specifier} @term{names},
+whether for @term{atomic type specifiers} or @term{compound type specifiers};
+this list is the union of the lists in @ref{StandardizedAtomicTypeSpecs, Figure 4.2}@spc{}
+and @ref{StandardizedCompoundTypeSpecNames, Figure 4.3}.
+
+
+
+@float Figure,StandardizedTypeSpecifierNames
+@cartouche
+@multitable{floating-point-invalid-operation}{method-combination}{standard-generic-function}
+
+@item and @tab function @tab simple-array
+@item arithmetic-error @tab generic-function @tab simple-base-string
+@item array @tab hash-table @tab simple-bit-vector
+@item atom @tab integer @tab simple-condition
+@item base-char @tab keyword @tab simple-error
+@item base-string @tab list @tab simple-string
+@item bignum @tab logical-pathname @tab simple-type-error
+@item bit @tab long-float @tab simple-vector
+@item bit-vector @tab member @tab simple-warning
+@item broadcast-stream @tab method @tab single-float
+@item built-in-class @tab method-combination @tab standard-char
+@item cell-error @tab mod @tab standard-class
+@item character @tab nil @tab standard-generic-function
+@item class @tab not @tab standard-method
+@item compiled-function @tab null @tab standard-object
+@item complex @tab number @tab storage-condition
+@item concatenated-stream @tab or @tab stream
+@item condition @tab package @tab stream-error
+@item cons @tab package-error @tab string
+@item control-error @tab parse-error @tab string-stream
+@item division-by-zero @tab pathname @tab structure-class
+@item double-float @tab print-not-readable @tab structure-object
+@item echo-stream @tab program-error @tab style-warning
+@item end-of-file @tab random-state @tab symbol
+@item eql @tab ratio @tab synonym-stream
+@item error @tab rational @tab t
+@item extended-char @tab reader-error @tab two-way-stream
+@item file-error @tab readtable @tab type-error
+@item file-stream @tab real @tab unbound-slot
+@item fixnum @tab restart @tab unbound-variable
+@item float @tab satisfies @tab undefined-function
+@item floating-point-inexact @tab sequence @tab unsigned-byte
+@item floating-point-invalid-operation @tab serious-condition @tab values
+@item floating-point-overflow @tab short-float @tab vector
+@item floating-point-underflow @tab signed-byte @tab warning
+@end multitable
+@end cartouche
+@caption{Standardized Type Specifier Names}
+@end float
+
+
+
+
+@node Classes
+@section Classes
+
+
+While the @CLOS{}@spc{}is general enough to describe all @term{standardized} @term{classes}
+(including, for example, @code{number}, @code{hash-table}, and
+@code{symbol}), @thenextfigure{}@spc{}contains a list of @term{classes} that are
+especially relevant to understanding the @CLOS{}.
+
+
+
+@float Figure,ObjectSystemClasses
+@cartouche
+@multitable{generic-function}{standard-generic-function}{structure-object}
+
+@item built-in-class @tab method-combination @tab standard-object
+@item class @tab standard-class @tab structure-class
+@item generic-function @tab standard-generic-function @tab structure-object
+@item method @tab standard-method @tab
+@end multitable
+@end cartouche
+@caption{Object System Classes}
+@end float
+
+
+@menu
+* Introduction to Classes::
+* Defining Classes::
+* Creating Instances of Classes::
+* Inheritance::
+* Determining the Class Precedence List::
+* Redefining Classes::
+* Integrating Types and Classes::
+@end menu
+@node Introduction to Classes
+@subsection Introduction to Classes
+
+A @newterm{class} is an @term{object} that determines the structure and behavior
+of a set of other @term{objects}, which are called its
+@cindex instance
+@dfn{instances}.
+
+A @term{class} can inherit structure and behavior from other @term{classes}.
+A @term{class} whose definition refers to other @term{classes} for the purpose
+of inheriting from them is said to be a @term{subclass} of each of
+those @term{classes}. The @term{classes} that are designated for purposes of
+inheritance are said to be @term{superclasses} of the inheriting @term{class}.
+
+A @term{class} can have a @term{name}. The @term{function} @code{class-name}
+takes a @term{class} @term{object} and returns its @term{name}.
+The @term{name} of an anonymous @term{class} is @nil{}.  A @term{symbol}
+can @term{name} a @term{class}. The @term{function} @code{find-class} takes a
+@term{symbol} and returns the @term{class} that the @term{symbol} names.
+A @term{class} has a @term{proper name} if the @term{name} is a @term{symbol}
+and if the @term{name} of the @term{class} names that @term{class}.
+That is, a @term{class}@tie{}@mat{C} has the @term{proper name}@tie{}@mat{S} if @mat{S=}
+@f{(class-name @mat{C})} and @mat{C=} @f{(find-class @mat{S})}.
+Notice that it is possible for
+@f{(find-class @mat{S@sub1{}})} @mat{=} @f{(find-class @mat{S@sub2{}})}
+and @mat{S@sub1{}@neq{} S@sub2{}}.
+If @mat{C=} @f{(find-class @mat{S})}, we say that @mat{C} is the @term{class} @term{named} @mat{S}.
+
+A @term{class} @mat{C@sub1{}} is
+a @newterm{direct superclass} of a @term{class} @mat{C@sub2{}}
+if @mat{C@sub2{}} explicitly designates @mat{C@sub1{}}
+as a @term{superclass} in its definition.
+In this case @mat{C@sub2{}} is a @newterm{direct subclass} of @mat{C@sub1{}}.
+A @term{class} @mat{C@subs1{n}} is a @newterm{superclass} of
+a @term{class} @mat{C@sub1{}} if there exists a series of
+@term{classes} @mat{C@sub2{},@ldots{},C@subs{n-1}} such that
+@mat{C@subs{i+1}} is a @term{direct superclass} of @mat{C@subs1{i}} for @mat{1 @leq{} i<n}.
+In this case, @mat{C@sub1{}} is a @newterm{subclass} of @mat{C@subs1{n}}.
+A @term{class} is considered neither a @term{superclass} nor a @term{subclass} of itself.
+That is, if @mat{C@sub1{}} is a @term{superclass} of @mat{C@sub2{}},
+then @mat{C@sub1{} @neq{} C@sub2{}}.
+The set of @term{classes} consisting of some given @term{class} @mat{C}
+along with all of its @term{superclasses} is called ``@mat{C} and its superclasses.''
+
+Each @term{class} has a @newterm{class precedence list},
+which is a total ordering on the set of the given @term{class} and its @term{superclasses}.
+The total ordering is expressed as a list ordered from most specific to least specific.
+The @term{class precedence list} is used in several ways.  In general, more
+specific @term{classes} can @newterm{shadow}@sub1{} features that would
+otherwise be inherited from less specific @term{classes}.
+The @term{method} selection and combination process uses
+the @term{class precedence list} to order @term{methods}
+from most specific to least specific.
+
+When a @term{class} is defined, the order in which its direct @term{superclasses}
+are mentioned in the defining form is important.  Each @term{class} has a
+@newterm{local precedence order}, which is a @term{list} consisting of the
+@term{class} followed by its @term{direct superclasses} in the order mentioned
+in the defining @term{form}.
+
+A @term{class precedence list} is always consistent with the
+@term{local precedence order} of each @term{class} in the list.
+The @term{classes} in each @term{local precedence order} appear
+within the @term{class precedence list} in the same order.
+If the @term{local precedence orders} are inconsistent with each other,
+no @term{class precedence list} can be constructed, and an error is signaled.
+The @term{class precedence list} and its computation is discussed
+in @ref{Determining the Class Precedence List, Section 4.3.5 (Determining the Class Precedence List)}.
+
+@term{classes} are organized into a directed acyclic graph.
+There are two distinguished @term{classes}, named @code{t} and @code{standard-object}.
+The @term{class} named @code{t} has no @term{superclasses}.
+It is a @term{superclass} of every @term{class} except itself.
+The @term{class} named @code{standard-object} is an @term{instance} of
+@theclass{standard-class} and is a @term{superclass} of
+every @term{class} that is an @term{instance} of @theclass{standard-class} except itself.
+
+@reviewer{Barmar: This or something like it needs to be said in the introduction.}
+There is a mapping from the object system @term{class} space into
+the @term{type} space.  Many of the standard @term{types} specified
+in this document have a corresponding @term{class} that has the same
+@term{name} as the @term{type}. Some @term{types} do not have a
+corresponding @term{class}. The integration of the @term{type} and @term{class}
+systems is discussed in @ref{Integrating Types and Classes, Section 4.3.7 (Integrating Types and Classes)}.
+
+@term{Classes} are represented by @term{objects} that are themselves
+@term{instances} of @term{classes}.
+The @term{class} of the @term{class} of an @term{object} is termed
+the @newterm{metaclass} of that @term{object}. When no misinterpretation is
+possible, the term @term{metaclass} is used to refer to a @term{class}
+that has @term{instances} that are themselves @term{classes}. The @term{metaclass}
+determines the form of inheritance used by the @term{classes} that are its
+@term{instances} and the representation of the @term{instances} of those @term{classes}.
+The @CLOS{}@spc{}provides a default @term{metaclass}, @code{standard-class}, that is
+appropriate for most programs.
+
+Except where otherwise specified, all @term{classes} mentioned in this
+standard are @term{instances} of @theclass{standard-class},
+all @term{generic functions} are @term{instances}
+of @theclass{standard-generic-function},
+and all @term{methods} are @term{instances} of @theclass{standard-method}.
+
+
+@subsubsection Standard Metaclasses
+
+The @CLOS{}@spc{}provides a number of predefined @term{metaclasses}.
+These include the @term{classes} @code{standard-class},
+@code{built-in-class}, and @code{structure-class}:
+
+
+@itemize @bullet{}
+
+@item
+@Theclass{standard-class} is the default @term{class} of
+@term{classes} defined by @code{defclass}.
+
+@item @Theclass{built-in-class} is the @term{class} whose
+@term{instances} are @term{classes} that have special implementations with
+restricted capabilities.  Any @term{class} that corresponds to a standard
+@term{type} might be an @term{instance} of @code{built-in-class}.
+The predefined @term{type} specifiers that are required to have
+corresponding @term{classes} are listed in @ref{ClassTypeCorrespondence, Figure 4.8}.
+It is @term{implementation-dependent} whether each of these @term{classes}
+is implemented as a @term{built-in class}.
+
+@item
+All @term{classes} defined by means of @code{defstruct} are
+@term{instances} of @theclass{structure-class}.
+@end itemize
+
+
+
+@node Defining Classes
+@subsection Defining Classes
+
+The macro @code{defclass} is used to define a new named @term{class}.
+
+The definition of a @term{class} includes:
+
+
+@itemize @bullet{}
+
+@item The @term{name} of the new @term{class}.
+For newly-defined @term{classes} this @term{name} is a @term{proper name}.
+
+@item The list of the direct @term{superclasses} of the new @term{class}.
+
+@item A set of
+@cindex slot specifier
+@dfn{slot specifiers}.
+Each @term{slot specifier} includes the @term{name} of the @term{slot}
+and zero or more @term{slot} options.  A @term{slot} option pertains
+only to a single @term{slot}.  If a @term{class} definition contains
+two @term{slot specifiers} with the same @term{name}, an error is signaled.
+
+@item A set of @term{class} options.
+Each @term{class} option pertains to the @term{class} as a whole.
+@end itemize
+
+
+The @term{slot} options and @term{class} options of
+the @code{defclass} form provide mechanisms for the following:
+
+
+@itemize @bullet{}
+
+@item Supplying a default initial value @term{form}
+for a given @term{slot}.
+
+@item Requesting that @term{methods} for @term{generic functions}
+be automatically generated for reading or writing @term{slots}.
+
+@item Controlling whether a given @term{slot} is shared by
+all @term{instances}
+of the @term{class} or whether each
+@term{instance} of the @term{class} has its own @term{slot}.
+
+@item Supplying a set of initialization arguments and initialization
+argument defaults to be used in @term{instance} creation.
+
+@item Indicating that the @term{metaclass} is to be other
+than the default.  The @kwd{metaclass} option is reserved for future use;
+an implementation can be extended to make use of the @kwd{metaclass}
+option.
+
+@item Indicating the expected @term{type} for the value stored
+in the @term{slot}.
+
+@item Indicating the @term{documentation string} for the @term{slot}.
+@end itemize
+
+
+
+@goodbreak{}
+
+@node Creating Instances of Classes
+@subsection Creating Instances of Classes
+
+The generic function @code{make-instance} creates and returns a new
+@term{instance} of a @term{class}.
+The @OS{}@spc{}provides several mechanisms for
+specifying how a new @term{instance} is to be initialized.  For example, it
+is possible to specify the initial values for @term{slots} in newly created
+@term{instances}
+either by giving arguments to @code{make-instance} or by
+providing default initial values.  Further initialization activities
+can be performed by @term{methods} written for @term{generic functions}
+that are
+part of the initialization protocol.  The complete initialization
+protocol is described in @ref{Object Creation and Initialization, Section 7.1 (Object Creation and Initialization)}.
+
+
+@node Inheritance
+@subsection Inheritance
+
+
+A @term{class} can inherit @term{methods}, @term{slots},
+and some @code{defclass} options from its @term{superclasses}.
+Other sections describe the inheritance of @term{methods},
+the inheritance of @term{slots} and @term{slot} options,
+and the inheritance of @term{class} options.
+
+
+@subsubsection Examples of Inheritance
+
+@lisp
+ (defclass C1 ()
+     ((S1 :initform 5.4 :type number)
+      (S2 :allocation :class)))
+
+ (defclass C2 (C1)
+     ((S1 :initform 5 :type integer)
+      (S2 :allocation :instance)
+      (S3 :accessor C2-S3)))
+@end lisp
+
+
+@term{Instances} of the class @f{C1} have a @term{local slot} named @f{S1},
+whose default initial value is 5.4 and
+whose @term{value} should always be a @term{number}.
+The class @f{C1} also has a @term{shared slot} named @f{S2}.
+
+There is a @term{local slot} named @f{S1} in @term{instances} of @f{C2}.
+The default initial value of @f{S1} is 5.
+The value of @f{S1} should always be of type @f{(and integer number)}.
+There are also @term{local slots} named @f{S2} and @f{S3} in @term{instances} of @f{C2}.
+The class @f{C2} has a @term{method} for @f{C2-S3} for reading the value of slot @f{S3};
+there is also a @term{method} for @f{(setf C2-S3)} that writes the value of @f{S3}.
+
+
+@subsubsection Inheritance of Class Options
+
+The @kwd{default-initargs} class option is inherited.  The set of
+defaulted initialization arguments for a @term{class} is the union of the
+sets of initialization arguments supplied in
+the @kwd{default-initargs} class options of the @term{class} and its @term{superclasses}.
+When more than one default initial value @term{form} is supplied for a given
+initialization argument, the default initial value @term{form} that is used
+is the one supplied by the @term{class} that is most specific according to
+the @term{class precedence list}.
+
+If a given @kwd{default-initargs} class option specifies an
+initialization argument of the same @term{name} more than once, an
+error @oftype{program-error} is signaled.
+
+
+
+@node Determining the Class Precedence List
+@subsection Determining the Class Precedence List
+
+The @code{defclass} form for a @term{class} provides a total ordering
+on that @term{class} and its direct @term{superclasses}.  This ordering is
+called the @newterm{local precedence order}.  It is an ordered list of the
+@term{class} and its direct @term{superclasses}. The
+@newterm{class precedence list} for a class @mat{C} is a total ordering on
+@mat{C} and its @term{superclasses} that is consistent with the
+@term{local precedence orders} for each of @mat{C} and its @term{superclasses}.
+
+A @term{class} precedes its direct @term{superclasses},
+and a direct @term{superclass} precedes all other
+direct @term{superclasses} specified to its right
+in the @term{superclasses} list of the @code{defclass} form.
+For every class @mat{C}, define
+@quotation
+@mat{R@subs1{C}=@lcurly{}(C,C@sub1{}),(C@sub1{},C@sub2{}),@ldots{},(C@subs{n-1},C@subs1{n})@rcurly{}}
+@end quotation
+ where @mat{C@sub1{},@ldots{},C@subs1{n}} are
+the direct @term{superclasses} of @mat{C} in the order in which
+they are mentioned in the @code{defclass} form. These ordered pairs
+generate the total ordering on the class @mat{C} and its direct
+@term{superclasses}.
+
+Let @mat{S@subs1{C}} be the set of @mat{C} and its @term{superclasses}. Let @mat{R} be
+
+@quotation
+@mat{R=@bigcup{}@subs{c@in{} S@subs1{C}}R@subs1{c}}
+@end quotation
+.
+
+@reviewer{Barmar: ``Consistent'' needs to be defined, or maybe we should say
+``logically consistent''?}
+
+The set @mat{R} might or might not generate a partial ordering, depending on
+whether the @mat{R@subs1{c}}, @mat{c@in{} S@subs1{C}}, are
+consistent; it is assumed
+that they are consistent and that @mat{R} generates a partial ordering.
+When the @mat{R@subs1{c}} are not consistent, it is said that @mat{R} is inconsistent.
+
+To compute the @term{class precedence list} for@tie{}@mat{C}@negthinspace{},
+topologically sort the elements of @mat{S@subs1{C}} with respect to the
+partial ordering generated by @mat{R}@negthinspace{}.  When the topological
+sort must select a @term{class} from a set of two or more
+@term{classes}, none of
+which are preceded by other @term{classes} with respect to@tie{}@mat{R}@negthinspace{},
+the @term{class} selected is chosen deterministically, as described below.
+
+If @mat{R} is inconsistent, an error is signaled.
+
+@goodbreak{}
+
+@subsubsection Topological Sorting
+
+Topological sorting proceeds by finding a class @mat{C} in@tie{}@mat{S@subs1{C}} such
+that no other @term{class} precedes that element according to the elements
+in@tie{}@mat{R}@negthinspace{}.  The class @mat{C} is placed first in the result.
+Remove @mat{C} from @mat{S@subs1{C}}, and remove all pairs of the form @mat{(C,D)},
+@mat{D@in{} S@subs1{C}}, from @mat{R}@negthinspace{}. Repeat the process, adding
+@term{classes} with no predecessors to the end of the result.  Stop when no
+element can be found that has no predecessor.
+
+If @mat{S@subs1{C}} is not empty and the process has stopped, the set @mat{R} is
+inconsistent. If every @term{class} in the finite set of
+@term{classes} is preceded
+by another, then @mat{R} contains a loop. That is, there is a chain of
+classes @mat{C@sub1{},@ldots{},C@subs1{n}} such that @mat{C@subs1{i}} precedes
+@mat{C@subs{i+1}}, @mat{1@leq{} i<n}, and @mat{C@subs1{n}} precedes @mat{C@sub1{}}.
+
+Sometimes there are several @term{classes} from @mat{S@subs1{C}} with no
+predecessors.  In this case select the one that has a direct
+@term{subclass} rightmost in the @term{class precedence list} computed so far.
+(If there is no such candidate @term{class}, @mat{R} does not generate
+a partial ordering---the @mat{R@subs1{c}}, @mat{c@in{} S@subs1{C}}, are inconsistent.)
+
+In more precise terms, let @mat{@lcurly{}N@sub1{},@ldots{},N@subs1{m}@rcurly{}}, @mat{m@geq{} 2}, be
+the @term{classes} from @mat{S@subs1{C}} with no predecessors.  Let @mat{(C@sub1{}@ldots{} C@subs1{n})}, @mat{n@geq{} 1}, be the @term{class precedence list}
+constructed so far.  @mat{C@sub1{}} is the most specific @term{class}, and @mat{C@subs1{n}} is the least specific.  Let @mat{1@leq{} j@leq{} n} be the largest number
+such that there exists an @mat{i} where @mat{1@leq{} i@leq{} m} and @mat{N@subs1{i}}
+is a direct @term{superclass} of @mat{C@subs1{j}}; @mat{N@subs1{i}} is placed next.
+
+The effect of this rule for selecting from a set of @term{classes} with no
+predecessors is that the @term{classes} in a simple @term{superclass} chain are
+adjacent in the @term{class precedence list} and that @term{classes} in each
+relatively separated subgraph are adjacent in the @term{class precedence list}.
+For example, let @mat{T@sub1{}} and @mat{T@sub2{}} be subgraphs whose only
+element in common is the class @mat{J}@negthinspace{}.
+Suppose that no superclass of @mat{J} appears in either @mat{T@sub1{}} or @mat{T@sub2{}},
+and that @mat{J} is in the superclass chain of every class in both @mat{T@sub1{}} and @mat{T@sub2{}}.
+Let @mat{C@sub1{}} be the bottom of @mat{T@sub1{}};
+and let @mat{C@sub2{}} be the bottom of @mat{T@sub2{}}.
+Suppose @mat{C} is a @term{class} whose direct @term{superclasses}
+are @mat{C@sub1{}} and @mat{C@sub2{}} in that order, then the @term{class precedence list}
+for @mat{C} starts with @mat{C} and is followed by
+all @term{classes} in @mat{T@sub1{}} except @mat{J}.
+All the @term{classes} of @mat{T@sub2{}} are next.
+The @term{class} @mat{J} and its @term{superclasses} appear last.
+
+
+@subsubsection Examples of Class Precedence List Determination
+
+This example determines a @term{class precedence list} for the
+class @f{pie}.  The following @term{classes} are defined:
+
+@lisp
+ (defclass pie (apple cinnamon) ())
+
+ (defclass apple (fruit) ())
+
+ (defclass cinnamon (spice) ())
+
+ (defclass fruit (food) ())
+
+ (defclass spice (food) ())
+
+ (defclass food () ())
+@end lisp
+
+
+The set @mat{S@subs{pie}}@tie{}@mat{=} @mat{@lcurly{}}@tt{pie, apple, cinnamon, fruit, spice, food,
+standard-object, t}@mat{@rcurly{}}. The set @mat{R}@tie{}@mat{=} @mat{@lcurly{}}@tt{(pie, apple),
+(apple, cinnamon), (apple, fruit), (cinnamon, spice), @hfil{}@break{}
+(fruit, food), (spice, food), (food, standard-object), (standard-object,
+t)}@mat{@rcurly{}}.
+
+The class @f{pie} is not preceded by anything, so it comes first;
+the result so far is @tt{(pie)}.  Remove @f{pie} from @mat{S} and pairs
+mentioning @f{pie} from @mat{R} to get @mat{S}@tie{}@mat{=} @mat{@lcurly{}}@tt{apple, cinnamon,
+fruit, spice, food, standard-object, t}@mat{@rcurly{}} and @mat{R}@tie{}@mat{=}@tie{}@mat{@lcurly{}}@tt{
+(apple, cinnamon), (apple, fruit), (cinnamon, spice),@hfil{}@break{} (fruit,
+food), (spice, food), (food, standard-object),
+(standard-object, t)}@mat{@rcurly{}}.
+
+The class @f{apple} is not preceded by anything, so it is next; the
+result is @tt{(pie apple)}. Removing @f{apple} and the relevant
+pairs results in @mat{S}@tie{}@mat{=} @mat{@lcurly{}}@tt{cinnamon, fruit, spice, food,
+standard-object, t}@mat{@rcurly{}} and @mat{R}@tie{}@mat{=} @mat{@lcurly{}}@tt{(cinnamon, spice),
+(fruit, food), (spice, food), (food, standard-object),@hfil{}@break{}
+(standard-object, t)}@mat{@rcurly{}}.
+
+The classes @f{cinnamon} and @tt{fruit} are not preceded by
+anything, so the one with a direct @term{subclass} rightmost in the
+@term{class precedence list} computed so far goes next.  The class @f{apple} is a
+direct @term{subclass} of @tt{fruit}, and the class @f{pie} is a direct
+@term{subclass} of @f{cinnamon}.  Because @f{apple} appears to the right
+of @f{pie} in the @term{class precedence list},
+@tt{fruit} goes next, and the
+result so far is @tt{(pie apple fruit)}.  @mat{S}@tie{}@mat{=} @mat{@lcurly{}}@tt{cinnamon,
+spice, food, standard-object, t}@mat{@rcurly{}}; @mat{R}@tie{}@mat{=} @mat{@lcurly{}}@tt{(cinnamon,
+spice), (spice, food),@hfil{}@break{} (food, standard-object),
+(standard-object, t)}@mat{@rcurly{}}.
+
+The class @f{cinnamon} is next, giving the result so far as @tt{
+(pie apple fruit cinnamon)}.  At this point @mat{S}@tie{}@mat{=} @mat{@lcurly{}}@tt{spice,
+food, standard-object, t}@mat{@rcurly{}}; @mat{R}@tie{}@mat{=} @mat{@lcurly{}}@tt{(spice, food), (food,
+standard-object), (standard-object, t)}@mat{@rcurly{}}.
+
+The classes @f{spice}, @f{food}, @code{standard-object}, and
+@code{t} are added in that order, and the @term{class precedence list}
+is @f{(pie apple fruit cinnamon spice food standard-object t)}.
+
+It is possible to write a set of @term{class} definitions that cannot be
+ordered.   For example:
+
+@lisp
+ (defclass new-class (fruit apple) ())
+
+ (defclass apple (fruit) ())
+@end lisp
+
+
+The class @f{fruit} must precede @f{apple}
+because the local ordering of @term{superclasses} must be preserved.
+The class @f{apple} must precede @f{fruit}
+because a @term{class} always precedes its own @term{superclasses}.
+When this situation occurs, an error is signaled, as happens here
+when the system tries to compute the @term{class precedence list}
+of @f{new-class}.
+
+The following might appear to be a conflicting set of definitions:
+
+@lisp
+ (defclass pie (apple cinnamon) ())
+
+ (defclass pastry (cinnamon apple) ())
+
+ (defclass apple () ())
+
+ (defclass cinnamon () ())
+@end lisp
+
+
+The @term{class precedence list} for @f{pie} is
+@f{(pie apple cinnamon standard-object t)}.
+
+The @term{class precedence list} for @f{pastry} is
+@f{(pastry cinnamon apple standard-object t)}.
+
+It is not a problem for @f{apple} to precede @f{cinnamon} in the
+ordering of the @term{superclasses} of @f{pie} but not in the ordering for
+@f{pastry}.  However, it is not possible to build a new @term{class} that
+has both @f{pie} and @f{pastry} as @term{superclasses}.
+
+
+@node Redefining Classes
+@subsection Redefining Classes
+
+A @term{class} that is a @term{direct instance} of @code{standard-class} can
+be redefined if the new @term{class} is also
+a @term{direct instance} of @code{standard-class}.
+Redefining a @term{class} modifies the existing
+@term{class} @term{object} to reflect the new @term{class} definition; it does not
+create a new @term{class} @term{object} for the @term{class}.
+Any @term{method} @term{object} created by a @kwd{reader}, @kwd{writer},
+or @kwd{accessor} option specified by the old @code{defclass} form is
+removed from the corresponding @term{generic function}.
+@term{Methods} specified by the new @code{defclass} form are added.
+
+When the class @mat{C} is redefined, changes are propagated to its @term{instances}
+and to @term{instances} of any of its @term{subclasses}.  Updating such an
+@term{instance} occurs at an @term{implementation-dependent} time, but no later than
+the next time a @term{slot}
+of that @term{instance} is read or written.  Updating an
+@term{instance}
+does not change its identity as defined by @thefunction{eq}.
+The updating process may change the @term{slots} of that
+particular @term{instance},
+but it does not create a new @term{instance}.  Whether
+updating an @term{instance} consumes storage is @term{implementation-dependent}.
+
+Note that redefining a @term{class} may cause @term{slots} to be added or
+deleted.  If a @term{class} is redefined in a way that changes the set of
+@term{local slots} @term{accessible} in @term{instances}, the @term{instances}
+are updated.  It is @term{implementation-dependent} whether @term{instances}
+are updated if a @term{class} is redefined in a way that does not change
+the set of @term{local slots} @term{accessible} in @term{instances}.
+
+The value of a @term{slot}
+that is specified as shared both in the old @term{class}
+and in the new @term{class} is retained.
+If such a @term{shared slot} was unbound
+in the old @term{class}, it is unbound in the new @term{class}.
+@term{Slots} that
+were local in the old @term{class} and that are shared in the new
+@term{class} are
+initialized.  Newly added @term{shared slots} are initialized.
+
+Each newly added @term{shared slot} is set to the result of evaluating the
+@term{captured initialization form} for the @term{slot} that was specified
+in the @code{defclass} @term{form} for the new @term{class}.
+If there was no @term{initialization form}, the @term{slot} is unbound.
+
+If a @term{class} is redefined in such a way that the set of
+@term{local slots} @term{accessible} in an @term{instance} of the @term{class}
+is changed, a two-step process of updating the @term{instances} of the
+@term{class} takes place.  The process may be explicitly started by
+invoking the generic function @code{make-instances-obsolete}.  This
+two-step process can happen in other circumstances in some implementations.
+For example, in some implementations this two-step process is
+triggered if the order of @term{slots} in storage is changed.
+
+The first step modifies the structure of the @term{instance} by adding new
+@term{local slots} and discarding @term{local slots} that are not
+defined in the new version of the @term{class}.  The second step
+initializes the newly-added @term{local slots} and performs any other
+user-defined actions. These two steps are further specified
+in the next two sections.
+
+@subsubsection Modifying the Structure of Instances
+
+@reviewer{Barmar: What about shared slots that are deleted?}
+
+The first step modifies the structure of @term{instances} of the redefined
+@term{class} to conform to its new @term{class} definition.
+@term{Local slots} specified
+by the new @term{class} definition that are not specified as either local or
+shared by the old @term{class} are added, and @term{slots}
+not specified as either
+local or shared by the new @term{class} definition that are specified as
+local by the old @term{class} are discarded.
+The @term{names} of these added and discarded
+@term{slots} are passed as arguments
+to @code{update-instance-for-redefined-class}
+as described in the next section.
+
+The values of @term{local slots} specified by both the new and old
+@term{classes} are retained. If such a @term{local slot} was unbound,
+it remains unbound.
+
+The value of a @term{slot} that is specified as shared in the old
+@term{class} and as local in the new @term{class} is retained.  If such
+a @term{shared slot} was unbound, the @term{local slot} is unbound.
+
+
+@subsubsection Initializing Newly Added Local Slots
+
+The second step initializes the newly added @term{local slots} and performs
+any other user-defined actions.  This step is implemented by the generic
+function @code{update-instance-for-redefined-class}, which is called after
+completion of the first step of modifying the structure of the
+@term{instance}.
+
+The generic function @code{update-instance-for-redefined-class} takes
+four required arguments: the @term{instance} being updated after it has
+undergone the first step, a list of the names of @term{local slots} that were
+added, a list of the names of @term{local slots} that were discarded, and a
+property list containing the @term{slot} names and values of
+@term{slots} that were
+discarded and had values.  Included among the discarded @term{slots} are
+@term{slots} that were local in the old @term{class} and that are shared in the new
+@term{class}.
+
+The generic function @code{update-instance-for-redefined-class} also
+takes any number of initialization arguments.  When it is called by
+the system to update an @term{instance} whose @term{class}
+has been redefined, no
+initialization arguments are provided.
+
+There is a system-supplied primary @term{method} for
+@code{update-instance-for-redefined-class} whose @term{parameter specializer}
+for its @term{instance} argument is @theclass{standard-object}.
+First this @term{method} checks the validity of initialization arguments and signals an
+error if an initialization argument is supplied that is not declared
+as valid.  (For more information, see @ref{Declaring the Validity of Initialization Arguments, Section 7.1.2 (Declaring the Validity of Initialization Arguments)}.)
+Then it calls the generic function
+@code{shared-initialize} with the following arguments: the
+@term{instance},
+the list of @term{names} of
+the newly added @term{slots}, and the initialization
+arguments it received.
+
+
+@subsubsection Customizing Class Redefinition
+
+@reviewer{Barmar: This description is hard to follow.}
+
+@term{Methods} for @code{update-instance-for-redefined-class} may be
+defined to specify actions to be taken when an @term{instance} is updated.
+If only @term{after methods} for @code{update-instance-for-redefined-class} are
+defined, they will be run after the system-supplied primary @term{method} for
+initialization and therefore will not interfere with the default
+behavior of @code{update-instance-for-redefined-class}.  Because no
+initialization arguments are passed to @code{update-instance-for-redefined-class}
+when it is called by the system, the
+@term{initialization forms} for @term{slots}
+that are filled by @term{before methods} for @code{update-instance-for-redefined-class}
+will not be evaluated by @code{shared-initialize}.
+
+@term{Methods} for @code{shared-initialize} may be defined to customize
+@term{class} redefinition.  For more information, see @ref{Shared-Initialize, Section 7.1.5 (Shared-Initialize)}.
+
+
+@node Integrating Types and Classes
+@subsection Integrating Types and Classes
+
+The @CLOS{}@spc{}maps the space of @term{classes} into the space of @term{types}.
+Every @term{class} that has a proper name has a corresponding @term{type}
+with the same @term{name}.
+
+The proper name of every @term{class} is a valid @term{type specifier}.  In
+addition, every @term{class} @term{object} is a valid @term{type specifier}.
+Thus the expression @f{(typep @param{object} @param{class})} evaluates to
+@term{true} if the @term{class} of @param{object} is @param{class} itself or
+a @term{subclass} of @term{class}.  The evaluation of the expression
+@f{(subtypep class1 class2)} returns the values
+@term{true} and @term{true} if @f{class1} is a subclass of @f{class2} or if they are the
+same @term{class}; otherwise it returns the values
+@term{false} and @term{true}.
+If  @mat{I} is an @term{instance} of some @term{class} @mat{C} named @mat{S}
+and @mat{C} is an @term{instance} of @code{standard-class},
+the evaluation of the expression @f{(type-of @mat{I})} returns @mat{S}
+if @mat{S} is the @term{proper name} of @mat{C};
+otherwise, it returns @mat{C}.
+
+Because the names of @term{classes}
+and @term{class} @term{objects} are @term{type specifiers}, they may
+be used in the special form @code{the} and in type declarations.
+
+Many but not all of the predefined @term{type specifiers} have a
+corresponding @term{class} with
+the same proper name as the @term{type}.  These type
+specifiers are listed in @ref{ClassTypeCorrespondence, Figure 4.8}.
+For example, @thetype{array} has
+a corresponding @term{class} named @code{array}.
+No @term{type specifier} that is a
+list, such as @tt{(vector double-float 100)}, has a corresponding @term{class}.
+The @term{operator} @code{deftype} does not create any @term{classes}.
+
+Each @term{class} that corresponds to a predefined @term{type specifier} can
+be implemented in one of three ways, at the discretion of each implementation.
+It can be a @term{standard class},
+a @term{structure class},
+or a @term{system class}.
+
+A @term{built-in class} is one whose @term{generalized instances} have restricted capabilities
+or special representations.  Attempting to use @code{defclass} to define
+@term{subclasses} of a @code{built-in-class} signals an error.
+Calling @code{make-instance} to create a @term{generalized instance} of a
+@term{built-in class} signals an error.  Calling @code{slot-value} on a
+@term{generalized instance} of a @term{built-in class} signals an error.
+Redefining a @term{built-in class} or using @code{change-class} to change
+the @term{class} of an @term{object} to or from a @term{built-in class} signals an error.
+However, @term{built-in classes} can be used as @term{parameter specializers}
+in @term{methods}.
+
+
+It is possible to determine whether a @term{class} is a @term{built-in class}
+by checking the @term{metaclass}.
+A @term{standard class}  is an @term{instance} of @theclass{standard-class},
+a @term{built-in class}  is an @term{instance} of @theclass{built-in-class}, and
+a @term{structure class} is an @term{instance} of @theclass{structure-class}.
+
+Each @term{structure} @term{type} created by @code{defstruct} without
+using the @kwd{type} option has a corresponding @term{class}.
+This @term{class} is a @term{generalized instance} of @theclass{structure-class}.
+The @kwd{include} option of @code{defstruct} creates a direct
+@term{subclass} of the @term{class}
+that corresponds to the included @term{structure}
+@term{type}.
+
+It is @term{implementation-dependent} whether @term{slots} are involved in the
+operation of @term{functions} defined in this specification
+on @term{instances} of @term{classes} defined in this specification,
+except when @term{slots} are explicitly defined by this specification.
+
+If in a particular @term{implementation} a @term{class} defined in this specification
+has @term{slots} that are not defined by this specfication, the names of these @term{slots}
+must not be @term{external symbols} of @term{packages} defined in this specification nor
+otherwise @term{accessible} in the @code{CL-USER} @term{package}.
+
+
+The purpose of specifying that many of the standard @term{type specifiers} have a
+corresponding @term{class} is to enable users to write @term{methods} that
+discriminate on these @term{types}.  @term{Method} selection requires that a
+@term{class precedence list} can be determined for each @term{class}.
+
+The hierarchical relationships among the @term{type specifiers} are mirrored by
+relationships among the @term{classes} corresponding to those @term{types}.
+
+@ref{ClassTypeCorrespondence, Figure 4.8}@spc{}lists the set of @term{classes}
+that correspond to predefined @term{type specifiers}.
+
+
+
+@float Figure,ClassTypeCorrespondence
+@cartouche
+@multitable{floating-point-invalid-operation}{method-combination}{standard-generic-function}
+
+@item arithmetic-error @tab generic-function @tab simple-error
+@item array @tab hash-table @tab simple-type-error
+@item bit-vector @tab integer @tab simple-warning
+@item broadcast-stream @tab list @tab standard-class
+@item built-in-class @tab logical-pathname @tab standard-generic-function
+@item cell-error @tab method @tab standard-method
+@item character @tab method-combination @tab standard-object
+@item class @tab null @tab storage-condition
+@item complex @tab number @tab stream
+@item concatenated-stream @tab package @tab stream-error
+@item condition @tab package-error @tab string
+@item cons @tab parse-error @tab string-stream
+@item control-error @tab pathname @tab structure-class
+@item division-by-zero @tab print-not-readable @tab structure-object
+@item echo-stream @tab program-error @tab style-warning
+@item end-of-file @tab random-state @tab symbol
+@item error @tab ratio @tab synonym-stream
+@item file-error @tab rational @tab t
+@item file-stream @tab reader-error @tab two-way-stream
+@item float @tab readtable @tab type-error
+@item floating-point-inexact @tab real @tab unbound-slot
+@item floating-point-invalid-operation @tab restart @tab unbound-variable
+@item floating-point-overflow @tab sequence @tab undefined-function
+@item floating-point-underflow @tab serious-condition @tab vector
+@item function @tab simple-condition @tab warning
+@end multitable
+@end cartouche
+@caption{Classes that correspond to pre-defined type specifiers}
+@end float
+
+
+The @term{class precedence list} information specified in the entries for
+each of these @term{classes} are those that are required by the @OS{}.
+
+Individual implementations may be extended to define other type
+specifiers to have a corresponding @term{class}.  Individual implementations
+may be extended to add other @term{subclass} relationships and to add other
+@term{elements} to the @term{class precedence lists} as long as
+they do not violate the type relationships and disjointness
+requirements specified by this standard.
+A standard @term{class} defined with no direct @term{superclasses} is guaranteed to
+be disjoint from all of the @term{classes} in the table, except for the
+class named @code{t}.
+
+
+@node nil (Type)
+@heading nil (Type)
+@syindex nil
+@cindex nil
+
+
+@subsubheading Supertypes:
+all @term{types}
+
+@subsubheading Description:
+
+@Thetype{nil} contains no @term{objects} and so is also
+called the @term{empty type}.
+@Thetype{nil} is a @term{subtype} of every @term{type}.
+No @term{object} is @oftype{nil}.
+
+@subsubheading Notes:
+
+The @term{type} containing the @term{object} @nil{}@spc{}is @thetype{null},
+not @thetype{nil}.
+
+
+@node boolean
+@heading boolean (Type)
+@syindex boolean
+@cindex boolean
+
+
+@subsubheading Supertypes:
+
+@code{boolean},
+@code{symbol},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{boolean} contains the @term{symbols} @t{t} and @t{nil},
+which represent true and false, respectively.
+
+@subsubheading See Also:
+
+@ref{t (Constant Variable)},
+@ref{nil (Constant Variable)},
+@ref{if},
+@ref{not (Function)},
+@ref{complement}
+
+@subsubheading Notes:
+
+Conditional operations, such as @code{if},
+permit the use of @term{generalized booleans},
+not just @term{booleans};
+any @term{non-nil} value,
+not just @t{t},
+counts as true for a @term{generalized boolean}.
+However, as a matter of convention,
+the @term{symbol} @t{t} is considered the canonical value to use
+even for a @term{generalized boolean} when no better choice presents itself.
+
+
+@node function (System Class)
+@heading function (System Class)
+@syindex function
+@cindex function
+
+
+
+@subsubheading Class Precedence List:
+@code{function},
+@code{t}
+
+@subsubheading Description:
+
+A @term{function} is an @term{object} that represents code
+to be executed when an appropriate number of arguments is supplied.
+A @term{function} is produced by
+@thespecform{function},
+@thefunction{coerce},
+or
+@thefunction{compile}.
+A @term{function} can be directly invoked by using it as the first argument to
+@code{funcall}, @code{apply}, or @code{multiple-value-call}.
+
+@subsubheading Compound Type Specifier Kind:
+
+Specializing.
+
+@subsubheading Compound Type Specifier Syntax:
+
+@Deftype{function, @ttbrac{arg-typespec @brac{value-typespec}}}
+
+@auxbnf{arg-typespec, @lparen{}@starparam{typespec} @CR{} @spc{}@ttbrac{@opt{} @starparam{typespec}} @CR{} @spc{}@ttbrac{@rest{} @param{typespec}} @CR{} @spc{}@ttbrac{@key{} @starparen{keyword typespec}}@rparen{}}
+
+@subsubheading Compound Type Specifier Arguments:
+
+@param{typespec}---a @term{type specifier}.
+
+@param{value-typespec}---a @term{type specifier}.
+
+@subsubheading Compound Type Specifier Description:
+
+@editornote{KMP: Isn't there some context info about ftype declarations to be merged here?}
+
+@editornote{KMP: This could still use some cleaning up.}
+
+@editornote{Sandra: Still need clarification about what happens if the
+number of arguments doesn't match the FUNCTION type declaration.}
+
+The list form of the @code{function} @term{type-specifier}
+can be used only for declaration and not for discrimination.
+Every element of this @term{type} is
+a @term{function} that accepts arguments of the
+types
+specified by the  @param{argj-types} and returns values that are
+members of the @term{types} specified by @param{value-type}. The
+@keyref{optional}, @keyref{rest}, @keyref{key},
+and @keyref{allow-other-keys}
+markers can appear in the list of argument types.
+The @term{type specifier} provided
+with @keyref{rest} is the @term{type}
+of each actual argument, not the @term{type} of the
+corresponding variable.
+
+The @keyref{key} parameters
+should be supplied as lists of the form @tt{(@param{keyword} @param{type})}.
+The @param{keyword} must be a valid keyword-name symbol
+as must be supplied in the actual arguments of a
+call.
+This is usually a @term{symbol} in the @code{KEYWORD} @term{package} but can be any @term{symbol}.
+When @keyref{key} is given in a
+@code{function} @term{type specifier} @term{lambda list},
+the @term{keyword parameters} given
+are exhaustive unless @keyref{allow-other-keys} is also present.
+@keyref{allow-other-keys} is an indication
+that other keyword arguments might actually be
+supplied and, if supplied, can be used.
+For example,
+the @term{type} of @thefunction{make-list} could be declared as follows:
+
+@lisp
+ (function ((integer 0) &key (:initial-element t)) list)
+@end lisp
+
+
+The @param{value-type} can be a @code{values}
+@term{type specifier} in order to indicate the
+@term{types} of @term{multiple values}.
+
+
+Consider a declaration of the following form:
+
+@lisp
+ (ftype (function (arg0-type arg1-type ...) val-type) f))
+@end lisp
+
+
+Any @term{form}
+@tt{(f arg0 arg1 ...)}
+within the scope of
+that declaration is equivalent to the following:
+
+@lisp
+ (the val-type (f (the arg0-type arg0) (the arg1-type arg1) ...))
+@end lisp
+
+
+That is, the consequences are undefined if any of the arguments are
+not of the specified @term{types} or the result is not of the
+specified @term{type}. In particular, if any argument is not of the
+correct @term{type}, the result is not guaranteed to be of the
+specified @term{type}.
+
+Thus, an @code{ftype} declaration for a @term{function}
+describes @term{calls} to the @term{function}, not the actual definition
+of the @term{function}.
+
+Consider a declaration of the following form:
+
+@lisp
+ (type (function (arg0-type arg1-type ...) val-type) fn-valued-variable)
+@end lisp
+
+
+This declaration has the interpretation that, within the scope of the
+declaration, the consequences are unspecified if the value of @tt{
+fn-valued-variable} is called with arguments not of the specified
+@term{types}; the value resulting from a valid call will be of type
+@tt{val-type}.
+
+As with variable type declarations, nested declarations
+imply intersections of @term{types}, as follows:
+
+@itemize @bullet{}
+@item
+Consider the following two
+declarations of @code{ftype}:
+
+@lisp
+ (ftype (function (arg0-type1 arg1-type1 ...) val-type1) f))
+@end lisp
+
+and
+
+@lisp
+ (ftype (function (arg0-type2 arg1-type2 ...) val-type2) f))
+@end lisp
+
+
+If both these declarations are in effect,
+then within the shared scope of the declarations, calls to @tt{f} can be
+treated as if @tt{f} were declared as follows:
+
+@lisp
+ (ftype (function ((and arg0-type1 arg0-type2) (and arg1-type1 arg1-type2 ...) ...)
+                  (and val-type1 val-type2))
+        f))
+@end lisp
+
+
+It is permitted to ignore one or all of the @code{ftype} declarations in force.
+
+@item
+If two (or more) type declarations are in effect for a variable, and
+they are both @tt{function} declarations, the declarations combine similarly.
+@end itemize
+
+
+
+
+
+@node compiled-function
+@heading compiled-function (Type)
+@syindex compiled-function
+@cindex compiled-function
+
+
+
+@subsubheading Supertypes:
+
+@code{compiled-function},
+@code{function},
+@code{t}
+
+@subsubheading Description:
+
+Any @term{function} may be considered by an @term{implementation} to be a
+a @term{compiled function} if it contains no references to @term{macros} that
+must be expanded at run time, and it contains no unresolved references
+to @term{load time values}.  See @ref{Compilation Semantics, Section 3.2.2 (Compilation Semantics)}.
+
+@term{Functions} whose definitions appear lexically within a
+@term{file} that has been @term{compiled} with @code{compile-file} and then
+@term{loaded} with @code{load} are @oftype{compiled-function}.
+@term{Functions} produced by the @code{compile} function
+are @oftype{compiled-function}.
+Other @term{functions} might also be @oftype{compiled-function}.
+
+
+
+@node generic-function
+@heading generic-function (System Class)
+@syindex generic-function
+@cindex generic-function
+
+
+@subsubheading Class Precedence List:
+
+@code{generic-function},
+@code{function},
+@code{t}
+
+@subsubheading Description:
+
+A @newterm{generic function} is a @term{function} whose behavior
+depends on the @term{classes} or identities of the @term{arguments}
+supplied to it.  A generic function object contains a set of
+@term{methods}, a @term{lambda list}, a @term{method combination} @term{type},
+and other information.  The @term{methods}
+define the class-specific behavior and operations of the @term{generic function};
+a @term{method} is said to @term{specialize} a @term{generic function}.
+When invoked, a @term{generic function} executes a subset of its
+@term{methods} based on the @term{classes} or identities of its @term{arguments}.
+
+A @term{generic function} can be used in the same ways that an
+ordinary @term{function} can be used; specifically, a @term{generic function} can
+be used as an argument to @code{funcall} and @code{apply},
+and can be given a global or a local name.
+
+
+@node standard-generic-function
+@heading standard-generic-function (System Class)
+@syindex standard-generic-function
+@cindex standard-generic-function
+
+
+@subsubheading Class Precedence List:
+@code{standard-generic-function},
+@code{generic-function},
+@code{function},
+@code{t}
+
+@subsubheading Description:
+
+@Theclass{standard-generic-function} is the default @term{class} of
+@term{generic functions} @term{established} by
+@code{defmethod},
+@code{ensure-generic-function},
+@code{defgeneric},
+and
+@code{defclass} @term{forms}.
+
+
+@node class
+@heading class (System Class)
+@syindex class
+@cindex class
+
+
+@subsubheading Class Precedence List:
+@code{class},
+@code{standard-object},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{class} represents @term{objects} that determine the structure
+and behavior of their @term{instances}. Associated with an @term{object}
+@oftype{class} is information describing its place in the
+directed acyclic graph of @term{classes}, its @term{slots}, and its options.
+
+
+@node built-in-class
+@heading built-in-class (System Class)
+@syindex built-in-class
+@cindex built-in-class
+
+
+@subsubheading Class Precedence List:
+@code{built-in-class},
+@code{class},
+@code{standard-object},
+@code{t}
+
+@subsubheading Description:
+
+A @term{built-in class} is a @term{class} whose @term{instances} have
+restricted capabilities or special representations.
+Attempting to use
+@code{defclass} to define @term{subclasses} of a @term{built-in class}
+signals an error @oftype{error}.
+Calling @code{make-instance} to create an @term{instance}
+of a @term{built-in class} signals an error @oftype{error}.
+Calling @code{slot-value} on an @term{instance} of a @term{built-in class}
+signals an error @oftype{error}.  Redefining a @term{built-in class}
+or using @code{change-class} to change the @term{class} of an @term{instance}
+to or from a @term{built-in class} signals an error @oftype{error}.
+However, @term{built-in classes} can be used as @term{parameter specializers}
+in @term{methods}.
+
+
+@node structure-class
+@heading structure-class (System Class)
+@syindex structure-class
+@cindex structure-class
+
+
+@subsubheading Class Precedence List:
+
+@code{structure-class},
+@code{class},
+@code{standard-object},
+@code{t}
+
+@subsubheading Description:
+
+All @term{classes} defined by means of @code{defstruct}
+are @instsofclass{structure-class}.
+
+
+@node standard-class
+@heading standard-class (System Class)
+@syindex standard-class
+@cindex standard-class
+
+
+@subsubheading Class Precedence List:
+@code{standard-class},
+@code{class},
+@code{standard-object},
+@code{t}
+
+@subsubheading Description:
+
+@Theclass{standard-class} is the default @term{class} of @term{classes}
+defined by @code{defclass}.
+
+
+@node method
+@heading method (System Class)
+@syindex method
+@cindex method
+
+
+@subsubheading Class Precedence List:
+@code{method},
+@code{t}
+
+@subsubheading Description:
+
+A @term{method} is an @term{object} that represents a modular part of the behavior
+of a @term{generic function}.
+
+A @term{method} contains @term{code} to implement the @term{method}'s
+behavior, a sequence of @term{parameter specializers} that specify when the
+given @term{method} is applicable, and a sequence of @term{qualifiers}
+that is used by the method combination facility to distinguish among
+@term{methods}.  Each required parameter of each
+@term{method} has an associated @term{parameter specializer}, and the
+@term{method} will be invoked only on arguments that satisfy its
+@term{parameter specializers}.
+
+The method combination facility controls the selection of
+@term{methods}, the order in which they are run, and the values that are
+returned by the generic function.  The @CLOS{}@spc{}offers a default method
+combination type and provides a facility for declaring new types of
+method combination.
+
+@subsubheading See Also:
+
+@ref{Generic Functions and Methods, Section 7.6 (Generic Functions and Methods)}
+
+
+@node standard-method
+@heading standard-method (System Class)
+@syindex standard-method
+@cindex standard-method
+
+
+@subsubheading Class Precedence List:
+@code{standard-method},
+@code{method},
+@code{standard-object},
+@code{t}
+
+@subsubheading Description:
+
+@Theclass{standard-method} is the default @term{class} of
+@term{methods} defined by the
+@code{defmethod} and
+@code{defgeneric} @term{forms}.
+
+
+@node structure-object
+@heading structure-object (Class)
+@syindex structure-object
+@cindex structure-object
+
+
+@subsubheading Class Precedence List:
+
+@code{structure-object},
+@code{t}
+
+@subsubheading Description:
+
+@Theclass{structure-object} is an @term{instance} of @code{structure-class}
+and is a @term{superclass} of every @term{class}
+that is an @term{instance} of @code{structure-class}
+except itself, and is a @term{superclass} of every @term{class}
+that is defined by @code{defstruct}.
+
+
+@subsubheading See Also:
+
+@ref{defstruct},
+@ref{SharpsignS, Section 2.4.8.13 (Sharpsign S)},
+@ref{PrintingStructures, Section 22.1.3.12 (Printing Structures)}
+
+
+@node standard-object
+@heading standard-object (Class)
+@syindex standard-object
+@cindex standard-object
+
+
+@subsubheading Class Precedence List:
+@code{standard-object},
+@code{t}
+
+@subsubheading Description:
+
+@Theclass{standard-object} is an @term{instance} of @code{standard-class}
+and is a @term{superclass} of every @term{class} that is an @term{instance} of
+@code{standard-class} except itself.
+
+
+@node method-combination
+@heading method-combination (System Class)
+@syindex method-combination
+@cindex method-combination
+
+
+@subsubheading Class Precedence List:
+@code{method-combination},
+@code{t}
+
+@subsubheading Description:
+
+Every @term{method combination} @term{object} is an
+@term{indirect instance} of the @term{class} @code{method-combination}.
+A @term{method combination} @term{object} represents the information about
+the @term{method combination} being used by a @term{generic function}.
+A @term{method combination} @term{object} contains information about
+both the type of @term{method combination} and the arguments being used
+with that @term{type}.
+
+
+@node t (System Class)
+@heading t (System Class)
+@syindex t
+@cindex t
+
+
+@subsubheading Class Precedence List:
+@code{t}
+
+@subsubheading Description:
+The set of all @term{objects}.
+@Thetype{t} is a @term{supertype} of every @term{type},
+including itself. Every @term{object} is @oftype{t}.
+
+
+
+@node satisfies
+@heading satisfies (Type Specifier)
+@syindex satisfies
+@cindex satisfies
+
+
+@subsubheading Compound Type Specifier Kind:
+
+Predicating.
+
+@subsubheading Compound Type Specifier Syntax:
+
+@Deftype{satisfies, predicate-name}
+
+@subsubheading Compound Type Specifier Arguments:
+
+@param{predicate-name}---a @term{symbol}.
+
+@subsubheading Compound Type Specifier Description:
+
+This denotes the set of all @term{objects} that satisfy the
+@term{predicate} @param{predicate-name}, which must be a @term{symbol}
+whose global @term{function} definition is a one-argument
+predicate.  A name is required for @param{predicate-name};
+@term{lambda expressions} are not allowed.
+For example, the @term{type specifier} @tt{(and integer (satisfies evenp))}
+denotes the set of all even integers.
+The form @tt{(typep @param{x} '(satisfies @param{p}))} is equivalent to
+@tt{(if (@param{p} @param{x}) t nil)}.
+
+The argument is required.
+The @term{symbol} @t{*} can be the argument, but it
+denotes itself (the @term{symbol} @t{*}),
+and does not represent an unspecified value.
+
+The symbol @code{satisfies} is not valid as a @term{type specifier}.
+
+
+@node member (Type Specifier)
+@heading member (Type Specifier)
+@syindex member
+@cindex member
+
+
+@subsubheading Compound Type Specifier Kind:
+
+Combining.
+
+@subsubheading Compound Type Specifier Syntax:
+
+@Deftype{member, @starparam{object}}
+
+@subsubheading Compound Type Specifier Arguments:
+
+@param{object}---an @term{object}.
+
+@subsubheading Compound Type Specifier Description:
+
+This denotes the set containing the named @param{objects}. An
+@term{object} is of this @term{type} if and only if it is @code{eql}
+to one of the specified @param{objects}.
+
+The @term{type specifiers} @f{(member)} and @nil{}@spc{}are equivalent.
+@t{*} can be among the @param{objects},
+but if so it denotes itself (the symbol @t{*})
+and does not represent an unspecified value.
+The symbol @t{member} is not valid as a @term{type specifier};
+and, specifically, it is not an abbreviation for either @f{(member)} or @f{(member *)}.
+
+@subsubheading See Also:
+
+@thetype{eql}
+
+
+@node not (Type Specifier)
+@heading not (Type Specifier)
+@syindex not
+@cindex not
+
+
+@subsubheading Compound Type Specifier Kind:
+
+Combining.
+
+@subsubheading Compound Type Specifier Syntax:
+
+@Deftype{not, typespec}
+
+@subsubheading Compound Type Specifier Arguments:
+
+@param{typespec}---a @term{type specifier}.
+
+@subsubheading Compound Type Specifier Description:
+
+This denotes the set of all @term{objects} that are not of the @term{type} @param{typespec}.
+
+The argument is required, and cannot be @t{*}.
+
+The symbol @code{not} is not valid as a @term{type specifier}.
+
+
+@node and (Type Specifier)
+@heading and (Type Specifier)
+@syindex and
+@cindex and
+
+
+@subsubheading Compound Type Specifier Kind:
+
+Combining.
+
+@subsubheading Compound Type Specifier Syntax:
+
+@Deftype{and, @starparam{typespec}}
+
+@subsubheading Compound Type Specifier Arguments:
+
+@param{typespec}---a @term{type specifier}.
+
+@subsubheading Compound Type Specifier Description:
+
+This denotes the set of all @term{objects} of the @term{type}
+determined by the intersection of the @param{typespecs}.
+
+@t{*} is not permitted as an argument.
+
+The @term{type specifiers} @f{(and)} and @code{t}@spc{}are equivalent.
+The symbol @t{and} is not valid as a @term{type specifier},
+and, specifically, it is not an abbreviation for @f{(and)}.
+
+
+@node or (Type Specifier)
+@heading or (Type Specifier)
+@syindex or
+@cindex or
+
+
+@subsubheading Compound Type Specifier Kind:
+
+Combining.
+
+@subsubheading Compound Type Specifier Syntax:
+
+@Deftype{or, @starparam{typespec}}
+
+@subsubheading Compound Type Specifier Arguments:
+
+@param{typespec}---a @term{type specifier}.
+
+@subsubheading Compound Type Specifier Description:
+
+This denotes the set of all @term{objects} of the
+@term{type} determined by the union of the @param{typespecs}.
+For example, @thetype{list} by definition is the same as @f{(or null cons)}.
+Also, the value returned by @code{position} is an @objectoftype{(or null (integer 0 *))};
+@ie{} either @nil{}@spc{}or a non-negative @term{integer}.
+
+@t{*} is not permitted as an argument.
+
+The @term{type specifiers} @f{(or)} and @nil{}@spc{}are equivalent.
+The symbol @code{or} is not valid as a @term{type specifier};
+and, specifically, it is not an abbreviation for @f{(or)}.
+
+
+@node values (Type Specifier)
+@heading values (Type Specifier)
+@syindex values
+@cindex values
+
+
+@subsubheading Compound Type Specifier Kind:
+
+Specializing.
+
+@subsubheading Compound Type Specifier Syntax:
+
+@Deftype{values, @down{value-typespec}}
+
+@reviewer{Barmar: Missing @keyref{key}}
+
+@auxbnf{value-typespec, @starparam{typespec} @ttbrac{@opt{} @starparam{typespec}} @ttbrac{@rest{} typespec} @ttbrac{@keyref{allow-other-keys}}}
+
+@subsubheading Compound Type Specifier Arguments:
+
+@param{typespec}---a @term{type specifier}.
+
+@subsubheading Compound Type Specifier Description:
+
+This @term{type specifier} can be used only as the @param{value-type} in a
+@code{function} @term{type specifier} or a @code{the}
+@term{special form}.  It is used to specify individual @term{types}
+when @term{multiple values} are involved.
+The @keyref{optional} and @keyref{rest} markers can appear in the @param{value-type} list;
+they indicate the parameter list of a @term{function} that,
+when given to @code{multiple-value-call} along with the values,
+would correctly receive those values.
+
+The symbol @t{*} may not be among the @param{value-types}.
+
+The symbol @t{values} is not valid as a @term{type specifier};
+and, specifically, it is not an abbreviation for @f{(values)}.
+
+
+@node eql (Type Specifier)
+@heading eql (Type Specifier)
+@syindex eql
+@cindex eql
+
+
+@subsubheading Compound Type Specifier Kind:
+
+Combining.
+
+@subsubheading Compound Type Specifier Syntax:
+
+@Deftype{eql, object}
+
+@subsubheading Compound Type Specifier Arguments:
+
+@param{object}---an @term{object}.
+
+@subsubheading Compound Type Specifier Description:
+
+Represents the @term{type}
+of all @param{x} for which @f{(eql @param{object} @param{x})} is true.
+
+The argument @param{object} is required.  The @param{object} can be @t{*},
+but if so it denotes itself (the symbol @t{*})
+and does not represent an unspecified value.
+The @term{symbol} @t{eql} is not valid as an @term{atomic type specifier}.
+
+
+@node coerce
+@heading coerce (Function)
+@syindex coerce
+@cindex coerce
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{coerce, object result-type, result}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{result-type}---a @term{type specifier}.
+
+@param{result}---an @term{object}, of @term{type} @param{result-type}
+except in situations described in @ref{RuleOfCanonRepForComplexRationals, Section 12.1.5.3 (Rule of Canonical Representation for Complex Rationals)}.
+
+@subsubheading Description:
+
+@term{Coerces} the @param{object} to @term{type} @param{result-type}.
+
+If @param{object} is already of @term{type} @param{result-type},
+the @param{object} itself is returned, regardless of whether it
+would have been possible in general to coerce an @term{object} of
+some other @term{type} to @param{result-type}.
+
+Otherwise, the @param{object} is @term{coerced} to @term{type} @param{result-type}
+according to the following rules:
+
+
+@table @asis
+
+@item @id{@code{sequence}}
+
+
+
+If the @param{result-type} is a @term{recognizable subtype} of @code{list},
+and the @term{object} is a @term{sequence},
+then the @param{result} is a @term{list}
+that has the @term{same} @term{elements} as @param{object}.
+
+If the @param{result-type} is a @term{recognizable subtype} of @code{vector},
+and the @term{object} is a @term{sequence},
+then the @param{result} is a @term{vector}
+that has the @term{same} @term{elements} as @param{object}.
+If @param{result-type} is a specialized @term{type},
+the @param{result} has an @term{actual array element type} that is the result of
+@term{upgrading} the element type part of that @term{specialized} @term{type}.
+If no element type is specified, the element type defaults to @code{t}.
+If the @term{implementation} cannot determine the element type, an error is signaled.
+
+
+@item @id{@code{character}}
+
+
+If the @param{result-type} is @code{character}
+and the @term{object} is a @term{character designator},
+the @param{result} is the @term{character} it denotes.
+
+
+@item @id{@code{complex}}
+
+
+If the @param{result-type} is @code{complex}
+and the @term{object} is a @term{real},
+then the @param{result} is obtained by constructing a @term{complex}
+whose real part is the @term{object} and
+whose imaginary part is the result of @term{coercing} an @term{integer} zero
+to the @term{type} of the @term{object} (using @code{coerce}).
+(If the real part is a @term{rational}, however,
+then the result must be represented as a @term{rational} rather
+than a @term{complex}; see @ref{RuleOfCanonRepForComplexRationals, Section 12.1.5.3 (Rule of Canonical Representation for Complex Rationals)}.
+So, for example, @f{(coerce 3 'complex)} is permissible,
+but will return @f{3}, which is not a @term{complex}.)
+
+@item @id{@code{float}}
+
+
+If the @param{result-type} is any of @code{float},
+@code{short-float},
+@code{single-float},
+@code{double-float},
+@code{long-float},
+and the @term{object} is a
+@term{real},
+then the @param{result} is a @term{float} of @term{type} @param{result-type}
+which is equal in sign and magnitude to the @term{object} to whatever degree of
+representational precision is permitted by that @term{float} representation.
+(If the @param{result-type} is @code{float}
+and @param{object} is not already a @term{float},
+then the @param{result} is a @term{single float}.)
+
+@item @id{@code{function}}
+
+
+If the @param{result-type} is @code{function},
+and @param{object} is any
+@term{function name}
+that is @term{fbound}
+but that is globally defined neither as a @term{macro name} nor as a @term{special operator},
+then the @param{result} is the @term{functional value} of @param{object}.
+
+If the @param{result-type} is @code{function},
+and @param{object} is a @term{lambda expression},
+then the @param{result} is a @term{closure} of @param{object}
+in the @term{null lexical environment}.
+
+@item @id{@code{t}}
+
+
+Any @param{object} can be @term{coerced} to an @term{object} @oftype{t}.
+In this case, the @param{object} is simply returned.
+@end table
+
+
+@subsubheading Examples:
+
+@lisp
+ (coerce '(a b c) 'vector) @EV{} #(A B C)
+ (coerce 'a 'character) @EV{} #@bsl{}A
+ (coerce 4.56 'complex) @EV{} #C(4.56 0.0)
+ (coerce 4.5s0 'complex) @EV{} #C(4.5s0 0.0s0)
+ (coerce 7/2 'complex) @EV{} 7/2
+ (coerce 0 'short-float) @EV{} 0.0s0
+ (coerce 3.5L0 'float) @EV{} 3.5L0
+ (coerce 7/2 'float) @EV{} 3.5
+ (coerce (cons 1 2) t) @EV{} (1 . 2)
+@end lisp
+
+
+All the following @term{forms} should signal an error:
+
+@lisp
+ (coerce '(a b c) '(vector * 4))
+ (coerce #(a b c) '(vector * 4))
+ (coerce '(a b c) '(vector * 2))
+ (coerce #(a b c) '(vector * 2))
+ (coerce "foo" '(string 2))
+ (coerce #(#@bsl{}a #@bsl{}b #@bsl{}c) '(string 2))
+ (coerce '(0 1) '(simple-bit-vector 3))
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+If a coercion is not possible, an error @oftype{type-error} is signaled.
+
+@f{(coerce x 'nil)} always signals an error @oftype{type-error}.
+
+An error
+@oftype{error} is signaled
+if the @param{result-type} is @code{function} but
+@param{object} is a @term{symbol} that is not @term{fbound} or
+if the @term{symbol} names a @term{macro} or a @term{special operator}.
+
+An error @oftype{type-error} should be signaled if @param{result-type}
+specifies the number of elements and @param{object} is of a different length.
+
+@subsubheading See Also:
+
+@ref{rational}, @ref{floor}, @ref{char-code}, @ref{char-int}
+
+@subsubheading Notes:
+
+Coercions from @term{floats} to @term{rationals}
+and from @term{ratios} to @term{integers}
+are not provided because of rounding problems.
+
+@lisp
+ (coerce x 't) @EQ{} (identity x) @EQ{} x
+@end lisp
+
+
+
+@node deftype
+@heading deftype (Macro)
+@syindex deftype
+@cindex deftype
+
+
+
+@subsubheading Syntax:
+
+@DefmacWithValues{deftype, name lambda-list @DeclsAndDoc{} @starparam{form}, name}
+
+@subsubheading Arguments and Values:
+
+@param{name}---a @term{symbol}.
+
+@param{lambda-list}---a @term{deftype lambda list}.
+
+@param{declaration}---a @t{declare} @term{expression}; @noeval{}.
+
+@param{documentation}---a @term{string}; @noeval{}.
+
+@param{form}---a @term{form}.
+
+@subsubheading Description:
+
+@code{deftype} defines a @term{derived type specifier} named @param{name}.
+
+The meaning of the new @term{type specifier} is given in terms of
+a function which expands the @term{type specifier} into another
+@term{type specifier}, which itself will be expanded if it contains
+references to another @term{derived type specifier}.
+
+The newly defined @term{type specifier} may be referenced as a list of
+the form @tt{(@param{name} @param{arg_1} @param{arg_2} ...)}.
+The number of arguments must be appropriate to the @param{lambda-list}.
+If the new @term{type specifier} takes no arguments,
+or if all of its arguments are optional,
+the @term{type specifier} may be used as an @term{atomic type specifier}.
+
+The @term{argument} @term{expressions} to the @term{type specifier},
+@param{arg_1} @mat{@ldots{}} @param{arg_n}, are not @term{evaluated}.
+Instead, these @term{literal objects} become the @term{objects} to which
+corresponding @term{parameters} become @term{bound}.
+
+The body of the @code{deftype} @term{form}
+(but not the @param{lambda-list})
+is
+implicitly enclosed in a @term{block} named @param{name},
+and is evaluated as an @term{implicit progn},
+returning a new @term{type specifier}.
+
+The @term{lexical environment} of the body is the one which was current
+at the time the @code{deftype} form was evaluated, augmented by the
+@term{variables} in the @param{lambda-list}.
+
+Recursive expansion of the @term{type specifier} returned as the expansion
+must terminate, including the expansion of @term{type specifiers} which
+are nested within the expansion.
+
+The consequences are undefined if the result of fully expanding a
+@term{type specifier} contains any circular structure, except within
+the @term{objects} referred to by @code{member} and @code{eql}
+@term{type specifiers}.
+
+@param{Documentation} is attached to @param{name} as a @term{documentation string}
+of kind @t{type}.
+
+If a @code{deftype} @term{form} appears as a @term{top level form},
+the @term{compiler} must ensure that the @param{name} is recognized
+in subsequent @term{type} declarations.
+The @term{programmer} must ensure that the body of a @code{deftype} form
+can be @term{evaluated} at compile time if the @param{name} is
+referenced in subsequent @term{type} declarations.
+If the expansion of a @term{type specifier} is not defined fully at compile time
+(perhaps because it expands into an unknown @term{type specifier} or a
+@code{satisfies} of a named @term{function} that isn't defined in the
+compile-time environment), an @term{implementation} may ignore any references to
+this @term{type} in declarations and/or signal a warning.
+
+@subsubheading Examples:
+@lisp
+ (defun equidimensional (a)
+   (or (< (array-rank a) 2)
+       (apply #'= (array-dimensions a)))) @EV{} EQUIDIMENSIONAL
+ (deftype square-matrix (&optional type size)
+   `(and (array ,type (,size ,size))
+         (satisfies equidimensional))) @EV{} SQUARE-MATRIX
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{declare},
+@ref{defmacro},
+@ref{documentation},
+@ref{Type Specifiers, Section 4.2.3 (Type Specifiers)},
+@ref{Syntactic Interaction of Documentation Strings and Declarations, Section 3.4.11 (Syntactic Interaction of Documentation Strings and Declarations)}
+
+
+
+@node subtypep
+@heading subtypep (Function)
+@syindex subtypep
+@cindex subtypep
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{subtypep, type-1 type-2 @opt{} environment, subtype-p\, valid-p}
+
+@subsubheading Arguments and Values:
+
+@param{type-1}---a @term{type specifier}.
+
+@param{type-2}---a @term{type specifier}.
+
+@param{environment}---an @term{environment} @term{object}.
+@Default{@nil{}, denoting the @term{null lexical environment}
+and the current @term{global environment}}
+
+@param{subtype-p}---a @term{generalized boolean}.
+
+@param{valid-p}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+If @param{type-1} is a @term{recognizable subtype} of @param{type-2},
+the first @term{value} is @term{true}.
+Otherwise, the first @term{value} is @term{false},
+indicating that either
+@param{type-1} is not a @term{subtype} of @param{type-2}, or else
+@param{type-1} is a @term{subtype} of @param{type-2}
+but is not a @term{recognizable subtype}.
+
+A second @term{value} is also returned indicating the `certainty' of
+the first @term{value}.  If this value is @term{true}, then the first
+value is an accurate indication of the @term{subtype} relationship.
+(The second @term{value} is always @term{true} when the first @term{value}
+is @term{true}.)
+
+@Thenextfigure{}@spc{}summarizes the possible combinations of @term{values}
+that might result.
+
+
+@float Figure,fig4.9
+@cartouche
+@multitable{xxxxxxx}{xxxxxxx}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+@headitem Value 1 @tab Value 2 @tab Meaning
+@item @term{true} @tab @term{true} @tab @param{type-1} is definitely a @term{subtype} of
+@param{type-2}.
+@item @term{false} @tab @term{true} @tab @param{type-1} is definitely not a @term{subtype} of
+@param{type-2}.
+@item @term{false} @tab @term{false} @tab @code{subtypep} could not determine the relationship,
+@item  @tab  @tab so @param{type-1} might or might not be a @term{subtype} of
+@param{type-2}.
+@end multitable
+@end cartouche
+@caption{Result possibilities for subtypep}
+@end float
+
+
+
+@code{subtypep} is permitted to return the
+@term{values} @term{false} and @term{false} only when at least
+one argument involves one of these @term{type specifiers}:
+@code{and},
+@code{eql},
+the list form of @code{function},
+@code{member},
+@code{not},
+@code{or},
+@code{satisfies},
+or
+@code{values}.
+(A @term{type specifier} `involves' such a @term{symbol} if,
+after being @term{type expanded},
+it contains that @term{symbol} in a position that would call for
+its meaning as a @term{type specifier} to be used.)
+One consequence of this is that if neither @param{type-1} nor @param{type-2}
+involves any of these @term{type specifiers}, then @code{subtypep} is obliged
+to determine the relationship accurately.  In particular, @code{subtypep}
+returns the @term{values} @term{true} and @term{true}
+if the arguments are @code{equal} and do not involve
+any of these @term{type specifiers}.
+
+@code{subtypep} never returns a second value of @nil{}@spc{}when both
+@param{type-1} and @param{type-2} involve only
+the names in @ref{StandardizedAtomicTypeSpecs, Figure 4.2}, or
+names of @term{types} defined by @code{defstruct},
+@code{define-condition},
+or @code{defclass}, or
+@term{derived types} that expand into only those names.
+While @term{type specifiers} listed in @ref{StandardizedAtomicTypeSpecs, Figure 4.2}@spc{}and
+names of @code{defclass} and @code{defstruct} can in some cases be
+implemented as @term{derived types}, @code{subtypep} regards them as primitive.
+
+The relationships between @term{types} reflected by @code{subtypep}
+are those specific to the particular implementation.  For example, if
+an implementation supports only a single type of floating-point numbers,
+in that implementation @f{(subtypep 'float 'long-float)}
+returns the @term{values} @term{true} and @term{true}
+(since the two @term{types} are identical).
+
+For all @param{T1} and @param{T2} other than @f{*},
+@f{(array @param{T1})} and @f{(array @param{T2})}
+are two different @term{type specifiers} that always refer to the same sets of
+things if and only if they refer to @term{arrays}
+of exactly the same specialized representation, @ie{}
+if @f{(upgraded-array-element-type '@param{T1})}  and
+@f{(upgraded-array-element-type '@param{T2})}
+return two different @term{type specifiers} that always refer to the same sets of
+@term{objects}.
+This is another way of saying that
+@f{`(array @param{type-specifier})}
+and
+@f{`(array ,(upgraded-array-element-type '@param{type-specifier}))}
+refer to the same
+set of specialized @term{array} representations.
+For all @param{T1} and @param{T2} other than @f{*},
+the intersection of
+@f{(array @param{T1})}
+and @f{(array @param{T2})} is the empty set
+if and only if they refer to @term{arrays} of different,
+distinct specialized representations.
+
+Therefore,
+
+@lisp
+ (subtypep '(array T1) '(array T2)) @EV{} @term{true}
+@end lisp
+
+if and only if
+
+@lisp
+ (upgraded-array-element-type 'T1)  and
+ (upgraded-array-element-type 'T2)
+@end lisp
+
+
+return two different @term{type specifiers} that always refer to the same sets of
+@term{objects}.
+
+For all type-specifiers @param{T1} and @param{T2} other than @f{*},
+
+@lisp
+ (subtypep '(complex T1) '(complex T2)) @EV{} @term{true}, @term{true}
+@end lisp
+
+
+if:
+
+@enumerate 1
+@item @f{T1} is a @term{subtype} of @f{T2}, or
+@item @f{(upgraded-complex-part-type '@param{T1})} and
+@f{(upgraded-complex-part-type '@param{T2})}
+return two different @term{type specifiers} that always refer to the
+same sets of @term{objects}; in this case,
+@f{(complex @param{T1})} and
+@f{(complex @param{T2})} both refer to the
+same specialized representation.
+@end enumerate
+
+The @term{values} are @term{false} and @term{true} otherwise.
+
+The form
+
+@lisp
+ (subtypep '(complex single-float) '(complex float))
+@end lisp
+
+must return @term{true} in all implementations, but
+
+@lisp
+ (subtypep '(array single-float) '(array float))
+@end lisp
+
+
+returns @term{true} only in implementations that do not have a specialized @term{array}
+representation for @term{single floats} distinct from that for other @term{floats}.
+
+
+
+@subsubheading Examples:
+
+@lisp
+ (subtypep 'compiled-function 'function) @EV{} @term{true}, @term{true}
+ (subtypep 'null 'list) @EV{} @term{true}, @term{true}
+ (subtypep 'null 'symbol) @EV{} @term{true}, @term{true}
+ (subtypep 'integer 'string) @EV{} @term{false}, @term{true}
+ (subtypep '(satisfies dummy) nil) @EV{} @term{false}, @term{implementation-dependent}
+ (subtypep '(integer 1 3) '(integer 1 4)) @EV{} @term{true}, @term{true}
+ (subtypep '(integer (0) (0)) 'nil) @EV{} @term{true}, @term{true}
+ (subtypep 'nil '(integer (0) (0))) @EV{} @term{true}, @term{true}
+ (subtypep '(integer (0) (0)) '(member)) @EV{} @term{true}, @term{true} ;or @term{false}, @term{false}
+ (subtypep '(member) 'nil) @EV{} @term{true}, @term{true} ;or @term{false}, @term{false}
+ (subtypep 'nil '(member)) @EV{} @term{true}, @term{true} ;or @term{false}, @term{false}
+@end lisp
+
+
+Let @f{<aet-x>} and @f{<aet-y>} be two distinct @term{type specifiers} that
+do not always refer to the same sets of
+@term{objects}
+in a given implementation, but for which
+@code{make-array}, will return an
+@term{object} of the same @term{array} @term{type}.
+
+Thus, in each case,
+
+@lisp
+  (subtypep (array-element-type (make-array 0 :element-type '<aet-x>))
+            (array-element-type (make-array 0 :element-type '<aet-y>)))
+@EV{} @term{true}, @term{true}
+
+  (subtypep (array-element-type (make-array 0 :element-type '<aet-y>))
+            (array-element-type (make-array 0 :element-type '<aet-x>)))
+@EV{} @term{true}, @term{true}
+@end lisp
+
+
+If  @f{(array <aet-x>)}
+and @f{(array <aet-y>)} are different names for
+exactly the same set of @term{objects},
+these names should always refer to the same sets of
+@term{objects}.
+That implies that the following set of tests are also true:
+
+@lisp
+ (subtypep '(array <aet-x>) '(array <aet-y>)) @EV{} @term{true}, @term{true}
+ (subtypep '(array <aet-y>) '(array <aet-x>)) @EV{} @term{true}, @term{true}
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{Types, Section 4.2 (Types)}
+
+@subsubheading Notes:
+
+The small differences between the @code{subtypep} specification for
+the @code{array} and @code{complex} types are necessary because there
+is no creation function for @term{complexes} which allows
+the specification of the resultant part type independently of
+the actual types of the parts.  Thus in the case of @thetype{complex},
+the actual type of the parts is referred to, although a @term{number}
+can be a member of more than one @term{type}.
+For example, @f{17} is of @term{type} @f{(mod 18)}
+as well as @term{type} @f{(mod 256)} and @term{type} @code{integer};
+and @f{2.3f5} is @oftype{single-float}
+as well as @term{type} @code{float}.
+
+
+
+@node type-of
+@heading type-of (Function)
+@syindex type-of
+@cindex type-of
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{type-of, object, typespec}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{typespec}---a @term{type specifier}.
+
+@subsubheading Description:
+
+
+Returns a @term{type specifier}, @param{typespec}, for a @term{type}
+that has the @param{object} as an @term{element}.
+The @param{typespec} satisfies the following:
+
+
+@enumerate 1
+
+@item
+For any @param{object} that is an @term{element} of some @term{built-in type}:
+
+
+@enumerate a
+@item
+the @term{type} returned is a @term{recognizable subtype} of that @term{built-in type}.
+
+@item
+the @term{type} returned does not involve
+@f{and},
+@f{eql},
+@f{member},
+@f{not},
+@f{or},
+@f{satisfies},
+or @f{values}.
+@end enumerate
+
+
+@item
+For all @param{objects}, @f{(typep @param{object} (type-of @param{object}))}
+returns @term{true}.
+Implicit in this is that @term{type specifiers} which are
+not valid for use with @code{typep}, such as the @term{list} form of the
+@code{function} @term{type specifier}, are never returned by @code{type-of}.
+
+@item
+The @term{type} returned by @code{type-of} is always a @term{recognizable subtype}
+of the @term{class} returned by @code{class-of}.  That is,
+
+@lisp
+ (subtypep (type-of @param{object}) (class-of @param{object})) @EV{} @term{true}, @term{true}
+@end lisp
+
+
+@item
+For @param{objects} of metaclass @code{structure-class} or @code{standard-class},
+and for @term{conditions},
+@code{type-of} returns the @term{proper name} of the @term{class} returned
+by @code{class-of} if it has a @term{proper name},
+and otherwise returns the @term{class} itself.
+In particular, for @param{objects} created by the constructor function
+of a structure defined with @code{defstruct} without a @kwd{type} option,
+@code{type-of} returns the structure name; and for @param{objects} created
+by @code{make-condition}, the @param{typespec} is the @term{name} of the
+@term{condition} @term{type}.
+
+@item
+For each of the @term{types}
+@code{short-float},
+@code{single-float},
+@code{double-float},
+or @code{long-float}
+of which the @param{object} is an @term{element},
+the @param{typespec} is a @term{recognizable subtype} of that @term{type}.
+@end enumerate
+
+
+
+
+@subsubheading Examples:
+
+@lisp
+@end lisp
+
+
+@lisp
+ (type-of 'a) @EV{} SYMBOL
+ (type-of '(1 . 2))
+@EV{} CONS
+@OV{} (CONS FIXNUM FIXNUM)
+ (type-of #c(0 1))
+@EV{} COMPLEX
+@OV{} (COMPLEX INTEGER)
+ (defstruct temp-struct x y z) @EV{} TEMP-STRUCT
+ (type-of (make-temp-struct)) @EV{} TEMP-STRUCT
+ (type-of "abc")
+@EV{} STRING
+@OV{} (STRING 3)
+ (subtypep (type-of "abc") 'string) @EV{} @term{true}, @term{true}
+ (type-of (expt 2 40))
+@EV{} BIGNUM
+@OV{} INTEGER
+@OV{} (INTEGER 1099511627776 1099511627776)
+@OV{} SYSTEM::TWO-WORD-BIGNUM
+@OV{} FIXNUM
+ (subtypep (type-of 112312) 'integer) @EV{} @term{true}, @term{true}
+ (defvar *foo* (make-array 5 :element-type t)) @EV{} *FOO*
+ (class-name (class-of *foo*)) @EV{} VECTOR
+ (type-of *foo*)
+@EV{} VECTOR
+@OV{} (VECTOR T 5)
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{array-element-type},
+@ref{class-of},
+@ref{defstruct},
+@ref{typecase},
+@ref{typep},
+@ref{Types, Section 4.2 (Types)}
+
+@subsubheading Notes:
+
+Implementors are encouraged to arrange for @code{type-of} to return
+a portable value.
+
+
+@node typep
+@heading typep (Function)
+@syindex typep
+@cindex typep
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{typep, object type-specifier @opt{} environment, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{type-specifier}---any @term{type specifier} except
+@t{values}, or a @term{type specifier} list
+whose first element is either @t{function} or @t{values}.
+
+@param{environment}---an @term{environment} @term{object}.
+@Default{@nil{}, denoting the @term{null lexical environment}
+and the and current @term{global environment}}
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@Predicate{object, of the @term{type} specified by @param{type-specifier}}
+
+A @param{type-specifier} of the form @f{(satisfies fn)}
+is handled by applying the function @f{fn} to @param{object}.
+
+@f{(typep @param{object} '(array @param{type-specifier}))},
+where @param{type-specifier} is not @f{*},
+returns @term{true} if and only if @param{object} is an @term{array}
+that could be the result
+of supplying @param{type-specifier}
+as the @kwd{element-type} argument to @code{make-array}.
+@f{(array *)} refers to all @term{arrays}
+regardless of element type, while @f{(array @param{type-specifier})}
+refers only to those @term{arrays}
+that can result from giving @param{type-specifier} as the
+@kwd{element-type} argument to @code{make-array}.
+A similar interpretation applies to @f{(simple-array @param{type-specifier})}
+and @f{(vector @param{type-specifier})}.
+See @ref{ArrayUpgrading, Section 15.1.2.1 (Array Upgrading)}.
+
+@f{(typep @param{object} '(complex @param{type-specifier}))}
+returns @term{true} for all @term{complex} numbers that can result from
+giving @term{numbers} of type @param{type-specifier}
+to @thefunction{complex}, plus all other @term{complex} numbers
+of the same specialized representation.
+Both the real and the imaginary parts of any such
+@term{complex} number must satisfy:
+
+@lisp
+ (typep realpart 'type-specifier)
+ (typep imagpart 'type-specifier)
+@end lisp
+
+
+See the @term{function} @ref{upgraded-complex-part-type}.
+
+
+@subsubheading Examples:
+
+@lisp
+ (typep 12 'integer) @EV{} @term{true}
+ (typep (1+ most-positive-fixnum) 'fixnum) @EV{} @term{false}
+ (typep nil t) @EV{} @term{true}
+ (typep nil nil) @EV{} @term{false}
+ (typep 1 '(mod 2)) @EV{} @term{true}
+ (typep #c(1 1) '(complex (eql 1))) @EV{} @term{true}
+;; To understand this next example, you might need to refer to
+;; @ref{RuleOfCanonRepForComplexRationals, Section 12.1.5.3 (Rule of Canonical Representation for Complex Rationals)}.
+ (typep #c(0 0) '(complex (eql 0))) @EV{} @term{false}
+@end lisp
+
+
+Let @f{A@sssx{}} and @f{A@sssy{}} be two @term{type specifiers} that
+denote different @term{types}, but for which
+
+@lisp
+ (upgraded-array-element-type 'A@sssx{})
+@end lisp
+
+and
+
+@lisp
+ (upgraded-array-element-type 'A@sssy{})
+@end lisp
+
+denote the same @term{type}.  Notice that
+
+@lisp
+ (typep (make-array 0 :element-type 'A@sssx{}) '(array A@sssx{})) @EV{} @term{true}
+ (typep (make-array 0 :element-type 'A@sssy{}) '(array A@sssy{})) @EV{} @term{true}
+ (typep (make-array 0 :element-type 'A@sssx{}) '(array A@sssy{})) @EV{} @term{true}
+ (typep (make-array 0 :element-type 'A@sssy{}) '(array A@sssx{})) @EV{} @term{true}
+@end lisp
+
+
+
+@subsubheading Exceptional Situations:
+
+An error @oftype{error} is signaled if @param{type-specifier} is @f{values},
+or a @term{type specifier} list whose first element is either
+@t{function} or @t{values}.
+
+The consequences are undefined if
+the @param{type-specifier} is not a @term{type specifier}.
+
+@subsubheading See Also:
+
+@ref{type-of},
+@ref{upgraded-array-element-type},
+@ref{upgraded-complex-part-type},
+@ref{Type Specifiers, Section 4.2.3 (Type Specifiers)}
+
+@subsubheading Notes:
+
+@term{Implementations} are encouraged to recognize and optimize the case of
+@f{(typep @param{x} (the class @param{y}))},
+since it does not involve any need for expansion
+of @code{deftype} information at runtime.
+
+@lisp
+
+@end lisp
+
+
+
+
+@node type-error
+@heading type-error (Condition Type)
+@syindex type-error
+@cindex type-error
+
+
+@subsubheading Class Precedence List:
+@code{type-error},
+@code{error},
+@code{serious-condition},
+@code{condition},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{type-error} represents a situation in which an @term{object} is not
+of the expected type.  The ``offending datum'' and ``expected type'' are initialized
+by @theinitkeyargs{datum} and @kwd{expected-type} to @code{make-condition},
+and are @term{accessed} by the functions
+@code{type-error-datum} and @code{type-error-expected-type}.
+
+@subsubheading See Also:
+
+@ref{type-error-datum}, @ref{type-error-expected-type}
+
+
+@node type-error-datum; type-error-expected-type
+@heading type-error-datum, type-error-expected-type (Function)
+@syindex type-error-datum
+@cindex type-error-datum
+@syindex type-error-expected-type
+@cindex type-error-expected-type
+@anchor{type-error-datum}
+@anchor{type-error-expected-type}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{type-error-datum, condition, datum}
+@DefunWithValues{type-error-expected-type, condition, expected-type}
+
+@subsubheading Arguments and Values:
+
+@param{condition}---a @term{condition} @oftype{type-error}.
+
+@param{datum}---an @term{object}.
+
+@param{expected-type}---a @term{type specifier}.
+
+@subsubheading Description:
+
+@code{type-error-datum} returns the offending datum in the @term{situation}
+represented by the @param{condition}.
+
+@code{type-error-expected-type} returns the expected type of the
+offending datum in the @term{situation} represented by the @param{condition}.
+
+@subsubheading Examples:
+
+@lisp
+ (defun fix-digits (condition)
+   (check-type condition type-error)
+   (let* ((digits '(zero one two three four
+                   five six seven eight nine))
+         (val (position (type-error-datum condition) digits)))
+     (if (and val (subtypep 'fixnum (type-error-expected-type condition)))
+         (store-value 7))))
+
+ (defun foo (x)
+   (handler-bind ((type-error #'fix-digits))
+     (check-type x number)
+     (+ x 3)))
+
+ (foo 'seven)
+@EV{} 10
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{type-error},
+@ref{Conditions, Chapter 9 (Conditions)}
+
+
+@node simple-type-error
+@heading simple-type-error (Condition Type)
+@syindex simple-type-error
+@cindex simple-type-error
+
+
+@subsubheading Class Precedence List:
+
+@code{simple-type-error},
+@code{simple-condition},
+@code{type-error},
+@code{error},
+@code{serious-condition},
+@code{condition},
+@code{t}
+
+@subsubheading Description:
+
+@term{Conditions} @oftype{simple-type-error}
+are like @term{conditions} @oftype{type-error},
+except that they provide an alternate mechanism for specifying
+how the @term{condition} is to be @term{reported};
+see the @term{type} @ref{simple-condition}.
+
+@subsubheading See Also:
+
+@ref{simple-condition},
+@ref{simple-condition-format-control},
+@ref{simple-condition-format-arguments},
+@ref{type-error-datum},
+@ref{type-error-expected-type}

@@ -1,0 +1,89 @@
+\input texinfo                  @c -*-texinfo-*-
+@c %**start of header
+@setfilename ansicl
+@settitle ANSI Common Lisp
+@paragraphindent 0
+@exampleindent 0
+@documentencoding ISO-8859-1
+@defindex sy
+@c %**end of header
+@dircategory Programming
+@direntry
+* ANSI Common Lisp: (ansicl).    Draft ANSI Common Lisp standard (dpANS3R).
+@end direntry
+@include dp.texi
+@node Top
+@top ANSI Common Lisp
+
+This is a Texinfo version@footnote{The converter is available
+from @uref{http://purl.org/harder/dpans.html}} of the draft
+ANSI Common Lisp standard.  Some font information has been lost
+in the conversion, and errors may have been introduced.  Report
+discrepancies with the hardcopy version to
+@email{jesper.harder@@gmail.com, Jesper Harder}.
+
+@menu
+* Introduction::
+* Syntax::
+* Evaluation and Compilation::
+* Types and Classes::
+* Data and Control Flow::
+* Iteration::
+* Objects::
+* Structures::
+* Conditions::
+* Symbols::
+* Packages::
+* Numbers::
+* Characters::
+* Conses::
+* Arrays::
+* Strings::
+* Sequences::
+* Hash Tables::
+* Filenames::
+* Files::
+* Streams::
+* Printer::
+* Reader::
+* System Construction::
+* Environment::
+* Glossary::
+* Appendix::
+* Index::
+* Symbol Index::
+* List of Figures::
+@ifnotinfo
+* Table of Contents::
+@end ifnotinfo
+@end menu
+
+@include chap-1.texi
+@include chap-2.texi
+@include chap-3.texi
+@include chap-4.texi
+@include chap-5.texi
+@include chap-6.texi
+@include chap-7.texi
+@include chap-8.texi
+@include chap-9.texi
+@include chap-10.texi
+@include chap-11.texi
+@include chap-12.texi
+@include chap-13.texi
+@include chap-14.texi
+@include chap-15.texi
+@include chap-16.texi
+@include chap-17.texi
+@include chap-18.texi
+@include chap-19.texi
+@include chap-20.texi
+@include chap-21.texi
+@include chap-22.texi
+@include chap-23.texi
+@include chap-24.texi
+@include chap-25.texi
+@include chap-26.texi
+@include chap-a.texi
+
+@bye

@@ -1,0 +1,2661 @@
+@node Syntax
+@chapter Syntax
+@menu
+* Character Syntax::
+* Reader Algorithm::
+* Interpretation of Tokens::
+* Standard Macro Characters::
+@end menu
+
+@node Character Syntax
+@section Character Syntax
+
+The @term{Lisp reader} takes @term{characters} from a @term{stream},
+interprets them as a printed representation of an @term{object},
+constructs that @term{object}, and returns it.
+
+The syntax described by this chapter is called the @newterm{standard syntax}.
+Operations are provided by @clisp{}@spc{}so that
+various aspects of the syntax information represented by a @term{readtable}
+can be modified under program control; see @ref{Reader, Chapter 23 (Reader)}.
+Except as explicitly stated otherwise,
+the syntax used throughout this document is @term{standard syntax}.
+
+@menu
+* Readtables::
+* Variables that affect the Lisp Reader::
+* Standard Characters::
+* Character Syntax Types::
+@end menu
+@node Readtables
+@subsection Readtables
+
+
+Syntax information for use by the @term{Lisp reader} is embodied in an
+@term{object} called a @newterm{readtable}.  Among other things,
+the @term{readtable} contains the association between @term{characters}
+and @term{syntax types}.
+
+@Thenextfigure{}@spc{}lists some @term{defined names} that are applicable to
+@term{readtables}.
+
+
+@float Figure,fig2.1
+@cartouche
+@multitable{make-dispatch-macro-character}{set-dispatch-macro-character}{}
+
+@item *readtable* @tab readtable-case @tab
+@item copy-readtable @tab readtablep @tab
+@item get-dispatch-macro-character @tab set-dispatch-macro-character @tab
+@item get-macro-character @tab set-macro-character @tab
+@item make-dispatch-macro-character @tab set-syntax-from-char @tab
+@end multitable
+@end cartouche
+@caption{Readtable defined names}
+@end float
+
+
+@subsubsection The Current Readtable
+@anchor{CurrentReadtable}
+
+Several @term{readtables} describing different syntaxes can exist,
+but at any given time only one, called the @newterm{current readtable},
+affects the way in which @term{expressions}@sub2{} are parsed
+into @term{objects} by the @term{Lisp reader}.
+The @term{current readtable} in a given @term{dynamic environment}
+is @thevalueof{*readtable*} in that @term{environment}.
+To make a different @term{readtable} become the @term{current readtable},
+@code{*readtable*} can be @term{assigned} or @term{bound}.
+
+
+@subsubsection The Standard Readtable
+
+The @newterm{standard readtable} conforms to @term{standard syntax}.
+The consequences are undefined if an attempt is made
+to modify the @term{standard readtable}.
+To achieve the effect of altering or extending @term{standard syntax},
+a copy of the @term{standard readtable} can be created; see the @term{function} @ref{copy-readtable}.
+
+The @term{readtable case} of the @term{standard readtable} is @kwd{upcase}.
+
+
+@subsubsection The Initial Readtable
+
+The @newterm{initial readtable} is
+the @term{readtable} that is the @term{current readtable}
+at the time when the @term{Lisp image} starts.
+At that time, it conforms to @term{standard syntax}.
+The @term{initial readtable} is @term{distinct}
+from the @term{standard readtable}.
+It is permissible for a @term{conforming program}
+to modify the @term{initial readtable}.
+
+
+
+@node Variables that affect the Lisp Reader
+@subsection Variables that affect the Lisp Reader
+
+The @term{Lisp reader} is influenced not only by the @term{current readtable},
+but also by various @term{dynamic variables}.  @Thenextfigure{}@spc{}lists
+the @term{variables} that influence the behavior of the @term{Lisp reader}.
+
+
+@float Figure,fig2.2
+@cartouche
+@multitable{*read-base*}{*read-default-float-format*}{*readtable*}
+
+@item *package* @tab *read-default-float-format* @tab *readtable*
+@item *read-base* @tab *read-suppress* @tab
+@end multitable
+@end cartouche
+@caption{Variables that influence the Lisp reader.}
+@end float
+
+
+
+@node Standard Characters
+@subsection Standard Characters
+
+All @term{implementations} must support a @term{character} @term{repertoire}
+called @code{standard-char}; @term{characters} that are members of that
+@term{repertoire} are called
+@cindex standard character
+@dfn{standard characters}.
+
+The @code{standard-char} @term{repertoire} consists of
+the @term{non-graphic} @term{character} @term{newline},
+the @term{graphic} @term{character} @term{space},
+and the following additional
+ninety-four @term{graphic} @term{characters} or their equivalents:
+
+
+@float Figure,fig2.3
+@cartouche
+@multitable{Graphic ID}{Glyph}{Description}{Graphic ID}{Glyph}{Description}
+@headitem Graphic ID @tab Glyph @tab Description @tab Graphic ID @tab Glyph @tab Description
+@item LA01 @tab @f{a} @tab small a @tab LN01 @tab @f{n} @tab small n
+@item LA02 @tab @f{A} @tab capital A @tab LN02 @tab @f{N} @tab capital N
+@item LB01 @tab @f{b} @tab small b @tab LO01 @tab @f{o} @tab small o
+@item LB02 @tab @f{B} @tab capital B @tab LO02 @tab @f{O} @tab capital O
+@item LC01 @tab @f{c} @tab small c @tab LP01 @tab @f{p} @tab small p
+@item LC02 @tab @f{C} @tab capital C @tab LP02 @tab @f{P} @tab capital P
+@item LD01 @tab @f{d} @tab small d @tab LQ01 @tab @f{q} @tab small q
+@item LD02 @tab @f{D} @tab capital D @tab LQ02 @tab @f{Q} @tab capital Q
+@item LE01 @tab @f{e} @tab small e @tab LR01 @tab @f{r} @tab small r
+@item LE02 @tab @f{E} @tab capital E @tab LR02 @tab @f{R} @tab capital R
+@item LF01 @tab @f{f} @tab small f @tab LS01 @tab @f{s} @tab small s
+@item LF02 @tab @f{F} @tab capital F @tab LS02 @tab @f{S} @tab capital S
+@item LG01 @tab @f{g} @tab small g @tab LT01 @tab @f{t} @tab small t
+@item LG02 @tab @f{G} @tab capital G @tab LT02 @tab @f{T} @tab capital T
+@item LH01 @tab @f{h} @tab small h @tab LU01 @tab @f{u} @tab small u
+@item LH02 @tab @f{H} @tab capital H @tab LU02 @tab @f{U} @tab capital U
+@item LI01 @tab @f{i} @tab small i @tab LV01 @tab @f{v} @tab small v
+@item LI02 @tab @f{I} @tab capital I @tab LV02 @tab @f{V} @tab capital V
+@item LJ01 @tab @f{j} @tab small j @tab LW01 @tab @f{w} @tab small w
+@item LJ02 @tab @f{J} @tab capital J @tab LW02 @tab @f{W} @tab capital W
+@item LK01 @tab @f{k} @tab small k @tab LX01 @tab @f{x} @tab small x
+@item LK02 @tab @f{K} @tab capital K @tab LX02 @tab @f{X} @tab capital X
+@item LL01 @tab @f{l} @tab small l @tab LY01 @tab @f{y} @tab small y
+@item LL02 @tab @f{L} @tab capital L @tab LY02 @tab @f{Y} @tab capital Y
+@item LM01 @tab @f{m} @tab small m @tab LZ01 @tab @f{z} @tab small z
+@item LM02 @tab @f{M} @tab capital M @tab LZ02 @tab @f{Z} @tab capital Z
+@end multitable
+@end cartouche
+@caption{Standard Character Subrepertoire (Part 1 of 3: Latin Characters)}
+@end float
+
+
+
+@float Figure,fig2.4
+@cartouche
+@multitable{Graphic ID}{Glyph}{Description}{Graphic ID}{Glyph}{Description}
+@headitem Graphic ID @tab Glyph @tab Description @tab Graphic ID @tab Glyph @tab Description
+@item ND01 @tab @f{1} @tab digit 1 @tab ND06 @tab @f{6} @tab digit 6
+@item ND02 @tab @f{2} @tab digit 2 @tab ND07 @tab @f{7} @tab digit 7
+@item ND03 @tab @f{3} @tab digit 3 @tab ND08 @tab @f{8} @tab digit 8
+@item ND04 @tab @f{4} @tab digit 4 @tab ND09 @tab @f{9} @tab digit 9
+@item ND05 @tab @f{5} @tab digit 5 @tab ND10 @tab @f{0} @tab digit 0
+@end multitable
+@end cartouche
+@caption{Standard Character Subrepertoire (Part 2 of 3: Numeric Characters)}
+@end float
+
+
+
+
+@float Figure,StdCharsThree
+@cartouche
+@multitable{Graphic ID}{@f{@percent{}}}{right parenthesis, or close parenthesis}
+@headitem Graphic ID @tab Glyph @tab Description
+@item SP02 @tab @f{!} @tab exclamation mark
+@item SC03 @tab @f{@dollar{}} @tab dollar sign
+@item SP04 @tab @f{"} @tab quotation mark, or double quote
+@item SP05 @tab @f{'} @tab apostrophe, or @brac{single} quote
+@item SP06 @tab @f{(} @tab left parenthesis, or open parenthesis
+@item SP07 @tab @f{)} @tab right parenthesis, or close parenthesis
+@item SP08 @tab @f{,} @tab comma
+@item SP09 @tab @f{_} @tab low line, or underscore
+@item SP10 @tab @f{-} @tab hyphen, or minus @brac{sign}
+@item SP11 @tab @f{.} @tab full stop, period, or dot
+@item SP12 @tab @f{/} @tab solidus, or slash
+@item SP13 @tab @f{:} @tab colon
+@item SP14 @tab @f{;} @tab semicolon
+@item SP15 @tab @f{?} @tab question mark
+@item SA01 @tab @f{+} @tab plus @brac{sign}
+@item SA03 @tab @f{<} @tab less-than @brac{sign}
+@item SA04 @tab @f{=} @tab equals @brac{sign}
+@item SA05 @tab @f{>} @tab greater-than @brac{sign}
+@item SM01 @tab @f{#} @tab number sign, or sharp@brac{sign}
+@item SM02 @tab @f{@percent{}} @tab percent @brac{sign}
+@item SM03 @tab @f{@ampers{}} @tab ampersand
+@item SM04 @tab @f{*} @tab asterisk, or star
+@item SM05 @tab @f{@@} @tab commercial at, or at-sign
+@item SM06 @tab @f{[} @tab left @brac{square} bracket
+@item SM07 @tab @f{@bsl{}} @tab reverse solidus, or backslash
+@item SM08 @tab @f{]} @tab right @brac{square} bracket
+@item SM11 @tab @f{@lcurly{}} @tab left curly bracket, or left brace
+@item SM13 @tab @f{|} @tab vertical bar
+@item SM14 @tab @f{@rcurly{}} @tab right curly bracket, or right brace
+@item SD13 @tab @f{`} @tab grave accent, or backquote
+@item SD15 @tab @f{@hat{}} @tab circumflex accent
+@item SD19 @tab @f{@tild{}} @tab tilde
+@end multitable
+@end cartouche
+@caption{Standard Character Subrepertoire (Part 3 of 3: Special Characters)}
+@end float
+
+
+The graphic IDs are not used within @clisp{},
+but are provided for cross reference purposes with @ISOChars{}.
+Note that the first letter of the graphic ID
+categorizes the character as follows:
+L---Latin, N---Numeric, S---Special.
+
+
+
+@node Character Syntax Types
+@subsection Character Syntax Types
+
+The @term{Lisp reader} constructs an @term{object}
+from the input text by interpreting each @term{character}
+according to its @term{syntax type}.
+The @term{Lisp reader} cannot accept as input
+everything that the @term{Lisp printer} produces,
+and the @term{Lisp reader} has features that are not used by the @term{Lisp printer}.
+The @term{Lisp reader} can be used as a lexical analyzer
+for a more general user-written parser.
+
+When the @term{Lisp reader} is invoked, it reads a single character from
+the @term{input} @term{stream} and dispatches according to the
+@newterm{syntax type} of that @term{character}.
+Every @term{character} that can appear in the @term{input} @term{stream}
+is of one of the @term{syntax types} shown in @ref{PossibleSyntaxTypes, Figure 2.6}.
+
+
+
+@float Figure,PossibleSyntaxTypes
+@cartouche
+@multitable{@term{constituent}}{@term{macro character}}{@term{whitespace}@sub2{}}
+
+@item @term{constituent} @tab @term{macro character} @tab @term{single escape}
+@item @term{invalid} @tab @term{multiple escape} @tab @term{whitespace}@sub2{}
+@end multitable
+@end cartouche
+@caption{Possible Character Syntax Types}
+@end float
+
+
+The @term{syntax type} of a @term{character} in a @term{readtable}
+determines how that character is interpreted by the @term{Lisp reader}
+while that @term{readtable} is the @term{current readtable}.
+At any given time, every character has exactly one @term{syntax type}.
+
+@ref{CharSyntaxTypesInStdSyntax, Figure 2.7}@spc{}
+lists the @term{syntax type} of each @term{character} in @term{standard syntax}.
+
+
+
+@float Figure,CharSyntaxTypesInStdSyntax
+@cartouche
+@multitable{xxxxxxxxx}{xxxxxxxxxxxxxxxxxxxxxxxxxx}{xxxxxx}{xxxxxxxxxxxxxxxxxxxxxx}
+@headitem character @tab syntax type @tab character @tab syntax type
+@item Backspace @tab @term{constituent} @tab 0--9 @tab @term{constituent}
+@item Tab @tab @term{whitespace}@sub2{} @tab : @tab @term{constituent}
+@item Newline @tab @term{whitespace}@sub2{} @tab ; @tab @term{terminating} @term{macro char}
+@item Linefeed @tab @term{whitespace}@sub2{} @tab @tt{<} @tab @term{constituent}
+@item Page @tab @term{whitespace}@sub2{} @tab = @tab @term{constituent}
+@item Return @tab @term{whitespace}@sub2{} @tab @tt{>} @tab @term{constituent}
+@item Space @tab @term{whitespace}@sub2{} @tab ? @tab @term{constituent}
+@item ! @tab @term{constituent} @tab @tt{@@} @tab @term{constituent}
+@item @tt{"} @tab @term{terminating} @term{macro char} @tab A--Z @tab @term{constituent}
+@item # @tab @term{non-terminating} @term{macro char} @tab @f{[} @tab @term{constituent}
+@item @dollar{} @tab @term{constituent} @tab @f{@bsl{}} @tab @term{single escape}
+@item @percent{} @tab @term{constituent} @tab @f{]} @tab @term{constituent}
+@item @ampers{} @tab @term{constituent} @tab @hat{} @tab @term{constituent}
+@item ' @tab @term{terminating} @term{macro char} @tab @f{_} @tab @term{constituent}
+@item ( @tab @term{terminating} @term{macro char} @tab ` @tab @term{terminating} @term{macro char}
+@item ) @tab @term{terminating} @term{macro char} @tab a--z @tab @term{constituent}
+@item @tt{*} @tab @term{constituent} @tab @f{@lcurly{}} @tab @term{constituent}
+@item + @tab @term{constituent} @tab @f{|} @tab @term{multiple escape}
+@item , @tab @term{terminating} @term{macro char} @tab @f{@rcurly{}} @tab @term{constituent}
+@item - @tab @term{constituent} @tab @f{@tild{}} @tab @term{constituent}
+@item . @tab @term{constituent} @tab Rubout @tab @term{constituent}
+@item / @tab @term{constituent} @tab  @tab
+@end multitable
+@end cartouche
+@caption{Character Syntax Types in Standard Syntax}
+@end float
+
+
+The characters marked with an asterisk (*) are initially @term{constituents},
+but they are not used in any standard @clisp{}@spc{}notations.
+These characters are explicitly reserved to the @term{programmer}.
+@f{@tild{}} is not used in @clisp{}, and reserved to implementors.
+@f{@dollar{}} and @f{@percent{}} are @term{alphabetic}@sub2{} @term{characters},
+but are not used in the names of any standard @clisp{}@spc{}@term{defined names}.
+
+@term{Whitespace}@sub2{} characters serve as separators but are otherwise
+ignored.  @term{Constituent} and @term{escape} @term{characters} are accumulated
+to make a @term{token}, which is then interpreted as a @term{number} or @term{symbol}.
+@term{Macro characters} trigger the invocation of @term{functions} (possibly
+user-supplied) that can perform arbitrary parsing actions.
+@term{Macro characters} are divided into two kinds,
+@term{terminating} and @term{non-terminating},
+depending on whether or not they terminate a @term{token}.
+The following are descriptions of each kind of @term{syntax type}.
+
+@subsubsection Constituent Characters
+@anchor{ConstituentChars}
+
+@term{Constituent} @term{characters} are used in @term{tokens}.
+A @newterm{token} is a representation of a @term{number} or a @term{symbol}.
+Examples of @term{constituent} @term{characters} are letters and digits.
+
+Letters in symbol names are sometimes converted to
+letters in the opposite @term{case} when the name is read;
+see @ref{Effect of Readtable Case on the Lisp Reader, Section 23.1.2 (Effect of Readtable Case on the Lisp Reader)}.
+@term{Case} conversion can be suppressed by the use
+of @term{single escape} or @term{multiple escape} characters.
+
+@subsubsection Constituent Traits
+@anchor{ConstituentTraits}
+
+Every @term{character} has one or more @term{constituent traits}
+that define how the @term{character} is to be interpreted by the @term{Lisp reader}
+when the @term{character} is a @term{constituent} @term{character}.
+These @term{constituent traits} are
+@term{alphabetic}@sub2{},
+digit,
+@term{package marker},
+plus sign,
+minus sign,
+dot,
+decimal point,
+@term{ratio marker},
+@term{exponent marker},
+and @term{invalid}.
+@ref{ConstituentTraitsOfStdChars, Figure 2.8}@spc{}shows the @term{constituent traits}
+of the @term{standard characters}
+and of certain @term{semi-standard} @term{characters};
+no mechanism is provided for changing the @term{constituent trait} of a @term{character}.
+Any @term{character} with the alphadigit @term{constituent trait}
+in that figure is a digit if the @term{current input base} is greater
+than that character's digit value,
+otherwise the @term{character} is @term{alphabetic}@sub2{}.
+Any @term{character} quoted by a @term{single escape}
+is treated as an @term{alphabetic}@sub2{} constituent, regardless of its normal syntax.
+
+
+
+@float Figure,ConstituentTraitsOfStdChars
+@cartouche
+@multitable{@b{constituent}}{@term{alphabetic}@sub2{}*}{@b{constituent}}{alphadigit, double-float @term{exponent marker}}
+
+@item @b{constituent} @tab @b{traits} @tab @b{constituent} @tab @b{traits}
+@item @b{characters} @tab  @tab @b{characters} @tab
+@item Backspace @tab @term{invalid} @tab @f{@lcurly{}} @tab @term{alphabetic}@sub2{}
+@item Tab @tab @term{invalid}* @tab @f{@rcurly{}} @tab @term{alphabetic}@sub2{}
+@item Newline @tab @term{invalid}* @tab + @tab @term{alphabetic}@sub2{}, plus sign
+@item Linefeed @tab @term{invalid}* @tab - @tab @term{alphabetic}@sub2{}, minus sign
+@item Page @tab @term{invalid}* @tab . @tab @term{alphabetic}@sub2{}, dot, decimal point
+@item Return @tab @term{invalid}* @tab / @tab @term{alphabetic}@sub2{}, @term{ratio marker}
+@item Space @tab @term{invalid}* @tab A, a @tab alphadigit
+@item ! @tab @term{alphabetic}@sub2{} @tab B, b @tab alphadigit
+@item @tt{"} @tab @term{alphabetic}@sub2{}* @tab C, c @tab alphadigit
+@item # @tab @term{alphabetic}@sub2{}* @tab D, d @tab alphadigit, double-float @term{exponent marker}
+@item @dollar{} @tab @term{alphabetic}@sub2{} @tab E, e @tab alphadigit, float @term{exponent marker}
+@item @percent{} @tab @term{alphabetic}@sub2{} @tab F, f @tab alphadigit, single-float @term{exponent marker}
+@item @ampers{} @tab @term{alphabetic}@sub2{} @tab G, g @tab alphadigit
+@item ' @tab @term{alphabetic}@sub2{}* @tab H, h @tab alphadigit
+@item ( @tab @term{alphabetic}@sub2{}* @tab I, i @tab alphadigit
+@item ) @tab @term{alphabetic}@sub2{}* @tab J, j @tab alphadigit
+@item @tt{*} @tab @term{alphabetic}@sub2{} @tab K, k @tab alphadigit
+@item , @tab @term{alphabetic}@sub2{}* @tab L, l @tab alphadigit, long-float @term{exponent marker}
+@item 0-9 @tab alphadigit @tab M, m @tab alphadigit
+@item : @tab @term{package marker} @tab N, n @tab alphadigit
+@item ; @tab @term{alphabetic}@sub2{}* @tab O, o @tab alphadigit
+@item @tt{<} @tab @term{alphabetic}@sub2{} @tab P, p @tab alphadigit
+@item = @tab @term{alphabetic}@sub2{} @tab Q, q @tab alphadigit
+@item @tt{>} @tab @term{alphabetic}@sub2{} @tab R, r @tab alphadigit
+@item ? @tab @term{alphabetic}@sub2{} @tab S, s @tab alphadigit, short-float @term{exponent marker}
+@item @f{@@} @tab @term{alphabetic}@sub2{} @tab T, t @tab alphadigit
+@item @f{[} @tab @term{alphabetic}@sub2{} @tab U, u @tab alphadigit
+@item @f{@bsl{}} @tab @term{alphabetic}@sub2{}* @tab V, v @tab alphadigit
+@item @f{]} @tab @term{alphabetic}@sub2{} @tab W, w @tab alphadigit
+@item @hat{} @tab @term{alphabetic}@sub2{} @tab X, x @tab alphadigit
+@item @f{_} @tab @term{alphabetic}@sub2{} @tab Y, y @tab alphadigit
+@item ` @tab @term{alphabetic}@sub2{}* @tab Z, z @tab alphadigit
+@item @f{|} @tab @term{alphabetic}@sub2{}* @tab Rubout @tab @term{invalid}
+@item @f{@tild{}} @tab @term{alphabetic}@sub2{} @tab  @tab
+@end multitable
+@end cartouche
+@caption{Constituent Traits of Standard Characters and Semi-Standard Characters}
+@end float
+
+The interpretations in this table apply only to @term{characters}
+whose @term{syntax type} is @term{constituent}.
+Entries marked with an asterisk (*) are normally @term{shadowed}@sub2{}
+because the indicated @term{characters} are of @term{syntax type}
+@term{whitespace}@sub2{},
+@term{macro character},
+@term{single escape},
+or @term{multiple escape};
+these @term{constituent traits} apply to them only if their @term{syntax types}
+are changed to @term{constituent}.
+
+
+
+@subsubsection Invalid Characters
+
+@term{Characters} with the @term{constituent trait} @term{invalid}
+cannot ever appear in a @term{token}
+except under the control of a @term{single escape} @term{character}.
+If an @term{invalid} @term{character} is encountered while an @term{object} is
+being read, an error @oftype{reader-error} is signaled.
+If an @term{invalid} @term{character} is preceded by a @term{single escape} @term{character},
+it is treated as an @term{alphabetic}@sub2{} @term{constituent} instead.
+
+
+@subsubsection Macro Characters
+@anchor{MacroChars}
+
+When the @term{Lisp reader} encounters a @term{macro character}
+on an @term{input} @term{stream},
+special parsing of subsequent @term{characters}
+on the @term{input} @term{stream}
+is performed.
+
+A @term{macro character} has an associated @term{function}
+called a @newterm{reader macro function} that implements its specialized parsing behavior.
+An association of this kind can be established or modified under control of
+a @term{conforming program} by using
+@thefunctions{set-macro-character} and @code{set-dispatch-macro-character}.
+
+Upon encountering a @term{macro character}, the @term{Lisp reader} calls its
+@term{reader macro function}, which parses one specially formatted object
+from the @term{input} @term{stream}.
+The @term{function} either returns the parsed @term{object},
+or else it returns no @term{values}
+to indicate that the characters scanned by the @term{function}
+are being ignored (@eg{} in the case of a comment).
+Examples of @term{macro characters}
+are @term{backquote}, @term{single-quote}, @term{left-parenthesis}, and
+@term{right-parenthesis}.
+
+A @term{macro character} is either @term{terminating} or @term{non-terminating}.
+The difference between @term{terminating} and @term{non-terminating} @term{macro characters}
+lies in what happens when such characters occur in the middle of a @term{token}.
+If a @newterm{non-terminating} @term{macro character} occurs in the middle of a @term{token},
+the @term{function} associated
+with the @term{non-terminating} @term{macro character} is not called,
+and the
+@term{non-terminating} @term{macro character} does not terminate the @term{token}'s name; it
+becomes part of the name as if the @term{macro character} were really a constituent
+character.  A @newterm{terminating} @term{macro character} terminates any @term{token},
+and its associated @term{reader macro function}
+is called no matter where the @term{character} appears.
+The only @term{non-terminating} @term{macro character} in @term{standard syntax}
+is @term{sharpsign}.
+
+If a @term{character} is a @term{dispatching macro character} @mat{C@sub1{}},
+its @term{reader macro function} is a @term{function} supplied by the @term{implementation}.
+This @term{function} reads decimal @term{digit} @term{characters} until a non-@term{digit}
+@mat{C@sub2{}} is read.
+If any @term{digits} were read,
+they are converted into a corresponding @term{integer} infix parameter @mat{P};
+otherwise, the infix parameter @mat{P} is @nil{}.
+The terminating non-@term{digit} @mat{C@sub2{}} is a @term{character}
+(sometimes called a ``sub-character'' to emphasize its subordinate role in the dispatching)
+that is looked up in the dispatch table associated with
+the @term{dispatching macro character} @mat{C@sub1{}}.
+The @term{reader macro function} associated with the sub-character @mat{C@sub2{}}
+is invoked with three arguments:
+the @term{stream},
+the sub-character @mat{C@sub2{}},
+and the infix parameter @mat{P}.
+For more information about dispatch characters,
+see the @term{function} @ref{set-dispatch-macro-character}.
+
+For information about the @term{macro characters}
+that are available in @term{standard syntax},
+see @ref{Standard Macro Characters, Section 2.4 (Standard Macro Characters)}.
+
+
+@subsubsection Multiple Escape Characters
+@anchor{MultipleEscapeChar}
+
+A pair of @newterm{multiple escape} @term{characters}
+is used to indicate that an enclosed sequence of characters,
+including possible @term{macro characters} and @term{whitespace}@sub2{} @term{characters},
+are to be treated as @term{alphabetic}@sub2{} @term{characters}
+with @term{case} preserved.
+Any @term{single escape} and @term{multiple escape} @term{characters}
+that are to appear in the sequence must be preceded by a @term{single escape}
+@term{character}.
+
+@term{Vertical-bar} is a @term{multiple escape} @term{character}
+in @term{standard syntax}.
+
+@unnumberedsubsubsec 2.1.4.5.1 Examples of Multiple Escape Characters
+
+
+@lisp
+ ;; The following examples assume the readtable case of *readtable*
+ ;; and *print-case* are both :upcase.
+ (eq 'abc 'ABC) @EV{} @term{true}
+ (eq 'abc '|ABC|) @EV{} @term{true}
+ (eq 'abc 'a|B|c) @EV{} @term{true}
+ (eq 'abc '|abc|) @EV{} @term{false}
+@end lisp
+
+
+
+
+@subsubsection Single Escape Character
+@anchor{SingleEscapeChar}
+
+A @newterm{single escape} is used to indicate that
+the next @term{character} is to be treated as
+an @term{alphabetic}@sub2{} @term{character}
+with its @term{case} preserved,
+no matter what the @term{character} is
+or which @term{constituent traits} it has.
+
+@term{Backslash} is a @term{single escape} @term{character} in @term{standard syntax}.
+
+@unnumberedsubsubsec 2.1.4.6.1 Examples of Single Escape Characters
+
+
+@lisp
+ ;; The following examples assume the readtable case of *readtable*
+ ;; and *print-case* are both :upcase.
+ (eq 'abc '@bsl{}A@bsl{}B@bsl{}C) @EV{} @term{true}
+ (eq 'abc 'a@bsl{}Bc) @EV{} @term{true}
+ (eq 'abc '@bsl{}ABC) @EV{} @term{true}
+ (eq 'abc '@bsl{}abc) @EV{} @term{false}
+@end lisp
+
+
+
+
+@subsubsection Whitespace Characters
+@anchor{WhitespaceChars}
+
+@term{Whitespace}@sub2{} @term{characters} are used to separate @term{tokens}.
+
+@term{Space} and @term{newline} are @term{whitespace}@sub2{} @term{characters}
+in @term{standard syntax}.
+
+@unnumberedsubsubsec 2.1.4.7.1 Examples of Whitespace Characters
+
+
+@lisp
+ (length '(this-that)) @EV{} 1
+ (length '(this - that)) @EV{} 3
+ (length '(a
+           b)) @EV{} 2
+ (+ 34) @EV{} 34
+ (+ 3 4) @EV{} 7
+@end lisp
+
+
+
+
+
+@node Reader Algorithm
+@section Reader Algorithm
+
+This section describes the algorithm used by the @term{Lisp reader}
+to parse @term{objects} from an @term{input} @term{character} @term{stream},
+including how the @term{Lisp reader} processes @term{macro characters}.
+
+When dealing with @term{tokens}, the reader's basic function is to distinguish
+representations of @term{symbols} from those of @term{numbers}.
+When a @term{token} is accumulated, it is assumed to represent a @term{number} if it
+satisfies the syntax for numbers listed in @ref{SyntaxForNumericTokens, Figure 2.9}.
+If it does not represent a @term{number},
+it is then assumed to be a @term{potential number}
+if it satisfies the rules governing the syntax for a @term{potential number}.
+If a valid @term{token} is neither a representation of a @term{number}
+nor a @term{potential number},
+it represents a @term{symbol}.
+
+The algorithm performed by the @term{Lisp reader} is as follows:
+
+
+@enumerate 1
+@item
+If at end of file, end-of-file processing is performed as specified
+in @code{read}.
+Otherwise,
+one @term{character}, @param{x},  is read from the @term{input} @term{stream}, and
+dispatched according to the @term{syntax type} of @param{x} to one
+of steps 2 to 7.
+
+@item
+If @param{x} is an @term{invalid} @term{character},
+an error @oftype{reader-error} is signaled.
+
+@item
+If @param{x} is a @term{whitespace}@sub2{} @term{character},
+then it is discarded and step 1 is re-entered.
+
+@item
+If @param{x} is a @term{terminating} or @term{non-terminating} @term{macro character}
+then its associated @term{reader macro function} is called with two @term{arguments},
+the @term{input} @term{stream} and @param{x}.
+
+The @term{reader macro function} may read @term{characters}
+from the @term{input} @term{stream};
+if it does, it will see those @term{characters} following the @term{macro character}.
+The @term{Lisp reader} may be invoked recursively from the @term{reader macro function}.
+
+The @term{reader macro function} must not have any side effects other than on the
+@term{input} @term{stream};
+because of backtracking and restarting of the @code{read} operation,
+front ends to the @term{Lisp reader} (@eg{} ``editors'' and ``rubout handlers'')
+may cause the @term{reader macro function} to be called repeatedly during the
+reading of a single @term{expression} in which @param{x} only appears once.
+
+The @term{reader macro function} may return zero values or one value.
+If one value is returned,
+then that value is returned as the result of the read operation;
+the algorithm is done.
+If zero values are returned, then step 1 is re-entered.
+
+@item
+If @param{x} is a @term{single escape} @term{character}
+then the next @term{character}, @param{y}, is read, or an error @oftype{end-of-file}
+is signaled if at the end of file.
+@param{y} is treated as if it is a @term{constituent}
+whose only @term{constituent trait} is @term{alphabetic}@sub2{}.
+@param{y} is used to begin a @term{token}, and step 8 is entered.
+
+@item
+If @param{x} is a @term{multiple escape} @term{character}
+then a @term{token} (initially
+containing no @term{characters}) is  begun and step 9 is entered.
+
+@item
+If @param{x} is a @term{constituent} @term{character}, then it begins a @term{token}.
+After the @term{token} is read in, it will be interpreted
+either as a @Lisp{}@spc{}@term{object} or as being of invalid syntax.
+If the @term{token} represents an @term{object},
+that @term{object} is returned as the result of the read operation.
+If the @term{token} is of invalid syntax, an error is signaled.
+If @param{x} is a @term{character} with @term{case},
+it might be replaced with the corresponding @term{character} of the opposite @term{case},
+depending on the @term{readtable case} of the @term{current readtable},
+as outlined in @ref{Effect of Readtable Case on the Lisp Reader, Section 23.1.2 (Effect of Readtable Case on the Lisp Reader)}.
+@param{X} is used to begin a @term{token}, and step 8 is entered.
+
+@item
+At this point a @term{token} is being accumulated, and an even number
+of @term{multiple escape} @term{characters} have been encountered.
+If at end of file, step 10 is entered.
+Otherwise, a @term{character}, @param{y}, is read, and
+one of the following actions is performed according to its @term{syntax type}:
+
+
+@itemize @bullet{}
+@item
+If @param{y} is a @term{constituent} or @term{non-terminating} @term{macro character}:
+
+@itemize --
+@item
+If @param{y} is a @term{character} with @term{case},
+it might be replaced with the corresponding @term{character} of the opposite @term{case},
+depending on the @term{readtable case} of the @term{current readtable},
+as outlined in @ref{Effect of Readtable Case on the Lisp Reader, Section 23.1.2 (Effect of Readtable Case on the Lisp Reader)}.
+@item
+@param{Y} is appended to the @term{token} being built.
+@item
+Step 8 is repeated.
+@end itemize
+
+
+@item
+If @param{y} is a @term{single escape} @term{character}, then the next @term{character},
+@param{z}, is read, or an error @oftype{end-of-file} is signaled if at end of file.
+@param{Z} is treated as if it is a @term{constituent}
+whose only @term{constituent trait} is @term{alphabetic}@sub2{}.
+@param{Z} is appended to the @term{token} being built,
+and step 8 is repeated.
+
+@item
+If @param{y} is a @term{multiple escape} @term{character},
+then step 9 is entered.
+
+@item
+If @param{y} is an @term{invalid} @term{character},
+an error @oftype{reader-error} is signaled.
+
+@item
+If @param{y} is a @term{terminating} @term{macro character},
+then it terminates the @term{token}.
+First the @term{character} @param{y} is unread (see @code{unread-char}),
+and then step 10 is entered.
+
+@item
+If @param{y} is a @term{whitespace}@sub2{} @term{character}, then it terminates
+the @term{token}.  First the @term{character} @param{y} is unread
+if appropriate (see @code{read-preserving-whitespace}),
+and then step 10 is entered.
+@end itemize
+
+
+@item
+At this point a @term{token} is being accumulated, and an odd number
+of @term{multiple escape} @term{characters} have been encountered.
+If at end of file, an error @oftype{end-of-file} is signaled.
+Otherwise, a @term{character}, @param{y}, is read, and
+one of the following actions is performed according to its @term{syntax type}:
+
+
+@itemize @bullet{}
+@item
+If @param{y} is a @term{constituent}, macro, or @term{whitespace}@sub2{} @term{character},
+@param{y} is treated as a @term{constituent}
+whose only @term{constituent trait} is @term{alphabetic}@sub2{}.
+@param{Y} is appended to the @term{token} being built, and step 9 is repeated.
+
+@item
+If @param{y} is a @term{single escape} @term{character}, then the next @term{character},
+@param{z}, is read, or an error @oftype{end-of-file} is signaled if at end of file.
+@param{Z} is treated as a @term{constituent}
+whose only @term{constituent trait} is @term{alphabetic}@sub2{}.
+@param{Z} is appended to the @term{token} being built,
+and step 9 is repeated.
+
+@item
+If @param{y} is a @term{multiple escape} @term{character},
+then step 8 is entered.
+
+@item
+If @param{y} is an @term{invalid} @term{character},
+an error @oftype{reader-error} is signaled.
+@end itemize
+
+
+@item
+An entire @term{token} has been accumulated.
+The @term{object} represented by the @term{token} is returned
+as the result of the read operation,
+or an error @oftype{reader-error} is signaled if the @term{token} is not of valid syntax.
+@end enumerate
+
+
+
+@node Interpretation of Tokens
+@section Interpretation of Tokens
+
+@menu
+* Numbers as Tokens::
+* Constructing Numbers from Tokens::
+* The Consing Dot::
+* Symbols as Tokens::
+* Valid Patterns for Tokens::
+* Package System Consistency Rules::
+@end menu
+@node Numbers as Tokens
+@subsection Numbers as Tokens
+
+When a @term{token} is read,
+it is interpreted as a @term{number} or @term{symbol}.
+The @term{token} is interpreted as a @term{number} if it satisfies
+the syntax for numbers specified in @thenextfigure{}.
+
+
+
+@float Figure,SyntaxForNumericTokens
+@cartouche
+@multitable{@param{numeric-token}}{::@mat{=}}{| @ttbrac{@param{sign}} @plus{@curly{@param{decimal-digit}}}  @ttbrac{@param{decimal-point}  @star{@curly{@param{decimal-digit}}}} @down{exponent}}
+
+@item @param{numeric-token} @tab ::@mat{=} @tab @down{integer} @mat{@vert{}}
+@down{ratio}   @mat{@vert{}}
+@down{float}
+@item @param{integer} @tab ::@mat{=} @tab @ttbrac{@param{sign}}
+@plusparam{decimal-digit}
+@param{decimal-point} @mat{@vert{}}
+@ttbrac{@param{sign}}
+@plusparam{digit}
+@item @param{ratio} @tab ::@mat{=} @tab @ttbrac{@param{sign}}
+@plus{@curly{@param{digit}}}
+@param{slash}
+@plus{@curly{@param{digit}}}
+@item @param{float} @tab ::@mat{=} @tab @ttbrac{@param{sign}}
+@star{@curly{@param{decimal-digit}}}
+@param{decimal-point}
+@plus{@curly{@param{decimal-digit}}}
+@ttbrac{@down{exponent}}
+@item  @tab  @tab | @ttbrac{@param{sign}} @plus{@curly{@param{decimal-digit}}}  @ttbrac{@param{decimal-point}  @star{@curly{@param{decimal-digit}}}} @down{exponent}
+@item @param{exponent} @tab ::@mat{=} @tab @param{exponent-marker}
+@ttbrac{@param{sign}}
+@plus{@curly{@param{digit}}}
+@end multitable
+@end cartouche
+@caption{Syntax for Numeric Tokens}
+@end float
+
+@param{sign}---a @term{sign}.@span{}@span{}@cr{}
+@param{slash}---a @term{slash}@span{}@span{}@cr{}
+@param{decimal-point}---a @term{dot}.@span{}@span{}@cr{}
+@param{exponent-marker}---an @term{exponent marker}.@span{}@span{}@cr{}
+@param{decimal-digit}---a @term{digit} in @term{radix} @f{10}.@span{}@span{}@cr{}
+@param{digit}---a @term{digit} in the @term{current input radix}.@span{}@span{}@cr{}
+
+@subsubsection Potential Numbers as Tokens
+@anchor{PotentialNumbersAsTokens}
+
+To allow implementors and future @clisp{}@spc{}standards
+to extend the syntax of numbers, a
+syntax for @term{potential numbers} is defined that is
+more general than the syntax for numbers.
+A @term{token} is a @term{potential number} if it satisfies all of the following
+requirements:
+
+
+@enumerate 1
+@item
+The @term{token} consists entirely of
+@term{digits},
+@term{signs},
+@term{ratio markers},
+decimal points (@f{.}),
+extension characters (@hat{}@spc{}or @f{_}),
+and number markers.
+A number marker is a letter.
+Whether a letter may be treated as a number marker depends on context,
+but no letter that is adjacent to another letter may ever be treated as a number marker.
+@term{Exponent markers} are number markers.
+
+@item
+The @term{token} contains at least one digit.  Letters may be considered to be
+digits, depending on the @term{current input base}, but only
+in @term{tokens} containing no decimal points.
+
+@item
+The @term{token} begins with a @term{digit}, @term{sign}, decimal point, or extension character,
+@reviewer{Barmar: This section is unnecessary because the first bullet already
+omits discussion of a colon (@term{package marker}).}
+but not a
+@term{package marker}.
+The syntax involving a leading
+@term{package marker} followed by a @term{potential number} is
+not well-defined. The consequences of the use
+of notation such as @f{:1}, @f{:1/2}, and @f{:2@hat{}3} in a
+position where an expression appropriate for @code{read}
+is expected are unspecified.
+
+@item
+The @term{token} does not end with a sign.
+@end enumerate
+
+
+If a @term{potential number} has number syntax,
+a @term{number} of the appropriate type is constructed and returned,
+if the @term{number} is representable in an implementation.
+A @term{number} will not be representable in an implementation
+if it is outside the boundaries set by the @term{implementation-dependent}
+constants for @term{numbers}.
+For example, specifying too large or too small an exponent for a @term{float}
+may make the @term{number} impossible to represent in the implementation.
+A @term{ratio} with denominator zero (such as @f{-35/000})
+is not represented in any implementation.
+When a @term{token} with the syntax of a number cannot be converted to an internal
+@term{number}, an error @oftype{reader-error} is signaled.  An error
+must not be signaled for specifying too many significant digits
+for a @term{float}; a truncated or rounded value should be produced.
+
+If there is an ambiguity as to whether
+a letter should be treated as a digit or as a number marker,
+the letter is treated as a digit.
+
+@unnumberedsubsubsec 2.3.1.1.1 Escape Characters and Potential Numbers
+
+@anchor{EscCharsAndPotentialNums}
+
+A @term{potential number} cannot contain any @term{escape}
+@term{characters}.  An @term{escape} @term{character} robs the following
+@term{character} of all syntactic qualities, forcing it to be strictly
+@term{alphabetic}@sub2{} and therefore unsuitable for use in a
+@term{potential number}.  For example, all of the following
+representations are interpreted as @term{symbols}, not @term{numbers}:
+
+@lisp
+ @bsl{}256   25@bsl{}64   1.0@bsl{}E6   |100|   3@bsl{}.14159   |3/4|   3@bsl{}/4   5||
+@end lisp
+
+
+In each case, removing the @term{escape} @term{character} (or @term{characters})
+would
+cause the token to be a @term{potential number}.
+
+
+@unnumberedsubsubsec 2.3.1.1.2 Examples of Potential Numbers
+
+
+As examples, the @term{tokens} in @thenextfigure{}@spc{}are @term{potential numbers},
+but they are not actually numbers, and so are reserved @term{tokens};
+a @term{conforming implementation} is permitted, but not required,
+to define their meaning.
+
+
+@float Figure,fig2.10
+@cartouche
+@multitable{xxxxxxxxxxxxxxxxxxxxxxxxxxxxx}{xxxxxxxxx}{xxxxxx}{xxxxxxxxxxx}{xxxxxxxxxx}
+
+@item @f{1b5000} @tab @f{777777q} @tab @f{1.7J} @tab @f{-3/4+6.7J} @tab @f{12/25/83}
+@item @f{27@hat{}19} @tab @f{3@hat{}4/5} @tab @f{6//7} @tab @f{3.1.2.6} @tab @f{@hat{}-43@hat{}}
+@item @f{3.141_592_653_589_793_238_4} @tab @f{-3.7+2.6i-6.17j+19.6k} @tab  @tab  @tab
+@end multitable
+@end cartouche
+@caption{Examples of reserved tokens}
+@end float
+
+
+The @term{tokens} in @thenextfigure{}@spc{}are not @term{potential numbers};
+they are always treated as @term{symbols}:
+
+
+@float Figure,fig2.11
+@cartouche
+@multitable{@f{foo+}}{@f{ab.cd}}{@f{+}}{@f{@hat{}}}{@f{@hat{}/-}}
+
+@item @f{/} @tab @f{/5} @tab @f{+} @tab @f{1+} @tab @f{1-}
+@item @f{foo+} @tab @f{ab.cd} @tab @f{_} @tab @f{@hat{}} @tab @f{@hat{}/-}
+@end multitable
+@end cartouche
+@caption{Examples of symbols}
+@end float
+
+
+The @term{tokens} in @thenextfigure{}@spc{}are @term{potential numbers}
+if the @term{current input base} is @f{16},
+but they are always treated as @term{symbols} if the @term{current input base} is @f{10}.
+
+
+@float Figure,fig2.12
+@cartouche
+@multitable{@f{bad-face}}{@f{25-dec-83}}{@f{a/b}}{@f{fad_cafe}}{@f{f@hat{}}}
+
+@item @f{bad-face} @tab @f{25-dec-83} @tab @f{a/b} @tab @f{fad_cafe} @tab @f{f@hat{}}
+@end multitable
+@end cartouche
+@caption{Examples of symbols or potential numbers}
+@end float
+
+
+
+
+
+@node Constructing Numbers from Tokens
+@subsection Constructing Numbers from Tokens
+
+A @term{real} is constructed directly from a corresponding numeric @term{token};
+see @ref{SyntaxForNumericTokens, Figure 2.9}.
+
+A @term{complex} is notated as a @f{#C} (or @f{#c}) followed by a @term{list}
+of two @term{reals}; see @ref{SharpsignC, Section 2.4.8.11 (Sharpsign C)}.
+
+The @term{reader macros} @f{#B}, @f{#O}, @f{#X}, and @f{#R} may also be useful
+in controlling the input @term{radix} in which @term{rationals} are parsed;
+see @ref{SharpsignB, Section 2.4.8.7 (Sharpsign B)},
+@ref{SharpsignO, Section 2.4.8.8 (Sharpsign O)},
+@ref{SharpsignX, Section 2.4.8.9 (Sharpsign X)},
+and @ref{SharpsignR, Section 2.4.8.10 (Sharpsign R)}.
+
+This section summarizes the full syntax for @term{numbers}.
+
+@subsubsection Syntax of a Rational
+
+@unnumberedsubsubsec 2.3.2.1.1 Syntax of an Integer
+
+@anchor{SyntaxOfIntegers}
+
+@term{Integers} can be written as a sequence of @term{digits},
+optionally preceded by a @term{sign} and optionally followed by a decimal point;
+see @ref{SyntaxForNumericTokens, Figure 2.9}.
+When a decimal point is used,
+the @term{digits} are taken to be in @term{radix} @f{10};
+when no decimal point is used,
+the @term{digits} are taken to be in radix given by the @term{current input base}.
+
+For information on how @term{integers} are printed, see @ref{PrintingIntegers, Section 22.1.3.1.1 (Printing Integers)}.
+
+
+@unnumberedsubsubsec 2.3.2.1.2 Syntax of a Ratio
+
+@anchor{SyntaxOfRatios}
+
+@term{Ratios} can be written as an optional @term{sign} followed by two
+non-empty sequences of @term{digits} separated by a @term{slash};
+see @ref{SyntaxForNumericTokens, Figure 2.9}.
+The second sequence may not consist
+entirely of zeros.
+Examples of @term{ratios} are in @thenextfigure{}.
+
+
+@float Figure,fig2.13
+@cartouche
+@multitable{@f{-30517578125/32768}}{;Hexadecimal notation for @mat{1027565/16435934}}
+
+@item @f{2/3} @tab ;This is in canonical form
+@item @f{4/6} @tab ;A non-canonical form for 2/3
+@item @f{-17/23} @tab ;A ratio preceded by a sign
+@item @f{-30517578125/32768} @tab ;This is @mat{(-5/2)^15}
+@item @f{10/5} @tab ;The canonical form for this is @f{2}
+@item @f{#o-101/75} @tab ;Octal notation for @mat{-65/61}
+@item @f{#3r120/21} @tab ;Ternary notation for @mat{15/7}
+@item @f{#Xbc/ad} @tab ;Hexadecimal notation for @mat{188/173}
+@item @f{#xFADED/FACADE} @tab ;Hexadecimal notation for @mat{1027565/16435934}
+@end multitable
+@end cartouche
+@caption{Examples of Ratios}
+@end float
+
+
+@reviewer{Barmar: #o, #3r, #X, and #x mentioned above
+are not in the syntax rules defined just above that.}
+
+For information on how @term{ratios} are printed,
+see @ref{PrintingRatios, Section 22.1.3.1.2 (Printing Ratios)}.
+
+
+
+@subsubsection Syntax of a Float
+@anchor{SyntaxOfFloats}
+
+@term{Floats} can be written in either decimal fraction or computerized
+scientific notation: an optional sign, then a non-empty sequence of digits
+with an embedded decimal point,
+then an optional decimal exponent specification.
+If there is no exponent specifier, then
+the decimal point is required, and there must be digits
+after it.
+The exponent specifier consists of an @term{exponent marker},
+an optional sign, and a non-empty sequence of digits.
+If no exponent specifier is present, or if the @term{exponent marker} @f{e}
+(or @f{E}) is used, then
+the format specified
+by @code{*read-default-float-format*} is used.
+See @ref{SyntaxForNumericTokens, Figure 2.9}.
+
+An implementation may provide one or more kinds of @term{float}
+that collectively make up @thetype{float}.
+The letters @f{s}, @f{f}, @f{d}, and @f{l} (or their
+respective uppercase equivalents) explicitly specify the
+use of the @term{types} @code{short-float}, @code{single-float},
+@code{double-float}, and @code{long-float}, respectively.
+
+The internal format used for an external representation depends only
+on the @term{exponent marker}, and not on the number of decimal digits
+in the external representation.
+
+@Thenextfigure{}@spc{}contains examples of notations for @term{floats}:
+
+
+@float Figure,fig2.14
+@cartouche
+@multitable{@f{6.02E+23}}{; (or as @f{0.0} if @t{short-float} was the default format).}
+
+@item @f{0.0} @tab ;Floating-point zero in default format
+@item @f{0E0} @tab ;As input, this is also floating-point zero in default format.
+@item  @tab ;As output, this would appear as @f{0.0}.
+@item @f{0e0} @tab ;As input, this is also floating-point zero in default format.
+@item  @tab ;As output, this would appear as @f{0.0}.
+@item @f{-.0} @tab ;As input, this might be a zero or a minus zero,
+@item  @tab ; depending on whether the implementation supports
+@item  @tab ; a distinct minus zero.
+@item  @tab ;As output, @f{0.0} is zero and @f{-0.0} is minus zero.
+@item @f{0.} @tab ;On input, the integer zero---@i{not} a floating-point number!
+@item  @tab ;Whether this appears as @f{0} or @f{0.} on output depends
+@item  @tab ;on @thevalueof{*print-radix*}.
+@item @f{0.0s0} @tab ;A floating-point zero in short format
+@item @f{0s0} @tab ;As input, this is a floating-point zero in short format.
+@item  @tab ;As output, such a zero would appear as @f{0.0s0}
+@item  @tab ; (or as @f{0.0} if @t{short-float} was the default format).
+@item @f{6.02E+23} @tab ;Avogadro's number, in default format
+@item @f{602E+21} @tab ;Also Avogadro's number, in default format
+@end multitable
+@end cartouche
+@caption{Examples of Floating-point numbers}
+@end float
+
+
+For information on how @term{floats} are printed,
+see @ref{PrintingFloats, Section 22.1.3.1.3 (Printing Floats)}.
+
+
+@subsubsection Syntax of a Complex
+@anchor{SyntaxOfComplexes}
+
+A @term{complex} has a Cartesian structure,
+with a real part and an imaginary part each of which is a
+@term{real}.
+The parts of a @term{complex} are not necessarily @term{floats}
+but both parts must be of the same @term{type}:
+@editornote{KMP: This is not the same as saying they must be the same type.
+Maybe we mean they are of the same `precision' or `format'?
+GLS had suggestions which are not yet merged.}
+either both are @term{rationals}, or both are of the same @term{float} @term{subtype}.
+When constructing a @term{complex}, if the specified parts are not the
+same @term{type}, the parts are converted to be the same @term{type}
+internally (@ie{} the @term{rational} part is converted to a @term{float}).
+An @term{object} of type @f{(complex rational)} is converted internally
+and represented thereafter as a @term{rational} if its imaginary part is an
+@term{integer} whose value is 0.
+
+For further information, see @ref{SharpsignC, Section 2.4.8.11 (Sharpsign C)}@spc{}and @ref{PrintingComplexes, Section 22.1.3.1.4 (Printing Complexes)}.
+
+
+
+@node The Consing Dot
+@subsection The Consing Dot
+
+If a @term{token} consists solely of dots (with no escape characters),
+then an error @oftype{reader-error} is signaled,
+except in one circumstance:
+if the @term{token} is a single @term{dot}
+and appears in a situation where @term{dotted pair} notation permits a @term{dot},
+then it is accepted as part of such syntax and no error is signaled.
+See @ref{Left-Parenthesis, Section 2.4.1 (Left-Parenthesis)}.
+
+
+@node Symbols as Tokens
+@subsection Symbols as Tokens
+
+Any @term{token} that is not a @term{potential number},
+does not contain a @term{package marker},
+and does not consist entirely of dots
+will always be interpreted as a @term{symbol}.
+Any @term{token} that is a @term{potential number} but does not fit the
+number syntax is a reserved @term{token} and
+has an @term{implementation-dependent} interpretation.
+In all other cases, the @term{token} is construed to be the name of a @term{symbol}.
+
+Examples of the printed representation of @term{symbols} are in @thenextfigure{}.
+For presentational simplicity,
+these examples assume that
+the @term{readtable case} of the @term{current readtable} is @kwd{upcase}.
+
+
+@float Figure,fig2.15
+@cartouche
+@multitable{@f{3.14159265@bsl{}s0}}{A different @term{symbol},  whose @term{name} is @f{3.14159265S0}.}
+
+@item @f{FROBBOZ} @tab The @term{symbol} whose @term{name} is @f{FROBBOZ}.
+@item @f{frobboz} @tab Another way to notate the same @term{symbol}.
+@item @f{fRObBoz} @tab Yet another way to notate it.
+@item @f{unwind-protect} @tab A @term{symbol} with a hyphen in its @term{name}.
+@item @f{+@dollar{}} @tab The @term{symbol} named @f{+@dollar{}}.
+@item @f{1+} @tab The @term{symbol} named @f{1+}.
+@item @f{+1} @tab This is the @term{integer} @f{1},
+not a @term{symbol}.
+@item @f{pascal_style} @tab This @term{symbol} has an underscore
+in its @term{name}.
+@item @f{file.rel.43} @tab This @term{symbol} has periods in its @term{name}.
+@item @f{@bsl{}(} @tab The @term{symbol} whose @term{name} is @f{(}.
+@item @f{@bsl{}+1} @tab The @term{symbol} whose @term{name} is @f{+1}.
+@item @f{+@bsl{}1} @tab Also the @term{symbol} whose @term{name} is @f{+1}.
+@item @f{@bsl{}frobboz} @tab The @term{symbol} whose @term{name} is @f{fROBBOZ}.
+@item @f{3.14159265@bsl{}s0} @tab The @term{symbol} whose @term{name}
+is @f{3.14159265s0}.
+@item @f{3.14159265@bsl{}S0} @tab A different @term{symbol},  whose @term{name} is @f{3.14159265S0}.
+@item @f{3.14159265s0} @tab A possible @term{short float}
+approximation to @mat{@pi{}}.
+@end multitable
+@end cartouche
+@caption{Examples of the printed representation of symbols (Part 1 of 2)}
+@end float
+
+
+
+@float Figure,fig2.16
+@cartouche
+@multitable{@f{@bsl{}(@bsl{}b@hat{}2@bsl{})\@spc{}-@bsl{}4*@bsl{}a*@bsl{}c}}{Also the @term{symbol} whose @term{name}  is @f{APL@bsl{}360}.}
+
+@item @f{APL@bsl{}@bsl{}360} @tab The @term{symbol} whose @term{name}
+is @f{APL@bsl{}360}.
+@item @f{apl@bsl{}@bsl{}360} @tab Also the @term{symbol} whose @term{name}  is @f{APL@bsl{}360}.
+@item @f{@bsl{}(b@hat{}2@bsl{})\@spc{}-\@spc{}4*a@f{*c}} @tab The @term{name} is @f{(B@hat{}2) - 4*A*C}.
+@item  @tab Parentheses and two spaces in it.
+@item @f{@bsl{}(@bsl{}b@hat{}2@bsl{})\@spc{}-@bsl{}4*@bsl{}a*@bsl{}c} @tab The @term{name} is @f{(b@hat{}2) - 4*a*c}.
+@item  @tab Letters explicitly lowercase.
+@item @f{|"|} @tab The same as writing @f{@bsl{}"}.
+@item @f{|(b@hat{}2) - 4*a*c|} @tab The @term{name} is @f{(b@hat{}2) - 4*a*c}.
+@item @f{|frobboz|} @tab The @term{name} is @f{frobboz}, not @f{FROBBOZ}.
+@item @f{|APL@bsl{}360|} @tab The @term{name} is @f{APL360}.
+@item @f{|APL@bsl{}@bsl{}360|} @tab The @term{name} is @f{APL@bsl{}360}.
+@item @f{|apl@bsl{}@bsl{}360|} @tab The @term{name} is @f{apl@bsl{}360}.
+@item @f{|@bsl{}|@bsl{}||} @tab Same as @f{@bsl{}|@bsl{}|} ---the @term{name} is @f{||}.
+@item @f{|(B@hat{}2) - 4*A*C|} @tab The @term{name} is @f{(B@hat{}2) - 4*A*C}.
+@item  @tab Parentheses and two spaces in it.
+@item @f{|(b@hat{}2) - 4*a*c|} @tab The @term{name} is @f{(b@hat{}2) - 4*a*c}.
+@end multitable
+@end cartouche
+@caption{Examples of the printed representation of symbols (Part 2 of 2)}
+@end float
+
+
+In the process of parsing a @term{symbol},
+it is @term{implementation-dependent} which
+@term{implementation-defined} @term{attributes} are removed
+from the @term{characters} forming a @term{token} that represents a @term{symbol}.
+
+When parsing the syntax for a @term{symbol},
+the @term{Lisp reader} looks up the @term{name} of that @term{symbol}
+in the @term{current package}.
+This lookup may involve looking in other
+@term{packages} whose @term{external symbols}
+are inherited by the @term{current package}.  If the name is found,
+the corresponding @term{symbol} is returned.  If the name is not found
+(that is, there is no @term{symbol}
+of that name @term{accessible} in the @term{current package}),
+a new @term{symbol} is created and is placed in the @term{current package}
+as an @term{internal symbol}.  The @term{current package} becomes the owner
+(@term{home package}) of the @term{symbol},
+and the @term{symbol} becomes interned in the @term{current package}.
+If the name is later read again while this same @term{package} is
+current, the same @term{symbol} will be found and returned.
+
+
+@node Valid Patterns for Tokens
+@subsection Valid Patterns for Tokens
+
+The valid patterns for @term{tokens} are summarized in @thenextfigure{}.
+
+
+@float Figure,fig2.17
+@cartouche
+@multitable{@f{@i{aaaaa}:@i{aaaaa}:@i{aaaaa}}}{a (possibly internal) @term{symbol}  in the @i{ppppp} @term{package}}
+
+@item @f{@i{nnnnn}} @tab a @term{number}
+@item @f{@i{xxxxx}} @tab a @term{symbol} in the @term{current package}
+@item @f{:@i{xxxxx}} @tab a @term{symbol} in the the @code{KEYWORD} @term{package}
+@item @f{@i{ppppp}:@i{xxxxx}} @tab an @term{external symbol}
+in the @i{ppppp} @term{package}
+@item @f{@i{ppppp}::@i{xxxxx}} @tab a (possibly internal) @term{symbol}  in the @i{ppppp} @term{package}
+@item @f{:@i{nnnnn}} @tab undefined
+@item @f{@i{ppppp}:@i{nnnnn}} @tab undefined
+@item @f{@i{ppppp}::@i{nnnnn}} @tab undefined
+@item @f{::@i{aaaaa}} @tab undefined
+@item @f{@i{aaaaa}:} @tab undefined
+@item @f{@i{aaaaa}:@i{aaaaa}:@i{aaaaa}} @tab undefined
+@end multitable
+@end cartouche
+@caption{Valid patterns for tokens}
+@end float
+
+
+Note that @i{nnnnn} has number syntax,
+neither @i{xxxxx} nor @i{ppppp} has number syntax,
+and @i{aaaaa} has any syntax.
+
+A summary of rules concerning @term{package markers} follows.
+In each case, examples are offered to illustrate the case;
+for presentational simplicity, the examples assume that
+the @term{readtable case} of the @term{current readtable} is @kwd{upcase}.
+
+
+@enumerate 1
+@item
+If there is a single @term{package marker}, and it occurs at the beginning of the
+@term{token}, then the @term{token} is interpreted as a @term{symbol} in the @code{KEYWORD} @term{package}.
+It also sets the @code{symbol-value} of the newly-created @term{symbol} to that
+same @term{symbol} so that the @term{symbol} will self-evaluate.
+
+For example,
+@f{:bar}, when read, interns @f{BAR} as an @term{external symbol} in the @code{KEYWORD} @term{package}.
+
+@item
+If there is a single @term{package marker} not at the beginning or end of the
+@term{token}, then it divides the @term{token} into two parts.  The first part
+specifies a @term{package};
+the second part is the name of an @term{external symbol}
+available in that package.
+
+For example,
+@f{foo:bar}, when read, looks up @f{BAR} among the @term{external symbols} of
+the @term{package} named @f{FOO}.
+
+@item
+If there are two adjacent @term{package markers} not at the beginning or end of the
+@term{token}, then they divide the @term{token} into two parts.  The first part
+specifies a @term{package};
+the second part is the name of a @term{symbol} within
+that @term{package} (possibly an @term{internal symbol}).
+
+For example,
+@f{foo::bar}, when read, interns @f{BAR} in the @term{package} named @f{FOO}.
+
+@item
+If the @term{token} contains no @term{package markers},
+and does not have @term{potential number} syntax,
+then the entire @term{token} is the name of the @term{symbol}.
+The @term{symbol} is looked up in the @term{current package}.
+
+For example,
+@f{bar}, when read, interns @f{BAR} in the @term{current package}.
+
+@item
+The consequences are unspecified if any other pattern of @term{package markers}
+in a @term{token} is used.
+All other uses of @term{package markers} within names of @term{symbols}
+are not defined by this standard
+but are reserved for @term{implementation-dependent} use.
+@end enumerate
+
+
+For example,
+assuming the @term{readtable case} of the @term{current readtable} is @kwd{upcase},
+@f{editor:buffer} refers to the @term{external symbol}
+named @f{BUFFER} present in the @term{package} named @f{editor},
+regardless of whether there is a @term{symbol} named @f{BUFFER} in
+the @term{current package}.  If there is no @term{package} named
+@f{editor}, or if no @term{symbol} named @f{BUFFER}
+is present in @f{editor}, or if @f{BUFFER} is not exported by
+@f{editor}, the reader signals
+a correctable error.
+If @f{editor::buffer} is seen, the effect is exactly the same as
+reading @f{buffer} with the @code{EDITOR} @term{package} being the @term{current package}.
+
+
+@node Package System Consistency Rules
+@subsection Package System Consistency Rules
+
+The following rules apply to the package system as long as
+@thevalueof{*package*} is not changed:
+
+
+@table @asis
+@item @id{@b{Read-read consistency}}
+
+
+Reading the same @term{symbol} @term{name}
+always results in the @term{same} @term{symbol}.
+
+@item @id{@b{Print-read consistency}}
+
+
+An @term{interned symbol} always prints as a sequence of characters that,
+when read back in, yields the @term{same} @term{symbol}.
+
+For information about how the @term{Lisp printer} treats @term{symbols},
+see @ref{PrintingSymbols, Section 22.1.3.3 (Printing Symbols)}.
+
+@item @id{@b{Print-print consistency}}
+
+
+If two interned @term{symbols} are not the @term{same},
+then their printed representations will be different sequences of characters.
+@end table
+
+
+These rules are true regardless of any implicit interning.
+As long as the @term{current package} is not changed,
+results are reproducible regardless of the order of @term{loading} files
+or the exact history of what @term{symbols} were typed in when.
+If @thevalueof{*package*} is changed and then changed back to the previous value,
+consistency is maintained.
+The rules can be violated by
+changing @thevalueof{*package*},
+forcing a change to @term{symbols}
+or to @term{packages}
+or to both
+by continuing from an error,
+or calling one of the following @term{functions}:
+@code{unintern},
+@code{unexport},
+@code{shadow},
+@code{shadowing-import},
+or @code{unuse-package}.
+
+An inconsistency only applies if one of the restrictions is violated
+between two of the named @term{symbols}.
+@code{shadow}, @code{unexport}, @code{unintern},
+and @code{shadowing-import} can only affect the consistency of
+@term{symbols} with the same @term{names} (under @code{string=})
+as the ones supplied as arguments.
+
+
+@node Standard Macro Characters
+@section Standard Macro Characters
+
+If the reader encounters a @term{macro character},
+then its associated @term{reader macro function}
+is invoked and may produce an @term{object} to be returned.
+This @term{function} may read the @term{characters}
+following the @term{macro character} in the @term{stream}
+in any syntax and return the @term{object} represented by that syntax.
+
+Any @term{character} can be made to be a @term{macro character}.
+The @term{macro characters} defined initially in a @term{conforming implementation}
+include
+the following:
+
+@menu
+* Left-Parenthesis::
+* Right-Parenthesis::
+* Single-Quote::
+* Semicolon::
+* Double-Quote::
+* Backquote::
+* Comma::
+* Sharpsign::
+* Re-Reading Abbreviated Expressions::
+@end menu
+@node Left-Parenthesis
+@subsection Left-Parenthesis
+@cindex (
+@cindex Left-Parenthesis (reader macro)
+@cindex list
+
+The @term{left-parenthesis} initiates reading of a @term{list}.
+@code{read} is called recursively to read successive @term{objects}
+until a right parenthesis is found in the input @term{stream}.
+A @term{list} of the @term{objects} read is returned.  Thus
+
+@lisp
+ (a b c)
+@end lisp
+
+is read as a @term{list} of three @term{objects}
+(the @term{symbols} @f{a}, @f{b}, and @f{c}).
+The right parenthesis need not immediately follow the printed representation of
+the last @term{object}; @term{whitespace}@sub2{}
+characters and comments may precede it.
+
+If no @term{objects} precede the right parenthesis,
+it reads as a @term{list} of zero @term{objects}
+(the @term{empty list}).
+
+If a @term{token} that is just a dot
+@cindex dot
+@cindex .
+not immediately preceded by an escape character
+is read after some @term{object}
+then exactly one more @term{object} must follow the dot,
+possibly preceded or followed by @term{whitespace}@sub2{} or a comment,
+followed by the right parenthesis:
+
+@lisp
+ (a b c . d)
+@end lisp
+
+This means that the @term{cdr} of the last @term{cons} in the
+@term{list} is not @nil{},
+but rather the @term{object} whose representation followed the dot.
+The above example might have been the result of evaluating
+
+@lisp
+ (cons 'a (cons 'b (cons 'c 'd)))
+@end lisp
+
+Similarly,
+
+@lisp
+ (cons 'this-one 'that-one) @EV{} (this-one . that-one)
+@end lisp
+
+It is permissible for the @term{object}
+following the dot to be a @term{list}:
+
+@lisp
+ (a b c d . (e f . (g))) @EQ{} (a b c d e f g)
+@end lisp
+
+
+For information on how the @term{Lisp printer} prints @term{lists} and @term{conses},
+see @ref{PrintingListsAndConses, Section 22.1.3.5 (Printing Lists and Conses)}.
+
+
+@node Right-Parenthesis
+@subsection Right-Parenthesis
+@cindex )
+@cindex Right-Parenthesis (reader macro)
+
+The @term{right-parenthesis} is invalid
+except when used in conjunction with the left parenthesis character.
+For more information, see @ref{Reader Algorithm, Section 2.2 (Reader Algorithm)}.
+
+
+@node Single-Quote
+@subsection Single-Quote
+@cindex '
+@cindex Single-Quote (reader macro)
+@cindex quotation (of forms)
+@cindex quote
+
+@b{Syntax:}  @f{'@metaparam{exp}}
+
+A @term{single-quote} introduces an @term{expression} to be ``quoted.''
+@term{Single-quote} followed by an @term{expression} @param{exp}
+is treated by the @term{Lisp reader} as an abbreviation for
+and is parsed identically to the @term{expression} @f{(quote @param{exp})}.
+See the @term{special operator} @ref{quote}.
+
+@subsubsection Examples of Single-Quote
+
+@lisp
+ 'foo @EV{} FOO
+ ''foo @EV{} (QUOTE FOO)
+ (car ''foo) @EV{} QUOTE
+@end lisp
+
+
+
+
+@node Semicolon
+@subsection Semicolon
+@cindex ;
+@cindex Semicolon (reader macro)
+@cindex comment
+
+@b{Syntax:} @f{;@metaparam{text}}
+
+A @term{semicolon} introduces @term{characters} that are to be ignored,
+such as comments.  The @term{semicolon} and all @term{characters} up to
+and including the next @term{newline} or end of file are ignored.
+
+@subsubsection Examples of Semicolon
+
+@lisp
+ (+ 3 ; three
+    4)
+@EV{} 7
+@end lisp
+
+
+
+@subsubsection Notes about Style for Semicolon
+
+Some text editors make assumptions about desired indentation based on
+the number of @term{semicolons} that begin a comment.  The following style
+conventions are common, although not by any means universal.
+
+@unnumberedsubsubsec 2.4.4.2.1 Use of Single Semicolon
+
+
+Comments that begin with a single @term{semicolon} are all aligned to
+the same column at the right (sometimes called the ``comment column'').
+The text of such a comment generally applies only to the line on which it appears.
+Occasionally two or three contain a single sentence together;
+this is sometimes indicated by indenting all but the first with an additional
+space (after the @term{semicolon}).
+
+
+@unnumberedsubsubsec 2.4.4.2.2 Use of Double Semicolon
+
+
+Comments that begin with a double @term{semicolon} are all aligned to
+the same level of indentation as a @term{form} would be at that same
+position in the @term{code}.
+The text of such a comment usually describes
+the state of the @term{program} at the point where the comment occurs,
+the @term{code} which follows the comment,
+or both.
+
+
+@unnumberedsubsubsec 2.4.4.2.3 Use of Triple Semicolon
+
+
+Comments that begin with a triple @term{semicolon} are all aligned to
+the left margin.  Usually they are used prior to a definition or set
+of definitions, rather than within a definition.
+
+
+@unnumberedsubsubsec 2.4.4.2.4 Use of Quadruple Semicolon
+
+
+Comments that begin with a quadruple @term{semicolon} are all aligned to
+the left margin, and generally contain only a short piece of text that
+serve as a title for the code which follows, and might be used in the
+header or footer of a program that prepares code for presentation as
+a hardcopy document.
+
+
+@unnumberedsubsubsec 2.4.4.2.5 Examples of Style for Semicolon
+
+
+@lisp
+;;;; Math Utilities
+
+;;; FIB computes the the Fibonacci function in the traditional
+;;; recursive way.
+
+(defun fib (n)
+  (check-type n integer)
+  ;; At this point we're sure we have an integer argument.
+  ;; Now we can get down to some serious computation.
+  (cond ((< n 0)
+         ;; Hey, this is just supposed to be a simple example.
+         ;; Did you really expect me to handle the general case?
+         (error "FIB got ~D as an argument." n))
+        ((< n 2) n)             ;fib[0]=0 and fib[1]=1
+        ;; The cheap cases didn't work.
+        ;; Nothing more to do but recurse.
+        (t (+ (fib (- n 1))     ;The traditional formula
+              (fib (- n 2)))))) ; is fib[n-1]+fib[n-2].
+@end lisp
+
+
+
+
+
+@node Double-Quote
+@subsection Double-Quote
+@cindex Double-Quote (reader macro)
+@cindex quotation (of strings)
+@cindex string
+
+@b{Syntax:} @f{"@metaparam{text}"}
+
+The @term{double-quote} is used to begin and end a @term{string}.
+When a @term{double-quote} is encountered,
+@term{characters} are read from the @term{input} @term{stream}
+and accumulated until another @term{double-quote} is encountered.
+If a @term{single escape} @term{character} is seen,
+the @term{single escape} @term{character} is discarded,
+the next @term{character} is accumulated, and accumulation continues.
+The accumulated @term{characters}
+up to but not including the matching @term{double-quote}
+are made into a @term{simple string} and returned.
+It is @term{implementation-dependent}
+which @term{attributes} of the accumulated characters are removed in this process.
+
+Examples of the use of the @term{double-quote} character are in @thenextfigure{}.
+
+
+@float Figure,fig2.18
+@cartouche
+@multitable{@f{"@bsl{}"APL@bsl{}@bsl{}360?@bsl{}" he cried."}}{;A string with three characters in it}
+
+@item @f{"Foo"} @tab ;A string with three characters in it
+@item @f{""} @tab ;An empty string
+@item @f{"@bsl{}"APL@bsl{}@bsl{}360?@bsl{}" he cried."} @tab ;A string with twenty characters
+@item @f{"|x| = |-x|"} @tab ;A ten-character string
+@end multitable
+@end cartouche
+@caption{Examples of the use of double-quote}
+@end float
+
+
+Note that to place a single escape character or a @term{double-quote} into a string,
+such a character must be preceded by a single escape character.
+Note, too, that a multiple escape character need not be quoted by a
+single escape character within a string.
+
+For information on how the @term{Lisp printer} prints @term{strings},
+see @ref{PrintingStrings, Section 22.1.3.4 (Printing Strings)}.
+
+
+@node Backquote
+@subsection Backquote
+
+@cindex `
+@cindex Backquote (reader macro)
+@cindex quotation (of forms)
+@cindex quote
+@cindex list
+@cindex cons
+
+The @term{backquote} introduces a template of a data structure to be built.
+For example, writing
+
+@lisp
+ `(cond ((numberp ,x) ,@@y) (t (print ,x) ,@@y))
+@end lisp
+
+is roughly equivalent to writing
+
+@lisp
+ (list 'cond
+       (cons (list 'numberp x) y)
+       (list* 't (list 'print x) y))
+@end lisp
+
+Where a comma
+occurs in the template,
+the @term{expression}
+following the comma is to be evaluated to produce an @term{object} to
+be inserted at that point.  Assume @f{b} has the value 3, for example, then
+evaluating the @term{form} denoted by @f{`(a b ,b ,(+ b 1) b)} produces
+the result @f{(a b 3 4 b)}.
+
+If a comma is immediately followed by an @term{at-sign},
+then the @term{form} following the @term{at-sign}
+is evaluated to produce a @term{list} of @term{objects}.
+These @term{objects} are then ``spliced'' into place in the template.  For
+example, if @f{x} has the value @f{(a b c)}, then
+
+@lisp
+ `(x ,x ,@@x foo ,(cadr x) bar ,(cdr x) baz ,@@(cdr x))
+@EV{} (x (a b c) a b c foo b bar (b c) baz b c)
+@end lisp
+
+The backquote syntax can be summarized formally as follows.
+
+
+@itemize @bullet{}
+@item
+@f{`@param{basic}} is the same as @f{'@param{basic}},
+that is, @f{(quote @param{basic})}, for any @term{expression}
+@param{basic} that is not a @term{list} or a general @term{vector}.
+
+@item
+@f{`,@param{form}} is the same as @param{form}, for any @param{form}, provided
+that the representation of @param{form} does not begin with @term{at-sign}
+or @term{dot}.  (A similar caveat holds for all occurrences of a form after a @term{comma}.)
+
+@item
+@f{`,@@@param{form}} has undefined consequences.
+
+@item
+@f{`(x1 x2 x3 ... xn . atom)}
+may be interpreted to mean
+
+@lisp
+ (append @lbracket{}@spc{}x1@rbracket{} @lbracket{}@spc{}x2@rbracket{} @lbracket{}@spc{}x3@rbracket{} ... @lbracket{}@spc{}xn@rbracket{} (quote atom))
+@end lisp
+
+where the brackets are used to indicate
+a transformation of an @param{xj} as follows:
+
+
+@itemize --
+@item
+@f{[@param{form}]} is interpreted as @f{(list `@param{form})},
+which contains a backquoted form that must then be further interpreted.
+
+@item
+@f{[,@param{form}]} is interpreted as @f{(list @param{form})}.
+
+@item
+@f{[,@@@param{form}]} is interpreted as @param{form}.
+@end itemize
+
+
+@item
+@f{`(x1 x2 x3 ... xn)} may be interpreted to mean
+the same as the backquoted form
+@f{`(x1 x2 x3 ... xn . @nil{})},
+thereby reducing it to the previous case.
+
+@item
+@f{`(x1 x2 x3 ... xn . ,form)} may be interpreted to mean
+
+@lisp
+ (append @lbracket{}@spc{}x1@rbracket{} @lbracket{}@spc{}x2@rbracket{} @lbracket{}@spc{}x3@rbracket{} ... @lbracket{}@spc{}xn@rbracket{} form)
+@end lisp
+
+where the brackets indicate a transformation of an @tt{xj} as described above.
+
+@item
+@f{`(x1 x2 x3 ... xn . ,@@form)} has undefined consequences.
+
+@item
+@f{`#(x1 x2 x3 ... xn)} may be interpreted to mean
+@f{(apply #'vector `(x1 x2 x3 ... xn))}.
+@end itemize
+
+
+Anywhere ``@f{,@@}'' may be used, the syntax ``@f{,.}'' may be used instead
+to indicate that it is permissible to operate @term{destructively} on
+the @term{list structure}  produced by the form following the ``@f{,.}''
+(in effect, to use @code{nconc} instead of @code{append}).
+
+If the backquote syntax is nested, the innermost backquoted form
+should be expanded first.  This means that if several commas occur
+in a row, the leftmost one belongs to the innermost @term{backquote}.
+
+An @term{implementation} is free to interpret a backquoted @term{form} @mat{F@sub1{}}
+as any @term{form} @mat{F@sub2{}} that, when evaluated, will produce a result that is
+the @term{same} under @code{equal} as the result implied by the above definition,
+provided that the side-effect behavior of the substitute @term{form} @mat{F@sub2{}}
+is also consistent with the description given above.
+The constructed
+copy of the template might or might not share @term{list} structure with the
+template itself.  As an example, the above definition implies that
+
+@lisp
+ `((,a b) ,c ,@@d)
+@end lisp
+
+will be interpreted as if it were
+
+@lisp
+ (append (list (append (list a) (list 'b) '@nil{})) (list c) d '@nil{})
+@end lisp
+
+but it could also be legitimately interpreted to mean any of the following:
+
+@lisp
+ (append (list (append (list a) (list 'b))) (list c) d)
+ (append (list (append (list a) '(b))) (list c) d)
+ (list* (cons a '(b)) c d)
+ (list* (cons a (list 'b)) c d)
+ (append (list (cons a '(b))) (list c) d)
+ (list* (cons a '(b)) c (copy-list d))
+@end lisp
+
+
+@subsubsection Notes about Backquote
+
+Since the exact manner in which the @term{Lisp reader} will parse
+an @term{expression} involving the @term{backquote} @term{reader macro}
+is not specified, an @term{implementation} is free to choose any
+representation that preserves the semantics described.
+
+Often an @term{implementation} will choose a representation that facilitates
+pretty printing of the expression, so that @f{(pprint `(a ,b))} will display
+@f{`(a ,b)} and not, for example, @f{(list 'a b)}.  However, this is not a
+requirement.
+
+Implementors who have no particular reason to make one choice or another
+might wish to refer to @IEEEScheme{}, which identifies a popular choice of
+representation for such expressions that might provide useful to be useful
+compatibility for some user communities.  There is no requirement, however,
+that any @term{conforming implementation} use this particular representation.
+This information is provided merely for cross-reference purposes.
+
+
+
+@node Comma
+@subsection Comma
+@cindex ,
+@cindex Comma (reader macro)
+@cindex quotation (of forms)
+@cindex quote
+@cindex list
+@cindex cons
+
+
+The @term{comma} is part of the backquote syntax; see @ref{Backquote, Section 2.4.6 (Backquote)}.
+@term{Comma} is invalid if used other than inside the body of a
+backquote @term{expression} as described above.
+
+
+@node Sharpsign
+@subsection Sharpsign
+@cindex #
+@cindex Sharpsign (reader macro)
+
+@term{Sharpsign} is a @term{non-terminating} @term{dispatching macro character}.
+It reads an optional
+sequence of digits and then one more character,
+and uses that character to select a @term{function} to run as a
+@term{reader macro function}.
+
+The @term{standard syntax} includes constructs introduced by the @f{#} character.
+The syntax of these constructs is as follows:
+a character that identifies the type of construct is
+followed by arguments in some form.
+If the character is a letter, its @term{case} is not important;
+@f{#O} and @f{#o} are considered to be equivalent, for example.
+
+Certain @f{#} constructs allow an unsigned decimal number to appear
+between the @f{#} and the character.
+
+The @term{reader macros} associated with the @term{dispatching macro character} @f{#}
+are described later in this section and summarized in @thenextfigure{}.
+
+
+@float Figure,fig2.19
+@cartouche
+@multitable{dispatch char}{labels following object}{dispatch char}{radix-@mat{n} rational}
+@headitem dispatch char @tab purpose @tab dispatch char @tab purpose
+@item Backspace @tab signals error @tab @f{@lcurly{}} @tab undefined*
+@item Tab @tab signals error @tab @f{@rcurly{}} @tab undefined*
+@item Newline @tab signals error @tab + @tab read-time conditional
+@item Linefeed @tab signals error @tab - @tab read-time conditional
+@item Page @tab signals error @tab . @tab read-time evaluation
+@item Return @tab signals error @tab / @tab undefined
+@item Space @tab signals error @tab A, a @tab array
+@item ! @tab undefined* @tab B, b @tab binary rational
+@item @f{"} @tab undefined @tab C, c @tab complex number
+@item # @tab reference to = label @tab D, d @tab undefined
+@item @dollar{} @tab undefined @tab E, e @tab undefined
+@item @percent{} @tab undefined @tab F, f @tab undefined
+@item @ampers{} @tab undefined @tab G, g @tab undefined
+@item ' @tab function abbreviation @tab H, h @tab undefined
+@item ( @tab simple vector @tab I, i @tab undefined
+@item ) @tab signals error @tab J, j @tab undefined
+@item @tt{*} @tab bit vector @tab K, k @tab undefined
+@item , @tab undefined @tab L, l @tab undefined
+@item : @tab uninterned symbol @tab M, m @tab undefined
+@item ; @tab undefined @tab N, n @tab undefined
+@item @f{<} @tab signals error @tab O, o @tab octal rational
+@item @f{=} @tab labels following object @tab P, p @tab pathname
+@item @f{>} @tab undefined @tab Q, q @tab undefined
+@item ? @tab undefined* @tab R, r @tab radix-@mat{n} rational
+@item @@ @tab undefined @tab S, s @tab structure
+@item [ @tab undefined* @tab T, t @tab undefined
+@item @f{@bsl{}} @tab character object @tab U, u @tab undefined
+@item ] @tab undefined* @tab V, v @tab undefined
+@item @hat{} @tab undefined @tab W, w @tab undefined
+@item @f{_} @tab undefined @tab X, x @tab hexadecimal rational
+@item ` @tab undefined @tab Y, y @tab undefined
+@item @f{|} @tab balanced comment @tab Z, z @tab undefined
+@item @f{@tild{}} @tab undefined @tab Rubout @tab undefined
+@end multitable
+@end cartouche
+@caption{Standard # Dispatching Macro Character Syntax}
+@end float
+
+
+The combinations marked by an asterisk (*) are explicitly reserved to the
+user.  No @term{conforming implementation} defines them.
+
+Note also that @term{digits} do not appear in the preceding table.  This is
+because the notations @tt{#0}, @tt{#1}, ..., @tt{#9} are
+reserved for another purpose which occupies the same syntactic space.
+When a @term{digit} follows a @term{sharpsign},
+it is not treated as a dispatch character.
+Instead, an unsigned integer argument is accumulated
+and passed as an @term{argument} to the @term{reader macro}
+for the @term{character} that follows the digits.
+For example,
+@f{#2A((1 2) (3 4))} is a use of @tt{#A} with an argument of @f{2}.
+
+@subsubsection Sharpsign Backslash
+@anchor{SharpsignBackslash}
+@cindex Sharpsign Backslash (reader macro)
+@cindex Backslash (sharpsign reader macro)
+@cindex character
+
+@b{Syntax:} @f{#@bsl{}@metaparam{x}}
+
+When the @term{token} @param{x} is a single @term{character} long,
+this parses as the literal @term{character} @param{char}.
+@term{Uppercase} and @term{lowercase} letters are distinguished after @f{#@bsl{}};
+@f{#@bsl{}A} and @f{#@bsl{}a} denote different @term{character} @term{objects}.
+Any single @term{character} works after @f{#@bsl{}},
+even those that are normally special to @code{read},
+such as @term{left-parenthesis} and @term{right-parenthesis}.
+
+In the single @term{character} case,
+the @param{x} must be followed by a non-constituent @term{character}.
+After @f{#@bsl{}} is read,
+the reader backs up over the @term{slash} and then reads a @term{token},
+treating the initial @term{slash} as a @term{single escape} @term{character}
+(whether it really is or not in the @term{current readtable}).
+
+When the @term{token} @param{x} is more than one @term{character} long,
+the @param{x} must have the syntax of a @term{symbol}
+with no embedded @term{package markers}.
+In this case, the @term{sharpsign} @term{backslash} notation
+parses as the @term{character} whose @term{name} is @f{(string-upcase @param{x})};
+see @ref{Character Names, Section 13.1.7 (Character Names)}.
+
+
+For information about how the @term{Lisp printer} prints @term{character} @term{objects},
+see @ref{PrintingCharacters, Section 22.1.3.2 (Printing Characters)}.
+
+
+@subsubsection Sharpsign Single-Quote
+@anchor{SharpsignQuote}
+@cindex Sharpsign Single-Quote (reader macro)
+@cindex Single-Quote (sharpsign reader macro)
+@cindex function
+
+Any @param{expression} preceded by @f{#'}
+(@term{sharpsign} followed by @term{single-quote}),
+as in @f{#'@param{expression}},
+is treated by the @term{Lisp reader} as an abbreviation for and parsed identically
+to the @term{expression} @f{(function @param{expression})}.
+See @code{function}.  For example,
+
+@lisp
+(apply #'+ l) @EQ{} (apply (function +) l)
+@end lisp
+
+
+
+@subsubsection Sharpsign Left-Parenthesis
+@anchor{SharpsignLeftParen}
+@cindex Sharpsign Left-Parenthesis (reader macro)
+@cindex Left-Parenthesis (sharpsign reader macro)
+@cindex vector
+@cindex simple-vector
+
+@f{#(} and @f{)} are used to notate a @term{simple vector}.
+
+If an unsigned decimal integer
+appears between the @f{#} and @f{(},
+it specifies explicitly the length of the @term{vector}.
+The consequences are undefined if the number of @term{objects}
+specified before the closing @f{)}
+exceeds the unsigned decimal integer.
+If the number of @term{objects} supplied before the closing @f{)}
+is less than the unsigned decimal integer but greater than zero,
+the last @term{object}
+is used to fill all
+remaining elements of the @term{vector}.
+@editornote{Barmar: This should say "signals...".}
+The consequences are undefined if the unsigned decimal integer is non-zero and
+number of @term{objects} supplied before the closing @f{)}
+is zero.
+For example,
+
+@lisp
+ #(a b c c c c)
+ #6(a b c c c c)
+ #6(a b c)
+ #6(a b c c)
+@end lisp
+
+
+all mean the same thing: a @term{vector} of length @f{6}
+with @term{elements} @f{a}, @f{b}, and four occurrences of @f{c}.
+Other examples follow:
+
+@lisp
+ #(a b c)               ;A vector of length 3
+ #(2 3 5 7 11 13 17 19 23 29 31 37 41 43 47)
+                        ;A vector containing the primes below 50
+ #()                    ;An empty vector
+@end lisp
+
+The notation @f{#()} denotes an empty @term{vector}, as does @f{#0()}.
+
+For information on how the @term{Lisp printer} prints @term{vectors},
+see @ref{PrintingStrings, Section 22.1.3.4 (Printing Strings)},
+@ref{PrintingBitVectors, Section 22.1.3.6 (Printing Bit Vectors)},
+or @ref{PrintingOtherVectors, Section 22.1.3.7 (Printing Other Vectors)}.
+
+
+@subsubsection Sharpsign Asterisk
+@anchor{SharpsignStar}
+@cindex Sharpsign Asterisk (reader macro)
+@cindex Asterisk (sharpsign reader macro)
+@cindex bit-vector
+@cindex simple-bit-vector
+
+@b{Syntax:} @f{#*@metaparam{bits}}
+
+A @term{simple bit vector} is constructed containing the indicated @term{bits}
+(@f{0}'s and @f{1}'s), where the leftmost @param{bit} has index zero
+and the subsequent @param{bits} have increasing indices.
+
+@b{Syntax:} @f{#@metaparam{n}*@metaparam{bits}}
+
+With an argument @param{n},
+the @term{vector} to be created is of @term{length} @param{n}.
+If the number of @param{bits} is less than @param{n} but greater than zero,
+the last bit is used to fill all remaining bits of the @term{bit vector}.
+
+The notations @f{#*} and @f{#0*} each denote an empty @term{bit vector}.
+
+Regardless of whether the optional numeric argument @param{n} is provided,
+the @term{token} that follows the @term{asterisk} is delimited by
+a normal @term{token} delimiter.
+However, (unless @thevalueof{*read-suppress*} is @term{true})
+an error @oftype{reader-error} is signaled
+if that @term{token} is not composed entirely of @f{0}'s and @f{1}'s,
+or if @param{n} was supplied
+and the @term{token} is composed of more than @param{n} @param{bits},
+or if @param{n} is greater than one, but no @param{bits} were specified.
+Neither a @term{single escape} nor a @term{multiple escape} is permitted in this @term{token}.
+
+For information on how the @term{Lisp printer} prints @term{bit vectors},
+see @ref{PrintingBitVectors, Section 22.1.3.6 (Printing Bit Vectors)}.
+
+@unnumberedsubsubsec 2.4.8.4.1 Examples of Sharpsign Asterisk
+
+
+For example,
+@lisp
+  #*101111
+ #6*101111
+ #6*101
+ #6*1011
+@end lisp
+
+all mean the same thing: a @term{vector} of length @f{6}
+with @term{elements} @f{1}, @f{0}, @f{1}, @f{1}, @f{1}, and @f{1}.
+
+For example:
+
+@lisp
+ #*         ;An empty bit-vector
+@end lisp
+
+
+
+
+@subsubsection Sharpsign Colon
+@anchor{SharpsignColon}
+@cindex Sharpsign Colon (reader macro)
+@cindex Colon (sharpsign reader macro)
+@cindex symbol
+
+@b{Syntax:}  @f{#:@metaparam{symbol-name}}
+
+@f{#:} introduces an @term{uninterned} @term{symbol} whose @term{name}
+is @param{symbol-name}.  Every time this syntax is encountered,
+a @term{distinct} @term{uninterned} @term{symbol} is created.
+The @param{symbol-name} must have the syntax of a @term{symbol}
+with no @term{package prefix}.
+
+For information on how the @term{Lisp reader}
+prints @term{uninterned} @term{symbols},
+see @ref{PrintingSymbols, Section 22.1.3.3 (Printing Symbols)}.
+
+
+@subsubsection Sharpsign Dot
+@anchor{SharpsignDot}
+@cindex Sharpsign Dot (reader macro)
+@cindex Dot (sharpsign reader macro)
+@cindex eval
+@cindex *read-eval*
+
+@f{#.@param{foo}} is read as the @term{object} resulting from the evaluation
+of the @term{object} represented by @param{foo}.
+The evaluation is done during the @code{read} process,
+when the @f{#.} notation is encountered.
+The @f{#.} syntax therefore performs a read-time evaluation of @param{foo}.
+
+The normal effect of @tt{#.} is inhibited when @thevalueof{*read-eval*} is @term{false}.
+In that situation, an error @oftype{reader-error} is signaled.
+
+For an @term{object}
+that does not have a convenient printed
+representation, a @term{form} that computes the @term{object} can be given using
+the @f{#.} notation.
+
+
+
+@subsubsection Sharpsign B
+@anchor{SharpsignB}
+@cindex Sharpsign B (reader macro)
+@cindex B (sharpsign reader macro)
+@cindex *read-base*
+
+@f{#B}@param{rational} reads @param{rational} in binary (radix 2).
+For example,
+
+@lisp
+ #B1101 @EQ{} 13 ;1101@ssst{}
+ #b101/11 @EQ{} 5/3
+@end lisp
+
+
+The consequences are undefined if the token immediately following
+the @f{#B} does not have the syntax of a binary (@ie{} radix 2) @term{rational}.
+
+
+@subsubsection Sharpsign O
+@anchor{SharpsignO}
+@cindex Sharpsign O (reader macro)
+@cindex O (sharpsign reader macro)
+@cindex *read-base*
+
+@f{#O}@param{rational} reads @param{rational} in octal (radix 8).
+For example,
+
+@lisp
+ #o37/15 @EQ{} 31/13
+ #o777 @EQ{} 511
+ #o105 @EQ{} 69 ;105@ssse{}
+@end lisp
+
+
+The consequences are undefined if the token immediately following
+the @f{#O} does not have the syntax of an octal (@ie{} radix 8) @term{rational}.
+
+
+@subsubsection Sharpsign X
+@anchor{SharpsignX}
+@cindex Sharpsign X (reader macro)
+@cindex X (sharpsign reader macro)
+@cindex *read-base*
+
+@f{#X}@param{rational} reads @param{rational} in hexadecimal (radix 16).
+The digits above @f{9} are the letters @f{A} through @f{F} (the lowercase
+letters @f{a} through @f{f} are also acceptable).  For example,
+
+@lisp
+ #xF00 @EQ{} 3840
+ #x105 @EQ{} 261 ;105@ssss{}
+@end lisp
+
+
+The consequences are undefined if the token immediately following
+the @f{#X} does not have the syntax of a hexadecimal (@ie{} radix 16) @term{rational}.
+
+
+@subsubsection Sharpsign R
+@anchor{SharpsignR}
+@cindex Sharpsign R (reader macro)
+@cindex R (sharpsign reader macro)
+@cindex *read-base*
+
+@f{#@param{n}R}
+
+@f{#@param{radix}R@param{rational}} reads @param{rational} in radix @param{radix}.
+@param{radix} must consist of only digits
+that are interpreted as an @term{integer}
+in decimal radix; its value must be between 2 and 36 (inclusive).
+Only valid digits
+for the specified radix may be used.
+
+For example, @f{#3r102} is another way of writing @f{11} (decimal),
+and @f{#11R32}
+is another way of writing @f{35} (decimal).
+For radices larger than 10, letters of
+the alphabet are used in order for the digits after @f{9}.
+No alternate @f{#} notation exists for the decimal radix since a
+decimal point suffices.
+
+@Thenextfigure{}@spc{}contains examples of the use of @tt{#B},
+@tt{#O}, @tt{#X}, and @tt{#R}.
+
+
+@float Figure,fig2.20
+@cartouche
+@multitable{@f{#2r11010101}}{;Another way of writing @f{213} decimal}
+
+@item @f{#2r11010101} @tab ;Another way of writing @f{213} decimal
+@item @f{#b11010101} @tab ;Ditto
+@item @f{#b+11010101} @tab ;Ditto
+@item @f{#o325} @tab ;Ditto, in octal radix
+@item @f{#xD5} @tab ;Ditto, in hexadecimal radix
+@item @f{#16r+D5} @tab ;Ditto
+@item @f{#o-300} @tab ;Decimal @f{-192}, written in base 8
+@item @f{#3r-21010} @tab ;Same thing in base 3
+@item @f{#25R-7H} @tab ;Same thing in base 25
+@item @f{#xACCEDED} @tab ;@f{181202413}, in hexadecimal radix
+@end multitable
+@end cartouche
+@caption{Radix Indicator Example}
+@end float
+
+
+The consequences are undefined if the token immediately following
+the @f{#@param{n}R} does not have the syntax of a @term{rational} in radix @param{n}.
+
+
+@subsubsection Sharpsign C
+@anchor{SharpsignC}
+@cindex Sharpsign C (reader macro)
+@cindex C (sharpsign reader macro)
+@cindex complex
+
+@f{#C} reads a following @term{object}, which must be a @term{list} of
+length two whose @term{elements} are both @term{reals}.
+These @term{reals} denote, respectively,
+the real and imaginary parts of a @term{complex} number.
+If the two parts as notated are not of the same data type,
+then they are converted
+according to the rules of floating-point @term{contagion}
+described in @ref{NumericContagionRules, Section 12.1.1.2 (Contagion in Numeric Operations)}.
+
+@f{#C(@param{real} @param{imag})} is equivalent to
+@f{#.(complex (quote @param{real}) (quote @param{imag}))},
+except that @f{#C} is not affected by @code{*read-eval*}.
+See the @term{function} @ref{complex (Function)}.
+
+@Thenextfigure{}@spc{}contains examples of the use of @tt{#C}.
+
+
+@float Figure,fig2.21
+@cartouche
+@multitable{@f{#C(3.0s1 2.0s-1)}}{;Will be converted internally to @f{#C(1.66666 7.0)}}
+
+@item @f{#C(3.0s1 2.0s-1)} @tab ;A @term{complex} with @term{small float} parts.
+@item @f{#C(5 -3)      } @tab ;A ``Gaussian integer''
+@item @f{#C(5/3 7.0) } @tab ;Will be converted internally to @f{#C(1.66666 7.0)}
+@item @f{#C(0 1)} @tab ;The imaginary unit; that is, i.
+@end multitable
+@end cartouche
+@caption{Complex Number Example}
+@end float
+
+
+For further information,
+see @ref{PrintingComplexes, Section 22.1.3.1.4 (Printing Complexes)}@spc{}and @ref{SyntaxOfComplexes, Section 2.3.2.3 (Syntax of a Complex)}.
+
+
+@subsubsection Sharpsign A
+@anchor{SharpsignA}
+@cindex Sharpsign A (reader macro)
+@cindex A (sharpsign reader macro)
+@cindex array
+
+@f{#@param{n}A}
+
+@f{#@param{n}@f{A}@param{object}} constructs an @param{n}-dimensional @term{array},
+using @param{object} as the value of the @kwd{initial-contents} argument
+to @code{make-array}.
+
+For example, @f{#2A((0 1 5) (foo 2 (hot dog)))} represents a 2-by-3 matrix:
+
+@lisp
+ 0       1       5
+ foo     2       (hot dog)
+@end lisp
+
+In contrast, @f{#1A((0 1 5) (foo 2 (hot dog)))}
+represents a @term{vector} of @term{length} @f{2}
+whose @term{elements} are @term{lists}:
+
+@lisp
+ (0 1 5) (foo 2 (hot dog))
+@end lisp
+
+@f{#0A((0 1 5) (foo 2 (hot dog)))} represents a zero-dimensional
+@term{array} whose sole element is a @term{list}:
+
+@lisp
+ ((0 1 5) (foo 2 (hot dog)))
+@end lisp
+
+@f{#0A foo} represents
+a zero-dimensional @term{array} whose sole element is the
+@term{symbol} @f{foo}.
+The notation @f{#1A foo} is not valid because @f{foo} is
+not a @term{sequence}.
+
+If some @term{dimension} of the @term{array}
+whose representation is being parsed is found to be @f{0},
+all @term{dimensions} to the right
+(@ie{} the higher numbered @term{dimensions})
+are also considered to be @f{0}.
+
+For information on how the @term{Lisp printer} prints @term{arrays},
+see @ref{PrintingStrings, Section 22.1.3.4 (Printing Strings)},
+@ref{PrintingBitVectors, Section 22.1.3.6 (Printing Bit Vectors)},
+@ref{PrintingOtherVectors, Section 22.1.3.7 (Printing Other Vectors)},
+or @ref{PrintingOtherArrays, Section 22.1.3.8 (Printing Other Arrays)}.
+
+
+@subsubsection Sharpsign S
+@anchor{SharpsignS}
+@cindex Sharpsign S (reader macro)
+@cindex S (sharpsign reader macro)
+@cindex structure
+
+@f{#s(name slot1 value1 slot2 value2 ...)}
+denotes a @term{structure}.  This is valid only if @param{name} is the name
+of a @term{structure} @term{type} already defined by @code{defstruct}
+and if the @term{structure} @term{type} has a standard constructor function.
+Let @param{cm} stand for the name of this constructor function;
+then this syntax is equivalent to
+
+@lisp
+ #.(cm keyword1 'value1 keyword2 'value2 ...)
+@end lisp
+
+
+where each @param{keywordj} is the result of computing
+
+@lisp
+ (intern (string slotj) (find-package 'keyword))
+@end lisp
+
+
+The net effect is that the constructor function is called with the specified
+slots having the specified values.
+(This coercion feature is deprecated; in the future, keyword names will
+be taken in the package they are read in, so @term{symbols} that are
+actually in the @code{KEYWORD} @term{package} should be used if that is what is desired.)
+
+Whatever @term{object} the constructor function returns
+is returned by the @f{#S} syntax.
+
+For information on how the @term{Lisp printer} prints @term{structures},
+see @ref{PrintingStructures, Section 22.1.3.12 (Printing Structures)}.
+
+
+@subsubsection Sharpsign P
+@anchor{SharpsignP}
+@cindex Sharpsign P (reader macro)
+@cindex P (sharpsign reader macro)
+@cindex pathname
+
+
+@f{#P} reads a following @term{object}, which must be a @term{string}.
+
+@f{#P@metaparam{expression}} is equivalent to
+@f{#.(parse-namestring '@metaparam{expression})},
+except that @f{#P} is not affected by @code{*read-eval*}.
+
+For information on how the @term{Lisp printer} prints @term{pathnames},
+see @ref{PrintingPathnames, Section 22.1.3.11 (Printing Pathnames)}.
+
+
+
+@subsubsection Sharpsign Equal-Sign
+@cindex Sharpsign Equal-Sign (reader macro)
+@cindex Equal-Sign (sharpsign reader macro)
+@cindex *print-circle*
+
+@f{#@param{n}=}
+
+@f{#@param{n}=@param{object}} reads as whatever @term{object}
+has @param{object} as its printed representation.  However, that @term{object}
+is labeled by @param{n}, a required unsigned decimal integer, for
+possible reference by the syntax @f{#@param{n}#}.
+The scope of the label is the @term{expression} being read by the outermost
+call to @code{read}; within this @term{expression},
+the same label may not appear twice.
+
+
+@subsubsection Sharpsign Sharpsign
+@cindex Sharpsign Sharpsign (reader macro)
+@cindex Sharpsign (sharpsign reader macro)
+@cindex *print-circle*
+
+@f{#@param{n}#}
+
+@f{#@param{n}#}, where @param{n} is a required unsigned decimal
+@term{integer},
+provides a reference to some @term{object} labeled by @f{#@param{n}=};
+that is, @f{#@param{n}#} represents a pointer to the same
+(@code{eq}) @term{object} labeled by @f{#@param{n}=}.
+For example, a structure created in the variable @f{y} by this code:
+
+@lisp
+ (setq x (list 'p 'q))
+ (setq y (list (list 'a 'b) x 'foo x))
+ (rplacd (last y) (cdr y))
+@end lisp
+
+could be represented in this way:
+
+@lisp
+ ((a b) . #1=(#2=(p q) foo #2# . #1#))
+@end lisp
+
+Without this notation, but with @code{*print-length*} set to @f{10}
+and @code{*print-circle*} set to @nil{},
+the structure would print in this way:
+
+@lisp
+ ((a b) (p q) foo (p q) (p q) foo (p q) (p q) foo (p q) ...)
+@end lisp
+
+A reference @f{#@param{n}#} may only occur after a label @f{#@param{n}=};
+forward references are not permitted.  The reference
+may not appear as the labeled object itself (that is,
+@f{#@param{n}=#@param{n}#}) may not be written
+because the @term{object}
+labeled by @f{#@param{n}=} is not well defined in this case.
+
+
+@subsubsection Sharpsign Plus
+@cindex Sharpsign Plus (reader macro)
+@cindex Plus (sharpsign reader macro)
+@cindex *features*
+
+@f{#+} provides a read-time conditionalization facility;
+the syntax is @f{#+@param{test} @param{expression}}.
+If the @term{feature expression} @param{test} succeeds,
+then this textual notation represents an @term{object}
+whose printed representation is @param{expression}.
+If the @term{feature expression} @param{test} fails,
+then this textual notation is treated as @term{whitespace}@sub2{};
+that is, it is as if the ``@f{#+} @param{test} @param{expression}''
+did not appear and only a @term{space} appeared in its place.
+
+For a detailed description of success and failure in @term{feature expressions},
+see @ref{FeatureExpressions, Section 24.1.2.1 (Feature Expressions)}.
+
+@f{#+} operates by first reading the @term{feature expression}
+and then skipping over the @param{form} if the @term{feature expression} fails.
+While reading the @param{test}, the @term{current package} is the @code{KEYWORD} @term{package}.
+Skipping over the @param{form} is accomplished by @term{binding}
+@code{*read-suppress*} to @term{true} and then calling @code{read}.
+
+For examples, see @ref{FeatureExpExamples, Section 24.1.2.1.1 (Examples of Feature Expressions)}.
+
+
+@subsubsection Sharpsign Minus
+@cindex Sharpsign Minus (reader macro)
+@cindex Minus (sharpsign reader macro)
+@cindex *features*
+
+@f{#-} is like @f{#+}
+except that it skips the @param{expression} if the @param{test} succeeds;
+that is,
+
+@lisp
+#-@param{test} @param{expression} @EQ{} #+(not @param{test}) @param{expression}
+@end lisp
+
+
+For examples, see @ref{FeatureExpExamples, Section 24.1.2.1.1 (Examples of Feature Expressions)}.
+
+
+@subsubsection Sharpsign Vertical-Bar
+@cindex Sharpsign Vertical-Bar (reader macro)
+@cindex Vertical-Bar (sharpsign reader macro)
+@cindex comment
+
+@f{#|...|#} is treated as a comment by the reader.
+It must be balanced with respect to other occurrences of @f{#|} and @f{|#},
+but otherwise may contain any characters whatsoever.
+
+@unnumberedsubsubsec 2.4.8.19.1 Examples of Sharpsign Vertical-Bar
+
+
+The following are some examples that exploit the @f{#|...|#} notation:
+
+@lisp
+;;; In this example, some debugging code is commented out with #|...|#
+;;; Note that this kind of comment can occur in the middle of a line
+;;; (because a delimiter marks where the end of the comment occurs)
+;;; where a semicolon comment can only occur at the end of a line
+;;; (because it comments out the rest of the line).
+ (defun add3 (n) #|(format t "~&Adding 3 to ~D." n)|# (+ n 3))
+@goodbreak{}
+;;; The examples that follow show issues related to #| ... |# nesting.
+
+;;; In this first example, #| and |# always occur properly paired,
+;;; so nesting works naturally.
+ (defun mention-fun-fact-1a ()
+   (format t "CL uses ; and #|...|# in comments."))
+@EV{} MENTION-FUN-FACT-1A
+ (mention-fun-fact-1a)
+@OUT{} CL uses ; and #|...|# in comments.
+@EV{} NIL
+ #| (defun mention-fun-fact-1b ()
+      (format t "CL uses ; and #|...|# in comments.")) |#
+ (fboundp 'mention-fun-fact-1b) @EV{} NIL
+@goodbreak{}
+;;; In this example, vertical-bar followed by sharpsign needed to appear
+;;; in a string without any matching sharpsign followed by vertical-bar
+;;; having preceded this.  To compensate, the programmer has included a
+;;; slash separating the two characters.  In case 2a, the slash is
+;;; unnecessary but harmless, but in case 2b, the slash is critical to
+;;; allowing the outer #| ... |# pair match.  If the slash were not present,
+;;; the outer comment would terminate prematurely.
+ (defun mention-fun-fact-2a ()
+   (format t "Don't use |@bsl{}# unmatched or you'll get in trouble!"))
+@EV{} MENTION-FUN-FACT-2A
+ (mention-fun-fact-2a)
+@OUT{} Don't use |# unmatched or you'll get in trouble!
+@EV{} NIL
+ #| (defun mention-fun-fact-2b ()
+      (format t "Don't use |@bsl{}# unmatched or you'll get in trouble!") |#
+ (fboundp 'mention-fun-fact-2b) @EV{} NIL
+@goodbreak{}
+;;; In this example, the programmer attacks the mismatch problem in a
+;;; different way.  The sharpsign vertical bar in the comment is not needed
+;;; for the correct parsing of the program normally (as in case 3a), but
+;;; becomes important to avoid premature termination of a comment when such
+;;; a program is commented out (as in case 3b).
+ (defun mention-fun-fact-3a () ; #|
+   (format t "Don't use |# unmatched or you'll get in trouble!"))
+@EV{} MENTION-FUN-FACT-3A
+ (mention-fun-fact-3a)
+@OUT{} Don't use |# unmatched or you'll get in trouble!
+@EV{} NIL
+ #|
+ (defun mention-fun-fact-3b () ; #|
+   (format t "Don't use |# unmatched or you'll get in trouble!"))
+ |#
+ (fboundp 'mention-fun-fact-3b) @EV{} NIL
+@end lisp
+
+
+
+@unnumberedsubsubsec 2.4.8.19.2 Notes about Style for Sharpsign Vertical-Bar
+
+
+Some text editors that purport to understand Lisp syntax treat any @f{|...|}
+as balanced pairs that cannot nest (as if they were just balanced pairs of
+the multiple escapes used in notating certain symbols).  To compensate for
+this deficiency, some programmers use the notation @f{#||...#||...||#...||#}
+instead of @f{#|...#|...|#...|#}.   Note that this alternate usage is not
+a different @term{reader macro}; it merely exploits the fact that the additional
+vertical-bars occur within the comment in a way that tricks certain text editor
+into better supporting nested comments.  As such, one might sometimes see code
+like:
+
+@lisp
+ #|| (+ #|| 3 ||# 4 5) ||#
+@end lisp
+
+
+Such code is equivalent to:
+
+@lisp
+ #| (+ #| 3 |# 4 5) |#
+@end lisp
+
+
+
+
+@subsubsection Sharpsign Less-Than-Sign
+@anchor{SharpsignLeftAngle}
+@cindex Sharpsign Less-Than-Sign (reader macro)
+@cindex Less-Than-Sign (sharpsign reader macro)
+
+@tt{ #<} is not valid reader syntax.
+The @term{Lisp reader} will signal an error
+@oftype{reader-error}
+on encountering @f{#<}.
+This syntax is typically used in the printed representation
+of @term{objects} that cannot be read back in.
+
+
+@subsubsection Sharpsign Whitespace
+@cindex Sharpsign Whitespace
+
+@f{#} followed immediately by @term{whitespace}@sub1{} is not valid reader syntax.
+The @term{Lisp reader} will signal an error @oftype{reader-error} if it
+encounters the reader macro notation @f{#@NewlineChar{}} or @f{#@SpaceChar{}}.
+
+
+@subsubsection Sharpsign Right-Parenthesis
+@cindex Sharpsign Right-Parenthesis
+
+This is not valid reader syntax.
+
+The @term{Lisp reader} will signal an error
+@oftype{reader-error}
+upon encountering @f{#)}.
+
+
+
+@node Re-Reading Abbreviated Expressions
+@subsection Re-Reading Abbreviated Expressions
+@cindex Dot Dot
+@cindex ..
+@cindex Dot Dot Dot
+@cindex ...
+@cindex Sharpsign Whitespace
+@cindex Sharpsign Right-Parenthesis
+
+Note that the @term{Lisp reader} will
+generally
+signal an error @oftype{reader-error}
+when reading an @term{expression}@sub2{} that has been
+abbreviated because of length or level limits
+(see @code{*print-level*},
+@code{*print-length*},
+and @code{*print-lines*})
+due to restrictions on ``@f{..}'', ``@f{...}'', ``@f{#}'' followed by @term{whitespace}@sub1{},
+and ``@f{#)}''.

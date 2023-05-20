@@ -1,0 +1,739 @@
+@node Files
+@chapter Files
+@menu
+* File System Concepts::
+
+Dictionary
+
+* directory::
+* probe-file::
+* ensure-directories-exist::
+* truename::
+* file-author::
+* file-write-date::
+* rename-file::
+* delete-file::
+* file-error::
+* file-error-pathname::
+@end menu
+
+@node File System Concepts
+@section File System Concepts
+
+This section describes the @clisp{}@spc{}interface to file systems.
+The model used by this interface assumes
+that
+@cindex file
+@dfn{files} are named by
+@cindex filename
+@dfn{filenames},
+that a @term{filename} can be represented by a @term{pathname} @term{object},
+and that given a @term{pathname} a @newterm{stream} can be constructed
+that connects to a @term{file} whose @term{filename} it represents.
+
+For information about opening and closing @term{files},
+and manipulating their contents, see @ref{Streams, Chapter 21 (Streams)}.
+
+@Thenextfigure{}@spc{}lists some @term{operators}
+that are applicable to @term{files} and directories.
+
+
+@float Figure,fig20.1
+@cartouche
+@multitable{compile-file}{file-write-date}{with-open-file}
+
+@item compile-file @tab file-length @tab open
+@item delete-file @tab file-position @tab probe-file
+@item directory @tab file-write-date @tab rename-file
+@item file-author @tab load @tab with-open-file
+@end multitable
+@end cartouche
+@caption{File and Directory Operations}
+@end float
+
+
+@menu
+* Coercion of Streams to Pathnames::
+* File Operations on Open and Closed Streams::
+* Truenames::
+@end menu
+@node Coercion of Streams to Pathnames
+@subsection Coercion of Streams to Pathnames
+
+A @newterm{stream associated with a file} is either a @term{file stream}
+or a @term{synonym stream} whose target is a @newterm{stream associated with a file}.
+Such streams can be used as @term{pathname designators}.
+
+Normally, when a @term{stream associated with a file} is used as a
+@term{pathname designator}, it denotes the @term{pathname} used to
+open the @term{file}; this may be, but is not required to be, the
+actual name of the @term{file}.
+
+Some functions, such as @code{truename} and @code{delete-file},
+coerce @term{streams} to @term{pathnames} in a different way that
+involves referring to the actual @term{file} that is open, which might
+or might not be the file whose name was opened originally.  Such special
+situations are always notated specifically and are not the default.
+
+
+@node File Operations on Open and Closed Streams
+@subsection File Operations on Open and Closed Streams
+
+
+Many @term{functions} that perform @term{file} operations accept either
+@term{open} or @term{closed} @term{streams} as @term{arguments};
+see @ref{Stream Arguments to Standardized Functions, Section 21.1.3 (Stream Arguments to Standardized Functions)}.
+
+Of these, the @term{functions} in @thenextfigure{}@spc{}treat @term{open} and
+@term{closed} @term{streams} differently.
+
+
+@float Figure,fig20.2
+@cartouche
+@multitable{delete-file}{file-write-date}{probe-file}
+
+@item delete-file @tab file-author @tab probe-file
+@item directory @tab file-write-date @tab truename
+@end multitable
+@end cartouche
+@caption{File Functions that Treat Open and Closed Streams Differently}
+@end float
+
+
+Since treatment of @term{open} @term{streams} by the @term{file system}
+may vary considerably between @term{implementations}, however,
+a @term{closed} @term{stream} might be the most reliable kind of
+@term{argument} for some of these functions---in particular, those in
+@thenextfigure{}.  For example, in some @term{file systems},
+@term{open} @term{files} are written under temporary names
+and not renamed until @term{closed}
+and/or are held invisible until @term{closed}.
+In general, any code that is intended to be portable should
+use such @term{functions} carefully.
+
+
+@float Figure,fig20.3
+@cartouche
+@multitable{directory}{probe-file}{truename}
+
+@item directory @tab probe-file @tab truename
+@end multitable
+@end cartouche
+@caption{File Functions where Closed Streams Might Work Best}
+@end float
+
+
+
+@node Truenames
+@subsection Truenames
+
+Many @term{file systems} permit more than one @term{filename} to designate
+a particular @term{file}.
+
+Even where multiple names are possible, most @term{file systems} have a convention
+for generating a canonical @term{filename} in such situations.  Such a canonical
+@term{filename} (or the @term{pathname} representing such a @term{filename}) is
+called a @newterm{truename}.
+
+The @term{truename} of a @term{file} may differ from other @term{filenames}
+for the file because of
+symbolic links,
+version numbers,
+logical device translations in the @term{file system},
+@term{logical pathname} translations within @clisp{},
+or other artifacts of the @term{file system}.
+
+The @term{truename} for a @term{file} is often, but not necessarily, unique for
+each @term{file}.  For instance, a Unix @term{file} with multiple hard links
+could have several @term{truenames}.
+
+@subsubsection Examples of Truenames
+
+For example, a DEC TOPS-20 system with @term{files} @f{PS:<JOE>FOO.TXT.1}
+and @f{PS:<JOE>FOO.TXT.2} might permit the second @term{file} to be referred
+to as @f{PS:<JOE>FOO.TXT.0}, since the ``@f{.0}'' notation denotes ``newest''
+version of several @term{files}.
+In the same @term{file system}, a ``logical device'' ``@f{JOE:}'' might be
+taken to refer to @f{PS:<JOE>}'' and so the names @f{JOE:FOO.TXT.2} or
+@f{JOE:FOO.TXT.0} might refer to @f{PS:<JOE>FOO.TXT.2}.
+In all of these cases, the @term{truename} of the file would probably be
+@f{PS:<JOE>FOO.TXT.2}.
+
+If a @term{file} is a symbolic link to another @term{file} (in a @term{file system}
+permitting such a thing), it is conventional for the @term{truename} to be
+the canonical name of the @term{file} after any symbolic links have been followed;
+that is, it is the canonical name of the @term{file} whose contents would
+become available if an @term{input} @term{stream} to that @term{file} were
+opened.
+
+In the case of a @term{file} still being created (that is, of an @term{output}
+@term{stream} open to such a @term{file}), the exact @term{truename} of the file
+might not be known until the @term{stream} is closed.  In this case,
+@thefunction{truename} might return different values for such a @term{stream}
+before and after it was closed.  In fact, before it is closed, the name returned
+might not even be a valid name in the @term{file system}---for example, while a
+file is being written, it might have version @kwdref{newest} and might only take on
+a specific numeric value later when the file is closed even in a @term{file system}
+where all files have numeric versions.
+
+
+
+@node directory
+@heading directory (Function)
+@syindex directory
+@cindex directory
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{directory, pathspec @key{}, pathnames}
+
+@subsubheading Arguments and Values:
+
+@param{pathspec}---a @term{pathname designator},
+which may contain @term{wild} components.
+
+@param{pathnames}---a @term{list} of
+@term{physical pathnames}.
+
+@subsubheading Description:
+
+Determines which, if any, @term{files} that are present
+in the file system have names matching @param{pathspec},
+and returns a
+@term{fresh}
+@term{list} of @term{pathnames} corresponding to the @term{truenames} of
+those @term{files}.
+
+An @term{implementation} may be extended to accept
+@term{implementation-defined} keyword arguments to @code{directory}.
+
+@subsubheading Affected By:
+
+The host computer's file system.
+
+@subsubheading Exceptional Situations:
+
+If the attempt to obtain a directory listing is not successful,
+an error @oftype{file-error} is signaled.
+
+@subsubheading See Also:
+
+@ref{pathname (System Class)},
+@ref{logical-pathname (System Class)},
+@ref{ensure-directories-exist},
+@ref{File System Concepts, Section 20.1 (File System Concepts)},
+@ref{File Operations on Open and Closed Streams, Section 21.1.1.1.2 (Open and Closed Streams)},
+@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+
+@subsubheading Notes:
+
+If the @param{pathspec} is not @term{wild},
+the resulting list will contain either zero or one elements.
+
+@clisp{}@spc{}specifies ``@key{}'' in the argument list to @code{directory}
+even though no @term{standardized} keyword arguments to @code{directory} are defined.
+``@f{:allow-other-keys t}''
+may be used in @term{conforming programs} in order to quietly ignore any
+additional keywords which are passed by the program but not supported
+by the @term{implementation}.
+
+
+@node probe-file
+@heading probe-file (Function)
+@syindex probe-file
+@cindex probe-file
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{probe-file, pathspec, truename}
+
+@subsubheading Arguments and Values:
+
+@param{pathspec}---a @term{pathname designator}.
+
+@param{truename}---a @term{physical pathname} or @nil{}.
+
+@subsubheading Description:
+
+@code{probe-file} tests whether a file exists.
+
+@code{probe-file} returns @term{false} if there is no file named @param{pathspec},
+and otherwise returns the @term{truename} of @param{pathspec}.
+
+If the @param{pathspec} @term{designator} is an open @term{stream},
+then @code{probe-file} produces the @term{truename} of its associated @term{file}.
+If @param{pathspec} is a @term{stream}, whether open or closed,
+it is coerced to a @term{pathname} as if by @thefunction{pathname}.
+
+@subsubheading Affected By:
+
+The host computer's file system.
+
+@subsubheading Exceptional Situations:
+
+An error @oftype{file-error} is signaled if @param{pathspec} is @term{wild}.
+
+An error @oftype{file-error} is signaled
+if the @term{file system} cannot perform the requested operation.
+
+@subsubheading See Also:
+
+@ref{truename},
+@ref{open},
+@ref{ensure-directories-exist},
+@ref{pathname (System Class)},
+@ref{logical-pathname (System Class)},
+@ref{File System Concepts, Section 20.1 (File System Concepts)},
+@ref{File Operations on Open and Closed Streams, Section 21.1.1.1.2 (Open and Closed Streams)},
+@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+
+
+@node ensure-directories-exist
+@heading ensure-directories-exist (Function)
+@syindex ensure-directories-exist
+@cindex ensure-directories-exist
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{ensure-directories-exist, pathspec @key{} verbose, pathspec\, created}
+
+@subsubheading Arguments and Values:
+
+@param{pathspec}---a @term{pathname designator}.
+
+@param{verbose}---a @term{generalized boolean}.
+
+@param{created}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+Tests whether the directories containing the specified @term{file} actually exist,
+and attempts to create them if they do not.
+
+If the containing directories do not exist and if @param{verbose} is @term{true},
+then the @term{implementation} is permitted (but not required)
+to perform output to @term{standard output} saying what directories were created.
+If the containing directories exist, or if @param{verbose} is @term{false},
+this function performs no output.
+
+The @term{primary value} is the given @term{pathspec} so that this operation can
+be straightforwardly composed with other file manipulation expressions.
+The @term{secondary value}, @param{created}, is @term{true} if any directories were
+created.
+
+@subsubheading Affected By:
+
+The host computer's file system.
+
+@subsubheading Exceptional Situations:
+
+An error @oftype{file-error} is signaled if the host, device, or directory
+part of @param{pathspec} is @term{wild}.
+
+If the directory creation attempt is not successful,
+an error @oftype{file-error} is signaled;
+if this occurs,
+it might be the case that none, some, or all
+of the requested creations have actually occurred
+within the @term{file system}.
+
+@subsubheading See Also:
+
+@ref{probe-file},
+@ref{open},
+@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+
+
+@node truename
+@heading truename (Function)
+@syindex truename
+@cindex truename
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{truename, filespec, truename}
+
+@subsubheading Arguments and Values:
+
+@param{filespec}---a @term{pathname designator}.
+
+@param{truename}---a @term{physical pathname}.
+
+@subsubheading Description:
+
+@code{truename} tries to find the @term{file} indicated by
+@param{filespec} and returns its @term{truename}.
+If the @param{filespec} @term{designator} is an open @term{stream},
+its associated @term{file} is used.
+If @param{filespec} is a @term{stream},
+@code{truename} can be used whether the @term{stream}
+is open or closed. It is permissible for @code{truename}
+to return more specific information after the @term{stream}
+is closed than when the @term{stream} was open.
+If @param{filespec} is a @term{pathname}
+it represents the name used to open the file. This may be, but is
+not required to be, the actual name of the file.
+
+@subsubheading Examples:
+
+@lisp
+;; An example involving version numbers.  Note that the precise nature of
+;; the truename is implementation-dependent while the file is still open.
+ (with-open-file (stream ">vistor>test.text.newest")
+   (values (pathname stream)
+           (truename stream)))
+@EV{} #P"S:>vistor>test.text.newest", #P"S:>vistor>test.text.1"
+@OV{} #P"S:>vistor>test.text.newest", #P"S:>vistor>test.text.newest"
+@OV{} #P"S:>vistor>test.text.newest", #P"S:>vistor>_temp_._temp_.1"
+
+;; In this case, the file is closed when the truename is tried, so the
+;; truename information is reliable.
+ (with-open-file (stream ">vistor>test.text.newest")
+   (close stream)
+   (values (pathname stream)
+           (truename stream)))
+@EV{} #P"S:>vistor>test.text.newest", #P"S:>vistor>test.text.1"
+
+;; An example involving TOP-20's implementation-dependent concept
+;; of logical devices -- in this case, "DOC:" is shorthand for
+;; "PS:<DOCUMENTATION>" ...
+ (with-open-file (stream "CMUC::DOC:DUMPER.HLP")
+   (values (pathname stream)
+           (truename stream)))
+@EV{} #P"CMUC::DOC:DUMPER.HLP", #P"CMUC::PS:<DOCUMENTATION>DUMPER.HLP.13"
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+An error @oftype{file-error} is signaled if an appropriate @term{file}
+cannot be located within the @term{file system} for the given @param{filespec},
+or if the @term{file system} cannot perform the requested operation.
+
+An error @oftype{file-error} is signaled if @param{pathname} is @term{wild}.
+
+@subsubheading See Also:
+
+@ref{pathname (System Class)},
+@ref{logical-pathname (System Class)},
+@ref{File System Concepts, Section 20.1 (File System Concepts)},
+@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+
+@subsubheading Notes:
+
+@code{truename} may be used to account for any @term{filename} translations
+performed by the @term{file system}.
+
+
+@node file-author
+@heading file-author (Function)
+@syindex file-author
+@cindex file-author
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{file-author, pathspec, author}
+
+@subsubheading Arguments and Values:
+
+@param{pathspec}---a @term{pathname designator}.
+
+@param{author}---a @term{string} or @nil{}.
+
+@subsubheading Description:
+
+Returns a @term{string} naming the author of the @term{file} specified by @param{pathspec},
+or @nil{}@spc{}if the author's name cannot be determined.
+
+@subsubheading Examples:
+
+@lisp
+ (with-open-file (stream ">relativity>general.text")
+   (file-author s))
+@EV{} "albert"
+@end lisp
+
+
+@subsubheading Affected By:
+The host computer's file system.
+
+Other users of the @term{file} named by @param{pathspec}.
+@subsubheading Exceptional Situations:
+
+An error @oftype{file-error} is signaled if @param{pathspec} is @term{wild}.
+
+An error @oftype{file-error} is signaled
+if the @term{file system} cannot perform the requested operation.
+
+@subsubheading See Also:
+
+@ref{pathname (System Class)},
+@ref{logical-pathname (System Class)},
+@ref{File System Concepts, Section 20.1 (File System Concepts)},
+@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+
+
+@node file-write-date
+@heading file-write-date (Function)
+@syindex file-write-date
+@cindex file-write-date
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{file-write-date, pathspec, date}
+
+@subsubheading Arguments and Values:
+
+@param{pathspec}---a @term{pathname designator}.
+
+@param{date}---a @term{universal time} or @nil{}.
+
+@subsubheading Description:
+
+Returns a @term{universal time} representing the time at which the @term{file}
+specified by @param{pathspec} was last written (or created),
+or returns @nil{}@spc{}if such a time cannot be determined.
+
+@subsubheading Examples:
+
+@lisp
+ (with-open-file (s "noel.text"
+                    :direction :output :if-exists :error)
+   (format s "~&Dear Santa,~2%I was good this year.  ~
+                Please leave lots of toys.~2%Love, Sue~
+             ~2%attachments: milk, cookies~%")
+   (truename s))
+@EV{} #P"CUPID:/susan/noel.text"
+ (with-open-file (s "noel.text")
+   (file-write-date s))
+@EV{} 2902600800
+@end lisp
+
+
+@subsubheading Affected By:
+
+The host computer's file system.
+
+@subsubheading Exceptional Situations:
+
+An error @oftype{file-error} is signaled if @param{pathspec} is @term{wild}.
+
+An error @oftype{file-error} is signaled
+if the @term{file system} cannot perform the requested operation.
+
+@subsubheading See Also:
+
+@ref{UniversalTime, Section 25.1.4.2 (Universal Time)},
+@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+
+
+@node rename-file
+@heading rename-file (Function)
+@syindex rename-file
+@cindex rename-file
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{rename-file, filespec new-name, defaulted-new-name\, old-truename\, new-truename}
+
+@subsubheading Arguments and Values:
+
+@param{filespec}---a @term{pathname designator}.
+
+@param{new-name}---a @term{pathname designator}
+other than a @term{stream}.
+
+@param{defaulted-new-name}---a @term{pathname}
+
+@param{old-truename}---a @term{physical pathname}.
+
+@param{new-truename}---a @term{physical pathname}.
+
+@subsubheading Description:
+
+@code{rename-file} modifies the file system in such a way
+that the file indicated by @param{filespec} is renamed to
+@param{defaulted-new-name}.
+
+It is an error to specify a filename containing a @term{wild} component,
+for @param{filespec} to contain a @nil{}@spc{}component where the file system does
+not permit a @nil{}@spc{}component, or for the result of defaulting missing
+components of @param{new-name} from @param{filespec} to contain a @nil{}@spc{}component
+where the file system does not permit a @nil{}@spc{}component.
+
+If @param{new-name} is a @term{logical pathname},
+@code{rename-file} returns a @term{logical pathname} as its @term{primary value}.
+
+@code{rename-file}
+returns three values if successful.  The @term{primary value}, @param{defaulted-new-name},
+is the resulting name which is composed of
+@param{new-name} with any missing components filled in by performing
+a @code{merge-pathnames} operation using @param{filespec} as the defaults.
+The @term{secondary value}, @param{old-truename},
+is the @term{truename} of the @term{file} before it was renamed.
+The @term{tertiary value}, @param{new-truename},
+is the @term{truename} of the @term{file} after it was renamed.
+
+If the @param{filespec} @term{designator} is an open @term{stream},
+then the @term{stream} itself and the file associated with it are
+affected (if the @term{file system} permits).
+
+@subsubheading Examples:
+
+@lisp
+;; An example involving logical pathnames.
+ (with-open-file (stream "sys:chemistry;lead.text"
+                         :direction :output :if-exists :error)
+   (princ "eureka" stream)
+   (values (pathname stream) (truename stream)))
+@EV{} #P"SYS:CHEMISTRY;LEAD.TEXT.NEWEST", #P"Q:>sys>chem>lead.text.1"
+ (rename-file "sys:chemistry;lead.text" "gold.text")
+@EV{} #P"SYS:CHEMISTRY;GOLD.TEXT.NEWEST",
+   #P"Q:>sys>chem>lead.text.1",
+   #P"Q:>sys>chem>gold.text.1"
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+If the renaming operation is not successful, an error @oftype{file-error} is signaled.
+
+An error @oftype{file-error} might be signaled if @param{filespec} is @term{wild}.
+
+@subsubheading See Also:
+
+@ref{truename},
+@ref{pathname (System Class)},
+@ref{logical-pathname (System Class)},
+@ref{File System Concepts, Section 20.1 (File System Concepts)},
+@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+
+
+@node delete-file
+@heading delete-file (Function)
+@syindex delete-file
+@cindex delete-file
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{delete-file, filespec, @code{t}}
+
+@subsubheading Arguments and Values:
+
+@param{filespec}---a @term{pathname designator}.
+
+@subsubheading Description:
+
+Deletes the @term{file} specified by @param{filespec}.
+
+If the @param{filespec} @term{designator} is an open @term{stream},
+then @param{filespec} and the file associated with it are affected
+(if the file system permits),
+in which case @param{filespec} might be closed immediately,
+and the deletion might be immediate or delayed until @param{filespec} is explicitly closed,
+depending on the requirements of the file system.
+
+It is @term{implementation-dependent} whether an attempt
+to delete a nonexistent file is considered to be successful.
+
+@code{delete-file} returns @term{true} if it succeeds,
+or signals an error @oftype{file-error} if it does not.
+
+The consequences are undefined
+if @param{filespec} has a @term{wild} component,
+or if @param{filespec} has a @nil{}@spc{}component
+and the file system does not permit a @nil{}@spc{}component.
+
+@subsubheading Examples:
+
+@lisp
+ (with-open-file (s "delete-me.text" :direction :output :if-exists :error))
+@EV{} NIL
+ (setq p (probe-file "delete-me.text")) @EV{} #P"R:>fred>delete-me.text.1"
+ (delete-file p) @EV{} T
+ (probe-file "delete-me.text") @EV{} @term{false}
+ (with-open-file (s "delete-me.text" :direction :output :if-exists :error)
+   (delete-file s))
+@EV{} T
+ (probe-file "delete-me.text") @EV{} @term{false}
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+If the deletion operation is not successful, an error @oftype{file-error} is signaled.
+
+An error @oftype{file-error} might be signaled if @param{filespec} is @term{wild}.
+
+@subsubheading See Also:
+
+@ref{pathname (System Class)},
+@ref{logical-pathname (System Class)},
+@ref{File System Concepts, Section 20.1 (File System Concepts)},
+@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+
+
+@node file-error
+@heading file-error (Condition Type)
+@syindex file-error
+@cindex file-error
+
+
+@subsubheading Class Precedence List:
+@code{file-error},
+@code{error},
+@code{serious-condition},
+@code{condition},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{file-error} consists of error conditions that occur during
+an attempt to open or close a file, or during some low-level transactions
+with a file system.  The ``offending pathname'' is initialized by
+@theinitkeyarg{pathname} to @code{make-condition}, and is @term{accessed}
+by @thefunction{file-error-pathname}.
+
+@subsubheading See Also:
+
+@ref{file-error-pathname},
+@ref{open},
+@ref{probe-file},
+@ref{directory},
+@ref{ensure-directories-exist}
+
+
+@node file-error-pathname
+@heading file-error-pathname (Function)
+@syindex file-error-pathname
+@cindex file-error-pathname
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{file-error-pathname, condition, pathspec}
+
+@subsubheading Arguments and Values:
+
+@param{condition}---a @term{condition} @oftype{file-error}.
+
+@param{pathspec}---a @term{pathname designator}.
+
+@subsubheading Description:
+
+Returns the ``offending pathname'' of a @term{condition} @oftype{file-error}.
+
+@subsubheading Exceptional Situations:
+
+@subsubheading See Also:
+
+@ref{file-error},
+@ref{Conditions, Chapter 9 (Conditions)}

@@ -1,0 +1,4083 @@
+@node Conses
+@chapter Conses
+@menu
+* Cons Concepts::
+
+Dictionary
+
+* list (System Class)::
+* null (System Class)::
+* cons (System Class)::
+* atom (Type)::
+* cons (Function)::
+* consp::
+* atom (Function)::
+* rplaca; rplacd::
+* car; cdr; caar; cadr; cdar; cddr; caaar; caadr; cadar; caddr; cdaar; cd+::
+* copy-tree::
+* sublis; nsublis::
+* subst; subst-if; subst-if-not; nsubst; nsubst-if; nsubst-if-not::
+* tree-equal::
+* copy-list::
+* list; list*::
+* list-length::
+* listp::
+* make-list::
+* push::
+* pop::
+* first; second; third; fourth; fifth; sixth; seventh; eighth; ninth; ten+::
+* nth::
+* endp::
+* null (Function)::
+* nconc::
+* append::
+* revappend; nreconc::
+* butlast; nbutlast::
+* last::
+* ldiff; tailp::
+* nthcdr::
+* rest::
+* member; member-if; member-if-not::
+* mapc; mapcar; mapcan; mapl; maplist; mapcon::
+* acons::
+* assoc; assoc-if; assoc-if-not::
+* copy-alist::
+* pairlis::
+* rassoc; rassoc-if; rassoc-if-not::
+* get-properties::
+* getf::
+* remf::
+* intersection; nintersection::
+* adjoin::
+* pushnew::
+* set-difference; nset-difference::
+* set-exclusive-or; nset-exclusive-or::
+* subsetp::
+* union; nunion::
+@end menu
+
+@node Cons Concepts
+@section Cons Concepts
+
+A @newterm{cons} is a compound data @term{object}
+having two components called the @term{car} and the @term{cdr}.
+
+
+@float Figure,fig14.1
+@cartouche
+@multitable{car}{rplaca}{rplacd}
+
+@item car @tab cons @tab rplacd
+@item cdr @tab rplaca @tab
+@end multitable
+@end cartouche
+@caption{Some defined names relating to conses.}
+@end float
+
+
+Depending on context, a group of connected @term{conses} can be viewed
+in a variety of different ways.  A variety of operations is provided to
+support each of these various views.
+
+@menu
+* Conses as Trees::
+* Conses as Lists::
+@end menu
+@node Conses as Trees
+@subsection Conses as Trees
+
+A @newterm{tree} is a binary recursive data structure made up of
+@term{conses} and @term{atoms}:
+the @term{conses} are themselves also @term{trees}
+(sometimes called ``subtrees'' or ``branches''), and the @term{atoms}
+are terminal nodes (sometimes called @newterm{leaves}).
+Typically, the @term{leaves} represent data while the branches
+establish some relationship among that data.
+
+
+@float Figure,fig14.2
+@cartouche
+@multitable{caaaar}{caddar}{copy-tree}{nsubst-if-not}
+
+@item caaaar @tab caddar @tab cdar @tab nsubst
+@item caaadr @tab cadddr @tab cddaar @tab nsubst-if
+@item caaar @tab caddr @tab cddadr @tab nsubst-if-not
+@item caadar @tab cadr @tab cddar @tab nthcdr
+@item caaddr @tab cdaaar @tab cdddar @tab sublis
+@item caadr @tab cdaadr @tab cddddr @tab subst
+@item caar @tab cdaar @tab cdddr @tab subst-if
+@item cadaar @tab cdadar @tab cddr @tab subst-if-not
+@item cadadr @tab cdaddr @tab copy-tree @tab tree-equal
+@item cadar @tab cdadr @tab nsublis @tab
+@end multitable
+@end cartouche
+@caption{Some defined names relating to trees.}
+@end float
+
+
+@subsubsection General Restrictions on Parameters that must be Trees
+
+Except as explicitly stated otherwise,
+for any @term{standardized} @term{function} that takes a @term{parameter}
+that is required to be a @term{tree},
+the consequences are undefined
+if that @term{tree} is circular.
+
+
+
+@node Conses as Lists
+@subsection Conses as Lists
+
+A @newterm{list} is a chain of @term{conses} in which the @term{car} of each
+@term{cons} is an @term{element} of the @term{list},
+and the @term{cdr} of each @term{cons} is either the next
+link in the chain or a terminating @term{atom}.
+
+A @newterm{proper list} is a @term{list} terminated by the @term{empty list}.
+The @term{empty list} is a @term{proper list}, but is not a @term{cons}.
+
+An @newterm{improper list} is a @term{list} that is not a @term{proper list};
+that is, it is a @term{circular list} or a @term{dotted list}.
+
+A @newterm{dotted list} is a @term{list} that has a terminating @term{atom}
+that is not the @term{empty list}.  A @term{non-nil} @term{atom} by itself
+is not considered to be a @term{list} of any kind---not even a @term{dotted list}.
+
+A @newterm{circular list} is a chain of @term{conses} that has no termination
+because some @term{cons} in the chain is the @term{cdr} of a later @term{cons}.
+
+
+@float Figure,fig14.3
+@cartouche
+@multitable{copy-alist}{member-if-not}{nbutlast}{revappend}
+
+@item append @tab last @tab nbutlast @tab rest
+@item butlast @tab ldiff @tab nconc @tab revappend
+@item copy-alist @tab list @tab ninth @tab second
+@item copy-list @tab list* @tab nreconc @tab seventh
+@item eighth @tab list-length @tab nth @tab sixth
+@item endp @tab make-list @tab nthcdr @tab tailp
+@item fifth @tab member @tab pop @tab tenth
+@item first @tab member-if @tab push @tab third
+@item fourth @tab member-if-not @tab pushnew @tab
+@end multitable
+@end cartouche
+@caption{Some defined names relating to lists.}
+@end float
+
+
+@subsubsection Lists as Association Lists
+
+An @newterm{association list} is a @term{list} of @term{conses}
+representing an association of @term{keys} with @term{values},
+where the @term{car} of each @term{cons} is the @term{key}
+and the @term{cdr} is the @term{value} associated with that @term{key}.
+
+
+@float Figure,fig14.4
+@cartouche
+@multitable{acons}{assoc-if-not}{pairlis}{rassoc-if-not}
+
+@item acons @tab assoc-if @tab pairlis @tab rassoc-if
+@item assoc @tab assoc-if-not @tab rassoc @tab rassoc-if-not
+@end multitable
+@end cartouche
+@caption{Some defined names related to assocation lists.}
+@end float
+
+
+
+@subsubsection Lists as Sets
+
+@term{Lists} are sometimes viewed as sets by considering their elements
+unordered and by assuming there is no duplication of elements.
+
+
+@float Figure,fig14.5
+@cartouche
+@multitable{nintersection}{nset-exclusive-or}{set-exclusive-or}{union}
+
+@item adjoin @tab nset-difference @tab set-difference @tab union
+@item intersection @tab nset-exclusive-or @tab set-exclusive-or @tab
+@item nintersection @tab nunion @tab subsetp @tab
+@end multitable
+@end cartouche
+@caption{Some defined names related to sets.}
+@end float
+
+
+
+@subsubsection General Restrictions on Parameters that must be Lists
+
+Except as explicitly specified otherwise,
+any @term{standardized} @term{function} that takes a @term{parameter}
+that is required to be a @term{list} should be prepared to signal
+an error @oftype{type-error} if the @term{value} received is a @term{dotted list}.
+
+Except as explicitly specified otherwise,
+for any @term{standardized} @term{function} that takes a @term{parameter}
+that is required to be a @term{list},
+the consequences are undefined
+if that @term{list} is @term{circular}.
+
+
+
+@node list (System Class)
+@heading list (System Class)
+@syindex list
+@cindex list
+
+
+@subsubheading Class Precedence List:
+
+@code{list},
+@code{sequence},
+@code{t}
+
+@subsubheading Description:
+
+A @newterm{list} is a chain of @term{conses} in which the @term{car} of each
+@term{cons} is an @term{element} of the @term{list}, and the @term{cdr} of
+each @term{cons} is either the next link in the chain or a terminating
+@term{atom}.
+
+A @newterm{proper list} is a chain of @term{conses} terminated by
+the @newterm{empty list}, @empty{}, which is  itself a @term{proper list}.
+A @newterm{dotted list} is a @term{list} which has a terminating @term{atom}
+that is not the @term{empty list}.
+A @newterm{circular list} is a chain of @term{conses} that has no termination
+because some @term{cons} in the chain is the @term{cdr} of a later @term{cons}.
+
+@term{Dotted lists} and @term{circular lists} are also @term{lists}, but usually
+the unqualified term ``list'' within this specification means @term{proper list}.
+Nevertheless, @thetype{list} unambiguously includes @term{dotted lists}
+and @term{circular lists}.
+
+For each @term{element} of a @term{list} there is a @term{cons}.
+The @term{empty list} has no @term{elements} and is not a @term{cons}.
+
+@Thetypes{cons} and @code{null} form an @term{exhaustive partition}
+of the @term{type} @code{list}.
+
+@subsubheading See Also:
+
+@ref{Left-Parenthesis, Section 2.4.1 (Left-Parenthesis)},
+@ref{PrintingListsAndConses, Section 22.1.3.5 (Printing Lists and Conses)}
+
+
+@node null (System Class)
+@heading null (System Class)
+@syindex null
+@cindex null
+
+
+@subsubheading Class Precedence List:
+@code{null},
+@code{symbol},
+@code{list},
+@code{sequence},
+@code{t}
+
+@subsubheading Description:
+
+The only @term{object} @oftype{null} is @nil{},
+which represents the @term{empty list} and can also be notated @empty{}.
+
+@subsubheading See Also:
+
+@ref{Symbols as Tokens, Section 2.3.4 (Symbols as Tokens)},
+@ref{Left-Parenthesis, Section 2.4.1 (Left-Parenthesis)},
+@ref{PrintingSymbols, Section 22.1.3.3 (Printing Symbols)}
+
+@node cons (System Class)
+@heading cons (System Class)
+@syindex cons
+@cindex cons
+
+
+@subsubheading Class Precedence List:
+@code{cons},
+@code{list},
+@code{sequence},
+@code{t}
+
+@subsubheading Description:
+
+A @term{cons} is a compound @term{object} having two components,
+called the @term{car} and @term{cdr}. These form a @term{dotted pair}.
+Each component can be any @term{object}.
+
+
+@subsubheading Compound Type Specifier Kind:
+
+Specializing.
+
+@subsubheading Compound Type Specifier Syntax:
+
+@Deftype{cons, @ttbrac{car-typespec @brac{cdr-typespec}}}
+
+@subsubheading Compound Type Specifier Arguments:
+
+@param{car-typespec}---a @term{type specifier},
+or the @term{symbol} @t{*}.
+@Default{the @term{symbol} @t{*}}
+
+@param{cdr-typespec}---a @term{type specifier},
+or the @term{symbol} @t{*}.
+@Default{the @term{symbol} @t{*}}
+
+@subsubheading Compound Type Specifier Description:
+
+This denotes the set of @term{conses}
+whose @term{car} is constrained to be of @term{type} @param{car-typespec} and
+whose @term{cdr} is constrained to be of @term{type} @param{cdr-typespec}.
+(If either @param{car-typespec} or @param{cdr-typespec} is @t{*},
+it is as if @thetype{t} had been denoted.)
+
+
+@subsubheading See Also:
+
+@ref{Left-Parenthesis, Section 2.4.1 (Left-Parenthesis)},
+@ref{PrintingListsAndConses, Section 22.1.3.5 (Printing Lists and Conses)}
+
+@node atom (Type)
+@heading atom (Type)
+@syindex atom
+@cindex atom
+
+
+@subsubheading Supertypes:
+
+@code{atom},
+@code{t}
+
+@subsubheading Description:
+
+It is equivalent to @tt{(not cons)}.
+
+
+@node cons (Function)
+@heading cons (Function)
+@syindex cons
+@cindex cons
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{cons, object-1 object-2, cons}
+
+@subsubheading Arguments and Values:
+
+@param{object-1}---an @term{object}.
+
+@param{object-2}---an @term{object}.
+
+@param{cons}---a @term{cons}.
+
+@subsubheading Description:
+
+Creates a @term{fresh} @term{cons}, the @term{car} of which is @param{object-1}
+and the @term{cdr} of which is @param{object-2}.
+
+@subsubheading Examples:
+
+@lisp
+ (cons 1 2) @EV{} (1 . 2)
+ (cons 1 nil) @EV{} (1)
+ (cons nil 2) @EV{} (NIL . 2)
+ (cons nil nil) @EV{} (NIL)
+ (cons 1 (cons 2 (cons 3 (cons 4 nil)))) @EV{} (1 2 3 4)
+ (cons 'a 'b) @EV{} (A . B)
+ (cons 'a (cons 'b (cons 'c '@empty{}))) @EV{} (A B C)
+ (cons 'a '(b c d)) @EV{} (A B C D)
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{list}
+
+@subsubheading Notes:
+If @param{object-2} is a @term{list}, @code{cons} can be thought of as
+producing a new @term{list} which is like it but has @param{object-1} prepended.
+
+@node consp
+@heading consp (Function)
+@syindex consp
+@cindex consp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{consp, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{object, cons}
+
+@subsubheading Examples:
+@lisp
+ (consp nil) @EV{} @term{false}
+ (consp (cons 1 2)) @EV{} @term{true}
+@end lisp
+
+
+The @term{empty list} is not a @term{cons}, so
+
+@lisp
+ (consp '()) @EQ{} (consp 'nil) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{listp}
+
+@subsubheading Notes:
+
+@lisp
+ (consp @param{object}) @EQ{} (typep @param{object} 'cons) @EQ{} (not (typep @param{object} 'atom)) @EQ{} (typep @param{object} '(not atom))
+@end lisp
+
+
+
+@node atom (Function)
+@heading atom (Function)
+@syindex atom
+@cindex atom
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{atom, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{object, atom}
+
+@subsubheading Examples:
+@lisp
+ (atom 'sss) @EV{} @term{true}
+ (atom (cons 1 2)) @EV{} @term{false}
+ (atom nil) @EV{} @term{true}
+ (atom '()) @EV{} @term{true}
+ (atom 3) @EV{} @term{true}
+@end lisp
+
+
+@subsubheading Notes:
+
+@lisp
+ (atom @param{object}) @EQ{} (typep @param{object} 'atom) @EQ{} (not (consp @param{object}))
+ @EQ{} (not (typep @param{object} 'cons)) @EQ{} (typep @param{object} '(not cons))
+@end lisp
+
+
+
+@node rplaca; rplacd
+@heading rplaca, rplacd (Function)
+@syindex rplaca
+@cindex rplaca
+@syindex rplacd
+@cindex rplacd
+@anchor{rplaca}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{rplaca, cons object, cons}
+@DefunWithValues{rplacd, cons object, cons}
+
+
+@subsubheading Pronunciation:
+
+@code{rplaca}: @pronounced{@stress{r@harde{}}@Stress{plak}@schwa{}}
+or @pronounced{@stress{r@schwa{}}@Stress{plak}@schwa{}}
+
+@code{rplacd}: @pronounced{@stress{r@harde{}}@Stress{plak}d@schwa{}}
+or @pronounced{@stress{r@schwa{}}@Stress{plak}d@schwa{}}
+or @pronounced{@stress{r@harde{}}@Stress{plak}d@harde{}}
+or @pronounced{@stress{r@schwa{}}@Stress{plak}d@harde{}}
+
+@subsubheading Arguments and Values:
+
+@param{cons}---a @term{cons}.
+
+@param{object}---an @term{object}.
+
+@subsubheading Description:
+
+@code{rplaca} replaces the @term{car} of the @param{cons} with @param{object}.
+
+@code{rplacd} replaces the @term{cdr} of the @param{cons} with @param{object}.
+
+@subsubheading Examples:
+@lisp
+ (defparameter *some-list* (list* 'one 'two 'three 'four)) @EV{} *some-list*
+ *some-list* @EV{} (ONE TWO THREE . FOUR)
+ (rplaca *some-list* 'uno) @EV{} (UNO TWO THREE . FOUR)
+ *some-list* @EV{} (UNO TWO THREE . FOUR)
+ (rplacd (last *some-list*) (list 'IV)) @EV{} (THREE IV)
+ *some-list* @EV{} (UNO TWO THREE IV)
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The @param{cons} is modified.
+
+@Shouldchecktype{cons, a @term{cons}}
+
+
+@node car; cdr; caar; cadr; cdar; cddr; caaar; caadr; cadar; caddr; cdaar; cd+
+@heading car, cdr, caar, cadr, cdar, cddr, caaar, caadr, cadar, caddr, cdaar, cdadr, cddar, cdddr, caaaar, caaadr, caadar, caaddr, cadaar, cadadr, caddar, cadddr, cdaaar, cdaadr, cdadar, cdaddr, cddaar, cddadr, cdddar, cddddr (Accessor)
+@syindex car
+@cindex car
+@syindex cdr
+@cindex cdr
+@syindex caar
+@cindex caar
+@syindex cadr
+@cindex cadr
+@syindex cdar
+@cindex cdar
+@syindex cddr
+@cindex cddr
+@syindex caaar
+@cindex caaar
+@syindex caadr
+@cindex caadr
+@syindex cadar
+@cindex cadar
+@syindex caddr
+@cindex caddr
+@syindex cdaar
+@cindex cdaar
+@syindex cdadr
+@cindex cdadr
+@syindex cddar
+@cindex cddar
+@syindex cdddr
+@cindex cdddr
+@syindex caaaar
+@cindex caaaar
+@syindex caaadr
+@cindex caaadr
+@syindex caadar
+@cindex caadar
+@syindex caaddr
+@cindex caaddr
+@syindex cadaar
+@cindex cadaar
+@syindex cadadr
+@cindex cadadr
+@syindex caddar
+@cindex caddar
+@syindex cadddr
+@cindex cadddr
+@syindex cdaaar
+@cindex cdaaar
+@syindex cdaadr
+@cindex cdaadr
+@syindex cdadar
+@cindex cdadar
+@syindex cdaddr
+@cindex cdaddr
+@syindex cddaar
+@cindex cddaar
+@syindex cddadr
+@cindex cddadr
+@syindex cdddar
+@cindex cdddar
+@syindex cddddr
+@cindex cddddr
+@anchor{car}
+@anchor{cdr}
+
+
+@subsubheading Syntax:
+
+car x @EV{} object  |  (setf (x object) new-object)@*
+cdr x @EV{} object  |  (setf (x object) new-object)@*
+caar x @EV{} object  |  (setf (x object) new-object)@*
+cadr x @EV{} object  |  (setf (x object) new-object)@*
+cdar x @EV{} object  |  (setf (x object) new-object)@*
+cddr x @EV{} object  |  (setf (x object) new-object)@*
+caaar x @EV{} object  |  (setf (x object) new-object)@*
+caadr x @EV{} object  |  (setf (x object) new-object)@*
+cadar x @EV{} object  |  (setf (x object) new-object)@*
+caddr x @EV{} object  |  (setf (x object) new-object)@*
+cdaar x @EV{} object  |  (setf (x object) new-object)@*
+cdadr x @EV{} object  |  (setf (x object) new-object)@*
+cddar x @EV{} object  |  (setf (x object) new-object)@*
+cdddr x @EV{} object  |  (setf (x object) new-object)@*
+caaaar x @EV{} object  |  (setf (x object) new-object)@*
+caaadr x @EV{} object  |  (setf (x object) new-object)@*
+caadar x @EV{} object  |  (setf (x object) new-object)@*
+caaddr x @EV{} object  |  (setf (x object) new-object)@*
+cadaar x @EV{} object  |  (setf (x object) new-object)@*
+cadadr x @EV{} object  |  (setf (x object) new-object)@*
+caddar x @EV{} object  |  (setf (x object) new-object)@*
+cadddr x @EV{} object  |  (setf (x object) new-object)@*
+cdaaar x @EV{} object  |  (setf (x object) new-object)@*
+cdaadr x @EV{} object  |  (setf (x object) new-object)@*
+cdadar x @EV{} object  |  (setf (x object) new-object)@*
+cdaddr x @EV{} object  |  (setf (x object) new-object)@*
+cddaar x @EV{} object  |  (setf (x object) new-object)@*
+cddadr x @EV{} object  |  (setf (x object) new-object)@*
+cdddar x @EV{} object  |  (setf (x object) new-object)@*
+cddddr x @EV{} object  |  (setf (x object) new-object)@*
+@*
+
+
+@subsubheading Pronunciation:
+
+@code{cadr}: @pronounced{@Stress{ka}@stress{d@schwa{} r}}
+
+@code{caddr}: @pronounced{@Stress{kad}@schwa{} @stress{d@schwa{} r}}
+or @pronounced{@Stress{ka}@stress{d\.ud@schwa{} r}}
+
+@code{cdr}: @pronounced{@Stress{k\.u}@stress{d@schwa{} r}}
+
+@code{cddr}: @pronounced{@Stress{k\.ud}@schwa{} @stress{d@schwa{} r}}
+or @pronounced{@Stress{k@schwa{}}@stress{d\.ud@schwa{} r}}
+
+@subsubheading Arguments and Values:
+
+@param{x}---a @term{list}.
+
+@param{object}---an @term{object}.
+
+@param{new-object}---an @term{object}.
+
+@subsubheading Description:
+
+If @param{x} is a @term{cons}, @code{car} returns the @term{car}
+of that @term{cons}.  If @param{x} is @nil{}, @code{car} returns @nil{}.
+
+If @param{x} is a @term{cons}, @code{cdr} returns the @term{cdr}
+of that @term{cons}.  If @param{x} is @nil{}, @code{cdr} returns @nil{}.
+
+@term{Functions} are provided which perform compositions of up to four
+@code{car} and @code{cdr} operations.  Their @term{names} consist of
+a @f{C}, followed by two, three, or four occurrences of @f{A} or @f{D},
+and finally an @f{R}.  The series of @f{A}'s and @f{D}'s in each
+@term{function}'s @term{name} is chosen to identify the series of
+@code{car} and @code{cdr} operations that is performed by the function.
+The order in which the @f{A}'s and @f{D}'s appear is the inverse of the
+order in which the corresponding operations are performed.  @Thenextfigure{}@spc{}
+defines the relationships precisely.
+
+
+@float Figure,fig14.6
+@cartouche
+@multitable{This @term{place} @mat{@ldots{}}}{Is equivalent to this @term{place} @mat{@ldots{}}}
+@headitem This @term{place} @mat{@ldots{}} @tab Is equivalent to this @term{place} @mat{@ldots{}}
+@item @f{(caar @param{x})} @tab @f{(car (car @param{x}))}
+@item @f{(cadr @param{x})} @tab @f{(car (cdr @param{x}))}
+@item @f{(cdar @param{x})} @tab @f{(cdr (car @param{x}))}
+@item @f{(cddr @param{x})} @tab @f{(cdr (cdr @param{x}))}
+@item @f{(caaar @param{x})} @tab @f{(car (car (car @param{x})))}
+@item @f{(caadr @param{x})} @tab @f{(car (car (cdr @param{x})))}
+@item @f{(cadar @param{x})} @tab @f{(car (cdr (car @param{x})))}
+@item @f{(caddr @param{x})} @tab @f{(car (cdr (cdr @param{x})))}
+@item @f{(cdaar @param{x})} @tab @f{(cdr (car (car @param{x})))}
+@item @f{(cdadr @param{x})} @tab @f{(cdr (car (cdr @param{x})))}
+@item @f{(cddar @param{x})} @tab @f{(cdr (cdr (car @param{x})))}
+@item @f{(cdddr @param{x})} @tab @f{(cdr (cdr (cdr @param{x})))}
+@item @f{(caaaar @param{x})} @tab @f{(car (car (car (car @param{x}))))}
+@item @f{(caaadr @param{x})} @tab @f{(car (car (car (cdr @param{x}))))}
+@item @f{(caadar @param{x})} @tab @f{(car (car (cdr (car @param{x}))))}
+@item @f{(caaddr @param{x})} @tab @f{(car (car (cdr (cdr @param{x}))))}
+@item @f{(cadaar @param{x})} @tab @f{(car (cdr (car (car @param{x}))))}
+@item @f{(cadadr @param{x})} @tab @f{(car (cdr (car (cdr @param{x}))))}
+@item @f{(caddar @param{x})} @tab @f{(car (cdr (cdr (car @param{x}))))}
+@item @f{(cadddr @param{x})} @tab @f{(car (cdr (cdr (cdr @param{x}))))}
+@item @f{(cdaaar @param{x})} @tab @f{(cdr (car (car (car @param{x}))))}
+@item @f{(cdaadr @param{x})} @tab @f{(cdr (car (car (cdr @param{x}))))}
+@item @f{(cdadar @param{x})} @tab @f{(cdr (car (cdr (car @param{x}))))}
+@item @f{(cdaddr @param{x})} @tab @f{(cdr (car (cdr (cdr @param{x}))))}
+@item @f{(cddaar @param{x})} @tab @f{(cdr (cdr (car (car @param{x}))))}
+@item @f{(cddadr @param{x})} @tab @f{(cdr (cdr (car (cdr @param{x}))))}
+@item @f{(cdddar @param{x})} @tab @f{(cdr (cdr (cdr (car @param{x}))))}
+@item @f{(cddddr @param{x})} @tab @f{(cdr (cdr (cdr (cdr @param{x}))))}
+@end multitable
+@end cartouche
+@caption{CAR and CDR variants}
+@end float
+
+
+@code{setf} can also be used with any of these functions to change an
+existing component of @param{x}, but @code{setf} will not make new
+components.  So, for example, the @term{car} of a @term{cons}
+can be assigned with @code{setf} of @code{car},
+but the @term{car} of @nil{}@spc{}cannot be assigned with @code{setf} of @code{car}.
+Similarly, the @term{car} of the @term{car} of a @term{cons} whose @term{car}
+is a @term{cons} can be assigned with @code{setf} of @code{caar},
+but neither @nil{} nor a @term{cons} whose car is @nil{}@spc{}can be assigned
+with @code{setf} of @code{caar}.
+
+The argument @param{x} is permitted to be a @term{dotted list}
+or a @term{circular list}.
+
+@subsubheading Examples:
+
+@lisp
+ (car nil) @EV{} NIL
+ (cdr '(1 . 2)) @EV{} 2
+ (cdr '(1 2)) @EV{} (2)
+ (cadr '(1 2)) @EV{} 2
+ (car '(a b c)) @EV{} A
+ (cdr '(a b c)) @EV{} (B C)
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+The functions @code{car} and @code{cdr}
+should signal @code{type-error} if they receive an argument which is not a
+@term{list}.  The other functions (@code{caar}, @code{cadr},
+@mat{@ldots{}} @code{cddddr}) should behave for the purpose of
+error checking as if defined by appropriate calls to @code{car} and
+@code{cdr}.
+
+@subsubheading See Also:
+
+@ref{rplaca}, @ref{first}, @ref{rest}
+
+@subsubheading Notes:
+
+The @term{car} of a @term{cons} can also be altered by using @code{rplaca},
+and the @term{cdr} of a @term{cons} can be altered by using @code{rplacd}.
+
+@lisp
+(car @i{x})    @EQ{} (first @i{x})
+(cadr @i{x})   @EQ{} (second @i{x}) @EQ{} (car (cdr @i{x}))
+(caddr @i{x})  @EQ{} (third @i{x})  @EQ{} (car (cdr (cdr @i{x})))
+(cadddr @i{x}) @EQ{} (fourth @i{x}) @EQ{} (car (cdr (cdr (cdr @i{x}))))
+@end lisp
+
+
+
+@node copy-tree
+@heading copy-tree (Function)
+@syindex copy-tree
+@cindex copy-tree
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{copy-tree, tree, new-tree}
+
+@subsubheading Arguments and Values:
+
+@param{tree}---a @term{tree}.
+
+@param{new-tree}---a @term{tree}.
+
+@subsubheading Description:
+
+Creates a @term{copy} of a @term{tree} of @term{conses}.
+
+If @param{tree} is not a @term{cons}, it is returned;
+otherwise, the result is a new @term{cons} of the results of calling @code{copy-tree}
+on the @term{car} and @term{cdr} of @param{tree}.
+In other words, all @term{conses} in the @term{tree} represented by @param{tree}
+are copied recursively, stopping only when non-@term{conses} are encountered.
+
+@code{copy-tree} does not preserve circularities and the sharing of substructure.
+
+@subsubheading Examples:
+
+@lisp
+ (setq object (list (cons 1 "one")
+                    (cons 2 (list 'a 'b 'c))))
+@EV{} ((1 . "one") (2 A B C))
+ (setq object-too object) @EV{} ((1 . "one") (2 A B C))
+ (setq copy-as-list (copy-list object))
+ (setq copy-as-alist (copy-alist object))
+ (setq copy-as-tree (copy-tree object))
+ (eq object object-too) @EV{} @term{true}
+ (eq copy-as-tree object) @EV{} @term{false}
+ (eql copy-as-tree object) @EV{} @term{false}
+ (equal copy-as-tree object) @EV{} @term{true}
+ (setf (first (cdr (second object))) "a"
+       (car (second object)) "two"
+       (car object) '(one . 1)) @EV{} (ONE . 1)
+ object @EV{} ((ONE . 1) ("two" "a" B C))
+ object-too @EV{} ((ONE . 1) ("two" "a" B C))
+ copy-as-list @EV{} ((1 . "one") ("two" "a" B C))
+ copy-as-alist @EV{} ((1 . "one") (2 "a" B C))
+ copy-as-tree @EV{} ((1 . "one") (2 A B C))
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{tree-equal}
+
+
+
+@node sublis; nsublis
+@heading sublis, nsublis (Function)
+@syindex sublis
+@cindex sublis
+@syindex nsublis
+@cindex nsublis
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{sublis, alist tree @key{} key test test-not, new-tree}
+@DefunWithValues{nsublis, alist tree @key{} key test test-not, new-tree}
+
+@subsubheading Arguments and Values:
+
+@param{alist}---an @term{association list}.
+
+@param{tree}---a @term{tree}.
+
+@param{test}---a @term{designator} for a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{test-not}---a @term{designator} for
+a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{key}---a @term{designator} for a @term{function} of one argument,
+or @nil{}.
+
+@param{new-tree}---a @term{tree}.
+
+@subsubheading Description:
+
+@code{sublis} makes substitutions for @term{objects} in @param{tree}
+(a structure of @term{conses}).
+@code{nsublis} is like @code{sublis}
+but destructively modifies the relevant
+parts of the @param{tree}.
+
+@code{sublis} looks at all subtrees and leaves of @param{tree};
+if a subtree or leaf appears as a key in @param{alist}
+(that is, the key and the subtree or leaf @term{satisfy the test}),
+it is replaced by the @term{object} with which that key is associated.
+This operation is non-destructive.  In effect, @code{sublis} can
+perform several @code{subst} operations simultaneously.
+
+If @code{sublis} succeeds, a new copy of @param{tree} is returned in
+which each occurrence of such a subtree or leaf is replaced by the
+@term{object} with which it is associated.   If no changes are made, the
+original tree is returned.  The original @param{tree} is left unchanged,
+but the result tree may share cells with it.
+
+@code{nsublis} is permitted to modify @param{tree}
+but otherwise returns the same values as @code{sublis}.
+
+@subsubheading Examples:
+
+@lisp
+ (sublis '((x . 100) (z . zprime))
+         '(plus x (minus g z x p) 4 . x))
+@EV{} (PLUS 100 (MINUS G ZPRIME 100 P) 4 . 100)
+ (sublis '(((+ x y) . (- x y)) ((- x y) . (+ x y)))
+         '(* (/ (+ x y) (+ x p)) (- x y))
+         :test #'equal)
+@EV{} (* (/ (- X Y) (+ X P)) (+ X Y))
+ (setq tree1 '(1 (1 2) ((1 2 3)) (((1 2 3 4)))))
+@EV{} (1 (1 2) ((1 2 3)) (((1 2 3 4))))
+ (sublis '((3 . "three")) tree1)
+@EV{} (1 (1 2) ((1 2 "three")) (((1 2 "three" 4))))
+ (sublis '((t . "string"))
+          (sublis '((1 . "") (4 . 44)) tree1)
+          :key #'stringp)
+@EV{} ("string" ("string" 2) (("string" 2 3)) ((("string" 2 3 44))))
+ tree1 @EV{} (1 (1 2) ((1 2 3)) (((1 2 3 4))))
+ (setq tree2 '("one" ("one" "two") (("one" "Two" "three"))))
+@EV{} ("one" ("one" "two") (("one" "Two" "three")))
+ (sublis '(("two" . 2)) tree2)
+@EV{} ("one" ("one" "two") (("one" "Two" "three")))
+ tree2 @EV{} ("one" ("one" "two") (("one" "Two" "three")))
+ (sublis '(("two" . 2)) tree2 :test 'equal)
+@EV{} ("one" ("one" 2) (("one" "Two" "three")))
+
+ (nsublis '((t . 'temp))
+           tree1
+           :key #'(lambda (x) (or (atom x) (< (list-length x) 3))))
+@EV{} ((QUOTE TEMP) (QUOTE TEMP) QUOTE TEMP)
+@end lisp
+
+
+@subsubheading Side Effects:
+
+@code{nsublis} modifies @param{tree}.
+
+@subsubheading See Also:
+
+@ref{subst},
+@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)},
+@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+
+@subsubheading Notes:
+
+The @kwd{test-not} parameter is deprecated.
+
+Because the side-effecting variants (@eg{} @code{nsublis}) potentially
+change the path that is being traversed, their effects in the presence
+of shared or circular structure structure may vary in surprising ways
+when compared to their non-side-effecting alternatives.  To see this,
+consider the following side-effect behavior, which might be exhibited by
+some implementations:
+
+@lisp
+ (defun test-it (fn)
+   (let* ((shared-piece (list 'a 'b))
+          (data (list shared-piece shared-piece)))
+     (funcall fn '((a . b) (b . a)) data)))
+ (test-it #'sublis) @EV{} ((B A) (B A))
+ (test-it #'nsublis) @EV{} ((A B) (A B))
+@end lisp
+
+
+
+@node subst; subst-if; subst-if-not; nsubst; nsubst-if; nsubst-if-not
+@heading subst, subst-if, subst-if-not, nsubst, nsubst-if, nsubst-if-not (Function)
+@syindex subst
+@cindex subst
+@syindex subst-if
+@cindex subst-if
+@syindex subst-if-not
+@cindex subst-if-not
+@syindex nsubst
+@cindex nsubst
+@syindex nsubst-if
+@cindex nsubst-if
+@syindex nsubst-if-not
+@cindex nsubst-if-not
+@anchor{subst}
+@anchor{nsubst}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{subst, new old  tree @key{} key test test-not, new-tree}
+@DefunWithValues{subst-if, new predicate tree @key{} key, new-tree}
+@DefunWithValues{subst-if-not, new predicate tree @key{} key, new-tree}
+
+@DefunWithValues{nsubst, new old  tree @key{} key test test-not, new-tree}
+@DefunWithValues{nsubst-if, new predicate tree @key{} key, new-tree}
+@DefunWithValues{nsubst-if-not, new predicate tree @key{} key, new-tree}
+
+@subsubheading Arguments and Values:
+
+@param{new}---an @term{object}.
+
+@param{old}---an @term{object}.
+
+@param{predicate}---a @term{symbol} that names a @term{function},
+or a @term{function} of one argument
+that returns a @term{generalized boolean} value.
+
+@param{tree}---a @term{tree}.
+
+@param{test}---a @term{designator} for a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{test-not}---a @term{designator} for
+a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{key}---a @term{designator} for a @term{function} of one argument,
+or @nil{}.
+
+@param{new-tree}---a @term{tree}.
+
+@subsubheading Description:
+
+@code{subst}, @code{subst-if}, and @code{subst-if-not} perform
+substitution operations on @param{tree}.
+Each function searches @param{tree} for occurrences of a
+particular @param{old} item of an element or subexpression that
+@term{satisfies the test}.
+
+@code{nsubst}, @code{nsubst-if}, and @code{nsubst-if-not} are
+like @code{subst},
+@code{subst-if}, and @code{subst-if-not} respectively, except that the
+original @param{tree} is  modified.
+
+@code{subst} makes a copy of @param{tree},
+substituting @param{new} for every subtree or leaf of @param{tree}
+(whether the subtree or leaf is a @term{car} or a @term{cdr} of its parent)
+such that @param{old} and the subtree or leaf @term{satisfy the test}.
+
+@code{nsubst} is a destructive version of @code{subst}.
+The list structure of
+@param{tree} is altered by destructively replacing with @param{new}
+each leaf of the @param{tree} such that @param{old} and the leaf
+@term{satisfy the test}.
+
+For @code{subst}, @code{subst-if},
+and @code{subst-if-not},
+if the functions succeed, a new
+copy of the tree is returned in which each  occurrence of such an
+element is replaced by the
+@param{new} element or subexpression.  If no changes are made, the original
+@param{tree} may be returned.
+The original @param{tree} is left unchanged, but the result tree
+may share storage with it.
+
+For @code{nsubst}, @code{nsubst-if},
+and @code{nsubst-if-not}
+the original @param{tree} is  modified and returned as the function result,
+but the result may not be @code{eq} to @param{tree}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq tree1 '(1 (1 2) (1 2 3) (1 2 3 4))) @EV{} (1 (1 2) (1 2 3) (1 2 3 4))
+ (subst "two" 2 tree1) @EV{} (1 (1 "two") (1 "two" 3) (1 "two" 3 4))
+ (subst "five" 5 tree1) @EV{} (1 (1 2) (1 2 3) (1 2 3 4))
+ (eq tree1 (subst "five" 5 tree1)) @EV{} @term{implementation-dependent}
+ (subst 'tempest 'hurricane
+        '(shakespeare wrote (the hurricane)))
+@EV{} (SHAKESPEARE WROTE (THE TEMPEST))
+ (subst 'foo 'nil '(shakespeare wrote (twelfth night)))
+@EV{} (SHAKESPEARE WROTE (TWELFTH NIGHT . FOO) . FOO)
+ (subst '(a . cons) '(old . pair)
+        '((old . spice) ((old . shoes) old . pair) (old . pair))
+        :test #'equal)
+@EV{} ((OLD . SPICE) ((OLD . SHOES) A . CONS) (A . CONS))
+
+ (subst-if 5 #'listp tree1) @EV{} 5
+ (subst-if-not '(x) #'consp tree1)
+@EV{} (1 X)
+
+ tree1 @EV{} (1 (1 2) (1 2 3) (1 2 3 4))
+ (nsubst 'x 3 tree1 :key #'(lambda (y) (and (listp y) (third y))))
+@EV{} (1 (1 2) X X)
+ tree1 @EV{} (1 (1 2) X X)
+@end lisp
+
+
+@subsubheading Side Effects:
+
+@code{nsubst}, @code{nsubst-if}, and @code{nsubst-if-not}
+might alter the @term{tree structure} of @param{tree}.
+
+@subsubheading See Also:
+
+@ref{substitute},
+@ref{nsubstitute},
+@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)},
+@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+
+@subsubheading Notes:
+
+The @kwd{test-not} parameter is deprecated.
+
+The functions @code{subst-if-not} and @code{nsubst-if-not} are deprecated.
+
+One possible definition of @code{subst}:
+
+@lisp
+ (defun subst (old new tree &rest x &key test test-not key)
+   (cond ((satisfies-the-test old tree :test test
+                              :test-not test-not :key key)
+          new)
+         ((atom tree) tree)
+         (t (let ((a (apply #'subst old new (car tree) x))
+                  (d (apply #'subst old new (cdr tree) x)))
+              (if (and (eql a (car tree))
+                       (eql d (cdr tree)))
+                  tree
+                  (cons a d))))))
+@end lisp
+
+
+@node tree-equal
+@heading tree-equal (Function)
+@syindex tree-equal
+@cindex tree-equal
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{tree-equal, tree-1 tree-2 @key{} test test-not, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{tree-1}---a @term{tree}.
+
+@param{tree-2}---a @term{tree}.
+
+@param{test}---a @term{designator} for a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{test-not}---a @term{designator} for
+a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@code{tree-equal} tests whether two trees are of the same shape
+and have the same leaves.
+@code{tree-equal} returns @term{true} if @param{tree-1} and @param{tree-2}  are
+both @term{atoms} and @term{satisfy the test},
+or if they are both @term{conses} and
+the @term{car} of @param{tree-1} is @code{tree-equal} to
+the @term{car} of @param{tree-2} and
+the @term{cdr} of @param{tree-1} is @code{tree-equal} to
+the @term{cdr} of @param{tree-2}.
+Otherwise, @code{tree-equal} returns @term{false}.
+
+@code{tree-equal} recursively compares @term{conses} but not any
+other @term{objects} that have components.
+
+The first argument to the @kwd{test} or @kwd{test-not}
+function is @param{tree-1} or a @term{car} or @term{cdr} of @param{tree-1};
+the second argument is @param{tree-2} or a @term{car}
+or @term{cdr} of @param{tree-2}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq tree1 '(1 (1 2))
+       tree2 '(1 (1 2))) @EV{} (1 (1 2))
+ (tree-equal tree1 tree2) @EV{} @term{true}
+ (eql tree1 tree2) @EV{} @term{false}
+ (setq tree1 '('a ('b 'c))
+       tree2 '('a ('b 'c))) @EV{} ('a ('b 'c))
+@EV{} ((QUOTE A) ((QUOTE B) (QUOTE C)))
+ (tree-equal tree1 tree2 :test 'eq) @EV{} @term{true}
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+The consequences are undefined
+if both @param{tree-1} and @param{tree-2} are circular.
+
+@subsubheading See Also:
+
+@ref{equal},
+@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+
+@subsubheading Notes:
+
+The @kwd{test-not} parameter is deprecated.
+
+
+
+@node copy-list
+@heading copy-list (Function)
+@syindex copy-list
+@cindex copy-list
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{copy-list, list, copy}
+
+@subsubheading Arguments and Values:
+
+@param{list}---a @term{proper list} or a @term{dotted list}.
+
+@param{copy}---a @term{list}.
+
+@subsubheading Description:
+
+Returns a @term{copy} of @param{list}.
+If @param{list} is a @term{dotted list},
+the resulting @term{list} will also be a @term{dotted list}.
+
+Only the @term{list structure} of @param{list} is copied;
+the @term{elements} of the resulting list are
+the @term{same} as the corresponding @term{elements} of the given @param{list}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq lst (list 1 (list 2 3))) @EV{} (1 (2 3))
+ (setq slst lst) @EV{} (1 (2 3))
+ (setq clst (copy-list lst)) @EV{} (1 (2 3))
+ (eq slst lst) @EV{} @term{true}
+ (eq clst lst) @EV{} @term{false}
+ (equal clst lst) @EV{} @term{true}
+ (rplaca lst "one") @EV{} ("one" (2 3))
+ slst @EV{} ("one" (2 3))
+ clst @EV{} (1 (2 3))
+ (setf (caadr lst) "two") @EV{} "two"
+ lst @EV{} ("one" ("two" 3))
+ slst @EV{} ("one" ("two" 3))
+ clst @EV{} (1 ("two" 3))
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+The consequences are undefined if @param{list} is a @term{circular list}.
+
+@subsubheading See Also:
+
+@ref{copy-alist},
+@ref{copy-seq},
+@ref{copy-tree}
+
+@subsubheading Notes:
+
+The copy created is @code{equal} to @param{list}, but not @code{eq}.
+
+
+@node list; list*
+@heading list, list* (Function)
+@syindex list
+@cindex list
+@syindex list*
+@cindex list*
+@anchor{list}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{list, @rest{} objects, list}
+@DefunWithValues{list*, @rest{} @plus{objects}, result}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{list}---a @term{list}.
+
+@param{result}---an @term{object}.
+
+@subsubheading Description:
+
+@code{list} returns a @term{list} containing the supplied @param{objects}.
+
+@code{list*} is like @code{list} except that
+the last @term{argument} to @code{list} becomes
+the @term{car} of the last @term{cons} constructed, while
+the last @term{argument} to @code{list*} becomes
+the @term{cdr} of the last @term{cons} constructed.
+Hence, any given call to @code{list*} always produces one fewer @term{conses}
+than a call to @code{list} with the same number of arguments.
+
+If the last @term{argument} to @code{list*} is a @term{list},
+the effect is to construct a new @term{list} which is similar, but
+which has additional elements added to the front corresponding to
+the preceding @term{arguments} of @code{list*}.
+
+If @code{list*} receives only one @param{object},
+that @param{object} is returned, regardless of whether or not it is a @term{list}.
+
+@subsubheading Examples:
+
+@lisp
+ (list 1) @EV{} (1)
+ (list* 1) @EV{} 1
+ (setq a 1) @EV{} 1
+ (list a 2) @EV{} (1 2)
+ '(a 2) @EV{} (A 2)
+ (list 'a 2) @EV{} (A 2)
+ (list* a 2) @EV{} (1 . 2)
+ (list) @EV{} NIL ;@ie{} ()
+ (setq a '(1 2)) @EV{} (1 2)
+ (eq a (list* a)) @EV{} @term{true}
+ (list 3 4 'a (car '(b . c)) (+ 6 -2)) @EV{} (3 4 A B 4)
+ (list* 'a 'b 'c 'd) @EQ{} (cons 'a (cons 'b (cons 'c 'd))) @EV{} (A B C . D)
+ (list* 'a 'b 'c '(d e f)) @EV{} (A B C D E F)
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{cons (Function)}
+
+@subsubheading Notes:
+
+@lisp
+ (list* @param{x}) @EQ{} @param{x}
+@end lisp
+
+
+
+@node list-length
+@heading list-length (Function)
+@syindex list-length
+@cindex list-length
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{list-length, list, length}
+
+@subsubheading Arguments and Values:
+
+@param{list}---a @term{proper list} or a @term{circular list}.
+
+@param{length}---a non-negative @term{integer}, or @nil{}.
+
+@subsubheading Description:
+
+Returns the @term{length} of @param{list} if @param{list} is a @term{proper list}.
+Returns @nil{}@spc{}if @param{list} is a @term{circular list}.
+
+@subsubheading Examples:
+
+@lisp
+ (list-length '(a b c d)) @EV{} 4
+ (list-length '(a (b c) d)) @EV{} 3
+ (list-length '()) @EV{} 0
+ (list-length nil) @EV{} 0
+ (defun circular-list (&rest elements)
+   (let ((cycle (copy-list elements)))
+     (nconc cycle cycle)))
+ (list-length (circular-list 'a 'b)) @EV{} NIL
+ (list-length (circular-list 'a)) @EV{} NIL
+ (list-length (circular-list)) @EV{} 0
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{list, a @term{proper list} or a @term{circular list}}
+
+@subsubheading See Also:
+
+@ref{length}
+
+@subsubheading Notes:
+
+@code{list-length} could be implemented as follows:
+
+@lisp
+ (defun list-length (x)
+   (do ((n 0 (+ n 2))           ;Counter.
+        (fast x (cddr fast))    ;Fast pointer: leaps by 2.
+        (slow x (cdr slow)))    ;Slow pointer: leaps by 1.
+       (nil)
+     ;; If fast pointer hits the end, return the count.
+     (when (endp fast) (return n))
+     (when (endp (cdr fast)) (return (+ n 1)))
+     ;; If fast pointer eventually equals slow pointer,
+     ;;  then we must be stuck in a circular list.
+     ;; (A deeper property is the converse: if we are
+     ;;  stuck in a circular list, then eventually the
+     ;;  fast pointer will equal the slow pointer.
+     ;;  That fact justifies this implementation.)
+     (when (and (eq fast slow) (> n 0)) (return nil))))
+
+@end lisp
+
+
+
+@node listp
+@heading listp (Function)
+@syindex listp
+@cindex listp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{listp, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{object, list}
+
+@subsubheading Examples:
+@lisp
+ (listp nil) @EV{} @term{true}
+ (listp (cons 1 2)) @EV{} @term{true}
+ (listp (make-array 6)) @EV{} @term{false}
+ (listp t) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{consp}
+
+@subsubheading Notes:
+
+If @param{object} is a @term{cons},
+@code{listp} does not check whether @param{object} is a @term{proper list};
+it returns @term{true} for any kind of @term{list}.
+
+@lisp
+ (listp @param{object}) @EQ{} (typep @param{object} 'list) @EQ{} (typep @param{object} '(or cons null))
+@end lisp
+
+
+
+@node make-list
+@heading make-list (Function)
+@syindex make-list
+@cindex make-list
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{make-list, size @key{} initial-element, list}
+
+@subsubheading Arguments and Values:
+
+@param{size}---a non-negative @term{integer}.
+
+@param{initial-element}---an @term{object}.
+@Default{@nil{}}
+
+@param{list}---a @term{list}.
+
+@subsubheading Description:
+
+Returns a @term{list} of @param{length} given by @term{size},
+each of the @term{elements} of which is @param{initial-element}.
+
+@subsubheading Examples:
+@lisp
+ (make-list 5) @EV{} (NIL NIL NIL NIL NIL)
+ (make-list 3 :initial-element 'rah) @EV{} (RAH RAH RAH)
+ (make-list 2 :initial-element '(1 2 3)) @EV{} ((1 2 3) (1 2 3))
+ (make-list 0) @EV{} NIL ;@ie{} ()
+ (make-list 0 :initial-element 'new-element) @EV{} NIL
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{size, a non-negative @term{integer}}
+
+@subsubheading See Also:
+
+@ref{cons (Function)},
+@ref{list}
+
+
+@node push
+@heading push (Macro)
+@syindex push
+@cindex push
+
+
+@subsubheading Syntax:
+
+@DefmacWithValues{push, item place, new-place-value}
+
+@subsubheading Arguments and Values:
+
+@param{item}---an @term{object}.
+
+@param{place}---a @term{place}, the @term{value} of which may be any @term{object}.
+
+@param{new-place-value}---a @term{list} (the new @term{value} of @param{place}).
+
+@subsubheading Description:
+
+@code{push} prepends @param{item} to the @term{list} that is stored
+in @param{place}, stores the resulting @term{list} in @param{place},
+and returns the @term{list}.
+
+For information about the @term{evaluation} of @term{subforms} of @param{place},
+see @ref{GenRefSubFormEval, Section 5.1.1.1 (Evaluation of Subforms to Places)}.
+
+@subsubheading Examples:
+@lisp
+ (setq llst '(nil)) @EV{} (NIL)
+ (push 1 (car llst)) @EV{} (1)
+ llst @EV{} ((1))
+ (push 1 (car llst)) @EV{} (1 1)
+ llst @EV{} ((1 1))
+ (setq x '(a (b c) d)) @EV{} (A (B C) D)
+ (push 5 (cadr x)) @EV{} (5 B C)
+ x @EV{} (A (5 B C) D)
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The contents of @param{place} are modified.
+
+@subsubheading See Also:
+
+@ref{pop},
+@ref{pushnew},
+@ref{Generalized Reference, Section 5.1 (Generalized Reference)}
+
+@subsubheading Notes:
+The effect of @f{(push @i{item} @i{place})}
+is equivalent to
+
+@lisp
+ (setf place (cons @i{item} @i{place}))
+@end lisp
+
+except that the @term{subforms} of @param{place}
+are evaluated only once, and @param{item} is evaluated
+before @param{place}.
+
+
+@node pop
+@heading pop (Macro)
+@syindex pop
+@cindex pop
+
+
+@subsubheading Syntax:
+
+@DefmacWithValues{pop, place, element}
+
+@subsubheading Arguments and Values:
+
+@param{place}---a @term{place}, the @term{value} of which is a @term{list}
+(possibly, but necessarily, a @term{dotted list} or @term{circular list}).
+
+@param{element}---an @term{object} (the @term{car} of the contents of @param{place}).
+
+@subsubheading Description:
+
+@code{pop} @term{reads} the @term{value} of @param{place},
+remembers the @term{car} of the @term{list} which was retrieved,
+@term{writes} the @term{cdr} of the @term{list} back into the @param{place},
+and finally @term{yields} the @term{car} of the originally retrieved @term{list}.
+
+For information about the @term{evaluation} of @term{subforms} of @param{place},
+see @ref{GenRefSubFormEval, Section 5.1.1.1 (Evaluation of Subforms to Places)}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq stack '(a b c)) @EV{} (A B C)
+ (pop stack) @EV{} A
+ stack @EV{} (B C)
+ (setq llst '((1 2 3 4))) @EV{} ((1 2 3 4))
+ (pop (car llst)) @EV{} 1
+ llst @EV{} ((2 3 4))
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The contents of @param{place} are modified.
+
+@subsubheading See Also:
+
+@ref{push},
+@ref{pushnew},
+@ref{Generalized Reference, Section 5.1 (Generalized Reference)}
+
+@subsubheading Notes:
+
+The effect of @f{(pop @param{place})} is roughly equivalent to
+
+@lisp
+ (prog1 (car @param{place}) (setf @param{place} (cdr @param{place})))
+@end lisp
+
+except that the latter would evaluate any @term{subforms} of @param{place}
+three times, while @code{pop} evaluates them only once.
+
+
+@node first; second; third; fourth; fifth; sixth; seventh; eighth; ninth; ten+
+@heading first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth (Accessor)
+@syindex first
+@cindex first
+@syindex second
+@cindex second
+@syindex third
+@cindex third
+@syindex fourth
+@cindex fourth
+@syindex fifth
+@cindex fifth
+@syindex sixth
+@cindex sixth
+@syindex seventh
+@cindex seventh
+@syindex eighth
+@cindex eighth
+@syindex ninth
+@cindex ninth
+@syindex tenth
+@cindex tenth
+@anchor{first}
+
+
+@subsubheading Syntax:
+
+first list @EV{} object  |  (setf (list object) new-object)@*
+second list @EV{} object  |  (setf (list object) new-object)@*
+third list @EV{} object  |  (setf (list object) new-object)@*
+fourth list @EV{} object  |  (setf (list object) new-object)@*
+fifth list @EV{} object  |  (setf (list object) new-object)@*
+sixth list @EV{} object  |  (setf (list object) new-object)@*
+seventh list @EV{} object  |  (setf (list object) new-object)@*
+eighth list @EV{} object  |  (setf (list object) new-object)@*
+ninth list @EV{} object  |  (setf (list object) new-object)@*
+tenth list @EV{} object  |  (setf (list object) new-object)@*
+@*
+
+
+@subsubheading Arguments and Values:
+
+@param{list}---a @term{list},
+which might be a @term{dotted list} or a @term{circular list}.
+
+@param{object}, @param{new-object}---an @param{object}.
+
+@subsubheading Description:
+
+The functions
+@code{first},
+@code{second},
+@code{third},
+@code{fourth},
+@code{fifth},
+@code{sixth},
+@code{seventh},
+@code{eighth},
+@code{ninth},
+and
+@code{tenth}
+@param{access} the first, second, third, fourth, fifth, sixth, seventh, eighth,
+ninth, and tenth @term{elements} of @param{list}, respectively.
+Specifically,
+
+@lisp
+ (first @param{list})    @EQ{}  (car @param{list})
+ (second @param{list})   @EQ{}  (car (cdr @param{list}))
+ (third @param{list})    @EQ{}  (car (cddr @param{list}))
+ (fourth @param{list})   @EQ{}  (car (cdddr @param{list}))
+ (fifth @param{list})    @EQ{}  (car (cddddr @param{list}))
+ (sixth @param{list})    @EQ{}  (car (cdr (cddddr @param{list})))
+ (seventh @param{list})  @EQ{}  (car (cddr (cddddr @param{list})))
+ (eighth @param{list})   @EQ{}  (car (cdddr (cddddr @param{list})))
+ (ninth @param{list})    @EQ{}  (car (cddddr (cddddr @param{list})))
+ (tenth @param{list})    @EQ{}  (car (cdr (cddddr (cddddr @param{list}))))
+@end lisp
+
+
+@code{setf} can also be used with any of these functions to change an
+existing component.  The same equivalences apply.  For example:
+
+@lisp
+ (setf (fifth @param{list}) @param{new-object}) @EQ{} (setf (car (cddddr @param{list})) @param{new-object})
+@end lisp
+
+
+@subsubheading Examples:
+
+@lisp
+ (setq lst '(1 2 3 (4 5 6) ((V)) vi 7 8 9 10))
+@EV{} (1 2 3 (4 5 6) ((V)) VI 7 8 9 10)
+ (first lst) @EV{} 1
+ (tenth lst) @EV{} 10
+ (fifth lst) @EV{} ((V))
+ (second (fourth lst)) @EV{} 5
+ (sixth '(1 2 3)) @EV{} NIL
+ (setf (fourth lst) "four") @EV{} "four"
+ lst @EV{} (1 2 3 "four" ((V)) VI 7 8 9 10)
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{car}, @ref{nth}
+
+@subsubheading Notes:
+
+@code{first}  is functionally equivalent to @code{car},
+@code{second} is functionally equivalent to @code{cadr},
+@code{third}  is functionally equivalent to @code{caddr}, and
+@code{fourth} is functionally equivalent to @code{cadddr}.
+
+The ordinal numbering used here is one-origin,
+as opposed to the zero-origin numbering used by @code{nth}:
+
+@lisp
+ (fifth x) @EQ{} (nth 4 x)
+@end lisp
+
+
+
+@node nth
+@heading nth (Accessor)
+@syindex nth
+@cindex nth
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{nth, n list, object}
+@Defsetf{nth, n list, new-object}
+
+@subsubheading Arguments and Values:
+
+@param{n}---a non-negative @term{integer}.
+
+@param{list}---a @term{list},
+which might be a @term{dotted list} or a @term{circular list}.
+
+@param{object}---an @term{object}.
+
+@param{new-object}---an @term{object}.
+
+@subsubheading Description:
+
+@code{nth} locates the @param{n}th element of @param{list},
+where the @term{car} of the @param{list} is the ``zeroth'' element.
+Specifically,
+
+@lisp
+ (nth @param{n} @param{list}) @EQ{} (car (nthcdr @param{n} @param{list}))
+@end lisp
+
+
+@code{nth} may be used to specify a @param{place} to @code{setf}.
+Specifically,
+
+@lisp
+ (setf (nth @param{n} @param{list}) @param{new-object}) @EQ{} (setf (car (nthcdr @param{n} @param{list})) @param{new-object})
+@end lisp
+
+
+@subsubheading Examples:
+
+@lisp
+ (nth 0 '(foo bar baz)) @EV{} FOO
+ (nth 1 '(foo bar baz)) @EV{} BAR
+ (nth 3 '(foo bar baz)) @EV{} NIL
+ (setq 0-to-3 (list 0 1 2 3)) @EV{} (0 1 2 3)
+ (setf (nth 2 0-to-3) "two") @EV{} "two"
+ 0-to-3 @EV{} (0 1 "two" 3)
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{elt},
+@ref{first},
+@ref{nthcdr}
+
+
+@node endp
+@heading endp (Function)
+@syindex endp
+@cindex endp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{endp, list, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{list}---a @term{list},
+which might be a @term{dotted list} or a @term{circular list}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+Returns @term{true}  if @param{list} is the @term{empty list}.
+Returns @term{false} if @param{list} is a @term{cons}.
+
+@subsubheading Examples:
+
+@lisp
+ (endp nil) @EV{} @term{true}
+ (endp '(1 2)) @EV{} @term{false}
+ (endp (cddr '(1 2))) @EV{} @term{true}
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{list, a @term{list}}
+
+@subsubheading Notes:
+
+The purpose of @code{endp} is to test for the end of @param{proper list}.
+Since @code{endp} does not descend into a @term{cons},
+it is well-defined to pass it a @term{dotted list}.
+However, if shorter ``lists'' are iteratively produced
+by calling @code{cdr} on such a @term{dotted list}
+and those ``lists'' are tested with @code{endp},
+a situation that has undefined consequences will eventually result
+when the @term{non-nil} @term{atom} (which is not in fact a @term{list})
+finally becomes the argument to @code{endp}.
+Since this is the usual way in which @code{endp} is used,
+it is conservative programming style
+and consistent with the intent of @code{endp}
+to treat @code{endp} as simply a function on @term{proper lists}
+which happens not to enforce an argument type of @term{proper list} except
+when the argument is @term{atomic}.
+
+
+@node null (Function)
+@heading null (Function)
+@syindex null
+@cindex null
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{null, object, boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{boolean}---a @term{boolean}.
+
+@subsubheading Description:
+
+@StrictPredicate{object, the @term{empty list}}
+
+@subsubheading Examples:
+
+@lisp
+ (null '()) @EV{} T
+ (null nil) @EV{} T
+ (null t) @EV{} NIL
+ (null 1) @EV{} NIL
+@end lisp
+
+
+
+@subsubheading See Also:
+
+@ref{not (Function)}
+
+@subsubheading Notes:
+
+@code{null} is intended to be used to test for the @term{empty list}
+whereas @code{not} is intended to be used to invert a @term{boolean}
+(or @term{generalized boolean}).
+Operationally, @code{null} and @code{not} compute the same result;
+which to use is a matter of style.
+
+@lisp
+ (null @param{object}) @EQ{} (typep @param{object} 'null) @EQ{} (eq @param{object} '@empty{})
+@end lisp
+
+
+
+@node nconc
+@heading nconc (Function)
+@syindex nconc
+@cindex nconc
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{nconc, @rest{} lists, concatenated-list}
+
+@subsubheading Arguments and Values:
+
+@param{list}---each but the last must be a @term{list}
+(which might be a @param{dotted list} but must not be a @term{circular list});
+the last @param{list} may be any @term{object}.
+
+@param{concatenated-list}---a @term{list}.
+
+@subsubheading Description:
+
+Returns a @term{list} that is the concatenation of @param{lists}.
+If no @param{lists} are supplied, @f{(nconc)} returns @nil{}.
+@code{nconc} is defined using the following recursive relationship:
+
+@lisp
+ (nconc) @EV{} ()
+ (nconc nil . @param{lists}) @EQ{} (nconc . @param{lists})
+ (nconc @param{list}) @EV{} @param{list}
+ (nconc @param{list-1} @param{list-2}) @EQ{} (progn (rplacd (last @param{list-1}) @param{list-2}) @param{list-1})
+ (nconc @param{list-1} @param{list-2} . @param{lists}) @EQ{} (nconc (nconc @param{list-1} @param{list-2}) . @param{lists})
+@end lisp
+
+
+@subsubheading Examples:
+
+@lisp
+ (nconc) @EV{} NIL
+ (setq x '(a b c)) @EV{} (A B C)
+ (setq y '(d e f)) @EV{} (D E F)
+ (nconc x y) @EV{} (A B C D E F)
+ x @EV{} (A B C D E F)
+@end lisp
+
+Note, in the example, that the value of @f{x} is now different,
+since its last @term{cons}
+has been @code{rplacd}'d to the value of @f{y}.
+If @f{(nconc x y)} were evaluated again,
+it would yield a piece of a @term{circular list},
+whose printed representation would be
+@f{(A B C D E F D E F D E F ...)}, repeating forever;
+if the @code{*print-circle*} switch were @term{non-nil},
+it would be printed as @f{(A B C . #1=(D E F . #1#))}.
+
+@lisp
+ (setq foo (list 'a 'b 'c 'd 'e)
+       bar (list 'f 'g 'h 'i 'j)
+       baz (list 'k 'l 'm)) @EV{} (K L M)
+ (setq foo (nconc foo bar baz)) @EV{} (A B C D E F G H I J K L M)
+ foo @EV{} (A B C D E F G H I J K L M)
+ bar @EV{} (F G H I J K L M)
+ baz @EV{} (K L M)
+
+ (setq foo (list 'a 'b 'c 'd 'e)
+       bar (list 'f 'g 'h 'i 'j)
+       baz (list 'k 'l 'm)) @EV{} (K L M)
+ (setq foo (nconc nil foo bar nil baz)) @EV{} (A B C D E F G H I J K L M)
+ foo @EV{} (A B C D E F G H I J K L M)
+ bar @EV{} (F G H I J K L M)
+ baz @EV{} (K L M)
+@end lisp
+
+
+
+@subsubheading Side Effects:
+
+The @param{lists} are modified rather than copied.
+
+@subsubheading See Also:
+
+@ref{append}, @ref{concatenate}
+
+
+@node append
+@heading append (Function)
+@syindex append
+@cindex append
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{append, @rest{} lists, result}
+
+@subsubheading Arguments and Values:
+
+@param{list}---each must be a @term{proper list} except the last,
+which may be any @term{object}.
+
+@param{result}---an @term{object}.  This will be a @term{list}
+unless the last @param{list} was not a @term{list}
+and all preceding @param{lists} were @term{null}.
+
+@subsubheading Description:
+
+@code{append} returns a new @param{list} that is the concatenation of
+the copies.  @param{lists} are left unchanged; the @term{list structure}
+of each of @param{lists} except the last is copied.
+The last argument is not copied; it becomes the @term{cdr} of the
+final @term{dotted pair} of the concatenation of the preceding @param{lists},
+or is returned directly if there are no preceding
+@term{non-empty}
+@param{lists}.
+
+@subsubheading Examples:
+
+@lisp
+ (append '(a b c) '(d e f) '() '(g)) @EV{} (A B C D E F G)
+ (append '(a b c) 'd) @EV{} (A B C . D)
+ (setq lst '(a b c)) @EV{} (A B C)
+ (append lst '(d)) @EV{} (A B C D)
+ lst @EV{} (A B C)
+ (append) @EV{} NIL
+ (append 'a) @EV{} A
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{nconc}, @ref{concatenate}
+
+
+@node revappend; nreconc
+@heading revappend, nreconc (Function)
+@syindex revappend
+@cindex revappend
+@syindex nreconc
+@cindex nreconc
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{revappend, list tail, result-list}
+@DefunWithValues{nreconc, list tail, result-list}
+
+@subsubheading Arguments and Values:
+
+@param{list}---a @term{proper list}.
+
+@param{tail}---an @term{object}.
+
+@param{result-list}---an @term{object}.
+
+@subsubheading Description:
+
+@code{revappend} constructs a @term{copy}@sub2{} of @param{list},
+but with the @term{elements} in reverse order.  It then appends (as if
+by @code{nconc}) the @param{tail} to that reversed list and returns the result.
+
+@code{nreconc} reverses the order of @term{elements} in @param{list}
+(as if by @code{nreverse}).  It then appends (as if by @code{nconc})
+the @param{tail} to that reversed list and returns the result.
+
+The resulting @term{list} shares @term{list structure} with @param{tail}.
+
+@subsubheading Examples:
+
+@lisp
+ (let ((list-1 (list 1 2 3))
+       (list-2 (list 'a 'b 'c)))
+   (print (revappend list-1 list-2))
+   (print (equal list-1 '(1 2 3)))
+   (print (equal list-2 '(a b c))))
+@OUT{} (3 2 1 A B C)
+@OUT{} T
+@OUT{} T
+@EV{} T
+
+ (revappend '(1 2 3) '()) @EV{} (3 2 1)
+ (revappend '(1 2 3) '(a . b)) @EV{} (3 2 1 A . B)
+ (revappend '() '(a b c)) @EV{} (A B C)
+ (revappend '(1 2 3) 'a) @EV{} (3 2 1 . A)
+ (revappend '() 'a) @EV{} A   ;degenerate case
+
+ (let ((list-1 '(1 2 3))
+       (list-2 '(a b c)))
+   (print (nreconc list-1 list-2))
+   (print (equal list-1 '(1 2 3)))
+   (print (equal list-2 '(a b c))))
+@OUT{} (3 2 1 A B C)
+@OUT{} NIL
+@OUT{} T
+@EV{} T
+
+@end lisp
+
+
+@subsubheading Side Effects:
+
+@code{revappend} does not modify either of its @term{arguments}.
+@code{nreconc} is permitted to modify @param{list} but not @param{tail}.
+
+Although it might be implemented differently,
+@code{nreconc} is constrained to have side-effect behavior equivalent to:
+
+@lisp
+ (nconc (nreverse @param{list}) @param{tail})
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{reverse},
+@ref{nreverse},
+@ref{nconc}
+
+@subsubheading Notes:
+
+The following functional equivalences are true,
+although good @term{implementations} will typically use a faster algorithm for
+achieving the same effect:
+
+@lisp
+ (revappend @param{list} @param{tail}) @EQ{} (nconc (reverse @param{list}) @param{tail})
+ (nreconc @param{list} @param{tail}) @EQ{} (nconc (nreverse @param{list}) @param{tail})
+@end lisp
+
+
+
+
+@node butlast; nbutlast
+@heading butlast, nbutlast (Function)
+@syindex butlast
+@cindex butlast
+@syindex nbutlast
+@cindex nbutlast
+@anchor{butlast}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{butlast, list @opt{} n, result-list}
+@DefunWithValues{nbutlast, list @opt{} n, result-list}
+
+@subsubheading Arguments and Values:
+
+@param{list}---a @term{list},
+which might be a @term{dotted list} but must not be a @term{circular list}.
+
+@param{n}---a non-negative @term{integer}.
+
+@param{result-list}---a @term{list}.
+
+@subsubheading Description:
+
+@code{butlast} returns a copy of @param{list} from which the last
+@param{n}
+conses
+have been omitted.
+If @param{n} is not supplied, its value is 1.
+If there are fewer than @param{n}
+conses
+in @param{list},
+@nil{}@spc{}is returned and, in the case of @code{nbutlast},
+@param{list} is not modified.
+
+@code{nbutlast} is like @code{butlast}, but @code{nbutlast}
+may modify @param{list}.
+It changes the @term{cdr} of
+the @term{cons} @param{n}+1 from the end of the @param{list} to @nil{}.
+
+@subsubheading Examples:
+@lisp
+ (setq lst '(1 2 3 4 5 6 7 8 9)) @EV{} (1 2 3 4 5 6 7 8 9)
+ (butlast lst) @EV{} (1 2 3 4 5 6 7 8)
+ (butlast lst 5) @EV{} (1 2 3 4)
+ (butlast lst (+ 5 5)) @EV{} NIL
+ lst @EV{} (1 2 3 4 5 6 7 8 9)
+ (nbutlast lst 3) @EV{} (1 2 3 4 5 6)
+ lst @EV{} (1 2 3 4 5 6)
+ (nbutlast lst 99) @EV{} NIL
+ lst @EV{} (1 2 3 4 5 6)
+ (butlast '(a b c d)) @EV{} (A B C)
+ (butlast '((a b) (c d))) @EV{} ((A B))
+ (butlast '(a)) @EV{} NIL
+ (butlast nil) @EV{} NIL
+ (setq foo (list 'a 'b 'c 'd)) @EV{} (A B C D)
+ (nbutlast foo) @EV{} (A B C)
+ foo @EV{} (A B C)
+ (nbutlast (list 'a)) @EV{} NIL
+ (nbutlast '()) @EV{} NIL
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{list, a @term{proper list} or a @term{dotted list}}
+@Shouldchecktype{n, a non-negative @term{integer}}
+
+@subsubheading Notes:
+
+@lisp
+ (butlast @param{list} @param{n}) @EQ{} (ldiff @param{list} (last @param{list} @param{n}))
+@end lisp
+
+
+
+@node last
+@heading last (Function)
+@syindex last
+@cindex last
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{last, list @opt{} n, tail}
+
+@subsubheading Arguments and Values:
+
+@param{list}---a @term{list},
+which might be a @term{dotted list} but must not be a @term{circular list}.
+
+@param{n}---a non-negative @term{integer}.
+@Default{@f{1}}
+
+@param{tail}---an @term{object}.
+
+@subsubheading Description:
+
+@code{last} returns the last @param{n} @term{conses}
+(not the last @param{n} elements) of @param{list}).
+If @param{list} is @empty{}, @code{last} returns @empty{}.
+
+If @param{n} is zero,
+the atom that terminates @param{list} is returned.
+If @param{n} is greater than or equal to the number of @term{cons} cells in @param{list},
+the result is @param{list}.
+
+@subsubheading Examples:
+
+@lisp
+ (last nil) @EV{} NIL
+ (last '(1 2 3)) @EV{} (3)
+ (last '(1 2 . 3)) @EV{} (2 . 3)
+ (setq x (list 'a 'b 'c 'd)) @EV{} (A B C D)
+ (last x) @EV{} (D)
+ (rplacd (last x) (list 'e 'f)) x @EV{} (A B C D E F)
+ (last x) @EV{} (F)
+
+ (last '(a b c))   @EV{} (C)
+
+ (last '(a b c) 0) @EV{} ()
+ (last '(a b c) 1) @EV{} (C)
+ (last '(a b c) 2) @EV{} (B C)
+ (last '(a b c) 3) @EV{} (A B C)
+ (last '(a b c) 4) @EV{} (A B C)
+
+ (last '(a . b) 0) @EV{} B
+ (last '(a . b) 1) @EV{} (A . B)
+ (last '(a . b) 2) @EV{} (A . B)
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+The consequences are undefined if @param{list} is a @term{circular list}.
+@Shouldchecktype{n, a non-negative @term{integer}}
+
+@subsubheading See Also:
+
+@ref{butlast},
+@ref{nth}
+
+@subsubheading Notes:
+
+The following code could be used to define @code{last}.
+
+@lisp
+ (defun last (list &optional (n 1))
+   (check-type n (integer 0))
+   (do ((l list (cdr l))
+        (r list)
+        (i 0 (+ i 1)))
+       ((atom l) r)
+     (if (>= i n) (pop r))))
+@end lisp
+
+
+@node ldiff; tailp
+@heading ldiff, tailp (Function)
+@syindex ldiff
+@cindex ldiff
+@syindex tailp
+@cindex tailp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{ldiff, list object, result-list}
+@DefunWithValues{tailp, object list, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{list}---a @term{list},
+which might be a @term{dotted list}.
+
+@param{object}---an @term{object}.
+
+@param{result-list}---a @term{list}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+If @param{object} is the @term{same} as some @term{tail} of @param{list},
+@code{tailp} returns @term{true};
+otherwise, it returns @term{false}.
+
+If @param{object} is the @term{same} as some @term{tail} of @param{list},
+@code{ldiff} returns a @term{fresh} @term{list}
+of the @term{elements} of @term{list}
+that precede @code{object} in the @term{list structure} of @param{list};
+otherwise, it returns a @term{copy}@sub2{} of @param{list}.
+
+@subsubheading Examples:
+
+@lisp
+ (let ((lists '#((a b c) (a b c . d))))
+   (dotimes (i (length lists)) ()
+     (let ((list (aref lists i)))
+       (format t "~2&list=~S ~21T(tailp object list)~
+                  ~44T(ldiff list object)~%" list)
+         (let ((objects (vector list (cddr list) (copy-list (cddr list))
+                                '(f g h) '() 'd 'x)))
+           (dotimes (j (length objects)) ()
+             (let ((object (aref objects j)))
+               (format t "~& object=~S ~21T~S ~44T~S"
+                       object (tailp object list) (ldiff list object))))))))
+@OUT{}
+@OUT{} list=(A B C)         (tailp object list)    (ldiff list object)
+@OUT{}  object=(A B C)      T                      NIL
+@OUT{}  object=(C)          T                      (A B)
+@OUT{}  object=(C)          NIL                    (A B C)
+@OUT{}  object=(F G H)      NIL                    (A B C)
+@OUT{}  object=NIL          T                      (A B C)
+@OUT{}  object=D            NIL                    (A B C)
+@OUT{}  object=X            NIL                    (A B C)
+@OUT{}
+@OUT{} list=(A B C . D)     (tailp object list)    (ldiff list object)
+@OUT{}  object=(A B C . D)  T                      NIL
+@OUT{}  object=(C . D)      T                      (A B)
+@OUT{}  object=(C . D)      NIL                    (A B C . D)
+@OUT{}  object=(F G H)      NIL                    (A B C . D)
+@OUT{}  object=NIL          NIL                    (A B C . D)
+@OUT{}  object=D            T                      (A B C)
+@OUT{}  object=X            NIL                    (A B C . D)
+@EV{} NIL
+@end lisp
+
+
+@subsubheading Side Effects:
+
+Neither @code{ldiff} nor @code{tailp} modifies either of its @term{arguments}.
+
+@subsubheading Exceptional Situations:
+
+@Lazychecktype{list, a @term{proper list} or a @term{dotted list}}
+
+@subsubheading See Also:
+
+@ref{set-difference}
+
+@subsubheading Notes:
+
+If the @param{list} is a @term{circular list},
+@code{tailp} will reliably @term{yield} a @term{value}
+only if the given @param{object} is in fact a @term{tail} of @param{list}.
+Otherwise, the consequences are unspecified:
+a given @term{implementation} which detects the circularity must return @term{false},
+but since an @term{implementation} is not obliged to detect such a @term{situation},
+@code{tailp} might just loop indefinitely without returning in that case.
+
+
+@code{tailp} could be defined as follows:
+
+@lisp
+ (defun tailp (object list)
+   (do ((list list (cdr list)))
+       ((atom list) (eql list object))
+      (if (eql object list)
+          (return t))))
+@end lisp
+
+
+and @code{ldiff} could be defined by:
+
+@lisp
+(defun ldiff (list object)
+  (do ((list list (cdr list))
+       (r '() (cons (car list) r)))
+      ((atom list)
+       (if (eql list object) (nreverse r) (nreconc r list)))
+    (when (eql object list)
+      (return (nreverse r)))))
+@end lisp
+
+
+
+
+
+@node nthcdr
+@heading nthcdr (Function)
+@syindex nthcdr
+@cindex nthcdr
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{nthcdr, n list, tail}
+
+@subsubheading Arguments and Values:
+
+@param{n}---a non-negative @term{integer}.
+
+@param{list}---a @term{list},
+which might be a @term{dotted list} or a @term{circular list}.
+
+@param{tail}---an @term{object}.
+
+@subsubheading Description:
+
+Returns the @term{tail} of @param{list} that would be obtained by calling @code{cdr}
+@param{n} times in succession.
+
+@subsubheading Examples:
+
+@lisp
+ (nthcdr 0 '()) @EV{} NIL
+ (nthcdr 3 '()) @EV{} NIL
+ (nthcdr 0 '(a b c)) @EV{} (A B C)
+ (nthcdr 2 '(a b c)) @EV{} (C)
+ (nthcdr 4 '(a b c)) @EV{} ()
+ (nthcdr 1 '(0 . 1)) @EV{} 1
+
+ (locally (declare (optimize (safety 3)))
+   (nthcdr 3 '(0 . 1)))
+ Error: Attempted to take CDR of 1.
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{n, a non-negative @term{integer}}
+
+For @param{n} being an integer greater than @f{1},
+the error checking done by @f{(nthcdr @param{n} @param{list})}
+is the same as for @f{(nthcdr (- @param{n} 1) (cdr @param{list}))};
+see the @term{function} @ref{cdr}.
+
+@subsubheading See Also:
+
+@ref{cdr},
+@ref{nth},
+@ref{rest}
+
+
+@node rest
+@heading rest (Accessor)
+@syindex rest
+@cindex rest
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{rest, list, tail}
+@Defsetf{rest, list, new-tail}
+
+@subsubheading Arguments and Values:
+
+@param{list}---a @term{list},
+which might be a @term{dotted list} or a @term{circular list}.
+
+@param{tail}---an @term{object}.
+
+@subsubheading Description:
+
+@code{rest} performs the same operation as @code{cdr},
+but mnemonically complements @code{first}.
+Specifically,
+
+@lisp
+ (rest @param{list}) @EQ{} (cdr @param{list})
+ (setf (rest @param{list}) @param{new-tail}) @EQ{} (setf (cdr @param{list}) @param{new-tail})
+@end lisp
+
+
+@subsubheading Examples:
+
+@lisp
+ (rest '(1 2)) @EV{} (2)
+ (rest '(1 . 2)) @EV{} 2
+ (rest '(1)) @EV{} NIL
+ (setq *cons* '(1 . 2)) @EV{} (1 . 2)
+ (setf (rest *cons*) "two") @EV{} "two"
+ *cons* @EV{} (1 . "two")
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{cdr},
+@ref{nthcdr}
+
+@subsubheading Notes:
+
+@code{rest} is often preferred stylistically over @code{cdr}
+when the argument is to being subjectively viewed as a @term{list}
+rather than as a @term{cons}.
+
+
+@node member; member-if; member-if-not
+@heading member, member-if, member-if-not (Function)
+@syindex member
+@cindex member
+@syindex member-if
+@cindex member-if
+@syindex member-if-not
+@cindex member-if-not
+@anchor{member}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{member, item      list @key{} key test test-not, tail}
+@DefunWithValues{member-if, predicate list @key{} key, tail}
+@DefunWithValues{member-if-not, predicate list @key{} key, tail}
+
+@subsubheading Arguments and Values:
+
+@param{item}---an @term{object}.
+
+@param{list}---a @term{proper list}.
+
+@param{predicate}---a @term{designator} for
+a @term{function} of one @term{argument}
+that returns a @term{generalized boolean}.
+
+@param{test}---a @term{designator} for a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{test-not}---a @term{designator} for
+a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{key}---a @term{designator} for a @term{function} of one argument,
+or @nil{}.
+
+@param{tail}---a @term{list}.
+
+@subsubheading Description:
+
+@code{member}, @code{member-if}, and @code{member-if-not} each
+search @param{list} for @param{item} or for a top-level element that
+@term{satisfies the test}.  The argument to the @param{predicate} function
+is an element of @param{list}.
+
+If some element @term{satisfies the test},
+the tail of @param{list} beginning
+with this element is returned; otherwise @nil{}@spc{}is returned.
+
+@param{list} is searched on the top level only.
+
+@subsubheading Examples:
+
+@lisp
+ (member 2 '(1 2 3)) @EV{} (2 3)
+ (member 2 '((1 . 2) (3 . 4)) :test-not #'= :key #'cdr) @EV{} ((3 . 4))
+ (member 'e '(a b c d)) @EV{} NIL
+@end lisp
+
+
+@lisp
+ (member-if #'listp '(a b nil c d)) @EV{} (NIL C D)
+ (member-if #'numberp '(a #@bsl{}Space 5/3 foo)) @EV{} (5/3 FOO)
+ (member-if-not #'zerop
+                 '(3 6 9 11 . 12)
+                 :key #'(lambda (x) (mod x 3))) @EV{} (11 . 12)
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Lazychecktype{list, a @term{proper list}}
+
+@subsubheading See Also:
+
+@ref{find},
+@ref{position},
+@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+
+@subsubheading Notes:
+
+The @kwd{test-not} parameter is deprecated.
+
+@Thefunction{member-if-not} is deprecated.
+
+In the following
+
+@lisp
+ (member 'a '(g (a y) c a d e a f)) @EV{} (A D E A F)
+@end lisp
+
+
+the value returned by @code{member} is @term{identical} to the portion
+of the @term{list} beginning with @f{a}.  Thus @code{rplaca} on the
+result of @code{member} can be used to alter the part of the @term{list}
+where @f{a} was found (assuming a check has been made that @code{member}
+did not return @nil{}).
+
+
+@node mapc; mapcar; mapcan; mapl; maplist; mapcon
+@heading mapc, mapcar, mapcan, mapl, maplist, mapcon (Function)
+@syindex mapc
+@cindex mapc
+@syindex mapcar
+@cindex mapcar
+@syindex mapcan
+@cindex mapcan
+@syindex mapl
+@cindex mapl
+@syindex maplist
+@cindex maplist
+@syindex mapcon
+@cindex mapcon
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{mapc, function @rest{} @plus{lists}, list-1}
+@DefunWithValues{mapcar, function @rest{} @plus{lists}, result-list}
+@DefunWithValues{mapcan, function @rest{} @plus{lists}, concatenated-results}
+@DefunWithValues{mapl, function @rest{} @plus{lists}, list-1}
+@DefunWithValues{maplist, function @rest{} @plus{lists}, result-list}
+@DefunWithValues{mapcon, function @rest{} @plus{lists}, concatenated-results}
+
+@subsubheading Arguments and Values:
+
+@param{function}---a @term{designator} for a @term{function}
+that must take as many @term{arguments} as there are @param{lists}.
+
+@param{list}---a @term{proper list}.
+
+@param{list-1}---the first @param{list} (which must be a @term{proper list}).
+
+@param{result-list}---a @term{list}.
+
+@param{concatenated-results}---a @term{list}.
+
+@subsubheading Description:
+
+The mapping operation involves applying @param{function} to
+successive sets of arguments in which
+one argument is obtained from each @term{sequence}.
+Except for @code{mapc} and @code{mapl},
+the result contains the results returned by @param{function}.
+In the cases of @code{mapc} and @code{mapl},
+the resulting @term{sequence} is @param{list}.
+
+@param{function} is called
+first on all the elements with index @f{0}, then on all those
+with index @f{1}, and so on.
+@param{result-type} specifies the @term{type} of
+the
+resulting @term{sequence}.
+If @param{function} is a @term{symbol}, it is @code{coerce}d
+to a @term{function} as if by @code{symbol-function}.
+
+@code{mapcar} operates on successive @term{elements} of the @param{lists}.
+@param{function} is applied to the first @term{element} of each @param{list},
+then to the second @term{element} of each @param{list}, and so on.
+The iteration terminates when the shortest @param{list} runs out,
+and excess elements in other lists are ignored.
+The value returned by @code{mapcar} is a @term{list}
+of the results of successive calls to @param{function}.
+
+@code{mapc} is like @code{mapcar} except that the results of
+applying @param{function} are not accumulated.
+The @param{list} argument is returned.
+
+@code{maplist} is like @code{mapcar} except that
+@param{function} is applied to successive sublists of the @param{lists}.
+@param{function}
+is first applied to the @param{lists} themselves,
+and then to the @term{cdr} of each
+@param{list}, and then to the @term{cdr} of the @term{cdr}
+of each @param{list}, and so on.
+
+@code{mapl} is like @code{maplist} except that the results of
+applying @param{function} are not accumulated;
+@param{list-1} is returned.
+
+@code{mapcan} and @code{mapcon} are like @code{mapcar} and
+@code{maplist} respectively, except that the results of
+applying @param{function} are combined
+into a @term{list} by the use of @code{nconc}
+rather than @code{list}.
+That is,
+
+@lisp
+ (mapcon f x1 ... xn)
+   @EQ{} (apply #'nconc (maplist f x1 ... xn))
+@end lisp
+
+and similarly for the relationship between @code{mapcan}
+and @code{mapcar}.
+
+@subsubheading Examples:
+
+@lisp
+ (mapcar #'car '((1 a) (2 b) (3 c))) @EV{} (1 2 3)
+ (mapcar #'abs '(3 -4 2 -5 -6)) @EV{} (3 4 2 5 6)
+ (mapcar #'cons '(a b c) '(1 2 3)) @EV{} ((A . 1) (B . 2) (C . 3))
+
+ (maplist #'append '(1 2 3 4) '(1 2) '(1 2 3))
+@EV{} ((1 2 3 4 1 2 1 2 3) (2 3 4 2 2 3))
+ (maplist #'(lambda (x) (cons 'foo x)) '(a b c d))
+@EV{} ((FOO A B C D) (FOO B C D) (FOO C D) (FOO D))
+ (maplist #'(lambda (x) (if (member (car x) (cdr x)) 0 1)) '(a b a c d b c))
+@EV{} (0 0 1 0 1 1 1)
+;An entry is 1 if the corresponding element of the input
+;  list was the last instance of that element in the input list.
+
+ (setq dummy nil) @EV{} NIL
+ (mapc #'(lambda (&rest x) (setq dummy (append dummy x)))
+        '(1 2 3 4)
+        '(a b c d e)
+        '(x y z)) @EV{} (1 2 3 4)
+ dummy @EV{} (1 A X 2 B Y 3 C Z)
+
+ (setq dummy nil) @EV{} NIL
+ (mapl #'(lambda (x) (push x dummy)) '(1 2 3 4)) @EV{} (1 2 3 4)
+ dummy @EV{} ((4) (3 4) (2 3 4) (1 2 3 4))
+
+ (mapcan #'(lambda (x y) (if (null x) nil (list x y)))
+          '(nil nil nil d e)
+          '(1 2 3 4 5 6)) @EV{} (D 4 E 5)
+ (mapcan #'(lambda (x) (and (numberp x) (list x)))
+          '(a 1 b c 3 4 d 5))
+@EV{} (1 3 4 5)
+@end lisp
+
+In this case the function serves as a filter;
+this is a standard @Lisp{}@spc{}idiom using @code{mapcan}.
+
+@lisp
+ (mapcon #'list '(1 2 3 4)) @EV{} ((1 2 3 4) (2 3 4) (3 4) (4))
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Lazycheckanytype{list, a @term{proper list}}
+
+@subsubheading See Also:
+
+@ref{dolist},
+@ref{map},
+@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+
+
+@node acons
+@heading acons (Function)
+@syindex acons
+@cindex acons
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{acons, key datum alist, new-alist}
+
+@subsubheading Arguments and Values:
+
+@param{key}---an @term{object}.
+
+@param{datum}---an @term{object}.
+
+@param{alist}---an @term{association list}.
+
+@param{new-alist}---an @term{association list}.
+
+@subsubheading Description:
+
+Creates a @term{fresh} @term{cons},
+the @term{cdr} of which is @param{alist} and
+the @term{car} of which is another @term{fresh} @term{cons},
+the @term{car} of which is @param{key} and
+the @term{cdr} of which is @param{datum}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq alist '()) @EV{} NIL
+ (acons 1 "one" alist) @EV{} ((1 . "one"))
+ alist @EV{} NIL
+ (setq alist (acons 1 "one" (acons 2 "two" alist))) @EV{} ((1 . "one") (2 . "two"))
+ (assoc 1 alist) @EV{} (1 . "one")
+ (setq alist (acons 1 "uno" alist)) @EV{} ((1 . "uno") (1 . "one") (2 . "two"))
+ (assoc 1 alist) @EV{} (1 . "uno")
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{assoc}, @ref{pairlis}
+
+@subsubheading Notes:
+
+@lisp
+(acons @param{key} @param{datum} @param{alist}) @EQ{} (cons (cons @param{key} @param{datum}) @param{alist})
+@end lisp
+
+
+
+@node assoc; assoc-if; assoc-if-not
+@heading assoc, assoc-if, assoc-if-not (Function)
+@syindex assoc
+@cindex assoc
+@syindex assoc-if
+@cindex assoc-if
+@syindex assoc-if-not
+@cindex assoc-if-not
+@anchor{assoc}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{assoc, item      alist @key{} key test test-not, entry}
+
+
+@DefunWithValues{assoc-if, predicate alist @key{} key, entry}
+@DefunWithValues{assoc-if-not, predicate alist @key{} key, entry}
+
+
+@subsubheading Arguments and Values:
+
+@param{item}---an @term{object}.
+
+@param{alist}---an @term{association list}.
+
+@param{predicate}---a @term{designator} for
+a @term{function} of one @term{argument}
+that returns a @term{generalized boolean}.
+
+@param{test}---a @term{designator} for a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{test-not}---a @term{designator} for
+a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{key}---a @term{designator} for a @term{function} of one argument,
+or @nil{}.
+
+@param{entry}---a @term{cons} that is an @term{element} of @param{alist},
+or @nil{}.
+
+@subsubheading Description:
+
+@code{assoc}, @code{assoc-if}, and @code{assoc-if-not}
+return the first @term{cons} in @param{alist} whose @term{car} @term{satisfies the test},
+or @nil{}@spc{}if no such @term{cons} is found.
+
+For @code{assoc}, @code{assoc-if}, and @code{assoc-if-not}, if @nil{}@spc{}appears
+in @param{alist} in place of a pair, it is ignored.
+
+@subsubheading Examples:
+
+@lisp
+ (setq values '((x . 100) (y . 200) (z . 50))) @EV{} ((X . 100) (Y . 200) (Z . 50))
+ (assoc 'y values) @EV{} (Y . 200)
+ (rplacd (assoc 'y values) 201) @EV{} (Y . 201)
+ (assoc 'y values) @EV{} (Y . 201)
+ (setq alist '((1 . "one")(2 . "two")(3 . "three")))
+@EV{} ((1 . "one") (2 . "two") (3 . "three"))
+ (assoc 2 alist) @EV{} (2 . "two")
+ (assoc-if #'evenp alist) @EV{} (2 . "two")
+ (assoc-if-not #'(lambda(x) (< x 3)) alist) @EV{} (3 . "three")
+ (setq alist '(("one" . 1)("two" . 2))) @EV{} (("one" . 1) ("two" . 2))
+ (assoc "one" alist) @EV{} NIL
+ (assoc "one" alist :test #'equalp) @EV{} ("one" . 1)
+ (assoc "two" alist :key #'(lambda(x) (char x 2))) @EV{} NIL
+ (assoc #@bsl{}o alist :key #'(lambda(x) (char x 2))) @EV{} ("two" . 2)
+ (assoc 'r '((a . b) (c . d) (r . x) (s . y) (r . z))) @EV{}  (R . X)
+ (assoc 'goo '((foo . bar) (zoo . goo))) @EV{} NIL
+ (assoc '2 '((1 a b c) (2 b c d) (-7 x y z))) @EV{} (2 B C D)
+ (setq alist '(("one" . 1) ("2" . 2) ("three" . 3)))
+@EV{} (("one" . 1) ("2" . 2) ("three" . 3))
+ (assoc-if-not #'alpha-char-p alist
+               :key #'(lambda (x) (char x 0))) @EV{} ("2" . 2)
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Lazychecktype{alist, an @term{association list}}
+
+@subsubheading See Also:
+
+@ref{rassoc},
+@ref{find},
+@ref{member},
+@ref{position},
+@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+
+@subsubheading Notes:
+
+The @kwd{test-not} parameter is deprecated.
+
+@Thefunction{assoc-if-not} is deprecated.
+
+It is possible to @code{rplacd} the result of @code{assoc}, provided
+that it is not @nil{},
+in order to ``update'' @param{alist}.
+
+The two expressions
+
+@lisp
+ (assoc item list :test fn)
+@end lisp
+
+and
+
+@lisp
+ (find item list :test fn :key #'car)
+@end lisp
+
+are equivalent in meaning with one exception:
+if @nil{}@spc{}appears in @param{alist} in place of a pair,
+and @param{item} is @nil{},
+@code{find} will compute the @term{car} of the @nil{}@spc{}in @param{alist},
+find that it is equal to @param{item}, and return @nil{},
+whereas @code{assoc} will ignore the @nil{}@spc{}in @param{alist} and continue
+to search for an actual @term{cons} whose @term{car} is @nil{}.
+
+
+@node copy-alist
+@heading copy-alist (Function)
+@syindex copy-alist
+@cindex copy-alist
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{copy-alist, alist, new-alist}
+
+@subsubheading Arguments and Values:
+
+@param{alist}---an @term{association list}.
+
+@param{new-alist}---an @term{association list}.
+
+@subsubheading Description:
+
+@code{copy-alist} returns a @term{copy} of @param{alist}.
+
+The @term{list structure} of @param{alist} is copied,
+and the @term{elements} of @param{alist} which are @term{conses} are
+also copied (as @term{conses} only).
+Any other @term{objects} which are referred to,
+whether directly or indirectly,
+by the @param{alist} continue to be shared.
+
+@subsubheading Examples:
+
+@lisp
+(defparameter *alist* (acons 1 "one" (acons 2 "two" '())))
+*alist* @EV{} ((1 . "one") (2 . "two"))
+(defparameter *list-copy* (copy-list *alist*))
+*list-copy* @EV{} ((1 . "one") (2 . "two"))
+(defparameter *alist-copy* (copy-alist *alist*))
+*alist-copy* @EV{} ((1 . "one") (2 . "two"))
+(setf (cdr (assoc 2 *alist-copy*)) "deux") @EV{} "deux"
+*alist-copy* @EV{} ((1 . "one") (2 . "deux"))
+*alist* @EV{} ((1 . "one") (2 . "two"))
+(setf (cdr (assoc 1 *list-copy*)) "uno") @EV{} "uno"
+*list-copy* @EV{} ((1 . "uno") (2 . "two"))
+*alist* @EV{} ((1 . "uno") (2 . "two"))
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{copy-list}
+
+
+@node pairlis
+@heading pairlis (Function)
+@syindex pairlis
+@cindex pairlis
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{pairlis, keys data @opt{} alist, new-alist}
+
+@subsubheading Arguments and Values:
+
+@param{keys}---a @term{proper list}.
+
+@param{data}---a @term{proper list}.
+
+@param{alist}---an @term{association list}.
+@Default{the @term{empty list}}
+
+@param{new-alist}---an @term{association list}.
+
+@subsubheading Description:
+
+Returns an @term{association list} that associates
+elements of @param{keys} to corresponding elements of @param{data}.
+The consequences are undefined if @param{keys} and @param{data} are
+not of the same @term{length}.
+
+If @param{alist} is supplied, @code{pairlis} returns
+a modified @param{alist} with the
+new pairs prepended to it.
+The new pairs may appear in the resulting @term{association list} in
+either forward or backward order.
+The result of
+
+@lisp
+ (pairlis '(one two) '(1 2) '((three . 3) (four . 19)))
+@end lisp
+
+might be
+
+@lisp
+ ((one . 1) (two . 2) (three . 3) (four . 19))
+@end lisp
+
+or
+
+@lisp
+ ((two . 2) (one . 1) (three . 3) (four . 19))
+@end lisp
+
+
+@subsubheading Examples:
+@lisp
+ (setq keys '(1 2 3)
+        data '("one" "two" "three")
+        alist '((4 . "four"))) @EV{} ((4 . "four"))
+ (pairlis keys data) @EV{} ((3 . "three") (2 . "two") (1 . "one"))
+ (pairlis keys data alist)
+@EV{} ((3 . "three") (2 . "two") (1 . "one") (4 . "four"))
+ alist @EV{} ((4 . "four"))
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Lazychecktypes{@param{keys} and @param{data}, @term{proper lists}}
+
+@subsubheading See Also:
+
+@ref{acons}
+
+
+@node rassoc; rassoc-if; rassoc-if-not
+@heading rassoc, rassoc-if, rassoc-if-not (Function)
+@syindex rassoc
+@cindex rassoc
+@syindex rassoc-if
+@cindex rassoc-if
+@syindex rassoc-if-not
+@cindex rassoc-if-not
+@anchor{rassoc}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{rassoc, item      alist  @key{} key test test-not, entry}
+
+
+@DefunWithValues{rassoc-if, predicate alist @key{} key, entry}
+@DefunWithValues{rassoc-if-not, predicate alist @key{} key, entry}
+
+
+@subsubheading Arguments and Values:
+
+@param{item}---an @term{object}.
+
+@param{alist}---an @term{association list}.
+
+@param{predicate}---a @term{designator} for
+a @term{function} of one @term{argument}
+that returns a @term{generalized boolean}.
+
+@param{test}---a @term{designator} for a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{test-not}---a @term{designator} for
+a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{key}---a @term{designator} for a @term{function} of one argument,
+or @nil{}.
+
+@param{entry}---a @term{cons} that is an @term{element} of the @param{alist},
+or @nil{}.
+
+@subsubheading Description:
+
+@code{rassoc}, @code{rassoc-if}, and @code{rassoc-if-not}
+return the first @term{cons} whose @term{cdr}
+@term{satisfies the test}.
+If no such @term{cons} is found, @nil{}
+is returned.
+
+
+If @nil{}@spc{}appears in @param{alist} in place of a pair, it is  ignored.
+
+@subsubheading Examples:
+
+@lisp
+ (setq alist '((1 . "one") (2 . "two") (3 . 3)))
+@EV{} ((1 . "one") (2 . "two") (3 . 3))
+ (rassoc 3 alist) @EV{} (3 . 3)
+ (rassoc "two" alist) @EV{} NIL
+ (rassoc "two" alist :test 'equal) @EV{} (2 . "two")
+ (rassoc 1 alist :key #'(lambda (x) (if (numberp x) (/ x 3)))) @EV{} (3 . 3)
+ (rassoc 'a '((a . b) (b . c) (c . a) (z . a))) @EV{} (C . A)
+ (rassoc-if #'stringp alist) @EV{} (1 . "one")
+ (rassoc-if-not #'vectorp alist) @EV{} (3 . 3)
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{assoc},
+@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+
+@subsubheading Notes:
+
+The @kwd{test-not} parameter is deprecated.
+
+@Thefunction{rassoc-if-not} is deprecated.
+
+It is possible to @code{rplaca} the result of @code{rassoc},
+provided that it is not @nil{}, in order to ``update'' @param{alist}.
+
+The expressions
+
+@lisp
+ (rassoc item list :test fn)
+@end lisp
+
+and
+
+@lisp
+ (find item list :test fn :key #'cdr)
+@end lisp
+
+are equivalent in meaning, except when the @f{item} is @nil{}
+and @nil{}@spc{}appears in place of a pair in the @param{alist}.
+See the @term{function} @ref{assoc}.
+
+
+@node get-properties
+@heading get-properties (Function)
+@syindex get-properties
+@cindex get-properties
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{get-properties, plist indicator-list, indicator\, value\, tail}
+
+@subsubheading Arguments and Values:
+
+@param{plist}---a @term{property list}.
+
+@param{indicator-list}---a @term{proper list} (of @term{indicators}).
+
+@param{indicator}---an @term{object} that is an @term{element} of @param{indicator-list}.
+
+@param{value}---an @term{object}.
+
+@param{tail}---a @term{list}.
+
+@subsubheading Description:
+
+@code{get-properties} is used to look up any of several
+@term{property list} entries all at once.
+
+It searches the @param{plist} for the first entry whose @term{indicator}
+is @term{identical} to one of the @term{objects} in @param{indicator-list}.
+If such an entry is found, the @param{indicator} and @param{value} returned
+are the @term{property indicator} and its associated @term{property value},
+and the @param{tail} returned is the @term{tail} of the @param{plist}
+that begins with the found entry (@ie{} whose @term{car} is the @param{indicator}).
+If no such entry is found, the @param{indicator}, @param{value}, and @param{tail}
+are all @nil{}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq x '()) @EV{} NIL
+ (setq *indicator-list* '(prop1 prop2)) @EV{} (PROP1 PROP2)
+ (getf x 'prop1) @EV{} NIL
+ (setf (getf x 'prop1) 'val1) @EV{} VAL1
+ (eq (getf x 'prop1) 'val1) @EV{} @term{true}
+ (get-properties x *indicator-list*) @EV{} PROP1, VAL1, (PROP1 VAL1)
+ x @EV{} (PROP1 VAL1)
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{get}, @ref{getf}
+
+
+@node getf
+@heading getf (Accessor)
+@syindex getf
+@cindex getf
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{getf, plist indicator @opt{} default, value}
+@Defsetf{getf, place indicator @opt{} default, new-value}
+
+@subsubheading Arguments and Values:
+
+@param{plist}---a @term{property list}.
+
+@param{place}---a @term{place}, the @term{value} of which is a @term{property list}.
+
+@param{indicator}---an @term{object}.
+
+@param{default}---an @term{object}.
+@Default{@nil{}}
+
+@param{value}---an @term{object}.
+
+@param{new-value}---an @term{object}.
+
+@subsubheading Description:
+
+@code{getf} finds a @term{property} on the @param{plist}
+whose @term{property indicator} is @term{identical} to @param{indicator},
+and returns its corresponding @term{property value}.
+If there are multiple @term{properties}@sub1{} with that @term{property indicator},
+@code{getf} uses the first such @term{property}.
+If there is no @term{property} with that @term{property indicator},
+@param{default} is returned.
+
+@code{setf} of @code{getf} may be used to associate a new @term{object}
+with an existing indicator in the @term{property list} held by @param{place},
+or to create a new assocation if none exists.
+If there are multiple @term{properties}@sub1{} with that @term{property indicator},
+@code{setf} of @code{getf} associates the @param{new-value}
+with the first such @term{property}.
+When a @code{getf} @term{form} is used as a @code{setf} @param{place},
+any @param{default} which is supplied is evaluated according to normal
+left-to-right evaluation rules, but its @term{value} is ignored.
+
+@code{setf} of @code{getf} is permitted to either
+@term{write} the @term{value} of @param{place} itself,
+or modify of any part, @term{car} or @term{cdr},
+of the @term{list structure} held by @param{place}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq x '()) @EV{} NIL
+ (getf x 'prop1) @EV{} NIL
+ (getf x 'prop1 7) @EV{} 7
+ (getf x 'prop1) @EV{} NIL
+ (setf (getf x 'prop1) 'val1) @EV{} VAL1
+ (eq (getf x 'prop1) 'val1) @EV{} @term{true}
+ (getf x 'prop1) @EV{} VAL1
+ (getf x 'prop1 7) @EV{} VAL1
+ x @EV{} (PROP1 VAL1)
+
+;; Examples of implementation variation permitted.
+ (setq foo (list 'a 'b 'c 'd 'e 'f)) @EV{} (A B C D E F)
+ (setq bar (cddr foo)) @EV{} (C D E F)
+ (remf foo 'c) @EV{} @term{true}
+ foo @EV{} (A B E F)
+ bar
+@EV{} (C D E F)
+@OV{} (C)
+@OV{} (NIL)
+@OV{} (C NIL)
+@OV{} (C D)
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{get},
+@ref{get-properties},
+@ref{setf},
+@ref{FnFormsAsGenRefs, Section 5.1.2.2 (Function Call Forms as Places)}
+
+@subsubheading Notes:
+
+There is no way (using @code{getf}) to distinguish an absent property
+from one whose value is @param{default}; but see @code{get-properties}.
+
+Note that while supplying a @term{default} argument to @code{getf}
+in a @code{setf} situation is sometimes not very interesting,
+it is still important because some macros, such as @code{push} and
+@code{incf}, require a @param{place} argument which data is both @term{read}
+from and @term{written} to.  In such a context, if a @term{default}
+argument is to be supplied for the @term{read} situation, it must be
+syntactically valid for the @term{write} situation as well. For example,
+
+@lisp
+ (let ((plist '()))
+   (incf (getf plist 'count 0))
+   plist) @EV{} (COUNT 1)
+@end lisp
+
+
+
+@node remf
+@heading remf (Macro)
+@syindex remf
+@cindex remf
+
+
+@subsubheading Syntax:
+
+@DefmacWithValues{remf, place indicator, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{place}---a @term{place}.
+
+@param{indicator}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@code{remf} removes from the @term{property list} stored in @param{place}
+a @term{property}@sub1{} with a @term{property indicator}
+@term{identical} to @param{indicator}.
+If there are multiple @term{properties}@sub1{} with the @term{identical} key,
+@code{remf} only removes the first such @term{property}.
+@code{remf} returns @term{false} if no such @term{property} was found,
+or @term{true} if a property was found.
+
+The @term{property indicator}
+and the corresponding @term{property value}
+are removed in an undefined order
+by destructively splicing the property list.
+@code{remf} is permitted to either @code{setf} @param{place} or to
+@code{setf} any part, @code{car} or @code{cdr},
+of the @term{list structure} held by that @param{place}.
+
+For information about the @term{evaluation} of @term{subforms} of @param{place},
+see @ref{GenRefSubFormEval, Section 5.1.1.1 (Evaluation of Subforms to Places)}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq x (cons () ())) @EV{} (NIL)
+ (setf (getf (car x) 'prop1) 'val1) @EV{} VAL1
+ (remf (car x) 'prop1) @EV{} @term{true}
+ (remf (car x) 'prop1) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The property list stored in @param{place} is modified.
+
+@subsubheading See Also:
+
+@ref{remprop}, @ref{getf}
+
+
+@node intersection; nintersection
+@heading intersection, nintersection (Function)
+@syindex intersection
+@cindex intersection
+@syindex nintersection
+@cindex nintersection
+@anchor{intersection}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{intersection, list-1 list-2 @key{} key test test-not, result-list}
+@DefunWithValues{nintersection, list-1 list-2 @key{} key test test-not, result-list}
+
+@subsubheading Arguments and Values:
+
+@param{list-1}---a @term{proper list}.
+
+@param{list-2}---a @term{proper list}.
+
+@param{test}---a @term{designator} for a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{test-not}---a @term{designator} for
+a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{key}---a @term{designator} for a @term{function} of one argument,
+or @nil{}.
+
+@param{result-list}---a @term{list}.
+
+@subsubheading Description:
+
+@code{intersection} and @code{nintersection} return a @term{list}
+that contains every element that occurs in both @param{list-1} and @param{list-2}.
+
+@code{nintersection} is the destructive version of @code{intersection}.
+It performs the same operation,
+but may destroy @param{list-1} using its cells to construct the result.
+@param{list-2} is not destroyed.
+
+The intersection operation is described as follows.
+For all possible ordered pairs consisting of
+one @term{element} from @param{list-1}
+and one @term{element} from @param{list-2},
+@kwd{test} or @kwd{test-not} are used
+to determine whether they @term{satisfy the test}.
+The first argument to the @kwd{test} or @kwd{test-not}
+function is an element of @param{list-1}; the second argument is an
+element of @param{list-2}.
+If @kwd{test} or @kwd{test-not} is not supplied, @code{eql}
+is used.
+It is an error if @kwd{test} and @kwd{test-not} are supplied in
+the same function call.
+
+If @kwd{key} is supplied (and not @nil{}), it is used to
+extract the part to be tested from the @param{list} element.
+The argument to the @kwd{key} function
+is an element of either @param{list-1} or @param{list-2};
+the @kwd{key} function typically returns part of the supplied element.
+If @kwd{key} is not supplied or @nil{}, the @param{list-1} and
+@param{list-2} elements are used.
+
+For every pair that @term{satifies the test},
+exactly one of the two elements of the pair will be put in the result.
+No element from either @term{list} appears in the result that does not
+@term{satisfy the test} for
+an element from the other @term{list}.
+If one of the @term{lists} contains duplicate
+elements, there may be duplication in the result.
+
+There is no guarantee that the order of elements in the result will
+reflect the ordering of the arguments in any particular way.
+The result @term{list} may share cells with,
+or be @code{eq} to, either @param{list-1} or @param{list-2}
+if appropriate.
+
+@subsubheading Examples:
+
+@lisp
+ (setq list1 (list 1 1 2 3 4 a b c "A" "B" "C" "d")
+       list2 (list 1 4 5 b c d "a" "B" "c" "D"))
+  @EV{} (1 4 5 B C D "a" "B" "c" "D")
+ (intersection list1 list2) @EV{} (C B 4 1 1)
+ (intersection list1 list2 :test 'equal) @EV{} ("B" C B 4 1 1)
+ (intersection list1 list2 :test #'equalp) @EV{} ("d" "C" "B" "A" C B 4 1 1)
+ (nintersection list1 list2) @EV{} (1 1 4 B C)
+ list1 @EV{} @term{implementation-dependent} ;@eg{} (1 1 4 B C)
+ list2 @EV{} @term{implementation-dependent} ;@eg{} (1 4 5 B C D "a" "B" "c" "D")
+ (setq list1 (copy-list '((1 . 2) (2 . 3) (3 . 4) (4 . 5))))
+@EV{} ((1 . 2) (2 . 3) (3 . 4) (4 . 5))
+ (setq list2 (copy-list '((1 . 3) (2 . 4) (3 . 6) (4 . 8))))
+@EV{} ((1 . 3) (2 . 4) (3 . 6) (4 . 8))
+ (nintersection list1 list2 :key #'cdr) @EV{} ((2 . 3) (3 . 4))
+ list1 @EV{} @term{implementation-dependent} ;@eg{} ((1 . 2) (2 . 3) (3 . 4))
+ list2 @EV{} @term{implementation-dependent} ;@eg{} ((1 . 3) (2 . 4) (3 . 6) (4 . 8))
+@end lisp
+
+
+@subsubheading Side Effects:
+
+@code{nintersection} can modify @param{list-1},
+but not @param{list-2}.
+
+@subsubheading Exceptional Situations:
+
+@Lazychecktypes{@param{list-1} and @param{list-2}, @term{proper lists}}
+
+@subsubheading See Also:
+
+@ref{union},
+@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)},
+@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+
+@subsubheading Notes:
+
+The @kwd{test-not} parameter is deprecated.
+
+Since the @code{nintersection} side effect is not required,
+it should not be used in for-effect-only
+positions in portable code.
+
+@node adjoin
+@heading adjoin (Function)
+@syindex adjoin
+@cindex adjoin
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{adjoin, item list @key{} key test test-not, new-list}
+
+@subsubheading Arguments and Values:
+
+@param{item}---an @term{object}.
+
+@param{list}---a @term{proper list}.
+
+@param{test}---a @term{designator} for a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{test-not}---a @term{designator} for
+a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{key}---a @term{designator} for a @term{function} of one argument,
+or @nil{}.
+
+@param{new-list}---a @term{list}.
+
+@subsubheading Description:
+
+Tests whether @param{item} is the same as an existing element of @param{list}.
+If the @param{item} is not an existing element,
+@code{adjoin} adds it to @param{list} (as if by @code{cons})
+and returns the resulting @term{list};
+otherwise, nothing is added and the original @param{list} is returned.
+
+@SatisfyTest{item, an @term{element} of @param{list}}
+
+@subsubheading Examples:
+
+@lisp
+ (setq slist '()) @EV{} NIL
+ (adjoin 'a slist) @EV{} (A)
+ slist @EV{} NIL
+ (setq slist (adjoin '(test-item 1) slist)) @EV{} ((TEST-ITEM 1))
+ (adjoin '(test-item 1) slist) @EV{} ((TEST-ITEM 1) (TEST-ITEM 1))
+ (adjoin '(test-item 1) slist :test 'equal) @EV{} ((TEST-ITEM 1))
+ (adjoin '(new-test-item 1) slist :key #'cadr) @EV{} ((TEST-ITEM 1))
+ (adjoin '(new-test-item 1) slist) @EV{} ((NEW-TEST-ITEM 1) (TEST-ITEM 1))
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Lazychecktype{list, a @term{proper list}}
+
+@subsubheading See Also:
+
+@ref{pushnew},
+@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+
+@subsubheading Notes:
+
+The @kwd{test-not} parameter is deprecated.
+
+@lisp
+ (adjoin item list :key fn)
+   @EQ{} (if (member (fn item) list :key fn) list (cons item list))
+@end lisp
+
+
+
+@node pushnew
+@heading pushnew (Macro)
+@syindex pushnew
+@cindex pushnew
+
+
+@subsubheading Syntax:
+
+@DefmacWithValuesNewline{pushnew, item place @key{} key test test-not, new-place-value}
+
+@subsubheading Arguments and Values:
+
+@param{item}---an @term{object}.
+
+@param{place}---a @term{place}, the @term{value} of which is a @term{proper list}.
+
+@param{test}---a @term{designator} for a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{test-not}---a @term{designator} for
+a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{key}---a @term{designator} for a @term{function} of one argument,
+or @nil{}.
+
+@param{new-place-value}---a @term{list} (the new @term{value} of @param{place}).
+
+@subsubheading Description:
+
+@code{pushnew} tests whether  @param{item} is the same as any existing
+element of the @term{list} stored in @param{place}.  If @param{item} is not,
+it is prepended to the @term{list}, and the new @term{list} is stored in
+@param{place}.
+
+@code{pushnew} returns the new @term{list} that is stored in @param{place}.
+
+Whether or not @param{item} is already a member of the @term{list} that is
+in @param{place} is determined by comparisons using @kwd{test} or @kwd{test-not}.
+The first argument to the @kwd{test} or @kwd{test-not}
+function is @param{item}; the second argument is
+an element of the @term{list} in @param{place} as returned by
+the @kwd{key} function (if supplied).
+
+If @kwd{key} is supplied, it is used to extract the part to be tested from
+both @param{item} and the @term{list} element,
+as for @code{adjoin}.
+
+The argument to the @kwd{key} function
+is an element of the @term{list} stored in
+@param{place}. The @kwd{key} function typically returns part
+part of the element of the @term{list}.
+If @kwd{key} is not supplied or @nil{}, the @term{list}
+element is used.
+
+For information about the @term{evaluation} of @term{subforms} of @param{place},
+see @ref{GenRefSubFormEval, Section 5.1.1.1 (Evaluation of Subforms to Places)}.
+
+It is @term{implementation-dependent} whether or not @code{pushnew}
+actually executes the storing form for its @param{place} in the
+situation where the @param{item} is already a member of the @term{list}
+held by @param{place}.
+
+@subsubheading Examples:
+@lisp
+ (setq x '(a (b c) d)) @EV{} (A (B C) D)
+ (pushnew 5 (cadr x)) @EV{} (5 B C)
+ x @EV{} (A (5 B C) D)
+ (pushnew 'b (cadr x)) @EV{} (5 B C)
+ x @EV{} (A (5 B C) D)
+ (setq lst '((1) (1 2) (1 2 3))) @EV{} ((1) (1 2) (1 2 3))
+ (pushnew '(2) lst) @EV{} ((2) (1) (1 2) (1 2 3))
+ (pushnew '(1) lst) @EV{} ((1) (2) (1) (1 2) (1 2 3))
+ (pushnew '(1) lst :test 'equal) @EV{} ((1) (2) (1) (1 2) (1 2 3))
+ (pushnew '(1) lst :key #'car) @EV{} ((1) (2) (1) (1 2) (1 2 3))
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The contents of @param{place} may be modified.
+
+@subsubheading See Also:
+
+@ref{push},
+@ref{adjoin},
+@ref{Generalized Reference, Section 5.1 (Generalized Reference)}
+
+@subsubheading Notes:
+
+The effect of
+@lisp
+ (pushnew item place :test p)
+@end lisp
+
+is roughly equivalent to
+@lisp
+ (setf place (adjoin item place :test p))
+@end lisp
+
+except that the @term{subforms} of @f{place} are evaluated only once,
+and @f{item} is evaluated before @f{place}.
+
+
+@node set-difference; nset-difference
+@heading set-difference, nset-difference (Function)
+@syindex set-difference
+@cindex set-difference
+@syindex nset-difference
+@cindex nset-difference
+@anchor{set-difference}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{set-difference, list-1 list-2 @key{} key test test-not, result-list}
+@DefunWithValues{nset-difference, list-1 list-2 @key{} key test test-not, result-list}
+
+@subsubheading Arguments and Values:
+
+@param{list-1}---a @term{proper list}.
+
+@param{list-2}---a @term{proper list}.
+
+@param{test}---a @term{designator} for a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{test-not}---a @term{designator} for
+a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{key}---a @term{designator} for a @term{function} of one argument,
+or @nil{}.
+
+@param{result-list}---a @term{list}.
+
+@subsubheading Description:
+@code{set-difference} returns a @term{list}
+of elements of @param{list-1}
+that do not appear in @param{list-2}.
+
+@code{nset-difference} is the destructive
+version of @code{set-difference}.
+It may destroy @param{list-1}.
+
+For all possible ordered pairs consisting of
+one element from @param{list-1} and one element from @param{list-2}, the
+@kwd{test} or @kwd{test-not} function is
+used to determine whether they @term{satisfy the test}.
+The first argument to the @kwd{test} or @kwd{test-not} function
+is the part of an element of @param{list-1} that is returned by
+the @kwd{key} function (if supplied); the second argument is the part of
+an element of @param{list-2} that is
+returned by the @kwd{key} function (if supplied).
+
+If @kwd{key} is supplied, its argument is a @param{list-1} or
+@param{list-2} element. The @kwd{key} function
+typically returns part of
+the supplied element.
+If @kwd{key} is not supplied, the @param{list-1} or @param{list-2}
+element is used.
+
+An element of @param{list-1}
+appears in the result if and only if it does not match any element
+of @param{list-2}.
+
+There is no guarantee that the order of elements in the result will
+reflect the ordering of the arguments in any particular way.
+The result @term{list}
+may share cells with, or be @code{eq} to, either of @param{list-1}
+or @param{list-2},
+if appropriate.
+
+@subsubheading Examples:
+
+@lisp
+ (setq lst1 (list "A" "b" "C" "d")
+       lst2 (list "a" "B" "C" "d")) @EV{} ("a" "B" "C" "d")
+ (set-difference lst1 lst2) @EV{} ("d" "C" "b" "A")
+ (set-difference lst1 lst2 :test 'equal) @EV{} ("b" "A")
+ (set-difference lst1 lst2 :test #'equalp) @EV{} NIL
+ (nset-difference lst1 lst2 :test #'string=) @EV{} ("A" "b")
+ (setq lst1 '(("a" . "b") ("c" . "d") ("e" . "f")))
+@EV{} (("a" . "b") ("c" . "d") ("e" . "f"))
+ (setq lst2 '(("c" . "a") ("e" . "b") ("d" . "a")))
+@EV{} (("c" . "a") ("e" . "b") ("d" . "a"))
+ (nset-difference lst1 lst2 :test #'string= :key #'cdr)
+@EV{} (("c" . "d") ("e" . "f"))
+ lst1 @EV{} (("a" . "b") ("c" . "d") ("e" . "f"))
+ lst2 @EV{} (("c" . "a") ("e" . "b") ("d" . "a"))
+@end lisp
+
+@lisp
+;; Remove all flavor names that contain "c" or "w".
+ (set-difference '("strawberry" "chocolate" "banana"
+                  "lemon" "pistachio" "rhubarb")
+          '(#@bsl{}c #@bsl{}w)
+          :test #'(lambda (s c) (find c s)))
+@EV{} ("banana" "rhubarb" "lemon")    ;One possible ordering.
+@end lisp
+
+
+@subsubheading Side Effects:
+
+@code{nset-difference} may destroy @param{list-1}.
+
+@subsubheading Exceptional Situations:
+
+@Lazychecktypes{@param{list-1} and @param{list-2}, @term{proper lists}}
+
+@subsubheading See Also:
+
+@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)},
+@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+
+@subsubheading Notes:
+
+The @kwd{test-not} parameter is deprecated.
+
+
+@node set-exclusive-or; nset-exclusive-or
+@heading set-exclusive-or, nset-exclusive-or (Function)
+@syindex set-exclusive-or
+@cindex set-exclusive-or
+@syindex nset-exclusive-or
+@cindex nset-exclusive-or
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{set-exclusive-or, list-1 list-2 @key{} key test test-not, result-list}
+@DefunWithValues{nset-exclusive-or, list-1 list-2 @key{} key test test-not, result-list}
+
+@subsubheading Arguments and Values:
+
+@param{list-1}---a @term{proper list}.
+
+@param{list-2}---a @term{proper list}.
+
+@param{test}---a @term{designator} for a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{test-not}---a @term{designator} for
+a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{key}---a @term{designator} for a @term{function} of one argument,
+or @nil{}.
+
+@param{result-list}---a @term{list}.
+
+@subsubheading Description:
+@code{set-exclusive-or} returns a @term{list} of elements that appear
+in exactly one of @param{list-1} and @param{list-2}.
+
+@code{nset-exclusive-or}
+is the @term{destructive} version of @code{set-exclusive-or}.
+
+For all possible ordered pairs consisting of
+one element from @param{list-1} and one element from @param{list-2}, the
+@kwd{test} or @kwd{test-not} function is
+used to determine whether they @term{satisfy the test}.
+
+If @kwd{key} is supplied, it is used to
+extract the part to be tested from the @param{list-1} or @param{list-2} element.
+The first argument to the @kwd{test} or @kwd{test-not} function
+is the part of an element of @param{list-1} extracted by the @kwd{key}
+function (if supplied); the second argument  is the part of an
+element of @param{list-2} extracted by the @kwd{key} function (if supplied).
+If @kwd{key} is not supplied or @nil{}, the @param{list-1} or
+@param{list-2} element is used.
+
+The result contains precisely
+those elements of @param{list-1} and @param{list-2}
+that appear in no matching pair.
+
+The result @term{list} of @code{set-exclusive-or}
+might share storage with one of @param{list-1} or @param{list-2}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq lst1 (list 1 "a" "b")
+       lst2 (list 1 "A" "b")) @EV{} (1 "A" "b")
+ (set-exclusive-or lst1 lst2) @EV{} ("b" "A" "b" "a")
+ (set-exclusive-or lst1 lst2 :test #'equal) @EV{} ("A" "a")
+ (set-exclusive-or lst1 lst2 :test 'equalp) @EV{} NIL
+ (nset-exclusive-or lst1 lst2) @EV{} ("a" "b" "A" "b")
+ (setq lst1 (list (("a" . "b") ("c" . "d") ("e" . "f"))))
+@EV{} (("a" . "b") ("c" . "d") ("e" . "f"))
+ (setq lst2 (list (("c" . "a") ("e" . "b") ("d" . "a"))))
+@EV{} (("c" . "a") ("e" . "b") ("d" . "a"))
+ (nset-exclusive-or lst1 lst2 :test #'string= :key #'cdr)
+@EV{} (("c" . "d") ("e" . "f") ("c" . "a") ("d" . "a"))
+ lst1 @EV{} (("a" . "b") ("c" . "d") ("e" . "f"))
+ lst2 @EV{} (("c" . "a") ("d" . "a"))
+@end lisp
+
+
+@subsubheading Side Effects:
+
+@code{nset-exclusive-or} is permitted to modify any part,
+@term{car} or @term{cdr}, of the @term{list structure} of @param{list-1} or @param{list-2}.
+
+@subsubheading Exceptional Situations:
+
+@Lazychecktypes{@param{list-1} and @param{list-2}, @term{proper lists}}
+
+@subsubheading See Also:
+
+@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)},
+@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+
+@subsubheading Notes:
+
+The @kwd{test-not} parameter is deprecated.
+
+Since the @code{nset-exclusive-or} side effect is not required,
+it should not be used in for-effect-only
+positions in portable code.
+
+
+
+@node subsetp
+@heading subsetp (Function)
+@syindex subsetp
+@cindex subsetp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{subsetp, list-1 list-2 @key{} key test test-not, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{list-1}---a @term{proper list}.
+
+@param{list-2}---a @term{proper list}.
+
+@param{test}---a @term{designator} for a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{test-not}---a @term{designator} for
+a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{key}---a @term{designator} for a @term{function} of one argument,
+or @nil{}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@code{subsetp} returns @term{true} if every element of @param{list-1}
+@bogusterm{matches} some element of @param{list-2},
+and @term{false} otherwise.
+
+Whether a list element is the same as another list element is
+determined by the functions specified by the keyword arguments.
+The first argument to the @kwd{test} or @kwd{test-not}
+function is
+typically
+part of an element of @param{list-1} extracted by
+the @kwd{key} function; the second argument is  typically part of
+an element of @param{list-2} extracted by
+the @kwd{key} function.
+
+The argument to the @kwd{key} function is an element of either
+@param{list-1} or @param{list-2}; the return value is part of the element
+of the supplied list element.
+If @kwd{key} is not supplied or @nil{},
+the @param{list-1} or @param{list-2}
+element itself is supplied to the @kwd{test} or @kwd{test-not}
+function.
+
+@subsubheading Examples:
+
+@lisp
+ (setq cosmos '(1 "a" (1 2))) @EV{} (1 "a" (1 2))
+ (subsetp '(1) cosmos) @EV{} @term{true}
+ (subsetp '((1 2)) cosmos) @EV{} @term{false}
+ (subsetp '((1 2)) cosmos :test 'equal) @EV{} @term{true}
+ (subsetp '(1 "A") cosmos :test #'equalp) @EV{} @term{true}
+ (subsetp '((1) (2)) '((1) (2))) @EV{} @term{false}
+ (subsetp '((1) (2)) '((1) (2)) :key #'car) @EV{} @term{true}
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Lazychecktypes{@param{list-1} and @param{list-2}, @term{proper lists}}
+
+@subsubheading See Also:
+
+@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+
+@subsubheading Notes:
+
+The @kwd{test-not} parameter is deprecated.
+
+
+@node union; nunion
+@heading union, nunion (Function)
+@syindex union
+@cindex union
+@syindex nunion
+@cindex nunion
+@anchor{union}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{union, list-1 list-2 @key{} key test test-not, result-list}
+@DefunWithValues{nunion, list-1 list-2 @key{} key test test-not, result-list}
+
+@subsubheading Arguments and Values:
+
+@param{list-1}---a @term{proper list}.
+
+@param{list-2}---a @term{proper list}.
+
+@param{test}---a @term{designator} for a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{test-not}---a @term{designator} for
+a @term{function} of two @term{arguments}
+that returns a @term{generalized boolean}.
+
+@param{key}---a @term{designator} for a @term{function} of one argument,
+or @nil{}.
+
+@param{result-list}---a @term{list}.
+
+@subsubheading Description:
+
+@code{union} and @code{nunion} return a @term{list}
+that contains every element that occurs in either @param{list-1}
+or @param{list-2}.
+
+For all possible ordered pairs consisting of one
+element from @param{list-1}
+and one element from @param{list-2}, @kwd{test} or  @kwd{test-not} is used
+to determine whether they @term{satisfy the test}.
+The first argument to the @kwd{test} or @kwd{test-not}
+function is the part of the element of @param{list-1} extracted by the
+@kwd{key} function (if supplied); the second argument
+is the part of the element of @param{list-2} extracted by the
+@kwd{key} function (if supplied).
+
+The argument to the @kwd{key} function is an element of
+@param{list-1} or @param{list-2}; the return value is part of the supplied
+element.
+If @kwd{key} is not supplied or @nil{},
+the element of @param{list-1} or @param{list-2}
+itself is supplied to the @kwd{test} or @kwd{test-not} function.
+
+For every matching pair,
+one of the two elements of the pair will be in the result.  Any
+element from either @param{list-1} or @param{list-2}
+that matches no element of the other will appear
+in the result.
+
+If there is a duplication between @param{list-1}
+and @param{list-2},
+only one of the duplicate instances will be in the result.
+If either @param{list-1}
+or @param{list-2} has duplicate entries within it,
+the redundant entries
+might or might not appear in the result.
+
+The order of elements in the result do not have to
+reflect the ordering of @param{list-1} or @param{list-2} in any way.
+The result @term{list} may be @code{eq} to either
+@param{list-1} or @param{list-2} if appropriate.
+
+@subsubheading Examples:
+
+@lisp
+ (union '(a b c) '(f a d))
+@EV{} (A B C F D)
+@OV{} (B C F A D)
+@OV{} (D F A B C)
+ (union '((x 5) (y 6)) '((z 2) (x 4)) :key #'car)
+@EV{} ((X 5) (Y 6) (Z 2))
+@OV{} ((X 4) (Y 6) (Z 2))
+
+ (setq lst1 (list 1 2 '(1 2) "a" "b")
+       lst2 (list 2 3 '(2 3) "B" "C"))
+@EV{} (2 3 (2 3) "B" "C")
+ (nunion lst1 lst2)
+@EV{} (1 (1 2) "a" "b" 2 3 (2 3) "B" "C")
+@OV{} (1 2 (1 2) "a" "b" "C" "B" (2 3) 3)
+@end lisp
+
+
+@subsubheading Side Effects:
+
+@code{nunion} is permitted to modify any part, @term{car} or @term{cdr},
+of the @term{list structure} of @param{list-1} or @param{list-2}.
+
+@subsubheading Exceptional Situations:
+
+@Lazychecktypes{@param{list-1} and @param{list-2}, @term{proper lists}}
+
+@subsubheading See Also:
+
+@ref{intersection},
+@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)},
+@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+
+@subsubheading Notes:
+
+The @kwd{test-not} parameter is deprecated.
+
+Since the @code{nunion} side effect is not required,
+it should not be used in for-effect-only positions in portable code.

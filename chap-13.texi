@@ -1,0 +1,1700 @@
+@node Characters
+@chapter Characters
+@menu
+* Character Concepts::
+
+Dictionary
+
+* character (System Class)::
+* base-char::
+* standard-char::
+* extended-char::
+* char=; char/=; char<; char>; char<=; char>=; char-equal; char-not-equal+::
+* character (Function)::
+* characterp::
+* alpha-char-p::
+* alphanumericp::
+* digit-char::
+* digit-char-p::
+* graphic-char-p::
+* standard-char-p::
+* char-upcase; char-downcase::
+* upper-case-p; lower-case-p; both-case-p::
+* char-code::
+* char-int::
+* code-char::
+* char-code-limit::
+* char-name::
+* name-char::
+@end menu
+
+@node Character Concepts
+@section Character Concepts
+
+@menu
+* Introduction to Characters::
+* Introduction to Scripts and Repertoires::
+* Character Attributes::
+* Character Categories::
+* Identity of Characters::
+* Ordering of Characters::
+* Character Names::
+* Treatment of Newline during Input and Output::
+* Character Encodings::
+* Documentation of Implementation-Defined Scripts::
+@end menu
+@node Introduction to Characters
+@subsection Introduction to Characters
+
+A @newterm{character} is an @term{object} that represents a unitary token
+(@eg{} a letter, a special symbol, or a ``control character'')
+in an aggregate quantity of text
+(@eg{} a @term{string} or a text @term{stream}).
+
+@clisp{}@spc{}allows an implementation to provide support
+for international language @term{characters} as well
+as @term{characters} used in specialized arenas (@eg{} mathematics).
+
+The following figures contain lists of @term{defined names} applicable to
+@term{characters}.
+
+@Thenextfigure{}@spc{}lists some @term{defined names} relating to
+@term{character} @term{attributes} and @term{character} @term{predicates}.
+
+
+@float Figure,fig13.1
+@cartouche
+@multitable{char-code-limit}{char-not-greaterp}{standard-char-p}
+
+@item alpha-char-p @tab char-not-equal @tab char>
+@item alphanumericp @tab char-not-greaterp @tab char>=
+@item both-case-p @tab char-not-lessp @tab digit-char-p
+@item char-code-limit @tab char/= @tab graphic-char-p
+@item char-equal @tab char< @tab lower-case-p
+@item char-greaterp @tab char<= @tab standard-char-p
+@item char-lessp @tab char= @tab upper-case-p
+@end multitable
+@end cartouche
+@caption{Character defined names -- 1}
+@end float
+
+
+@Thenextfigure{}@spc{}lists some @term{character} construction and conversion @term{defined names}.
+
+
+@float Figure,fig13.2
+@cartouche
+@multitable{char-downcase}{char-upcase}{digit-char}
+
+@item char-code @tab char-name @tab code-char
+@item char-downcase @tab char-upcase @tab digit-char
+@item char-int @tab character @tab name-char
+@end multitable
+@end cartouche
+@caption{Character defined names -- 2}
+@end float
+
+
+
+@node Introduction to Scripts and Repertoires
+@subsection Introduction to Scripts and Repertoires
+
+@subsubsection Character Scripts
+@anchor{CharScripts}
+
+A @term{script} is one of possibly several sets that form an @term{exhaustive partition}
+of the type @code{character}.
+
+The number of such sets and boundaries between them is @term{implementation-defined}.
+@clisp{}@spc{}does not require these sets to be @term{types}, but an @term{implementation}
+is permitted to define such @term{types} as an extension.  Since no @term{character}
+from one @term{script} can ever be a member of another @term{script}, it is generally
+more useful to speak about @term{character} @term{repertoires}.
+
+Although
+the term ``@term{script}'' is chosen for
+definitional
+compatibility with ISO terminology, no @term{conforming implementation}
+is required to use any particular @term{scripts} standardized by ISO
+or by any other standards organization.
+
+Whether and how the @term{script} or @term{scripts} used by any given
+@term{implementation} are named is @term{implementation-dependent}.
+
+
+@subsubsection Character Repertoires
+@anchor{CharRepertoires}
+
+A @newterm{repertoire} is a @term{type specifier} for a @subtypeof{character}.
+This term is generally used when describing a collection of @term{characters}
+independent of their coding.
+@term{Characters} in @term{repertoires} are only identified
+by name,
+by @term{glyph}, or
+by character description.
+
+A @term{repertoire} can contain @term{characters} from several
+@term{scripts}, and a @term{character} can appear in more than
+one @term{repertoire}.
+
+For some examples of @term{repertoires}, see the coded character standards
+ISO 8859/1, ISO 8859/2, and ISO 6937/2.
+Note, however, that although
+the term ``@term{repertoire}'' is chosen for
+definitional
+compatibility with ISO terminology, no @term{conforming implementation}
+is required to use @term{repertoires} standardized by ISO or any other
+standards organization.
+
+
+
+@node Character Attributes
+@subsection Character Attributes
+
+@term{Characters} have only one @term{standardized} @term{attribute}:
+a @term{code}.  A @term{character}'s @term{code} is a non-negative @term{integer}.
+This @term{code} is composed from a character @term{script} and a character label
+in an @term{implementation-dependent} way.  See the @term{functions} @ref{char-code} and @code{code-char}.
+
+
+Additional, @term{implementation-defined} @term{attributes} of @term{characters}
+are also permitted
+so that, for example,
+two @term{characters} with the same @term{code} may differ
+in some other, @term{implementation-defined} way.
+
+For any @term{implementation-defined} @term{attribute}
+there is a distinguished value
+called the @newterm{null} value for that @term{attribute}.
+A @term{character} for which each @term{implementation-defined} @term{attribute}
+has the null value for that @term{attribute} is called a @term{simple} @term{character}.
+If the @term{implementation} has no @term{implementation-defined} @term{attributes},
+then all @term{characters} are @term{simple} @term{characters}.
+
+
+@node Character Categories
+@subsection Character Categories
+
+There are several (overlapping) categories of @term{characters} that have no formally
+associated @term{type} but that are nevertheless useful to name.
+They include
+@term{graphic} @term{characters},
+@term{alphabetic}@sub1{} @term{characters},
+@term{characters} with @term{case}
+(@term{uppercase} and @term{lowercase} @term{characters}),
+@term{numeric} @term{characters},
+@term{alphanumeric} @term{characters},
+and @term{digits} (in a given @term{radix}).
+
+For each @term{implementation-defined} @term{attribute} of a @term{character},
+the documentation for that @term{implementation} must specify whether
+@term{characters} that differ only in that @term{attribute} are permitted to differ
+in whether are not they are members of one of the aforementioned categories.
+
+Note that these terms are defined independently of any special syntax
+which might have been enabled in the @term{current readtable}.
+
+@subsubsection Graphic Characters
+@anchor{GraphicChars}
+
+@term{Characters} that are classified as @newterm{graphic}, or displayable, are each
+associated with a glyph, a visual representation of the @term{character}.
+
+A @term{graphic} @term{character} is one that has a standard textual
+representation as a single @term{glyph}, such as @f{A} or @f{*} or @f{=}.
+@term{Space}, which effectively has a blank @term{glyph}, is defined
+to be a @term{graphic}.
+
+Of the @term{standard characters},
+@term{newline} is @term{non-graphic}
+and all others are @term{graphic}; see @ref{Standard Characters, Section 2.1.3 (Standard Characters)}.
+
+@term{Characters} that are not @term{graphic} are called @newterm{non-graphic}.
+@term{Non-graphic} @term{characters} are sometimes informally called
+``formatting characters''
+or ``control characters.''
+
+@f{#@bsl{}Backspace},
+@f{#@bsl{}Tab},
+@f{#@bsl{}Rubout},
+@f{#@bsl{}Linefeed},
+@f{#@bsl{}Return}, and
+@f{#@bsl{}Page},
+if they are supported by the @term{implementation},
+are @term{non-graphic}.
+
+
+@subsubsection Alphabetic Characters
+
+The @term{alphabetic}@sub1{} @term{characters} are
+a subset of the @term{graphic} @term{characters}.
+Of the @term{standard characters}, only these are the @term{alphabetic}@sub1{} @term{characters}:
+
+@f{A B C D E F G H I J K L M N O P Q R S T U V W X Y Z}
+
+@f{a b c d e f g h i j k l m n o p q r s t u v w x y z}
+
+Any @term{implementation-defined} @term{character} that has @term{case}
+must be @term{alphabetic}@sub1{}.
+For each @term{implementation-defined} @term{graphic} @term{character}
+that has no @term{case},
+it is @term{implementation-defined} whether
+that @term{character} is @term{alphabetic}@sub1{}.
+
+
+@subsubsection Characters With Case
+@anchor{CharactersWithCase}
+
+The @term{characters} with @term{case} are
+a subset of the @term{alphabetic}@sub1{} @term{characters}.
+A @term{character} with @term{case} has the property of being either
+@term{uppercase} or @term{lowercase}.
+Every @term{character} with @term{case} is in one-to-one correspondence
+with some other @term{character} with the opposite @term{case}.
+
+@unnumberedsubsubsec 13.1.4.3.1 Uppercase Characters
+
+
+An uppercase @term{character} is one that has a corresponding
+@term{lowercase} @term{character} that is @term{different}
+(and can be obtained using @code{char-downcase}).
+
+Of the @term{standard characters}, only these are @term{uppercase} @term{characters}:
+
+@f{A B C D E F G H I J K L M N O P Q R S T U V W X Y Z}
+
+
+@unnumberedsubsubsec 13.1.4.3.2 Lowercase Characters
+
+
+A lowercase @term{character} is one that has a corresponding
+@term{uppercase} @term{character} that is @term{different}
+(and can be obtained using @code{char-upcase}).
+
+Of the @term{standard characters}, only these are @term{lowercase} @term{characters}:
+
+@f{a b c d e f g h i j k l m n o p q r s t u v w x y z}
+
+
+@unnumberedsubsubsec 13.1.4.3.3 Corresponding Characters in the Other Case
+
+
+The @term{uppercase} @term{standard characters} @f{A} through @f{Z} mentioned above
+respectively correspond to
+the @term{lowercase} @term{standard characters} @f{a} through @f{z} mentioned above.
+For example, the @term{uppercase} @term{character} @f{E}
+corresponds to the @term{lowercase} @term{character} @f{e}, and vice versa.
+
+
+@unnumberedsubsubsec 13.1.4.3.4 Case of Implementation-Defined Characters
+
+
+An @term{implementation} may define that other @term{implementation-defined}
+@term{graphic} @term{characters} have @term{case}.  Such definitions must always
+be done in pairs---one @term{uppercase} @term{character} in one-to-one
+@term{correspondence} with one @term{lowercase} @term{character}.
+
+
+
+@subsubsection Numeric Characters
+
+The @term{numeric} @term{characters} are
+a subset of the @term{graphic} @term{characters}.
+Of the @term{standard characters}, only these are @term{numeric} @term{characters}:
+
+@f{0 1 2 3 4 5 6 7 8 9}
+
+For each @term{implementation-defined} @term{graphic} @term{character}
+that has no @term{case}, the @term{implementation} must define whether
+or not it is a @term{numeric} @term{character}.
+
+
+@subsubsection Alphanumeric Characters
+
+The set of @term{alphanumeric} @term{characters} is the union of
+the set of @term{alphabetic}@sub1{} @term{characters}
+and the set of @term{numeric} @term{characters}.
+
+
+@subsubsection Digits in a Radix
+@anchor{Digits}
+
+What qualifies as a @term{digit} depends on the @term{radix}
+(an @term{integer} between @f{2} and @f{36}, inclusive).
+The potential @term{digits} are:
+
+@f{0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z}
+
+Their respective weights are @f{0}, @f{1}, @f{2}, @mat{@ldots{}} @f{35}.
+In any given radix @mat{n}, only the first @mat{n} potential @term{digits}
+are considered to be @term{digits}.
+For example,
+the digits in radix @f{2}  are @f{0} and @f{1},
+the digits in radix @f{10} are @f{0} through @f{9}, and
+the digits in radix @f{16} are @f{0} through @f{F}.
+
+@term{Case} is not significant in @term{digits};
+for example, in radix @f{16}, both @f{F} and @f{f}
+are @term{digits} with weight @f{15}.
+
+
+
+@node Identity of Characters
+@subsection Identity of Characters
+
+Two @term{characters} that are @code{eql}, @code{char=}, or @code{char-equal}
+are not necessarily @code{eq}.
+
+
+@node Ordering of Characters
+@subsection Ordering of Characters
+
+The total ordering on @term{characters} is guaranteed to have
+the following properties:
+
+
+@itemize @bullet{}
+
+
+@item
+If two @term{characters} have the same @term{implementation-defined} @term{attributes},
+then their ordering by @code{char<} is consistent with the numerical
+ordering by the predicate @code{<} on their code @term{attributes}.
+
+@item If two @term{characters} differ in any @term{attribute}, then they
+are not @code{char=}.
+
+@reviewer{Barmar: I wonder if we should say that the ordering may be dependent on the
+@term{implementation-defined} @term{attributes}.}
+
+@item
+The total ordering is not necessarily the same as the total ordering
+on the @term{integers} produced by applying @code{char-int} to the
+@term{characters}.
+
+@item
+While @term{alphabetic}@sub1{} @term{standard characters} of a given @term{case}
+must
+obey a partial ordering,
+they need not be contiguous; it is permissible for
+@term{uppercase} and @term{lowercase} @term{characters} to be interleaved.
+Thus @f{(char<= #@bsl{}a x #@bsl{}z)}
+is not a valid way of determining whether or not @f{x} is a
+@term{lowercase} @term{character}.
+
+@end itemize
+
+
+Of the @term{standard characters},
+those which are @term{alphanumeric} obey the following partial ordering:
+
+@lisp
+ A<B<C<D<E<F<G<H<I<J<K<L<M<N<O<P<Q<R<S<T<U<V<W<X<Y<Z
+ a<b<c<d<e<f<g<h<i<j<k<l<m<n<o<p<q<r<s<t<u<v<w<x<y<z
+ 0<1<2<3<4<5<6<7<8<9
+ either 9<A or Z<0
+ either 9<a or z<0
+@end lisp
+
+This implies that, for @term{standard characters}, @term{alphabetic}@sub1{}
+ordering holds within each @term{case} (@term{uppercase} and @term{lowercase}),
+and that the @term{numeric} @term{characters} as a group are not interleaved
+with @term{alphabetic} @term{characters}.
+However, the ordering or possible interleaving of @term{uppercase} @term{characters}
+and @term{lowercase} @term{characters} is @term{implementation-defined}.
+
+
+@node Character Names
+@subsection Character Names
+
+The following @term{character} @term{names} must be present in all
+@term{conforming implementations}:
+
+
+@table @asis
+@item @id{@f{Newline}}
+
+
+The character that represents the division between lines.
+An implementation must translate between @f{#@bsl{}Newline},
+a single-character representation, and whatever external representation(s)
+may be used.
+
+@item @id{@f{Space}}
+
+
+The space or blank character.
+@end table
+
+
+The following names are @term{semi-standard};
+if an @term{implementation} supports them,
+they should be used for the described @term{characters} and no others.
+
+
+@table @asis
+@item @id{@f{Rubout}}
+
+
+The rubout or delete character.
+
+@item @id{@f{Page}}
+
+
+The form-feed or page-separator character.
+
+@item @id{@f{Tab}}
+
+
+The tabulate character.
+
+@item @id{@f{Backspace}}
+
+
+The backspace character.
+
+@item @id{@f{Return}}
+
+
+The carriage return character.
+
+@item @id{@f{Linefeed}}
+
+
+The line-feed character.
+@end table
+
+
+In some @term{implementations},
+one or more of these @term{character} @term{names}
+might denote a @term{standard character};
+for example,
+@f{#@bsl{}Linefeed} and @f{#@bsl{}Newline} might be the @term{same} @term{character}
+in some @term{implementations}.
+
+
+@node Treatment of Newline during Input and Output
+@subsection Treatment of Newline during Input and Output
+
+When the character @f{#@bsl{}Newline} is written to an output file,
+the implementation must take the appropriate action
+to produce a line division.  This might involve writing out a
+record or translating @f{#@bsl{}Newline} to a CR/LF sequence.
+When reading, a corresponding reverse transformation must take place.
+
+
+@node Character Encodings
+@subsection Character Encodings
+
+A @term{character} is sometimes represented merely by its @term{code}, and sometimes
+by another @term{integer} value which is composed from the @term{code} and all
+@term{implementation-defined} @term{attributes}
+(in an @term{implementation-defined} way
+that might vary between @term{Lisp images} even in the same @term{implementation}).
+This @term{integer}, returned by the function @code{char-int}, is called the
+character's ``encoding.''
+There is no corresponding function
+from a character's encoding back to the @term{character},
+since its primary intended uses include things like hashing where an inverse operation
+is not really called for.
+
+
+
+@node Documentation of Implementation-Defined Scripts
+@subsection Documentation of Implementation-Defined Scripts
+
+An @term{implementation} must document the @term{character} @term{scripts}
+it supports. For each @term{character} @term{script} supported,
+the documentation must describe at least the following:
+
+@itemize @bullet{}
+@item
+Character labels, glyphs, and descriptions.
+Character labels must be uniquely named using only Latin capital letters A--Z,
+hyphen (-), and digits 0--9.
+@item
+Reader canonicalization.
+Any mechanisms by which @code{read} treats
+@term{different} characters as equivalent must be documented.
+@item
+The impact on @code{char-upcase},
+@code{char-downcase},
+and the case-sensitive @term{format directives}.
+In particular, for each @term{character} with @term{case},
+whether it is @term{uppercase} or @term{lowercase},
+and which @term{character} is its equivalent in the opposite case.
+@item
+The behavior of the case-insensitive @term{functions}
+@code{char-equal}, @code{char-not-equal},
+@code{char-lessp}, @code{char-greaterp},
+@code{char-not-greaterp}, and @code{char-not-lessp}.
+@item
+The behavior of any @term{character} @term{predicates};
+in particular, the effects of
+@code{alpha-char-p},
+@code{lower-case-p},
+@code{upper-case-p},
+@code{both-case-p},
+@code{graphic-char-p},
+and
+@code{alphanumericp}.
+@item
+The interaction with file I/O, in particular,
+the supported coded character sets (for example, ISO8859/1-1987)
+and external encoding schemes supported are documented.
+@end itemize
+
+
+
+@node character (System Class)
+@heading character (System Class)
+@syindex character
+@cindex character
+
+
+@subsubheading Class Precedence List:
+@code{character},
+@code{t}
+
+@subsubheading Description:
+
+A @term{character} is an @term{object} that
+represents a unitary token in an aggregate quantity of text;
+see @ref{Character Concepts, Section 13.1 (Character Concepts)}.
+
+@Thetypes{base-char} and @code{extended-char}
+form an @term{exhaustive partition} of @thetype{character}.
+
+@subsubheading See Also:
+
+@ref{Character Concepts, Section 13.1 (Character Concepts)},
+@ref{SharpsignBackslash, Section 2.4.8.1 (Sharpsign Backslash)},
+@ref{PrintingCharacters, Section 22.1.3.2 (Printing Characters)}
+
+@node base-char
+@heading base-char (Type)
+@syindex base-char
+@cindex base-char
+
+
+
+@subsubheading Supertypes:
+
+@code{base-char},
+@code{character},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{base-char} is defined as the @term{upgraded array element type}
+of @code{standard-char}.
+An @term{implementation} can support additional @subtypesof{character}
+(besides the ones listed in this standard)
+that might or might not be @supertypesof{base-char}.
+In addition, an @term{implementation} can define @code{base-char}
+to be the @term{same} @term{type} as @code{character}.
+
+@term{Base characters} are distinguished in the following respects:
+
+@enumerate 1
+@item @Thetype{standard-char} is a @term{subrepertoire} of @thetype{base-char}.
+@item The selection of @term{base characters} that are not @term{standard characters}
+is implementation defined.
+@item Only @term{objects} of @thetype{base-char} can be
+@term{elements} of a @term{base string}.
+@item
+No upper bound is specified for the number of characters in the
+@code{base-char} @term{repertoire}; the size of that @term{repertoire}
+is
+@term{implementation-defined}.
+The lower bound is@tie{}96, the number of @term{standard characters}.
+@end enumerate
+
+
+
+Whether a character is a @term{base character} depends on the way
+that an @term{implementation} represents @term{strings},
+and not any other properties of the @term{implementation} or the host operating system.
+For example, one implementation might encode all @term{strings}
+as characters having 16-bit encodings, and another might have
+two kinds of @term{strings}: those with characters having 8-bit
+encodings and those with characters having 16-bit encodings.  In the
+first @term{implementation}, @thetype{base-char} is equivalent to
+@thetype{character}: there is only one kind of @term{string}.
+In the second @term{implementation}, the @term{base characters} might be
+those @term{characters} that could be stored in a @term{string} of @term{characters}
+having 8-bit encodings.  In such an implementation,
+@thetype{base-char} is a @term{proper subtype} of @thetype{character}.
+
+@Thetype{standard-char} is a
+@subtypeof{base-char}.
+
+
+@node standard-char
+@heading standard-char (Type)
+@syindex standard-char
+@cindex standard-char
+
+
+
+@subsubheading Supertypes:
+
+@code{standard-char},
+@code{base-char},
+@code{character},
+@code{t}
+
+@subsubheading Description:
+
+A fixed set of 96 @term{characters} required to be present in all
+@term{conforming implementations}.  @term{Standard characters} are
+defined in @ref{Standard Characters, Section 2.1.3 (Standard Characters)}.
+
+Any @term{character} that is not @term{simple} is not a @term{standard character}.
+
+
+@subsubheading See Also:
+
+@ref{Standard Characters, Section 2.1.3 (Standard Characters)}
+
+@node extended-char
+@heading extended-char (Type)
+@syindex extended-char
+@cindex extended-char
+
+
+
+@subsubheading Supertypes:
+
+@code{extended-char},
+@code{character},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{extended-char} is equivalent to the @term{type} @f{(and character (not base-char))}.
+
+@subsubheading Notes:
+
+@Thetype{extended-char} might
+have no @term{elements}@sub4{}
+in @term{implementations} in which all @term{characters} are @oftype{base-char}.
+
+
+
+@node char=; char/=; char<; char>; char<=; char>=; char-equal; char-not-equal+
+@heading char=, char/=, char<, char>, char<=, char>=, char-equal, char-not-equal, char-lessp, char-greaterp, char-not-greaterp, char-not-lessp (Function)
+@syindex char=
+@cindex char=
+@syindex char/=
+@cindex char/=
+@syindex char<
+@cindex char<
+@syindex char>
+@cindex char>
+@syindex char<=
+@cindex char<=
+@syindex char>=
+@cindex char>=
+@syindex char-equal
+@cindex char-equal
+@syindex char-not-equal
+@cindex char-not-equal
+@syindex char-lessp
+@cindex char-lessp
+@syindex char-greaterp
+@cindex char-greaterp
+@syindex char-not-greaterp
+@cindex char-not-greaterp
+@syindex char-not-lessp
+@cindex char-not-lessp
+@anchor{char=}
+@anchor{char-equal}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{char@mat{=}, @rest{} @plus{characters}, generalized-boolean}
+@DefunWithValues{char@mat{/=}, @rest{} @plus{characters}, generalized-boolean}
+@DefunWithValues{char@mat{<}, @rest{} @plus{characters}, generalized-boolean}
+@DefunWithValues{char@mat{>}, @rest{} @plus{characters}, generalized-boolean}
+@DefunWithValues{char@mat{<=}, @rest{} @plus{characters}, generalized-boolean}
+@DefunWithValues{char@mat{>=}, @rest{} @plus{characters}, generalized-boolean}
+@DefunWithValues{char-equal, @rest{} @plus{characters}, generalized-boolean}
+@DefunWithValues{char-not-equal, @rest{} @plus{characters}, generalized-boolean}
+@DefunWithValues{char-lessp, @rest{} @plus{characters}, generalized-boolean}
+@DefunWithValues{char-greaterp, @rest{} @plus{characters}, generalized-boolean}
+@DefunWithValues{char-not-greaterp, @rest{} @plus{characters}, generalized-boolean}
+@DefunWithValues{char-not-lessp, @rest{} @plus{characters}, generalized-boolean}
+
+
+@subsubheading Arguments and Values:
+
+@param{character}---a @term{character}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+These predicates compare @term{characters}.
+
+@code{char=} returns @term{true} if all @param{characters} are the @term{same};
+otherwise, it returns @term{false}.
+If two @param{characters} differ
+in any @term{implementation-defined} @term{attributes},
+then they are not @code{char=}.
+
+@code{char/=} returns @term{true} if all @param{characters} are different;
+otherwise, it returns @term{false}.
+
+@code{char<} returns @term{true} if the @param{characters} are monotonically increasing;
+otherwise, it returns @term{false}.
+If two @term{characters}
+have @term{identical} @term{implementation-defined} @term{attributes},
+then their ordering by @code{char<} is
+consistent with the numerical ordering by the predicate @f{<} on their @term{codes}.
+
+@code{char>} returns @term{true} if the @param{characters} are monotonically decreasing;
+otherwise, it returns @term{false}.
+If two @term{characters} have
+@term{identical} @term{implementation-defined} @term{attributes},
+then their ordering by @code{char>} is
+consistent with the numerical ordering by the predicate @f{>} on their @term{codes}.
+
+@code{char<=} returns @term{true}
+if the @param{characters} are monotonically nondecreasing;
+otherwise, it returns @term{false}.
+If two @term{characters} have
+@term{identical} @term{implementation-defined} @term{attributes},
+then their ordering by @code{char<=} is
+consistent with the numerical ordering by the predicate @f{<=} on their @term{codes}.
+
+@code{char>=} returns @term{true}
+if the @param{characters} are monotonically nonincreasing;
+otherwise, it returns @term{false}.
+If two @term{characters} have
+@term{identical} @term{implementation-defined} @term{attributes},
+then their ordering by @code{char>=} is
+consistent with the numerical ordering by the predicate @f{>=} on their @term{codes}.
+
+@code{char-equal},
+@code{char-not-equal},
+@code{char-lessp},
+@code{char-greaterp},
+@code{char-not-greaterp},
+and @code{char-not-lessp}
+are similar to
+@code{char=},
+@code{char/=},
+@code{char<},
+@code{char>},
+@code{char<=},
+@code{char>=},
+respectively,
+except that they ignore differences in @term{case} and
+might have an @term{implementation-defined} behavior
+for @term{non-simple} @term{characters}.
+For example, an @term{implementation} might define that
+@code{char-equal}, @i{etc.} ignore certain
+@term{implementation-defined} @term{attributes}.
+The effect, if any,
+of each @term{implementation-defined} @term{attribute}
+upon these functions must be specified as part of the definition of that @term{attribute}.
+
+@subsubheading Examples:
+
+@lisp
+ (char= #@bsl{}d #@bsl{}d) @EV{} @term{true}
+ (char= #@bsl{}A #@bsl{}a) @EV{} @term{false}
+ (char= #@bsl{}d #@bsl{}x) @EV{} @term{false}
+ (char= #@bsl{}d #@bsl{}D) @EV{} @term{false}
+ (char/= #@bsl{}d #@bsl{}d) @EV{} @term{false}
+ (char/= #@bsl{}d #@bsl{}x) @EV{} @term{true}
+ (char/= #@bsl{}d #@bsl{}D) @EV{} @term{true}
+ (char= #@bsl{}d #@bsl{}d #@bsl{}d #@bsl{}d) @EV{} @term{true}
+ (char/= #@bsl{}d #@bsl{}d #@bsl{}d #@bsl{}d) @EV{} @term{false}
+ (char= #@bsl{}d #@bsl{}d #@bsl{}x #@bsl{}d) @EV{} @term{false}
+ (char/= #@bsl{}d #@bsl{}d #@bsl{}x #@bsl{}d) @EV{} @term{false}
+ (char= #@bsl{}d #@bsl{}y #@bsl{}x #@bsl{}c) @EV{} @term{false}
+ (char/= #@bsl{}d #@bsl{}y #@bsl{}x #@bsl{}c) @EV{} @term{true}
+ (char= #@bsl{}d #@bsl{}c #@bsl{}d) @EV{} @term{false}
+ (char/= #@bsl{}d #@bsl{}c #@bsl{}d) @EV{} @term{false}
+ (char< #@bsl{}d #@bsl{}x) @EV{} @term{true}
+ (char<= #@bsl{}d #@bsl{}x) @EV{} @term{true}
+ (char< #@bsl{}d #@bsl{}d) @EV{} @term{false}
+ (char<= #@bsl{}d #@bsl{}d) @EV{} @term{true}
+ (char< #@bsl{}a #@bsl{}e #@bsl{}y #@bsl{}z) @EV{} @term{true}
+ (char<= #@bsl{}a #@bsl{}e #@bsl{}y #@bsl{}z) @EV{} @term{true}
+ (char< #@bsl{}a #@bsl{}e #@bsl{}e #@bsl{}y) @EV{} @term{false}
+ (char<= #@bsl{}a #@bsl{}e #@bsl{}e #@bsl{}y) @EV{} @term{true}
+ (char> #@bsl{}e #@bsl{}d) @EV{} @term{true}
+ (char>= #@bsl{}e #@bsl{}d) @EV{} @term{true}
+ (char> #@bsl{}d #@bsl{}c #@bsl{}b #@bsl{}a) @EV{} @term{true}
+ (char>= #@bsl{}d #@bsl{}c #@bsl{}b #@bsl{}a) @EV{} @term{true}
+ (char> #@bsl{}d #@bsl{}d #@bsl{}c #@bsl{}a) @EV{} @term{false}
+ (char>= #@bsl{}d #@bsl{}d #@bsl{}c #@bsl{}a) @EV{} @term{true}
+ (char> #@bsl{}e #@bsl{}d #@bsl{}b #@bsl{}c #@bsl{}a) @EV{} @term{false}
+ (char>= #@bsl{}e #@bsl{}d #@bsl{}b #@bsl{}c #@bsl{}a) @EV{} @term{false}
+ (char> #@bsl{}z #@bsl{}A) @EV{} @term{implementation-dependent}
+ (char> #@bsl{}Z #@bsl{}a) @EV{} @term{implementation-dependent}
+ (char-equal #@bsl{}A #@bsl{}a) @EV{} @term{true}
+ (stable-sort (list #@bsl{}b #@bsl{}A #@bsl{}B #@bsl{}a #@bsl{}c #@bsl{}C) #'char-lessp)
+@EV{} (#@bsl{}A #@bsl{}a #@bsl{}b #@bsl{}B #@bsl{}c #@bsl{}C)
+ (stable-sort (list #@bsl{}b #@bsl{}A #@bsl{}B #@bsl{}a #@bsl{}c #@bsl{}C) #'char<)
+@EV{} (#@bsl{}A #@bsl{}B #@bsl{}C #@bsl{}a #@bsl{}b #@bsl{}c) ;Implementation A
+@EV{} (#@bsl{}a #@bsl{}b #@bsl{}c #@bsl{}A #@bsl{}B #@bsl{}C) ;Implementation B
+@EV{} (#@bsl{}a #@bsl{}A #@bsl{}b #@bsl{}B #@bsl{}c #@bsl{}C) ;Implementation C
+@EV{} (#@bsl{}A #@bsl{}a #@bsl{}B #@bsl{}b #@bsl{}C #@bsl{}c) ;Implementation D
+@EV{} (#@bsl{}A #@bsl{}B #@bsl{}a #@bsl{}b #@bsl{}C #@bsl{}c) ;Implementation E
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldcheckplus{character}
+
+@subsubheading See Also:
+
+@ref{Character Syntax, Section 2.1 (Character Syntax)},
+@ref{Documentation of Implementation-Defined Scripts, Section 13.1.10 (Documentation of Implementation-Defined Scripts)}
+
+@subsubheading Notes:
+
+If characters differ in their @term{code} @term{attribute}
+or any @term{implementation-defined} @term{attribute},
+they are considered to be different by @code{char=}.
+
+There is no requirement that @f{(eq c1 c2)} be true merely because
+@f{(char= c1 c2)} is @term{true}.  While @code{eq} can distinguish two
+@term{characters}
+that @code{char=} does not, it is distinguishing them not
+as @term{characters}, but in some sense on the basis of a lower level
+implementation characteristic.
+If @f{(eq c1 c2)} is @term{true},
+then @f{(char= c1 c2)} is also true.
+@code{eql} and @code{equal}
+compare @term{characters} in the same
+way that @code{char=} does.
+
+The manner in which @term{case} is used by
+@code{char-equal},
+@code{char-not-equal},
+@code{char-lessp},
+@code{char-greaterp},
+@code{char-not-greaterp},
+and @code{char-not-lessp}
+implies an ordering for @term{standard characters} such that
+@f{A=a}, @f{B=b}, and so on, up to @f{Z=z}, and furthermore either
+@f{9<A} or @f{Z<0}.
+
+
+@node character (Function)
+@heading character (Function)
+@syindex character
+@cindex character
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{character, character, denoted-character}
+
+@subsubheading Arguments and Values:
+
+@param{character}---a @term{character designator}.
+
+@param{denoted-character}---a @term{character}.
+
+@subsubheading Description:
+
+Returns the @term{character} denoted by the @param{character} @term{designator}.
+
+@subsubheading Examples:
+
+@lisp
+ (character #@bsl{}a) @EV{} #@bsl{}a
+ (character "a") @EV{} #@bsl{}a
+ (character 'a) @EV{} #@bsl{}A
+ (character '@bsl{}a) @EV{} #@bsl{}a
+ (character 65.) is an error.
+ (character 'apple) is an error.
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{object, a @term{character designator}}
+
+@subsubheading See Also:
+
+@ref{coerce}
+
+@subsubheading Notes:
+
+@lisp
+ (character @param{object}) @EQ{} (coerce @param{object} 'character)
+@end lisp
+
+
+
+@node characterp
+@heading characterp (Function)
+@syindex characterp
+@cindex characterp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{characterp, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{object, character}
+
+@subsubheading Examples:
+
+@lisp
+ (characterp #@bsl{}a) @EV{} @term{true}
+ (characterp 'a) @EV{} @term{false}
+ (characterp "a") @EV{} @term{false}
+ (characterp 65.) @EV{} @term{false}
+ (characterp #@bsl{}Newline) @EV{} @term{true}
+ ;; This next example presupposes an implementation
+ ;; in which #@bsl{}Rubout is an implementation-defined character.
+ (characterp #@bsl{}Rubout) @EV{} @term{true}
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{character (Function)} (@term{type} and @term{function}), @ref{typep}
+
+@subsubheading Notes:
+
+@lisp
+ (characterp @param{object}) @EQ{} (typep @param{object} 'character)
+@end lisp
+
+
+
+@node alpha-char-p
+@heading alpha-char-p (Function)
+@syindex alpha-char-p
+@cindex alpha-char-p
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{alpha-char-p, character, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{character}---a @term{character}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@Predicate{character, an @term{alphabetic}@sub1{} @term{character}}
+
+@subsubheading Examples:
+
+@lisp
+ (alpha-char-p #@bsl{}a) @EV{} @term{true}
+ (alpha-char-p #@bsl{}5) @EV{} @term{false}
+ (alpha-char-p #@bsl{}Newline) @EV{} @term{false}
+ ;; This next example presupposes an implementation
+ ;; in which #@bsl{}@alfa{} is a defined character.
+ (alpha-char-p #@bsl{}@alfa{}) @EV{} @term{implementation-dependent}
+@end lisp
+
+
+@subsubheading Affected By:
+
+None.
+(In particular, the results of this predicate are independent
+of any special syntax which might have been enabled in the @term{current readtable}.)
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{character, a @term{character}}
+
+@subsubheading See Also:
+
+@ref{alphanumericp},
+@ref{Documentation of Implementation-Defined Scripts, Section 13.1.10 (Documentation of Implementation-Defined Scripts)}
+
+
+@node alphanumericp
+@heading alphanumericp (Function)
+@syindex alphanumericp
+@cindex alphanumericp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{alphanumericp, character, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{character}---a @term{character}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@Predicate{character, an @term{alphabetic}@sub1{} @term{character}  or a  @term{numeric}    @term{character}}
+
+@subsubheading Examples:
+
+@lisp
+ (alphanumericp #@bsl{}Z) @EV{} @term{true}
+ (alphanumericp #@bsl{}9) @EV{} @term{true}
+ (alphanumericp #@bsl{}Newline) @EV{} @term{false}
+ (alphanumericp #@bsl{}#) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading Affected By:
+
+None.
+(In particular, the results of this predicate are independent
+of any special syntax which might have been enabled in the @term{current readtable}.)
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{character, a @term{character}}
+
+@subsubheading See Also:
+
+@ref{alpha-char-p}, @ref{graphic-char-p}, @ref{digit-char-p}
+
+@subsubheading Notes:
+
+Alphanumeric characters are graphic
+as defined by @code{graphic-char-p}.
+The alphanumeric characters are a subset of the graphic characters.
+The standard characters @f{A} through @f{Z},
+@f{a} through @f{z},
+and @f{0} through @f{9} are alphanumeric characters.
+
+@lisp
+ (alphanumericp x)
+   @EQ{} (or (alpha-char-p x) (not (null (digit-char-p x))))
+@end lisp
+
+
+@node digit-char
+@heading digit-char (Function)
+@syindex digit-char
+@cindex digit-char
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{digit-char, weight @opt{} radix, char}
+
+@subsubheading Arguments and Values:
+
+@param{weight}---a non-negative @term{integer}.
+
+@param{radix}---a @term{radix}.
+@Default{@f{10}}
+
+@param{char}---a @term{character} or @term{false}.
+
+@subsubheading Description:
+
+If @param{weight} is less than @param{radix},
+@code{digit-char} returns a @term{character} which has that @param{weight}
+when considered as a digit in the specified radix.
+If the resulting @term{character} is to be an @term{alphabetic}@sub1{} @term{character},
+it will be an uppercase @term{character}.
+
+If @param{weight} is greater than or equal to @param{radix},
+@code{digit-char} returns @term{false}.
+
+@subsubheading Examples:
+
+@lisp
+ (digit-char 0) @EV{} #@bsl{}0
+ (digit-char 10 11) @EV{} #@bsl{}A
+ (digit-char 10 10) @EV{} @term{false}
+ (digit-char 7) @EV{} #@bsl{}7
+ (digit-char 12) @EV{} @term{false}
+ (digit-char 12 16) @EV{} #@bsl{}C  ;not #@bsl{}c
+ (digit-char 6 2) @EV{} @term{false}
+ (digit-char 1 2) @EV{} #@bsl{}1
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{digit-char-p},
+@ref{graphic-char-p},
+@ref{Character Syntax, Section 2.1 (Character Syntax)}
+
+@subsubheading Notes:
+
+
+
+@node digit-char-p
+@heading digit-char-p (Function)
+@syindex digit-char-p
+@cindex digit-char-p
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{digit-char-p, char @opt{} radix, weight}
+
+@subsubheading Arguments and Values:
+
+@param{char}---a @term{character}.
+
+@param{radix}---a @term{radix}.
+@Default{@f{10}}
+
+@param{weight}---either a non-negative @term{integer} less than @param{radix},
+or @term{false}.
+
+@subsubheading Description:
+
+Tests whether @param{char} is a digit in the specified @param{radix}
+(@ie{} with a weight less than @param{radix}).
+If it is a digit in that @param{radix},
+its weight is returned as an @term{integer};
+otherwise @nil{}@spc{}is returned.
+
+@subsubheading Examples:
+
+@lisp
+ (digit-char-p #@bsl{}5)    @EV{} 5
+ (digit-char-p #@bsl{}5 2)  @EV{} @term{false}
+ (digit-char-p #@bsl{}A)    @EV{} @term{false}
+ (digit-char-p #@bsl{}a)    @EV{} @term{false}
+ (digit-char-p #@bsl{}A 11) @EV{} 10
+ (digit-char-p #@bsl{}a 11) @EV{} 10
+ (mapcar #'(lambda (radix)
+             (map 'list #'(lambda (x) (digit-char-p x radix))
+                  "059AaFGZ"))
+         '(2 8 10 16 36))
+ @EV{} ((0 NIL NIL NIL NIL NIL NIL NIL)
+     (0 5 NIL NIL NIL NIL NIL NIL)
+     (0 5 9 NIL NIL NIL NIL NIL)
+     (0 5 9 10 10 15 NIL NIL)
+     (0 5 9 10 10 15 16 35))
+@end lisp
+
+
+@subsubheading Affected By:
+
+None.
+(In particular, the results of this predicate are independent
+of any special syntax which might have been enabled in the @term{current readtable}.)
+
+@subsubheading See Also:
+
+@ref{alphanumericp}
+
+@subsubheading Notes:
+
+Digits are @term{graphic} @term{characters}.
+
+
+@node graphic-char-p
+@heading graphic-char-p (Function)
+@syindex graphic-char-p
+@cindex graphic-char-p
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{graphic-char-p, char, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{char}---a @term{character}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@Predicate{character, a @term{graphic} @term{character}}
+
+@subsubheading Examples:
+
+@lisp
+ (graphic-char-p #@bsl{}G) @EV{} @term{true}
+ (graphic-char-p #@bsl{}#) @EV{} @term{true}
+ (graphic-char-p #@bsl{}Space) @EV{} @term{true}
+ (graphic-char-p #@bsl{}Newline) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{character, a @term{character}}
+
+@subsubheading See Also:
+
+@ref{read},
+@ref{Character Syntax, Section 2.1 (Character Syntax)},
+@ref{Documentation of Implementation-Defined Scripts, Section 13.1.10 (Documentation of Implementation-Defined Scripts)}
+
+
+@node standard-char-p
+@heading standard-char-p (Function)
+@syindex standard-char-p
+@cindex standard-char-p
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{standard-char-p, character, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{character}---a @term{character}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{character, standard-char}
+
+@subsubheading Examples:
+
+@lisp
+ (standard-char-p #@bsl{}Space) @EV{} @term{true}
+ (standard-char-p #@bsl{}~) @EV{} @term{true}
+ ;; This next example presupposes an implementation
+ ;; in which #@bsl{}Bell is a defined character.
+ (standard-char-p #@bsl{}Bell) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{character, a @term{character}}
+
+
+@node char-upcase; char-downcase
+@heading char-upcase, char-downcase (Function)
+@syindex char-upcase
+@cindex char-upcase
+@syindex char-downcase
+@cindex char-downcase
+@anchor{char-upcase}
+@anchor{char-downcase}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{char-upcase, character, corresponding-character}
+@DefunWithValues{char-downcase, character, corresponding-character}
+
+
+@subsubheading Arguments and Values:
+
+@param{character}, @param{corresponding-character}---a @term{character}.
+
+@subsubheading Description:
+
+If @param{character} is a @term{lowercase} @term{character},
+@code{char-upcase} returns the corresponding @term{uppercase} @term{character}.
+Otherwise, @code{char-upcase} just returns the given @param{character}.
+
+If @param{character} is an @term{uppercase} @term{character},
+@code{char-downcase} returns the corresponding @term{lowercase} @term{character}.
+Otherwise, @code{char-downcase} just returns the given @param{character}.
+
+The result only ever differs from @param{character}
+in its @term{code} @term{attribute};
+all @term{implementation-defined} @term{attributes} are preserved.
+
+@subsubheading Examples:
+
+@lisp
+ (char-upcase #@bsl{}a) @EV{} #@bsl{}A
+ (char-upcase #@bsl{}A) @EV{} #@bsl{}A
+ (char-downcase #@bsl{}a) @EV{} #@bsl{}a
+ (char-downcase #@bsl{}A) @EV{} #@bsl{}a
+ (char-upcase #@bsl{}9) @EV{} #@bsl{}9
+ (char-downcase #@bsl{}9) @EV{} #@bsl{}9
+ (char-upcase #@bsl{}@@) @EV{} #@bsl{}@@
+ (char-downcase #@bsl{}@@) @EV{} #@bsl{}@@
+ ;; Note that this next example might run for a very long time in
+ ;; some implementations if CHAR-CODE-LIMIT happens to be very large
+ ;; for that implementation.
+ (dotimes (code char-code-limit)
+   (let ((char (code-char code)))
+     (when char
+       (unless (cond ((upper-case-p char) (char= (char-upcase (char-downcase char)) char))
+                     ((lower-case-p char) (char= (char-downcase (char-upcase char)) char))
+                     (t (and (char= (char-upcase (char-downcase char)) char)
+                             (char= (char-downcase (char-upcase char)) char))))
+         (return char)))))
+@EV{} NIL
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{character, a @term{character}}
+
+@subsubheading See Also:
+
+@ref{upper-case-p},
+@ref{alpha-char-p},
+@ref{CharactersWithCase, Section 13.1.4.3 (Characters With Case)},
+@ref{Documentation of Implementation-Defined Scripts, Section 13.1.10 (Documentation of Implementation-Defined Scripts)}
+
+@subsubheading Notes:
+
+If the @param{corresponding-char} is @term{different} than @param{character},
+then both the @param{character} and the @param{corresponding-char} have @term{case}.
+
+Since @code{char-equal} ignores the @term{case} of the @term{characters} it compares,
+the @param{corresponding-character} is always the @term{same} as @param{character}
+under @code{char-equal}.
+
+
+@node upper-case-p; lower-case-p; both-case-p
+@heading upper-case-p, lower-case-p, both-case-p (Function)
+@syindex upper-case-p
+@cindex upper-case-p
+@syindex lower-case-p
+@cindex lower-case-p
+@syindex both-case-p
+@cindex both-case-p
+@anchor{upper-case-p}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{upper-case-p, character, generalized-boolean}
+@DefunWithValues{lower-case-p, character, generalized-boolean}
+@DefunWithValues{both-case-p, character, generalized-boolean}
+
+
+@subsubheading Arguments and Values:
+
+@param{character}---a @term{character}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+These functions test the case of a given @param{character}.
+
+@NamedPredicate{upper-case-p, character, an @term{uppercase} @term{character}}
+
+@NamedPredicate{lower-case-p, character, a @term{lowercase} @term{character}}
+
+@NamedPredicate{both-case-p, character, a @term{character} with @term{case}}
+
+@subsubheading Examples:
+
+@lisp
+ (upper-case-p #@bsl{}A) @EV{} @term{true}
+ (upper-case-p #@bsl{}a) @EV{} @term{false}
+ (both-case-p #@bsl{}a) @EV{} @term{true}
+ (both-case-p #@bsl{}5) @EV{} @term{false}
+ (lower-case-p #@bsl{}5) @EV{} @term{false}
+ (upper-case-p #@bsl{}5) @EV{} @term{false}
+ ;; This next example presupposes an implementation
+ ;; in which #@bsl{}Bell is an implementation-defined character.
+ (lower-case-p #@bsl{}Bell) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{character, a @term{character}}
+
+@subsubheading See Also:
+
+@ref{char-upcase},
+@ref{char-downcase},
+@ref{CharactersWithCase, Section 13.1.4.3 (Characters With Case)},
+@ref{Documentation of Implementation-Defined Scripts, Section 13.1.10 (Documentation of Implementation-Defined Scripts)}
+
+
+@node char-code
+@heading char-code (Function)
+@syindex char-code
+@cindex char-code
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{char-code, character, code}
+
+@subsubheading Arguments and Values:
+
+@param{character}---a @term{character}.
+
+@param{code}---a @term{character code}.
+
+@subsubheading Description:
+
+@code{char-code} returns the @term{code} @term{attribute} of @param{character}.
+
+@subsubheading Examples:
+
+@lisp
+;; An implementation using ASCII character encoding
+;; might return these values:
+(char-code #@bsl{}$) @EV{} 36
+(char-code #@bsl{}a) @EV{} 97
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{character, a @term{character}}
+
+@subsubheading See Also:
+
+@ref{char-code-limit}
+
+
+@node char-int
+@heading char-int (Function)
+@syindex char-int
+@cindex char-int
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{char-int, character, integer}
+
+@subsubheading Arguments and Values:
+
+@param{character}---a @term{character}.
+
+@param{integer}---a non-negative @term{integer}.
+
+@subsubheading Description:
+
+Returns a non-negative @term{integer} encoding the @param{character} object.
+The manner in which the @term{integer} is computed is @term{implementation-dependent}.
+In contrast to @code{sxhash}, the result is not guaranteed to be independent
+of the particular @term{Lisp image}.
+
+If @param{character} has no @term{implementation-defined} @term{attributes},
+the results of @code{char-int} and @code{char-code} are the same.
+
+@lisp
+ (char= @i{c1} @i{c2}) @EQ{} (= (char-int @i{c1}) (char-int @i{c2}))
+@end lisp
+
+for characters @i{c1} and @i{c2}.
+
+@subsubheading Examples:
+
+@lisp
+ (char-int #@bsl{}A) @EV{} 65       ; implementation A
+ (char-int #@bsl{}A) @EV{} 577      ; implementation B
+ (char-int #@bsl{}A) @EV{} 262145   ; implementation C
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{char-code}
+
+
+@node code-char
+@heading code-char (Function)
+@syindex code-char
+@cindex code-char
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{code-char, code, char-p}
+
+@subsubheading Arguments and Values:
+
+@param{code}---a @term{character code}.
+
+@param{char-p}---a @term{character} or @nil{}.
+
+@subsubheading Description:
+
+Returns a @term{character} with the @term{code} @term{attribute} given by @param{code}.
+If no such @term{character} exists and one cannot be created, @nil{}@spc{}is returned.
+
+@subsubheading Examples:
+
+@lisp
+(code-char 65.) @EV{} #@bsl{}A  ;in an implementation using ASCII codes
+(code-char (char-code #@bsl{}Space)) @EV{} #@bsl{}Space  ;in any implementation
+@end lisp
+
+
+@subsubheading Affected By:
+
+The @term{implementation}'s character encoding.
+
+@subsubheading See Also:
+
+@ref{char-code}
+
+@subsubheading Notes:
+
+
+
+@node char-code-limit
+@heading char-code-limit (Constant Variable)
+@syindex char-code-limit
+@cindex char-code-limit
+
+
+@subsubheading Constant Value:
+
+A non-negative @term{integer}, the exact magnitude of which
+is @term{implementation-dependent}, but which is not less
+than @f{96} (the number of @term{standard characters}).
+
+@subsubheading Description:
+
+The upper exclusive bound on the @term{value} returned by
+the @term{function} @code{char-code}.
+
+@subsubheading See Also:
+
+@ref{char-code}
+
+@subsubheading Notes:
+
+@Thevalueof{char-code-limit} might be larger than the actual
+number of @term{characters} supported by the @term{implementation}.
+
+
+@node char-name
+@heading char-name (Function)
+@syindex char-name
+@cindex char-name
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{char-name, character, name}
+
+@subsubheading Arguments and Values:
+
+@param{character}---a @term{character}.
+
+@param{name}---a @term{string} or @nil{}.
+
+@subsubheading Description:
+
+Returns a @term{string} that is the @term{name} of the @param{character},
+or @nil{}@spc{}if the @param{character} has no @term{name}.
+
+All @term{non-graphic} characters are required to have @term{names}
+unless they have some @term{implementation-defined} @term{attribute}
+which is not @term{null}.  Whether or not other @term{characters}
+have @term{names} is @term{implementation-dependent}.
+
+The @term{standard characters}
+@NewlineChar{}@spc{}and @SpaceChar{}@spc{}have the respective names @f{"Newline"} and @f{"Space"}.
+The @term{semi-standard} @term{characters}
+@TabChar{}, @PageChar{}, @RuboutChar{}, @LinefeedChar{}, @ReturnChar{}, and @BackspaceChar{}@spc{}
+(if they are supported by the @term{implementation})
+have the respective names
+@f{"Tab"},  @f{"Page"},  @f{"Rubout"},  @f{"Linefeed"},  @f{"Return"}, and @f{"Backspace"}
+(in the indicated case, even though name lookup by ``@f{#@bsl{}}''
+and by @thefunction{name-char} is not case sensitive).
+
+@subsubheading Examples:
+
+@lisp
+ (char-name #\@spc{}) @EV{} "Space"
+ (char-name #@bsl{}Space) @EV{} "Space"
+ (char-name #@bsl{}Page) @EV{} "Page"
+
+ (char-name #@bsl{}a)
+@EV{} NIL
+@OV{} "LOWERCASE-a"
+@OV{} "Small-A"
+@OV{} "LA01"
+
+ (char-name #@bsl{}A)
+@EV{} NIL
+@OV{} "UPPERCASE-A"
+@OV{} "Capital-A"
+@OV{} "LA02"
+
+ ;; Even though its CHAR-NAME can vary, #@bsl{}A prints as #@bsl{}A
+ (prin1-to-string (read-from-string (format nil "#@bsl{}@bsl{}~A" (or (char-name #@bsl{}A) "A"))))
+@EV{} "#@bsl{}@bsl{}A"
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{character, a @term{character}}
+
+@subsubheading See Also:
+
+@ref{name-char},
+@ref{PrintingCharacters, Section 22.1.3.2 (Printing Characters)}
+
+@subsubheading Notes:
+
+@term{Non-graphic}
+@term{characters} having @term{names} are written by the @term{Lisp printer}
+as ``@f{#@bsl{}}'' followed by the their @term{name}; see @ref{PrintingCharacters, Section 22.1.3.2 (Printing Characters)}.
+
+
+@node name-char
+@heading name-char (Function)
+@syindex name-char
+@cindex name-char
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{name-char, name, char-p}
+
+@subsubheading Arguments and Values:
+
+@param{name}---a @term{string designator}.
+
+@param{char-p}---a @term{character} or @nil{}.
+
+@subsubheading Description:
+
+Returns the @term{character} @term{object} whose @term{name} is
+@param{name} (as determined by @code{string-equal}---@ie{} lookup is not case sensitive).
+If such a @term{character} does not exist, @nil{}@spc{}is returned.
+
+@subsubheading Examples:
+
+@lisp
+(name-char 'space) @EV{} #@bsl{}Space
+(name-char "space") @EV{} #@bsl{}Space
+(name-char "Space") @EV{} #@bsl{}Space
+(let ((x (char-name #@bsl{}a)))
+  (or (not x) (eql (name-char x) #@bsl{}a))) @EV{} @term{true}
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{name, a @term{string designator}}
+
+@subsubheading See Also:
+
+@ref{char-name}

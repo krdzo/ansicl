@@ -1,0 +1,1411 @@
+@node Symbols
+@chapter Symbols
+@menu
+* Symbol Concepts::
+
+Dictionary
+
+* symbol::
+* keyword::
+* symbolp::
+* keywordp::
+* make-symbol::
+* copy-symbol::
+* gensym::
+* *gensym-counter*::
+* gentemp::
+* symbol-function::
+* symbol-name::
+* symbol-package::
+* symbol-plist::
+* symbol-value::
+* get::
+* remprop::
+* boundp::
+* makunbound::
+* set::
+* unbound-variable::
+@end menu
+
+@node Symbol Concepts
+@section Symbol Concepts
+
+@Thenextfigure{}@spc{}lists some
+@term{defined names} that are applicable to the @term{property lists} of @term{symbols}.
+
+
+@float Figure,fig10.1
+@cartouche
+@multitable{get}{remprop}{symbol-plist}
+
+@item get @tab remprop @tab symbol-plist
+@end multitable
+@end cartouche
+@caption{Property list defined names}
+@end float
+
+
+@Thenextfigure{}@spc{}lists some @term{defined names} that are applicable
+to the creation of and inquiry about @term{symbols}.
+
+
+@float Figure,fig10.2
+@cartouche
+@multitable{copy-symbol}{make-symbol}{symbol-package}
+
+@item copy-symbol @tab keywordp @tab symbol-package
+@item gensym @tab make-symbol @tab symbol-value
+@item gentemp @tab symbol-name @tab
+@end multitable
+@end cartouche
+@caption{Symbol creation and inquiry defined names}
+@end float
+
+
+
+@node symbol
+@heading symbol (System Class)
+@syindex symbol
+@cindex symbol
+
+
+@subsubheading Class Precedence List:
+@code{symbol},
+@code{t}
+
+@subsubheading Description:
+
+@term{Symbols} are used for their @term{object} identity to name various entities
+in @clisp{}, including (but not limited to) linguistic entities such as
+@term{variables} and @term{functions}.
+
+@term{Symbols} can be collected together into @term{packages}.
+A @term{symbol} is said to be @term{interned} in a @term{package}
+if it is @term{accessible} in that @term{package};
+the same @term{symbol} can be @term{interned} in more than one @term{package}.
+If a @term{symbol} is not @term{interned} in any @term{package},
+it is called @term{uninterned}.
+
+An @term{interned} @term{symbol} is uniquely identifiable by its @term{name} from
+any @term{package} in which it is @term{accessible}.
+
+@term{Symbols} have the following attributes.
+For historical reasons,
+these are sometimes referred to as @term{cells}, although the actual
+internal representation of @term{symbols} and their attributes is
+@term{implementation-dependent}.
+
+
+@table @asis
+
+@item @id{@b{Name}}
+
+
+The @term{name} of a @term{symbol} is a @term{string} used to identify the @term{symbol}.
+Every @term{symbol} has a @term{name},
+and the consequences are undefined if that @term{name} is altered.
+The @term{name} is used as part of the external, printed representation of
+the @term{symbol}; see @ref{Character Syntax, Section 2.1 (Character Syntax)}.
+@Thefunction{symbol-name} returns the @term{name} of a given @term{symbol}.
+A @term{symbol} may have any @term{character} in its @term{name}.
+
+@item @id{@b{Package}}
+
+
+The @term{object} in this @term{cell} is called the @term{home package}
+of the @term{symbol}.  If the @term{home package} is @nil{}, the @term{symbol}
+is sometimes said to have no @term{home package}.
+
+When a @term{symbol} is first created, it has no @term{home package}.
+When it is first @term{interned}, the @term{package} in which it is
+initially @term{interned} becomes its @term{home package}.
+The @term{home package} of a @term{symbol} can be @term{accessed}
+by using @thefunction{symbol-package}.
+
+If a @term{symbol} is @term{uninterned} from the @term{package}
+which is its @term{home package}, its @term{home package} is set to @nil{}.
+Depending on whether there is another @term{package} in which the @term{symbol}
+is @term{interned}, the symbol might or might not really be an @term{uninterned} @term{symbol}.
+A @term{symbol} with no @term{home package} is therefore called
+@term{apparently uninterned}.
+
+The consequences are undefined if an attempt is made to alter the @term{home package}
+of a @term{symbol}
+external
+in the @code{COMMON-LISP} @term{package} or the @code{KEYWORD} @term{package}.
+
+@item @id{@b{Property list}}
+
+
+The @term{property list} of a @term{symbol} provides a mechanism for
+associating named attributes with that @term{symbol}.
+The operations for adding and removing entries are @term{destructive}
+to the @term{property list}.  @clisp{}@spc{}provides @term{operators} both for
+direct manipulation of @term{property list} @term{objects}
+(@eg{} see @code{getf}, @code{remf}, and @code{symbol-plist})
+and for implicit manipulation of a @term{symbol}'s @term{property list}
+by reference to the @term{symbol}
+(@eg{} see @code{get} and @code{remprop}).
+The @term{property list} associated with a @term{fresh} @term{symbol} is
+initially @term{null}.
+
+@item @id{@b{Value}}
+
+
+If a symbol has a value attribute, it is said to be @term{bound},
+and that fact can be detected by @thefunction{boundp}.
+The @term{object} contained in the @term{value cell} of a @term{bound} @term{symbol}
+is the @term{value} of the @term{global variable} named by that @term{symbol},
+and can be @term{accessed} by @thefunction{symbol-value}.
+A @term{symbol} can be made to be @term{unbound} by @thefunction{makunbound}.
+
+The consequences are undefined if an attempt is made to change the @term{value}
+of a @term{symbol} that names a @term{constant variable}, or to make such a
+@term{symbol} be @term{unbound}.
+
+@item @id{@b{Function}}
+
+
+If a symbol has a function attribute, it is said to be @term{fbound},
+and that fact can be detected by @thefunction{fboundp}.
+If the @term{symbol} is the @term{name} of a @term{function} in the @term{global environment},
+the @term{function cell} contains the @term{function},
+and can be @term{accessed} by @thefunction{symbol-function}.
+If the @term{symbol} is the @term{name} of either
+a @term{macro} in the @term{global environment} (see @code{macro-function})
+or a @term{special operator} (see @code{special-operator-p}),
+the @term{symbol} is @term{fbound},
+and can be @term{accessed} by @thefunction{symbol-function},
+but the @term{object} which the @term{function cell}
+contains is of @term{implementation-dependent} @term{type} and purpose.
+A @term{symbol} can be made to be @term{funbound} by @thefunction{fmakunbound}.
+
+The consequences are undefined if an attempt is made to change the @term{functional value}
+of a @term{symbol} that names a @term{special form}.
+@end table
+
+
+Operations on a @term{symbol}'s @term{value cell} and @term{function cell} are
+sometimes described in terms of their effect on the @term{symbol} itself, but
+the user should keep in mind that there is an intimate relationship between the
+contents of those @term{cells} and the @term{global variable} or
+global @term{function} definition, respectively.
+
+@term{Symbols} are used as identifiers for @term{lexical variables} and
+lexical @term{function} definitions, but in that role, only their @term{object}
+identity is significant.  @clisp{}@spc{}provides no operation on a @term{symbol} that
+can have any effect on a @term{lexical variable} or
+on a lexical @term{function} definition.
+
+@subsubheading See Also:
+
+@ref{Symbols as Tokens, Section 2.3.4 (Symbols as Tokens)},
+@ref{PotentialNumbersAsTokens, Section 2.3.1.1 (Potential Numbers as Tokens)},
+@ref{PrintingSymbols, Section 22.1.3.3 (Printing Symbols)}
+
+
+@node keyword
+@heading keyword (Type)
+@syindex keyword
+@cindex keyword
+
+
+@subsubheading Supertypes:
+
+@code{keyword},
+@code{symbol},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{keyword} includes all @term{symbols} @term{interned} the @code{KEYWORD} @term{package}.
+
+@term{Interning} a @term{symbol} in the @code{KEYWORD} @term{package} has three automatic effects:
+
+
+@enumerate 1
+@item It causes the @term{symbol} to become @term{bound} to itself.
+@item It causes the @term{symbol} to become an @term{external symbol}
+of the @code{KEYWORD} @term{package}.
+@item It causes the @term{symbol} to become a @term{constant variable}.
+@end enumerate
+
+
+@subsubheading See Also:
+
+@ref{keywordp}
+
+
+@node symbolp
+@heading symbolp (Function)
+@syindex symbolp
+@cindex symbolp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{symbolp, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{object, symbol}
+
+@subsubheading Examples:
+
+@lisp
+ (symbolp 'elephant) @EV{} @term{true}
+ (symbolp 12) @EV{} @term{false}
+ (symbolp nil) @EV{} @term{true}
+ (symbolp '()) @EV{} @term{true}
+ (symbolp :test) @EV{} @term{true}
+ (symbolp "hello") @EV{} @term{false}
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{keywordp},
+@ref{symbol},
+@ref{typep}
+
+@subsubheading Notes:
+
+@lisp
+ (symbolp @param{object}) @EQ{} (typep @param{object} 'symbol)
+@end lisp
+
+
+
+@node keywordp
+@heading keywordp (Function)
+@syindex keywordp
+@cindex keywordp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{keywordp, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@Predicate{object, a @term{keyword}@sub1{}}
+
+@subsubheading Examples:
+
+@lisp
+ (keywordp 'elephant) @EV{} @term{false}
+ (keywordp 12) @EV{} @term{false}
+ (keywordp :test) @EV{} @term{true}
+ (keywordp ':test) @EV{} @term{true}
+ (keywordp nil) @EV{} @term{false}
+ (keywordp :nil) @EV{} @term{true}
+ (keywordp '(:test)) @EV{} @term{false}
+ (keywordp "hello") @EV{} @term{false}
+ (keywordp ":hello") @EV{} @term{false}
+ (keywordp '&optional) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{constantp},
+@ref{keyword},
+@ref{symbolp},
+@ref{symbol-package}
+
+
+@node make-symbol
+@heading make-symbol (Function)
+@syindex make-symbol
+@cindex make-symbol
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{make-symbol, name, new-symbol}
+
+@subsubheading Arguments and Values:
+
+@param{name}---a @term{string}.
+
+@param{new-symbol}---a @term{fresh}, @term{uninterned} @term{symbol}.
+
+@subsubheading Description:
+
+@code{make-symbol} creates and returns a @term{fresh}, @term{uninterned}
+@term{symbol} whose @term{name} is the given @param{name}.
+The @param{new-symbol} is neither @term{bound} nor @term{fbound}
+and has a @term{null} @term{property list}.
+
+It is @term{implementation-dependent} whether the @term{string}
+that becomes the @param{new-symbol}'s @term{name} is the given
+@param{name} or a copy of it.  Once a @term{string}
+has been given as the @param{name} @term{argument} to
+@term{make-symbol}, the consequences are undefined if a
+subsequent attempt is made to alter that @term{string}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq temp-string "temp") @EV{} "temp"
+ (setq temp-symbol (make-symbol temp-string)) @EV{} #:|temp|
+ (symbol-name temp-symbol) @EV{} "temp"
+ (eq (symbol-name temp-symbol) temp-string) @EV{} @term{implementation-dependent}
+ (find-symbol "temp") @EV{} NIL, NIL
+ (eq (make-symbol temp-string) (make-symbol temp-string)) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{name, a @term{string}}
+
+@subsubheading See Also:
+
+@ref{copy-symbol}
+
+@subsubheading Notes:
+
+No attempt is made by @code{make-symbol} to convert the case
+of the @term{name} to uppercase.  The only case conversion which ever
+occurs for @term{symbols} is done by the @term{Lisp reader}.
+The program interface to @term{symbol} creation retains case,
+and the program interface to interning symbols is case-sensitive.
+
+
+@node copy-symbol
+@heading copy-symbol (Function)
+@syindex copy-symbol
+@cindex copy-symbol
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{copy-symbol, symbol @opt{} copy-properties, new-symbol}
+
+@subsubheading Arguments and Values:
+
+@param{symbol}---a @term{symbol}.
+
+@param{copy-properties}---a @term{generalized boolean}.
+@Default{@term{false}}
+
+@param{new-symbol}---a @term{fresh}, @term{uninterned} @term{symbol}.
+
+@subsubheading Description:
+
+@code{copy-symbol} returns a @term{fresh}, @term{uninterned} @term{symbol},
+the @term{name} of which is @code{string=} to and possibly the @term{same} as
+the @term{name} of the given @param{symbol}.
+
+If @param{copy-properties} is @term{false},
+the @param{new-symbol} is neither @term{bound} nor @term{fbound}
+and has a @term{null} @term{property list}.
+If @param{copy-properties} is @term{true}, then
+the initial @term{value} of @param{new-symbol} is
+the @term{value} of @param{symbol},
+the initial @term{function} definition of @param{new-symbol} is
+the @term{functional value} of @param{symbol},
+and the @term{property list} of @param{new-symbol} is
+a @term{copy}@sub2{} of the @term{property list} of @param{symbol}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq fred 'fred-smith) @EV{} FRED-SMITH
+ (setf (symbol-value fred) 3) @EV{} 3
+ (setq fred-clone-1a (copy-symbol fred nil)) @EV{} #:FRED-SMITH
+ (setq fred-clone-1b (copy-symbol fred nil)) @EV{} #:FRED-SMITH
+ (setq fred-clone-2a (copy-symbol fred t))   @EV{} #:FRED-SMITH
+ (setq fred-clone-2b (copy-symbol fred t))   @EV{} #:FRED-SMITH
+ (eq fred fred-clone-1a) @EV{} @term{false}
+ (eq fred-clone-1a fred-clone-1b) @EV{} @term{false}
+ (eq fred-clone-2a fred-clone-2b) @EV{} @term{false}
+ (eq fred-clone-1a fred-clone-2a) @EV{} @term{false}
+ (symbol-value fred) @EV{} 3
+ (boundp fred-clone-1a) @EV{} @term{false}
+ (symbol-value fred-clone-2a) @EV{} 3
+ (setf (symbol-value fred-clone-2a) 4) @EV{} 4
+ (symbol-value fred) @EV{} 3
+ (symbol-value fred-clone-2a) @EV{} 4
+ (symbol-value fred-clone-2b) @EV{} 3
+ (boundp fred-clone-1a) @EV{} @term{false}
+ (setf (symbol-function fred) #'(lambda (x) x)) @EV{} #<FUNCTION anonymous>
+ (fboundp fred) @EV{} @term{true}
+ (fboundp fred-clone-1a) @EV{} @term{false}
+ (fboundp fred-clone-2a) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{symbol, a @term{symbol}}
+
+@subsubheading See Also:
+
+@ref{make-symbol}
+
+@subsubheading Notes:
+
+Implementors are encouraged not to copy the @term{string}
+which is the @term{symbol}'s @term{name} unnecessarily.
+Unless there is a good reason to do so, the normal implementation
+strategy is for the @param{new-symbol}'s @term{name} to
+be @term{identical} to the given @param{symbol}'s @term{name}.
+
+
+@node gensym
+@heading gensym (Function)
+@syindex gensym
+@cindex gensym
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{gensym, @opt{} x, new-symbol}
+
+@subsubheading Arguments and Values:
+
+@param{x}---a @term{string} or a non-negative @term{integer}.
+@HairyDefault{}.
+
+@param{new-symbol}---a @term{fresh}, @term{uninterned} @term{symbol}.
+
+@subsubheading Description:
+
+Creates and returns a @term{fresh}, @term{uninterned} @term{symbol},
+as if by calling @code{make-symbol}.  (The only difference between
+@code{gensym} and @code{make-symbol} is in how the @param{new-symbol}'s
+@term{name} is determined.)
+
+The @term{name} of the @param{new-symbol} is the concatenation
+of a prefix, which defaults to @f{"G"}, and
+a suffix, which is the decimal representation of a number that
+defaults to @thevalueof{*gensym-counter*}.
+
+If @param{x} is supplied, and is a @term{string}, then that @term{string}
+is used as a prefix instead of @f{"G"} for this call to @code{gensym} only.
+
+If @param{x} is supplied, and is an @term{integer}, then that @term{integer},
+instead of @thevalueof{*gensym-counter*}, is used as the suffix
+for this call to @code{gensym} only.
+
+If and only if no explicit suffix is supplied,
+@code{*gensym-counter*} is incremented after it is used.
+
+@subsubheading Examples:
+
+@lisp
+ (setq sym1 (gensym)) @EV{} #:G3142
+ (symbol-package sym1) @EV{} NIL
+ (setq sym2 (gensym 100)) @EV{} #:G100
+ (setq sym3 (gensym 100)) @EV{} #:G100
+ (eq sym2 sym3) @EV{} @term{false}
+ (find-symbol "G100") @EV{} NIL, NIL
+ (gensym "T") @EV{} #:T3143
+ (gensym) @EV{} #:G3144
+@end lisp
+
+
+@subsubheading Side Effects:
+
+Might increment @code{*gensym-counter*}.
+
+@subsubheading Affected By:
+
+@code{*gensym-counter*}
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{x, a @term{string} or a non-negative @term{integer}}
+
+@subsubheading See Also:
+
+@ref{gentemp},
+@ref{*gensym-counter*}
+
+@subsubheading Notes:
+
+The ability to pass a numeric argument to @code{gensym} has been deprecated;
+explicitly @term{binding} @code{*gensym-counter*} is now stylistically preferred.
+(The somewhat baroque conventions for the optional argument are historical
+in nature, and supported primarily for compatibility with older dialects
+of @Lisp{}.   In modern code, it is recommended that the only kind of argument
+used be a string prefix.  In general, though, to obtain more flexible control
+of the @param{new-symbol}'s @term{name}, consider using @code{make-symbol} instead.)
+
+
+@node *gensym-counter*
+@heading *gensym-counter* (Variable)
+@syindex *gensym-counter*
+@cindex *gensym-counter*
+
+
+@subsubheading Value Type:
+
+a non-negative @term{integer}.
+
+@subsubheading Initial Value:
+
+@term{implementation-dependent}.
+
+@subsubheading Description:
+
+A number which will be used in constructing the @term{name} of
+the next @term{symbol} generated by @thefunction{gensym}.
+
+@code{*gensym-counter*} can be either @term{assigned} or @term{bound}
+at any time, but its value must always be a non-negative @term{integer}.
+
+@subsubheading Affected By:
+
+@code{gensym}.
+
+@subsubheading See Also:
+
+@ref{gensym}
+
+@subsubheading Notes:
+
+The ability to pass a numeric argument to @code{gensym} has been deprecated;
+explicitly @term{binding} @code{*gensym-counter*} is now stylistically preferred.
+
+@node gentemp
+@heading gentemp (Function)
+@syindex gentemp
+@cindex gentemp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{gentemp, @opt{} prefix package, new-symbol}
+
+@subsubheading Arguments and Values:
+
+@param{prefix}---a @term{string}.
+@Default{@f{"T"}}
+
+@param{package}---a @term{package designator}.
+@Default{the @term{current package}}
+
+@param{new-symbol}---a @term{fresh}, @term{interned} @term{symbol}.
+
+@subsubheading Description:
+
+@code{gentemp} creates and returns a @term{fresh} @term{symbol},
+@term{interned} in the indicated @param{package}.
+The @term{symbol} is guaranteed to be one that was not previously
+@term{accessible} in @param{package}.
+It is neither @term{bound} nor @term{fbound}, and has a @term{null}
+@term{property list}.
+
+The @term{name} of the @param{new-symbol} is the concatenation
+of the @param{prefix} and a suffix, which is taken from an internal
+counter used only by @code{gentemp}.  (If a @term{symbol} by that name
+is already @term{accessible} in @param{package}, the counter is incremented as
+many times as is necessary to produce a @term{name} that is not already the
+@term{name} of a @term{symbol} @term{accessible} in @param{package}.)
+
+@subsubheading Examples:
+
+@lisp
+ (gentemp) @EV{} T1298
+ (gentemp "FOO") @EV{} FOO1299
+ (find-symbol "FOO1300") @EV{} NIL, NIL
+ (gentemp "FOO") @EV{} FOO1300
+ (find-symbol "FOO1300") @EV{} FOO1300, :INTERNAL
+ (intern "FOO1301") @EV{} FOO1301, :INTERNAL
+ (gentemp "FOO") @EV{} FOO1302
+ (gentemp) @EV{} T1303
+@end lisp
+
+
+@subsubheading Side Effects:
+
+Its internal counter is incremented one or more times.
+
+@term{Interns} the @param{new-symbol} in @param{package}.
+
+@subsubheading Affected By:
+
+The current state of its internal counter, and
+the current state of the @param{package}.
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{prefix, a @term{string}}
+@Shouldchecktype{package, a @term{package designator}}
+
+@subsubheading See Also:
+
+@ref{gensym}
+
+@subsubheading Notes:
+
+The function @code{gentemp} is deprecated.
+
+If @param{package} is the @code{KEYWORD} @term{package},
+the result is an @term{external symbol} of @param{package}.
+Otherwise, the result is an @term{internal symbol} of @param{package}.
+
+The @code{gentemp} internal counter is independent of
+@code{*gensym-counter*}, the counter used by @code{gensym}.
+There is no provision for accessing the @code{gentemp} internal counter.
+
+Just because @code{gentemp} creates a @term{symbol} which did not
+previously exist does not mean that such a @term{symbol} might not be
+seen in the future (@eg{} in a data file---perhaps even created by the
+same program in another session).  As such, this symbol is not truly
+unique in the same sense as a @term{gensym} would be.  In particular,
+programs which do automatic code generation should be careful not to
+attach global attributes to such generated @term{symbols} (@eg{}
+@code{special} @term{declarations}) and then write them into a file
+because such global attributes might, in a different session, end up
+applying to other @term{symbols} that were automatically generated on
+another day for some other purpose.
+
+
+@node symbol-function
+@heading symbol-function (Accessor)
+@syindex symbol-function
+@cindex symbol-function
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{symbol-function, symbol, contents}
+@Defsetf{symbol-function, symbol, new-contents}
+
+@subsubheading Arguments and Values:
+
+@param{symbol}---a @term{symbol}.
+
+@param{contents}---
+If the @param{symbol} is globally defined as a @term{macro} or a @term{special operator},
+an @term{object} of @term{implementation-dependent} nature and identity is returned.
+If the @param{symbol} is not globally defined as
+either a @term{macro} or a @term{special operator},
+and
+if the @param{symbol} is @term{fbound},
+a @term{function} @term{object} is returned.
+
+@param{new-contents}---a @term{function}.
+
+@subsubheading Description:
+
+@term{Accesses} the @term{symbol}'s @term{function cell}.
+
+@subsubheading Examples:
+
+@lisp
+ (symbol-function 'car) @EV{} #<FUNCTION CAR>
+ (symbol-function 'twice) is an error   ;because TWICE isn't defined.
+ (defun twice (n) (* n 2)) @EV{} TWICE
+ (symbol-function 'twice) @EV{} #<FUNCTION TWICE>
+ (list (twice 3)
+       (funcall (function twice) 3)
+       (funcall (symbol-function 'twice) 3))
+@EV{} (6 6 6)
+ (flet ((twice (x) (list x x)))
+   (list (twice 3)
+         (funcall (function twice) 3)
+         (funcall (symbol-function 'twice) 3)))
+@EV{} ((3 3) (3 3) 6)
+ (setf (symbol-function 'twice) #'(lambda (x) (list x x)))
+@EV{} #<FUNCTION anonymous>
+ (list (twice 3)
+       (funcall (function twice) 3)
+       (funcall (symbol-function 'twice) 3))
+@EV{} ((3 3) (3 3) (3 3))
+ (fboundp 'defun) @EV{} @term{true}
+ (symbol-function 'defun)
+@EV{} @term{implementation-dependent}
+ (functionp (symbol-function 'defun))
+@EV{} @term{implementation-dependent}
+ (defun symbol-function-or-nil (symbol)
+   (if (and (fboundp symbol)
+            (not (macro-function symbol))
+            (not (special-operator-p symbol)))
+       (symbol-function symbol)
+       nil)) @EV{} SYMBOL-FUNCTION-OR-NIL
+ (symbol-function-or-nil 'car) @EV{} #<FUNCTION CAR>
+ (symbol-function-or-nil 'defun) @EV{} NIL
+@end lisp
+
+
+@subsubheading Affected By:
+
+@code{defun}
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{symbol, a @term{symbol}}
+
+Should signal @code{undefined-function} if @param{symbol} is not @term{fbound}
+and an attempt is made to @term{read} its definition.  (No such error is signaled
+on an attempt to @term{write} its definition.)
+
+@subsubheading See Also:
+
+@ref{fboundp},
+@ref{fmakunbound},
+@ref{macro-function},
+@ref{special-operator-p}
+
+@subsubheading Notes:
+@code{symbol-function} cannot @term{access} the value of a lexical function name
+produced by @code{flet} or @code{labels}; it can @term{access} only
+the global function value.
+
+@code{setf} may be used with
+@code{symbol-function} to replace a global function
+definition when the @term{symbol}'s function definition
+does not represent a @term{special operator}.
+
+@lisp
+(symbol-function @param{symbol}) @EQ{} (fdefinition @param{symbol})
+@end lisp
+
+However, @code{fdefinition} accepts arguments other than just @term{symbols}.
+
+
+@node symbol-name
+@heading symbol-name (Function)
+@syindex symbol-name
+@cindex symbol-name
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{symbol-name, symbol, name}
+
+@subsubheading Arguments and Values:
+
+@param{symbol}---a @term{symbol}.
+
+@param{name}---a @term{string}.
+
+@subsubheading Description:
+
+@code{symbol-name} returns the @term{name} of @param{symbol}.
+The consequences are undefined if @param{name} is ever modified.
+
+@subsubheading Examples:
+
+@lisp
+ (symbol-name 'temp) @EV{} "TEMP"
+ (symbol-name :start) @EV{} "START"
+ (symbol-name (gensym)) @EV{} "G1234" ;for example
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{symbol, a @term{symbol}}
+
+
+@node symbol-package
+@heading symbol-package (Function)
+@syindex symbol-package
+@cindex symbol-package
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{symbol-package, symbol, contents}
+
+@subsubheading Arguments and Values:
+
+@param{symbol}---a @term{symbol}.
+
+@param{contents}---a @term{package} @term{object} or @nil{}.
+
+@subsubheading Description:
+
+Returns the @term{home package} of @param{symbol}.
+
+@subsubheading Examples:
+
+@lisp
+ (in-package "CL-USER") @EV{} #<PACKAGE "COMMON-LISP-USER">
+ (symbol-package 'car) @EV{} #<PACKAGE "COMMON-LISP">
+ (symbol-package 'bus) @EV{} #<PACKAGE "COMMON-LISP-USER">
+ (symbol-package :optional) @EV{} #<PACKAGE "KEYWORD">
+ ;; Gensyms are uninterned, so have no home package.
+ (symbol-package (gensym)) @EV{} NIL
+ (make-package 'pk1) @EV{} #<PACKAGE "PK1">
+ (intern "SAMPLE1" "PK1") @EV{} PK1::SAMPLE1, NIL
+ (export (find-symbol "SAMPLE1" "PK1") "PK1") @EV{} T
+ (make-package 'pk2 :use '(pk1)) @EV{} #<PACKAGE "PK2">
+ (find-symbol "SAMPLE1" "PK2") @EV{} PK1:SAMPLE1, :INHERITED
+ (symbol-package 'pk1::sample1) @EV{} #<PACKAGE "PK1">
+ (symbol-package 'pk2::sample1) @EV{} #<PACKAGE "PK1">
+ (symbol-package 'pk1::sample2) @EV{} #<PACKAGE "PK1">
+ (symbol-package 'pk2::sample2) @EV{} #<PACKAGE "PK2">
+ ;; The next several forms create a scenario in which a symbol
+ ;; is not really uninterned, but is "apparently uninterned",
+ ;; and so SYMBOL-PACKAGE still returns NIL.
+ (setq s3 'pk1::sample3) @EV{} PK1::SAMPLE3
+ (import s3 'pk2) @EV{} T
+ (unintern s3 'pk1) @EV{} T
+ (symbol-package s3) @EV{} NIL
+ (eq s3 'pk2::sample3) @EV{} T
+@end lisp
+
+
+@subsubheading Affected By:
+
+@code{import},
+@code{intern},
+@code{unintern}
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{symbol, a @term{symbol}}
+
+@subsubheading See Also:
+
+@ref{intern}
+
+
+@node symbol-plist
+@heading symbol-plist (Accessor)
+@syindex symbol-plist
+@cindex symbol-plist
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{symbol-plist, symbol, plist}
+@Defsetf{symbol-plist, symbol, new-plist}
+
+@subsubheading Arguments and Values:
+
+@param{symbol}---a @term{symbol}.
+
+@param{plist}, @param{new-plist}---a @term{property list}.
+
+@subsubheading Description:
+
+@term{Accesses} the @term{property list} of @param{symbol}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq sym (gensym)) @EV{} #:G9723
+ (symbol-plist sym) @EV{} ()
+ (setf (get sym 'prop1) 'val1) @EV{} VAL1
+ (symbol-plist sym) @EV{} (PROP1 VAL1)
+ (setf (get sym 'prop2) 'val2) @EV{} VAL2
+ (symbol-plist sym) @EV{} (PROP2 VAL2 PROP1 VAL1)
+ (setf (symbol-plist sym) (list 'prop3 'val3)) @EV{} (PROP3 VAL3)
+ (symbol-plist sym) @EV{} (PROP3 VAL3)
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{symbol, a @term{symbol}}
+
+@subsubheading See Also:
+
+@ref{get},
+@ref{remprop}
+
+@subsubheading Notes:
+
+The use of @code{setf} should be avoided, since a @term{symbol}'s
+@term{property list} is a global resource that can contain information
+established and depended upon by unrelated programs in the same @term{Lisp image}.
+
+
+@node symbol-value
+@heading symbol-value (Accessor)
+@syindex symbol-value
+@cindex symbol-value
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{symbol-value, symbol, value}
+@Defsetf{symbol-value, symbol, new-value}
+
+@subsubheading Arguments and Values:
+
+@param{symbol}---a @term{symbol} that must have a @term{value}.
+
+@param{value}, @param{new-value}---an @term{object}.
+
+@subsubheading Description:
+
+@term{Accesses} the @term{symbol}'s @term{value cell}.
+
+@subsubheading Examples:
+
+@lisp
+ (setf (symbol-value 'a) 1) @EV{} 1
+ (symbol-value 'a) @EV{} 1
+ ;; SYMBOL-VALUE cannot see lexical variables.
+ (let ((a 2)) (symbol-value 'a)) @EV{} 1
+ (let ((a 2)) (setq a 3) (symbol-value 'a)) @EV{} 1
+ ;; SYMBOL-VALUE can see dynamic variables.
+ (let ((a 2))
+   (declare (special a))
+   (symbol-value 'a)) @EV{} 2
+ (let ((a 2))
+   (declare (special a))
+   (setq a 3)
+   (symbol-value 'a)) @EV{} 3
+ (let ((a 2))
+   (setf (symbol-value 'a) 3)
+   a) @EV{} 2
+ a @EV{} 3
+ (symbol-value 'a) @EV{} 3
+ (let ((a 4))
+   (declare (special a))
+   (let ((b (symbol-value 'a)))
+     (setf (symbol-value 'a) 5)
+     (values a b))) @EV{} 5, 4
+ a @EV{} 3
+ (symbol-value :any-keyword) @EV{} :ANY-KEYWORD
+ (symbol-value 'nil) @EV{} NIL
+ (symbol-value '()) @EV{} NIL
+ ;; The precision of this next one is @term{implementation-dependent}.
+ (symbol-value 'pi) @EV{} 3.141592653589793d0
+@end lisp
+
+
+@subsubheading Affected By:
+
+@code{makunbound},
+@code{set},
+@code{setq}
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{symbol, a @term{symbol}}
+
+Should signal @code{unbound-variable} if @param{symbol} is @term{unbound}
+and an attempt is made to @term{read} its @term{value}.  (No such error is signaled
+on an attempt to @term{write} its @term{value}.)
+
+@subsubheading See Also:
+
+@ref{boundp}, @ref{makunbound}, @ref{set}, @ref{setq}
+
+@subsubheading Notes:
+
+@code{symbol-value} can be used to get the value of a @term{constant variable}.
+@code{symbol-value} cannot @term{access} the value of a @term{lexical variable}.
+
+
+@node get
+@heading get (Accessor)
+@syindex get
+@cindex get
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{get, symbol indicator @opt{} default, value}
+@Defsetf{get, symbol indicator @opt{} default, new-value}
+
+@subsubheading Arguments and Values:
+
+@param{symbol}---a @term{symbol}.
+
+@param{indicator}---an @term{object}.
+
+@param{default}---an @term{object}.
+@Default{@nil{}}
+
+@param{value}---if the indicated property exists,
+the @term{object} that is its @term{value};
+otherwise, the specified @param{default}.
+
+@param{new-value}---an @term{object}.
+
+@subsubheading Description:
+
+@code{get} finds a @term{property}
+on the @term{property list}@sub2{} of @param{symbol}
+whose @term{property indicator} is @term{identical} to @param{indicator},
+and returns its corresponding @term{property value}.
+If there are multiple @term{properties}@sub1{} with that @term{property indicator},
+@code{get} uses the first such @term{property}.
+If there is no @term{property} with that @term{property indicator},
+@param{default} is returned.
+
+@code{setf} of @code{get} may be used to associate a new @term{object}
+with an existing indicator already on the @param{symbol}'s @term{property list},
+or to create a new assocation if none exists.
+If there are multiple @term{properties}@sub1{} with that @term{property indicator},
+@code{setf} of @code{get} associates the @param{new-value}
+with the first such @term{property}.
+When a @code{get} @term{form} is used as a @code{setf} @param{place},
+any @param{default} which is supplied is evaluated according to normal
+left-to-right evaluation rules, but its @term{value} is ignored.
+
+@subsubheading Examples:
+
+@lisp
+ (defun make-person (first-name last-name)
+   (let ((person (gensym "PERSON")))
+     (setf (get person 'first-name) first-name)
+     (setf (get person 'last-name) last-name)
+     person)) @EV{} MAKE-PERSON
+ (defvar *john* (make-person "John" "Dow")) @EV{} *JOHN*
+ *john* @EV{} #:PERSON4603
+ (defvar *sally* (make-person "Sally" "Jones")) @EV{} *SALLY*
+ (get *john* 'first-name) @EV{} "John"
+ (get *sally* 'last-name) @EV{} "Jones"
+ (defun marry (man woman married-name)
+   (setf (get man 'wife) woman)
+   (setf (get woman 'husband) man)
+   (setf (get man 'last-name) married-name)
+   (setf (get woman 'last-name) married-name)
+   married-name) @EV{} MARRY
+ (marry *john* *sally* "Dow-Jones") @EV{} "Dow-Jones"
+ (get *john* 'last-name) @EV{} "Dow-Jones"
+ (get (get *john* 'wife) 'first-name) @EV{} "Sally"
+ (symbol-plist *john*)
+@EV{} (WIFE #:PERSON4604 LAST-NAME "Dow-Jones" FIRST-NAME "John")
+ (defmacro age (person &optional (default ''thirty-something))
+   `(get ,person 'age ,default)) @EV{} AGE
+ (age *john*) @EV{} THIRTY-SOMETHING
+ (age *john* 20) @EV{} 20
+ (setf (age *john*) 25) @EV{} 25
+ (age *john*) @EV{} 25
+ (age *john* 20) @EV{} 25
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{symbol, a @term{symbol}}
+
+@subsubheading See Also:
+
+@ref{getf},
+@ref{symbol-plist},
+@ref{remprop}
+
+@subsubheading Notes:
+
+@lisp
+ (get x y) @EQ{} (getf (symbol-plist x) y)
+@end lisp
+
+
+@term{Numbers} and @term{characters} are not recommended for use
+as @param{indicators} in portable code since @code{get} tests
+with @code{eq} rather than @code{eql}, and consequently
+the effect of using such @param{indicators} is
+@term{implementation-dependent}.
+
+There is no way using @code{get} to distinguish an absent property from
+one whose value is @param{default}.  However, see @code{get-properties}.
+
+
+
+@node remprop
+@heading remprop (Function)
+@syindex remprop
+@cindex remprop
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{remprop, symbol indicator, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{symbol}---a @term{symbol}.
+
+@param{indicator}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@code{remprop} removes from the @term{property list}@sub2{} of @param{symbol}
+a @term{property}@sub1{} with a @term{property indicator}
+@term{identical} to @param{indicator}.
+If there are multiple @term{properties}@sub1{} with the @term{identical} key,
+@code{remprop} only removes the first such @term{property}.
+@code{remprop} returns @term{false} if no such @term{property} was found,
+or @term{true} if a property was found.
+
+The @term{property indicator}
+and the corresponding @term{property value}
+are removed in an undefined order
+by destructively splicing the property list.
+The permissible side-effects correspond to those permitted for @code{remf},
+such that:
+
+@lisp
+ (remprop @i{x} @i{y}) @EQ{} (remf (symbol-plist @i{x}) @i{y})
+@end lisp
+
+
+@subsubheading Examples:
+
+@lisp
+ (setq test (make-symbol "PSEUDO-PI")) @EV{} #:PSEUDO-PI
+ (symbol-plist test) @EV{} ()
+ (setf (get test 'constant) t) @EV{} T
+ (setf (get test 'approximation) 3.14) @EV{} 3.14
+ (setf (get test 'error-range) 'noticeable) @EV{} NOTICEABLE
+ (symbol-plist test)
+@EV{} (ERROR-RANGE NOTICEABLE APPROXIMATION 3.14 CONSTANT T)
+ (setf (get test 'approximation) nil) @EV{} NIL
+ (symbol-plist test)
+@EV{} (ERROR-RANGE NOTICEABLE APPROXIMATION NIL CONSTANT T)
+ (get test 'approximation) @EV{} NIL
+ (remprop test 'approximation) @EV{} @term{true}
+ (get test 'approximation) @EV{} NIL
+ (symbol-plist test)
+@EV{} (ERROR-RANGE NOTICEABLE CONSTANT T)
+ (remprop test 'approximation) @EV{} NIL
+ (symbol-plist test)
+@EV{} (ERROR-RANGE NOTICEABLE CONSTANT T)
+ (remprop test 'error-range) @EV{} @term{true}
+ (setf (get test 'approximation) 3) @EV{} 3
+ (symbol-plist test)
+@EV{} (APPROXIMATION 3 CONSTANT T)
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The @term{property list} of @param{symbol} is modified.
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{symbol, a @term{symbol}}
+
+@subsubheading See Also:
+
+@ref{remf}, @ref{symbol-plist}
+
+@subsubheading Notes:
+
+@term{Numbers} and @term{characters} are not recommended for use as
+@param{indicators} in portable code since @code{remprop} tests with
+@code{eq} rather than @code{eql}, and consequently the effect of
+using such @param{indicators} is @term{implementation-dependent}.
+Of course, if you've gotten as far as needing to remove such a
+@term{property}, you don't have much choice---the time to have been
+thinking about this was when you used @code{setf} of @code{get} to
+establish the @term{property}.
+
+
+@node boundp
+@heading boundp (Function)
+@syindex boundp
+@cindex boundp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{boundp, symbol, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{symbol}---a @term{symbol}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@Predicate{symbol, @term{bound}}
+
+@subsubheading Examples:
+
+@lisp
+ (setq x 1) @EV{} 1
+ (boundp 'x) @EV{} @term{true}
+ (makunbound 'x) @EV{} X
+ (boundp 'x) @EV{} @term{false}
+ (let ((x 2)) (boundp 'x)) @EV{} @term{false}
+ (let ((x 2)) (declare (special x)) (boundp 'x)) @EV{} @term{true}
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{symbol, a @term{symbol}}
+
+@subsubheading See Also:
+
+@ref{set},
+@ref{setq},
+@ref{symbol-value},
+@ref{makunbound}
+
+@subsubheading Notes:
+
+@Thefunction{bound} determines only whether a @term{symbol} has a
+value in the @term{global environment}; any @term{lexical bindings}
+are ignored.
+
+
+@node makunbound
+@heading makunbound (Function)
+@syindex makunbound
+@cindex makunbound
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{makunbound, symbol, symbol}
+
+@subsubheading Arguments and Values:
+
+@param{symbol}---a @term{symbol}
+
+@subsubheading Description:
+
+Makes the @param{symbol} be @term{unbound},
+regardless of whether it was previously @term{bound}.
+
+@subsubheading Examples:
+
+@lisp
+ (setf (symbol-value 'a) 1)
+ (boundp 'a) @EV{} @term{true}
+ a @EV{} 1
+ (makunbound 'a) @EV{} A
+ (boundp 'a) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The @term{value cell} of @param{symbol} is modified.
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{symbol, a @term{symbol}}
+
+@subsubheading See Also:
+
+@ref{boundp}, @ref{fmakunbound}
+
+
+@node set
+@heading set (Function)
+@syindex set
+@cindex set
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{set, symbol value, value}
+
+@subsubheading Arguments and Values:
+
+@param{symbol}---a @term{symbol}.
+
+@param{value}---an @term{object}.
+
+@subsubheading Description:
+
+@code{set} changes the contents of the @term{value cell} of @term{symbol}
+to the given @term{value}.
+
+@lisp
+(set @param{symbol} @param{value}) @EQ{} (setf (symbol-value @param{symbol}) @param{value})
+@end lisp
+
+
+@subsubheading Examples:
+
+@lisp
+ (setf (symbol-value 'n) 1) @EV{} 1
+ (set 'n 2) @EV{} 2
+ (symbol-value 'n) @EV{} 2
+ (let ((n 3))
+   (declare (special n))
+   (setq n (+ n 1))
+   (setf (symbol-value 'n) (* n 10))
+   (set 'n (+ (symbol-value 'n) n))
+   n) @EV{} 80
+ n @EV{} 2
+ (let ((n 3))
+   (setq n (+ n 1))
+   (setf (symbol-value 'n) (* n 10))
+   (set 'n (+ (symbol-value 'n) n))
+   n) @EV{} 4
+ n @EV{} 44
+ (defvar *n* 2)
+ (let ((*n* 3))
+   (setq *n* (+ *n* 1))
+   (setf (symbol-value '*n*) (* *n* 10))
+   (set '*n* (+ (symbol-value '*n*) *n*))
+   *n*) @EV{} 80
+  *n* @EV{} 2
+ (defvar *even-count* 0) @EV{} *EVEN-COUNT*
+ (defvar *odd-count* 0) @EV{} *ODD-COUNT*
+ (defun tally-list (list)
+   (dolist (element list)
+     (set (if (evenp element) '*even-count* '*odd-count*)
+          (+ element (if (evenp element) *even-count* *odd-count*)))))
+ (tally-list '(1 9 4 3 2 7)) @EV{} NIL
+ *even-count* @EV{} 6
+ *odd-count* @EV{} 20
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The @term{value} of @param{symbol} is changed.
+
+@subsubheading See Also:
+
+@ref{setq}, @ref{progv}, @ref{symbol-value}
+
+@subsubheading Notes:
+
+The function @code{set} is deprecated.
+
+@code{set} cannot change the value of a @term{lexical variable}.
+
+
+@node unbound-variable
+@heading unbound-variable (Condition Type)
+@syindex unbound-variable
+@cindex unbound-variable
+
+
+@subsubheading Class Precedence List:
+@code{unbound-variable},
+@code{cell-error},
+@code{error},
+@code{serious-condition},
+@code{condition},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{unbound-variable} consists of @term{error} @term{conditions}
+that represent attempts to @term{read} the @term{value} of an @term{unbound variable}.
+
+The name of the cell (see @code{cell-error}) is the @term{name} of the
+@term{variable} that was @term{unbound}.
+
+@subsubheading See Also:
+
+@ref{cell-error-name}

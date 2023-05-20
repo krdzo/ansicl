@@ -1,0 +1,1176 @@
+@node Structures
+@chapter Structures
+@menu
+
+Dictionary
+
+* defstruct::
+* copy-structure::
+@end menu
+
+@node defstruct
+@heading defstruct (Macro)
+@syindex defstruct
+@cindex defstruct
+
+
+@subsubheading Syntax:
+
+@DefmacWithValuesNewline{defstruct, name-and-options @brac{documentation} @stardown{slot-description}, structure-name}
+
+@auxbnf{name-and-options, structure-name | @paren{structure-name @interleave{@down{options}}}}
+@auxbnf{options, @down{conc-name-option} |@CR{} @stardown{constructor-option} |@CR{} @down{copier-option} |@CR{} @down{include-option} |@CR{} @down{initial-offset-option} |@CR{} @down{named-option} |@CR{} @down{predicate-option} |@CR{} @down{printer-option} |@CR{} @down{type-option}}
+@auxbnf{conc-name-option, @kwd{conc-name} | @paren{@kwd{conc-name}} | @paren{@kwd{conc-name} @param{conc-name}}}
+@auxbnf{constructor-option, @kwd{constructor} |@CR{} @paren{@kwd{constructor}} |@CR{} @paren{@kwd{constructor} @param{constructor-name}} |@CR{} @paren{@kwd{constructor} @param{constructor-name} @param{constructor-arglist}}}
+@auxbnf{copier-option, @kwd{copier} | @paren{@kwd{copier}} | @paren{@kwd{copier} @param{copier-name}}}
+@auxbnf{predicate-option, @kwd{predicate} | @paren{@kwd{predicate}} | @paren{@kwd{predicate} @param{predicate-name}}}
+@auxbnf{include-option, @paren{@kwd{include} @param{included-structure-name} @stardown{slot-description}}}
+@auxbnf{printer-option, @down{print-object-option} | @down{print-function-option}}
+@auxbnf{print-object-option, @paren{@kwd{print-object} @param{printer-name}} | @paren{@kwd{print-object}}}
+@auxbnf{print-function-option, @paren{@kwd{print-function} @param{printer-name}} | @paren{@kwd{print-function}}}
+@auxbnf{type-option, @paren{@kwd{type} @param{type}}}
+@auxbnf{named-option, @kwd{named}}
+@auxbnf{initial-offset-option, @paren{@kwd{initial-offset} @param{initial-offset}}}
+@auxbnf{slot-description, @param{slot-name} | @CR{} @paren{@param{slot-name} @brac{@param{slot-initform} @interleave{@down{slot-option}}}}}
+@auxbnf{slot-option, @kwd{type} @param{slot-type} | @CR{} @kwd{read-only} @param{slot-read-only-p}}
+
+@subsubheading Arguments and Values:
+
+@param{conc-name}---a @term{@symbolnamedesignator{}}.
+
+@param{constructor-arglist}---a @term{boa lambda list}.
+
+@param{constructor-name}---a @term{symbol}.
+
+@param{copier-name}---a @term{symbol}.
+
+@param{included-structure-name}---an already-defined @term{structure name}.
+Note that a @term{derived type} is not permissible,
+even if it would expand into a @term{structure name}.
+
+@param{initial-offset}---a non-negative @term{integer}.
+
+@param{predicate-name}---a @term{symbol}.
+
+@param{printer-name}---a @term{function name} or a @term{lambda expression}.
+
+@param{slot-name}---a @term{symbol}.
+
+@param{slot-initform}---a @term{form}.
+
+@param{slot-read-only-p}---a @term{generalized boolean}.
+
+@param{structure-name}---a @term{symbol}.
+
+@param{type}---one of the @term{type specifiers}
+@code{list},
+@code{vector},
+or @f{(vector @param{size})},
+or some other @term{type specifier} defined
+by the @term{implementation} to be appropriate.
+
+@param{documentation}---a @term{string}; @noeval{}.
+
+@subsubheading Description:
+
+@code{defstruct} defines a structured @term{type}, named @param{structure-type},
+with named slots as specified by the @param{slot-options}.
+
+@code{defstruct} defines @term{readers} for the slots and
+arranges for @code{setf} to work properly on such
+@term{reader} functions.
+Also, unless overridden, it
+defines a predicate named @f{@param{name}-p},
+defines a constructor function named @f{make-@param{constructor-name}},
+and defines a copier function named @f{copy-@param{constructor-name}}.
+All names of automatically created functions might automatically
+be declared @code{inline} (at the discretion of the @term{implementation}).
+
+If @param{documentation} is supplied, it is attached to @param{structure-name}
+as a @term{documentation string} of kind @t{structure},
+and unless @kwd{type} is used, the @param{documentation} is also attached
+to @param{structure-name} as a @term{documentation string} of kind
+@t{type} and as a @term{documentation string} to the @term{class} @term{object}
+for the @term{class} named @param{structure-name}.
+
+@code{defstruct} defines a constructor function that is used to
+create instances of the structure created by @code{defstruct}.
+The default name is @f{make-@param{structure-name}}.
+A different name can be supplied
+by giving the name as the argument to the @param{constructor} option.
+@nil{}@spc{}indicates that no constructor function will be created.
+
+After a new structure type has been defined, instances of that type
+normally can be created by using the constructor function for the
+type.
+A call to a constructor function is of the following form:
+
+@lisp
+ (constructor-function-name
+  slot-keyword1 form-1
+  slot-keyword2 form-2
+  ...)
+@end lisp
+
+The arguments to the constructor function are all keyword arguments.  Each
+slot keyword argument must  be
+a keyword whose name corresponds to the name of a structure slot.
+All the @param{keywords} and @param{forms}
+are evaluated.
+If a slot is not initialized in this way,
+it is initialized by evaluating @param{slot-initform} in the slot description
+at the time the constructor function is called.
+If no @param{slot-initform} is supplied,
+the consequences are undefined if an attempt is later made to read the slot's value
+before a value is explicitly assigned.
+
+Each @param{slot-initform} supplied for a @code{defstruct} component,
+when used by the constructor function for an otherwise unsupplied
+component, is re-evaluated on every call to the
+constructor function.
+The @param{slot-initform} is not evaluated
+unless it is needed in the creation of a particular structure
+instance.  If it is never needed, there can be no type-mismatch
+error, even if the @term{type}
+of the slot is specified; no warning
+should be issued in this case.
+For example, in the following sequence, only the last call is an error.
+
+@lisp
+ (defstruct person (name 007 :type string))
+ (make-person :name "James")
+ (make-person)
+@end lisp
+
+
+It is as if the @param{slot-initforms} were
+used as @term{initialization forms} for the @term{keyword parameters}
+of the constructor function.
+
+The @term{symbols} which name the slots must not be used by the
+@term{implementation} as the @term{names} for the @term{lambda variables}
+in the constructor function, since one or more of those @term{symbols}
+might have been proclaimed @code{special} or might be defined as
+the name of a @term{constant variable}.
+The slot default init forms are evaluated
+in the @term{lexical environment} in which the @code{defstruct} form itself appears and
+in the @term{dynamic environment} in which the call to the constructor function appears.
+
+For example, if the form @f{(gensym)} were used as an initialization form,
+either in the constructor-function call or as the default initialization form
+in @code{defstruct}, then every call to the constructor function would call
+@code{gensym} once to generate a new @term{symbol}.
+
+Each @param{slot-description} in @code{defstruct} can specify zero or more
+@param{slot-options}.
+A @param{slot-option} consists of a pair of a keyword and a value
+(which is not a form to be evaluated, but the value itself).  For example:
+
+@lisp
+ (defstruct ship
+   (x-position 0.0 :type short-float)
+   (y-position 0.0 :type short-float)
+   (x-velocity 0.0 :type short-float)
+   (y-velocity 0.0 :type short-float)
+   (mass *default-ship-mass* :type short-float :read-only t))
+@end lisp
+
+This specifies that each slot always contains a @term{short float},
+and that the last slot cannot be altered once a ship is constructed.
+
+
+The available slot-options are:
+
+@table @asis
+@item @id{@tt{@kwd{type} @param{type}}}
+
+
+This specifies that the contents of the
+slot is always of type @param{type}.  This is entirely
+analogous to the declaration of a variable or function; it
+effectively declares the result type of the @term{reader} function.
+It is @term{implementation-dependent} whether the @term{type} is checked
+when initializing a slot
+or when assigning to it.
+@param{Type} is not evaluated; it must be a valid @term{type specifier}.
+
+@item @id{@tt{@kwd{read-only} @param{x}}}
+
+
+When @param{x} is @term{true},
+this specifies that this slot cannot be
+altered; it will always contain the value supplied at construction time.
+@code{setf} will not accept the @term{reader} function for this slot.
+If @param{x} is @term{false}, this slot-option has no effect.
+@param{X} is not evaluated.
+
+When this option is @term{false} or unsupplied,
+it is @term{implementation-dependent} whether the ability to @term{write}
+the slot is implemented by a @term{setf function} or a @term{setf expander}.
+@end table
+
+
+The following keyword options are available for use with @code{defstruct}.
+A @code{defstruct} option can be either a keyword or a @term{list}
+of a keyword and arguments for that keyword;
+specifying the keyword by itself is equivalent to specifying a list consisting of
+the keyword and no arguments.
+The syntax for @code{defstruct} options differs from the pair syntax
+used for slot-options.  No part of any of these options is evaluated.
+
+@table @asis
+
+@item @id{@kwd{conc-name}}
+
+
+This provides for automatic prefixing of names of @term{reader} (or @term{access}) functions.
+The default behavior is to begin the names of all the @term{reader} functions of
+a structure with the name of the structure followed by a hyphen.
+
+@kwd{conc-name} supplies an alternate
+prefix to be used.  If a hyphen is to be used as a separator,
+it must be supplied as part of the prefix.
+If @kwd{conc-name} is @nil{}@spc{}or no argument is supplied,
+then no prefix is used;
+then the names of the @term{reader} functions
+are the same as the slot names.
+If a @term{non-nil} prefix is given,
+the name of the @term{reader} @term{function} for each slot is constructed by
+concatenating that prefix and the name of the slot, and interning the resulting
+@term{symbol} in the @term{package} that is current at the time the
+@code{defstruct} form is expanded.
+
+Note that no matter what is supplied for @kwd{conc-name},
+slot keywords that match the slot names with no prefix attached are used
+with a constructor function.
+The @term{reader} function name is used
+in conjunction with @code{setf}.  Here is an example:
+
+@lisp
+ (defstruct (door (:conc-name dr-)) knob-color width material) @EV{} DOOR
+ (setq my-door (make-door :knob-color 'red :width 5.0))
+@EV{} #S(DOOR :KNOB-COLOR RED :WIDTH 5.0 :MATERIAL NIL)
+ (dr-width my-door) @EV{} 5.0
+ (setf (dr-width my-door) 43.7) @EV{} 43.7
+ (dr-width my-door) @EV{} 43.7
+@end lisp
+
+
+Whether or not the @kwd{conc-name} option is explicitly supplied,
+the following rule governs name conflicts of generated @term{reader}
+(or @term{accessor}) names:
+For any @term{structure} @term{type} @mat{S@sub1{}}
+having a @term{reader} function named @mat{R} for a slot named @mat{X@sub1{}}
+that is inherited by another @term{structure} @term{type} @mat{S@sub2{}}
+that would have a @term{reader} function with the same name @mat{R} for a slot named @mat{X@sub2{}},
+no definition for @mat{R} is generated by the definition of @mat{S@sub2{}};
+instead, the definition of @mat{R} is inherited from the definition of @mat{S@sub1{}}.
+(In such a case, if @mat{X@sub1{}} and @mat{X@sub2{}} are different slots,
+the @term{implementation} might signal a style warning.)
+
+@item @id{@kwd{constructor}}
+
+
+This option takes zero, one, or two arguments.
+If at least one argument is supplied and the first argument is not @nil{}, then
+that argument is a @term{symbol} which specifies the name of the
+constructor function.  If the argument is not supplied (or if the option itself is not
+supplied), the name of the constructor is produced by concatenating the
+string @f{"MAKE-"} and the name of the structure, interning the name
+in whatever @term{package} is current at the time @code{defstruct}
+is expanded.  If the argument is provided and is @nil{},
+no constructor function is defined.
+
+If @kwd{constructor} is given as
+@f{(:constructor @param{name} @param{arglist})},
+then instead of making a keyword
+driven constructor function, @code{defstruct}
+defines a ``positional'' constructor function,
+taking arguments whose meaning is determined by the argument's position
+and possibly by keywords.
+@param{Arglist} is used to describe what the arguments to the
+constructor will be. In the simplest case something like
+@f{(:constructor make-foo (a b c))} defines @f{make-foo} to be
+a three-argument
+constructor function whose arguments are used to initialize the
+slots named @f{a}, @f{b}, and @f{c}.
+
+Because a constructor of this type operates ``By Order of Arguments,''
+it is sometimes known as a ``boa constructor.''
+
+For information on how the @param{arglist} for a ``boa constructor'' is
+processed, see @ref{Boa Lambda Lists, Section 3.4.6 (Boa Lambda Lists)}.
+
+It is permissible to use the
+@kwd{constructor} option more than once, so that you can define several
+different constructor functions, each taking different parameters.
+
+@reviewer{Barmar: What about (:constructor) and (:constructor nil).
+Should we worry about it?}
+
+@code{defstruct} creates the default-named keyword constructor function
+only if no explicit @kwd{constructor} options are specified, or if the
+@kwd{constructor} option is specified without a @param{name} argument.
+
+@f{(:constructor nil)} is meaningful only when there are no other
+@kwd{constructor} options specified.  It prevents @code{defstruct}
+from generating any constructors at all.
+
+Otherwise, @code{defstruct} creates a constructor function corresponding
+to each supplied @kwd{constructor} option.  It is permissible to specify
+multiple keyword constructor functions as well as multiple
+``boa constructors''.
+
+@item @id{@kwd{copier}}
+
+
+This option takes one argument, a @term{symbol},
+which specifies the name of the copier
+function.  If the argument is not provided or if the option itself is not
+provided, the name of the copier is produced by concatenating the
+string @f{"COPY-"} and the name of the structure, interning the name
+in whatever @term{package} is current at the time @code{defstruct}
+is expanded.
+If the argument is provided and is @nil{}, no copier function is defined.
+
+The automatically defined copier function is a function of
+one @term{argument},
+which must be of the structure type being defined.
+The copier function creates a @term{fresh}
+structure that has the same @term{type} as its @term{argument},
+and that has the @term{same} component values as the original
+structure; that is, the component values are not copied recursively.
+If the @code{defstruct} @kwd{type} option was not used,
+the following equivalence applies:
+
+@lisp
+ (@param{copier-name} x) = (copy-structure (the @param{structure-name} x))
+@end lisp
+
+
+@item @id{@kwd{include}}
+
+
+This option is used for building a new structure definition as
+an extension of another structure definition.  For example:
+
+@lisp
+ (defstruct person name age sex)
+@end lisp
+
+To make a new structure to represent an astronaut
+that has the
+attributes of name, age, and sex, and @term{functions}
+that operate on @f{person} structures, @f{astronaut} is defined
+with @kwd{include} as follows:
+
+@lisp
+ (defstruct (astronaut (:include person)
+                       (:conc-name astro-))
+    helmet-size
+    (favorite-beverage 'tang))
+@end lisp
+
+
+@kwd{include} causes the structure being defined
+to have the same slots as the included structure.
+This is done in such a way
+that the @term{reader} functions for the included
+structure also work on the structure being defined.
+In this example, an
+@f{astronaut} therefore has five slots: the three defined in
+@f{person} and the two defined in @f{astronaut}
+itself.  The @term{reader} functions defined by the @f{person} structure
+can be applied to instances of the @f{astronaut} structure, and they
+work correctly.
+Moreover, @f{astronaut} has its own @term{reader} functions for
+components defined by the @f{person} structure.
+The following examples illustrate the
+use of @f{astronaut} structures:
+
+@lisp
+ (setq x (make-astronaut :name 'buzz
+                         :age 45.
+                         :sex t
+                         :helmet-size 17.5))
+ (person-name x) @EV{} BUZZ
+ (astro-name x) @EV{} BUZZ
+ (astro-favorite-beverage x) @EV{} TANG
+@end lisp
+
+@lisp
+ (reduce #'+ astros :key #'person-age) ; obtains the total of the ages
+                                       ; of the possibly empty
+                                       ; sequence of astros
+@end lisp
+
+The difference between the @term{reader} functions @f{person-name} and @f{astro-name}
+is that @f{person-name} can be correctly applied to any @f{person},
+including an @f{astronaut}, while @f{astro-name} can be correctly
+applied only to an @f{astronaut}.  An implementation might
+check for incorrect use of @term{reader} functions.
+
+At most one @kwd{include} can be supplied in a single @code{defstruct}.
+The argument to @kwd{include} is required and must be the
+name of some previously defined structure.  If the structure being
+defined has no @kwd{type} option, then the included structure must
+also have had no @kwd{type} option supplied for it.
+If the structure being defined has a @kwd{type} option,
+then the included structure must have been declared with a @kwd{type}
+option specifying the same representation @term{type}.
+
+If no @kwd{type} option is involved, then
+the structure name of the including structure definition
+becomes the name of a @term{data type}, and therefore
+a valid @term{type specifier} recognizable by @code{typep}; it becomes
+a @term{subtype} of the included structure.
+In the above example,
+@f{astronaut} is a @term{subtype} of @f{person}; hence
+
+@lisp
+ (typep (make-astronaut) 'person) @EV{} @term{true}
+@end lisp
+
+indicating that all operations on persons also
+work on astronauts.
+
+The structure using @kwd{include} can specify default values or
+slot-options for the included slots different from those the included
+structure specifies, by giving the @kwd{include} option as:
+
+@lisp
+ (:include @param{included-structure-name} @starparam{slot-description})
+@end lisp
+
+Each @param{slot-description} must have a @param{slot-name}
+that is the same
+as that of some slot in the included structure.
+If a @param{slot-description} has no @param{slot-initform},
+then in the new structure the slot has no initial value.
+Otherwise its initial value form is replaced by
+the @param{slot-initform} in the @param{slot-description}.
+A normally writable slot can be made read-only.
+If a slot is read-only in the included structure, then it
+must also be so in the including structure.
+If a @term{type} is supplied for a slot, it must be
+a @term{subtype} of
+the
+@term{type} specified in the included structure.
+
+For example, if the
+default age for an astronaut is @f{45}, then
+
+@lisp
+ (defstruct (astronaut (:include person (age 45)))
+    helmet-size
+    (favorite-beverage 'tang))
+@end lisp
+
+
+If @kwd{include} is used with the @kwd{type}
+option, then the effect is first to skip over as many representation
+elements as needed to represent the included structure, then to
+skip over any additional elements supplied by the @kwd{initial-offset}
+option, and then to begin allocation of elements from that point.
+For example:
+
+@lisp
+ (defstruct (binop (:type list) :named (:initial-offset 2))
+   (operator '? :type symbol)
+   operand-1
+   operand-2) @EV{} BINOP
+ (defstruct (annotated-binop (:type list)
+                             (:initial-offset 3)
+                             (:include binop))
+  commutative associative identity) @EV{} ANNOTATED-BINOP
+ (make-annotated-binop :operator '*
+                       :operand-1 'x
+                       :operand-2 5
+                       :commutative t
+                       :associative t
+                       :identity 1)
+   @EV{} (NIL NIL BINOP * X 5 NIL NIL NIL T T 1)
+@end lisp
+
+The first two @nil{}@spc{}elements stem from the @kwd{initial-offset} of @f{2}
+in the definition of @f{binop}.  The next four elements contain the
+structure name and three slots for @f{binop}.  The next three @nil{}@spc{}elements
+stem from the @kwd{initial-offset} of @f{3} in the definition of
+@f{annotated-binop}.  The last three list elements contain the additional
+slots for an @f{annotated-binop}.
+
+@item @id{@kwd{initial-offset}}
+
+
+@kwd{initial-offset} instructs @code{defstruct} to skip over a certain
+number of slots before it starts allocating the slots described in the
+body.  This option's argument is the number of slots @code{defstruct}
+should skip.  @kwd{initial-offset} can be used only if @kwd{type} is also supplied.
+
+@reviewer{Barmar: What are initial values of the skipped slots?}
+
+@kwd{initial-offset} allows
+slots to be allocated beginning at a representational
+element other than the first.  For example, the form
+
+@lisp
+ (defstruct (binop (:type list) (:initial-offset 2))
+   (operator '? :type symbol)
+   operand-1
+   operand-2) @EV{} BINOP
+@end lisp
+
+would result in the following behavior for @f{make-binop}:
+
+@lisp
+ (make-binop :operator '+ :operand-1 'x :operand-2 5)
+@EV{} (NIL NIL + X 5)
+ (make-binop :operand-2 4 :operator '*)
+@EV{} (NIL NIL * NIL 4)
+@end lisp
+
+The selector functions
+@f{binop-operator}, @f{binop-operand-1},
+and @tt{binop-operand-2} would be essentially equivalent to @code{third},
+@code{fourth}, and @code{fifth}, respectively.
+Similarly, the form
+
+@lisp
+ (defstruct (binop (:type list) :named (:initial-offset 2))
+   (operator '? :type symbol)
+   operand-1
+   operand-2) @EV{} BINOP
+@end lisp
+
+would result in the following behavior for @f{make-binop}:
+
+@lisp
+ (make-binop :operator '+ :operand-1 'x :operand-2 5) @EV{} (NIL NIL BINOP + X 5)
+ (make-binop :operand-2 4 :operator '*) @EV{} (NIL NIL BINOP * NIL 4)
+@end lisp
+
+
+The first two @nil{}@spc{}elements stem from the @kwd{initial-offset} of @f{2}
+in the definition of @f{binop}.  The next four elements contain the
+structure name and three slots for @f{binop}.
+
+@item @id{@kwd{named}}
+
+
+@kwd{named} specifies that the structure is named.
+If no @kwd{type} is supplied,
+then the structure is always named.
+
+For example:
+
+@lisp
+ (defstruct (binop (:type list))
+   (operator '? :type symbol)
+   operand-1
+   operand-2) @EV{} BINOP
+@end lisp
+
+This defines a constructor function @f{make-binop} and three
+selector functions, namely @f{binop-operator}, @f{binop-operand-1},
+and @f{binop-operand-2}.  (It does not, however, define a predicate
+@f{binop-p}, for reasons explained below.)
+
+The effect of @f{make-binop} is simply to construct a list of length three:
+
+@lisp
+ (make-binop :operator '+ :operand-1 'x :operand-2 5) @EV{} (+ X 5)
+ (make-binop :operand-2 4 :operator '*) @EV{} (* NIL 4)
+@end lisp
+
+It is just like the function @f{list} except that it takes
+keyword arguments and performs slot defaulting appropriate to the @f{binop}
+conceptual data type.  Similarly, the selector functions
+@f{binop-operator}, @f{binop-operand-1},
+and @f{binop-operand-2} are essentially equivalent to @code{car},
+@code{cadr}, and @code{caddr}, respectively.  They might not be
+completely equivalent because,
+for example, an implementation would be justified in adding error-checking
+code to ensure that the argument to each selector function is a length-3
+list.
+
+@f{binop} is a conceptual data type in that it is not made a part of
+the @clisp{}@spc{}type system.  @code{typep} does not recognize @f{binop} as
+a @term{type specifier}, and @code{type-of} returns @f{list} when
+given a @f{binop} structure.  There is no way to distinguish a data
+structure constructed by @f{make-binop} from any other @term{list} that
+happens to have the correct structure.
+
+There is not any way to recover the structure name @f{binop} from
+a structure created by @f{make-binop}.  This can only be done
+if the structure is named.
+A named structure has the property that, given an instance of the
+structure, the structure name (that names the type) can be reliably
+recovered.  For structures defined
+with no @kwd{type} option, the structure name actually becomes part
+of the @clisp{}@spc{}data-type system.  @code{type-of},
+when applied to such a structure, returns the structure name
+as the @term{type} of the @term{object};
+@code{typep} recognizes
+the structure name as a valid @term{type specifier}.
+
+For structures defined with a @kwd{type} option, @code{type-of}
+returns a @term{type specifier} such as @f{list} or @f{(vector t)},
+depending on the type supplied to the @kwd{type} option.
+The structure name does not become a valid @term{type specifier}.
+However,
+if the @kwd{named} option is also supplied, then the first component
+of the structure (as created by a @code{defstruct} constructor function)
+always contains the structure name.  This allows the structure name
+to be recovered from an instance of the structure and allows a reasonable
+predicate for the conceptual type to be defined:
+the automatically defined
+@param{name-p} predicate for the structure operates by first
+checking that its argument is of the proper type (@code{list},
+@f{(vector t)},
+or whatever) and then checking whether the first component contains
+the appropriate type name.
+
+Consider the @f{binop} example shown above, modified only to
+include the @kwd{named} option:
+
+@lisp
+ (defstruct (binop (:type list) :named)
+   (operator '? :type symbol)
+   operand-1
+   operand-2) @EV{} BINOP
+@end lisp
+
+As before, this defines a constructor function @f{make-binop} and three
+selector functions @f{binop-operator}, @f{binop-operand-1},
+and @f{binop-operand-2}.  It also defines a predicate @f{binop-p}.
+The effect of @f{make-binop} is now to construct a list of length four:
+
+@lisp
+ (make-binop :operator '+ :operand-1 'x :operand-2 5) @EV{} (BINOP + X 5)
+ (make-binop :operand-2 4 :operator '*) @EV{} (BINOP * NIL 4)
+@end lisp
+
+The structure has the same layout as before except that the structure name
+@f{binop} is included as the first list element.
+The selector functions
+@f{binop-operator}, @f{binop-operand-1},
+and @f{binop-operand-2} are essentially equivalent to @code{cadr},
+@code{caddr}, and @code{cadddr}, respectively.
+The predicate @f{binop-p} is more or less equivalent to this
+definition:
+
+@lisp
+ (defun binop-p (x)
+   (and (consp x) (eq (car x) 'binop))) @EV{} BINOP-P
+@end lisp
+
+The name @f{binop} is still not a valid @term{type specifier} recognizable
+to @code{typep}, but at least there is a way of distinguishing @f{binop}
+structures from other similarly defined structures.
+
+@item @id{@kwd{predicate}}
+
+
+This option takes one argument, which specifies the name of the type predicate.
+If the argument is not supplied or if the option itself is not
+supplied, the name of the predicate is made by concatenating the
+name of the structure to the string @f{"-P"}, interning the name
+in whatever @term{package} is current at the time @code{defstruct}
+is expanded.
+If the argument is provided and is @nil{}, no predicate is defined.
+A predicate can be defined only if the structure is named;
+if @kwd{type} is supplied and @kwd{named} is not supplied,
+then @kwd{predicate} must either be unsupplied or have the value @nil{}.
+
+@item @id{@kwd{print-function}, @kwd{print-object}}
+
+
+The @kwd{print-function} and @kwd{print-object}
+options
+specify that a @code{print-object}
+@term{method} for @term{structures} of type @param{structure-name} should be generated.
+These options are not synonyms, but do perform a similar service;
+the choice of which option (@kwd{print-function} or @kwd{print-object}) is used
+affects how the function named @param{printer-name} is called.
+Only one of these options may be used, and
+these options may be used only if @kwd{type} is not supplied.
+
+If the @kwd{print-function} option is used,
+then when a structure of type @param{structure-name} is to be printed,
+the designated printer function is called on three @term{arguments}:
+
+
+@itemize --
+
+@item the structure to be printed
+(a @term{generalized instance} of @param{structure-name}).
+
+@item a @term{stream} to print to.
+
+@item an @term{integer} indicating the current depth.
+The magnitude of this integer may vary between @term{implementations};
+however, it can reliably be compared against @code{*print-level*}
+to determine whether depth abbreviation is appropriate.
+@end itemize
+
+
+Specifying @f{(:print-function @param{printer-name})}
+is approximately equivalent to specifying:
+
+@lisp
+ (defmethod print-object ((object @param{structure-name}) stream)
+   (funcall (function @param{printer-name}) object stream @metaparam{current-print-depth}))
+@end lisp
+
+
+where the @metaparam{current-print-depth} represents the printer's belief of
+how deep it is currently printing.  It is @term{implementation-dependent}
+whether @metaparam{current-print-depth} is always 0 and @param{*print-level*},
+if @term{non-nil}, is re-bound to successively smaller values as printing
+descends recursively, or whether @param{current-print-depth} varies in
+value as printing descends recursively and @param{*print-level*} remains
+constant during the same traversal.
+
+If the @kwd{print-object} option is used, then
+when a structure of type @param{structure-name} is to be printed,
+the designated printer function is called on two arguments:
+
+
+@itemize --
+
+@item the structure to be printed.
+
+@item the stream to print to.
+@end itemize
+
+
+Specifying @f{(:print-object @param{printer-name})} is equivalent to specifying:
+
+@lisp
+ (defmethod print-object ((object @param{structure-name}) stream)
+   (funcall (function @param{printer-name}) object stream))
+@end lisp
+
+
+If no @kwd{type} option is supplied,
+and if either a @kwd{print-function} or a @kwd{print-object} option is supplied,
+and if no @param{printer-name} is supplied,
+then a @code{print-object} @term{method} @term{specialized} for @param{structure-name}
+is generated that calls a function that implements the default printing behavior for
+structures using @f{#S} notation; see @ref{PrintingStructures, Section 22.1.3.12 (Printing Structures)}.
+
+If neither a @kwd{print-function}
+nor a @kwd{print-object} option
+is supplied,
+then @code{defstruct} does not generate a @code{print-object} @term{method}
+@term{specialized} for @param{structure-name} and some default behavior is inherited
+either from a structure named in an @kwd{include} option
+or from the default behavior for printing structures;
+see the @term{function} @ref{print-object} and @ref{PrintingStructures, Section 22.1.3.12 (Printing Structures)}.
+
+When @code{*print-circle*} is @term{true},
+a user-defined print function can print @term{objects}
+to the supplied @term{stream} using
+@code{write},
+@code{prin1},
+@code{princ},
+or @code{format}
+and expect circularities to be detected and printed using the @f{#@i{n}#} syntax.
+This applies to @term{methods} on @code{print-object} in addition to
+@kwd{print-function} options.
+If a user-defined print function prints to a @term{stream} other than the one
+that was supplied, then circularity detection starts over for that @term{stream}.
+See the @term{variable} @ref{*print-circle*}.
+
+
+
+@item @id{@kwd{type}}
+
+
+@kwd{type} explicitly specifies the representation to be used for
+the structure.  Its argument must be one of these @term{types}:
+
+
+@table @asis
+@item @id{@code{vector}}
+
+
+This produces the same result as specifying @tt{(vector t)}.
+The structure is represented
+as a general @term{vector}, storing components as vector elements.
+The first component is vector
+element 1 if the structure is @kwd{named}, and element 0 otherwise.
+
+@reviewer{Barmar: Do any implementations create non-simple vectors?}
+
+@item @id{@f{(vector @param{element-type})}}
+
+
+The structure is represented as a (possibly specialized) @term{vector}, storing
+components as vector elements.  Every component must be of a @term{type}
+that can be stored in a @term{vector} of the @term{type} specified.
+The first component is vector
+element 1 if the structure is @kwd{named}, and element 0 otherwise.
+The structure can be @kwd{named} only if @thetype{symbol}
+is a @term{subtype} of the supplied @param{element-type}.
+
+@item @id{@code{list}}
+
+
+The structure is represented as a @term{list}.
+The first component is the @term{cadr} if the structure is @kwd{named},
+and the @term{car} if it is not @kwd{named}.
+@end table
+
+
+Specifying this option has the effect of forcing
+a specific representation and of forcing the components to be
+stored in the order specified in @code{defstruct}
+in corresponding successive elements of the specified representation.
+It also prevents the structure name from becoming a valid
+@term{type specifier} recognizable by @code{typep}.
+
+For example:
+
+@lisp
+ (defstruct (quux (:type list) :named) x y)
+@end lisp
+
+
+should make a constructor that builds a @term{list} exactly like the one
+that @code{list} produces,
+with @tt{quux} as its @term{car}.
+
+If this type is defined:
+
+@lisp
+ (deftype quux () '(satisfies quux-p))
+@end lisp
+
+then this form
+
+@lisp
+ (typep (make-quux) 'quux)
+@end lisp
+
+should return precisely what this one does
+
+@lisp
+ (typep (list 'quux nil nil) 'quux)
+@end lisp
+
+
+If @kwd{type} is not supplied,
+the structure is represented as an @term{object} @oftype{structure-object}.
+
+@code{defstruct} without a @kwd{type} option defines a @term{class} with
+the structure name as its name. The @term{metaclass} of structure
+@term{instances} is @code{structure-class}.
+@end table
+
+
+The consequences of redefining a @code{defstruct} structure are undefined.
+
+In the case where no @code{defstruct} options have been supplied,
+the following functions are automatically defined to operate
+on instances of the new structure:
+
+
+@table @asis
+@item @id{@bf{Predicate}}
+
+
+A predicate with the name @f{@param{structure-name}-p} is defined to
+test membership in the structure type.  The predicate
+@f{(@param{structure-name}-p @param{object})} is @term{true} if an @param{object}
+is of this @term{type}; otherwise it is @term{false}.  @code{typep} can also
+be used with the name of the new @term{type} to test whether an
+@term{object}
+belongs to the @term{type}.
+Such a function call has the form
+@hbox{@f{(typep @param{object} '@param{structure-name})}}.
+
+@item @id{@bf{Component reader functions}}
+
+
+@term{Reader} functions are defined to @term{read} the components of the
+structure.  For each slot name, there is a corresponding
+@term{reader} function with the name @f{@param{structure-name}-@param{slot-name}}.
+This function @term{reads} the contents of that slot.
+Each @term{reader} function takes one argument, which is
+an instance of the structure type.
+@code{setf} can be used with any of these @term{reader} functions
+to alter the slot contents.
+
+@item @id{@bf{Constructor function}}
+
+
+A constructor function with the name @f{make-@param{structure-name}}
+is defined.  This function creates and returns new
+instances of the structure type.
+
+@item @id{@bf{Copier function}}
+
+
+A copier function with the name @f{copy-@param{structure-name}} is defined.
+The copier function takes an object of the structure type and creates a
+new object of the same  type that is a copy of the first.  The copier
+function creates a new structure with the same component entries
+as the original.  Corresponding components of the two structure instances
+are @code{eql}.
+@end table
+
+
+If a @code{defstruct} @term{form} appears as a @term{top level form},
+the @term{compiler} must make the @term{structure} @term{type} name recognized
+as a valid @term{type} name in subsequent declarations (as for @code{deftype})
+and make the structure slot readers known to @code{setf}.  In addition, the
+@term{compiler} must save enough information about the @term{structure} @term{type}
+so that further @code{defstruct} definitions can use @kwd{include} in a subsequent
+@code{deftype} in the same @term{file} to refer to the @term{structure} @term{type} name.
+The functions which @code{defstruct} generates are not defined
+in the compile time environment, although the @term{compiler} may save enough
+information about the functions to code subsequent calls inline.
+The @f{#S} @term{reader macro} might or might not recognize the newly defined
+@term{structure} @term{type} name at compile time.
+
+@subsubheading Examples:
+An example of a structure definition follows:
+
+@lisp
+ (defstruct ship
+   x-position
+   y-position
+   x-velocity
+   y-velocity
+   mass)
+@end lisp
+
+This declares that every @f{ship} is an @term{object}
+with five named components.
+The evaluation of this form does the following:
+
+
+@enumerate 1
+@item
+It defines @f{ship-x-position} to be a function
+of one argument, a ship, that returns the @f{x-position}
+of the ship; @f{ship-y-position}
+and the other components are given similar function definitions.
+These functions are called the @term{access} functions, as they
+are used to @term{access} elements of the structure.
+
+@item
+@f{ship} becomes the name of a @term{type} of which instances
+of ships are elements.  @f{ship} becomes acceptable to @code{typep},
+for example; @f{(typep x 'ship)} is @term{true} if @f{x} is a ship
+and false if @f{x} is any @term{object} other than a ship.
+
+@item
+A function named @f{ship-p} of
+one argument is defined; it is a predicate
+that is @term{true} if its argument is a ship and is @term{false} otherwise.
+
+@item
+A function called @f{make-ship} is defined that, when invoked,
+creates a data structure with five components, suitable for use with
+the @term{access} functions.  Thus executing
+
+@lisp
+ (setq ship2 (make-ship))
+@end lisp
+
+sets @f{ship2} to a newly created @f{ship} @term{object}.
+One can supply the initial values of any desired component in the call
+to @f{make-ship} by using keyword arguments in this way:
+
+@lisp
+ (setq ship2 (make-ship :mass *default-ship-mass*
+                        :x-position 0
+                        :y-position 0))
+@end lisp
+
+This constructs a new ship and initializes three of its components.
+This function is called the ``constructor function''
+because it constructs a new structure.
+
+@item
+A function called @f{copy-ship} of one argument
+is defined that, when given a @f{ship} @term{object},
+creates a new @f{ship} @term{object} that is a copy of the given one.
+This function is called the ``copier function.''
+@end enumerate
+
+
+@code{setf} can be used to alter the components of a @f{ship}:
+
+@lisp
+ (setf (ship-x-position ship2) 100)
+@end lisp
+
+This alters the @f{x-position} of @f{ship2} to be @f{100}.
+This works because @code{defstruct} behaves as if
+it generates an appropriate @code{defsetf}
+for each @term{access} function.
+
+@lisp
+;;;
+;;; Example 1
+;;; define town structure type
+;;; area, watertowers, firetrucks, population, elevation are its components
+;;;
+ (defstruct town
+             area
+             watertowers
+             (firetrucks 1 :type fixnum)    ;an initialized slot
+             population
+             (elevation 5128 :read-only t)) ;a slot that can't be changed
+@EV{} TOWN
+;create a town instance
+ (setq town1 (make-town :area 0 :watertowers 0)) @EV{} #S(TOWN...)
+;town's predicate recognizes the new instance
+ (town-p town1) @EV{} @term{true}
+;new town's area is as specified by make-town
+ (town-area town1) @EV{} 0
+;new town's elevation has initial value
+ (town-elevation town1) @EV{} 5128
+;setf recognizes reader function
+ (setf (town-population town1) 99) @EV{} 99
+ (town-population town1) @EV{} 99
+;copier function makes a copy of town1
+ (setq town2 (copy-town town1)) @EV{} #S(TOWN...)
+ (= (town-population town1) (town-population town2))  @EV{} @term{true}
+;since elevation is a read-only slot, its value can be set only
+;when the structure is created
+ (setq town3 (make-town :area 0 :watertowers 3 :elevation 1200))
+@EV{} #S(TOWN...)
+;;;
+;;; Example 2
+;;; define clown structure type
+;;; this structure uses a nonstandard prefix
+;;;
+ (defstruct (clown (:conc-name bozo-))
+             (nose-color 'red)
+             frizzy-hair-p polkadots) @EV{} CLOWN
+ (setq funny-clown (make-clown)) @EV{} #S(CLOWN)
+;use non-default reader name
+ (bozo-nose-color funny-clown) @EV{} RED
+ (defstruct (klown (:constructor make-up-klown) ;similar def using other
+             (:copier clone-klown)              ;customizing keywords
+             (:predicate is-a-bozo-p))
+             nose-color frizzy-hair-p polkadots) @EV{} klown
+;custom constructor now exists
+ (fboundp 'make-up-klown) @EV{} @term{true}
+;;;
+;;; Example 3
+;;; define a vehicle structure type
+;;; then define a truck structure type that includes
+;;; the vehicle structure
+;;;
+ (defstruct vehicle name year (diesel t :read-only t)) @EV{} VEHICLE
+ (defstruct (truck (:include vehicle (year 79)))
+             load-limit
+             (axles 6)) @EV{} TRUCK
+ (setq x (make-truck :name 'mac :diesel t :load-limit 17))
+@EV{} #S(TRUCK...)
+;vehicle readers work on trucks
+ (vehicle-name x)
+@EV{} MAC
+;default taken from :include clause
+ (vehicle-year x)
+@EV{} 79
+ (defstruct (pickup (:include truck))     ;pickup type includes truck
+             camper long-bed four-wheel-drive) @EV{} PICKUP
+ (setq x (make-pickup :name 'king :long-bed t)) @EV{} #S(PICKUP...)
+;:include default inherited
+ (pickup-year x) @EV{} 79
+;;;
+;;; Example 4
+;;; use of BOA constructors
+;;;
+ (defstruct (dfs-boa                      ;BOA constructors
+               (:constructor make-dfs-boa (a b c))
+               (:constructor create-dfs-boa
+                 (a &optional b (c 'cc) &rest d &aux e (f 'ff))))
+             a b c d e f) @EV{} DFS-BOA
+;a, b, and c set by position, and the rest are uninitialized
+ (setq x (make-dfs-boa 1 2 3)) @EV{} #(DFS-BOA...)
+ (dfs-boa-a x) @EV{} 1
+;a and b set, c and f defaulted
+ (setq x (create-dfs-boa 1 2)) @EV{} #(DFS-BOA...)
+ (dfs-boa-b x) @EV{} 2
+ (eq (dfs-boa-c x) 'cc) @EV{} @term{true}
+;a, b, and c set, and the rest are collected into d
+ (setq x (create-dfs-boa 1 2 3 4 5 6)) @EV{} #(DFS-BOA...)
+ (dfs-boa-d x) @EV{} (4 5 6)
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+If any two slot names (whether present directly or inherited by the @kwd{include} option)
+are the @term{same} under @code{string=},
+@code{defstruct} should signal an error @oftype{program-error}.
+
+The consequences are undefined if the @param{included-structure-name}
+does not name a @term{structure type}.
+
+@subsubheading See Also:
+
+@ref{documentation},
+@ref{print-object},
+@ref{setf},
+@ref{subtypep},
+@ref{type-of},
+@ref{typep},
+@ref{Compilation, Section 3.2 (Compilation)}
+
+@subsubheading Notes:
+
+
+The @param{printer-name} should observe the values of
+such printer-control variables as @code{*print-escape*}.
+
+The restriction against issuing a warning for type mismatches between
+a @param{slot-initform} and the corresponding slot's @kwd{type} option is
+necessary because a @param{slot-initform} must be specified in order to
+specify slot options; in some cases, no suitable default may exist.
+
+The mechanism by which @code{defstruct} arranges for slot accessors to
+be usable with @code{setf} is @term{implementation-dependent};
+for example, it may use @term{setf functions}, @term{setf expanders}, or
+some other @term{implementation-dependent} mechanism known to that
+@term{implementation}'s @term{code} for @code{setf}.
+
+
+@node copy-structure
+@heading copy-structure (Function)
+@syindex copy-structure
+@cindex copy-structure
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{copy-structure, structure, copy}
+
+@subsubheading Arguments and Values:
+
+@param{structure}---a @term{structure}.
+
+@param{copy}---a copy of the @param{structure}.
+
+@subsubheading Description:
+
+Returns a @term{copy}@sub6{} of the @param{structure}.
+
+Only the @param{structure} itself is copied; not the values of the slots.
+
+@subsubheading See Also:
+
+the @kwd{copier} option to @ref{defstruct}
+
+@subsubheading Notes:
+
+The @param{copy} is the @term{same} as the given @param{structure}
+under @code{equalp}, but not under @code{equal}.

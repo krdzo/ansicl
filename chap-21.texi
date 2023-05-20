@@ -1,0 +1,3947 @@
+@node Streams
+@chapter Streams
+@menu
+* Stream Concepts::
+
+Dictionary
+
+* stream::
+* broadcast-stream::
+* concatenated-stream::
+* echo-stream::
+* file-stream::
+* string-stream::
+* synonym-stream::
+* two-way-stream::
+* input-stream-p; output-stream-p::
+* interactive-stream-p::
+* open-stream-p::
+* stream-element-type::
+* streamp::
+* read-byte::
+* write-byte::
+* peek-char::
+* read-char::
+* read-char-no-hang::
+* terpri; fresh-line::
+* unread-char::
+* write-char::
+* read-line::
+* write-string; write-line::
+* read-sequence::
+* write-sequence::
+* file-length::
+* file-position::
+* file-string-length::
+* open::
+* stream-external-format::
+* with-open-file::
+* close::
+* with-open-stream::
+* listen::
+* clear-input::
+* finish-output; force-output; clear-output::
+* y-or-n-p; yes-or-no-p::
+* make-synonym-stream::
+* synonym-stream-symbol::
+* broadcast-stream-streams::
+* make-broadcast-stream::
+* make-two-way-stream::
+* two-way-stream-input-stream; two-way-stream-output-stream::
+* echo-stream-input-stream; echo-stream-output-stream::
+* make-echo-stream::
+* concatenated-stream-streams::
+* make-concatenated-stream::
+* get-output-stream-string::
+* make-string-input-stream::
+* make-string-output-stream::
+* with-input-from-string::
+* with-output-to-string::
+* *debug-io*; *error-output*; *query-io*; *standard-input*; *standard-out+::
+* *terminal-io*::
+* stream-error::
+* stream-error-stream::
+* end-of-file::
+@end menu
+
+@node Stream Concepts
+@section Stream Concepts
+
+@menu
+* Introduction to Streams::
+* Stream Variables::
+* Stream Arguments to Standardized Functions::
+* Restrictions on Composite Streams::
+@end menu
+@node Introduction to Streams
+@subsection Introduction to Streams
+
+A @newterm{stream} is an @term{object} that can be used with an input or output
+function to identify an appropriate source or sink of @term{characters} or
+@term{bytes} for that operation.
+A @newterm{character} @newterm{stream} is a source or sink of @term{characters}.
+A @newterm{binary} @newterm{stream} is a source or sink of @term{bytes}.
+
+Some operations may be performed on any kind of @term{stream};
+@thenextfigure{}@spc{}provides a list of @term{standardized} operations
+that are potentially useful with any kind of @term{stream}.
+
+
+@float Figure,fig21.1
+@cartouche
+@multitable{interactive-stream-p}{stream-element-type}
+
+@item close @tab stream-element-type
+@item input-stream-p @tab streamp
+@item interactive-stream-p @tab with-open-stream
+@item output-stream-p @tab
+@end multitable
+@end cartouche
+@caption{Some General-Purpose Stream Operations}
+@end float
+
+
+Other operations are only meaningful on certain @term{stream} @term{types}.
+For example, @code{read-char} is only defined for @term{character} @term{streams}
+and @code{read-byte} is only defined for @term{binary} @term{streams}.
+
+@subsubsection Abstract Classifications of Streams
+
+@unnumberedsubsubsec 21.1.1.1.1 Input, Output, and Bidirectional Streams
+
+
+A @term{stream}, whether a @term{character} @term{stream} or a @term{binary} @term{stream},
+can be an @newterm{input} @newterm{stream} (source of data),
+an @newterm{output} @newterm{stream} (sink for data),
+both,
+or (@eg{} when ``@f{:direction :probe}'' is given to @code{open}) neither.
+
+@Thenextfigure{}@spc{}shows @term{operators} relating to
+@term{input} @term{streams}.
+
+
+
+@float Figure,InputStreamOps
+@cartouche
+@multitable{clear-input}{read-delimited-list}{read-preserving-whitespace}
+
+@item clear-input @tab read-byte @tab read-from-string
+@item listen @tab read-char @tab read-line
+@item peek-char @tab read-char-no-hang @tab read-preserving-whitespace
+@item read @tab read-delimited-list @tab unread-char
+@end multitable
+@end cartouche
+@caption{Operators relating to Input Streams.}
+@end float
+
+
+@Thenextfigure{}@spc{}shows @term{operators} relating to
+@term{output} @term{streams}.
+
+
+
+@float Figure,OutputStreamOps
+@cartouche
+@multitable{finish-output}{prin1-to-string}{write-to-string}
+
+@item clear-output @tab prin1 @tab write
+@item finish-output @tab prin1-to-string @tab write-byte
+@item force-output @tab princ @tab write-char
+@item format @tab princ-to-string @tab write-line
+@item fresh-line @tab print @tab write-string
+@item pprint @tab terpri @tab write-to-string
+@end multitable
+@end cartouche
+@caption{Operators relating to Output Streams.}
+@end float
+
+
+A @term{stream} that is both an @term{input} @term{stream} and an @term{output} @term{stream}
+is called a @newterm{bidirectional} @newterm{stream}.
+See the @term{functions} @ref{input-stream-p} and @code{output-stream-p}.
+
+Any of the @term{operators} listed in @ref{InputStreamOps, Figure 21.2}@spc{}or @ref{OutputStreamOps, Figure 21.3}
+can be used with @term{bidirectional} @term{streams}.  In addition, @thenextfigure{}
+shows a list of @term{operators} that relate specificaly to
+@term{bidirectional} @term{streams}.
+
+
+@float Figure,fig21.4
+@cartouche
+@multitable{y-or-n-p}{yes-or-no-p}{}
+
+@item y-or-n-p @tab yes-or-no-p @tab
+@end multitable
+@end cartouche
+@caption{Operators relating to Bidirectional Streams.}
+@end float
+
+
+
+@unnumberedsubsubsec 21.1.1.1.2 Open and Closed Streams
+
+
+@term{Streams} are either @newterm{open} or @newterm{closed}.
+
+Except as explicitly specified otherwise,
+operations that create and return @term{streams} return @term{open} @term{streams}.
+
+The action of @term{closing} a @term{stream} marks the end of its use as a source
+or sink of data, permitting the @term{implementation} to reclaim its internal data
+structures, and to free any external resources which might have been locked by the
+@term{stream} when it was opened.
+
+Except as explicitly specified otherwise,
+the consequences are undefined when a @term{closed} @term{stream}
+is used where a @term{stream} is called for.
+
+Coercion of @term{streams} to @term{pathnames}
+is permissible for @term{closed} @term{streams};
+in some situations, such as for a @term{truename} computation,
+the result might be different for an @term{open} @term{stream}
+and for that same @term{stream} once it has been @term{closed}.
+
+
+@unnumberedsubsubsec 21.1.1.1.3 Interactive Streams
+
+@anchor{InteractiveStreams}
+
+An @newterm{interactive stream} is one on which it makes sense to perform
+interactive querying.
+
+The precise meaning of an @term{interactive stream} is
+@term{implementation-defined}, and may depend on the underlying
+operating system.  Some examples of the things that an
+@term{implementation} might choose to use as identifying characteristics
+of an @term{interactive stream} include:
+
+
+@itemize @bullet{}
+
+@item
+The @term{stream} is connected to a person (or equivalent) in such a way
+that the program can prompt for information and expect to receive different
+input depending on the prompt.
+
+@item
+The program is expected to prompt for input and support ``normal input editing''.
+
+@item
+@code{read-char} might wait for the user to type something before returning
+instead of immediately returning a character or end-of-file.
+@end itemize
+
+
+The general intent of having some @term{streams} be classified as
+@term{interactive streams} is to allow them to be distinguished from
+streams containing batch (or background or command-file) input.
+Output to batch streams is typically discarded or saved for later viewing,
+so interactive queries to such streams might not have the expected effect.
+
+@term{Terminal I/O} might or might not be an @term{interactive stream}.
+
+
+@subsubsection Abstract Classifications of Streams
+
+@unnumberedsubsubsec 21.1.1.2.4 File Streams
+
+
+Some @term{streams}, called
+@cindex file stream
+@dfn{file streams}, provide access to @term{files}.
+An @term{object} @ofclass{file-stream} is used to represent a @term{file stream}.
+
+The basic operation for opening a @term{file} is @code{open},
+which typically returns a @term{file stream}
+(see its dictionary entry for details).
+The basic operation for closing a @term{stream} is @code{close}.
+The macro @code{with-open-file} is useful
+to express the common idiom of opening a @term{file}
+for the duration of a given body of @term{code},
+and assuring that the resulting @term{stream} is closed upon exit from that body.
+
+
+@subsubsection Other Subclasses of Stream
+
+@Theclass{stream} has a number of @term{subclasses} defined
+by this specification.  @Thenextfigure{}@spc{}shows some information
+about these subclasses.
+
+
+@float Figure,fig21.5
+@cartouche
+@multitable{@code{concatenated-stream}}{@code{two-way-stream-output-stream}}
+@headitem Class @tab Related Operators
+@item @code{broadcast-stream} @tab @code{make-broadcast-stream}
+@item  @tab @code{broadcast-stream-streams}
+@item @code{concatenated-stream} @tab @code{make-concatenated-stream}
+@item  @tab @code{concatenated-stream-streams}
+@item @code{echo-stream} @tab @code{make-echo-stream}
+@item  @tab @code{echo-stream-input-stream}
+@item  @tab @code{echo-stream-output-stream}
+@item @code{string-stream} @tab @code{make-string-input-stream}
+@item  @tab @code{with-input-from-string}
+@item  @tab @code{make-string-output-stream}
+@item  @tab @code{with-output-to-string}
+@item  @tab @code{get-output-stream-string}
+@item @code{synonym-stream} @tab @code{make-synonym-stream}
+@item  @tab @code{synonym-stream-symbol}
+@item @code{two-way-stream} @tab @code{make-two-way-stream}
+@item  @tab @code{two-way-stream-input-stream}
+@item  @tab @code{two-way-stream-output-stream}
+@end multitable
+@end cartouche
+@caption{Defined Names related to Specialized Streams}
+@end float
+
+
+
+
+@node Stream Variables
+@subsection Stream Variables
+
+@term{Variables} whose @term{values} must be @term{streams} are sometimes called
+@cindex stream variable
+@dfn{stream variables}.
+
+Certain @term{stream variables} are defined by this specification
+to be the proper source of input or output in various @term{situations}
+where no specific @term{stream} has been specified instead.
+A complete list of such @term{standardized} @term{stream variables}
+appears in @thenextfigure{}.
+The consequences are undefined if at any time
+the @term{value} of any of these @term{variables} is not an @term{open} @term{stream}.
+
+
+
+@float Figure,StandardizedStreamVars
+@cartouche
+@multitable{@term{standard output}}{@code{*standard-output*}}
+@headitem Glossary Term @tab Variable Name
+@item @term{debug I/O} @tab @code{*debug-io*}
+@item @term{error output} @tab @code{*error-output*}
+@item @term{query I/O} @tab @code{*query-io*}
+@item @term{standard input} @tab @code{*standard-input*}
+@item @term{standard output} @tab @code{*standard-output*}
+@item @term{terminal I/O} @tab @code{*terminal-io*}
+@item @term{trace output} @tab @code{*trace-output*}
+@end multitable
+@end cartouche
+@caption{Standardized Stream Variables}
+@end float
+
+
+Note that, by convention, @term{standardized} @term{stream variables} have names
+ending in ``@f{-input*}''  if they must be @term{input} @term{streams},
+ending in ``@f{-output*}'' if they must be @term{output} @term{streams},
+or ending in ``@f{-io*}''     if they must be @term{bidirectional} @term{streams}.
+
+User programs may @term{assign} or @term{bind} any @term{standardized} @term{stream variable}
+except @code{*terminal-io*}.
+
+
+@node Stream Arguments to Standardized Functions
+@subsection Stream Arguments to Standardized Functions
+
+The @term{operators} in @thenextfigure{}@spc{}accept @term{stream} @term{arguments} that
+might be either @term{open} or @term{closed} @term{streams}.
+
+
+
+@float Figure,OpenOrClosedStreamOps
+@cartouche
+@multitable{concatenated-stream-streams}{logical-pathname}{two-way-stream-output-stream}
+
+@item broadcast-stream-streams @tab file-author @tab pathnamep
+@item close @tab file-namestring @tab probe-file
+@item compile-file @tab file-write-date @tab rename-file
+@item compile-file-pathname @tab host-namestring @tab streamp
+@item concatenated-stream-streams @tab load @tab synonym-stream-symbol
+@item delete-file @tab logical-pathname @tab translate-logical-pathname
+@item directory @tab merge-pathnames @tab translate-pathname
+@item directory-namestring @tab namestring @tab truename
+@item dribble @tab open @tab two-way-stream-input-stream
+@item echo-stream-input-stream @tab open-stream-p @tab two-way-stream-output-stream
+@item echo-stream-ouput-stream @tab parse-namestring @tab wild-pathname-p
+@item ed @tab pathname @tab with-open-file
+@item enough-namestring @tab pathname-match-p @tab
+@end multitable
+@end cartouche
+@caption{Operators that accept either Open or Closed Streams}
+@end float
+
+
+The @term{operators} in @thenextfigure{}@spc{}accept @term{stream} @term{arguments} that
+must be @term{open} @term{streams}.
+
+
+@float Figure,fig21.8
+@cartouche
+@multitable{get-output-stream-string}{print-unreadable-object}{read-preserving-whitespace}
+
+@item clear-input @tab output-stream-p @tab read-char-no-hang
+@item clear-output @tab peek-char @tab read-delimited-list
+@item file-length @tab pprint @tab read-line
+@item file-position @tab pprint-fill @tab read-preserving-whitespace
+@item file-string-length @tab pprint-indent @tab stream-element-type
+@item finish-output @tab pprint-linear @tab stream-external-format
+@item force-output @tab pprint-logical-block @tab terpri
+@item format @tab pprint-newline @tab unread-char
+@item fresh-line @tab pprint-tab @tab with-open-stream
+@item get-output-stream-string @tab pprint-tabular @tab write
+@item input-stream-p @tab prin1 @tab write-byte
+@item interactive-stream-p @tab princ @tab write-char
+@item listen @tab print @tab write-line
+@item make-broadcast-stream @tab print-object @tab write-string
+@item make-concatenated-stream @tab print-unreadable-object @tab y-or-n-p
+@item make-echo-stream @tab read @tab yes-or-no-p
+@item make-synonym-stream @tab read-byte @tab
+@item make-two-way-stream @tab read-char @tab
+@end multitable
+@end cartouche
+@caption{Operators that accept Open Streams only}
+@end float
+
+
+
+@node Restrictions on Composite Streams
+@subsection Restrictions on Composite Streams
+
+The consequences are undefined if any @term{component} of a @term{composite stream}
+is @term{closed} before the @term{composite stream} is @term{closed}.
+
+The consequences are undefined if the @term{synonym stream symbol} is not @term{bound}
+to an @term{open} @term{stream} from the time of the @term{synonym stream}'s creation
+until the time it is @term{closed}.
+
+
+@node stream
+@heading stream (System Class)
+@syindex stream
+@cindex stream
+
+
+@subsubheading Class Precedence List:
+@code{stream},
+@code{t}
+
+@subsubheading Description:
+
+A @term{stream} is an @term{object} that can be used with an input or output
+function to identify an appropriate source or sink of @term{characters} or
+@term{bytes} for that operation.
+
+For more complete information, see @ref{Stream Concepts, Section 21.1 (Stream Concepts)}.
+
+
+@subsubheading See Also:
+
+@ref{Stream Concepts, Section 21.1 (Stream Concepts)},
+@ref{PrintingOtherObjects, Section 22.1.3.13 (Printing Other Objects)},
+@ref{Printer, Chapter 22 (Printer)},
+@ref{Reader, Chapter 23 (Reader)}
+
+@node broadcast-stream
+@heading broadcast-stream (System Class)
+@syindex broadcast-stream
+@cindex broadcast-stream
+
+
+
+@subsubheading Class Precedence List:
+
+@code{broadcast-stream},
+@code{stream},
+@code{t}
+
+@subsubheading Description:
+
+A @term{broadcast stream} is an @term{output} @term{stream} which
+has associated with it a set of zero or more @term{output} @term{streams}
+such that any output sent to the @term{broadcast stream} gets passed on
+as output to each of the associated @term{output} @term{streams}.
+(If a @term{broadcast stream} has no @term{component streams},
+then all output to the @term{broadcast stream} is discarded.)
+
+The set of operations that may be performed on a @term{broadcast stream}
+is the intersection of those for its associated @term{output} @term{streams}.
+
+Some output operations (@eg{} @code{fresh-line}) return @term{values} based on the
+state of the @term{stream} at the time of the operation.
+Since these @term{values} might differ for each of the @term{component streams},
+it is necessary to describe their return value specifically:
+
+
+@itemize @bullet{}
+
+@item
+@code{stream-element-type} returns
+the value from the last component stream,
+or @code{t} if there are no component streams.
+
+@item
+@code{fresh-line} returns
+the value from the last component stream,
+or @nil{}@spc{}if there are no component streams.
+
+@item
+The functions
+@code{file-length},
+@code{file-position},
+@code{file-string-length},
+and @code{stream-external-format}
+return the value from the last component stream;
+if there are no component streams,
+@code{file-length} and @code{file-position} return @f{0},
+@code{file-string-length} returns @f{1},
+and @code{stream-external-format} returns @kwd{default}.
+
+@item
+The functions @code{streamp} and @code{output-stream-p}
+always return @term{true} for @term{broadcast streams}.
+
+@item
+The functions @code{open-stream-p} tests whether the @term{broadcast stream}
+is @term{open}@sub2{}, not whether its component streams are @term{open}.
+
+@item
+The functions @code{input-stream-p} and @term{interactive-stream-p}
+return an @term{implementation-defined}, @term{generalized boolean} value.
+
+@item
+For the input operations
+@code{clear-input}
+@code{listen},
+@code{peek-char},
+@code{read-byte},
+@code{read-char-no-hang},
+@code{read-char},
+@code{read-line},
+and @code{unread-char},
+the consequences are undefined if the indicated operation is performed.
+However, an @term{implementation} is permitted
+to define such a behavior as an @term{implementation-dependent} extension.
+@end itemize
+
+
+For any output operations not having their return values explicitly specified above
+or elsewhere in this document, it is defined that
+the @term{values} returned by such an operation are
+the @term{values} resulting from performing the operation
+on the last of its @term{component streams};
+the @term{values} resulting from performing the operation
+on all preceding @term{streams} are discarded.
+If there are no @term{component streams},
+the value is @term{implementation-dependent}.
+
+@subsubheading See Also:
+
+@ref{broadcast-stream-streams},
+@ref{make-broadcast-stream}
+
+
+@node concatenated-stream
+@heading concatenated-stream (System Class)
+@syindex concatenated-stream
+@cindex concatenated-stream
+
+
+
+@subsubheading Class Precedence List:
+
+@code{concatenated-stream},
+@code{stream},
+@code{t}
+
+@subsubheading Description:
+
+A @term{concatenated stream} is an @term{input} @term{stream} which
+is a @term{composite stream} of zero or more other @term{input} @term{streams},
+such that the sequence of data which can be read from the
+@term{concatenated stream} is the same as the concatenation of the
+sequences of data which could be read from each of the
+constituent @term{streams}.
+
+Input from a @term{concatenated stream} is taken from the first
+of the associated @term{input streams} until it reaches @term{end of file}@sub1{};
+then that @term{stream} is discarded, and subsequent input is taken
+from the next @term{input stream}, and so on.
+An @term{end of file} on the associated @term{input streams} is always managed
+invisibly by the @term{concatenated stream}---the only time a client of
+a @term{concatenated stream} sees an @term{end of file} is when an attempt is
+made to obtain data from the @term{concatenated stream} but it has no
+remaining @term{input streams} from which to obtain such data.
+
+
+@subsubheading See Also:
+
+@ref{concatenated-stream-streams},
+@ref{make-concatenated-stream}
+
+@node echo-stream
+@heading echo-stream (System Class)
+@syindex echo-stream
+@cindex echo-stream
+
+
+
+@subsubheading Class Precedence List:
+
+@code{echo-stream},
+@code{stream},
+@code{t}
+
+@subsubheading Description:
+
+An @term{echo stream} is a @term{bidirectional} @term{stream}
+that gets  its input  from an associated @term{input}  @term{stream}
+and  sends its output to   an associated @term{output} @term{stream}.
+
+All input taken from the @term{input} @term{stream}
+is echoed to the @term{output} @term{stream}.
+Whether the input is echoed immediately after it is encountered,
+or after it has been read from the @term{input stream}
+is @term{implementation-dependent}.
+
+
+@subsubheading See Also:
+
+@ref{echo-stream-input-stream},
+@ref{echo-stream-output-stream},
+@ref{make-echo-stream}
+
+@node file-stream
+@heading file-stream (System Class)
+@syindex file-stream
+@cindex file-stream
+
+
+
+@subsubheading Class Precedence List:
+
+@code{file-stream},
+@code{stream},
+@code{t}
+
+@subsubheading Description:
+
+An @term{object} @oftype{file-stream} is a @term{stream} the direct
+source or sink of which is a @term{file}.  Such a @term{stream} is
+created explicitly by @code{open} and @code{with-open-file}, and
+implicitly by @term{functions} such as @code{load} that process @term{files}.
+
+
+@subsubheading See Also:
+
+@ref{load},
+@ref{open},
+@ref{with-open-file}
+
+@node string-stream
+@heading string-stream (System Class)
+@syindex string-stream
+@cindex string-stream
+
+
+
+@subsubheading Class Precedence List:
+
+@code{string-stream},
+@code{stream},
+@code{t}
+
+@subsubheading Description:
+
+A @term{string stream} is a @term{stream}
+which reads input from or writes output to an associated @term{string}.
+
+The @term{stream element type} of a @term{string stream} is always
+a @subtypeof{character}.
+
+@subsubheading See Also:
+
+@ref{make-string-input-stream},
+@ref{make-string-output-stream},
+@ref{with-input-from-string},
+@ref{with-output-to-string}
+
+
+@node synonym-stream
+@heading synonym-stream (System Class)
+@syindex synonym-stream
+@cindex synonym-stream
+
+
+
+@subsubheading Class Precedence List:
+
+@code{synonym-stream},
+@code{stream},
+@code{t}
+
+@subsubheading Description:
+
+A @term{stream} that is an alias for another @term{stream},
+which is the @term{value} of a @term{dynamic variable}
+whose @term{name} is the @term{synonym stream symbol} of the @term{synonym stream}.
+
+Any operations on a @term{synonym stream} will be performed
+on the @term{stream} that is then the @term{value} of the
+@term{dynamic variable} named by the @term{synonym stream symbol}.
+If the @term{value} of the @term{variable} should change,
+or if the @term{variable} should be @term{bound},
+then the @term{stream} will operate on the new @term{value} of the @term{variable}.
+
+@subsubheading See Also:
+
+@ref{make-synonym-stream},
+@ref{synonym-stream-symbol}
+
+
+@node two-way-stream
+@heading two-way-stream (System Class)
+@syindex two-way-stream
+@cindex two-way-stream
+
+
+
+@subsubheading Class Precedence List:
+
+@code{two-way-stream},
+@code{stream},
+@code{t}
+
+@subsubheading Description:
+
+A @term{bidirectional} @term{composite stream} that
+receives its input  from an associated @term{input}  @term{stream}
+and sends    its output to   an associated @term{output} @term{stream}.
+
+@subsubheading See Also:
+
+@ref{make-two-way-stream},
+@ref{two-way-stream-input-stream},
+@ref{two-way-stream-output-stream}
+
+
+
+
+@node input-stream-p; output-stream-p
+@heading input-stream-p, output-stream-p (Function)
+@syindex input-stream-p
+@cindex input-stream-p
+@syindex output-stream-p
+@cindex output-stream-p
+@anchor{input-stream-p}
+@anchor{output-stream-p}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{input-stream-p, stream, generalized-boolean}
+@DefunWithValues{output-stream-p, stream, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{stream}---a @term{stream}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@NamedPredicate{input-stream-p, stream, an @term{input} @term{stream}}
+
+@NamedPredicate{output-stream-p, stream, an @term{output} @term{stream}}
+
+@subsubheading Examples:
+
+@lisp
+ (input-stream-p *standard-input*) @EV{} @term{true}
+ (input-stream-p *terminal-io*) @EV{} @term{true}
+ (input-stream-p (make-string-output-stream)) @EV{} @term{false}
+
+ (output-stream-p *standard-output*) @EV{} @term{true}
+ (output-stream-p *terminal-io*) @EV{} @term{true}
+ (output-stream-p (make-string-input-stream "jr")) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{stream, a @term{stream}}
+
+
+@node interactive-stream-p
+@heading interactive-stream-p (Function)
+@syindex interactive-stream-p
+@cindex interactive-stream-p
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{interactive-stream-p, stream, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{stream}---a @term{stream}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@Predicate{stream, an @term{interactive stream}}
+
+@subsubheading Examples:
+
+@lisp
+ (when (> measured limit)
+   (let ((error (round (* (- measured limit) 100)
+                       limit)))
+     (unless (if (interactive-stream-p *query-io*)
+                 (yes-or-no-p "The frammis is out of tolerance by ~D%.~@@
+                               Is it safe to proceed? " error)
+                 (< error 15))  ;15% is acceptable
+       (error "The frammis is out of tolerance by ~D%." error))))
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{stream, a @term{stream}}
+
+@subsubheading See Also:
+
+@ref{Stream Concepts, Section 21.1 (Stream Concepts)}
+
+
+
+@node open-stream-p
+@heading open-stream-p (Function)
+@syindex open-stream-p
+@cindex open-stream-p
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{open-stream-p, stream, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{stream}---a @term{stream}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@Predicate{stream, an @term{open} @term{stream}}
+
+@term{Streams} are open until they have been explicitly closed with @code{close},
+or until they are implicitly closed due to exit from a
+@code{with-output-to-string},
+@code{with-open-file},
+@code{with-input-from-string},  or
+@code{with-open-stream} @term{form}.
+
+@subsubheading Examples:
+
+@lisp
+ (open-stream-p *standard-input*) @EV{} @term{true}
+@end lisp
+
+
+@subsubheading Affected By:
+
+@code{close}.
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{stream, a @term{stream}}
+
+
+
+@node stream-element-type
+@heading stream-element-type (Function)
+@syindex stream-element-type
+@cindex stream-element-type
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{stream-element-type, stream, typespec}
+
+@subsubheading Arguments and Values:
+
+@param{stream}---a @term{stream}.
+
+@param{typespec}---a @term{type specifier}.
+
+@subsubheading Description:
+
+@code{stream-element-type} returns a @term{type specifier} that
+indicates the @term{types} of @term{objects} that may be read from
+or written to @param{stream}.
+
+@term{Streams} created by @code{open} have an @term{element type}
+restricted to @code{integer} or a @subtypeof{character}.
+
+@subsubheading Examples:
+
+@lisp
+;; Note that the stream must accomodate at least the specified type,
+;; but might accomodate other types.  Further note that even if it does
+;; accomodate exactly the specified type, the type might be specified in
+;; any of several ways.
+ (with-open-file (s "test" :element-type '(integer 0 1)
+                           :if-exists :error
+                           :direction :output)
+   (stream-element-type s))
+@EV{} INTEGER
+@OV{} (UNSIGNED-BYTE 16)
+@OV{} (UNSIGNED-BYTE 8)
+@OV{} BIT
+@OV{} (UNSIGNED-BYTE 1)
+@OV{} (INTEGER 0 1)
+@OV{} (INTEGER 0 (2))
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{stream, a @term{stream}}
+
+
+@node streamp
+@heading streamp (Function)
+@syindex streamp
+@cindex streamp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{streamp, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{object, stream}
+
+@code{streamp} is unaffected by whether @param{object},
+if it is a @term{stream}, is @term{open} or closed.
+
+@subsubheading Examples:
+
+@lisp
+ (streamp *terminal-io*) @EV{} @term{true}
+ (streamp 1) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading Notes:
+
+@lisp
+ (streamp @param{object}) @EQ{} (typep @param{object} 'stream)
+@end lisp
+
+
+
+@node read-byte
+@heading read-byte (Function)
+@syindex read-byte
+@cindex read-byte
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{read-byte, stream @opt{} eof-error-p eof-value, byte}
+
+@subsubheading Arguments and Values:
+
+@param{stream}---a @term{binary} @term{input} @term{stream}.
+
+@param{eof-error-p}---a @term{generalized boolean}.
+@Default{@term{true}}
+
+@param{eof-value}---an @term{object}.
+@Default{@nil{}}
+
+@param{byte}---an @term{integer},
+or the @param{eof-value}.
+
+@subsubheading Description:
+
+@code{read-byte} reads and returns one byte from @param{stream}.
+
+If an @term{end of file}@sub2{} occurs and @param{eof-error-p} is @term{false},
+the @param{eof-value} is returned.
+
+@subsubheading Examples:
+@lisp
+ (with-open-file (s "temp-bytes"
+                     :direction :output
+                     :element-type 'unsigned-byte)
+    (write-byte 101 s)) @EV{} 101
+ (with-open-file (s "temp-bytes" :element-type 'unsigned-byte)
+    (format t "~S ~S" (read-byte s) (read-byte s nil 'eof)))
+@OUT{} 101 EOF
+@EV{} NIL
+@end lisp
+
+
+@subsubheading Side Effects:
+
+Modifies @param{stream}.
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{stream, a @term{stream}}
+
+Should signal an error @oftype{error}
+if @param{stream} is not  a @term{binary} @term{input} @term{stream}.
+
+If there are no @term{bytes} remaining in the @param{stream}
+and @param{eof-error-p} is @term{true}, an error @oftype{end-of-file} is signaled.
+
+@subsubheading See Also:
+
+@ref{read-char},
+@ref{read-sequence},
+@ref{write-byte}
+
+
+@node write-byte
+@heading write-byte (Function)
+@syindex write-byte
+@cindex write-byte
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{write-byte, byte stream, byte}
+
+@subsubheading Arguments and Values:
+
+@param{byte}---an @term{integer} of the @term{stream element type}
+of @term{stream}.
+
+@param{stream}---a @term{binary} @term{output} @term{stream}.
+
+@subsubheading Description:
+
+@code{write-byte} writes one byte, @param{byte}, to @param{stream}.
+
+@subsubheading Examples:
+
+@lisp
+ (with-open-file (s "temp-bytes"
+                    :direction :output
+                    :element-type 'unsigned-byte)
+    (write-byte 101 s)) @EV{} 101
+@end lisp
+
+
+@subsubheading Side Effects:
+
+@param{stream} is modified.
+
+@subsubheading Affected By:
+
+The @term{element type} of the @param{stream}.
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{stream, a @term{stream}}
+Should signal an error @oftype{error}
+if @param{stream} is not  a @term{binary} @term{output} @term{stream}.
+
+Might signal an error @oftype{type-error} if @param{byte} is not
+an @term{integer} of the @term{stream element type} of @term{stream}.
+
+@subsubheading See Also:
+
+@ref{read-byte},
+@ref{write-char},
+@ref{write-sequence}
+
+
+@node peek-char
+@heading peek-char (Function)
+@syindex peek-char
+@cindex peek-char
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{peek-char, @opt{} @vtop{@hbox{peek-type input-stream eof-error-p} @hbox{eof-value recursive-p}}, char}
+
+@subsubheading Arguments and Values:
+
+@param{peek-type}---a @term{character} or @code{t}@spc{}or @nil{}.
+
+@param{input-stream}---@term{input} @term{stream designator}.
+@Default{@term{standard input}}
+
+@param{eof-error-p}---a @term{generalized boolean}.
+@Default{@term{true}}
+
+@param{eof-value}---an @term{object}.
+@Default{@nil{}}
+
+@param{recursive-p}---a @term{generalized boolean}.
+@Default{@term{false}}
+
+@param{char}---a @term{character} or the @param{eof-value}.
+
+@subsubheading Description:
+
+@code{peek-char} obtains the next character in @param{input-stream}
+without actually reading it, thus leaving the character
+to be read at a later time.  It can
+also be used to skip over and discard intervening
+characters in the @param{input-stream}
+until a particular character is found.
+
+If @param{peek-type} is not supplied or @nil{},
+@code{peek-char} returns the next character to be read from
+@param{input-stream}, without actually removing it from
+@param{input-stream}.
+The next time input is done from @param{input-stream}, the character will still
+be there.
+If @param{peek-type} is @code{t},
+then @code{peek-char} skips over @term{whitespace}@sub2{} @term{characters},
+but not comments,
+and then performs the peeking operation on the next
+character.
+The last character examined, the one that starts an @term{object},
+is not removed from @param{input-stream}.
+If @param{peek-type} is a @term{character},
+then @code{peek-char} skips
+over input characters until a character that
+is @code{char=} to that @term{character} is found;
+that character is left in @param{input-stream}.
+
+If an @term{end of file}@sub2{} occurs and @param{eof-error-p} is @term{false},
+@param{eof-value} is returned.
+
+@mat{ }@ExplainRecursiveP{}
+
+When @param{input-stream} is an @term{echo stream},
+characters that are only peeked at are not echoed. In the
+case that @param{peek-type} is not @nil{},
+the characters that are passed by @code{peek-char}
+are treated as if by @code{read-char},
+and so are echoed unless they have been marked otherwise by @code{unread-char}.
+
+@subsubheading Examples:
+@lisp
+ (with-input-from-string (input-stream "    1 2 3 4 5")
+    (format t "~S ~S ~S"
+            (peek-char t input-stream)
+            (peek-char #@bsl{}4 input-stream)
+            (peek-char nil input-stream)))
+@OUT{} #@bsl{}1 #@bsl{}4 #@bsl{}4
+@EV{} NIL
+@end lisp
+
+
+@subsubheading Affected By:
+
+@code{*readtable*},
+@code{*standard-input*},
+@code{*terminal-io*}.
+
+@subsubheading Exceptional Situations:
+
+If @param{eof-error-p} is @term{true} and an @term{end of file}@sub2{} occurs
+an error @oftype{end-of-file} is signaled.
+
+If     @param{peek-type} is a @term{character},
+an @term{end of file}@sub2{} occurs,
+and @param{eof-error-p} is @term{true},
+an error @oftype{end-of-file} is signaled.
+
+If @param{recursive-p} is @term{true}
+and an @term{end of file}@sub2{} occurs,
+an error @oftype{end-of-file} is signaled.
+
+
+@node read-char
+@heading read-char (Function)
+@syindex read-char
+@cindex read-char
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{read-char, @opt{} input-stream eof-error-p eof-value recursive-p, char}
+
+@subsubheading Arguments and Values:
+
+@param{input-stream}---an @term{input} @term{stream designator}.
+@Default{@term{standard input}}
+
+@param{eof-error-p}---a @term{generalized boolean}.
+@Default{@term{true}}
+
+@param{eof-value}---an @term{object}.
+@Default{@nil{}}
+
+@param{recursive-p}---a @term{generalized boolean}.
+@Default{@term{false}}
+
+@param{char}---a @term{character} or the @param{eof-value}.
+
+@subsubheading Description:
+
+@code{read-char} returns the next @term{character} from @param{input-stream}.
+
+When @param{input-stream} is an @param{echo stream},
+the character is echoed on @param{input-stream} the first time the character is
+seen.
+Characters that are not echoed by @code{read-char}
+are those that were
+put there by @code{unread-char}
+and hence are assumed to have been echoed
+already by a previous call to @code{read-char}.
+
+@mat{ }@ExplainRecursiveP{}
+
+If an @term{end of file}@sub2{} occurs and @param{eof-error-p} is @term{false},
+@param{eof-value} is returned.
+
+@subsubheading Examples:
+@lisp
+ (with-input-from-string (is "0123")
+    (do ((c (read-char is) (read-char is nil 'the-end)))
+        ((not (characterp c)))
+     (format t "~S " c)))
+@OUT{} #@bsl{}0 #@bsl{}1 #@bsl{}2 #@bsl{}3
+@EV{} NIL
+@end lisp
+
+
+@subsubheading Affected By:
+
+@code{*standard-input*},
+@code{*terminal-io*}.
+
+@subsubheading Exceptional Situations:
+
+If an @term{end of file}@sub2{} occurs before a character can be read, and
+@param{eof-error-p} is @term{true},
+an error @oftype{end-of-file} is signaled.
+
+@subsubheading See Also:
+
+@ref{read-byte},
+@ref{read-sequence},
+@ref{write-char},
+@ref{read}
+
+@subsubheading Notes:
+The corresponding output function is @code{write-char}.
+
+
+@node read-char-no-hang
+@heading read-char-no-hang (Function)
+@syindex read-char-no-hang
+@cindex read-char-no-hang
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{read-char-no-hang, @opt{} @vtop{@hbox{input-stream eof-error-p} @hbox{eof-value recursive-p}}, char}
+
+@subsubheading Arguments and Values:
+
+@param{input-stream}---an @term{input} @term{stream designator}.
+@Default{@term{standard input}}
+
+@param{eof-error-p}---a @term{generalized boolean}.
+@Default{@term{true}}
+
+@param{eof-value}---an @term{object}.
+@Default{@nil{}}
+
+@param{recursive-p}---a @term{generalized boolean}.
+@Default{@term{false}}
+
+@param{char}---a @term{character} or @nil{}@spc{}or the @param{eof-value}.
+
+@subsubheading Description:
+
+@code{read-char-no-hang} returns a character
+from @param{input-stream} if such a character is available.  If no character
+is available, @code{read-char-no-hang} returns @nil{}.
+
+@mat{ }@ExplainRecursiveP{}
+
+If an @term{end of file}@sub2{} occurs and @param{eof-error-p} is @term{false},
+@param{eof-value} is returned.
+
+@subsubheading Examples:
+
+@lisp
+;; This code assumes an implementation in which a newline is not
+;; required to terminate input from the console.
+ (defun test-it ()
+   (unread-char (read-char))
+   (list (read-char-no-hang)
+         (read-char-no-hang)
+         (read-char-no-hang)))
+@EV{} TEST-IT
+;; Implementation A, where a Newline is not required to terminate
+;; interactive input on the console.
+ (test-it)
+@OUT{} @IN{a}
+@EV{} (#@bsl{}a NIL NIL)
+;; Implementation B, where a Newline is required to terminate
+;; interactive input on the console, and where that Newline remains
+;; on the input stream.
+ (test-it)
+@OUT{} @IN{a@CRLF{}}
+@EV{} (#@bsl{}a #@bsl{}Newline NIL)
+@end lisp
+
+
+@subsubheading Affected By:
+
+@code{*standard-input*},
+@code{*terminal-io*}.
+
+@subsubheading Exceptional Situations:
+
+If an @term{end of file}@sub2{} occurs
+when @param{eof-error-p} is @term{true},
+an error @oftype{end-of-file} is signaled .
+
+@subsubheading See Also:
+
+@ref{listen}
+
+@subsubheading Notes:
+
+@code{read-char-no-hang} is exactly like @code{read-char}, except
+that if it would be necessary to wait in order to get a character (as
+from a keyboard), @nil{}@spc{}is immediately returned without waiting.
+
+
+@node terpri; fresh-line
+@heading terpri, fresh-line (Function)
+@syindex terpri
+@cindex terpri
+@syindex fresh-line
+@cindex fresh-line
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{terpri, @opt{} output-stream, @nil{}}
+@DefunWithValues{fresh-line, @opt{} output-stream, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{output-stream}---an @term{output} @term{stream designator}.
+@Default{@term{standard output}}
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@code{terpri} outputs a @term{newline} to @param{output-stream}.
+
+@code{fresh-line} is similar to @code{terpri} but outputs a @term{newline}
+only if the @param{output-stream} is not already at the start of a line.
+If for some reason this cannot be determined, then a @term{newline} is output anyway.
+@code{fresh-line} returns @term{true} if it outputs a @term{newline};
+otherwise it returns @term{false}.
+
+@subsubheading Examples:
+
+@lisp
+ (with-output-to-string (s)
+    (write-string "some text" s)
+    (terpri s)
+    (terpri s)
+    (write-string "more text" s))
+@EV{} "some text
+
+more text"
+ (with-output-to-string (s)
+    (write-string "some text" s)
+    (fresh-line s)
+    (fresh-line s)
+    (write-string "more text" s))
+@EV{} "some text
+more text"
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The @param{output-stream} is modified.
+
+@subsubheading Affected By:
+
+@code{*standard-output*},
+@code{*terminal-io*}.
+
+@subsubheading Exceptional Situations:
+
+None.
+@reviewer{Barmar: What if stream is closed?}
+
+@subsubheading Notes:
+
+@code{terpri} is identical in effect to
+
+@lisp
+ (write-char #@bsl{}Newline output-stream)
+@end lisp
+
+
+
+@node unread-char
+@heading unread-char (Function)
+@syindex unread-char
+@cindex unread-char
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{unread-char, character @opt{} input-stream, @nil{}}
+
+@subsubheading Arguments and Values:
+
+@param{character}---a @term{character};
+must be the last @term{character} that was read from @param{input-stream}.
+
+@param{input-stream}---an @term{input} @term{stream designator}.
+@Default{@term{standard input}}
+
+@subsubheading Description:
+
+@code{unread-char} places @param{character} back onto the front of
+@param{input-stream} so that it will again be the next character
+in @param{input-stream}.
+
+When @param{input-stream} is an @term{echo stream},
+no attempt is made to undo any echoing of the character that might already
+have been done on @param{input-stream}. However, characters placed on
+@param{input-stream} by @code{unread-char} are marked in such a way
+as to inhibit later re-echo by @code{read-char}.
+
+It is an error to invoke @code{unread-char}
+twice consecutively on the same @term{stream}
+without an intervening call to @code{read-char}
+(or some other input operation which implicitly reads characters)
+on that @term{stream}.
+
+Invoking @code{peek-char} or @code{read-char} commits all previous characters.
+The consequences of invoking @code{unread-char}
+on any character preceding that which is returned by
+@code{peek-char} (including those passed over by
+@code{peek-char} that has a @term{non-nil} @param{peek-type})
+are unspecified.
+In particular, the consequences of
+invoking @code{unread-char} after @code{peek-char}
+are unspecified.
+
+@subsubheading Examples:
+
+@lisp
+ (with-input-from-string (is "0123")
+    (dotimes (i 6)
+      (let ((c (read-char is)))
+        (if (evenp i) (format t "~&~S ~S~%" i c) (unread-char c is)))))
+@OUT{} 0 #@bsl{}0
+@OUT{} 2 #@bsl{}1
+@OUT{} 4 #@bsl{}2
+@EV{} NIL
+@end lisp
+
+
+@subsubheading Affected By:
+
+@code{*standard-input*},
+@code{*terminal-io*}.
+
+@subsubheading See Also:
+
+@ref{peek-char},
+@ref{read-char},
+@ref{Stream Concepts, Section 21.1 (Stream Concepts)}
+
+@subsubheading Notes:
+
+@code{unread-char} is intended to be an efficient mechanism for allowing
+the @term{Lisp reader} and other parsers to perform one-character lookahead
+in @param{input-stream}.
+
+
+@node write-char
+@heading write-char (Function)
+@syindex write-char
+@cindex write-char
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{write-char, character @opt{} output-stream, character}
+
+@subsubheading Arguments and Values:
+
+@param{character}---a @term{character}.
+
+@param{output-stream}---an @term{output} @term{stream designator}.
+@Default{@term{standard output}}
+
+@subsubheading Description:
+
+@code{write-char} outputs @param{character} to @param{output-stream}.
+
+@subsubheading Examples:
+@lisp
+ (write-char #@bsl{}a)
+@OUT{} a
+@EV{} #@bsl{}a
+ (with-output-to-string (s)
+   (write-char #@bsl{}a s)
+   (write-char #@bsl{}Space s)
+   (write-char #@bsl{}b s))
+@EV{} "a b"
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The @param{output-stream} is modified.
+
+@subsubheading Affected By:
+
+@code{*standard-output*},
+@code{*terminal-io*}.
+
+@subsubheading See Also:
+
+@ref{read-char},
+@ref{write-byte},
+@ref{write-sequence}
+
+
+@node read-line
+@heading read-line (Function)
+@syindex read-line
+@cindex read-line
+
+
+@subsubheading Syntax:
+
+@DefunWithValuesNewline{read-line, @opt{} input-stream eof-error-p eof-value recursive-p, line\, missing-newline-p}
+
+@subsubheading Arguments and Values:
+
+@param{input-stream}---an @term{input} @term{stream designator}.
+@Default{@term{standard input}}
+
+@param{eof-error-p}---a @term{generalized boolean}.
+@Default{@term{true}}
+
+@param{eof-value}---an @term{object}.
+@Default{@nil{}}
+
+@param{recursive-p}---a @term{generalized boolean}.
+@Default{@term{false}}
+
+@param{line}---a @term{string} or the @param{eof-value}.
+
+@param{missing-newline-p}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+Reads from @param{input-stream} a line of text
+that is terminated by a @term{newline} or @term{end of file}.
+
+@mat{ }@ExplainRecursiveP{}
+
+The @term{primary value}, @param{line}, is the line that is read,
+represented as a @term{string} (without the trailing @term{newline}, if any).
+If  @param{eof-error-p} is @term{false}
+and the @term{end of file} for @param{input-stream} is reached
+before any @term{characters} are read,
+@param{eof-value} is returned as the @param{line}.
+
+The @term{secondary value}, @param{missing-newline-p},
+is a @term{generalized boolean} that is
+@term{false} if the @param{line} was terminated by a @term{newline},
+or @term{true}  if the @param{line} was terminated by
+the @term{end of file} for @param{input-stream}
+(or if the @param{line} is the @param{eof-value}).
+
+@subsubheading Examples:
+
+@lisp
+ (setq a "line 1
+ line2")
+@EV{} "line 1
+ line2"
+ (read-line (setq input-stream (make-string-input-stream a)))
+@EV{} "line 1", @term{false}
+ (read-line input-stream)
+@EV{} "line2", @term{true}
+ (read-line input-stream nil nil)
+@EV{} NIL, @term{true}
+@end lisp
+
+
+@subsubheading Affected By:
+
+@code{*standard-input*},
+@code{*terminal-io*}.
+
+@subsubheading Exceptional Situations:
+
+If an @term{end of file}@sub2{} occurs before any characters are read in the line,
+an error is signaled if @param{eof-error-p} is @term{true}.
+
+@subsubheading See Also:
+
+@ref{read}
+
+@subsubheading Notes:
+
+The corresponding output function is @code{write-line}.
+
+
+@node write-string; write-line
+@heading write-string, write-line (Function)
+@syindex write-string
+@cindex write-string
+@syindex write-line
+@cindex write-line
+@anchor{write-string}
+@anchor{write-line}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{write-string, string @opt{} output-stream @key{} start end, string}
+@DefunWithValues{write-line, string @opt{} output-stream @key{} start end, string}
+
+@subsubheading Arguments and Values:
+
+@param{string}---a @term{string}.
+
+@param{output-stream}---an @term{output} @term{stream designator}.
+@Default{@term{standard output}}
+
+@param{start}, @param{end}---@term{bounding index designators} of @param{string}.
+@Defaults{@param{start} and @param{end}, @f{0} and @nil{}}
+
+@subsubheading Description:
+
+@code{write-string} writes the @term{characters} of
+the subsequence of @param{string} @term{bounded} by @param{start} and @param{end}
+to @param{output-stream}.
+@code{write-line} does the same thing,
+but then outputs a newline afterwards.
+
+@subsubheading Examples:
+
+@lisp
+ (prog1 (write-string "books" nil :end 4) (write-string "worms"))
+@OUT{} bookworms
+@EV{} "books"
+ (progn (write-char #@bsl{}*)
+        (write-line "test12" *standard-output* :end 5)
+        (write-line "*test2")
+        (write-char #@bsl{}*)
+        nil)
+@OUT{} *test1
+@OUT{} *test2
+@OUT{} *
+@EV{} NIL
+@end lisp
+
+
+@subsubheading Affected By:
+
+@code{*standard-output*},
+@code{*terminal-io*}.
+
+@subsubheading See Also:
+
+@ref{read-line}, @ref{write-char}
+
+@subsubheading Notes:
+
+@code{write-line} and @code{write-string} return @param{string},
+not the substring @term{bounded} by @param{start} and @param{end}.
+
+@lisp
+ (write-string string)
+@EQ{} (dotimes (i (length string)
+      (write-char (char string i)))
+
+ (write-line string)
+@EQ{} (prog1 (write-string string) (terpri))
+@end lisp
+
+
+
+
+@node read-sequence
+@heading read-sequence (Function)
+@syindex read-sequence
+@cindex read-sequence
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{read-sequence, sequence stream @key{} start end, position}
+
+@param{sequence}---a @term{sequence}.
+
+@param{stream}---an @term{input} @term{stream}.
+
+@param{start}, @param{end}---@term{bounding index designators} of
+@param{sequence}.  @Defaults{@param{start} and @param{end}, @f{0} and @nil{}}
+
+@param{position}---an @term{integer} greater than or equal to zero, and
+less than or equal to the @term{length} of the @param{sequence}.
+
+@subsubheading Description:
+
+Destructively modifies @param{sequence} by replacing the @term{elements}
+of @param{sequence} @term{bounded} by @param{start} and @param{end} with
+@term{elements} read from @param{stream}.
+
+@param{Sequence} is destructively modified by copying successive
+@term{elements} into it from @param{stream}.  If the @term{end of file} for
+@param{stream} is reached before copying all @term{elements} of the
+subsequence, then the extra @term{elements} near the end of @param{sequence}
+are not updated.
+
+@param{Position} is the index of the first @term{element} of @param{sequence}
+that was not updated, which might be less than @param{end} because the
+@term{end of file} was reached.
+
+@subsubheading Examples:
+
+@lisp
+ (defvar *data* (make-array 15 :initial-element nil))
+ (values (read-sequence *data* (make-string-input-stream "test string")) *data*)
+ @EV{} 11, #(#@bsl{}t #@bsl{}e #@bsl{}s #@bsl{}t #@bsl{}Space #@bsl{}s #@bsl{}t #@bsl{}r #@bsl{}i #@bsl{}n #@bsl{}g NIL NIL NIL NIL)
+@end lisp
+
+
+@subsubheading Side Effects:
+
+Modifies @param{stream} and @param{sequence}.
+
+@subsubheading Exceptional Situations:
+
+@Lazychecktype{sequence, a @term{proper sequence}}
+@Shouldchecktype{start, a non-negative @term{integer}}
+@Shouldchecktype{end, a non-negative @term{integer} or @nil{}}
+
+Might signal an error @oftype{type-error} if an @term{element} read from
+the @param{stream} is not a member of the @term{element type} of the
+@param{sequence}.
+
+@subsubheading See Also:
+
+@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)},
+@ref{write-sequence},
+@ref{read-line}
+
+@subsubheading Notes:
+
+@code{read-sequence} is identical in effect to iterating over the indicated
+subsequence and reading one @term{element} at a time from @param{stream} and
+storing it into @param{sequence}, but may be more efficient than the
+equivalent loop.  An efficient implementation is more likely to exist
+for the case where the @param{sequence} is a @term{vector} with the same
+@term{element type} as the @param{stream}.
+
+
+@node write-sequence
+@heading write-sequence (Function)
+@syindex write-sequence
+@cindex write-sequence
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{write-sequence, sequence stream @key{} start end, sequence}
+
+@param{sequence}---a @term{sequence}.
+
+@param{stream}---an @term{output} @term{stream}.
+
+@param{start}, @param{end}---@term{bounding index designators} of
+@param{sequence}.  @Defaults{@param{start} and @param{end}, @f{0} and @nil{}}
+
+@subsubheading Description:
+
+@code{write-sequence} writes the @term{elements} of the subsequence
+of @param{sequence} @term{bounded} by @param{start} and @param{end} to
+@param{stream}.
+
+@subsubheading Examples:
+
+@lisp
+ (write-sequence "bookworms" *standard-output* :end 4)
+ @OUT{} book
+ @EV{} "bookworms"
+@end lisp
+
+
+@subsubheading Side Effects:
+
+Modifies @param{stream}.
+
+@subsubheading Exceptional Situations:
+
+@Lazychecktype{sequence, a @term{proper sequence}}
+@Shouldchecktype{start, a non-negative @term{integer}}
+@Shouldchecktype{end, a non-negative @term{integer} or @nil{}}
+
+Might signal an error @oftype{type-error} if an @term{element} of the
+@term{bounded} @term{sequence} is not a member of the
+@term{stream element type} of the @param{stream}.
+
+@subsubheading See Also:
+
+@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)},
+@ref{read-sequence},
+@ref{write-string},
+@ref{write-line}
+
+@subsubheading Notes:
+
+@code{write-sequence} is identical in effect to iterating over the indicated
+subsequence and writing one @term{element} at a time to @param{stream}, but
+may be more efficient than the equivalent loop.  An efficient implementation
+is more likely to exist for the case where the @param{sequence} is a
+@term{vector} with the same @term{element type} as the @param{stream}.
+
+
+
+@node file-length
+@heading file-length (Function)
+@syindex file-length
+@cindex file-length
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{file-length, stream, length}
+
+@subsubheading Arguments and Values:
+
+@param{stream}---a @term{stream associated with a file}.
+
+@param{length}---a non-negative @term{integer} or @nil{}.
+
+@subsubheading Description:
+
+@code{file-length} returns the length of @param{stream},
+or @nil{}@spc{}if the length cannot be determined.
+
+For a binary file, the length is measured in units of
+the @term{element type} of the @param{stream}.
+
+@subsubheading Examples:
+
+@lisp
+ (with-open-file (s "decimal-digits.text"
+                    :direction :output :if-exists :error)
+   (princ "0123456789" s)
+   (truename s))
+@EV{} #P"A:>Joe>decimal-digits.text.1"
+ (with-open-file (s "decimal-digits.text")
+   (file-length s))
+@EV{} 10
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{stream, a @term{stream associated with a file}}
+
+@subsubheading See Also:
+
+@ref{open}
+
+
+@node file-position
+@heading file-position (Function)
+@syindex file-position
+@cindex file-position
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{file-position, stream, position}
+@DefunWithValues{file-position, stream position-spec, success-p}
+
+@subsubheading Arguments and Values:
+
+@param{stream}---a @term{stream}.
+
+@param{position-spec}---a @term{file position designator}.
+
+@param{position}---a @term{file position} or @nil{}.
+
+@param{success-p}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+Returns or changes the current position within a @param{stream}.
+
+When @param{position-spec} is not supplied,
+@code{file-position} returns the current @term{file position} in the @param{stream},
+or @nil{}@spc{}if this cannot be determined.
+
+When @param{position-spec} is supplied,
+the @term{file position} in @param{stream} is set to that @term{file position} (if possible).
+@code{file-position} returns @term{true}
+if the repositioning is performed successfully,
+or @term{false} if it is not.
+
+An @term{integer} returned by @code{file-position} of one argument
+should be acceptable as @param{position-spec} for use with the same file.
+
+For a character file,
+performing a single @code{read-char} or @code{write-char} operation
+may cause the file position to be increased by more than 1 because of
+character-set translations (such as translating between the @clisp{}
+@f{#@bsl{}Newline} character and an external ASCII
+carriage-return/line-feed sequence) and other aspects of the
+implementation.  For a binary file, every @code{read-byte}
+or @code{write-byte}
+operation increases the file position by 1.
+
+@subsubheading Examples:
+
+@lisp
+ (defun tester ()
+   (let ((noticed '()) file-written)
+     (flet ((notice (x) (push x noticed) x))
+       (with-open-file (s "test.bin"
+                          :element-type '(unsigned-byte 8)
+                          :direction :output
+                          :if-exists :error)
+          (notice (file-position s)) ;1
+          (write-byte 5 s)
+          (write-byte 6 s)
+          (let ((p (file-position s)))
+            (notice p) ;2
+            (notice (when p (file-position s (1- p))))) ;3
+          (write-byte 7 s)
+          (notice (file-position s)) ;4
+          (setq file-written (truename s)))
+        (with-open-file (s file-written
+                           :element-type '(unsigned-byte 8)
+                           :direction :input)
+          (notice (file-position s)) ;5
+          (let ((length (file-length s)))
+            (notice length) ;6
+            (when length
+              (dotimes (i length)
+                (notice (read-byte s)))))) ;7,...
+        (nreverse noticed))))
+@EV{} tester
+ (tester)
+@EV{} (0 2 T 2 0 2 5 7)
+@OV{} (0 2 NIL 3 0 3 5 6 7)
+@OV{} (NIL NIL NIL NIL NIL NIL)
+@end lisp
+
+
+@subsubheading Side Effects:
+
+When the @param{position-spec} argument is supplied,
+the @term{file position} in the @param{stream} might be moved.
+
+@subsubheading Affected By:
+
+The value returned by @code{file-position} increases monotonically
+as input or output operations are performed.
+
+@subsubheading Exceptional Situations:
+
+If @param{position-spec} is supplied, but is too large or otherwise inappropriate,
+an error is signaled.
+
+@subsubheading See Also:
+
+@ref{file-length},
+@ref{file-string-length},
+@ref{open}
+
+@subsubheading Notes:
+
+Implementations that have character files represented
+as a sequence of records of bounded size might choose to encode the
+file position as, for example,
+@metavar{record-number}*@metavar{max-record-size}+@metavar{character-within-record}.
+This is a valid encoding because it increases monotonically as
+each character is read or written, though not necessarily by 1 at
+each step.  An @term{integer} might then be considered ``inappropriate''
+as @param{position-spec} to @code{file-position} if, when decoded into
+record number and character number, it turned out that the
+supplied record was too short for the specified character number.
+
+
+@node file-string-length
+@heading file-string-length (Function)
+@syindex file-string-length
+@cindex file-string-length
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{file-string-length, stream object, length}
+
+@subsubheading Arguments and Values:
+
+@param{stream}---an @term{output} @term{character} @term{file stream}.
+
+@param{object}---a @term{string} or a @term{character}.
+
+@param{length}---a non-negative @term{integer}, or @nil{}.
+
+@subsubheading Description:
+
+@code{file-string-length} returns the difference between what
+@f{(file-position @param{stream})} would be after writing
+@param{object} and its current value, or @nil{}@spc{}if this cannot be determined.
+
+The returned value corresponds to the current state of @param{stream}
+at the time of the call and might not be
+the same if it is called again
+when the state of the @term{stream} has changed.
+
+
+
+@node open
+@heading open (Function)
+@syindex open
+@cindex open
+
+
+@subsubheading Syntax:
+
+@DefunWithValuesNewline{open, filespec @key{} @vtop{@hbox{direction element-type} @hbox{if-exists if-does-not-exist external-format}}, stream}
+
+@subsubheading Arguments and Values:
+
+@param{filespec}---a @term{pathname designator}.
+
+@param{direction}---one of @kwd{input}, @kwd{output}, @kwd{io}, or @kwd{probe}.
+@Default{@kwd{input}}
+
+@param{element-type}---a @term{type specifier}
+for @term{recognizable subtype} of @code{character};
+or a @term{type specifier}
+for a @term{finite} @term{recognizable subtype} of @term{integer};
+or one of the @term{symbols}
+@t{signed-byte},
+@t{unsigned-byte},
+or @kwd{default}.
+@Default{@code{character}}
+
+@param{if-exists}---one of @kwd{error}, @kwd{new-version}, @kwd{rename},
+@kwd{rename-and-delete}, @kwd{overwrite}, @kwd{append},
+@kwd{supersede}, or @nil{}.
+@Default{@kwd{new-version} if the version component of @param{filespec} is @kwd{newest},
+or @kwd{error} otherwise}
+
+@param{if-does-not-exist}---one of @kwd{error}, @kwd{create}, or @nil{}.
+@Default{@kwd{error} if @param{direction} is @kwd{input}
+or @param{if-exists} is @kwd{overwrite} or @kwd{append};
+@kwd{create} if @param{direction} is @kwd{output} or @kwd{io},
+and @param{if-exists} is neither @kwd{overwrite} nor @kwd{append};
+or @nil{}@spc{}when @param{direction} is @kwd{probe}}
+
+@param{external-format}---an @term{external file format designator}.
+@Default{@kwd{default}}
+
+@param{stream}---a @term{file stream} or @nil{}.
+
+@subsubheading Description:
+
+@code{open} creates, opens, and returns a @term{file stream}
+that is connected to the file specified by @param{filespec}.
+@param{Filespec} is the name of the file to be opened.
+If the @param{filespec} @term{designator} is a @term{stream},
+that @term{stream} is not closed first or otherwise affected.
+
+The keyword arguments to @code{open} specify the characteristics
+of the @term{file stream} that is returned, and how to handle errors.
+
+If @param{direction} is @kwd{input}
+or @kwd{probe},
+or if @param{if-exists} is not @kwd{new-version}
+and the version component of the @param{filespec} is @kwd{newest},
+then the file opened is that file already existing in the file system
+that has a version greater than that of any other file in the file system
+whose other pathname components are the same as those of @param{filespec}.
+
+An implementation is required to recognize all of
+the @code{open} keyword options
+and to do something reasonable in the context of the host operating
+system.
+For example, if a file system does not support distinct file
+versions and does not distinguish the notions of deletion and expunging,
+@kwd{new-version} might be treated the same as
+@kwd{rename} or @kwd{supersede}, and @kwd{rename-and-delete} might
+be treated the same as @kwd{supersede}.
+
+
+@table @asis
+
+@item @id{@kwd{direction}}
+
+
+These are the possible values for @param{direction},
+and how they affect the nature of the @term{stream} that is created:
+
+
+@table @asis
+@item @id{@kwd{input}}
+
+
+Causes the creation of an @term{input} @term{file stream}.
+
+@item @id{@kwd{output}}
+
+
+Causes the creation of an @term{output} @term{file stream}.
+
+@item @id{@kwd{io}}
+
+
+Causes the creation of a @term{bidirectional} @term{file stream}.
+
+@item @id{@kwd{probe}}
+
+
+Causes the creation of a ``no-directional'' @term{file stream};
+in effect, the @term{file stream} is created
+and then closed prior to being returned by @code{open}.
+@end table
+
+
+@item @id{@kwd{element-type}}
+
+
+The @param{element-type} specifies the unit of transaction for the @term{file stream}.
+If it is @kwd{default},
+the unit is determined by @term{file system},
+possibly based on the @term{file}.
+
+@item @id{@kwd{if-exists}}
+
+
+@param{if-exists} specifies the action to be taken if @param{direction} is
+@kwd{output} or @kwd{io} and a file of the name @param{filespec}
+already exists.
+If @param{direction} is @kwd{input}, not supplied, or @kwd{probe},
+@param{if-exists} is ignored.
+These are the results of @code{open} as modified by @param{if-exists}:
+
+
+@table @asis
+
+@item @id{@kwd{error}}
+
+
+An error @oftype{file-error} is signaled.
+
+@item @id{@kwd{new-version}}
+
+
+A new file is created with a larger version number.
+
+@item @id{@kwd{rename}}
+
+
+The existing file is renamed to some other name and then a new file is created.
+
+@item @id{@kwd{rename-and-delete}}
+
+
+The existing file is renamed to some other name,
+then it is deleted but not expunged, and then a new file is created.
+
+@item @id{@kwd{overwrite}}
+
+
+Output operations on the @term{stream} destructively modify the existing file.
+If @param{direction} is @kwd{io} the file is opened in a bidirectional mode
+that allows both reading and writing.  The file pointer is initially
+positioned at the beginning of the file; however, the file is not truncated
+back to length zero when it is opened.
+
+@item @id{@kwd{append}}
+
+
+Output operations on the @term{stream} destructively modify the existing file.
+The file pointer is initially positioned at the end of the file.
+
+If @param{direction} is @kwd{io},
+the file is opened in a bidirectional mode that allows both reading and writing.
+
+@item @id{@kwd{supersede}}
+
+
+The existing file is superseded;
+that is, a new file with the same name as the old one is created.
+If possible, the implementation should not destroy the old file until the new
+@term{stream} is closed.
+
+@item @id{@nil{}}
+
+
+No file or @term{stream} is created;
+instead, @nil{}@spc{}is returned to indicate failure.
+@end table
+
+
+@item @id{@kwd{if-does-not-exist}}
+
+
+@param{if-does-not-exist}
+specifies the action to be taken if
+a file of name @param{filespec} does not already exist.
+These are the results of @code{open} as modified by @param{if-does-not-exist}:
+
+
+@table @asis
+
+@item @id{@kwd{error}}
+
+
+An error @oftype{file-error} is signaled.
+
+@item @id{@kwd{create}}
+
+
+An empty file is created.
+Processing continues  as if the file
+had already existed but no processing as
+directed by @param{if-exists} is performed.
+
+@item @id{@nil{}}
+
+
+No file or @term{stream} is created;
+instead, @nil{}@spc{}is returned to indicate failure.
+@end table
+
+
+@item @id{@kwd{external-format}}
+
+
+This option selects an @term{external file format} for the @term{file}:
+The only @term{standardized} value for this option is @kwd{default},
+although @term{implementations} are permitted to define additional
+@term{external file formats} and @term{implementation-dependent} values
+returned by @code{stream-external-format} can also be used by @term{conforming programs}.
+
+The @param{external-format} is meaningful for
+any kind of @term{file stream} whose @term{element type}
+is a @term{subtype} of @term{character}.
+This option is ignored for @term{streams} for which it is not meaningful;
+however, @term{implementations} may define other @term{element types}
+for which it is meaningful.
+The consequences are unspecified if a @term{character} is written
+that cannot be represented by the given @term{external file format}.
+@end table
+
+
+When a file is opened, a @term{file stream} is constructed to serve
+as the file system's ambassador to the @Lisp{}@spc{}environment;
+operations on the @term{file stream} are reflected by operations on the file
+in the file system.
+
+A file can be deleted, renamed, or destructively modified by @code{open}.
+
+For information about opening relative pathnames,
+see @ref{Merging Pathnames, Section 19.2.3 (Merging Pathnames)}.
+
+@subsubheading Examples:
+
+@lisp
+ (open @i{filespec} :direction :probe)  @EV{} #<Closed Probe File Stream...>
+ (setq q (merge-pathnames (user-homedir-pathname) "test"))
+@EV{} #<PATHNAME :HOST NIL :DEVICE @i{device-name} :DIRECTORY @i{directory-name}
+    :NAME "test" :TYPE NIL :VERSION :NEWEST>
+ (open @i{filespec} :if-does-not-exist :create) @EV{} #<Input File Stream...>
+ (setq s (open @i{filespec} :direction :probe)) @EV{} #<Closed Probe File Stream...>
+ (truename s) @EV{} #<PATHNAME :HOST NIL :DEVICE @i{device-name} :DIRECTORY
+    @i{directory-name} :NAME @i{filespec} :TYPE @i{extension} :VERSION 1>
+ (open s :direction :output :if-exists nil) @EV{} NIL
+@end lisp
+
+
+@subsubheading Affected By:
+
+The nature and state of the host computer's @term{file system}.
+
+@subsubheading Exceptional Situations:
+
+If @param{if-exists} is @kwd{error}, (subject to the
+constraints on the meaning of @param{if-exists} listed above),
+an error @oftype{file-error} is signaled.
+
+If @param{if-does-not-exist} is @kwd{error} (subject to the
+constraints on the meaning of @param{if-does-not-exist} listed above),
+an error @oftype{file-error} is signaled.
+
+If it is impossible for an implementation to handle some option
+in a manner close to what is specified here,
+an error @oftype{error} might be signaled.
+
+An error @oftype{file-error} is signaled if
+@tt{(wild-pathname-p @param{filespec})} returns true.
+
+An error @oftype{error} is signaled if the @param{external-format}
+is not understood by the @term{implementation}.
+
+The various @term{file systems} in existence today have widely differing capabilities,
+and some aspects of the @term{file system} are beyond the scope of this specification
+to define.  A given @term{implementation} might not be able to support all of these options
+in exactly the manner stated.  An @term{implementation} is required to recognize all of
+these option keywords and to try to do something ``reasonable'' in the context of the
+host @term{file system}.  Where necessary to accomodate the @term{file system},
+an @term{implementation} deviate slightly from the semantics specified here without
+being disqualified for consideration as a @term{conforming implementation}.
+If it is utterly impossible for an @term{implementation} to handle some option
+in a manner similar to what is specified here, it may simply signal an error.
+
+With regard to the @kwd{element-type} option, if a @term{type} is
+requested that is not supported by the @term{file system}, a substitution of types
+such as that which goes on in @term{upgrading} is permissible.  As a minimum
+requirement, it should be the case that opening an @term{output} @term{stream}
+to a @term{file} in a given @term{element type} and later opening
+an @term{input} @term{stream} to the same @term{file} in the same @term{element type}
+should work compatibly.
+
+@subsubheading See Also:
+
+@ref{with-open-file},
+@ref{close},
+@ref{pathname (System Class)},
+@ref{logical-pathname (System Class)},
+@ref{Merging Pathnames, Section 19.2.3 (Merging Pathnames)},
+@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+
+@subsubheading Notes:
+
+
+@code{open} does not automatically close the file when an abnormal
+exit occurs.
+
+When @param{element-type} is a @term{subtype} of @code{character},
+@code{read-char} and/or @code{write-char} can be
+used on the resulting @term{file stream}.
+
+When @param{element-type} is a @term{subtype} of @term{integer},
+@code{read-byte} and/or @code{write-byte} can be used on the resulting @term{file stream}.
+
+When @param{element-type} is @kwd{default},
+the @term{type} can be determined by using @code{stream-element-type}.
+
+
+@node stream-external-format
+@heading stream-external-format (Function)
+@syindex stream-external-format
+@cindex stream-external-format
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{stream-external-format, stream, format}
+
+@subsubheading Arguments and Values:
+
+@param{stream}---a @term{file stream}.
+
+@param{format}---an @term{external file format}.
+
+@subsubheading Description:
+
+Returns an @term{external file format designator} for the @param{stream}.
+
+@subsubheading Examples:
+
+@lisp
+ (with-open-file (stream "test" :direction :output)
+   (stream-external-format stream))
+@EV{} :DEFAULT
+@OV{} :ISO8859/1-1987
+@OV{} (:ASCII :SAIL)
+@OV{} ACME::PROPRIETARY-FILE-FORMAT-17
+@OV{} #<FILE-FORMAT :ISO646-1983 2343673>
+@end lisp
+
+
+@subsubheading See Also:
+
+the @kwd{external-format} @term{argument} to @thefunction{open} and
+@themacro{with-open-file}.
+
+@subsubheading Notes:
+
+The @param{format} returned is not necessarily meaningful
+to other @term{implementations}.
+
+
+@node with-open-file
+@heading with-open-file (macro)
+@syindex with-open-file
+@cindex with-open-file
+
+
+
+@subsubheading Syntax:
+
+@DefmacWithValuesNewline{with-open-file, @paren{stream filespec @starparam{options}} @starparam{declaration} @starparam{form}, results}
+
+@subsubheading Arguments and Values:
+
+@param{stream}---a variable.
+
+@param{filespec}---a @term{pathname designator}.
+
+@param{options}---@term{forms}; @eval{}.
+
+@param{declaration}---a @t{declare} @term{expression}; @noeval{}.
+
+@param{forms}---an @term{implicit progn}.
+
+@param{results}---the @term{values} returned by the @param{forms}.
+
+@subsubheading Description:
+
+@code{with-open-file} uses @code{open} to create a @term{file stream}
+to @term{file} named by @param{filespec}.
+@param{Filespec} is the name of the file to be opened.
+@param{Options} are used as keyword arguments to @code{open}.
+
+The @term{stream} @term{object} to which the @param{stream} @term{variable}
+is @term{bound} has @term{dynamic extent};
+its @term{extent} ends when the @term{form} is exited.
+
+@code{with-open-file} evaluates the @param{forms} as an @term{implicit progn}
+with @param{stream} bound to
+the value returned by @code{open}.
+
+When control leaves the body, either normally or abnormally (such as by
+use of @code{throw}), the file is automatically closed.  If a new
+output file is being written, and control leaves abnormally, the file is
+aborted and the file system is left, so far as possible, as if the file
+had never been opened.
+
+It is possible by the use of @f{:if-exists nil}
+or @f{:if-does-not-exist nil} for
+@param{stream} to be bound to @nil{}.
+Users of @f{:if-does-not-exist nil} should check for a valid @term{stream}.
+
+The consequences are undefined if an attempt is made to @term{assign} the
+@param{stream} @term{variable}.  The compiler may choose to issue a
+warning if such an attempt is detected.
+
+@subsubheading Examples:
+
+@lisp
+ (setq p (merge-pathnames "test"))
+@EV{} #<PATHNAME :HOST NIL :DEVICE @i{device-name} :DIRECTORY @i{directory-name}
+    :NAME "test" :TYPE NIL :VERSION :NEWEST>
+ (with-open-file (s p :direction :output :if-exists :supersede)
+    (format s "Here are a couple~%of test data lines~%")) @EV{} NIL
+ (with-open-file (s p)
+    (do ((l (read-line s) (read-line s nil 'eof)))
+        ((eq l 'eof) "Reached end of file.")
+     (format t "~&*** ~A~%" l)))
+@OUT{} *** Here are a couple
+@OUT{} *** of test data lines
+@EV{} "Reached end of file."
+@end lisp
+
+
+@lisp
+;; Normally one would not do this intentionally because it is
+;; not perspicuous, but beware when using :IF-DOES-NOT-EXIST NIL
+;; that this doesn't happen to you accidentally...
+ (with-open-file (foo "no-such-file" :if-does-not-exist nil)
+   (read foo))
+@OUT{} @IN{hello?}
+@EV{} HELLO? ;This value was read from the terminal, not a file!
+
+;; Here's another bug to avoid...
+ (with-open-file (foo "no-such-file" :direction :output :if-does-not-exist nil)
+   (format foo "Hello"))
+@EV{} "Hello" ;FORMAT got an argument of NIL!
+@end lisp
+
+
+@subsubheading Side Effects:
+
+Creates a @term{stream} to the @term{file} named by @param{filename} (upon entry),
+and closes the @term{stream} (upon exit).
+In some @term{implementations},
+the @term{file} might be locked in some way while it is open.
+If the @term{stream} is an @term{output} @term{stream},
+a @term{file} might be created.
+
+@subsubheading Affected By:
+
+The host computer's file system.
+
+@subsubheading Exceptional Situations:
+
+See the @term{function} @ref{open}.
+
+@subsubheading See Also:
+
+@ref{open},
+@ref{close},
+@ref{pathname (System Class)},
+@ref{logical-pathname (System Class)},
+@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+
+
+
+
+@node close
+@heading close (Function)
+@syindex close
+@cindex close
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{close, stream @key{} abort, result}
+
+@subsubheading Arguments and Values:
+
+@param{stream}---a @term{stream} (either @term{open} or @term{closed}).
+
+@param{abort}---a @term{generalized boolean}.
+@Default{@term{false}}
+
+@param{result}---@code{t}@spc{}if the @param{stream} was @term{open} at the time it was
+received as an @term{argument},
+or @term{implementation-dependent} otherwise.
+
+@subsubheading Description:
+
+@code{close} closes @param{stream}.
+Closing a @term{stream} means
+that it may no longer be used in input or output operations.
+The act of @term{closing} a @term{file stream}
+ends the association between the @term{stream} and its associated @term{file};
+the transaction with the @term{file system} is terminated,
+and input/output may no longer be performed on the @term{stream}.
+
+If @param{abort} is @term{true}, an attempt is made to clean up any side
+effects of having created @param{stream}.
+If @param{stream} performs output to a file
+that was created when the @term{stream} was created, the
+file is deleted and any previously existing file is not superseded.
+
+It is permissible to close an already closed @term{stream},
+but in that case the @param{result} is @term{implementation-dependent}.
+
+After @param{stream} is closed, it is still possible to perform
+the following query operations upon it:
+@code{streamp}, @code{pathname}, @code{truename},
+@code{merge-pathnames}, @code{pathname-host}, @code{pathname-device},
+@code{pathname-directory},@code{pathname-name},
+@code{pathname-type}, @code{pathname-version}, @code{namestring},
+@code{file-namestring}, @code{directory-namestring},
+@code{host-namestring}, @code{enough-namestring}, @code{open},
+@code{probe-file}, and @code{directory}.
+
+The effect of @code{close} on a @term{constructed stream} is
+to close the argument @param{stream} only.
+There is no effect on the @term{constituents} of @term{composite streams}.
+
+For a @term{stream} created with @code{make-string-output-stream},
+the result of @code{get-output-stream-string} is unspecified after @code{close}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq s (make-broadcast-stream)) @EV{} #<BROADCAST-STREAM>
+ (close s) @EV{} T
+ (output-stream-p s) @EV{} @term{true}
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The @param{stream} is @term{closed} (if necessary).
+If @param{abort} is @term{true} and the @param{stream} is
+an @term{output} @term{file stream}, its associated @term{file}
+might be deleted.
+
+@subsubheading See Also:
+
+@ref{open}
+
+
+@node with-open-stream
+@heading with-open-stream (Macro)
+@syindex with-open-stream
+@cindex with-open-stream
+
+
+
+@subsubheading Syntax:
+
+@DefmacWithValuesNewline{with-open-stream, @paren{var stream} @starparam{declaration}  @starparam{form}, @starparam{result}}
+
+@subsubheading Arguments and Values:
+
+@param{var}---a @term{variable} @term{name}.
+
+@param{stream}---a @term{form}; evaluated to produce a @term{stream}.
+
+@param{declaration}---a @t{declare} @term{expression}; @noeval{}.
+
+@param{forms}---an @term{implicit progn}.
+
+@param{results}---the @term{values} returned by the @param{forms}.
+
+@subsubheading Description:
+
+@code{with-open-stream} performs a series of operations on
+@param{stream}, returns a value, and then closes the @param{stream}.
+
+@param{Var} is bound to the value of @param{stream},
+and then @param{forms} are executed
+as an @term{implicit progn}.
+@param{stream}
+is automatically closed on exit from @code{with-open-stream},
+no matter whether the exit is normal or abnormal.
+The @param{stream} has @term{dynamic extent};
+its @term{extent} ends when the @term{form} is exited.
+
+The consequences are undefined if an attempt is made to @term{assign} the
+the @term{variable} @param{var} with the @param{forms}.
+
+@subsubheading Examples:
+
+@lisp
+ (with-open-stream (s (make-string-input-stream "1 2 3 4"))
+    (+ (read s) (read s) (read s))) @EV{} 6
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The @param{stream} is closed (upon exit).
+
+@subsubheading See Also:
+
+@ref{close}
+
+
+
+@node listen
+@heading listen (Function)
+@syindex listen
+@cindex listen
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{listen, @opt{} input-stream, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{input-stream}---an @term{input} @term{stream designator}.
+@Default{@term{standard input}}
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+Returns @term{true} if
+there is a character immediately available from @param{input-stream};
+otherwise, returns @term{false}.
+On a non-interactive @param{input-stream},
+@code{listen} returns @term{true} except when at @term{end of file}@sub1{}.
+If an @term{end of file} is encountered, @code{listen} returns @term{false}.
+@code{listen} is intended to be used
+when @param{input-stream} obtains characters
+from an interactive device such as a keyboard.
+
+@subsubheading Examples:
+
+@lisp
+ (progn (unread-char (read-char)) (list (listen) (read-char)))
+@OUT{} @IN{1}
+@EV{} (T #@bsl{}1)
+ (progn (clear-input) (listen))
+@EV{} NIL ;Unless you're a very fast typist!
+@end lisp
+
+
+@subsubheading Affected By:
+
+@code{*standard-input*}
+
+@subsubheading See Also:
+
+@ref{interactive-stream-p},
+@ref{read-char-no-hang}
+
+
+@node clear-input
+@heading clear-input (Function)
+@syindex clear-input
+@cindex clear-input
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{clear-input, @opt{} input-stream, @nil{}}
+
+@subsubheading Arguments and Values:
+
+@param{input-stream}---an @term{input} @term{stream designator}.
+@Default{@term{standard input}}
+
+@subsubheading Description:
+
+Clears any available input from @param{input-stream}.
+
+If @code{clear-input} does not make sense for @param{input-stream},
+then @code{clear-input} does nothing.
+
+@subsubheading Examples:
+@lisp
+;; The exact I/O behavior of this example might vary from implementation
+;; to implementation depending on the kind of interactive buffering that
+;; occurs.  (The call to SLEEP here is intended to help even out the
+;; differences in implementations which do not do line-at-a-time buffering.)
+
+(defun read-sleepily (&optional (clear-p nil) (zzz 0))
+  (list (progn (print '>) (read))
+        ;; Note that input typed within the first ZZZ seconds
+        ;; will be discarded.
+        (progn (print '>)
+               (if zzz (sleep zzz))
+               (print '>>)
+               (if clear-p (clear-input))
+               (read))))
+
+(read-sleepily)
+@OUT{} > @IN{10}
+@OUT{} >
+@OUT{} >> @IN{20}
+@EV{} (10 20)
+
+(read-sleepily t)
+@OUT{} > @IN{10}
+@OUT{} >
+@OUT{} >> @IN{20}
+@EV{} (10 20)
+
+(read-sleepily t 10)
+@OUT{} > @IN{10}
+@OUT{} > @IN{20}  ; Some implementations won't echo typeahead here.
+@OUT{} >> @IN{30}
+@EV{} (10 30)
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The @param{input-stream} is modified.
+
+@subsubheading Affected By:
+
+@code{*standard-input*}
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{input-stream, a @term{stream designator}}
+
+@subsubheading See Also:
+
+@ref{clear-output}
+
+
+@node finish-output; force-output; clear-output
+@heading finish-output, force-output, clear-output (Function)
+@syindex finish-output
+@cindex finish-output
+@syindex force-output
+@cindex force-output
+@syindex clear-output
+@cindex clear-output
+@anchor{clear-output}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{finish-output, @opt{} output-stream, @nil{}}
+@DefunWithValues{force-output, @opt{} output-stream, @nil{}}
+@DefunWithValues{clear-output, @opt{} output-stream, @nil{}}
+
+@subsubheading Arguments and Values:
+
+@param{output-stream}---an @term{output} @term{stream designator}.
+@Default{@term{standard output}}
+
+@subsubheading Description:
+
+@code{finish-output}, @code{force-output}, and @code{clear-output}
+exercise control over the internal handling of buffered stream output.
+
+@code{finish-output} attempts to ensure that any buffered output
+sent to @param{output-stream} has reached its destination, and then returns.
+
+@code{force-output} initiates the emptying of any
+internal buffers but does not wait for completion
+or acknowledgment to return.
+
+@code{clear-output} attempts to abort any
+outstanding output operation in progress in order
+to allow as little output as possible
+to continue to the destination.
+
+If any of these operations does not make sense for @param{output-stream},
+then it does nothing.
+The precise actions of these @term{functions} are @term{implementation-dependent}.
+
+@subsubheading Examples:
+@lisp
+;; Implementation A
+ (progn (princ "am i seen?") (clear-output))
+@EV{} NIL
+
+;; Implementation B
+ (progn (princ "am i seen?") (clear-output))
+@OUT{} am i seen?
+@EV{} NIL
+@end lisp
+
+
+@subsubheading Affected By:
+
+@code{*standard-output*}
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{output-stream, a @term{stream designator}}
+
+@subsubheading See Also:
+
+@ref{clear-input}
+
+
+@node y-or-n-p; yes-or-no-p
+@heading y-or-n-p, yes-or-no-p (Function)
+@syindex y-or-n-p
+@cindex y-or-n-p
+@syindex yes-or-no-p
+@cindex yes-or-no-p
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{y-or-n-p, @opt{} control @rest{} arguments, generalized-boolean}
+@DefunWithValues{yes-or-no-p, @opt{} control @rest{} arguments, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{control}---a @term{format control}.
+
+@param{arguments}---@term{format arguments} for @param{control}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+These functions ask a question and parse a response from the user.
+They return @term{true} if the answer is affirmative,
+or @term{false} if the answer is negative.
+
+@code{y-or-n-p} is for asking the user a question whose answer is either
+``yes'' or ``no.''
+It is intended that the reply require
+the user to answer a yes-or-no question with a single
+character.
+@code{yes-or-no-p} is also for asking the user a question
+whose answer is either ``Yes'' or ``No.''
+It is intended that the reply require
+the user to take more action than just a single keystroke, such as typing
+the full word @f{yes} or @f{no} followed by a newline.
+
+@code{y-or-n-p} types out a message (if supplied), reads an answer
+in some @term{implementation-dependent} manner (intended to be short and simple,
+such as reading a single character such as @f{Y} or @f{N}).
+@code{yes-or-no-p} types out a message (if supplied),
+attracts the user's attention (for example, by ringing
+the terminal's bell),
+and reads an answer
+in some @term{implementation-dependent} manner (intended to be multiple characters,
+such as @f{YES} or @f{NO}).
+
+If @param{format-control} is supplied and not @nil{},
+then a @code{fresh-line} operation is performed; then
+a message is printed as if @param{format-control} and @param{arguments}
+were given to @code{format}.
+In any case, @code{yes-or-no-p} and @code{y-or-n-p} will provide
+a prompt such as ``@f{(Y or N)}'' or ``@f{(Yes or No)}'' if appropriate.
+
+All input and output are performed using @term{query I/O}.
+
+@subsubheading Examples:
+@lisp
+ (y-or-n-p "(t or nil) given by")
+@OUT{} (t or nil) given by (Y or N) @IN{Y}
+@EV{} @term{true}
+ (yes-or-no-p "a ~S message" 'frightening)
+@OUT{} a FRIGHTENING message (Yes or No) @IN{no}
+@EV{} @term{false}
+ (y-or-n-p "Produce listing file?")
+@OUT{} Produce listing file?
+@OUT{} Please respond with Y or N. @IN{n}
+@EV{} @term{false}
+@end lisp
+
+
+@subsubheading Side Effects:
+
+Output to and input from @term{query I/O} will occur.
+
+@subsubheading Affected By:
+
+@code{*query-io*}.
+
+@subsubheading See Also:
+
+@ref{format}
+
+@subsubheading Notes:
+
+@code{yes-or-no-p} and @code{yes-or-no-p} do not add question marks
+to the end of the prompt string, so any desired question mark or other
+punctuation should be explicitly included in the text query.
+
+
+@node make-synonym-stream
+@heading make-synonym-stream (Function)
+@syindex make-synonym-stream
+@cindex make-synonym-stream
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{make-synonym-stream, symbol, synonym-stream}
+
+@subsubheading Arguments and Values:
+
+@param{symbol}---a @term{symbol} that names a @term{dynamic variable}.
+
+@param{synonym-stream}---a @term{synonym stream}.
+
+@subsubheading Description:
+
+Returns a @term{synonym stream} whose @term{synonym stream symbol} is @param{symbol}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq a-stream (make-string-input-stream "a-stream")
+        b-stream (make-string-input-stream "b-stream"))
+@EV{} #<String Input Stream>
+ (setq s-stream (make-synonym-stream 'c-stream))
+@EV{} #<SYNONYM-STREAM for C-STREAM>
+ (setq c-stream a-stream)
+@EV{} #<String Input Stream>
+ (read s-stream) @EV{} A-STREAM
+ (setq c-stream b-stream)
+@EV{} #<String Input Stream>
+ (read s-stream) @EV{} B-STREAM
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+Should signal @code{type-error} if its argument is not a @term{symbol}.
+
+@subsubheading See Also:
+
+@ref{Stream Concepts, Section 21.1 (Stream Concepts)}
+
+
+@node synonym-stream-symbol
+@heading synonym-stream-symbol (Function)
+@syindex synonym-stream-symbol
+@cindex synonym-stream-symbol
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{synonym-stream-symbol, synonym-stream, symbol}
+
+@subsubheading Arguments and Values:
+
+@param{synonym-stream}---a @term{synonym stream}.
+
+@param{symbol}---a @term{symbol}.
+
+@subsubheading Description:
+
+Returns the @term{symbol} whose @code{symbol-value} the @param{synonym-stream} is using.
+
+@subsubheading See Also:
+
+@ref{make-synonym-stream}
+
+
+
+@node broadcast-stream-streams
+@heading broadcast-stream-streams (Function)
+@syindex broadcast-stream-streams
+@cindex broadcast-stream-streams
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{broadcast-stream-streams, broadcast-stream, streams}
+
+@subsubheading Arguments and Values:
+
+@param{broadcast-stream}---a @term{broadcast stream}.
+
+@param{streams}---a @term{list} of @term{streams}.
+
+@subsubheading Description:
+
+Returns a @term{list} of output @term{streams} that constitute
+all the @term{streams} to which the @param{broadcast-stream} is broadcasting.
+
+
+
+@node make-broadcast-stream
+@heading make-broadcast-stream (Function)
+@syindex make-broadcast-stream
+@cindex make-broadcast-stream
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{make-broadcast-stream, @rest{} streams, broadcast-stream}
+
+@subsubheading Arguments and Values:
+
+@param{stream}---an @term{output} @term{stream}.
+
+
+@param{broadcast-stream}---a @term{broadcast stream}.
+
+@subsubheading Description:
+
+Returns a @term{broadcast stream}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq a-stream (make-string-output-stream)
+        b-stream (make-string-output-stream)) @EV{} #<String Output Stream>
+ (format (make-broadcast-stream a-stream b-stream)
+          "this will go to both streams") @EV{} NIL
+ (get-output-stream-string a-stream) @EV{} "this will go to both streams"
+ (get-output-stream-string b-stream) @EV{} "this will go to both streams"
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldcheckanytype{stream, an @term{output} @term{stream}}
+
+@subsubheading See Also:
+
+@ref{broadcast-stream-streams}
+
+
+@node make-two-way-stream
+@heading make-two-way-stream (Function)
+@syindex make-two-way-stream
+@cindex make-two-way-stream
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{make-two-way-stream, input-stream output-stream, two-way-stream}
+
+@subsubheading Arguments and Values:
+
+@param{input-stream}---a @term{stream}.
+
+@param{output-stream}---a @term{stream}.
+
+@param{two-way-stream}---a @term{two-way stream}.
+
+@subsubheading Description:
+
+Returns a @term{two-way stream}
+that gets  its input  from @param{input-stream}
+and  sends its output to   @param{output-stream}.
+
+@subsubheading Examples:
+
+@lisp
+ (with-output-to-string (out)
+    (with-input-from-string (in "input...")
+      (let ((two (make-two-way-stream in out)))
+        (format two "output...")
+        (setq what-is-read (read two))))) @EV{} "output..."
+ what-is-read @EV{} INPUT...
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{input-stream, an @term{input} @term{stream}}
+@Shouldchecktype{output-stream, an @term{output} @term{stream}}
+
+
+@node two-way-stream-input-stream; two-way-stream-output-stream
+@heading two-way-stream-input-stream, two-way-stream-output-stream (Function)
+@syindex two-way-stream-input-stream
+@cindex two-way-stream-input-stream
+@syindex two-way-stream-output-stream
+@cindex two-way-stream-output-stream
+@anchor{two-way-stream-input-stream}
+@anchor{two-way-stream-output-stream}
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{two-way-stream-input-stream, two-way-stream, input-stream}
+@DefunWithValues{two-way-stream-output-stream, two-way-stream, output-stream}
+
+@subsubheading Arguments and Values:
+
+@param{two-way-stream}---a @term{two-way stream}.
+
+@param{input-stream}---an @term{input} @term{stream}.
+
+@param{output-stream}---an @term{output} @term{stream}.
+
+@subsubheading Description:
+
+@code{two-way-stream-input-stream} returns the @term{stream}
+from which @param{two-way-stream} receives input.
+
+@code{two-way-stream-output-stream} returns the @term{stream}
+to which @param{two-way-stream} sends output.
+
+
+
+@node echo-stream-input-stream; echo-stream-output-stream
+@heading echo-stream-input-stream, echo-stream-output-stream (Function)
+@syindex echo-stream-input-stream
+@cindex echo-stream-input-stream
+@syindex echo-stream-output-stream
+@cindex echo-stream-output-stream
+@anchor{echo-stream-input-stream}
+@anchor{echo-stream-output-stream}
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{echo-stream-input-stream, echo-stream, input-stream}
+@DefunWithValues{echo-stream-output-stream, echo-stream, output-stream}
+
+@subsubheading Arguments and Values:
+
+@param{echo-stream}---an @term{echo stream}.
+
+@param{input-stream}---an @term{input} @term{stream}.
+
+@code{output-stream}---an @term{output} @term{stream}.
+
+@subsubheading Description:
+
+@code{echo-stream-input-stream} returns the @term{input} @term{stream}
+from which @param{echo-stream} receives input.
+
+@code{echo-stream-output-stream} returns the @term{output} @term{stream}
+to which @param{echo-stream} sends output.
+
+
+
+@node make-echo-stream
+@heading make-echo-stream (Function)
+@syindex make-echo-stream
+@cindex make-echo-stream
+
+
+@subsubheading Syntax:
+
+
+@DefunWithValues{make-echo-stream, input-stream output-stream, echo-stream}
+
+@subsubheading Arguments and Values:
+
+@param{input-stream}---an @term{input} @term{stream}.
+
+@param{output-stream}---an @term{output} @term{stream}.
+
+@param{echo-stream}---an @term{echo stream}.
+
+@subsubheading Description:
+
+Creates and returns an @term{echo stream}
+that takes input  from @param{input-stream}
+and  sends output to   @param{output-stream}.
+
+
+@subsubheading Examples:
+@lisp
+ (let ((out (make-string-output-stream)))
+    (with-open-stream
+        (s (make-echo-stream
+            (make-string-input-stream "this-is-read-and-echoed")
+            out))
+      (read s)
+      (format s " * this-is-direct-output")
+      (get-output-stream-string out)))
+@EV{} "this-is-read-and-echoed * this-is-direct-output"
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{echo-stream-input-stream},
+@ref{echo-stream-output-stream},
+@ref{make-two-way-stream}
+
+
+@node concatenated-stream-streams
+@heading concatenated-stream-streams (Function)
+@syindex concatenated-stream-streams
+@cindex concatenated-stream-streams
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{concatenated-stream-streams, concatenated-stream, streams}
+
+@subsubheading Arguments and Values:
+
+@param{concatenated-stream}---a @term{concatenated stream}.
+
+@param{streams}---a @term{list} of @term{input} @term{streams}.
+
+@subsubheading Description:
+
+Returns a @term{list} of @term{input} @term{streams} that constitute the
+ordered set of @term{streams} the @param{concatenated-stream} still
+has to read from, starting with the current one it is reading from.
+The list may be @term{empty} if no more @term{streams} remain to be read.
+
+The consequences are undefined if the @term{list structure} of the @param{streams}
+is ever modified.
+
+
+
+@node make-concatenated-stream
+@heading make-concatenated-stream (Function)
+@syindex make-concatenated-stream
+@cindex make-concatenated-stream
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{make-concatenated-stream, @rest{} input-streams, concatenated-stream}
+
+@subsubheading Arguments and Values:
+
+@param{input-stream}---an @term{input} @term{stream}.
+
+
+@param{concatenated-stream}---a @term{concatenated stream}.
+
+@subsubheading Description:
+
+Returns a @term{concatenated stream} that has the indicated @param{input-streams}
+initially associated with it.
+
+
+@subsubheading Examples:
+@lisp
+ (read (make-concatenated-stream
+         (make-string-input-stream "1")
+         (make-string-input-stream "2"))) @EV{} 12
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+Should signal @code{type-error} if any argument is not an @term{input} @term{stream}.
+
+@subsubheading See Also:
+
+@ref{concatenated-stream-streams}
+
+
+@node get-output-stream-string
+@heading get-output-stream-string (Function)
+@syindex get-output-stream-string
+@cindex get-output-stream-string
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{get-output-stream-string, string-output-stream, string}
+
+@subsubheading Arguments and Values:
+
+@param{string-output-stream}---a @term{stream}.
+
+@param{string}---a @term{string}.
+
+@subsubheading Description:
+
+Returns a @term{string} containing, in order, all the @term{characters}
+that have been output to @param{string-output-stream}.
+This operation clears any @term{characters} on @param{string-output-stream},
+so the @param{string} contains only those @term{characters} which have been output
+since the last call to @code{get-output-stream-string}
+or since the creation of the @param{string-output-stream},
+whichever occurred most recently.
+
+@subsubheading Examples:
+@lisp
+ (setq a-stream (make-string-output-stream)
+        a-string "abcdefghijklm") @EV{} "abcdefghijklm"
+ (write-string a-string a-stream) @EV{} "abcdefghijklm"
+ (get-output-stream-string a-stream) @EV{} "abcdefghijklm"
+ (get-output-stream-string a-stream) @EV{} ""
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The @param{string-output-stream} is cleared.
+
+@subsubheading Exceptional Situations:
+
+The consequences are undefined if @param{stream-output-string} is @term{closed}.
+
+The consequences are undefined if @param{string-output-stream} is a @term{stream} that
+was not produced by @code{make-string-output-stream}.
+The consequences are undefined if @param{string-output-stream} was
+created implicitly by @code{with-output-to-string} or @code{format}.
+
+
+@subsubheading See Also:
+
+@ref{make-string-output-stream}
+
+
+@node make-string-input-stream
+@heading make-string-input-stream (Function)
+@syindex make-string-input-stream
+@cindex make-string-input-stream
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{make-string-input-stream, string @opt{} start end, string-stream}
+
+@subsubheading Arguments and Values:
+
+@param{string}---a @term{string}.
+
+@param{start}, @param{end}---@term{bounding index designators} of @param{string}.
+@Defaults{@param{start} and @param{end}, @f{0} and @nil{}}
+
+@param{string-stream}---an @term{input} @term{string stream}.
+
+@subsubheading Description:
+
+Returns an @term{input} @term{string stream}.
+This @term{stream} will supply, in order, the @term{characters} in the substring
+of @param{string} @term{bounded} by @param{start} and @param{end}.
+After the last @term{character} has been supplied,
+the @term{string stream} will then be at @term{end of file}.
+
+@subsubheading Examples:
+
+@lisp
+ (let ((string-stream (make-string-input-stream "1 one ")))
+   (list (read string-stream nil nil)
+         (read string-stream nil nil)
+         (read string-stream nil nil)))
+@EV{} (1 ONE NIL)
+
+ (read (make-string-input-stream "prefixtargetsuffix" 6 12)) @EV{} TARGET
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{with-input-from-string}
+
+
+@node make-string-output-stream
+@heading make-string-output-stream (Function)
+@syindex make-string-output-stream
+@cindex make-string-output-stream
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{make-string-output-stream, @key{} element-type, string-stream}
+
+@subsubheading Arguments and Values:
+
+@param{element-type}---a @term{type specifier}.
+@Default{@code{character}}
+
+@param{string-stream}---an @term{output} @term{string stream}.
+
+@subsubheading Description:
+
+Returns
+an @term{output} @term{string stream} that accepts @term{characters}
+and makes available (via @code{get-output-stream-string})
+a @term{string} that contains the @term{characters} that were actually output.
+
+The @param{element-type} names the @term{type} of the @term{elements}
+of the @term{string}; a @term{string} is constructed of the most specialized
+@term{type} that can accommodate @term{elements} of that @term{element-type}.
+
+@subsubheading Examples:
+
+@lisp
+ (let ((s (make-string-output-stream)))
+   (write-string "testing... " s)
+   (prin1 1234 s)
+   (get-output-stream-string s))
+@EV{} "testing... 1234"
+@end lisp
+
+
+@None{}.
+
+@subsubheading See Also:
+
+@ref{get-output-stream-string}, @ref{with-output-to-string}
+
+
+@node with-input-from-string
+@heading with-input-from-string (Macro)
+@syindex with-input-from-string
+@cindex with-input-from-string
+
+
+
+@subsubheading Syntax:
+
+@DefmacWithValuesNewline{with-input-from-string, @paren{var string @key{} index start end} @starparam{declaration} @starparam{form}, @starparam{result}}
+
+@subsubheading Arguments and Values:
+
+@param{var}---a @term{variable} @term{name}.
+
+@param{string}---a @term{form}; evaluated to produce a @term{string}.
+
+@param{index}---a @term{place}.
+
+@param{start}, @param{end}---@term{bounding index designators} of @param{string}.
+@Defaults{@param{start} and @param{end}, @f{0} and @nil{}}
+
+@param{declaration}---a @t{declare} @term{expression}; @noeval{}.
+
+@param{forms}---an @term{implicit progn}.
+
+@param{result}---the @term{values} returned by the @param{forms}.
+
+@subsubheading Description:
+
+Creates an
+@term{input} @term{string stream},
+provides an opportunity to perform operations on the @term{stream}
+(returning zero or more @term{values}),
+and then closes the @term{string stream}.
+
+@param{String} is evaluated first, and @param{var} is bound to
+a character @term{input} @term{string stream} that supplies
+@term{characters} from the subsequence of the resulting @term{string} @term{bounded} by
+@param{start} and @param{end}.
+The body is executed as an @term{implicit progn}.
+
+The @term{input} @term{string stream} is automatically closed on exit from
+@code{with-input-from-string}, no matter whether the exit is normal or abnormal.
+The @term{input} @term{string stream} to which the @term{variable} @param{var}
+is @term{bound} has @term{dynamic extent};
+its @term{extent} ends when the @term{form} is exited.
+
+The @param{index} is a pointer within the @param{string} to be advanced.
+If @code{with-input-from-string}
+is exited normally, then @param{index} will have
+as its @term{value}
+the index into the @param{string} indicating the first character not read
+which is @tt{(length @param{string})} if all characters were used.
+The place specified by @param{index}
+is not updated as reading progresses, but only at the
+end of the operation.
+
+@param{start} and @param{index} may both specify the same variable,
+which is a pointer within the @param{string} to be advanced,
+perhaps repeatedly by some containing loop.
+
+The consequences are undefined if an attempt is made to @term{assign}
+the @term{variable} @param{var}.
+
+@subsubheading Examples:
+@lisp
+ (with-input-from-string (s "XXX1 2 3 4xxx"
+                             :index ind
+                             :start 3 :end 10)
+    (+ (read s) (read s) (read s))) @EV{} 6
+ ind @EV{} 9
+ (with-input-from-string (s "Animal Crackers" :index j :start 6)
+   (read s)) @EV{} CRACKERS
+@end lisp
+
+The variable @f{j} is set to @f{15}.
+
+@subsubheading Side Effects:
+
+The @term{value} of the @term{place} named by @param{index}, if any, is modified.
+
+@subsubheading See Also:
+
+@ref{make-string-input-stream},
+@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+
+
+
+@node with-output-to-string
+@heading with-output-to-string (Macro)
+@syindex with-output-to-string
+@cindex with-output-to-string
+
+
+
+@subsubheading Syntax:
+
+@DefmacWithValuesNewline{with-output-to-string, @paren{var @opt{} string-form @key{} element-type} @starparam{declaration} @starparam{form}, @starparam{result}}
+
+@subsubheading Arguments and Values:
+
+@param{var}---a @term{variable} @term{name}.
+
+@param{string-form}---a @term{form} or @nil{};
+if @term{non-nil}, evaluated to produce @param{string}.
+
+@param{string}---a @term{string} that has a @term{fill pointer}.
+
+@param{element-type}---a @term{type specifier}; @eval{}.
+@Default{@code{character}}
+
+@param{declaration}---a @t{declare} @term{expression}; @noeval{}.
+
+@param{forms}---an @term{implicit progn}.
+
+@param{results}---If a @param{string-form} is not supplied or @nil{},
+a @term{string}; otherwise,
+the @term{values} returned by the @param{forms}.
+
+@subsubheading Description:
+
+@code{with-output-to-string} creates a
+character @term{output} @term{stream}, performs a series of operations
+that may send results to this @term{stream}, and then closes the @term{stream}.
+
+The @param{element-type} names the @term{type} of the elements
+of the @term{stream}; a @term{stream} is constructed of the most specialized
+@term{type} that can accommodate elements of the given @term{type}.
+
+The body is executed as an @term{implicit progn} with @param{var}
+bound to an @term{output} @term{string stream}.
+All output to that @term{string stream} is saved in a @term{string}.
+
+If @param{string} is supplied, @param{element-type} is ignored,
+and the output is incrementally appended to @param{string} as
+if by use of @code{vector-push-extend}.
+
+The @term{output} @term{stream}
+is automatically closed on exit from @code{with-output-from-string},
+no matter whether the exit is normal or abnormal.
+The @term{output} @term{string stream} to which the @term{variable} @param{var}
+is @term{bound} has @term{dynamic extent};
+its @term{extent} ends when the @term{form} is exited.
+
+If no @param{string} is provided, then @code{with-output-from-string}
+produces a @term{stream} that accepts characters and returns a @term{string}
+of the indicated @param{element-type}.
+If @param{string} is provided,
+@code{with-output-to-string} returns the results of evaluating the last @param{form}.
+
+The consequences are undefined if an attempt is made to @term{assign}
+the @term{variable} @param{var}.
+
+@subsubheading Examples:
+@lisp
+ (setq fstr (make-array '(0) :element-type 'base-char
+                             :fill-pointer 0 :adjustable t)) @EV{} ""
+ (with-output-to-string (s fstr)
+    (format s "here's some output")
+    (input-stream-p s)) @EV{} @term{false}
+ fstr @EV{} "here's some output"
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The @param{string} is modified.
+
+@subsubheading Exceptional Situations:
+
+The consequences are undefined if destructive modifications are performed
+directly on the @param{string} during the @term{dynamic extent} of the call.
+
+@subsubheading See Also:
+
+@ref{make-string-output-stream},
+@ref{vector-push-extend},
+@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+
+
+
+@node *debug-io*; *error-output*; *query-io*; *standard-input*; *standard-out+
+@heading *debug-io*, *error-output*, *query-io*, *standard-input*, *standard-output*, *trace-output* (Variable)
+@syindex *debug-io*
+@cindex *debug-io*
+@syindex *error-output*
+@cindex *error-output*
+@syindex *query-io*
+@cindex *query-io*
+@syindex *standard-input*
+@cindex *standard-input*
+@syindex *standard-output*
+@cindex *standard-output*
+@syindex *trace-output*
+@cindex *trace-output*
+@anchor{*debug-io*}
+@anchor{*error-output*}
+@anchor{*query-io*}
+@anchor{*standard-input*}
+@anchor{*standard-output*}
+@anchor{*trace-output*}
+
+
+@subsubheading Value Type:
+
+For @code{*standard-input*}:
+an @term{input} @term{stream}
+
+For @code{*error-output*}, @code{*standard-output*}, and @code{*trace-output*}:
+an @term{output} @term{stream}.
+
+For @code{*debug-io*}, @code{*query-io*}:
+a @term{bidirectional} @term{stream}.
+
+@subsubheading Initial Value:
+
+@term{implementation-dependent}, but
+it must be an @term{open} @term{stream}
+that is not a  @term{generalized synonym stream}
+to an @term{I/O customization variables}
+but that might be a @term{generalized synonym stream} to
+the value of some @term{I/O customization variable}.
+The initial value might also be a @term{generalized synonym stream}
+to either the @term{symbol} @code{*terminal-io*} or to the @term{stream}
+that is its @term{value}.
+
+@subsubheading Description:
+
+These @term{variables} are collectively called the
+@term{standardized} @term{I/O customization variables}.
+They can be @term{bound} or @term{assigned} in order to
+change the default destinations for input and/or output
+used by various @term{standardized} @term{operators} and facilities.
+
+@Thevalueof{*debug-io*}, called @term{debug I/O},
+is a @term{stream} to be used for interactive debugging purposes.
+
+@Thevalueof{*error-output*}, called @term{error output},
+is a @term{stream} to which warnings and non-interactive error messages should be sent.
+
+@Thevalueof{*query-io*}, called @term{query I/O},
+is a @term{bidirectional} @term{stream}
+to be used when asking questions of the user.  The question should be output
+to this @term{stream}, and the answer read from it.
+
+@Thevalueof{*standard-input*}, called @term{standard input},
+is a @term{stream} that is used by many @term{operators}
+as a default source of input when no specific @term{input} @term{stream}
+is explicitly supplied.
+
+@Thevalueof{*standard-output*}, called @term{standard output},
+is a @term{stream} that is used by many @term{operators}
+as a default destination for output when no specific @term{output} @term{stream}
+is explicitly supplied.
+
+@Thevalueof{*trace-output*}, called @term{trace output},
+is the @term{stream} on which traced functions (see @code{trace})
+and @themacro{time} print their output.
+
+@subsubheading Examples:
+
+@lisp
+ (with-output-to-string (*error-output*)
+   (warn "this string is sent to *error-output*"))
+ @EV{} "Warning: this string is sent to *error-output*
+" ;The exact format of this string is @term{implementation-dependent}.
+@medbreak{}
+ (with-input-from-string (*standard-input* "1001")
+    (+ 990 (read))) @EV{} 1991
+@medbreak{}
+ (progn (setq out (with-output-to-string (*standard-output*)
+                     (print "print and format t send things to")
+                     (format t "*standard-output* now going to a string")))
+        :done)
+@EV{} :DONE
+ out
+@EV{} "
+@bsl{}"print and format t send things to@bsl{}" *standard-output* now going to a string"
+@medbreak{}
+ (defun fact (n) (if (< n 2) 1 (* n (fact (- n 1)))))
+@EV{} FACT
+ (trace fact)
+@EV{} (FACT)
+;; Of course, the format of traced output is implementation-dependent.
+ (with-output-to-string (*trace-output*)
+   (fact 3))
+@EV{} "
+1 Enter FACT 3
+| 2 Enter FACT 2
+|   3 Enter FACT 1
+|   3 Exit FACT 1
+| 2 Exit FACT 2
+1 Exit FACT 6"
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{*terminal-io*},
+@ref{synonym-stream},
+@ref{time (Macro)},
+@ref{trace},
+@ref{Conditions, Chapter 9 (Conditions)},
+@ref{Reader, Chapter 23 (Reader)},
+@ref{Printer, Chapter 22 (Printer)}
+
+@subsubheading Notes:
+
+The intent of the constraints on the initial @term{value}
+of the @term{I/O customization variables} is to ensure that it
+is always safe to @term{bind} or @term{assign} such a @term{variable} to
+the @term{value} of another @term{I/O customization variable}, without
+unduly restricting @term{implementation} flexibility.
+
+It is common for an @term{implementation} to make
+the initial @term{values} of @code{*debug-io*} and @code{*query-io*}
+be the @term{same} @term{stream},
+and to make
+the initial @term{values} of @code{*error-output*} and @code{*standard-output*}
+be the @term{same} @term{stream}.
+
+The functions @code{y-or-n-p} and @code{yes-or-no-p} use @term{query I/O}
+for their input and output.
+
+In the normal @term{Lisp read-eval-print loop},
+input is read from @term{standard input}.
+Many input functions, including @code{read} and @code{read-char},
+take a @term{stream} argument that defaults to @term{standard input}.
+
+In the normal @term{Lisp read-eval-print loop}, output is sent to @term{standard output}.
+Many output functions, including @code{print} and @code{write-char},
+take a @term{stream} argument that defaults to @term{standard output}.
+
+A program that wants, for example, to divert output to a file should do so by
+@term{binding} @code{*standard-output*}; that way error messages sent to
+@code{*error-output*} can still get to the user by going through
+@code{*terminal-io*} (if @code{*error-output*} is bound to @code{*terminal-io*}),
+which is usually what is desired.
+
+
+@node *terminal-io*
+@heading *terminal-io* (Variable)
+@syindex *terminal-io*
+@cindex *terminal-io*
+
+
+@subsubheading Value Type:
+
+a @term{bidirectional} @term{stream}.
+
+@subsubheading Initial Value:
+
+@term{implementation-dependent}, but
+it must be an @term{open} @term{stream}
+that is not a  @term{generalized synonym stream}
+to an @term{I/O customization variables}
+but that might be a @term{generalized synonym stream} to
+the @term{value} of some @term{I/O customization variable}.
+
+@subsubheading Description:
+
+@Thevalueof{*terminal-io*}, called  @term{terminal I/O}, is ordinarily
+a @term{bidirectional} @term{stream} that connects to the user's console.
+Typically, writing to this @term{stream}
+would cause the output to appear
+on a display screen, for example, and reading from the @term{stream} would
+accept input from a keyboard.  It is intended
+that standard input functions such as @code{read} and @code{read-char},
+when used with this @term{stream}, cause echoing of the input
+into the output side of the @term{stream}. The means by which this is
+accomplished are @term{implementation-dependent}.
+
+The effect of changing @thevalueof{*terminal-io*},
+either by @term{binding} or @term{assignment},
+is @term{implementation-defined}.
+
+@subsubheading Examples:
+
+@lisp
+ (progn (prin1 'foo) (prin1 'bar *terminal-io*))
+@OUT{} FOOBAR
+@EV{} BAR
+ (with-output-to-string (*standard-output*)
+   (prin1 'foo)
+   (prin1 'bar *terminal-io*))
+@OUT{} BAR
+@EV{} "FOO"
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{*debug-io*},
+@ref{*error-output*},
+@ref{*query-io*},
+@ref{*standard-input*},
+@ref{*standard-output*},
+@ref{*trace-output*}
+
+
+@node stream-error
+@heading stream-error (Condition Type)
+@syindex stream-error
+@cindex stream-error
+
+
+@subsubheading Class Precedence List:
+@code{stream-error},
+@code{error},
+@code{serious-condition},
+@code{condition},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{stream-error}
+consists of error conditions that are related to receiving input from
+or sending output to a @term{stream}.
+The ``offending stream'' is initialized by
+@theinitkeyarg{stream} to @code{make-condition},
+and is @term{accessed} by @thefunction{stream-error-stream}.
+
+@subsubheading See Also:
+
+@ref{stream-error-stream}
+
+
+@node stream-error-stream
+@heading stream-error-stream (Function)
+@syindex stream-error-stream
+@cindex stream-error-stream
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{stream-error-stream, condition, stream}
+
+@subsubheading Arguments and Values:
+
+@param{condition}---a @term{condition} @oftype{stream-error}.
+
+@param{stream}---a @term{stream}.
+
+@subsubheading Description:
+
+Returns the offending @term{stream} of a @term{condition} @oftype{stream-error}.
+
+@subsubheading Examples:
+@lisp
+ (with-input-from-string (s "(FOO")
+   (handler-case (read s)
+     (end-of-file (c)
+       (format nil "~&End of file on ~S." (stream-error-stream c)))))
+"End of file on #<String Stream>."
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{stream-error},
+@ref{Conditions, Chapter 9 (Conditions)}
+
+
+@node end-of-file
+@heading end-of-file (Condition Type)
+@syindex end-of-file
+@cindex end-of-file
+
+
+@subsubheading Class Precedence List:
+@code{end-of-file},
+@code{stream-error},
+@code{error},
+@code{serious-condition},
+@code{condition},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{end-of-file} consists of
+error conditions related to read operations that are done on
+@term{streams} that have no more data.
+
+@subsubheading See Also:
+
+@ref{stream-error-stream}

@@ -1,0 +1,159 @@
+@node Appendix
+@appendix Appendix
+@menu
+* Removed Language Features::
+@end menu
+
+
+@node Removed Language Features
+@section Removed Language Features
+
+@menu
+* Requirements for removed and deprecated features::
+* Removed Types::
+* Removed Operators::
+* Removed Argument Conventions::
+* Removed Variables::
+* Removed Reader Syntax::
+* Packages No Longer Required::
+@end menu
+@node Requirements for removed and deprecated features
+@subsection Requirements for removed and deprecated features
+
+For this standard,
+some features from the language described in @CLtL{}@spc{}have been removed,
+and others have been deprecated (and will most likely not appear
+in future @clisp{}@spc{}standards).
+Which features were removed and which were deprecated
+was decided on a case-by-case basis by the X3J13 committee.
+
+@term{Conforming implementations} that wish to retain any removed
+features for compatibility must assure that such compatibility
+does not interfere with the correct function of @term{conforming programs}.
+For example, symbols corresponding to the names of removed functions
+may not appear in the the @code{COMMON-LISP} @term{package}.
+(Note, however, that this specification has been devised in such a way
+that there can be a package named @f{LISP} which can contain such symbols.)
+
+@term{Conforming implementations} must implement all deprecated features.
+For a list of deprecated features, see @ref{Deprecated Language Features, Section 1.8 (Deprecated Language Features)}.
+
+
+@node Removed Types
+@subsection Removed Types
+
+The @term{type} @f{string-char}
+@cindex string-char
+was removed.
+
+
+@node Removed Operators
+@subsection Removed Operators
+
+The functions
+@f{int-char}
+@cindex int-char
+,
+@f{char-bits}
+@cindex char-bits
+,
+@f{char-font}
+@cindex char-font
+,
+@f{make-char}
+@cindex make-char
+,
+@f{char-bit}
+@cindex char-bit
+,
+@f{set-char-bit}
+@cindex set-char-bit
+,
+@f{string-char-p}
+@cindex string-char-p
+,
+and
+@f{commonp}
+@cindex commonp
+were removed.
+
+The @term{special operator} @f{compiler-let} was removed.
+
+
+@node Removed Argument Conventions
+@subsection Removed Argument Conventions
+
+The @param{font} argument to @code{digit-char}
+@cindex digit-char
+was removed.
+The @param{bits} and @param{font} arguments to @code{code-char}
+@cindex code-char
+
+were removed.
+
+
+
+@node Removed Variables
+@subsection Removed Variables
+
+The variables
+@f{char-font-limit}
+@cindex char-font-limit
+,
+@f{char-bits-limit}
+@cindex char-bits-limit
+,
+@f{char-control-bit}
+@cindex char-control-bit
+,
+@f{char-meta-bit}
+@cindex char-meta-bit
+,
+@f{char-super-bit}
+@cindex char-super-bit
+,
+@f{char-hyper-bit}
+@cindex char-hyper-bit
+,
+and @f{*break-on-warnings*}
+@cindex *break-on-warnings*
+were removed.
+
+
+@node Removed Reader Syntax
+@subsection Removed Reader Syntax
+
+The ``@f{#,}'' @term{reader macro} in @term{standard syntax} was removed.
+
+
+@node Packages No Longer Required
+@subsection Packages No Longer Required
+
+The @term{packages}
+@code{LISP}
+@cindex LISP
+,
+@code{USER}
+@cindex USER
+,
+and @code{SYSTEM}
+@cindex SYSTEM
+are no longer required.  It is valid for @term{packages} with one or more of these
+names to be provided by a @term{conforming implementation} as extensions.
+
+
+@node Index
+@unnumbered Index
+@printindex cp
+@node Symbol Index
+@unnumbered Symbol Index
+@printindex sy
+@node List of Figures
+@unnumbered List of Figures
+@listoffloats Figure
+@ifnotinfo
+@node Table of Contents
+@unnumbered
+@contents
+@end ifnotinfo
+@bye

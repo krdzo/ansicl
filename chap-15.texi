@@ -1,0 +1,2612 @@
+@node Arrays
+@chapter Arrays
+@menu
+* Array Concepts::
+
+Dictionary
+
+* array::
+* simple-array::
+* vector (System Class)::
+* simple-vector::
+* bit-vector::
+* simple-bit-vector::
+* make-array::
+* adjust-array::
+* adjustable-array-p::
+* aref::
+* array-dimension::
+* array-dimensions::
+* array-element-type::
+* array-has-fill-pointer-p::
+* array-displacement::
+* array-in-bounds-p::
+* array-rank::
+* array-row-major-index::
+* array-total-size::
+* arrayp::
+* fill-pointer::
+* row-major-aref::
+* upgraded-array-element-type::
+* array-dimension-limit::
+* array-rank-limit::
+* array-total-size-limit::
+* simple-vector-p::
+* svref::
+* vector (Function)::
+* vector-pop::
+* vector-push; vector-push-extend::
+* vectorp::
+* bit; sbit::
+* bit-and; bit-andc1; bit-andc2; bit-eqv; bit-ior; bit-nand; bit-nor; bit+::
+* bit-vector-p::
+* simple-bit-vector-p::
+@end menu
+
+@node Array Concepts
+@section Array Concepts
+
+@menu
+* Array Elements::
+* Specialized Arrays::
+@end menu
+@node Array Elements
+@subsection Array Elements
+
+An @term{array} contains a set of @term{objects} called @term{elements}
+that can be referenced individually according to a rectilinear coordinate system.
+
+@subsubsection Array Indices
+
+An @term{array} @term{element} is referred to by a (possibly empty) series of indices.
+The length of the series must equal the @term{rank} of the @term{array}.
+Each index must be a non-negative @term{fixnum}
+less than the corresponding @term{array} @term{dimension}.
+@term{Array} indexing is zero-origin.
+
+
+@subsubsection Array Dimensions
+
+An axis of an @term{array} is called a @newterm{dimension}.
+
+Each @term{dimension} is a non-negative
+@term{fixnum};
+if any dimension of an @term{array} is zero, the @term{array} has no elements.
+It is permissible for a @term{dimension} to be zero,
+in which case the @term{array} has no elements,
+and any attempt to @term{access} an @term{element}
+is an error.  However, other properties of the @term{array},
+such as the @term{dimensions} themselves, may be used.
+
+@unnumberedsubsubsec 15.1.1.2.1 Implementation Limits on Individual Array Dimensions
+
+
+An @term{implementation} may impose a limit on @term{dimensions} of an @term{array},
+but there is a minimum requirement on that limit.  See the @term{variable} @ref{array-dimension-limit}.
+
+
+
+@subsubsection Array Rank
+
+An @term{array} can have any number of @term{dimensions} (including zero).
+The number of @term{dimensions} is called the @newterm{rank}.
+
+If the rank of an @term{array} is zero then the @term{array} is said to have
+no @term{dimensions}, and the product of the dimensions (see @code{array-total-size})
+is then 1; a zero-rank @term{array} therefore has a single element.
+
+@unnumberedsubsubsec 15.1.1.3.1 Vectors
+
+
+An @term{array} of @term{rank} one (@ie{} a one-dimensional @term{array})
+is called a @newterm{vector}.
+
+@unnumberedsubsubsec 15.1.1.3.1.1 Fill Pointers
+
+
+A @newterm{fill pointer} is a non-negative @term{integer} no
+larger than the total number of @term{elements} in a @term{vector}.
+Not all @term{vectors} have @term{fill pointers}.
+See the @term{functions} @ref{make-array} and @code{adjust-array}.
+
+An @term{element} of a @term{vector} is said to be @newterm{active} if it has
+an index that is greater than or equal to zero,
+but less than the @term{fill pointer} (if any).
+For an @term{array} that has no @term{fill pointer},
+all @term{elements} are considered @term{active}.
+
+Only @term{vectors} may have @term{fill pointers};
+multidimensional @term{arrays} may not.
+A multidimensional @term{array} that is displaced to a @term{vector}
+that has a @term{fill pointer} can be created.
+
+
+
+@unnumberedsubsubsec 15.1.1.3.2 Multidimensional Arrays
+
+
+@unnumberedsubsubsec 15.1.1.3.2.1 Storage Layout for Multidimensional Arrays
+
+
+Multidimensional @term{arrays} store their components in row-major order;
+that is, internally a multidimensional @term{array} is stored as a
+one-dimensional @term{array}, with the multidimensional index sets
+ordered lexicographically, last index varying fastest.
+
+
+@unnumberedsubsubsec 15.1.1.3.2.2 Implementation Limits on Array Rank
+
+
+An @term{implementation} may impose a limit on the @term{rank} of an @term{array},
+but there is a minimum requirement on that limit.  See the @term{variable} @ref{array-rank-limit}.
+
+
+
+
+
+@node Specialized Arrays
+@subsection Specialized Arrays
+
+An @term{array} can be a @term{general} @term{array},
+meaning each @term{element} may be any @term{object},
+or it may be a @term{specialized} @term{array},
+meaning that each @term{element} must be of a restricted @term{type}.
+
+The phrasing ``an @term{array} @term{specialized} to @term{type} @metavar{type}''
+is sometimes used to emphasize the @term{element type} of an @term{array}.
+This phrasing is tolerated even when the @metavar{type} is @code{t},
+even though an @term{array} @term{specialized} to @term{type} @term{t}
+is a @term{general} @term{array}, not a @term{specialized} @term{array}.
+
+@Thenextfigure{}@spc{}lists some @term{defined names} that are applicable to @term{array}
+creation, @term{access}, and information operations.
+
+
+@float Figure,fig15.1
+@cartouche
+@multitable{array-dimension-limit}{array-has-fill-pointer-p}{upgraded-array-element-type}
+
+@item adjust-array @tab array-has-fill-pointer-p @tab make-array
+@item adjustable-array-p @tab array-in-bounds-p @tab svref
+@item aref @tab array-rank @tab upgraded-array-element-type
+@item array-dimension @tab array-rank-limit @tab upgraded-complex-part-type
+@item array-dimension-limit @tab array-row-major-index @tab vector
+@item array-dimensions @tab array-total-size @tab vector-pop
+@item array-displacement @tab array-total-size-limit @tab vector-push
+@item array-element-type @tab fill-pointer @tab vector-push-extend
+@end multitable
+@end cartouche
+@caption{General Purpose Array-Related Defined Names}
+@end float
+
+
+@subsubsection Array Upgrading
+@anchor{ArrayUpgrading}
+
+
+The @newterm{upgraded array element type} of a @term{type} @mat{T@sub1{}}
+is a @term{type} @mat{T@sub2{}} that is a @term{supertype} of @mat{T@sub1{}}
+and that is used instead of @mat{T@sub1{}} whenever @mat{T@sub1{}}
+is used as an @term{array element type}
+for object creation or type discrimination.
+
+During creation of an @term{array},
+the @term{element type} that was requested
+is called the @newterm{expressed array element type}.
+The @term{upgraded array element type} of the @term{expressed array element type}
+becomes the @newterm{actual array element type} of the @term{array} that is created.
+
+@term{Type} @term{upgrading} implies a movement upwards in the type hierarchy lattice.
+A @term{type} is always a @term{subtype} of its @term{upgraded array element type}.
+Also, if a @term{type} @mat{T@subs1{x}} is a @term{subtype} of another @term{type} @mat{T@subs1{y}},
+then
+the @term{upgraded array element type} of @mat{T@subs1{x}}
+must be a @term{subtype} of
+the @term{upgraded array element type} of @mat{T@subs1{y}}.
+Two @term{disjoint} @term{types} can be @term{upgraded} to the same @term{type}.
+
+The @term{upgraded array element type} @mat{T@sub2{}} of a @term{type} @mat{T@sub1{}}
+is a function only of @mat{T@sub1{}} itself;
+that is, it is independent of any other property of the @term{array}
+for which @mat{T@sub2{}} will be used,
+such as @term{rank}, @term{adjustability}, @term{fill pointers}, or displacement.
+@Thefunction{upgraded-array-element-type}
+can be used by @term{conforming programs} to predict how the @term{implementation}
+will @term{upgrade} a given @term{type}.
+
+
+
+@subsubsection Required Kinds of Specialized Arrays
+@anchor{RequiredSpecializedArrays}
+
+@term{Vectors} whose @term{elements} are restricted to @term{type}
+@code{character} or a @term{subtype} of @code{character}
+are called
+@cindex string
+@dfn{strings}.
+@term{Strings} are @oftype{string}.
+@Thenextfigure{}@spc{}lists some @term{defined names} related to @term{strings}.
+
+@term{Strings} are @term{specialized} @term{arrays}
+and might logically have been included in this chapter.
+However, for purposes of readability
+most information about @term{strings} does not appear in this chapter;
+see instead @ref{Strings, Chapter 16 (Strings)}.
+
+
+@float Figure,fig15.2
+@cartouche
+@multitable{nstring-capitalize}{string-not-greaterp}{string@tt{/=}}
+
+@item char @tab string-equal @tab string-upcase
+@item make-string @tab string-greaterp @tab string@tt{/=}
+@item nstring-capitalize @tab string-left-trim @tab string@tt{<}
+@item nstring-downcase @tab string-lessp @tab string@tt{<=}
+@item nstring-upcase @tab string-not-equal @tab string@tt{=}
+@item schar @tab string-not-greaterp @tab string@tt{>}
+@item string @tab string-not-lessp @tab string@tt{>=}
+@item string-capitalize @tab string-right-trim @tab
+@item string-downcase @tab string-trim @tab
+@end multitable
+@end cartouche
+@caption{Operators that Manipulate Strings}
+@end float
+
+
+@term{Vectors} whose @term{elements} are restricted to @term{type}
+@code{bit} are called
+@cindex bit vector
+@dfn{bit vectors}.
+@term{Bit vectors} are @oftype{bit-vector}.
+@Thenextfigure{}@spc{}lists some @term{defined names} for operations on @term{bit arrays}.
+
+
+@float Figure,fig15.3
+@cartouche
+@multitable{bit-andc1}{bit-nand}{bit-orc2}
+
+@item bit @tab bit-ior @tab bit-orc2
+@item bit-and @tab bit-nand @tab bit-xor
+@item bit-andc1 @tab bit-nor @tab sbit
+@item bit-andc2 @tab bit-not @tab
+@item bit-eqv @tab bit-orc1 @tab
+@end multitable
+@end cartouche
+@caption{Operators that Manipulate Bit Arrays}
+@end float
+
+
+
+
+@node array
+@heading array (System Class)
+@syindex array
+@cindex array
+
+
+@subsubheading Class Precedence List:
+@code{array},
+@code{t}
+
+@subsubheading Description:
+
+An @term{array} contains @term{objects} arranged according to a
+Cartesian coordinate system.
+An @term{array} provides mappings from a set of
+@term{fixnums}
+@mat{@left{}@lcurly{}i@sub0{},i@sub1{},@dots{},i@subs{r-1}@right{}@rcurly{}} to corresponding @term{elements}
+of the @term{array},
+where @mat{0 @le{} i@subs1{j} < d@subs1{j}},
+@mat{r} is the rank of the array, and @mat{d@subs1{j}} is the size of @term{dimension} @mat{j} of
+the array.
+
+When an @term{array} is created, the program requesting its creation may
+declare that all @term{elements} are of a particular @term{type},
+called the @term{expressed array element type}.
+The implementation is permitted to @term{upgrade} this type in order to
+produce the @term{actual array element type},
+which is the @term{element type} for the @term{array} is actually @term{specialized}.
+See the @term{function} @ref{upgraded-array-element-type}.
+
+@subsubheading Compound Type Specifier Kind:
+
+Specializing.
+
+@subsubheading Compound Type Specifier Syntax:
+
+@Deftype{array, @ttbrac{@curly{element-type | @t{*}} @brac{dimension-spec}}}
+
+@auxbnf{dimension-spec, rank | @t{*} | @paren{@star{@curly{dimension | @t{*}}}}}
+
+@subsubheading Compound Type Specifier Arguments:
+
+@param{dimension}---a @term{valid array dimension}.
+
+@param{element-type}---a @term{type specifier}.
+
+@param{rank}---a non-negative @term{fixnum}.
+
+@subsubheading Compound Type Specifier Description:
+
+This denotes the set of @term{arrays} whose
+@term{element type},  @term{rank},  and @term{dimensions}
+match any given
+@param{element-type}, @param{rank}, and @param{dimensions}.
+Specifically:
+
+If @param{element-type} is the @term{symbol} @t{*},
+@term{arrays} are not excluded on the basis of their @term{element type}.
+Otherwise, only those @param{arrays} are included whose @term{actual array element type}
+is the result of @term{upgrading} @param{element-type};
+see @ref{ArrayUpgrading, Section 15.1.2.1 (Array Upgrading)}.
+
+If the @param{dimension-spec} is a @param{rank},
+the set includes only those @param{arrays} having that @term{rank}.
+If the @param{dimension-spec} is a @term{list} of @param{dimensions},
+the set includes only those @param{arrays} having a @term{rank}
+given by the @term{length} of the @param{dimensions},
+and having the indicated @param{dimensions};
+in this case, @t{*} matches any value for the corresponding @term{dimension}.
+If the @param{dimension-spec} is the @term{symbol} @t{*},
+the set is not restricted on the basis of @term{rank} or @term{dimension}.
+
+
+@subsubheading See Also:
+
+@ref{*print-array*},
+@ref{aref},
+@ref{make-array},
+@ref{vector (System Class)},
+@ref{SharpsignA, Section 2.4.8.12 (Sharpsign A)},
+@ref{PrintingOtherArrays, Section 22.1.3.8 (Printing Other Arrays)}
+
+@subsubheading Notes:
+
+Note that the type @tt{(array t)}
+is a proper @term{subtype} of the type @tt{(array *)}.
+The reason is that the type @tt{(array t)} is the set of @term{arrays}
+that can
+hold any @term{object} (the @term{elements} are @oftype{t},  which includes
+all @term{objects}).
+On the other hand, the type @tt{(array *)}
+is the set of all @term{arrays} whatsoever, including for example
+@term{arrays} that can hold only @term{characters}.
+The type @tt{(array character)}
+is not a @term{subtype} of the type @tt{(array t)};
+the two sets
+are @term{disjoint} because the type @tt{(array character)} is not the
+set of all @term{arrays} that can hold
+@term{characters}, but rather the set of
+@term{arrays}
+that are specialized to hold precisely @term{characters} and no
+other @term{objects}.
+
+@node simple-array
+@heading simple-array (Type)
+@syindex simple-array
+@cindex simple-array
+
+
+@subsubheading Supertypes:
+
+@code{simple-array},
+@code{array},
+@code{t}
+
+@subsubheading Description:
+
+The @term{type} of an @term{array} that is not displaced
+to another @term{array}, has no @term{fill pointer}, and is
+not
+@term{expressly adjustable} is a @subtypeof{simple-array}.
+The concept of a @term{simple array}
+exists to allow the implementation to use a specialized representation
+and to allow the user to declare that certain values will always be
+@term{simple arrays}.
+
+The @term{types} @code{simple-vector},
+@code{simple-string},
+and @code{simple-bit-vector}
+are @term{disjoint} @subtypesof{simple-array},
+for they respectively mean @f{(simple-array t (*))},
+the union of all @f{(simple-array @i{c} (*))}
+for any @i{c} being a @subtypeof{character},
+and @f{(simple-array bit (*))}.
+
+@subsubheading Compound Type Specifier Kind:
+
+Specializing.
+
+@subsubheading Compound Type Specifier Syntax:
+
+@Deftype{simple-array, @ttbrac{@curly{element-type | @t{*}} @brac{dimension-spec}}}
+
+@auxbnf{dimension-spec, rank | @t{*} | @paren{@star{@curly{dimension | @t{*}}}}}
+
+@subsubheading Compound Type Specifier Arguments:
+
+@param{dimension}---a @term{valid array dimension}.
+
+@param{element-type}---a @term{type specifier}.
+
+@param{rank}---a non-negative @term{fixnum}.
+
+@subsubheading Compound Type Specifier Description:
+
+This @term{compound type specifier} is treated exactly as the corresponding
+@term{compound type specifier} for @term{type} @code{array} would be treated,
+except that the set is further constrained to include only @term{simple arrays}.
+
+@subsubheading Notes:
+
+It is @term{implementation-dependent}
+whether @term{displaced arrays},
+@term{vectors} with @term{fill pointers},
+or arrays that are @term{actually adjustable}
+are @term{simple arrays}.
+
+@tt{(simple-array *)} refers to all @term{simple arrays}
+regardless of element type, @tt{(simple-array @param{type-specifier})}
+refers only to those @term{simple arrays}
+that can result from giving @param{type-specifier} as the
+@kwd{element-type} argument to @code{make-array}.
+
+@node vector (System Class)
+@heading vector (System Class)
+@syindex vector
+@cindex vector
+
+
+@subsubheading Class Precedence List:
+@code{vector},
+@code{array},
+@code{sequence},
+@code{t}
+
+@subsubheading Description:
+
+Any one-dimensional @term{array} is a @term{vector}.
+
+@Thetype{vector} is a @subtypeof{array};
+for all @term{types} @f{x}, @tt{(vector x)} is the same as @tt{(array x (*))}.
+
+The @term{type} @tt{(vector t)}, @thetype{string}, and @thetype{bit-vector}
+are @term{disjoint} @subtypesof{vector}.
+
+@subsubheading Compound Type Specifier Kind:
+
+Specializing.
+
+@subsubheading Compound Type Specifier Syntax:
+
+@Deftype{vector, @ttbrac{@curly{element-type | @t{*}} @brac{@curly{size | @t{*}}}}}
+
+@subsubheading Compound Type Specifier Arguments:
+
+@param{size}---a non-negative @term{fixnum}.
+
+@param{element-type}---a @term{type specifier}.
+
+@subsubheading Compound Type Specifier Description:
+
+This denotes the set of specialized @term{vectors}
+whose @term{element type} and @param{dimension} match the specified values.
+Specifically:
+
+If @param{element-type} is the @term{symbol} @t{*},
+@term{vectors} are not excluded on the basis of their @term{element type}.
+Otherwise, only those @param{vectors} are included whose @term{actual array element type}
+is the result of @term{upgrading} @param{element-type};
+see @ref{ArrayUpgrading, Section 15.1.2.1 (Array Upgrading)}.
+
+If a @param{size} is specified,
+the set includes only those @param{vectors} whose only @term{dimension}
+is @param{size}.
+If the @term{symbol} @t{*} is specified instead of a @param{size},
+the set is not restricted on the basis of @term{dimension}.
+
+@subsubheading See Also:
+
+@ref{RequiredSpecializedArrays, Section 15.1.2.2 (Required Kinds of Specialized Arrays)},
+@ref{SharpsignLeftParen, Section 2.4.8.3 (Sharpsign Left-Parenthesis)},
+@ref{PrintingOtherVectors, Section 22.1.3.7 (Printing Other Vectors)},
+@ref{SharpsignA, Section 2.4.8.12 (Sharpsign A)}
+
+@subsubheading Notes:
+
+The @term{type} @f{(vector @param{e} @param{s})}
+is equivalent to the @term{type} @f{(array @param{e} (@param{s}))}.
+
+The type @f{(vector bit)} has the name @code{bit-vector}.
+
+The union of all @term{types} @f{(vector @mat{C})},
+where @mat{C} is any @term{subtype} of @code{character},
+has the name @code{string}.
+
+@tt{(vector *)} refers to all @term{vectors}
+regardless of element type, @tt{(vector @param{type-specifier})}
+refers only to those @term{vectors}
+that can result from giving @param{type-specifier} as the
+@kwd{element-type} argument to @code{make-array}.
+
+@node simple-vector
+@heading simple-vector (Type)
+@syindex simple-vector
+@cindex simple-vector
+
+
+@subsubheading Supertypes:
+
+@code{simple-vector},
+@code{vector},
+@code{simple-array},
+@code{array},
+@code{sequence},
+@code{t}
+
+@subsubheading Description:
+
+The @term{type} of a @term{vector} that is not displaced to another
+@term{array}, has no @term{fill pointer}, is not
+@term{expressly adjustable}
+and is able to hold
+elements of any @term{type} is a @subtypeof{simple-vector}.
+
+@Thetype{simple-vector} is a @subtypeof{vector},
+and is a @term{subtype} of @term{type} @f{(vector t)}.
+
+@subsubheading Compound Type Specifier Kind:
+
+Specializing.
+
+@subsubheading Compound Type Specifier Syntax:
+
+@Deftype{simple-vector, @ttbrac{size}}
+
+@subsubheading Compound Type Specifier Arguments:
+
+@param{size}---a non-negative @term{fixnum},
+or the @term{symbol} @t{*}.
+@Default{the @term{symbol} @t{*}}
+
+@subsubheading Compound Type Specifier Description:
+
+This is the same as @tt{(simple-array t (@param{size}))}.
+
+@node bit-vector
+@heading bit-vector (System Class)
+@syindex bit-vector
+@cindex bit-vector
+
+
+@subsubheading Class Precedence List:
+@code{bit-vector},
+@code{vector},
+@code{array},
+@code{sequence},
+@code{t}
+
+@subsubheading Description:
+
+A @term{bit vector} is a @term{vector} the @term{element type} of which is @term{bit}.
+
+@Thetype{bit-vector} is a @subtypeof{vector},
+for @code{bit-vector} means @f{(vector bit)}.
+
+@subsubheading Compound Type Specifier Kind:
+
+Abbreviating.
+
+@subsubheading Compound Type Specifier Syntax:
+
+@Deftype{bit-vector, @ttbrac{size}}
+
+@subsubheading Compound Type Specifier Arguments:
+
+@param{size}---a non-negative @term{fixnum},
+or the @term{symbol} @t{*}.
+
+@subsubheading Compound Type Specifier Description:
+
+This denotes the same @term{type} as the @term{type} @tt{(array bit (@param{size}))};
+that is, the set of @term{bit vectors} of size @param{size}.
+
+@subsubheading See Also:
+
+@ref{SharpsignStar, Section 2.4.8.4 (Sharpsign Asterisk)},
+@ref{PrintingBitVectors, Section 22.1.3.6 (Printing Bit Vectors)},
+@ref{RequiredSpecializedArrays, Section 15.1.2.2 (Required Kinds of Specialized Arrays)}
+
+@node simple-bit-vector
+@heading simple-bit-vector (Type)
+@syindex simple-bit-vector
+@cindex simple-bit-vector
+
+
+@subsubheading Supertypes:
+
+@code{simple-bit-vector},
+@code{bit-vector},
+@code{vector},
+@code{simple-array},
+@code{array},
+@code{sequence},
+@code{t}
+
+@subsubheading Description:
+
+The @term{type} of a @term{bit vector} that is not displaced
+to another @term{array}, has no @term{fill pointer}, and is
+not
+@term{expressly adjustable}
+is a
+@subtypeof{simple-bit-vector}.
+
+@subsubheading Compound Type Specifier Kind:
+
+Abbreviating.
+
+@subsubheading Compound Type Specifier Syntax:
+
+@Deftype{simple-bit-vector, @ttbrac{size}}
+
+@subsubheading Compound Type Specifier Arguments:
+
+@param{size}---a non-negative @term{fixnum},
+or the @term{symbol} @t{*}.
+@Default{the @term{symbol} @t{*}}
+
+@subsubheading Compound Type Specifier Description:
+
+This denotes the same type as the @term{type}
+@f{(simple-array bit (@param{size}))};
+that is, the set of @term{simple bit vectors} of size @param{size}.
+
+
+@node make-array
+@heading make-array (Function)
+@syindex make-array
+@cindex make-array
+
+
+@subsubheading Syntax:
+
+@DefunWithValuesNewline{make-array, dimensions @key{} @vtop{@hbox{element-type} @hbox{initial-element} @hbox{initial-contents} @hbox{adjustable} @hbox{fill-pointer} @hbox{displaced-to} @hbox{displaced-index-offset}}, new-array}
+
+@subsubheading Arguments and Values:
+
+@param{dimensions}---a @term{designator} for a @term{list} of @term{valid array dimensions}.
+
+@param{element-type}---a @term{type specifier}.
+@Default{@code{t}}
+
+@param{initial-element}---an @term{object}.
+
+@param{initial-contents}---an @term{object}.
+
+@param{adjustable}---a @term{generalized boolean}.
+@Default{@nil{}}
+
+@param{fill-pointer}---a @term{valid fill pointer} for the @term{array} to be created,
+or @code{t}@spc{}or @nil{}.
+@Default{@nil{}}
+
+@param{displaced-to}---an @term{array} or @nil{}.
+@Default{@nil{}}
+This option must not be supplied if either @param{initial-element}
+or @param{initial-contents} is supplied.
+
+@param{displaced-index-offset}---a @term{valid array row-major index}
+for @param{displaced-to}. @Default{@f{0}}
+This option must not be supplied unless a @term{non-nil} @param{displaced-to} is supplied.
+
+@param{new-array}---an @term{array}.
+
+@subsubheading Description:
+
+Creates and returns an @term{array} constructed of the most @term{specialized}
+@term{type} that can accommodate elements of @term{type} given by @param{element-type}.
+If @param{dimensions} is @nil{}@spc{}then a zero-dimensional @term{array} is created.
+
+@param{Dimensions} represents the dimensionality of the new @term{array}.
+
+@param{element-type} indicates the @term{type} of the elements intended to be stored
+in the @param{new-array}.  The @param{new-array} can actually store any @term{objects}
+of the @term{type} which results from @term{upgrading} @param{element-type};
+see @ref{ArrayUpgrading, Section 15.1.2.1 (Array Upgrading)}.
+
+If @param{initial-element} is supplied,
+it is used to initialize each @term{element} of @param{new-array}.
+If @param{initial-element} is supplied,
+it must be of the @term{type} given by @param{element-type}.
+@param{initial-element} cannot be supplied if either the @kwd{initial-contents} option
+is supplied or @param{displaced-to} is @term{non-nil}.
+If @param{initial-element} is not supplied,
+the consequences of later reading an uninitialized @term{element} of @param{new-array}
+are undefined
+unless either @param{initial-contents} is supplied
+or @param{displaced-to} is @term{non-nil}.
+
+@param{initial-contents} is used to initialize the contents of @term{array}.
+For example:
+
+@lisp
+ (make-array '(4 2 3) :initial-contents
+             '(((a b c) (1 2 3))
+              ((d e f) (3 1 2))
+              ((g h i) (2 3 1))
+              ((j k l) (0 0 0))))
+@end lisp
+
+
+@param{initial-contents} is composed of a nested structure of @term{sequences}.
+The numbers of levels in the structure must equal the rank of @term{array}.
+Each leaf of the nested structure must be of the @term{type} given by @param{element-type}.
+If @term{array} is zero-dimensional, then @param{initial-contents} specifies the single
+@term{element}.  Otherwise, @param{initial-contents} must be a @term{sequence}
+whose length is equal to the first dimension; each element must be a nested
+structure for an @term{array} whose dimensions are the remaining dimensions,
+and so on.
+@param{Initial-contents} cannot be supplied if either
+@param{initial-element} is supplied
+or @param{displaced-to} is @term{non-nil}.
+If @param{initial-contents} is not supplied,
+the consequences of later reading an uninitialized @term{element} of @param{new-array}
+are undefined
+unless either @param{initial-element} is supplied
+or @param{displaced-to} is @term{non-nil}.
+
+If @param{adjustable} is @term{non-nil},
+the array is @term{expressly adjustable}
+(and so @term{actually adjustable});
+otherwise, the array is not @term{expressly adjustable}
+(and it is @term{implementation-dependent} whether
+the array is @term{actually adjustable}).
+
+If @param{fill-pointer} is @term{non-nil},
+the @term{array} must be one-dimensional;
+that is, the @term{array} must be a @term{vector}.
+If @param{fill-pointer} is @code{t},
+the length of the @term{vector} is used to initialize the @term{fill pointer}.
+If @param{fill-pointer} is an @term{integer},
+it becomes the initial @term{fill pointer} for the @term{vector}.
+
+If @param{displaced-to} is @term{non-nil},
+@code{make-array} will create a @term{displaced array}
+and @param{displaced-to} is the @term{target} of that @term{displaced array}.
+In that case, the consequences are undefined if the @term{actual array element type} of
+@param{displaced-to} is not @term{type equivalent} to the @term{actual array element type}
+of the @term{array} being created.
+If @param{displaced-to} is @nil{}, the @term{array} is not a @term{displaced array}.
+
+The @param{displaced-index-offset} is made to be the index offset of the @term{array}.
+When an array A is given as
+@thekeyarg{displaced-to} to @code{make-array}
+when creating array B,
+then array B is said to be displaced to array A.  The
+total number of elements in an @term{array},
+called the total size of the @term{array},
+is calculated as the product of all the dimensions.
+It is required that the total size of A be no smaller than the sum
+of the total size of B plus the offset @f{n} supplied by
+the @param{displaced-index-offset}.
+The effect of displacing is that array B does not have any
+elements of its own, but instead maps @term{accesses} to itself into
+@term{accesses} to array A.  The mapping treats both @term{arrays} as if they
+were one-dimensional by taking the elements in row-major order,
+and then maps an @term{access} to element @f{k} of array B to an @term{access} to element
+@f{k}+@f{n} of array A.
+
+If @code{make-array} is called with @param{adjustable}, @param{fill-pointer},
+and @param{displaced-to} each @nil{},
+then the result is a @term{simple array}.
+If @code{make-array} is called with one or more of @param{adjustable},
+@param{fill-pointer}, or @param{displaced-to} being @term{true}, whether the
+resulting @term{array} is a @term{simple array} is @term{implementation-dependent}.
+
+When an array A is given as @thekeyarg{displaced-to} to
+@code{make-array} when creating array B, then array B is said to
+be displaced to array A.  The total number of elements in an @term{array},
+called the total size of the @term{array}, is calculated as the product
+of all the dimensions.
+The consequences are unspecified if
+the total size of A is smaller than the sum
+of the total size of B plus the offset @f{n} supplied by
+the @param{displaced-index-offset}.
+The effect of displacing is that array B does not have any
+elements of its own, but instead maps @term{accesses} to itself into
+@term{accesses} to array A.  The mapping treats both @term{arrays} as if they
+were one-dimensional by taking the elements in row-major order,
+and then maps an @term{access} to element @f{k} of array B to an @term{access}
+to @term{element} @f{k}+@f{n} of array A.
+
+@subsubheading Examples:
+@lisp
+
+ (make-array 5) ;; Creates a one-dimensional array of five elements.
+ (make-array '(3 4) :element-type '(mod 16)) ;; Creates a
+                ;;two-dimensional array, 3 by 4, with four-bit elements.
+ (make-array 5 :element-type 'single-float) ;; Creates an array of single-floats.
+@end lisp
+
+
+@lisp
+ (make-array nil :initial-element nil) @EV{} #0ANIL
+ (make-array 4 :initial-element nil) @EV{} #(NIL NIL NIL NIL)
+ (make-array '(2 4)
+              :element-type '(unsigned-byte 2)
+              :initial-contents '((0 1 2 3) (3 2 1 0)))
+@EV{} #2A((0 1 2 3) (3 2 1 0))
+ (make-array 6
+              :element-type 'character
+              :initial-element #@bsl{}a
+              :fill-pointer 3) @EV{} "aaa"
+@end lisp
+
+
+The following is an example of making a @term{displaced array}.
+
+@lisp
+ (setq a (make-array '(4 3)))
+@EV{} #<ARRAY 4x3 simple 32546632>
+ (dotimes (i 4)
+   (dotimes (j 3)
+     (setf (aref a i j) (list i 'x j '= (* i j)))))
+@EV{} NIL
+ (setq b (make-array 8 :displaced-to a
+                       :displaced-index-offset 2))
+@EV{} #<ARRAY 8 indirect 32550757>
+ (dotimes (i 8)
+   (print (list i (aref b i))))
+@OUT{} (0 (0 X 2 = 0))
+@OUT{} (1 (1 X 0 = 0))
+@OUT{} (2 (1 X 1 = 1))
+@OUT{} (3 (1 X 2 = 2))
+@OUT{} (4 (2 X 0 = 0))
+@OUT{} (5 (2 X 1 = 2))
+@OUT{} (6 (2 X 2 = 4))
+@OUT{} (7 (3 X 0 = 0))
+@EV{} NIL
+@end lisp
+
+The last example depends on the fact that @term{arrays} are, in effect,
+stored in row-major order.
+
+@lisp
+ (setq a1 (make-array 50))
+@EV{} #<ARRAY 50 simple 32562043>
+ (setq b1 (make-array 20 :displaced-to a1 :displaced-index-offset 10))
+@EV{} #<ARRAY 20 indirect 32563346>
+ (length b1) @EV{} 20
+
+ (setq a2 (make-array 50 :fill-pointer 10))
+@EV{} #<ARRAY 50 fill-pointer 10 46100216>
+ (setq b2 (make-array 20 :displaced-to a2 :displaced-index-offset 10))
+@EV{} #<ARRAY 20 indirect 46104010>
+ (length a2) @EV{} 10
+ (length b2) @EV{} 20
+
+ (setq a3 (make-array 50 :fill-pointer 10))
+@EV{} #<ARRAY 50 fill-pointer 10 46105663>
+ (setq b3 (make-array 20 :displaced-to a3 :displaced-index-offset 10
+                         :fill-pointer 5))
+@EV{} #<ARRAY 20 indirect, fill-pointer 5 46107432>
+ (length a3) @EV{} 10
+ (length b3) @EV{} 5
+@end lisp
+
+
+
+@subsubheading See Also:
+
+@ref{adjustable-array-p},
+@ref{aref},
+@ref{arrayp},
+@ref{array-element-type},
+@ref{array-rank-limit},
+@ref{array-dimension-limit},
+@ref{fill-pointer},
+@ref{upgraded-array-element-type}
+
+@subsubheading Notes:
+
+There is no specified way to create an @term{array}
+for which @code{adjustable-array-p} definitely
+returns @term{false}.
+There is no specified way to create an @term{array}
+that is not a @term{simple array}.
+
+
+@node adjust-array
+@heading adjust-array (Function)
+@syindex adjust-array
+@cindex adjust-array
+
+
+@subsubheading Syntax:
+
+@DefunWithValuesNewline{adjust-array, array new-dimensions @key{} @vtop{@hbox{element-type} @hbox{initial-element} @hbox{initial-contents} @hbox{fill-pointer} @hbox{displaced-to} @hbox{displaced-index-offset}}, adjusted-array}
+
+@subsubheading Arguments and Values:
+
+@param{array}---an @term{array}.
+
+@param{new-dimensions}---a @term{valid array dimension}
+or a @term{list} of @term{valid array dimensions}.
+
+@param{element-type}---a @term{type specifier}.
+
+@param{initial-element}---an @term{object}.
+@param{Initial-element} must not be supplied if either
+@param{initial-contents} or @param{displaced-to} is supplied.
+
+@param{initial-contents}---an @term{object}.
+If @term{array} has rank greater than zero, then @param{initial-contents}
+is composed of nested @term{sequences}, the depth of which must equal
+the rank of @param{array}.  Otherwise, @term{array} is zero-dimensional and
+@param{initial-contents} supplies the single element.
+@param{initial-contents} must not be supplied if either
+@param{initial-element} or @param{displaced-to} is given.
+
+@param{fill-pointer}---a @term{valid fill pointer} for the
+@term{array} to be created, or @code{t}, or @nil{}.
+@Default{@nil{}}
+
+@param{displaced-to}---an @term{array} or @nil{}.
+@param{initial-elements} and @param{initial-contents} must not be supplied
+if @param{displaced-to} is supplied.
+
+@param{displaced-index-offset}---an @objectoftype{(fixnum 0 @i{n})}
+where @i{n} is @tt{(array-total-size @param{displaced-to})}.
+@param{displaced-index-offset} may be supplied only if @param{displaced-to} is supplied.
+
+@param{adjusted-array}---an @term{array}.
+
+@subsubheading Description:
+
+@code{adjust-array} changes the dimensions or elements of @param{array}.
+The result is an @term{array} of the same @term{type} and rank as @param{array},
+that is either the modified @param{array},
+or a newly created @term{array} to which
+@param{array} can be displaced, and that has
+the given @param{new-dimensions}.
+
+@param{New-dimensions} specify the size of each @term{dimension} of @param{array}.
+
+@param{Element-type} specifies the @term{type} of the @term{elements}
+of the resulting @term{array}.  If @param{element-type} is supplied,
+the consequences are unspecified if
+the @term{upgraded array element type} of @param{element-type}
+is not the same as the @term{actual array element type} of @param{array}.
+
+If @param{initial-contents} is supplied, it is treated as for
+@code{make-array}.  In this case none of the original contents of
+@param{array} appears in the resulting @term{array}.
+
+If @param{fill-pointer} is an @term{integer},
+it becomes the @term{fill pointer} for the resulting @term{array}.
+If @param{fill-pointer} is the symbol @code{t},
+it indicates that the size of the resulting @term{array}
+should be used as the @term{fill pointer}.
+If @param{fill-pointer} is @nil{},
+it indicates that the @term{fill pointer} should be left as it is.
+
+If @param{displaced-to}
+@term{non-nil}, a @term{displaced array}
+is created. The resulting @term{array} shares its contents with the @term{array} given by
+@param{displaced-to}.
+The resulting @term{array} cannot contain more elements than the @term{array}
+it is displaced to.
+If @param{displaced-to} is not supplied or @nil{},
+the resulting @term{array} is not a @term{displaced array}.
+If array @mat{A} is created displaced to array @mat{B} and subsequently
+array @mat{B} is given to @code{adjust-array}, array @mat{A} will still be
+displaced to array @mat{B}.
+Although @param{array} might be a @term{displaced array},
+the resulting @term{array} is not a @term{displaced array} unless
+@param{displaced-to} is supplied and not @nil{}.
+The interaction between @code{adjust-array} and
+displaced @term{arrays}
+is as follows given three @term{arrays}, @tt{A}, @tt{B}, and@tie{}@tt{C}:
+
+
+@table @asis
+@item @id{@tt{A} is not displaced before or after the call}
+
+
+@lisp
+ (adjust-array A ...)
+@end lisp
+
+
+The dimensions of @tt{A} are altered, and the
+contents rearranged as appropriate.
+Additional elements of @tt{A} are taken from
+@param{initial-element}.
+The use of @param{initial-contents} causes all old contents to be
+discarded.
+
+@item @id{@tt{A} is not displaced before, but is displaced to  @tt{C} after the call}
+
+
+@lisp
+ (adjust-array A ... :displaced-to C)
+@end lisp
+
+
+None of the original contents of @tt{A} appears in
+@tt{A} afterwards; @tt{A} now contains
+the contents of @tt{C}, without any rearrangement of @tt{C}.
+
+@item @id{@tt{A} is displaced to @tt{B}  before the call, and is displaced to @tt{C} after  the call}
+
+
+@lisp
+ (adjust-array A ... :displaced-to B)
+ (adjust-array A ... :displaced-to C)
+@end lisp
+
+
+@tt{B} and @tt{C} might be the same. The contents of @tt{B} do not appear in
+@tt{A} afterward unless such contents also happen to be in @tt{C}  If
+@param{displaced-index-offset}
+is not supplied in the @code{adjust-array} call, it defaults
+to zero; the old offset into @tt{B} is not retained.
+
+@item @id{@tt{A} is displaced to @tt{B} before the call, but not displaced afterward.}
+
+
+@lisp
+ (adjust-array A ... :displaced-to B)
+ (adjust-array A ... :displaced-to nil)
+@end lisp
+
+@tt{A} gets a
+new ``data region,'' and contents of @tt{B} are copied into it as appropriate to
+maintain the existing old contents; additional elements of @tt{A}
+are taken from
+@param{initial-element} if supplied.  However,
+the use of @param{initial-contents} causes all old contents
+to be discarded.
+@end table
+
+
+If @param{displaced-index-offset} is supplied,
+it specifies the offset
+of the resulting @term{array} from the beginning of
+the @term{array} that it is displaced to.
+If @param{displaced-index-offset} is not supplied, the offset is@tie{}0.
+The size of the resulting @term{array} plus the
+offset value cannot exceed the size of
+the @term{array} that it is displaced to.
+
+If only @param{new-dimensions}
+and an @param{initial-element} argument are supplied,
+those elements of @param{array} that
+are still in bounds appear in the resulting @term{array}. The elements of
+the resulting @term{array} that are not in the bounds of
+@term{array} are initialized
+to @param{initial-element}; if @param{initial-element} is not provided,
+the consequences of later reading any such new @term{element} of @param{new-array}
+before it has been initialized
+are undefined.
+
+If @param{initial-contents} or @param{displaced-to} is supplied,
+then none of the original contents of @param{array} appears in the new @term{array}.
+
+
+The consequences are unspecified if @param{array} is adjusted
+to a size smaller than its @term{fill pointer} without supplying
+the @param{fill-pointer} argument so that its @term{fill-pointer}
+is properly adjusted in the process.
+
+If @tt{A} is displaced to @tt{B}, the consequences are unspecified
+if @tt{B} is adjusted in such a way that it no longer has enough elements
+to satisfy @tt{A}.
+
+
+If @code{adjust-array} is applied to an @term{array} that is @term{actually adjustable},
+the @term{array} returned is @term{identical} to @param{array}.
+If the @term{array} returned by @code{adjust-array}
+is @term{distinct} from @param{array}, then the argument @param{array} is unchanged.
+
+Note that if an @term{array} @mat{A} is displaced to another @term{array} @mat{B},
+and @mat{B} is displaced to another @term{array} @mat{C}, and @mat{B} is altered by
+@code{adjust-array}, @mat{A} must now refer to the adjust contents of @mat{B}.
+This means that an implementation cannot collapse the chain to make @mat{A}
+refer to @mat{C} directly and forget that the chain of reference passes through
+@mat{B}.  However, caching techniques are permitted as long as they preserve the
+semantics specified here.
+
+@subsubheading Examples:
+
+@lisp
+ (adjustable-array-p
+  (setq ada (adjust-array
+              (make-array '(2 3)
+                          :adjustable t
+                          :initial-contents '((a b c) (1 2 3)))
+              '(4 6)))) @EV{} T
+ (array-dimensions ada) @EV{} (4 6)
+ (aref ada 1 1) @EV{} 2
+ (setq beta (make-array '(2 3) :adjustable t))
+@EV{} #2A((NIL NIL NIL) (NIL NIL NIL))
+ (adjust-array beta '(4 6) :displaced-to ada)
+@EV{} #2A((A B C NIL NIL NIL)
+       (1 2 3 NIL NIL NIL)
+       (NIL NIL NIL NIL NIL NIL)
+       (NIL NIL NIL NIL NIL NIL))
+ (array-dimensions beta) @EV{} (4 6)
+ (aref beta 1 1) @EV{} 2
+@end lisp
+
+
+Suppose that the 4-by-4 array in @f{m} looks like this:
+
+@lisp
+#2A(( alpha     beta      gamma     delta )
+    ( epsilon   zeta      eta       theta )
+    ( iota      kappa     lambda    mu    )
+    ( nu        xi        omicron   pi    ))
+@end lisp
+
+Then the result of
+
+@lisp
+ (adjust-array m '(3 5) :initial-element 'baz)
+@end lisp
+
+is a 3-by-5 array with contents
+
+@lisp
+#2A(( alpha     beta      gamma     delta     baz )
+    ( epsilon   zeta      eta       theta     baz )
+    ( iota      kappa     lambda    mu        baz ))
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+An error @oftype{error} is signaled if @param{fill-pointer} is supplied
+and @term{non-nil} but @param{array} has no @term{fill pointer}.
+
+@subsubheading See Also:
+
+@ref{adjustable-array-p},    @ref{make-array},
+@ref{array-dimension-limit}, @ref{array-total-size-limit},
+@ref{array}
+
+
+@node adjustable-array-p
+@heading adjustable-array-p (Function)
+@syindex adjustable-array-p
+@cindex adjustable-array-p
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{adjustable-array-p, array, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{array}---an @term{array}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+
+Returns true if and only if @code{adjust-array} could return a @term{value}
+which is @term{identical} to @param{array} when given that @term{array} as its
+first @term{argument}.
+
+@subsubheading Examples:
+
+@lisp
+ (adjustable-array-p
+   (make-array 5
+               :element-type 'character
+               :adjustable t
+               :fill-pointer 3)) @EV{} @term{true}
+ (adjustable-array-p (make-array 4)) @EV{} @term{implementation-dependent}
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+Should signal an error @oftype{type-error} if its argument is not an @term{array}.
+
+@subsubheading See Also:
+
+@ref{adjust-array}, @ref{make-array}
+
+
+@node aref
+@heading aref (Accessor)
+@syindex aref
+@cindex aref
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{aref, array @rest{} subscripts, element}
+@Defsetf{aref, array @rest{} subscripts, new-element}
+
+@subsubheading Arguments and Values:
+
+@param{array}---an @term{array}.
+
+@param{subscripts}---a @term{list} of @term{valid array indices} for the @param{array}.
+
+@param{element}, @param{new-element}---an @term{object}.
+
+@subsubheading Description:
+
+@term{Accesses} the @param{array} @term{element} specified by the @param{subscripts}.
+If no @param{subscripts} are supplied and @param{array} is zero rank,
+@code{aref} @term{accesses} the sole element of @param{array}.
+
+@code{aref} ignores @term{fill pointers}.
+It is permissible to use @code{aref}
+to @term{access} any @param{array} @term{element},
+whether @term{active} or not.
+
+@subsubheading Examples:
+
+If the variable @f{foo} names a 3-by-5 array,
+then the first index could be 0, 1, or 2, and then second index
+could be 0, 1, 2, 3, or 4.  The array elements can be referred to by using
+@thefunction{aref}; for example, @f{(aref foo 2 1)}
+refers to element (2, 1) of the array.
+
+@lisp
+ (aref (setq alpha (make-array 4)) 3) @EV{} @term{implementation-dependent}
+ (setf (aref alpha 3) 'sirens) @EV{} SIRENS
+ (aref alpha 3) @EV{} SIRENS
+ (aref (setq beta (make-array '(2 4)
+                    :element-type '(unsigned-byte 2)
+                    :initial-contents '((0 1 2 3) (3 2 1 0))))
+        1 2) @EV{} 1
+ (setq gamma '(0 2))
+ (apply #'aref beta gamma) @EV{} 2
+ (setf (apply #'aref beta gamma) 3) @EV{} 3
+ (apply #'aref beta gamma) @EV{} 3
+ (aref beta 0 2) @EV{} 3
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{bit},
+@ref{char},
+@ref{elt},
+@ref{row-major-aref},
+@ref{svref},
+@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)}
+
+
+@node array-dimension
+@heading array-dimension (Function)
+@syindex array-dimension
+@cindex array-dimension
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{array-dimension, array axis-number, dimension}
+
+@subsubheading Arguments and Values:
+
+@param{array}---an @term{array}.
+
+@param{axis-number}---an @term{integer} greater than or equal to zero
+and less than the @term{rank} of the @param{array}.
+
+@param{dimension}---a non-negative @term{integer}.
+
+@subsubheading Description:
+
+@code{array-dimension} returns the @param{axis-number}
+@term{dimension}@sub1{} of @param{array}.
+(Any @term{fill pointer} is ignored.)
+
+@subsubheading Examples:
+
+@lisp
+ (array-dimension (make-array 4) 0) @EV{} 4
+ (array-dimension (make-array '(2 3)) 1) @EV{} 3
+@end lisp
+
+
+@subsubheading Affected By:
+None.
+@subsubheading See Also:
+
+@ref{array-dimensions}, @ref{length}
+
+@subsubheading Notes:
+@lisp
+ (array-dimension array n) @EQ{} (nth n (array-dimensions array))
+@end lisp
+
+
+@node array-dimensions
+@heading array-dimensions (Function)
+@syindex array-dimensions
+@cindex array-dimensions
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{array-dimensions, array, dimensions}
+
+@subsubheading Arguments and Values:
+
+@param{array}---an @term{array}.
+
+@param{dimensions}---a @term{list} of @term{integers}.
+
+@subsubheading Description:
+
+Returns a @term{list} of the @term{dimensions} of @param{array}.
+(If @param{array} is a @term{vector} with a @term{fill pointer},
+that @term{fill pointer} is ignored.)
+
+@subsubheading Examples:
+
+@lisp
+ (array-dimensions (make-array 4)) @EV{} (4)
+ (array-dimensions (make-array '(2 3))) @EV{} (2 3)
+ (array-dimensions (make-array 4 :fill-pointer 2)) @EV{} (4)
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+Should signal an error @oftype{type-error} if its argument is not an @term{array}.
+
+@subsubheading See Also:
+
+@ref{array-dimension}
+
+
+@node array-element-type
+@heading array-element-type (Function)
+@syindex array-element-type
+@cindex array-element-type
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{array-element-type, array, typespec}
+
+@subsubheading Arguments and Values:
+
+@param{array}---an @term{array}.
+
+@param{typespec}---a @term{type specifier}.
+
+@subsubheading Description:
+
+Returns a @term{type specifier} which represents the @term{actual array element type}
+of the array, which is the set of @term{objects} that such an @param{array} can hold.
+(Because of @term{array} @term{upgrading}, this @term{type specifier} can in
+some cases denote a @term{supertype} of the @term{expressed array element type}
+of the @param{array}.)
+
+@subsubheading Examples:
+
+@lisp
+ (array-element-type (make-array 4)) @EV{} T
+ (array-element-type (make-array 12 :element-type '(unsigned-byte 8)))
+@EV{} @term{implementation-dependent}
+ (array-element-type (make-array 12 :element-type '(unsigned-byte 5)))
+@EV{} @term{implementation-dependent}
+@end lisp
+
+
+@lisp
+ (array-element-type (make-array 5 :element-type '(mod 5)))
+@end lisp
+
+could be @f{(mod 5)}, @f{(mod 8)}, @f{fixnum}, @f{t}, or any other
+type of which @f{(mod 5)} is a @term{subtype}.
+
+@subsubheading Affected By:
+
+The @term{implementation}.
+
+@subsubheading Exceptional Situations:
+
+Should signal an error @oftype{type-error} if its argument is not an @term{array}.
+
+@subsubheading See Also:
+
+@ref{array},
+@ref{make-array},
+@ref{subtypep},
+@ref{upgraded-array-element-type}
+
+
+@node array-has-fill-pointer-p
+@heading array-has-fill-pointer-p (Function)
+@syindex array-has-fill-pointer-p
+@cindex array-has-fill-pointer-p
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{array-has-fill-pointer-p, array, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{array}---an @term{array}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+Returns @term{true} if @param{array} has a @term{fill pointer};
+otherwise returns @term{false}.
+
+@subsubheading Examples:
+
+@lisp
+ (array-has-fill-pointer-p (make-array 4)) @EV{} @term{implementation-dependent}
+ (array-has-fill-pointer-p (make-array '(2 3))) @EV{} @term{false}
+ (array-has-fill-pointer-p
+   (make-array 8
+               :fill-pointer 2
+               :initial-element 'filler)) @EV{} @term{true}
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+Should signal an error @oftype{type-error} if its argument is not an @term{array}.
+
+@subsubheading See Also:
+
+@ref{make-array}, @ref{fill-pointer}
+
+@subsubheading Notes:
+
+Since @term{arrays} of @term{rank} other than one cannot have a @term{fill pointer},
+@code{array-has-fill-pointer-p} always returns @nil{}@spc{}when its argument
+is such an array.
+
+
+@node array-displacement
+@heading array-displacement (Function)
+@syindex array-displacement
+@cindex array-displacement
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{array-displacement, array, displaced-to\, displaced-index-offset}
+
+@subsubheading Arguments and Values:
+
+@param{array}---an @term{array}.
+
+@param{displaced-to}---an @param{array} or @nil{}.
+
+@param{displaced-index-offset}---a non-negative @term{fixnum}.
+
+@subsubheading Description:
+
+If the @param{array} is a @term{displaced array},
+returns the @term{values} of the @kwd{displaced-to} and @kwd{displaced-index-offset}
+options
+for the @term{array} (see the @term{functions} @ref{make-array} and @code{adjust-array}).
+If the @param{array} is not a @term{displaced array},
+@nil{}@spc{}and @f{0} are returned.
+
+If @code{array-displacement} is called on an @param{array}
+for which a @term{non-nil} @term{object} was provided as the
+@kwd{displaced-to} @term{argument} to @code{make-array}
+or @code{adjust-array}, it must return that @term{object}
+as its first value. It is @term{implementation-dependent}
+whether @code{array-displacement} returns a @term{non-nil}
+@term{primary value} for any other @param{array}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq a1 (make-array 5)) @EV{} #<ARRAY 5 simple 46115576>
+ (setq a2 (make-array 4 :displaced-to a1
+                        :displaced-index-offset 1))
+@EV{} #<ARRAY 4 indirect 46117134>
+ (array-displacement a2)
+@EV{} #<ARRAY 5 simple 46115576>, 1
+ (setq a3 (make-array 2 :displaced-to a2
+                        :displaced-index-offset 2))
+@EV{} #<ARRAY 2 indirect 46122527>
+ (array-displacement a3)
+@EV{} #<ARRAY 4 indirect 46117134>, 2
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{array, an @term{array}}
+
+@subsubheading See Also:
+
+@ref{make-array}
+
+
+
+@node array-in-bounds-p
+@heading array-in-bounds-p (Function)
+@syindex array-in-bounds-p
+@cindex array-in-bounds-p
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{array-in-bounds-p, array @rest{} subscripts, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{array}---an @term{array}.
+
+@param{subscripts}---a list of @term{integers}
+of length equal to the @term{rank} of the @term{array}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+Returns @term{true} if the @param{subscripts} are all in bounds for @param{array};
+otherwise returns @term{false}.
+(If @param{array} is a @term{vector} with a @term{fill pointer},
+that @term{fill pointer} is ignored.)
+
+@subsubheading Examples:
+@lisp
+ (setq a (make-array '(7 11) :element-type 'string-char))
+ (array-in-bounds-p a 0  0) @EV{} @term{true}
+ (array-in-bounds-p a 6 10) @EV{} @term{true}
+ (array-in-bounds-p a 0 -1) @EV{} @term{false}
+ (array-in-bounds-p a 0 11) @EV{} @term{false}
+ (array-in-bounds-p a 7  0) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{array-dimensions}
+
+@subsubheading Notes:
+@lisp
+ (array-in-bounds-p array subscripts)
+ @EQ{} (and (not (some #'minusp (list subscripts)))
+         (every #'< (list subscripts) (array-dimensions array)))
+@end lisp
+
+
+@node array-rank
+@heading array-rank (Function)
+@syindex array-rank
+@cindex array-rank
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{array-rank, array, rank}
+
+@subsubheading Arguments and Values:
+
+@param{array}---an @term{array}.
+
+@param{rank}---a non-negative @term{integer}.
+
+@subsubheading Description:
+
+Returns the number of @term{dimensions} of @param{array}.
+
+@subsubheading Examples:
+
+@lisp
+ (array-rank (make-array '())) @EV{} 0
+ (array-rank (make-array 4)) @EV{} 1
+ (array-rank (make-array '(4))) @EV{} 1
+ (array-rank (make-array '(2 3))) @EV{} 2
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+Should signal an error @oftype{type-error} if its argument is not an @term{array}.
+
+@subsubheading See Also:
+
+@ref{array-rank-limit}, @ref{make-array}
+
+
+@node array-row-major-index
+@heading array-row-major-index (Function)
+@syindex array-row-major-index
+@cindex array-row-major-index
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{array-row-major-index, array @rest{} subscripts, index}
+
+@subsubheading Arguments and Values:
+
+@param{array}---an @term{array}.
+
+@param{subscripts}---a @term{list} of @term{valid array indices} for the @param{array}.
+
+@param{index}---a @term{valid array row-major index} for the @param{array}.
+
+@subsubheading Description:
+
+Computes the position according to the row-major ordering of @param{array}
+for the element that is specified by @param{subscripts}, and returns the
+offset of the element in the computed position from the beginning of @param{array}.
+
+For a one-dimensional @param{array},
+the result of @code{array-row-major-index}
+equals @param{subscript}.
+
+@code{array-row-major-index} ignores @term{fill pointers}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq a (make-array '(4 7) :element-type '(unsigned-byte 8)))
+ (array-row-major-index a 1 2) @EV{} 9
+ (array-row-major-index
+    (make-array '(2 3 4)
+                :element-type '(unsigned-byte 8)
+                :displaced-to a
+                :displaced-index-offset 4)
+    0 2 1) @EV{} 9
+@end lisp
+
+
+@subsubheading Notes:
+
+A possible definition of @code{array-row-major-index},
+with no error-checking, is
+
+@lisp
+ (defun array-row-major-index (a &rest subscripts)
+   (apply #'+ (maplist #'(lambda (x y)
+                            (* (car x) (apply #'* (cdr y))))
+                       subscripts
+                       (array-dimensions a))))
+@end lisp
+
+
+
+@node array-total-size
+@heading array-total-size (Function)
+@syindex array-total-size
+@cindex array-total-size
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{array-total-size, array, size}
+
+@subsubheading Arguments and Values:
+
+@param{array}---an @term{array}.
+
+@param{size}---a non-negative @term{integer}.
+
+@subsubheading Description:
+
+Returns the @term{array total size} of the @param{array}.
+
+@subsubheading Examples:
+
+@lisp
+ (array-total-size (make-array 4)) @EV{} 4
+ (array-total-size (make-array 4 :fill-pointer 2)) @EV{} 4
+ (array-total-size (make-array 0)) @EV{} 0
+ (array-total-size (make-array '(4 2))) @EV{} 8
+ (array-total-size (make-array '(4 0))) @EV{} 0
+ (array-total-size (make-array '())) @EV{} 1
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+Should signal an error @oftype{type-error} if its argument is not an @term{array}.
+
+@subsubheading See Also:
+
+@ref{make-array}, @ref{array-dimensions}
+
+@subsubheading Notes:
+
+If the @param{array} is a @term{vector} with a @term{fill pointer},
+the @term{fill pointer} is ignored when calculating the @term{array total size}.
+
+Since the product of no arguments is one, the @term{array total size} of a
+zero-dimensional @term{array} is one.
+
+@lisp
+ (array-total-size x)
+    @EQ{} (apply #'* (array-dimensions x))
+    @EQ{} (reduce #'* (array-dimensions x))
+@end lisp
+
+
+
+@node arrayp
+@heading arrayp (Function)
+@syindex arrayp
+@cindex arrayp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{arrayp, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{object, array}
+
+@subsubheading Examples:
+
+@lisp
+ (arrayp (make-array '(2 3 4) :adjustable t)) @EV{} @term{true}
+ (arrayp (make-array 6)) @EV{} @term{true}
+ (arrayp #*1011) @EV{} @term{true}
+ (arrayp "hi") @EV{} @term{true}
+ (arrayp 'hi) @EV{} @term{false}
+ (arrayp 12) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{typep}
+
+@subsubheading Notes:
+
+@lisp
+ (arrayp @param{object}) @EQ{} (typep @param{object} 'array)
+@end lisp
+
+
+
+@node fill-pointer
+@heading fill-pointer (Accessor)
+@syindex fill-pointer
+@cindex fill-pointer
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{fill-pointer, vector, fill-pointer}
+@Defsetf{fill-pointer, vector, new-fill-pointer}
+
+@subsubheading Arguments and Values:
+
+@param{vector}---a @term{vector} with a @term{fill pointer}.
+
+@param{fill-pointer}, @param{new-fill-pointer}---a @term{valid fill pointer}
+for the @param{vector}.
+
+@subsubheading Description:
+
+@term{Accesses} the @term{fill pointer} of @param{vector}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq a (make-array 8 :fill-pointer 4)) @EV{} #(NIL NIL NIL NIL)
+ (fill-pointer a) @EV{} 4
+ (dotimes (i (length a)) (setf (aref a i) (* i i))) @EV{} NIL
+ a @EV{} #(0 1 4 9)
+ (setf (fill-pointer a) 3) @EV{} 3
+ (fill-pointer a) @EV{} 3
+ a @EV{} #(0 1 4)
+ (setf (fill-pointer a) 8) @EV{} 8
+ a @EV{} #(0 1 4 9 NIL NIL NIL NIL)
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{vector, a @term{vector} with a @term{fill pointer}}
+
+@subsubheading See Also:
+
+@ref{make-array}, @ref{length}
+
+@subsubheading Notes:
+
+There is no @term{operator} that will remove a @term{vector}'s @term{fill pointer}.
+
+
+@node row-major-aref
+@heading row-major-aref (Accessor)
+@syindex row-major-aref
+@cindex row-major-aref
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{row-major-aref, array index, element}
+@Defsetf{row-major-aref, array index, new-element}
+
+@subsubheading Arguments and Values:
+
+@param{array}---an @term{array}.
+
+@param{index}---a @term{valid array row-major index} for the @param{array}.
+
+@param{element}, @param{new-element}---an @term{object}.
+
+@subsubheading Description:
+
+Considers @term{array} as a @term{vector} by viewing its @term{elements}
+in row-major order, and returns the @term{element} of that @term{vector}
+which is referred to by the given @param{index}.
+
+@code{row-major-aref} is valid for use with @code{setf}.
+
+@subsubheading See Also:
+
+@ref{aref},
+@ref{array-row-major-index}
+
+@subsubheading Notes:
+
+@lisp
+ (row-major-aref array index) @EQ{}
+   (aref (make-array (array-total-size array)
+                     :displaced-to array
+                     :element-type (array-element-type array))
+         index)
+
+ (aref array i1 i2 ...) @EQ{}
+     (row-major-aref array (array-row-major-index array i1 i2))
+@end lisp
+
+
+
+
+@node upgraded-array-element-type
+@heading upgraded-array-element-type (Function)
+@syindex upgraded-array-element-type
+@cindex upgraded-array-element-type
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{upgraded-array-element-type, typespec @opt{} environment, upgraded-typespec}
+
+@subsubheading Arguments and Values:
+
+@param{typespec}---a @term{type specifier}.
+
+@param{environment}---an @term{environment} @term{object}.
+@Default{@nil{}, denoting the @term{null lexical environment}
+and the current @term{global environment}}
+
+@param{upgraded-typespec}---a @term{type specifier}.
+
+@subsubheading Description:
+
+Returns the @term{element type} of
+the most @term{specialized} @term{array} representation capable of
+holding items of the @term{type} denoted by @param{typespec}.
+
+The @param{typespec} is a @term{subtype} of
+(and possibly @term{type equivalent} to)
+the @param{upgraded-typespec}.
+
+If @param{typespec} is @code{bit},
+the result is @term{type equivalent} to @f{bit}.
+If @param{typespec} is @code{base-char},
+the result is @term{type equivalent} to @f{base-char}.
+If @param{typespec} is @code{character},
+the result is @term{type equivalent} to @f{character}.
+
+The purpose of @code{upgraded-array-element-type} is to reveal how
+an implementation does its @term{upgrading}.
+
+The @param{environment} is used to expand any @term{derived type specifiers}
+that are mentioned in the @param{typespec}.
+
+@subsubheading See Also:
+
+@ref{array-element-type},
+@ref{make-array}
+
+@subsubheading Notes:
+
+Except for storage allocation consequences and dealing correctly with the
+optional @param{environment} @term{argument},
+@code{upgraded-array-element-type} could be defined as:
+
+@lisp
+ (defun upgraded-array-element-type (type &optional environment)
+   (array-element-type (make-array 0 :element-type type)))
+@end lisp
+
+
+
+
+@node array-dimension-limit
+@heading array-dimension-limit (Constant Variable)
+@syindex array-dimension-limit
+@cindex array-dimension-limit
+
+
+@subsubheading Constant Value:
+
+A positive
+@term{fixnum},
+the exact magnitude of which is @term{implementation-dependent},
+but which is not less than @f{1024}.
+
+@subsubheading Description:
+
+The upper exclusive bound on each individual @term{dimension} of an @term{array}.
+
+@subsubheading See Also:
+
+@ref{make-array}
+
+
+@node array-rank-limit
+@heading array-rank-limit (Constant Variable)
+@syindex array-rank-limit
+@cindex array-rank-limit
+
+
+@subsubheading Constant Value:
+
+A positive
+@term{fixnum},
+the exact magnitude of which is @term{implementation-dependent},
+but which is not less than @f{8}.
+
+@subsubheading Description:
+
+The upper exclusive bound on the @term{rank} of an @term{array}.
+
+@subsubheading See Also:
+
+@ref{make-array}
+
+
+@node array-total-size-limit
+@heading array-total-size-limit (Constant Variable)
+@syindex array-total-size-limit
+@cindex array-total-size-limit
+
+
+@subsubheading Constant Value:
+
+A positive
+@term{fixnum},
+the exact magnitude of which is @term{implementation-dependent},
+but which is not less than @f{1024}.
+
+@subsubheading Description:
+
+The upper exclusive bound on the @term{array total size} of an @term{array}.
+
+The actual limit on the @term{array total size}
+imposed by the @term{implementation}
+might vary according the @term{element type} of the @term{array};
+in this case, the value of @code{array-total-size-limit}
+will be the smallest of these possible limits.
+
+@subsubheading See Also:
+
+@ref{make-array}, @ref{array-element-type}
+
+
+@node simple-vector-p
+@heading simple-vector-p (Function)
+@syindex simple-vector-p
+@cindex simple-vector-p
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{simple-vector-p, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{object, simple-vector}.
+
+@subsubheading Examples:
+
+@lisp
+ (simple-vector-p (make-array 6)) @EV{} @term{true}
+ (simple-vector-p "aaaaaa") @EV{} @term{false}
+ (simple-vector-p (make-array 6 :fill-pointer t)) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{simple-vector}
+
+@subsubheading Notes:
+
+@lisp
+ (simple-vector-p @param{object}) @EQ{} (typep @param{object} 'simple-vector)
+@end lisp
+
+
+
+@node svref
+@heading svref (Accessor)
+@syindex svref
+@cindex svref
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{svref, simple-vector index, element}
+@Defsetf{svref, simple-vector index, new-element}
+
+@subsubheading Arguments and Values:
+
+@param{simple-vector}---a @term{simple vector}.
+
+@param{index}---a @term{valid array index} for the @param{simple-vector}.
+
+@param{element}, @param{new-element}---an @term{object}
+(whose @term{type} is a @term{subtype}
+of the @term{array element type} of the @param{simple-vector}).
+
+@subsubheading Description:
+
+@term{Accesses} the @term{element} of @param{simple-vector} specified by @param{index}.
+
+@subsubheading Examples:
+
+@lisp
+ (simple-vector-p (setq v (vector 1 2 'sirens))) @EV{} @term{true}
+ (svref v 0) @EV{} 1
+ (svref v 2) @EV{} SIRENS
+ (setf (svref v 1) 'newcomer) @EV{} NEWCOMER
+ v @EV{} #(1 NEWCOMER SIRENS)
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{aref},
+@ref{sbit},
+@ref{schar},
+@ref{vector (Function)},
+@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)}
+
+@subsubheading Notes:
+
+@code{svref} is identical to @code{aref}
+except that it requires its first argument to be a @term{simple vector}.
+
+@lisp
+ (svref @param{v} @param{i}) @EQ{} (aref (the simple-vector @param{v}) @param{i})
+@end lisp
+
+
+
+@node vector (Function)
+@heading vector (Function)
+@syindex vector
+@cindex vector
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{vector, @rest{} objects, vector}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{vector}---a @term{vector} of @term{type} @f{(vector t @tt{*})}.
+
+@subsubheading Description:
+
+Creates a @term{fresh} @term{simple general vector} whose size
+corresponds to the number of @param{objects}.
+
+The @term{vector} is initialized to contain the @param{objects}.
+
+@subsubheading Examples:
+
+@lisp
+ (arrayp (setq v (vector 1 2 'sirens))) @EV{} @term{true}
+ (vectorp v) @EV{} @term{true}
+ (simple-vector-p v) @EV{} @term{true}
+ (length v) @EV{} 3
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{make-array}
+
+@subsubheading Notes:
+
+@code{vector} is analogous to @code{list}.
+
+@lisp
+ (vector a@ssso{} a@ssst{} ... a@sssn{})
+  @EQ{} (make-array (list @i{n}) :element-type t
+                          :initial-contents
+                            (list a@ssso{} a@ssst{} ... a@sssn{}))
+@end lisp
+
+
+@node vector-pop
+@heading vector-pop (Function)
+@syindex vector-pop
+@cindex vector-pop
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{vector-pop, vector, element}
+
+@subsubheading Arguments and Values:
+
+@param{vector}---a @term{vector} with a @term{fill pointer}.
+
+@param{element}---an @term{object}.
+
+@subsubheading Description:
+
+Decreases the @term{fill pointer} of @param{vector} by one,
+and retrieves the @term{element} of @param{vector} that is
+designated by the new @term{fill pointer}.
+
+@subsubheading Examples:
+
+@lisp
+ (vector-push (setq fable (list 'fable))
+              (setq fa (make-array 8
+                                   :fill-pointer 2
+                                   :initial-element 'sisyphus))) @EV{} 2
+ (fill-pointer fa) @EV{} 3
+ (eq (vector-pop fa) fable) @EV{} @term{true}
+ (vector-pop fa) @EV{} SISYPHUS
+ (fill-pointer fa) @EV{} 1
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The @term{fill pointer} is decreased by one.
+
+@subsubheading Affected By:
+
+The value of the @term{fill pointer}.
+
+@subsubheading Exceptional Situations:
+
+An error @oftype{type-error} is signaled if @param{vector} does not have a @term{fill pointer}.
+
+If the @term{fill pointer} is zero, @code{vector-pop} signals an error @oftype{error}.
+
+@subsubheading See Also:
+
+@ref{vector-push}, @ref{vector-push-extend}, @ref{fill-pointer}
+
+
+@node vector-push; vector-push-extend
+@heading vector-push, vector-push-extend (Function)
+@syindex vector-push
+@cindex vector-push
+@syindex vector-push-extend
+@cindex vector-push-extend
+@anchor{vector-push}
+@anchor{vector-push-extend}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{vector-push, new-element vector, new-index-p}
+
+@DefunWithValues{vector-push-extend, new-element vector @opt{} extension, new-index}
+
+@subsubheading Arguments and Values:
+
+@param{new-element}---an @term{object}.
+
+@param{vector}---a @term{vector} with a @term{fill pointer}.
+
+@param{extension}---a positive @term{integer}.
+@Default{@term{implementation-dependent}}
+
+@param{new-index-p}---a @term{valid array index} for @param{vector}, or @nil{}.
+
+@param{new-index}---a @term{valid array index} for @param{vector}.
+
+@subsubheading Description:
+
+@code{vector-push} and @code{vector-push-extend} store
+@param{new-element} in @param{vector}.
+@code{vector-push} attempts to store
+@param{new-element}
+in the element of @param{vector} designated by the @term{fill pointer},
+and to increase the @term{fill pointer} by one.  If the
+@f{(>= (fill-pointer @param{vector}) (array-dimension @param{vector} 0))},
+neither @param{vector} nor its @term{fill pointer} are affected.
+Otherwise, the store and increment take
+place and @code{vector-push}
+returns the former value of the @term{fill pointer}
+which is one less than the one it leaves in @param{vector}.
+
+@code{vector-push-extend} is just like @code{vector-push} except
+that if the @term{fill pointer} gets too large, @param{vector} is extended using
+@code{adjust-array} so that it can contain more elements.
+@param{Extension}
+is the minimum number of elements to be added to @param{vector} if it
+must be extended.
+
+@code{vector-push} and
+@code{vector-push-extend} return the index of @param{new-element} in @param{vector}.
+If @f{(>= (fill-pointer @param{vector}) (array-dimension @param{vector} 0))},
+@code{vector-push} returns @nil{}.
+
+@subsubheading Examples:
+
+@lisp
+ (vector-push (setq fable (list 'fable))
+              (setq fa (make-array 8
+                                   :fill-pointer 2
+                                   :initial-element 'first-one))) @EV{} 2
+ (fill-pointer fa) @EV{} 3
+ (eq (aref fa 2) fable) @EV{} @term{true}
+ (vector-push-extend #@bsl{}X
+                    (setq aa
+                          (make-array 5
+                                      :element-type 'character
+                                      :adjustable t
+                                      :fill-pointer 3))) @EV{} 3
+ (fill-pointer aa) @EV{} 4
+ (vector-push-extend #@bsl{}Y aa 4) @EV{} 4
+ (array-total-size aa) @EV{} at least 5
+ (vector-push-extend #@bsl{}Z aa 4) @EV{} 5
+ (array-total-size aa) @EV{} 9 ;(or more)
+@end lisp
+
+
+@subsubheading Affected By:
+The value of the @term{fill pointer}.
+
+How @param{vector} was created.
+
+@subsubheading Exceptional Situations:
+
+An error @oftype{error} is signaled by @code{vector-push-extend}
+if it tries to extend @param{vector} and @param{vector} is not @term{actually adjustable}.
+
+An error @oftype{error} is signaled if @param{vector} does not
+have a @term{fill pointer}.
+
+@subsubheading See Also:
+
+@ref{adjustable-array-p}, @ref{fill-pointer}, @ref{vector-pop}
+
+
+@node vectorp
+@heading vectorp (Function)
+@syindex vectorp
+@cindex vectorp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{vectorp, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{object, vector}
+
+@subsubheading Examples:
+
+@lisp
+ (vectorp "aaaaaa") @EV{} @term{true}
+ (vectorp (make-array 6 :fill-pointer t)) @EV{} @term{true}
+ (vectorp (make-array '(2 3 4))) @EV{} @term{false}
+ (vectorp #*11) @EV{} @term{true}
+ (vectorp #b11) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading Notes:
+@lisp
+ (vectorp @param{object}) @EQ{} (typep @param{object} 'vector)
+@end lisp
+
+
+
+@node bit; sbit
+@heading bit, sbit (Accessor)
+@syindex bit
+@cindex bit
+@syindex sbit
+@cindex sbit
+@anchor{bit}
+@anchor{sbit}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{bit, bit-array @rest{} subscripts, bit}
+@DefunWithValues{sbit, bit-array @rest{} subscripts, bit}
+
+
+
+@subsubheading Arguments and Values:
+
+@param{bit-array}---for @code{bit},  a @term{bit array};
+for @code{sbit}, a @term{simple bit array}.
+
+@param{subscripts}---a @term{list} of @term{valid array indices}
+for the @param{bit-array}.
+
+@param{bit}---a @term{bit}.
+
+@subsubheading Description:
+
+@code{bit} and @code{sbit} @term{access} the @param{bit-array}
+@term{element} specified by @param{subscripts}.
+
+These @term{functions} ignore the @term{fill pointer} when @term{accessing} @term{elements}.
+
+@subsubheading Examples:
+
+@lisp
+ (bit (setq ba (make-array 8
+                            :element-type 'bit
+                            :initial-element 1))
+       3) @EV{} 1
+ (setf (bit ba 3) 0) @EV{} 0
+ (bit ba 3) @EV{} 0
+ (sbit ba 5) @EV{} 1
+ (setf (sbit ba 5) 1) @EV{} 1
+ (sbit ba 5) @EV{} 1
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{aref},
+@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)}
+
+@subsubheading Notes:
+
+@code{bit} and @code{sbit} are like @code{aref}
+except that they require @param{arrays} to be
+a @term{bit array} and a @term{simple bit array}, respectively.
+
+@code{bit} and @code{sbit}, unlike @code{char} and @code{schar},
+allow the first argument to be an @term{array} of any @term{rank}.
+
+
+@node bit-and; bit-andc1; bit-andc2; bit-eqv; bit-ior; bit-nand; bit-nor; bit+
+@heading bit-and, bit-andc1, bit-andc2, bit-eqv, bit-ior, bit-nand, bit-nor, bit-not, bit-orc1, bit-orc2, bit-xor (Function)
+@syindex bit-and
+@cindex bit-and
+@syindex bit-andc1
+@cindex bit-andc1
+@syindex bit-andc2
+@cindex bit-andc2
+@syindex bit-eqv
+@cindex bit-eqv
+@syindex bit-ior
+@cindex bit-ior
+@syindex bit-nand
+@cindex bit-nand
+@syindex bit-nor
+@cindex bit-nor
+@syindex bit-not
+@cindex bit-not
+@syindex bit-orc1
+@cindex bit-orc1
+@syindex bit-orc2
+@cindex bit-orc2
+@syindex bit-xor
+@cindex bit-xor
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{bit-and, bit-array1 bit-array2 @opt{} opt-arg, resulting-bit-array}
+@DefunWithValues{bit-andc1, bit-array1 bit-array2 @opt{} opt-arg, resulting-bit-array}
+@DefunWithValues{bit-andc2, bit-array1 bit-array2 @opt{} opt-arg, resulting-bit-array}
+@DefunWithValues{bit-eqv, bit-array1 bit-array2 @opt{} opt-arg, resulting-bit-array}
+@DefunWithValues{bit-ior, bit-array1 bit-array2 @opt{} opt-arg, resulting-bit-array}
+@DefunWithValues{bit-nand, bit-array1 bit-array2 @opt{} opt-arg, resulting-bit-array}
+@DefunWithValues{bit-nor, bit-array1 bit-array2 @opt{} opt-arg, resulting-bit-array}
+@DefunWithValues{bit-orc1, bit-array1 bit-array2 @opt{} opt-arg, resulting-bit-array}
+@DefunWithValues{bit-orc2, bit-array1 bit-array2 @opt{} opt-arg, resulting-bit-array}
+@DefunWithValues{bit-xor, bit-array1 bit-array2 @opt{} opt-arg, resulting-bit-array}
+
+
+@DefunWithValues{bit-not, bit-array @opt{} opt-arg, resulting-bit-array}
+
+@subsubheading Arguments and Values:
+
+@param{bit-array}, @param{bit-array1}, @param{bit-array2}---a @term{bit array}.
+
+@param{Opt-arg}---a @term{bit array}, or @code{t}, or @nil{}.
+@Default{@nil{}}
+
+@param{Bit-array}, @param{bit-array1}, @param{bit-array2}, and @param{opt-arg}
+(if an @term{array}) must all be of the same @term{rank} and @term{dimensions}.
+
+@param{resulting-bit-array}---a @term{bit array}.
+
+@subsubheading Description:
+
+These functions perform
+bit-wise logical operations on @param{bit-array1} and @param{bit-array2}
+and return an @term{array}
+of matching @term{rank} and @term{dimensions},
+such that any given bit of the result
+is produced by operating on corresponding bits from each of the arguments.
+
+In the case of @code{bit-not}, an @term{array}
+of @term{rank} and @term{dimensions} matching @param{bit-array}
+is returned that contains a copy of @param{bit-array}
+with all the bits inverted.
+
+If @param{opt-arg} is of type @f{(array bit)} the contents of the
+result are destructively placed into @param{opt-arg}.
+If @param{opt-arg} is the symbol @code{t},
+@param{bit-array} or @param{bit-array1} is replaced with the result;
+if @param{opt-arg} is @nil{}@spc{}or omitted, a new @term{array} is created
+to contain the result.
+
+@Thenextfigure{}@spc{}indicates the logical operation
+performed by each of the @term{functions}.
+
+
+@float Figure,fig15.4
+@cartouche
+@multitable{@code{bit-andc1}}{and complement of @param{bit-array1} with @param{bit-array2}}
+@headitem Function @tab Operation
+@item @code{bit-nor} @tab complement of @param{bit-array1} or @param{bit-array2}
+@item @code{bit-andc1} @tab and complement of @param{bit-array1} with @param{bit-array2}
+@item @code{bit-andc2} @tab and @param{bit-array1} with complement of @param{bit-array2}
+@item @code{bit-orc1} @tab or complement of @param{bit-array1} with @param{bit-array2}
+@item @code{bit-orc2} @tab or @param{bit-array1} with complement of @param{bit-array2}
+@end multitable
+@end cartouche
+@caption{Bit-wise Logical Operations on Bit Arrays}
+@end float
+
+@subsubheading Examples:
+@lisp
+ (bit-and (setq ba #*11101010) #*01101011) @EV{} #*01101010
+ (bit-and #*1100 #*1010) @EV{} #*1000
+ (bit-andc1 #*1100 #*1010) @EV{} #*0010
+ (setq rba (bit-andc2 ba #*00110011 t)) @EV{} #*11001000
+ (eq rba ba) @EV{} @term{true}
+ (bit-not (setq ba #*11101010)) @EV{} #*00010101
+ (setq rba (bit-not ba
+                     (setq tba (make-array 8
+                                           :element-type 'bit))))
+@EV{} #*00010101
+ (equal rba tba) @EV{} @term{true}
+ (bit-xor #*1100 #*1010) @EV{} #*0110
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{lognot}, @ref{logand}
+
+
+@node bit-vector-p
+@heading bit-vector-p (Function)
+@syindex bit-vector-p
+@cindex bit-vector-p
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{bit-vector-p, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{object, bit-vector}
+
+@subsubheading Examples:
+
+@lisp
+ (bit-vector-p (make-array 6
+                           :element-type 'bit
+                           :fill-pointer t)) @EV{} @term{true}
+ (bit-vector-p #*) @EV{} @term{true}
+ (bit-vector-p (make-array 6)) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{typep}
+
+@subsubheading Notes:
+
+@lisp
+ (bit-vector-p @param{object}) @EQ{} (typep @param{object} 'bit-vector)
+@end lisp
+
+
+
+@node simple-bit-vector-p
+@heading simple-bit-vector-p (Function)
+@syindex simple-bit-vector-p
+@cindex simple-bit-vector-p
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{simple-bit-vector-p, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{object, simple-bit-vector}
+
+@subsubheading Examples:
+@lisp
+ (simple-bit-vector-p (make-array 6)) @EV{} @term{false}
+ (simple-bit-vector-p #*) @EV{} @term{true}
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{simple-vector-p}
+
+@subsubheading Notes:
+@lisp
+ (simple-bit-vector-p @param{object}) @EQ{} (typep @param{object} 'simple-bit-vector)
+@end lisp

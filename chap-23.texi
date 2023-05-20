@@ -1,0 +1,1543 @@
+@node Reader
+@chapter Reader
+@menu
+* Reader Concepts::
+
+Dictionary
+
+* readtable::
+* copy-readtable::
+* make-dispatch-macro-character::
+* read; read-preserving-whitespace::
+* read-delimited-list::
+* read-from-string::
+* readtable-case::
+* readtablep::
+* set-dispatch-macro-character; get-dispatch-macro-character::
+* set-macro-character; get-macro-character::
+* set-syntax-from-char::
+* with-standard-io-syntax::
+* *read-base*::
+* *read-default-float-format*::
+* *read-eval*::
+* *read-suppress*::
+* *readtable*::
+* reader-error::
+@end menu
+
+@node Reader Concepts
+@section Reader Concepts
+
+@menu
+* Dynamic Control of the Lisp Reader::
+* Effect of Readtable Case on the Lisp Reader::
+* Argument Conventions of Some Reader Functions::
+@end menu
+@node Dynamic Control of the Lisp Reader
+@subsection Dynamic Control of the Lisp Reader
+
+Various aspects of the @term{Lisp reader} can be controlled dynamically.
+See @ref{Readtables, Section 2.1.1 (Readtables)}@spc{}and @ref{Variables that affect the Lisp Reader, Section 2.1.2 (Variables that affect the Lisp Reader)}.
+
+
+@node Effect of Readtable Case on the Lisp Reader
+@subsection Effect of Readtable Case on the Lisp Reader
+
+The @term{readtable case} of the @term{current readtable} affects the @term{Lisp reader}
+in the following ways:
+
+
+@table @asis
+@item @id{@kwd{upcase}}
+
+
+When the @term{readtable case} is @kwd{upcase},
+unescaped constituent @term{characters} are converted to @term{uppercase},
+as specified in @ref{Reader Algorithm, Section 2.2 (Reader Algorithm)}.
+
+@item @id{@kwd{downcase}}
+
+
+When the @term{readtable case} is @kwd{downcase},
+unescaped constituent @term{characters} are converted to @term{lowercase}.
+
+@item @id{@kwd{preserve}}
+
+
+When the @term{readtable case} is @kwd{preserve},
+the case of all @term{characters} remains unchanged.
+
+@item @id{@kwd{invert}}
+
+
+When the @term{readtable case} is @kwd{invert},
+then if all of the unescaped letters in the extended token are of the same @term{case},
+those (unescaped) letters are converted to the opposite @term{case}.
+@end table
+
+
+@subsubsection Examples of Effect of Readtable Case on the Lisp Reader
+@anchor{ReadtableCaseReadExamples}
+
+@lisp
+ (defun test-readtable-case-reading ()
+   (let ((*readtable* (copy-readtable nil)))
+     (format t "READTABLE-CASE  Input   Symbol-name~
+              ~%-----------------------------------~
+              ~%")
+     (dolist (readtable-case '(:upcase :downcase :preserve :invert))
+       (setf (readtable-case *readtable*) readtable-case)
+       (dolist (input '("ZEBRA" "Zebra" "zebra"))
+         (format t "~&:~A~16T~A~24T~A"
+                 (string-upcase readtable-case)
+                 input
+                 (symbol-name (read-from-string input)))))))
+@end lisp
+
+
+The output from @f{(test-readtable-case-reading)} should be as follows:
+
+@lisp
+ READTABLE-CASE     Input Symbol-name
+ -------------------------------------
+    :UPCASE         ZEBRA   ZEBRA
+    :UPCASE         Zebra   ZEBRA
+    :UPCASE         zebra   ZEBRA
+    :DOWNCASE       ZEBRA   zebra
+    :DOWNCASE       Zebra   zebra
+    :DOWNCASE       zebra   zebra
+    :PRESERVE       ZEBRA   ZEBRA
+    :PRESERVE       Zebra   Zebra
+    :PRESERVE       zebra   zebra
+    :INVERT         ZEBRA   zebra
+    :INVERT         Zebra   Zebra
+    :INVERT         zebra   ZEBRA
+@end lisp
+
+
+
+
+@node Argument Conventions of Some Reader Functions
+@subsection Argument Conventions of Some Reader Functions
+
+@subsubsection The EOF-ERROR-P argument
+
+@param{Eof-error-p} in input function calls
+controls what happens if input is from a file (or any other
+input source that has a definite end) and the end of the file is reached.
+If @param{eof-error-p} is @term{true} (the default),
+an error @oftype{end-of-file} is signaled
+at end of file.  If it is @term{false}, then no error is signaled, and instead
+the function returns @param{eof-value}.
+
+Functions such as @code{read} that read the representation
+of an @term{object} rather than a single
+character always signals an error, regardless of @param{eof-error-p}, if
+the file ends in the middle of an object representation.
+For example, if a file does
+not contain enough right parentheses to balance the left parentheses in
+it, @code{read} signals an error.  If a file ends in a
+@term{symbol} or a @term{number}
+immediately followed by end-of-file, @code{read} reads the
+@term{symbol} or
+@term{number}
+successfully and when called again will
+act according to @param{eof-error-p}.
+Similarly, @thefunction{read-line}
+successfully reads the last line of a file even if that line
+is terminated by end-of-file rather than the newline character.
+Ignorable text, such as lines containing only @term{whitespace}@sub2{} or comments,
+are not considered to begin an @term{object};
+if @code{read} begins to read an @term{expression} but sees only such
+ignorable text, it does not consider the file to end in the middle of an @term{object}.
+Thus an @param{eof-error-p} argument controls what happens
+when the file ends between @term{objects}.
+
+
+@subsubsection The RECURSIVE-P argument
+
+If @param{recursive-p} is supplied and not @nil{}, it specifies that
+this function call is not an outermost call to @code{read} but an
+embedded call, typically from a @term{reader macro function}.
+It is important to distinguish such recursive calls for three reasons.
+
+
+@enumerate 1
+@item
+An outermost call establishes the context within which the
+@f{#@param{n}=} and @f{#@param{n}#} syntax is scoped.  Consider, for example,
+the expression
+
+@lisp
+ (cons '#3=(p q r) '(x y . #3#))
+@end lisp
+
+If the @term{single-quote} @term{reader macro} were defined in this way:
+
+@lisp
+ (set-macro-character #@bsl{}'       ;incorrect
+    #'(lambda (stream char)
+         (declare (ignore char))
+         (list 'quote (read stream))))
+@end lisp
+
+
+then each call to the @term{single-quote} @term{reader macro function} would establish
+independent contexts for the scope of @code{read} information, including the scope of
+identifications between markers like ``@f{#3=}'' and ``@f{#3#}''.  However, for
+this expression, the scope was clearly intended to be determined by the outer set
+of parentheses, so such a definition would be incorrect.
+The correct way to define the @term{single-quote}
+@term{reader macro} uses @param{recursive-p}:
+
+@lisp
+ (set-macro-character #@bsl{}'       ;correct
+    #'(lambda (stream char)
+         (declare (ignore char))
+         (list 'quote (read stream t nil t))))
+@end lisp
+
+
+@item
+A recursive call does not alter whether the reading process
+is to preserve @term{whitespace}@sub2{} or not (as determined by whether the
+outermost call was to @code{read} or @code{read-preserving-whitespace}).
+Suppose again that @term{single-quote}
+were to be defined as shown above in the incorrect definition.
+Then a call to @code{read-preserving-whitespace}
+that read the expression @f{'foo@SpaceChar{}} would fail to preserve the space
+character following the symbol @f{foo} because the @term{single-quote}
+@term{reader macro function} calls @code{read},
+not @code{read-preserving-whitespace},
+to read the following expression (in this case @f{foo}).
+The correct definition, which passes the value @term{true} for @param{recursive-p}
+to @code{read}, allows the outermost call to determine
+whether @term{whitespace}@sub2{} is preserved.
+
+@item
+When end-of-file is encountered and the @param{eof-error-p} argument
+is not @nil{}, the kind of error that is signaled may depend on the value
+of @param{recursive-p}.  If @param{recursive-p}
+is @term{true}, then the end-of-file
+is deemed to have occurred within the middle of a printed representation;
+if @param{recursive-p} is @term{false}, then the end-of-file may be deemed to have
+occurred between @term{objects} rather than within the middle of one.
+@end enumerate
+
+
+
+
+@node readtable
+@heading readtable (System Class)
+@syindex readtable
+@cindex readtable
+
+
+@subsubheading Class Precedence List:
+@code{readtable},
+@code{t}
+
+@subsubheading Description:
+
+A @term{readtable} maps @term{characters} into @term{syntax types} for
+the @term{Lisp reader}; see @ref{Syntax, Chapter 2 (Syntax)}.
+A @term{readtable} also
+contains associations between @term{macro characters}
+and their @term{reader macro functions},
+and records information about the case conversion rules
+to be used by the @term{Lisp reader} when parsing @term{symbols}.
+
+Each @term{simple} @term{character} must be representable in the @term{readtable}.
+It is @term{implementation-defined} whether @term{non-simple} @term{characters}
+can have syntax descriptions in the @term{readtable}.
+
+@subsubheading See Also:
+
+@ref{Readtables, Section 2.1.1 (Readtables)},
+@ref{PrintingOtherObjects, Section 22.1.3.13 (Printing Other Objects)}
+
+
+@node copy-readtable
+@heading copy-readtable (Function)
+@syindex copy-readtable
+@cindex copy-readtable
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{copy-readtable, @opt{} from-readtable to-readtable, readtable}
+
+@subsubheading Arguments and Values:
+
+@param{from-readtable}---a @term{readtable designator}.
+@Default{the @term{current readtable}}
+
+@param{to-readtable}---a @term{readtable} or @nil{}.
+@Default{@nil{}}
+
+@param{readtable}---the @param{to-readtable} if it is @term{non-nil},
+or else a @term{fresh} @term{readtable}.
+
+@subsubheading Description:
+
+@code{copy-readtable} copies @param{from-readtable}.
+
+If @param{to-readtable} is @nil{}, a new @term{readtable} is created and returned.
+Otherwise the @term{readtable} specified by @param{to-readtable} is modified and returned.
+
+@code{copy-readtable} copies the setting of @code{readtable-case}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq zvar 123) @EV{} 123
+ (set-syntax-from-char #@bsl{}z #@bsl{}' (setq table2 (copy-readtable))) @EV{} T
+ zvar @EV{} 123
+ (copy-readtable table2 *readtable*) @EV{} #<READTABLE 614000277>
+ zvar @EV{} VAR
+ (setq *readtable* (copy-readtable)) @EV{} #<READTABLE 46210223>
+ zvar @EV{} VAR
+ (setq *readtable* (copy-readtable nil)) @EV{} #<READTABLE 46302670>
+ zvar @EV{} 123
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{readtable},
+@ref{*readtable*}
+
+@subsubheading Notes:
+
+@lisp
+(setq *readtable* (copy-readtable nil))
+@end lisp
+
+restores the input syntax to standard @clisp{}@spc{}syntax, even if
+the @term{initial readtable} has been clobbered
+(assuming it is not so badly clobbered that you cannot type in the above expression).
+
+On the other hand,
+
+@lisp
+(setq *readtable* (copy-readtable))
+@end lisp
+
+replaces the current @term{readtable} with a copy of itself.
+This is useful if you want to save a copy of a readtable for later use,
+protected from alteration in the meantime.  It is also useful if you want to
+locally bind the readtable to a copy of itself, as in:
+
+@lisp
+(let ((*readtable* (copy-readtable))) ...)
+@end lisp
+
+
+
+@node make-dispatch-macro-character
+@heading make-dispatch-macro-character (Function)
+@syindex make-dispatch-macro-character
+@cindex make-dispatch-macro-character
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{make-dispatch-macro-character, char @opt{} non-terminating-p readtable, @code{t}}
+
+@subsubheading Arguments and Values:
+
+@param{char}---a @term{character}.
+
+@param{non-terminating-p}---a @term{generalized boolean}.
+@Default{@term{false}}
+
+@param{readtable}---a @term{readtable}.
+@Default{the @term{current readtable}}
+
+@subsubheading Description:
+
+@code{make-dispatch-macro-character} makes @param{char}
+be a @term{dispatching macro character} in @param{readtable}.
+
+Initially, every @term{character} in the dispatch table
+associated with the @param{char} has an associated function
+that signals an error @oftype{reader-error}.
+
+If @param{non-terminating-p} is @term{true},
+the @term{dispatching macro character}
+is made a @term{non-terminating} @term{macro character};
+if @param{non-terminating-p} is @term{false},
+the @term{dispatching macro character}
+is made a @term{terminating} @term{macro character}.
+
+@subsubheading Examples:
+
+@lisp
+ (get-macro-character #@bsl{}@lbr{}) @EV{} NIL, @term{false}
+ (make-dispatch-macro-character #@bsl{}@lbr{}) @EV{} T
+ (not (get-macro-character #@bsl{}@lbr{})) @EV{} @term{false}
+@end lisp
+
+
+The @param{readtable} is altered.
+
+@subsubheading See Also:
+
+@ref{*readtable*}, @ref{set-dispatch-macro-character}
+
+
+@node read; read-preserving-whitespace
+@heading read, read-preserving-whitespace (Function)
+@syindex read
+@cindex read
+@syindex read-preserving-whitespace
+@cindex read-preserving-whitespace
+@anchor{read}
+@anchor{read-preserving-whitespace}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{read, @opt{} input-stream eof-error-p eof-value recursive-p, object}
+
+@DefunWithValuesNewline{read-preserving-whitespace, @opt{} @vtop{@hbox{input-stream eof-error-p} @hbox{eof-value recursive-p}}, object}
+
+@subsubheading Arguments and Values:
+
+@param{input-stream}---an @term{input} @term{stream designator}.
+
+@param{eof-error-p}---a @term{generalized boolean}.
+@Default{@term{true}}
+
+@param{eof-value}---an @term{object}.
+@Default{@nil{}}
+
+@param{recursive-p}---a @term{generalized boolean}.
+@Default{@term{false}}
+
+@param{object}---an @term{object} (parsed by the @term{Lisp reader})
+or the @param{eof-value}.
+
+@subsubheading Description:
+
+@code{read} parses the printed representation of an @term{object}
+from @param{input-stream} and builds such an @term{object}.
+
+@code{read-preserving-whitespace} is like @code{read} but preserves
+any @term{whitespace}@sub2{} @term{character}
+that delimits the printed representation of the @term{object}.
+@code{read-preserving-whitespace} is exactly like @code{read}
+when the @param{recursive-p} @term{argument} to @code{read-preserving-whitespace}
+is @term{true}.
+
+When @code{*read-suppress*} is @term{false},
+@code{read} throws away the delimiting @term{character} required by
+certain printed representations if it is a
+@term{whitespace}@sub2{} @term{character};
+but @code{read} preserves the character
+(using @code{unread-char}) if it is
+syntactically meaningful, because it could be the start of the next expression.
+
+If a file ends in a @term{symbol} or a @term{number}
+immediately followed by an @term{end of file}@sub1{},
+@code{read} reads the @term{symbol} or @term{number} successfully;
+when called again, it sees the @term{end of file}@sub1{} and
+only then acts according to @param{eof-error-p}.
+If a file contains ignorable text at the end, such
+as blank lines and comments, @code{read}
+does not consider it to end in the
+middle of an @term{object}.
+
+If @param{recursive-p} is @term{true}, the call to @code{read} is
+expected to be made
+from within some function that itself
+has been called from @code{read} or from a similar input function, rather
+than from the top level.
+
+
+Both functions return the @term{object} read from @param{input-stream}.
+@param{Eof-value} is returned if @param{eof-error-p} is @term{false} and end of file
+is reached before the beginning of an @term{object}.
+
+@subsubheading Examples:
+
+@lisp
+ (read)
+@OUT{} @IN{'a}
+@EV{} (QUOTE A)
+ (with-input-from-string (is " ") (read is nil 'the-end)) @EV{} THE-END
+ (defun skip-then-read-char (s c n)
+    (if (char= c #@bsl{}@lcurly{}) (read s t nil t) (read-preserving-whitespace s))
+    (read-char-no-hang s)) @EV{} SKIP-THEN-READ-CHAR
+ (let ((*readtable* (copy-readtable nil)))
+    (set-dispatch-macro-character #@bsl{}# #@bsl{}@lcurly{} #'skip-then-read-char)
+    (set-dispatch-macro-character #@bsl{}# #@bsl{}@rcurly{} #'skip-then-read-char)
+    (with-input-from-string (is "#@lcurly{}123 x #@rcurly{}123 y")
+      (format t "~S ~S" (read is) (read is)))) @EV{} #@bsl{}x, #@bsl{}Space, NIL
+@end lisp
+
+
+As an example, consider this @term{reader macro} definition:
+
+@lisp
+ (defun slash-reader (stream char)
+   (declare (ignore char))
+   `(path . ,(loop for dir = (read-preserving-whitespace stream t nil t)
+                   then (progn (read-char stream t nil t)
+                               (read-preserving-whitespace stream t nil t))
+                   collect dir
+                   while (eql (peek-char nil stream nil nil t) #@bsl{}/))))
+ (set-macro-character #@bsl{}/ #'slash-reader)
+@end lisp
+
+
+Consider now calling @code{read} on this expression:
+
+@lisp
+ (zyedh /usr/games/zork /usr/games/boggle)
+@end lisp
+
+The @f{/} macro reads objects separated by more @f{/} characters;
+thus @f{/usr/games/zork} is intended to read as @f{(path usr games zork)}.
+The entire example expression should therefore be read as
+
+@lisp
+ (zyedh (path usr games zork) (path usr games boggle))
+@end lisp
+
+However, if @code{read} had been used instead of
+@code{read-preserving-whitespace}, then after the reading of the symbol
+@f{zork}, the following space would be discarded; the next call
+to @code{peek-char} would see the following @f{/}, and the loop would
+continue, producing this interpretation:
+
+@lisp
+ (zyedh (path usr games zork usr games boggle))
+@end lisp
+
+There are times when @term{whitespace}@sub2{} should be discarded.
+If a command interpreter takes single-character commands,
+but occasionally reads an @term{object} then if the @term{whitespace}@sub2{}
+after a @term{symbol}
+is not discarded it might be interpreted as a command
+some time later after the @term{symbol} had been read.
+
+@subsubheading Affected By:
+
+@code{*standard-input*},
+@code{*terminal-io*},
+@code{*readtable*},
+@code{*read-default-float-format*},
+@code{*read-base*},
+@code{*read-suppress*},
+@code{*package*},
+@code{*read-eval*}.
+
+@subsubheading Exceptional Situations:
+
+@code{read} signals an error @oftype{end-of-file},
+regardless of @param{eof-error-p}, if
+the file ends in the middle of an @term{object} representation.
+For example, if a file does
+not contain enough right parentheses to balance the left parentheses in
+it, @code{read} signals an error.
+This is detected when @code{read} or @code{read-preserving-whitespace}
+is called with @param{recursive-p} and @param{eof-error-p} @term{non-nil},
+and end-of-file is reached before the beginning of an @term{object}.
+
+If @param{eof-error-p} is @term{true}, an error @oftype{end-of-file}
+is signaled at the end of file.
+
+@subsubheading See Also:
+
+@ref{peek-char},
+@ref{read-char},
+@ref{unread-char},
+@ref{read-from-string},
+@ref{read-delimited-list},
+@ref{parse-integer},
+@ref{Syntax, Chapter 2 (Syntax)},
+@ref{Reader Concepts, Section 23.1 (Reader Concepts)}
+
+
+@node read-delimited-list
+@heading read-delimited-list (Function)
+@syindex read-delimited-list
+@cindex read-delimited-list
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{read-delimited-list, char @opt{} input-stream recursive-p, list}
+
+@subsubheading Arguments and Values:
+
+@param{char}---a @term{character}.
+
+@param{input-stream}---an @term{input} @term{stream designator}.
+@Default{@term{standard input}}
+
+@param{recursive-p}---a @term{generalized boolean}.
+@Default{@term{false}}
+
+@param{list}---a @term{list} of the @term{objects} read.
+
+@subsubheading Description:
+
+@code{read-delimited-list} reads @term{objects} from @param{input-stream}
+until the next character after an @term{object}'s
+representation (ignoring @term{whitespace}@sub2{} characters and comments) is @param{char}.
+
+@code{read-delimited-list} looks ahead at each step
+for the next non-@term{whitespace}@sub2{} @term{character}
+and peeks at it as if with @code{peek-char}.
+If it is @param{char},
+then the @term{character} is consumed and the @term{list} of @term{objects} is returned.
+If it is a @term{constituent} or @term{escape} @term{character},
+then @code{read} is used to read an @term{object},
+which is added to the end of the @term{list}.
+If it is a @term{macro character},
+its @term{reader macro function} is called;
+if the function returns a @term{value},
+that @term{value} is added to the @term{list}.
+The peek-ahead process is then repeated.
+
+If @param{recursive-p} is @term{true},
+this call is expected to be embedded in a higher-level call to @code{read}
+or a similar function.
+
+It is an error to reach end-of-file during the operation of
+@code{read-delimited-list}.
+
+The consequences are undefined
+if @param{char} has a @term{syntax type} of @term{whitespace}@sub2{}
+in the @term{current readtable}.
+
+@subsubheading Examples:
+@lisp
+ (read-delimited-list #@bsl{}@rbracket{}) 1 2 3 4 5 6 @rbracket{}
+@EV{} (1 2 3 4 5 6)
+@end lisp
+
+Suppose you wanted @f{#@lcurly{}@i{a} @i{b} @i{c} @mat{@ldots{}} @i{z}@rcurly{}}
+to read as a list of all pairs of the elements @i{a}, @i{b}, @i{c},
+@mat{@ldots{}}, @i{z}, for example.
+
+@lisp
+ #@lcurly{}p q z a@rcurly{}  reads as  ((p q) (p z) (p a) (q z) (q a) (z a))
+@end lisp
+
+This can be done by specifying a macro-character definition for @f{#@lcurly{}}
+that does two things: reads in all the items up to the @f{@rcurly{}},
+and constructs the pairs.  @code{read-delimited-list} performs
+the first task.
+
+@lisp
+ (defun |#@lcurly{}-reader| (stream char arg)
+   (declare (ignore char arg))
+   (mapcon #'(lambda (x)
+              (mapcar #'(lambda (y) (list (car x) y)) (cdr x)))
+          (read-delimited-list #@bsl{}@rcurly{} stream t))) @EV{} |#@lcurly{}-reader|
+
+ (set-dispatch-macro-character #@bsl{}# #@bsl{}@lcurly{} #'|#@lcurly{}-reader|) @EV{} T
+ (set-macro-character #@bsl{}@rcurly{} (get-macro-character #@bsl{}) @nil{}))
+@end lisp
+
+Note that @term{true} is supplied for the @param{recursive-p} argument.
+
+It is necessary here to give a definition to the character @f{@rcurly{}} as
+well to prevent it from being a constituent.
+If the line
+
+@lisp
+ (set-macro-character #@bsl{}@rcurly{} (get-macro-character #@bsl{}) @nil{}))
+@end lisp
+
+shown above were not included, then the @f{@rcurly{}} in
+
+@lisp
+ #@lcurly{} p q z a@rcurly{}
+@end lisp
+
+would be considered a constituent character, part of the symbol named
+@f{a@rcurly{}}.  This could be corrected by putting a space before
+the @f{@rcurly{}}, but it is better to call
+@code{set-macro-character}.
+
+Giving @f{@rcurly{}} the same
+definition as the standard definition of the character @f{)} has the
+twin benefit of making it terminate tokens for use with
+@code{read-delimited-list} and also making it invalid for use in any
+other context. Attempting to read a stray @f{@rcurly{}} will signal an error.
+
+@subsubheading Affected By:
+
+@code{*standard-input*},
+@code{*readtable*},
+@code{*terminal-io*}.
+
+@subsubheading See Also:
+
+@ref{read},
+@ref{peek-char},
+@ref{read-char},
+@ref{unread-char}.
+
+@subsubheading Notes:
+
+@code{read-delimited-list} is intended for use in implementing @term{reader macros}.
+Usually it is desirable for @param{char} to be a @term{terminating} @term{macro character}
+so that it can be used to delimit tokens; however, @code{read-delimited-list}
+makes no attempt to alter the syntax specified for @param{char} by the current
+readtable.  The caller must make any necessary changes to the readtable syntax
+explicitly.
+
+
+@node read-from-string
+@heading read-from-string (Function)
+@syindex read-from-string
+@cindex read-from-string
+
+
+@subsubheading Syntax:
+
+@DefunWithValuesNewline{read-from-string, string @vtop{@hbox{@opt{} eof-error-p eof-value} @hbox{@key{} start end preserve-whitespace}}, object\, position}
+
+@subsubheading Arguments and Values:
+
+@param{string}---a @term{string}.
+
+@param{eof-error-p}---a @term{generalized boolean}.
+@Default{@term{true}}
+
+@param{eof-value}---an @term{object}.
+@Default{@nil{}}
+
+@param{start}, @param{end}---@term{bounding index designators} of @param{string}.
+@Defaults{@param{start} and @param{end}, @f{0} and @nil{}}
+
+@param{preserve-whitespace}---a @term{generalized boolean}.
+@Default{@term{false}}
+
+@param{object}---an @term{object} (parsed by the @term{Lisp reader})
+or the @param{eof-value}.
+
+@param{position}---an @term{integer} greater than or equal to zero,
+and less than or equal to
+one more than the @term{length} of the @param{string}.
+
+@subsubheading Description:
+
+Parses the printed representation of an @term{object}
+from the subsequence of @param{string} @term{bounded} by @param{start} and @param{end},
+as if @code{read} had been called on an @term{input} @term{stream}
+containing those same @term{characters}.
+
+If @param{preserve-whitespace} is @term{true},
+the operation will preserve @term{whitespace}@sub2{}
+as @code{read-preserving-whitespace} would do.
+
+If an @term{object} is successfully parsed, the @term{primary value}, @param{object},
+is the @term{object} that was parsed.
+If @param{eof-error-p} is @term{false} and if the end of the @param{substring} is reached,
+@param{eof-value} is returned.
+
+The @term{secondary value}, @param{position}, is the index of the first @term{character}
+in the @term{bounded} @param{string} that was not read.
+The @param{position} may depend upon the value of @param{preserve-whitespace}.
+If the entire @param{string} was read,
+the @param{position} returned is either the @param{length} of the @param{string}
+or one greater than the @param{length} of the @param{string}.
+
+@subsubheading Examples:
+
+@lisp
+ (read-from-string " 1 3 5" t nil :start 2) @EV{} 3, 5
+ (read-from-string "(a b c)") @EV{} (A B C), 7
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+If the end of the supplied substring
+occurs before an @term{object} can be read, an
+error is signaled if @param{eof-error-p} is @term{true}.
+An error is signaled if the end of the @param{substring} occurs
+in the middle of an incomplete @term{object}.
+
+@subsubheading See Also:
+
+@ref{read},
+@ref{read-preserving-whitespace}
+
+@subsubheading Notes:
+
+The reason that @param{position} is allowed to be beyond the
+@term{length} of the @param{string} is to permit (but not require)
+the @term{implementation} to work by simulating the effect of a
+trailing delimiter at the end of the @term{bounded} @param{string}.
+When @param{preserve-whitespace} is @term{true},
+the @param{position} might count the simulated delimiter.
+
+
+@node readtable-case
+@heading readtable-case (Accessor)
+@syindex readtable-case
+@cindex readtable-case
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{readtable-case, readtable, mode}
+
+@Defsetf{readtable-case, readtable, mode}
+
+@subsubheading Arguments and Values:
+
+@param{readtable}---a @term{readtable}.
+
+@param{mode}---a @term{case sensitivity mode}.
+
+@subsubheading Description:
+
+@term{Accesses} the @term{readtable case} of @param{readtable},
+which affects the way in which the @term{Lisp Reader}  reads  @term{symbols}
+and the way in which the @term{Lisp Printer} writes @term{symbols}.
+
+@subsubheading Examples:
+
+See @ref{ReadtableCaseReadExamples, Section 23.1.2.1 (Examples of Effect of Readtable Case on the Lisp Reader)}@spc{}and @ref{ReadtableCasePrintExamples, Section 22.1.3.3.2.1 (Examples of Effect of Readtable Case on the Lisp Printer)}.
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{readtable, a @term{readtable}}
+@Shouldchecktype{mode, a @term{case sensitivity mode}}
+
+@subsubheading See Also:
+
+@ref{*readtable*},
+@ref{*print-escape*},
+@ref{Reader Algorithm, Section 2.2 (Reader Algorithm)},
+@ref{Effect of Readtable Case on the Lisp Reader, Section 23.1.2 (Effect of Readtable Case on the Lisp Reader)},
+@ref{ReadtableCasePrintEffect, Section 22.1.3.3.2 (Effect of Readtable Case on the Lisp Printer)}
+
+@subsubheading Notes:
+
+@code{copy-readtable} copies the @term{readtable case} of the @param{readtable}.
+
+
+@node readtablep
+@heading readtablep (Function)
+@syindex readtablep
+@cindex readtablep
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{readtablep, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{object, readtable}
+
+@subsubheading Examples:
+
+@lisp
+ (readtablep *readtable*) @EV{} @term{true}
+ (readtablep (copy-readtable)) @EV{} @term{true}
+ (readtablep '*readtable*) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading Notes:
+
+@lisp
+ (readtablep @param{object}) @EQ{} (typep @param{object} 'readtable)
+@end lisp
+
+
+
+@node set-dispatch-macro-character; get-dispatch-macro-character
+@heading set-dispatch-macro-character, get-dispatch-macro-character (Function)
+@syindex set-dispatch-macro-character
+@cindex set-dispatch-macro-character
+@syindex get-dispatch-macro-character
+@cindex get-dispatch-macro-character
+@anchor{set-dispatch-macro-character}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{get-dispatch-macro-character, disp-char sub-char @opt{} readtable, function}
+
+@DefunWithValues{set-dispatch-macro-character, disp-char sub-char new-function @opt{} readtable, @code{t}}
+
+@subsubheading Arguments and Values:
+
+@param{disp-char}---a @term{character}.
+
+@param{sub-char}---a @term{character}.
+
+@param{readtable}---a @term{readtable designator}.
+@Default{the @term{current readtable}}
+
+@param{function}---a @term{function designator} or @nil{}.
+
+@param{new-function}---a @term{function designator}.
+
+@subsubheading Description:
+
+@code{set-dispatch-macro-character} causes @param{new-function} to be called
+when @param{disp-char} followed by @param{sub-char} is read.
+If @param{sub-char} is a lowercase letter,
+it is converted to its uppercase equivalent.
+It is an error if @param{sub-char} is one of the ten decimal digits.
+
+@code{set-dispatch-macro-character} installs a @param{new-function} to be called
+when a particular @term{dispatching macro character} pair is read.
+@param{New-function} is installed as the dispatch function to be
+called  when @param{readtable} is in use and when @param{disp-char} is followed by
+@param{sub-char}.
+
+For more information about how the @param{new-function} is invoked,
+see @ref{MacroChars, Section 2.1.4.4 (Macro Characters)}.
+
+@code{get-dispatch-macro-character} retrieves
+the dispatch function associated with @param{disp-char} and @param{sub-char}
+in @param{readtable}.
+
+@code{get-dispatch-macro-character} returns the macro-character function
+for @param{sub-char} under @param{disp-char}, or @nil{}@spc{}if there is no
+function associated with @param{sub-char}.
+If @param{sub-char} is a decimal digit, @code{get-dispatch-macro-character}
+returns @nil{}.
+
+@subsubheading Examples:
+
+@lisp
+ (get-dispatch-macro-character #@bsl{}# #@bsl{}@lcurly{}) @EV{} NIL
+ (set-dispatch-macro-character #@bsl{}# #@bsl{}@lcurly{}        ;dispatch on #@lcurly{}
+    #'(lambda(s c n)
+        (let ((list (read s nil (values) t)))  ;list is object after #n@lcurly{}
+          (when (consp list)                   ;return nth element of list
+            (unless (and n (< 0 n (length list))) (setq n 0))
+            (setq list (nth n list)))
+         list))) @EV{} T
+ #@lcurly{}(1 2 3 4) @EV{} 1
+ #3@lcurly{}(0 1 2 3) @EV{} 3
+ #@lcurly{}123 @EV{} 123
+@end lisp
+
+If it is desired that @f{#@dollar{}@i{foo}} :
+as if it were @f{(dollars @i{foo})}.
+
+@lisp
+(defun |#$-reader| (stream subchar arg)
+   (declare (ignore subchar arg))
+   (list 'dollars (read stream t nil t))) @EV{} |#$-reader|
+ (set-dispatch-macro-character #@bsl{}# #@bsl{}@dollar{} #'|#@dollar{}-reader|) @EV{} T
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{MacroChars, Section 2.1.4.4 (Macro Characters)}
+
+@subsubheading Side Effects:
+
+The @param{readtable} is modified.
+
+@subsubheading Affected By:
+
+@code{*readtable*}.
+
+@subsubheading Exceptional Situations:
+
+For either function, an error is signaled if @param{disp-char} is not
+a @term{dispatching macro character} in @param{readtable}.
+
+@subsubheading See Also:
+
+@ref{*readtable*}
+
+@subsubheading Notes:
+It is necessary
+to use @code{make-dispatch-macro-character} to set up the
+dispatch character before specifying its sub-characters.
+
+@node set-macro-character; get-macro-character
+@heading set-macro-character, get-macro-character (Function)
+@syindex set-macro-character
+@cindex set-macro-character
+@syindex get-macro-character
+@cindex get-macro-character
+@anchor{set-macro-character}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{get-macro-character, char @opt{} readtable, function\, non-terminating-p}
+
+@DefunWithValues{set-macro-character, char new-function @opt{} non-terminating-p readtable, @code{t}}
+
+@subsubheading Arguments and Values:
+
+@param{char}---a @term{character}.
+
+@param{non-terminating-p}---a @term{generalized boolean}.
+@Default{@term{false}}
+
+@param{readtable}---a @term{readtable designator}.
+@Default{the @term{current readtable}}
+
+@param{function}---@nil{},
+or a @term{designator} for a @term{function} of two @term{arguments}.
+
+@param{new-function}---a @term{function designator}.
+
+@subsubheading Description:
+
+@code{get-macro-character} returns as its @term{primary value}, @param{function},
+the @term{reader macro function} associated with @param{char} in @param{readtable} (if any),
+or else @nil{}@spc{}if @param{char} is not a @term{macro character} in @param{readtable}.
+The @term{secondary value}, @param{non-terminating-p}, is @term{true}
+if @param{char} is a @term{non-terminating} @term{macro character};
+otherwise, it is @term{false}.
+
+@code{set-macro-character} causes @param{char} to be a @term{macro character}
+associated with the @term{reader macro function} @param{new-function}
+(or the @term{designator} for @param{new-function}) in @param{readtable}.
+If @param{non-terminating-p} is @term{true},
+@param{char} becomes a @term{non-terminating} @term{macro character};
+otherwise it becomes a     @term{terminating} @term{macro character}.
+
+@subsubheading Examples:
+
+@lisp
+ (get-macro-character #@bsl{}@lbr{}) @EV{} NIL, @term{false}
+ (not (get-macro-character #@bsl{};)) @EV{} @term{false}
+@end lisp
+
+
+The following is a possible definition for the @term{single-quote} @term{reader macro}
+in @term{standard syntax}:
+
+@lisp
+ (defun single-quote-reader (stream char)
+   (declare (ignore char))
+   (list 'quote (read stream t nil t))) @EV{} SINGLE-QUOTE-READER
+ (set-macro-character #@bsl{}' #'single-quote-reader) @EV{} T
+@end lisp
+
+
+Here @f{single-quote-reader} reads an @term{object} following the @term{single-quote}
+and returns a @term{list} of @code{quote} and that @term{object}.
+The @param{char} argument is ignored.
+
+The following is a possible definition for the @term{semicolon} @term{reader macro}
+in @term{standard syntax}:
+
+@lisp
+ (defun semicolon-reader (stream char)
+   (declare (ignore char))
+   ;; First swallow the rest of the current input line.
+   ;; End-of-file is acceptable for terminating the comment.
+   (do () ((char= (read-char stream nil #@bsl{}Newline t) #@bsl{}Newline)))
+   ;; Return zero values.
+   (values)) @EV{} SEMICOLON-READER
+ (set-macro-character #@bsl{}; #'semicolon-reader) @EV{} T
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The @param{readtable} is modified.
+
+@subsubheading See Also:
+
+@ref{*readtable*}
+
+
+@node set-syntax-from-char
+@heading set-syntax-from-char (Function)
+@syindex set-syntax-from-char
+@cindex set-syntax-from-char
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{set-syntax-from-char, to-char from-char @opt{} to-readtable from-readtable, @code{t}}
+
+@subsubheading Arguments and Values:
+
+@param{to-char}---a @term{character}.
+
+@param{from-char}---a @term{character}.
+
+@param{to-readtable}---a @term{readtable}.
+@Default{the @term{current readtable}}
+
+@param{from-readtable}---a @term{readtable designator}.
+@Default{the @term{standard readtable}}
+
+@subsubheading Description:
+
+@code{set-syntax-from-char} makes
+the syntax of @param{to-char}   in @param{to-readtable}    be the same as
+the syntax of @param{from-char} in @param{from-readtable}.
+
+@code{set-syntax-from-char} copies the @term{syntax types} of @param{from-char}.
+If @param{from-char} is a @term{macro character},
+its @term{reader macro function} is copied also.
+If the character is a @term{dispatching macro character},
+its entire dispatch table of @term{reader macro functions} is copied.
+The @term{constituent traits} of @param{from-char} are not copied.
+
+A macro definition from a character such as
+@f{"} can be copied to another character; the standard definition for @f{"}
+looks for another character that is the same as the character that
+invoked it.  The definition of @f{(} can not be meaningfully copied
+to @f{@lcurly{}}, on the other hand.
+The result is that @term{lists} are of the form
+@f{@lcurly{}a b c)}, not @f{@lcurly{}a b c@rcurly{}},
+because the definition
+always looks for a closing parenthesis, not a closing brace.
+
+@subsubheading Examples:
+@lisp
+ (set-syntax-from-char #@bsl{}7 #@bsl{};) @EV{} T
+ 123579 @EV{} 1235
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The @param{to-readtable} is modified.
+
+@subsubheading Affected By:
+
+The existing values in the @param{from-readtable}.
+
+@subsubheading See Also:
+
+@ref{set-macro-character},
+@ref{make-dispatch-macro-character},
+@ref{Character Syntax Types, Section 2.1.4 (Character Syntax Types)}
+
+@subsubheading Notes:
+
+The @term{constituent traits} of a @term{character} are ``hard wired''
+into the parser for extended @term{tokens}.  For example, if the definition
+of @f{S} is copied to @f{*}, then @f{*} will become a @term{constituent}
+that is @term{alphabetic}@sub2{} but that cannot be used as a
+@term{short float} @term{exponent marker}.
+For further information, see @ref{ConstituentTraits, Section 2.1.4.2 (Constituent Traits)}.
+
+
+@node with-standard-io-syntax
+@heading with-standard-io-syntax (Macro)
+@syindex with-standard-io-syntax
+@cindex with-standard-io-syntax
+
+
+@subsubheading Syntax:
+
+@DefmacWithValues{with-standard-io-syntax, @starparam{form}, @starparam{result}}
+
+@subsubheading Arguments and Values:
+
+@param{forms}---an @term{implicit progn}.
+
+@param{results}---the @term{values} returned by the @term{forms}.
+
+@subsubheading Description:
+
+Within the dynamic extent of the body of @param{forms}, all reader/printer control
+variables, including any @term{implementation-defined} ones not specified by
+this standard, are bound to values that produce standard read/print
+behavior.  The values for the variables specified by this standard are listed in
+@thenextfigure{}.
+
+@reviewer{Barrett: *print-pprint-dispatch* should probably be mentioned here, too.}
+
+
+@float Figure,fig23.1
+@cartouche
+@multitable{@code{*read-default-float-format*}}{The @term{standard pprint dispatch table}}
+@headitem Variable @tab Value
+@item @code{*package*} @tab The @code{CL-USER} @term{package}
+@item @code{*print-array*} @tab @code{t}
+@item @code{*print-base*} @tab @f{10}
+@item @code{*print-case*} @tab @kwd{upcase}
+@item @code{*print-circle*} @tab @nil{}
+@item @code{*print-escape*} @tab @code{t}
+@item @code{*print-gensym*} @tab @code{t}
+@item @code{*print-length*} @tab @nil{}
+@item @code{*print-level*} @tab @nil{}
+@item @code{*print-lines*} @tab @nil{}
+@item @code{*print-miser-width*} @tab @nil{}
+@item @code{*print-pprint-dispatch*} @tab The @term{standard pprint dispatch table}
+@item @code{*print-pretty*} @tab @nil{}
+@item @code{*print-radix*} @tab @nil{}
+@item @code{*print-readably*} @tab @code{t}
+@item @code{*print-right-margin*} @tab @nil{}
+@item @code{*read-base*} @tab @f{10}
+@item @code{*read-default-float-format*} @tab @code{single-float}
+@item @code{*read-eval*} @tab @code{t}
+@item @code{*read-suppress*} @tab @nil{}
+@item @code{*readtable*} @tab The @term{standard readtable}
+@end multitable
+@end cartouche
+@caption{Values of standard control variables}
+@end float
+
+
+@subsubheading Examples:
+
+@lisp
+ (with-open-file (file pathname :direction :output)
+   (with-standard-io-syntax
+     (print data file)))
+
+;;; ... Later, in another Lisp:
+
+ (with-open-file (file pathname :direction :input)
+   (with-standard-io-syntax
+     (setq data (read file))))
+@end lisp
+
+
+
+@node *read-base*
+@heading *read-base* (Variable)
+@syindex *read-base*
+@cindex *read-base*
+
+
+@subsubheading Value Type:
+
+a @term{radix}.
+
+@subsubheading Initial Value:
+
+@f{10}.
+
+@subsubheading Description:
+
+Controls the interpretation of tokens by @code{read} as being
+@term{integers} or @term{ratios}.
+
+@Thevalueof{*read-base*}, called the @newterm{current input base},
+is the radix in which @term{integers} and
+@term{ratios} are to be read by the @term{Lisp reader}.
+The parsing of other numeric @term{types} (@eg{} @term{floats}) is
+not affected by this option.
+
+The effect of @code{*read-base*} on the reading of any particular
+@term{rational} number can be locally overridden by explicit use of the
+@f{#O}, @f{#X}, @f{#B}, or @tt{#@i{n}R} syntax
+or by a trailing decimal point.
+
+@subsubheading Examples:
+
+@lisp
+ (dotimes (i 6)
+   (let ((*read-base* (+ 10. i)))
+     (let ((object (read-from-string "(@bsl{}@bsl{}DAD DAD |BEE| BEE 123. 123)")))
+       (print (list *read-base* object)))))
+@OUT{} (10 (DAD DAD BEE BEE 123 123))
+@OUT{} (11 (DAD DAD BEE BEE 123 146))
+@OUT{} (12 (DAD DAD BEE BEE 123 171))
+@OUT{} (13 (DAD DAD BEE BEE 123 198))
+@OUT{} (14 (DAD 2701 BEE BEE 123 227))
+@OUT{} (15 (DAD 3088 BEE 2699 123 258))
+@EV{} NIL
+@end lisp
+
+
+@subsubheading Notes:
+
+Altering the input radix can be useful when reading data files in special formats.
+
+
+@node *read-default-float-format*
+@heading *read-default-float-format* (Variable)
+@syindex *read-default-float-format*
+@cindex *read-default-float-format*
+
+
+@subsubheading Value Type:
+
+one of the @term{atomic type specifiers}
+@code{short-float},
+@code{single-float},
+@code{double-float},
+or @code{long-float},
+or else some other @term{type specifier} defined
+by the @term{implementation} to be acceptable.
+
+@subsubheading Initial Value:
+
+The @term{symbol} @code{single-float}.
+
+@subsubheading Description:
+
+Controls the floating-point format that is to be used when reading a
+floating-point number that has no @term{exponent marker} or that has
+@f{e} or @f{E} for an @term{exponent marker}.  Other @term{exponent markers}
+explicitly prescribe the floating-point format to be used.
+
+The printer uses @code{*read-default-float-format*} to guide the
+choice of @term{exponent markers} when printing floating-point numbers.
+
+@subsubheading Examples:
+
+@lisp
+ (let ((*read-default-float-format* 'double-float))
+   (read-from-string "(1.0 1.0e0 1.0s0 1.0f0 1.0d0 1.0L0)"))
+@EV{} (1.0   1.0   1.0   1.0 1.0   1.0)   ;Implementation has float format F.
+@EV{} (1.0   1.0   1.0s0 1.0 1.0   1.0)   ;Implementation has float formats S and F.
+@EV{} (1.0d0 1.0d0 1.0   1.0 1.0d0 1.0d0) ;Implementation has float formats F and D.
+@EV{} (1.0d0 1.0d0 1.0s0 1.0 1.0d0 1.0d0) ;Implementation has float formats S, F, D.
+@EV{} (1.0d0 1.0d0 1.0   1.0 1.0d0 1.0L0) ;Implementation has float formats F, D, L.
+@EV{} (1.0d0 1.0d0 1.0s0 1.0 1.0d0 1.0L0) ;Implementation has formats S, F, D, L.
+@end lisp
+
+
+
+@node *read-eval*
+@heading *read-eval* (Variable)
+@syindex *read-eval*
+@cindex *read-eval*
+
+
+
+@subsubheading Value Type:
+
+a @term{generalized boolean}.
+
+@subsubheading Initial Value:
+
+@term{true}.
+
+@subsubheading Description:
+
+If it is @term{true}, the @f{#.} @term{reader macro} has its normal effect.
+Otherwise, that @term{reader macro} signals an error @oftype{reader-error}.
+
+@subsubheading See Also:
+
+@ref{*print-readably*}
+
+@subsubheading Notes:
+
+If @code{*read-eval*} is @term{false} and @code{*print-readably*} is @term{true},
+any @term{method} for @code{print-object} that would output a reference
+to the @f{#.} @term{reader macro} either outputs something different
+or signals an error @oftype{print-not-readable}.
+
+
+
+@node *read-suppress*
+@heading *read-suppress* (Variable)
+@syindex *read-suppress*
+@cindex *read-suppress*
+
+
+@subsubheading Value Type:
+
+a @term{generalized boolean}.
+
+@subsubheading Initial Value:
+
+@term{false}.
+
+@subsubheading Description:
+
+This variable is intended primarily to support the operation of the
+read-time conditional notations @f{#+} and @f{#-}. It is important for the
+@term{reader macros} which implement these notations
+to be able to skip over the printed representation of an
+@term{expression} despite the possibility that the syntax of the skipped
+@term{expression} may not be entirely valid for the current implementation,
+since @f{#+} and @f{#-} exist in order to allow the same program to be
+shared among several @Lisp{}@spc{}implementations (including dialects other than @clisp{})
+despite small incompatibilities of syntax.
+
+If it is @term{false}, the @term{Lisp reader} operates normally.
+
+
+If @thevalueof{*read-suppress*} is @term{true},
+@code{read},
+@code{read-preserving-whitespace},
+@code{read-delimited-list},
+and @code{read-from-string}
+all return a @term{primary value} of @nil{}@spc{}when they complete successfully;
+however, they continue to parse the representation of an @term{object}
+in the normal way, in order to skip over the @term{object},
+and continue to indicate @term{end of file} in the normal way.
+Except as noted below,
+any @term{standardized} @term{reader macro}@sub2{}
+that is defined to @term{read}@sub2{}
+a following @term{object} or @term{token}
+will do so,
+but not signal an error if the @term{object}
+read is not of an appropriate type or syntax.
+The @term{standard syntax} and its associated @term{reader macros}
+will not construct any new @term{objects}
+(@eg{} when reading the representation of a @term{symbol},
+no @term{symbol} will be constructed or interned).
+
+
+@table @asis
+
+@item @id{Extended tokens}
+
+
+All extended tokens are completely uninterpreted.
+Errors such as those that might otherwise be signaled due to
+detection of invalid @term{potential numbers},
+invalid patterns of @term{package markers},
+and invalid uses of the @term{dot} character are suppressed.
+
+@item @id{Dispatching macro characters (including @term{sharpsign})}
+
+
+@term{Dispatching macro characters} continue to parse an infix numerical
+argument, and invoke the dispatch function.  The @term{standardized}
+@term{sharpsign} @term{reader macros} do not enforce any constraints
+on either the presence of or the value of the numerical argument.
+
+
+@item @id{@tt{#=}}
+
+
+The @f{#=} notation is totally ignored.  It does not read
+a following @term{object}. It produces no @term{object},
+but is treated as @term{whitespace}@sub2{}.
+
+@item @id{@tt{##}}
+
+
+The @f{##} notation always produces @nil{}.
+@end table
+
+
+No matter what @thevalueof{*read-suppress*},
+parentheses still continue to delimit and construct @term{lists};
+the @f{#(} notation continues to delimit @term{vectors};
+and comments, @term{strings},
+and the @term{single-quote} and @term{backquote} notations continue to be
+interpreted properly.  Such situations as
+@f{')},@f{#<},
+@f{#)}, and @f{#@SpaceChar{}} continue to signal errors.
+
+@subsubheading Examples:
+
+@lisp
+ (let ((*read-suppress* t))
+   (mapcar #'read-from-string
+           '("#(foo bar baz)" "#P(:type :lisp)" "#c1.2"
+             "#.(PRINT 'FOO)" "#3AHELLO" "#S(INTEGER)"
+             "#*ABC" "#@bsl{}GARBAGE" "#RALPHA" "#3R444")))
+@EV{} (NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{read},
+@ref{Syntax, Chapter 2 (Syntax)}
+
+@subsubheading Notes:
+
+@term{Programmers} and @term{implementations} that define additional
+@term{macro characters} are strongly encouraged to make them respect
+@code{*read-suppress*} just as @term{standardized} @term{macro characters} do.
+That is, when @thevalueof{*read-suppress*} is @term{true},
+they should ignore type errors when reading a following @term{object}
+and the @term{functions} that implement @term{dispatching macro characters}
+should tolerate @nil{}@spc{}as their infix @term{parameter} value even if a numeric
+value would ordinarily be required.
+
+
+@node *readtable*
+@heading *readtable* (Variable)
+@syindex *readtable*
+@cindex *readtable*
+
+
+@subsubheading Value Type:
+
+a @term{readtable}.
+
+@subsubheading Initial Value:
+
+A @term{readtable} that conforms to the description of @clisp{}@spc{}syntax in @ref{Syntax, Chapter 2 (Syntax)}.
+
+@subsubheading Description:
+
+@Thevalueof{*readtable*} is called the @term{current readtable}.
+It controls the parsing behavior of the @term{Lisp reader},
+and can also influence the @term{Lisp printer} (@eg{} see the @term{function} @ref{readtable-case}).
+
+@subsubheading Examples:
+
+@lisp
+ (readtablep *readtable*) @EV{} @term{true}
+ (setq zvar 123) @EV{} 123
+ (set-syntax-from-char #@bsl{}z #@bsl{}' (setq table2 (copy-readtable))) @EV{} T
+ zvar @EV{} 123
+ (setq *readtable* table2) @EV{} #<READTABLE>
+ zvar @EV{} VAR
+ (setq *readtable* (copy-readtable nil)) @EV{} #<READTABLE>
+ zvar @EV{} 123
+@end lisp
+
+
+@subsubheading Affected By:
+
+@code{compile-file},
+@code{load}
+
+@subsubheading See Also:
+
+@ref{compile-file},
+@ref{load},
+@ref{readtable},
+@ref{CurrentReadtable, Section 2.1.1.1 (The Current Readtable)}
+
+
+@node reader-error
+@heading reader-error (Condition Type)
+@syindex reader-error
+@cindex reader-error
+
+
+
+@subsubheading Class Precedence List:
+@code{reader-error},
+@code{parse-error},
+@code{stream-error},
+@code{error},
+@code{serious-condition},
+@code{condition},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{reader-error} consists of
+error conditions that are related to tokenization and parsing
+done by the @term{Lisp reader}.
+
+@subsubheading See Also:
+
+@ref{read},
+@ref{stream-error-stream},
+@ref{Reader Concepts, Section 23.1 (Reader Concepts)}

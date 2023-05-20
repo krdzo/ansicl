@@ -1,0 +1,1033 @@
+@node Hash Tables
+@chapter Hash Tables
+@menu
+* Hash Table Concepts::
+
+Dictionary
+
+* hash-table::
+* make-hash-table::
+* hash-table-p::
+* hash-table-count::
+* hash-table-rehash-size::
+* hash-table-rehash-threshold::
+* hash-table-size::
+* hash-table-test::
+* gethash::
+* remhash::
+* maphash::
+* with-hash-table-iterator::
+* clrhash::
+* sxhash::
+@end menu
+
+@node Hash Table Concepts
+@section Hash Table Concepts
+
+@menu
+* Hash-Table Operations::
+* Modifying Hash Table Keys::
+@end menu
+@node Hash-Table Operations
+@subsection Hash-Table Operations
+
+@Thenextfigure{}@spc{}lists some @term{defined names} that are applicable
+to @term{hash tables}.  The following rules apply to @term{hash tables}.
+
+
+@itemize --
+@item
+A @term{hash table} can only associate one value with a given
+key. If an attempt is made to add a second value for a given key,
+the second value will replace the first.
+Thus, adding a value to a @term{hash table} is a destructive operation;
+the @term{hash table} is modified.
+
+@item
+There are four kinds of @term{hash tables}:
+those whose keys are compared with @code{eq},
+those whose keys are compared with @code{eql},
+those whose keys are compared with @code{equal}, and
+those whose keys are compared with @code{equalp}.
+
+@item
+@term{Hash tables} are created by @code{make-hash-table}.
+@code{gethash} is used to look up a key and find the associated value.
+New entries are added to @term{hash tables} using @code{setf} with @code{gethash}.
+@code{remhash} is used to remove an entry.
+For example:
+
+@lisp
+ (setq a (make-hash-table)) @EV{} #<HASH-TABLE EQL 0/120 32536573>
+ (setf (gethash 'color a) 'brown) @EV{} BROWN
+ (setf (gethash 'name a) 'fred) @EV{} FRED
+ (gethash 'color a) @EV{} BROWN, @term{true}
+ (gethash 'name a) @EV{} FRED, @term{true}
+ (gethash 'pointy a) @EV{} NIL, @term{false}
+@end lisp
+
+
+In this example, the symbols @f{color} and @f{name} are being used as
+keys, and the symbols @f{brown} and @f{fred} are being used as the
+associated values.  The @term{hash table}
+has two items in it, one of which
+associates from @f{color} to @f{brown}, and the other of which
+associates from @f{name} to @f{fred}.
+
+@item
+A key or a value may be any @term{object}.
+
+
+@item
+The existence of an entry in the @term{hash table} can be determined
+from the @term{secondary value} returned by @code{gethash}.
+@end itemize
+
+
+
+@float Figure,fig18.1
+@cartouche
+@multitable{hash-table-count}{make-hash-table}{remhash}
+
+@item clrhash @tab hash-table-p @tab remhash
+@item gethash @tab make-hash-table @tab sxhash
+@item hash-table-count @tab maphash @tab
+@end multitable
+@end cartouche
+@caption{Hash-table defined names}
+@end float
+
+
+
+@node Modifying Hash Table Keys
+@subsection Modifying Hash Table Keys
+
+
+The function supplied as the @kwd{test} argument to @code{make-hash-table}
+specifies the `equivalence test' for the @term{hash table} it creates.
+
+An @term{object} is `visibly modified' with regard to an equivalence test
+if there exists some set of @term{objects} (or potential @term{objects})
+which are equivalent to the @term{object} before the modification but are
+no longer equivalent afterwards.
+
+If an @term{object} @mat{O@sub1{}} is used as a key in a @term{hash table} @mat{H}
+and is then visibly modified with regard to the equivalence test of @mat{H},
+then the consequences are unspecified if @mat{O@sub1{}}, or any @term{object}
+@mat{O@sub2{}} equivalent to @mat{O@sub1{}} under the equivalence test (either before
+or after the modification), is used as a key in further operations on @mat{H}.
+The consequences of using @mat{O@sub1{}} as a key are unspecified
+even if @mat{O@sub1{}} is visibly modified
+and then later modified again in such a way as
+to undo the visible modification.
+
+Following are specifications of the modifications which are visible to the
+equivalence tests which must be supported by @term{hash tables}.  The modifications
+are described in terms of modification of components, and are defined
+recursively.  Visible modifications of components of the @term{object} are
+visible modifications of the @term{object}.
+
+@subsubsection Visible Modification of Objects with respect to EQ and EQL
+@anchor{VisModEQL}
+
+No @term{standardized} @term{function} is provided that is capable of visibly
+modifying an @term{object} with regard to @code{eq} or @code{eql}.
+
+
+@subsubsection Visible Modification of Objects with respect to EQUAL
+@anchor{VisModEQUAL}
+
+As a consequence of the behavior for @code{equal},
+the rules for visible modification of @term{objects} not explicitly mentioned in this
+section are inherited from those in @ref{VisModEQL, Section 18.1.2.1 (Visible Modification of Objects with respect to EQ and EQL)}.
+
+@unnumberedsubsubsec 18.1.2.2.1 Visible Modification of Conses with respect to EQUAL
+
+
+Any visible change to the @term{car} or the @term{cdr} of a @term{cons}
+is considered a visible modification with regard to @code{equal}.
+
+
+@unnumberedsubsubsec 18.1.2.2.2 Visible Modification of Bit Vectors and Strings with respect to EQUAL
+
+
+For a @term{vector} @oftype{bit-vector} or @oftype{string}, any visible change
+to an @term{active} @term{element} of the @term{vector},
+or to the @term{length} of the @term{vector} (if it is @term{actually adjustable}
+or has a @term{fill pointer})
+is considered a visible modification with regard to @code{equal}.
+
+
+
+@subsubsection Visible Modification of Objects with respect to EQUALP
+
+As a consequence of the behavior for @code{equalp},
+the rules for visible modification of @term{objects} not explicitly mentioned in this
+section are inherited from those in @ref{VisModEQUAL, Section 18.1.2.2 (Visible Modification of Objects with respect to EQUAL)}.
+
+@unnumberedsubsubsec 18.1.2.3.1 Visible Modification of Structures with respect to EQUALP
+
+
+Any visible change to a @term{slot} of a @term{structure}
+is considered a visible modification with regard to @code{equalp}.
+
+
+@unnumberedsubsubsec 18.1.2.3.2 Visible Modification of Arrays with respect to EQUALP
+
+
+In an @term{array}, any visible change
+to an @term{active} @term{element},
+to the @term{fill pointer} (if the @term{array} can and does have one),
+or to the @term{dimensions} (if the @term{array} is @term{actually adjustable})
+is considered a visible modification with regard to @code{equalp}.
+
+
+@unnumberedsubsubsec 18.1.2.3.3 Visible Modification of Hash Tables with respect to EQUALP
+
+
+In a @term{hash table}, any visible change
+to the count of entries in the @term{hash table},
+to the keys,
+or to the values associated with the keys
+is considered a visible modification with regard to @code{equalp}.
+
+Note that the visibility of modifications to the keys depends on the equivalence test
+of the @term{hash table}, not on the specification of @code{equalp}.
+
+
+
+@subsubsection Visible Modifications by Language Extensions
+
+@term{Implementations} that extend the language by providing additional mutator
+functions (or additional behavior for existing mutator functions) must
+document how the use of these extensions interacts with equivalence tests and
+@term{hash table} searches.
+
+@term{Implementations} that extend the language by defining additional acceptable
+equivalence tests for @term{hash tables} (allowing additional values for the @kwd{test}
+argument to @code{make-hash-table}) must document the visible components of these
+tests.
+
+
+
+
+@node hash-table
+@heading hash-table (System Class)
+@syindex hash-table
+@cindex hash-table
+
+
+@subsubheading Class Precedence List:
+@code{hash-table},
+@code{t}
+
+@subsubheading Description:
+
+@term{Hash tables} provide a way of mapping any @term{object} (a @term{key})
+to an associated @term{object} (a @term{value}).
+
+@subsubheading See Also:
+
+@ref{Hash Table Concepts, Section 18.1 (Hash Table Concepts)},
+@ref{PrintingOtherObjects, Section 22.1.3.13 (Printing Other Objects)}
+
+@subsubheading Notes:
+
+The intent is that this mapping be implemented by a hashing mechanism,
+such as that described in Section 6.4 ``Hashing'' of @KnuthVolThree{}
+(pp506-549).  In spite of this intent, no @term{conforming implementation}
+is required to use any particular technique to implement the mapping.
+
+
+@node make-hash-table
+@heading make-hash-table (Function)
+@syindex make-hash-table
+@cindex make-hash-table
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{make-hash-table, @key{} test size rehash-size rehash-threshold, hash-table}
+
+@subsubheading Arguments and Values:
+
+@param{test}---a @term{designator} for one of the @term{functions}
+@code{eq},
+@code{eql},
+@code{equal}, or
+@code{equalp}.
+@Default{@code{eql}}
+
+@param{size}---a non-negative @term{integer}.
+@Default{@term{implementation-dependent}}
+
+@param{rehash-size}---a @term{real} of @term{type} @f{(or (integer 1 *) (float (1.0) *))}.
+@Default{@term{implementation-dependent}}
+
+@param{rehash-threshold}---a @term{real} of @term{type} @f{(real 0 1)}.
+@Default{@term{implementation-dependent}}
+
+@param{hash-table}---a @term{hash table}.
+
+@subsubheading Description:
+
+Creates and returns a new @term{hash table}.
+
+@param{test} determines how @term{keys} are compared.
+An @term{object} is said to be present in the @param{hash-table}
+if that @term{object} is the @term{same} under the @term{test}
+as the @term{key} for some entry in the @param{hash-table}.
+
+@param{size} is a hint to the @term{implementation} about how much initial space
+to allocate in the @param{hash-table}.
+This information, taken together with the @param{rehash-threshold}, controls
+the approximate number of entries which it should be possible
+to insert before the table has to grow.
+The actual size might be rounded up from @param{size} to the next `good' size;
+for example, some @term{implementations} might round to the next prime number.
+
+@param{rehash-size} specifies a minimum amount to increase the size of the
+@param{hash-table} when it becomes full
+enough to require rehashing;
+see @param{rehash-theshold} below.
+If @param{rehash-size} is an @term{integer},
+the expected growth rate for the table is additive and
+the @term{integer} is the number of entries to add;
+if it is a @term{float},
+the expected growth rate for the table is multiplicative and
+the @term{float} is the ratio of the new size to the old size.
+As with @param{size}, the actual size of the increase might be rounded up.
+
+@param{rehash-threshold} specifies how full the @param{hash-table} can get
+before it must grow.
+It specifies the maximum desired hash-table occupancy level.
+
+The @term{values} of @param{rehash-size} and @param{rehash-threshold} do not constrain the
+@term{implementation} to use any particular method for computing when and by how much
+the size of @param{hash-table} should be enlarged.  Such decisions are
+@term{implementation-dependent}, and these @term{values} only hints
+from the @term{programmer} to the @term{implementation}, and the @term{implementation}
+is permitted to ignore them.
+
+@subsubheading Examples:
+
+@lisp
+ (setq table (make-hash-table)) @EV{} #<HASH-TABLE EQL 0/120 46142754>
+ (setf (gethash "one" table) 1) @EV{} 1
+ (gethash "one" table) @EV{} NIL, @term{false}
+ (setq table (make-hash-table :test 'equal)) @EV{} #<HASH-TABLE EQUAL 0/139 46145547>
+ (setf (gethash "one" table) 1) @EV{} 1
+ (gethash "one" table) @EV{} 1, T
+ (make-hash-table :rehash-size 1.5 :rehash-threshold 0.7)
+@EV{} #<HASH-TABLE EQL 0/120 46156620>
+@end lisp
+
+
+
+@subsubheading See Also:
+
+@ref{gethash},
+@ref{hash-table}
+
+
+@node hash-table-p
+@heading hash-table-p (Function)
+@syindex hash-table-p
+@cindex hash-table-p
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{hash-table-p, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{object, hash-table}
+
+@subsubheading Examples:
+
+@lisp
+ (setq table (make-hash-table)) @EV{} #<HASH-TABLE EQL 0/120 32511220>
+ (hash-table-p table) @EV{} @term{true}
+ (hash-table-p 37) @EV{} @term{false}
+ (hash-table-p '((a . 1) (b . 2))) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading Notes:
+
+@lisp
+ (hash-table-p @param{object}) @EQ{} (typep @param{object} 'hash-table)
+@end lisp
+
+
+
+@node hash-table-count
+@heading hash-table-count (Function)
+@syindex hash-table-count
+@cindex hash-table-count
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{hash-table-count, hash-table, count}
+
+@subsubheading Arguments and Values:
+
+@param{hash-table}---a @term{hash table}.
+
+@param{count}---a non-negative @term{integer}.
+
+@subsubheading Description:
+
+Returns the number of entries in the @param{hash-table}.
+If @param{hash-table} has just been created
+or newly cleared (see @code{clrhash})
+the entry count is @f{0}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq table (make-hash-table)) @EV{} #<HASH-TABLE EQL 0/120 32115135>
+ (hash-table-count table) @EV{} 0
+ (setf (gethash 57 table) "fifty-seven") @EV{} "fifty-seven"
+ (hash-table-count table) @EV{} 1
+ (dotimes (i 100) (setf (gethash i table) i)) @EV{} NIL
+ (hash-table-count table) @EV{} 100
+@end lisp
+
+
+@subsubheading Affected By:
+
+@code{clrhash},
+@code{remhash},
+@SETFof{gethash}
+
+@subsubheading See Also:
+
+@ref{hash-table-size}
+
+@subsubheading Notes:
+
+The following relationships are functionally correct, although in practice
+using @code{hash-table-count} is probably much faster:
+
+@lisp
+ (hash-table-count @param{table}) @EQ{}
+ (loop for value being the hash-values of @param{table} count t) @EQ{}
+ (let ((total 0))
+   (maphash #'(lambda (key value)
+                (declare (ignore key value))
+                (incf total))
+            @param{table})
+   total)
+@end lisp
+
+
+
+@node hash-table-rehash-size
+@heading hash-table-rehash-size (Function)
+@syindex hash-table-rehash-size
+@cindex hash-table-rehash-size
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{hash-table-rehash-size, hash-table, rehash-size}
+
+@subsubheading Arguments and Values:
+
+@param{hash-table}---a @term{hash table}.
+
+@param{rehash-size}---a @term{real} of @term{type} @f{(or (integer 1 *) (float (1.0) *))}.
+
+@subsubheading Description:
+
+Returns the current rehash size of @param{hash-table},
+suitable for use in a call to @code{make-hash-table}
+in order to produce a @term{hash table}
+with state corresponding to the current state of the @param{hash-table}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq table (make-hash-table :size 100 :rehash-size 1.4))
+@EV{} #<HASH-TABLE EQL 0/100 2556371>
+ (hash-table-rehash-size table) @EV{} 1.4
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{hash-table, a @term{hash table}}
+
+@subsubheading See Also:
+
+@ref{make-hash-table},
+@ref{hash-table-rehash-threshold}
+
+@subsubheading Notes:
+
+If the hash table was created with an @term{integer} rehash size,
+the result is an @term{integer},
+indicating that the rate of growth of the @param{hash-table} when rehashed
+is intended to be additive;
+otherwise,
+the result is a @term{float},
+indicating that the rate of growth of the @param{hash-table} when rehashed
+is intended to be multiplicative.
+However, this value is only advice to the @term{implementation};
+the actual amount by which the @param{hash-table} will grow upon rehash is
+@term{implementation-dependent}.
+
+
+@node hash-table-rehash-threshold
+@heading hash-table-rehash-threshold (Function)
+@syindex hash-table-rehash-threshold
+@cindex hash-table-rehash-threshold
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{hash-table-rehash-threshold, hash-table, rehash-threshold}
+
+@subsubheading Arguments and Values:
+
+@param{hash-table}---a @term{hash table}.
+
+@param{rehash-threshold}---a @term{real} of @term{type} @f{(real 0 1)}.
+
+@subsubheading Description:
+
+Returns the current rehash threshold of @param{hash-table}, which is
+suitable for use in a call to @code{make-hash-table} in order to
+produce a @term{hash table} with state corresponding to the current
+state of the @param{hash-table}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq table (make-hash-table :size 100 :rehash-threshold 0.5))
+@EV{} #<HASH-TABLE EQL 0/100 2562446>
+ (hash-table-rehash-threshold table) @EV{} 0.5
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{hash-table, a @term{hash table}}
+
+@subsubheading See Also:
+
+@ref{make-hash-table},
+@ref{hash-table-rehash-size}
+
+
+
+@node hash-table-size
+@heading hash-table-size (Function)
+@syindex hash-table-size
+@cindex hash-table-size
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{hash-table-size, hash-table, size}
+
+@subsubheading Arguments and Values:
+
+@param{hash-table}---a @term{hash table}.
+
+@param{size}---a non-negative @term{integer}.
+
+@subsubheading Description:
+
+Returns the current size of @param{hash-table}, which is suitable for use in
+a call to @code{make-hash-table} in order to produce a @term{hash table}
+with state corresponding to the current state of the @param{hash-table}.
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{hash-table, a @term{hash table}}
+
+@subsubheading See Also:
+
+@ref{hash-table-count},
+@ref{make-hash-table}
+
+
+
+@node hash-table-test
+@heading hash-table-test (Function)
+@syindex hash-table-test
+@cindex hash-table-test
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{hash-table-test, hash-table, test}
+
+@subsubheading Arguments and Values:
+
+@param{hash-table}---a @term{hash table}.
+
+@param{test}---a @term{function designator}.
+For the four @term{standardized} @term{hash table} test @term{functions}
+(see @code{make-hash-table}), the @param{test} value returned
+is always a @term{symbol}.  If an @term{implementation} permits additional
+tests, it is @term{implementation-dependent} whether such tests are
+returned as @term{function} @term{objects} or @term{function names}.
+
+@subsubheading Description:
+
+Returns the test used for comparing @term{keys} in @param{hash-table}.
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{hash-table, a @term{hash table}}
+
+@subsubheading See Also:
+
+@ref{make-hash-table}
+
+
+
+@node gethash
+@heading gethash (Accessor)
+@syindex gethash
+@cindex gethash
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{gethash, key hash-table @opt{} default, value\, present-p}
+@Defsetf{gethash, key hash-table @opt{} default, new-value}
+
+@subsubheading Arguments and Values:
+
+@param{key}---an @term{object}.
+
+@param{hash-table}---a @term{hash table}.
+
+@param{default}---an @term{object}.
+@Default{@nil{}}
+
+@param{value}---an @term{object}.
+
+@param{present-p}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@param{Value} is the @term{object} in @param{hash-table} whose @term{key}
+is the @term{same} as @param{key} under the @param{hash-table}'s equivalence test.
+If there is no such entry, @param{value} is the @param{default}.
+
+@param{Present-p} is @term{true} if an entry is found; otherwise, it is @term{false}.
+
+@code{setf} may be used with @code{gethash} to modify the @term{value}
+associated with a given @term{key}, or to add a new entry.
+When a @code{gethash} @term{form} is used as a @code{setf} @param{place},
+any @param{default} which is supplied is evaluated according to normal
+left-to-right evaluation rules, but its @term{value} is ignored.
+
+@subsubheading Examples:
+
+@lisp
+ (setq table (make-hash-table)) @EV{} #<HASH-TABLE EQL 0/120 32206334>
+ (gethash 1 table) @EV{} NIL, @term{false}
+ (gethash 1 table 2) @EV{} 2, @term{false}
+ (setf (gethash 1 table) "one") @EV{} "one"
+ (setf (gethash 2 table "two") "two") @EV{} "two"
+ (gethash 1 table) @EV{} "one", @term{true}
+ (gethash 2 table) @EV{} "two", @term{true}
+ (gethash nil table) @EV{} NIL, @term{false}
+ (setf (gethash nil table) nil) @EV{} NIL
+ (gethash nil table) @EV{} NIL, @term{true}
+ (defvar *counters* (make-hash-table)) @EV{} *COUNTERS*
+ (gethash 'foo *counters*) @EV{} NIL, @term{false}
+ (gethash 'foo *counters* 0) @EV{} 0, @term{false}
+ (defmacro how-many (obj) `(values (gethash ,obj *counters* 0))) @EV{} HOW-MANY
+ (defun count-it (obj) (incf (how-many obj))) @EV{} COUNT-IT
+ (dolist (x '(bar foo foo bar bar baz)) (count-it x))
+ (how-many 'foo) @EV{} 2
+ (how-many 'bar) @EV{} 3
+ (how-many 'quux) @EV{} 0
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{remhash}
+
+@subsubheading Notes:
+
+The @term{secondary value}, @param{present-p},
+can be used to distinguish the absence of an entry
+from the presence of an entry that has a value of @param{default}.
+
+
+@node remhash
+@heading remhash (Function)
+@syindex remhash
+@cindex remhash
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{remhash, key hash-table, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{key}---an @term{object}.
+
+@param{hash-table}---a @term{hash table}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+Removes the entry for @param{key} in @param{hash-table}, if any.
+Returns @term{true} if there was such an entry, or @term{false} otherwise.
+
+@subsubheading Examples:
+@lisp
+ (setq table (make-hash-table)) @EV{} #<HASH-TABLE EQL 0/120 32115666>
+ (setf (gethash 100 table) "C") @EV{} "C"
+ (gethash 100 table) @EV{} "C", @term{true}
+ (remhash 100 table) @EV{} @term{true}
+ (gethash 100 table) @EV{} NIL, @term{false}
+ (remhash 100 table) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The @param{hash-table} is modified.
+
+
+@node maphash
+@heading maphash (Function)
+@syindex maphash
+@cindex maphash
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{maphash, function hash-table, @nil{}}
+
+@subsubheading Arguments and Values:
+
+@param{function}---a @term{designator} for a @term{function} of two @term{arguments},
+the @term{key} and the @term{value}.
+
+@param{hash-table}---a @term{hash table}.
+
+@subsubheading Description:
+
+Iterates over all entries in the @param{hash-table}.  For each entry,
+the @param{function} is called with two @term{arguments}---the @term{key}
+and the @term{value} of that entry.
+
+The consequences are unspecified if any attempt is made to add or remove
+an entry from the @param{hash-table} while a @code{maphash} is in progress,
+with two exceptions:
+the @param{function} can use can use @code{setf} of @code{gethash}
+to change the @term{value} part of the entry currently being processed,
+or it can use @code{remhash} to remove that entry.
+
+@subsubheading Examples:
+
+@lisp
+ (setq table (make-hash-table)) @EV{} #<HASH-TABLE EQL 0/120 32304110>
+ (dotimes (i 10) (setf (gethash i table) i)) @EV{} NIL
+ (let ((sum-of-squares 0))
+    (maphash #'(lambda (key val)
+                 (let ((square (* val val)))
+                   (incf sum-of-squares square)
+                   (setf (gethash key table) square)))
+             table)
+    sum-of-squares) @EV{} 285
+ (hash-table-count table) @EV{} 10
+ (maphash #'(lambda (key val)
+               (when (oddp val) (remhash key table)))
+           table) @EV{} NIL
+ (hash-table-count table) @EV{} 5
+ (maphash #'(lambda (k v) (print (list k v))) table)
+(0 0)
+(8 64)
+(2 4)
+(6 36)
+(4 16)
+@EV{} NIL
+@end lisp
+
+
+@subsubheading Side Effects:
+
+None, other than any which might be done by the @param{function}.
+
+@subsubheading See Also:
+
+@ref{loop},
+@ref{with-hash-table-iterator},
+@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+
+
+@node with-hash-table-iterator
+@heading with-hash-table-iterator (Macro)
+@syindex with-hash-table-iterator
+@cindex with-hash-table-iterator
+
+
+
+
+@subsubheading Syntax:
+
+@DefmacWithValues{with-hash-table-iterator, @paren{name hash-table}  @starparam{declaration} @starparam{form}, @starparam{result}}
+
+@subsubheading Arguments and Values:
+
+@param{name}---a name suitable for the first argument to @code{macrolet}.
+
+@param{hash-table}---a @term{form}, evaluated once, that should produce a @term{hash table}.
+
+@param{declaration}---a @t{declare} @term{expression}; @noeval{}.
+
+@param{forms}---an @term{implicit progn}.
+
+@param{results}---the @term{values} returned by @param{forms}.
+
+@subsubheading Description:
+
+Within the lexical scope of the body, @param{name} is defined via @code{macrolet}
+such that successive invocations of @f{(@param{name})} return the items,
+one by one, from the @term{hash table} that is obtained by evaluating
+@param{hash-table} only once.
+
+An invocation @f{(@param{name})} returns three values as follows:
+
+
+@enumerate 1
+@item A @term{generalized boolean} that is @term{true} if an entry is returned.
+@item The key from the @param{hash-table} entry.
+@item The value from the @param{hash-table} entry.
+@end enumerate
+
+After all entries have been returned by successive invocations of
+@f{(@param{name})}, then only one value is returned, namely @nil{}.
+
+It is unspecified what happens if any of the implicit interior state
+of an iteration is returned outside the dynamic extent of the
+@code{with-hash-table-iterator} @term{form}
+such as by returning some @term{closure} over the invocation @term{form}.
+
+Any number of invocations of @code{with-hash-table-iterator}
+can be nested, and the body of the innermost one can invoke all of the
+locally @term{established} @term{macros}, provided all of those @term{macros}
+have @term{distinct} names.
+
+@subsubheading Examples:
+
+The following function should return @code{t}@spc{}on any
+@term{hash table}, and signal
+an error if the usage of @code{with-hash-table-iterator} does not agree
+with the corresponding usage of @code{maphash}.
+
+@lisp
+ (defun test-hash-table-iterator (hash-table)
+   (let ((all-entries '())
+         (generated-entries '())
+         (unique (list nil)))
+     (maphash #'(lambda (key value) (push (list key value) all-entries))
+              hash-table)
+     (with-hash-table-iterator (generator-fn hash-table)
+       (loop
+         (multiple-value-bind (more? key value) (generator-fn)
+           (unless more? (return))
+           (unless (eql value (gethash key hash-table unique))
+             (error "Key ~S not found for value ~S" key value))
+           (push (list key value) generated-entries))))
+     (unless (= (length all-entries)
+                (length generated-entries)
+                (length (union all-entries generated-entries
+                               :key #'car :test (hash-table-test hash-table))))
+       (error "Generated entries and Maphash entries don't correspond"))
+     t))
+@end lisp
+
+
+The following could be an acceptable definition of
+@code{maphash}, implemented by @code{with-hash-table-iterator}.
+
+@lisp
+ (defun maphash (function hash-table)
+   (with-hash-table-iterator (next-entry hash-table)
+     (loop (multiple-value-bind (more key value) (next-entry)
+             (unless more (return nil))
+             (funcall function key value)))))
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+The consequences are undefined if the local function named @param{name}
+@term{established} by @code{with-hash-table-iterator} is called after it has
+returned @term{false} as its @term{primary value}.
+
+@subsubheading See Also:
+
+@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+
+
+
+@node clrhash
+@heading clrhash (Function)
+@syindex clrhash
+@cindex clrhash
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{clrhash, hash-table, hash-table}
+
+@subsubheading Arguments and Values:
+
+@param{hash-table}---a @term{hash table}.
+
+@subsubheading Description:
+
+Removes all entries from @param{hash-table},
+and then returns that empty @term{hash table}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq table (make-hash-table)) @EV{} #<HASH-TABLE EQL 0/120 32004073>
+ (dotimes (i 100) (setf (gethash i table) (format nil "~R" i))) @EV{} NIL
+ (hash-table-count table) @EV{} 100
+ (gethash 57 table) @EV{} "fifty-seven", @term{true}
+ (clrhash table) @EV{} #<HASH-TABLE EQL 0/120 32004073>
+ (hash-table-count table) @EV{} 0
+ (gethash 57 table) @EV{} NIL, @term{false}
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The @param{hash-table} is modified.
+
+
+@node sxhash
+@heading sxhash (Function)
+@syindex sxhash
+@cindex sxhash
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{sxhash, object, hash-code}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{hash-code}---a non-negative @term{fixnum}.
+
+@subsubheading Description:
+
+@code{sxhash} returns a hash code for @param{object}.
+
+The manner in which the hash code is computed is @term{implementation-dependent},
+but subject to certain constraints:
+
+
+@enumerate 1
+@item
+@f{(equal @param{x} @param{y})} implies @f{(= (sxhash @param{x}) (sxhash @param{y}))}.
+
+@item
+For any two @term{objects}, @param{x} and @param{y},
+both of which are
+@term{bit vectors},
+@term{characters},
+@term{conses},
+@term{numbers},
+@term{pathnames},
+@term{strings},
+or @term{symbols},
+and which are @term{similar},
+@f{(sxhash @param{x})} and @f{(sxhash @param{y})}
+@term{yield} the same mathematical value
+even if @param{x} and @param{y} exist in different @term{Lisp images} of
+the same @term{implementation}.
+See @ref{Literal Objects in Compiled Files, Section 3.2.4 (Literal Objects in Compiled Files)}.
+
+@item
+The @param{hash-code} for an @term{object} is always the @term{same}
+within a single @term{session} provided that the @term{object} is not
+visibly modified with regard to the equivalence test @code{equal}.
+See @ref{Modifying Hash Table Keys, Section 18.1.2 (Modifying Hash Table Keys)}.
+
+@item
+The @param{hash-code} is intended for hashing.  This places no verifiable
+constraint on a @term{conforming implementation}, but the intent is that
+an @term{implementation} should make a good-faith effort to produce
+@param{hash-codes} that are well distributed within the range of
+non-negative @term{fixnums}.
+
+@item
+Computation of the @param{hash-code} must terminate,
+even if the @param{object} contains circularities.
+@end enumerate
+
+
+@subsubheading Examples:
+
+@lisp
+ (= (sxhash (list 'list "ab")) (sxhash (list 'list "ab"))) @EV{} @term{true}
+ (= (sxhash "a") (sxhash (make-string 1 :initial-element #@bsl{}a))) @EV{} @term{true}
+ (let ((r (make-random-state)))
+   (= (sxhash r) (sxhash (make-random-state r))))
+@EV{} @term{implementation-dependent}
+@end lisp
+
+
+@subsubheading Affected By:
+
+The @term{implementation}.
+
+@subsubheading Notes:
+
+Many common hashing needs are satisfied by @code{make-hash-table} and the
+related functions on @term{hash tables}.  @code{sxhash} is intended for use
+where the pre-defined abstractions are insufficient.  Its main intent is to
+allow the user a convenient means of implementing more complicated hashing
+paradigms than are provided through @term{hash tables}.
+
+The hash codes returned by @code{sxhash} are not necessarily related to
+any hashing strategy used by any other @term{function} in @clisp{}.
+
+For @term{objects} of @term{types} that @code{equal} compares
+with @code{eq}, item 3 requires that the @param{hash-code} be
+based on some immutable quality of the identity of the object.
+Another legitimate implementation technique would be to have
+@code{sxhash} assign (and cache) a random hash code for these
+@term{objects}, since there is no requirement that @term{similar} but
+non-@code{eq} objects have the same hash code.
+
+Although @term{similarity} is defined for @term{symbols} in terms
+of both the @term{symbol}'s @term{name} and the @term{packages} in which
+the @term{symbol} is @term{accessible}, item 3 disallows using @term{package}
+information to compute the hash code, since changes to the package status
+of a symbol are not visible to @param{equal}.

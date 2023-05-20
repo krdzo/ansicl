@@ -1,0 +1,5502 @@
+@node Printer
+@chapter Printer
+@menu
+* The Lisp Printer::
+* The Lisp Pretty Printer::
+* Formatted Output::
+
+Dictionary
+
+* copy-pprint-dispatch::
+* formatter::
+* pprint-dispatch::
+* pprint-exit-if-list-exhausted::
+* pprint-fill; pprint-linear; pprint-tabular::
+* pprint-indent::
+* pprint-logical-block::
+* pprint-newline::
+* pprint-pop::
+* pprint-tab::
+* print-object::
+* print-unreadable-object::
+* set-pprint-dispatch::
+* write; prin1; print; pprint; princ::
+* write-to-string; prin1-to-string; princ-to-string::
+* *print-array*::
+* *print-base*; *print-radix*::
+* *print-case*::
+* *print-circle*::
+* *print-escape*::
+* *print-gensym*::
+* *print-level*; *print-length*::
+* *print-lines*::
+* *print-miser-width*::
+* *print-pprint-dispatch*::
+* *print-pretty*::
+* *print-readably*::
+* *print-right-margin*::
+* print-not-readable::
+* print-not-readable-object::
+* format::
+@end menu
+
+@node The Lisp Printer
+@section The Lisp Printer
+
+@menu
+* Overview of The Lisp Printer::
+* Printer Dispatching::
+* Default Print-Object Methods::
+* Examples of Printer Behavior::
+@end menu
+@node Overview of The Lisp Printer
+@subsection Overview of The Lisp Printer
+
+@clisp{}@spc{}provides a representation of most @term{objects} in the form
+of printed text called the printed representation.
+Functions such as @code{print} take an @term{object}
+and send the characters of its printed representation to a @term{stream}.
+The collection of routines that does this is known as the (@clisp{}) printer.
+
+Reading a printed representation
+typically
+produces an @term{object} that is @code{equal} to the
+originally printed @term{object}.
+
+@subsubsection Multiple Possible Textual Representations
+
+Most @term{objects} have more than one possible textual representation.
+For example, the positive @term{integer} with a magnitude of twenty-seven
+can be textually expressed in any of these ways:
+
+@lisp
+ 27    27.    #o33    #x1B    #b11011    #.(* 3 3 3)    81/3
+@end lisp
+
+
+A list containing the two symbols @f{A} and @f{B} can also be textually
+expressed in a variety of ways:
+
+@lisp
+ (A B)    (a b)    (  a  b )    (@bsl{}A |B|)
+(|@bsl{}A|
+  B
+)
+@end lisp
+
+
+In general,
+from the point of view of the @term{Lisp reader},
+wherever @term{whitespace} is permissible in a textual representation,
+any number of @term{spaces} and @term{newlines} can appear in @term{standard syntax}.
+
+When a function such as @code{print} produces a printed representation,
+it must choose
+from among many possible textual representations.
+In most cases, it chooses a
+program readable representation,
+but in certain cases it might use a more compact notation that is not
+program-readable.
+
+A number of option variables, called
+@cindex printer control variable
+@dfn{printer control variables},
+are provided to permit control of individual aspects of the
+printed representation of @term{objects}.
+@Thenextfigure{}@spc{}shows the @term{standardized} @term{printer control variables};
+there might also be @term{implementation-defined} @term{printer control variables}.
+
+
+
+@float Figure,StdPrinterControlVars
+@cartouche
+@multitable{*print-circle*}{*print-miser-width*}{*print-pprint-dispatch*}
+
+@item *print-array* @tab *print-gensym* @tab *print-pprint-dispatch*
+@item *print-base* @tab *print-length* @tab *print-pretty*
+@item *print-case* @tab *print-level* @tab *print-radix*
+@item *print-circle* @tab *print-lines* @tab *print-readably*
+@item *print-escape* @tab *print-miser-width* @tab *print-right-margin*
+@end multitable
+@end cartouche
+@caption{Standardized Printer Control Variables}
+@end float
+
+
+In addition to the @term{printer control variables},
+the following additional @term{defined names}
+relate to or affect the behavior of the @term{Lisp printer}:
+
+
+@float Figure,fig22.2
+@cartouche
+@multitable{*read-default-float-format*}{*read-eval*}{readtable-case}
+
+@item *package* @tab *read-eval* @tab readtable-case
+@item *read-default-float-format* @tab *readtable* @tab
+@end multitable
+@end cartouche
+@caption{Additional Influences on the Lisp printer.}
+@end float
+
+
+@unnumberedsubsubsec 22.1.1.1.1 Printer Escaping
+
+
+@Thevariable{*print-escape*} controls whether the @term{Lisp printer}
+tries to produce notations such as escape characters and package prefixes.
+
+@Thevariable{*print-readably*} can be used to override
+many of the individual aspects controlled by the other
+@term{printer control variables} when program-readable output
+is especially important.
+
+One of the many effects of making @thevalueof{*print-readably*} be @term{true}
+is that the @term{Lisp printer} behaves as if @code{*print-escape*} were also @term{true}.
+For notational convenience, we say that
+if the value of either @code{*print-readably*} or @code{*print-escape*} is @term{true},
+then @newterm{printer escaping} is ``enabled'';
+and we say that
+if the values of both @code{*print-readably*} and @code{*print-escape*} are @term{false},
+then @term{printer escaping} is ``disabled''.
+
+
+
+
+@node Printer Dispatching
+@subsection Printer Dispatching
+
+
+The @term{Lisp printer} makes its determination of how to print an
+@term{object} as follows:
+
+If @thevalueof{*print-pretty*} is @term{true},
+printing is controlled by the @term{current pprint dispatch table};
+see @ref{PPrintDispatchTables, Section 22.2.1.4 (Pretty Print Dispatch Tables)}.
+
+Otherwise (if @thevalueof{*print-pretty*} is @term{false}),
+the object's @code{print-object} method is used;
+see @ref{Default Print-Object Methods, Section 22.1.3 (Default Print-Object Methods)}.
+
+
+@node Default Print-Object Methods
+@subsection Default Print-Object Methods
+
+This section describes the default behavior of
+@code{print-object} methods for the @term{standardized} @term{types}.
+
+@subsubsection Printing Numbers
+
+@unnumberedsubsubsec 22.1.3.1.1 Printing Integers
+
+@anchor{PrintingIntegers}
+
+@term{Integers} are printed in the radix specified by the @term{current output base}
+in positional notation, most significant digit first.
+If appropriate, a radix specifier can be printed; see @code{*print-radix*}.
+If an @term{integer} is negative, a minus sign is printed and then the
+absolute value of the @term{integer} is printed.
+The @term{integer} zero is represented
+by the single digit @f{0} and never has a sign.
+A decimal point might be printed,
+depending on @thevalueof{*print-radix*}.
+
+For related information about the syntax of an @term{integer},
+see @ref{SyntaxOfIntegers, Section 2.3.2.1.1 (Syntax of an Integer)}.
+
+@unnumberedsubsubsec 22.1.3.1.2 Printing Ratios
+
+@anchor{PrintingRatios}
+@cindex ratio
+
+@term{Ratios} are printed as follows:
+the absolute value of the numerator is printed, as for an @term{integer};
+then a @f{/}; then the denominator.  The numerator and denominator are
+both printed in the radix specified by the @term{current output base};
+they are obtained as if by
+@code{numerator} and @code{denominator}, and so @term{ratios}
+are printed in reduced form (lowest terms).
+If appropriate, a radix specifier can be printed; see
+@code{*print-radix*}.
+If the ratio is negative, a minus sign is printed before the numerator.
+
+For related information about the syntax of a @term{ratio},
+see @ref{SyntaxOfRatios, Section 2.3.2.1.2 (Syntax of a Ratio)}.
+
+@unnumberedsubsubsec 22.1.3.1.3 Printing Floats
+
+@anchor{PrintingFloats}
+@cindex float
+
+If the magnitude of the @term{float} is either zero or between @mat{10^-3} (inclusive)
+and @mat{10^7} (exclusive), it is printed as the integer part of the number,
+then a decimal point,
+followed by the fractional part of the number;
+there is always at least one
+digit on each side of the decimal point.
+If the sign of the number
+(as determined by @code{float-sign})
+is negative, then a minus sign is printed before the number.
+If the format of the number
+does not match that specified by
+@code{*read-default-float-format*}, then the @term{exponent marker} for
+that format and the digit @f{0} are also printed.
+For example, the base of the natural logarithms as a @term{short float}
+might be printed as @f{2.71828S0}.
+
+For non-zero magnitudes outside of the range @mat{10^-3} to @mat{10^7},
+a @term{float} is printed in computerized scientific notation.
+The representation of the number is scaled to be between
+1 (inclusive) and 10 (exclusive) and then printed, with one digit
+before the decimal point and at least one digit after the decimal point.
+Next the @term{exponent marker} for the format is printed,
+except that
+if the format of the number matches that specified by
+@code{*read-default-float-format*}, then the @term{exponent marker} @f{E}
+is used.
+Finally, the power of ten by which the fraction must be multiplied
+to equal the original number is printed as a decimal integer.
+For example, Avogadro's number as a @term{short float}
+is printed as @f{6.02S23}.
+
+For related information about the syntax of a @term{float},
+see @ref{SyntaxOfFloats, Section 2.3.2.2 (Syntax of a Float)}.
+
+@unnumberedsubsubsec 22.1.3.1.4 Printing Complexes
+
+@anchor{PrintingComplexes}
+@cindex complex
+
+A @term{complex} is printed as @f{#C}, an open parenthesis,
+the printed representation of its real part, a space,
+the printed representation of its imaginary part, and finally
+a close parenthesis.
+
+For related information about the syntax of a @term{complex},
+see @ref{SyntaxOfComplexes, Section 2.3.2.3 (Syntax of a Complex)}@spc{}and @ref{SharpsignC, Section 2.4.8.11 (Sharpsign C)}.
+
+@unnumberedsubsubsec 22.1.3.1.5 Note about Printing Numbers
+
+
+The printed representation of a number must not contain @term{escape} @term{characters};
+see @ref{EscCharsAndPotentialNums, Section 2.3.1.1.1 (Escape Characters and Potential Numbers)}.
+
+@subsubsection Printing Characters
+@anchor{PrintingCharacters}
+
+When @term{printer escaping} is disabled,
+a @term{character} prints as itself;
+it is sent directly to the output @term{stream}.
+When @term{printer escaping} is enabled,
+then @f{#@bsl{}} syntax is used.
+
+When the printer types out the name of a @term{character},
+it uses the same table as the @f{#@bsl{}} @term{reader macro} would use;
+therefore any @term{character} name that is typed out
+is acceptable as input (in that @term{implementation}).
+If a @term{non-graphic} @term{character} has a @term{standardized} @term{name}@sub5{},
+that @term{name} is preferred over non-standard @term{names}
+for printing in @f{#@bsl{}} notation.
+For the @term{graphic} @term{standard characters},
+the @term{character} itself is always used
+for printing in @f{#@bsl{}} notation---even if
+the @term{character} also has a @term{name}@sub5{}.
+
+For details about the @f{#@bsl{}} @term{reader macro}, see @ref{SharpsignBackslash, Section 2.4.8.1 (Sharpsign Backslash)}.
+
+@subsubsection Printing Symbols
+@anchor{PrintingSymbols}
+
+When @term{printer escaping} is disabled,
+only the characters of the @term{symbol}'s @term{name} are output
+(but the case in which to print characters in the @term{name} is
+controlled by @code{*print-case*};
+see @ref{ReadtableCasePrintEffect, Section 22.1.3.3.2 (Effect of Readtable Case on the Lisp Printer)}).
+
+The remainder of @thissection{}@spc{}applies only
+when @term{printer escaping} is enabled.
+
+When printing a @term{symbol}, the printer inserts enough
+@term{single escape} and/or @term{multiple escape}
+characters (@term{backslashes} and/or @term{vertical-bars}) so that if
+@code{read} were called with the same @code{*readtable*} and
+with @code{*read-base*} bound to the @term{current output base}, it
+would return the same @term{symbol} (if it is not
+@term{apparently uninterned}) or an @term{uninterned} @term{symbol}
+with the same @term{print name} (otherwise).
+
+For example, if @thevalueof{*print-base*} were @f{16}
+when printing the symbol @f{face}, it would have to be printed as
+@f{@bsl{}FACE} or @f{@bsl{}Face} or @f{|FACE|},
+because the token @f{face} would be read as a hexadecimal
+number (decimal value 64206) if @thevalueof{*read-base*} were @f{16}.
+
+For additional restrictions concerning characters with  nonstandard
+@term{syntax types} in the @term{current readtable}, see the @term{variable} @ref{*print-readably*}
+
+For information about how the @term{Lisp reader} parses @term{symbols},
+see @ref{Symbols as Tokens, Section 2.3.4 (Symbols as Tokens)}@spc{}and @ref{SharpsignColon, Section 2.4.8.5 (Sharpsign Colon)}.
+
+@nil{}@spc{}might be printed as @f{()}
+when @code{*print-pretty*} is @term{true}
+and @term{printer escaping} is enabled.
+
+@unnumberedsubsubsec 22.1.3.3.1 Package Prefixes for Symbols
+
+
+@term{Package prefixes} are printed if necessary.
+The rules for @term{package prefixes} are as follows.
+When the @term{symbol} is printed, if it is in the @code{KEYWORD} @term{package},
+then it is printed with a preceding @term{colon}; otherwise, if
+it is @term{accessible} in the @term{current package}, it is printed without any
+@term{package prefix}; otherwise, it is printed with a @term{package prefix}.
+
+A @term{symbol} that is @term{apparently uninterned} is printed
+preceded by ``@f{#:}''
+if @code{*print-gensym*} is @term{true} and @term{printer escaping} is enabled;
+if @code{*print-gensym*} is @term{false} or @term{printer escaping} is disabled,
+then the @term{symbol} is printed without a prefix,
+as if it were in the @term{current package}.
+
+Because the @f{#:} syntax does not intern the
+following symbol, it is necessary to use circular-list syntax
+if @code{*print-circle*} is @term{true} and
+the same uninterned symbol appears several times in an expression
+to be printed.  For example, the result of
+
+@lisp
+ (let ((x (make-symbol "FOO"))) (list x x))
+@end lisp
+
+would be printed as @f{(#:foo #:foo)} if @code{*print-circle*}
+were @term{false}, but as @f{(#1=#:foo #1#)} if @code{*print-circle*}
+were @term{true}.
+
+A summary of the preceding package prefix rules follows:
+
+
+@table @asis
+@item @id{@f{foo:bar}}
+
+
+@f{foo:bar} is printed when @term{symbol} @f{bar}
+is external in its @term{home package} @f{foo}
+and is not @term{accessible} in the @term{current package}.
+
+@item @id{@f{foo::bar}}
+
+
+@f{foo::bar} is printed when @f{bar} is internal in its @term{home package}
+@f{foo} and is not @term{accessible} in the @term{current package}.
+
+@item @id{@f{:bar}}
+
+
+@f{:bar} is printed when the home package of @f{bar} is the @code{KEYWORD} @term{package}.
+
+@item @id{@tt{#:bar}}
+
+
+@f{#:bar} is printed when @f{bar} is @term{apparently uninterned},
+even in the pathological case that @f{bar}
+has no @term{home package} but is nevertheless somehow @term{accessible}
+in the @term{current package}.
+@end table
+
+
+
+@unnumberedsubsubsec 22.1.3.3.2 Effect of Readtable Case on the Lisp Printer
+
+@anchor{ReadtableCasePrintEffect}
+
+When
+@term{printer escaping} is disabled,
+or the characters under consideration are not already
+quoted specifically by @term{single escape} or @term{multiple escape}
+syntax,
+the @term{readtable case} of the @term{current readtable}
+affects the way the @term{Lisp printer} writes @term{symbols}
+in the following ways:
+
+
+@table @asis
+@item @id{@kwd{upcase}}
+
+
+When the @term{readtable case} is @kwd{upcase},
+@term{uppercase} @term{characters}
+are printed in the case specified by @code{*print-case*}, and
+@term{lowercase} @term{characters} are printed in their own case.
+
+@item @id{@kwd{downcase}}
+
+
+When the @term{readtable case} is @kwd{downcase},
+@term{uppercase} @term{characters} are printed in their own case, and
+@term{lowercase} @term{characters}
+are printed in the case specified by @code{*print-case*}.
+
+@item @id{@kwd{preserve}}
+
+
+When the @term{readtable case} is @kwd{preserve},
+all @term{alphabetic} @term{characters} are printed in their own case.
+
+@item @id{@kwd{invert}}
+
+
+When the @term{readtable case} is @kwd{invert},
+the case of all @term{alphabetic} @term{characters}
+in single case symbol names is inverted.
+Mixed-case symbol names are printed as is.
+@end table
+
+
+The rules for escaping @term{alphabetic} @term{characters} in symbol names are affected by
+the @code{readtable-case}
+if @term{printer escaping} is enabled.
+@term{Alphabetic} @term{characters} are escaped as follows:
+
+@table @asis
+@item @id{@kwd{upcase}}
+
+
+When the @term{readtable case} is @kwd{upcase},
+all @term{lowercase} @term{characters} must be escaped.
+
+@item @id{@kwd{downcase}}
+
+
+When the @term{readtable case} is @kwd{downcase},
+all @term{uppercase} @term{characters} must be escaped.
+
+@item @id{@kwd{preserve}}
+
+
+When the @term{readtable case} is @kwd{preserve},
+no @term{alphabetic} @term{characters} need be escaped.
+
+@item @id{@kwd{invert}}
+
+
+When the @term{readtable case} is @kwd{invert},
+no @term{alphabetic} @term{characters} need be escaped.
+@end table
+
+
+@unnumberedsubsubsec 22.1.3.3.2.1 Examples of Effect of Readtable Case on the Lisp Printer
+
+@anchor{ReadtableCasePrintExamples}
+
+@lisp
+ (defun test-readtable-case-printing ()
+   (let ((*readtable* (copy-readtable nil))
+         (*print-case* *print-case*))
+     (format t "READTABLE-CASE *PRINT-CASE*  Symbol-name  Output~
+              ~%--------------------------------------------------~
+              ~%")
+     (dolist (readtable-case '(:upcase :downcase :preserve :invert))
+       (setf (readtable-case *readtable*) readtable-case)
+       (dolist (print-case '(:upcase :downcase :capitalize))
+         (dolist (symbol '(|ZEBRA| |Zebra| |zebra|))
+           (setq *print-case* print-case)
+           (format t "~&:~A~15T:~A~29T~A~42T~A"
+                   (string-upcase readtable-case)
+                   (string-upcase print-case)
+                   (symbol-name symbol)
+                   (prin1-to-string symbol)))))))
+@end lisp
+
+The output from @f{(test-readtable-case-printing)} should be as follows:
+
+@lisp
+    READTABLE-CASE *PRINT-CASE*  Symbol-name  Output
+    --------------------------------------------------
+    :UPCASE        :UPCASE       ZEBRA        ZEBRA
+    :UPCASE        :UPCASE       Zebra        |Zebra|
+    :UPCASE        :UPCASE       zebra        |zebra|
+    :UPCASE        :DOWNCASE     ZEBRA        zebra
+    :UPCASE        :DOWNCASE     Zebra        |Zebra|
+    :UPCASE        :DOWNCASE     zebra        |zebra|
+    :UPCASE        :CAPITALIZE   ZEBRA        Zebra
+    :UPCASE        :CAPITALIZE   Zebra        |Zebra|
+    :UPCASE        :CAPITALIZE   zebra        |zebra|
+    :DOWNCASE      :UPCASE       ZEBRA        |ZEBRA|
+    :DOWNCASE      :UPCASE       Zebra        |Zebra|
+    :DOWNCASE      :UPCASE       zebra        ZEBRA
+    :DOWNCASE      :DOWNCASE     ZEBRA        |ZEBRA|
+    :DOWNCASE      :DOWNCASE     Zebra        |Zebra|
+    :DOWNCASE      :DOWNCASE     zebra        zebra
+    :DOWNCASE      :CAPITALIZE   ZEBRA        |ZEBRA|
+    :DOWNCASE      :CAPITALIZE   Zebra        |Zebra|
+    :DOWNCASE      :CAPITALIZE   zebra        Zebra
+    :PRESERVE      :UPCASE       ZEBRA        ZEBRA
+    :PRESERVE      :UPCASE       Zebra        Zebra
+    :PRESERVE      :UPCASE       zebra        zebra
+    :PRESERVE      :DOWNCASE     ZEBRA        ZEBRA
+    :PRESERVE      :DOWNCASE     Zebra        Zebra
+    :PRESERVE      :DOWNCASE     zebra        zebra
+    :PRESERVE      :CAPITALIZE   ZEBRA        ZEBRA
+    :PRESERVE      :CAPITALIZE   Zebra        Zebra
+    :PRESERVE      :CAPITALIZE   zebra        zebra
+    :INVERT        :UPCASE       ZEBRA        zebra
+    :INVERT        :UPCASE       Zebra        Zebra
+    :INVERT        :UPCASE       zebra        ZEBRA
+    :INVERT        :DOWNCASE     ZEBRA        zebra
+    :INVERT        :DOWNCASE     Zebra        Zebra
+    :INVERT        :DOWNCASE     zebra        ZEBRA
+    :INVERT        :CAPITALIZE   ZEBRA        zebra
+    :INVERT        :CAPITALIZE   Zebra        Zebra
+    :INVERT        :CAPITALIZE   zebra        ZEBRA
+@end lisp
+
+
+
+
+@subsubsection Printing Strings
+@anchor{PrintingStrings}
+
+The characters of the @term{string} are output in order.
+If @term{printer escaping} is enabled,
+a @term{double-quote} is output before and after, and all
+@term{double-quotes} and @term{single escapes} are preceded by @term{backslash}.
+The printing of @term{strings} is not affected by @code{*print-array*}.
+Only the @term{active} @term{elements} of the @term{string} are printed.
+
+For information on how the @term{Lisp reader} parses @term{strings},
+see @ref{Double-Quote, Section 2.4.5 (Double-Quote)}.
+
+@subsubsection Printing Lists and Conses
+@anchor{PrintingListsAndConses}
+
+Wherever possible, list notation is preferred over dot notation.
+Therefore the following algorithm is used to print a @term{cons} @mat{x}:
+
+@goodbreak{}
+
+@enumerate 1
+@item A @term{left-parenthesis} is printed.
+
+@medbreak{}
+@item The @term{car} of @mat{x} is printed.
+
+@medbreak{}
+@item If the @term{cdr} of @mat{x} is itself a @term{cons},
+it is made to be the current @term{cons}
+(@ie{} @mat{x} becomes that @term{cons}),
+a @term{space}
+is printed,
+and step 2 is re-entered.
+
+@medbreak{}
+@item If the @term{cdr} of @mat{x} is not @term{null},
+a @term{space},
+a @term{dot},
+a @term{space},
+and the @term{cdr} of @mat{x} are printed.
+
+@medbreak{}
+@item A @term{right-parenthesis} is printed.
+@end enumerate
+
+
+Actually, the above algorithm is only used when @code{*print-pretty*}
+is @term{false}.  When @code{*print-pretty*} is @term{true} (or
+when @code{pprint} is used),
+additional @term{whitespace}@sub1{}
+may replace the use of a single @term{space},
+and a more elaborate algorithm with similar goals but more presentational
+flexibility is used; see @ref{Printer Dispatching, Section 22.1.2 (Printer Dispatching)}.
+
+Although the two expressions below are equivalent,
+and the reader accepts
+either one and
+produces
+the same @term{cons}, the printer
+always prints such a @term{cons} in the second form.
+
+@lisp
+ (a . (b . ((c . (d . nil)) . (e . nil))))
+ (a b (c d) e)
+@end lisp
+
+The printing of @term{conses} is affected by @code{*print-level*},
+@code{*print-length*}, and @code{*print-circle*}.
+
+@goodbreak{}
+Following are examples of printed representations of @term{lists}:
+
+@lisp
+ (a . b)     ;A dotted pair of a and b
+ (a.b)       ;A list of one element, the symbol named a.b
+ (a. b)      ;A list of two elements a. and b
+ (a .b)      ;A list of two elements a and .b
+ (a b . c)   ;A dotted list of a and b with c at the end; two conses
+ .iot        ;The symbol whose name is .iot
+ (. b)       ;Invalid -- an error is signaled if an attempt is made to read
+             ;this syntax.
+ (a .)       ;Invalid -- an error is signaled.
+ (a .. b)    ;Invalid -- an error is signaled.
+ (a . . b)   ;Invalid -- an error is signaled.
+ (a b c ...) ;Invalid -- an error is signaled.
+ (a @bsl{}. b)    ;A list of three elements a, ., and b
+ (a |.| b)   ;A list of three elements a, ., and b
+ (a @bsl{}... b)  ;A list of three elements a, ..., and b
+ (a |...| b) ;A list of three elements a, ..., and b
+@end lisp
+
+
+For information on how the @term{Lisp reader} parses @term{lists} and @term{conses},
+see @ref{Left-Parenthesis, Section 2.4.1 (Left-Parenthesis)}.
+
+@subsubsection Printing Bit Vectors
+@anchor{PrintingBitVectors}
+
+A @term{bit vector} is printed as @f{#*} followed by the bits of the @term{bit vector}
+in order.  If @code{*print-array*} is @term{false}, then the @term{bit vector} is
+printed in a format (using @f{#<}) that is concise but not readable.
+Only the @term{active} @term{elements} of the @term{bit vector} are printed.
+
+@reviewer{Barrett: Need to provide for @f{#5*0} as an alternate
+notation for @f{#*00000}.}
+
+For information on @term{Lisp reader} parsing of @term{bit vectors},
+see @ref{SharpsignStar, Section 2.4.8.4 (Sharpsign Asterisk)}.
+
+@subsubsection Printing Other Vectors
+@anchor{PrintingOtherVectors}
+
+If @code{*print-array*} is @term{true}
+and @code{*print-readably*} is @term{false},
+any
+@term{vector}
+other than a @term{string} or @term{bit vector} is printed using
+general-vector syntax; this means that information
+about specialized vector representations does not appear.
+The printed representation of a zero-length @term{vector} is @f{#()}.
+The printed representation of a non-zero-length @term{vector} begins with @f{#(}.
+Following that, the first element of the @term{vector} is printed.
+If there are any other elements, they are printed in turn, with
+each such additional element preceded by
+a @term{space} if @code{*print-pretty*} is @term{false},
+or @term{whitespace}@sub1{} if @code{*print-pretty*} is @term{true}.
+A @term{right-parenthesis} after the last element
+terminates the printed representation of the @term{vector}.
+The printing of @term{vectors}
+is affected by @code{*print-level*} and @code{*print-length*}.
+If the @term{vector} has a @term{fill pointer},
+then only those elements below
+the @term{fill pointer} are printed.
+
+If both @code{*print-array*} and @code{*print-readably*} are @term{false},
+the @term{vector} is not printed as described above,
+but in a format (using @f{#<}) that is concise but not readable.
+
+If @code{*print-readably*} is @term{true},
+the @term{vector} prints in an @term{implementation-defined} manner;
+see the @term{variable} @ref{*print-readably*}.
+
+For information on how the @term{Lisp reader} parses these ``other @term{vectors},''
+see @ref{SharpsignLeftParen, Section 2.4.8.3 (Sharpsign Left-Parenthesis)}.
+
+@subsubsection Printing Other Arrays
+@anchor{PrintingOtherArrays}
+
+If  @code{*print-array*} is @term{true}
+and @code{*print-readably*} is @term{false},
+any
+@term{array} other than a @term{vector} is printed
+using @f{#}@f{n}@f{A} format.
+Let @f{n} be the @term{rank} of the @term{array}.
+Then @f{#} is printed, then @f{n} as a decimal integer,
+then @f{A}, then @f{n} open parentheses.
+Next the @term{elements} are scanned in row-major order,
+using @code{write} on each @term{element},
+and separating @term{elements} from each other with @term{whitespace}@sub1{}.
+The array's dimensions are numbered 0 to @f{n}-1 from left to right,
+and are enumerated with the rightmost index changing fastest.
+Every time the index for dimension @f{j} is incremented,
+the following actions are taken:
+
+
+@itemize @bullet{}
+@item
+If @f{j} < @f{n}-1, then a close parenthesis is printed.
+
+@item
+If incrementing the index for dimension @f{j} caused it to equal
+dimension @f{j}, that index is reset to zero and the
+index for dimension @f{j}-1 is incremented (thereby performing these three steps recursively),
+unless @f{j}=0, in which case the entire algorithm is terminated.
+If incrementing the index for dimension @f{j} did not cause it to
+equal dimension @f{j}, then a space is printed.
+
+@item
+If @f{j} < @f{n}-1, then an open parenthesis is printed.
+@end itemize
+
+
+This causes the contents to be printed in a format suitable for
+@kwd{initial-contents} to @code{make-array}.
+The lists effectively printed by this procedure are subject to
+truncation by @code{*print-level*} and @code{*print-length*}.
+
+If the @term{array}
+is of a specialized @term{type}, containing bits or characters,
+then the innermost lists generated by the algorithm given above can instead
+be printed using bit-vector or string syntax, provided that these innermost
+lists would not be subject to truncation by @code{*print-length*}.
+
+If both @code{*print-array*} and @code{*print-readably*} are @term{false},
+then the @term{array} is printed
+in a format (using @f{#<}) that is concise but not readable.
+
+If @code{*print-readably*} is @term{true},
+the @term{array} prints in an @term{implementation-defined} manner;
+see the @term{variable} @ref{*print-readably*}.
+In particular,
+this may be important for arrays having some dimension @f{0}.
+
+For information on how the @term{Lisp reader} parses these ``other @term{arrays},''
+see @ref{SharpsignA, Section 2.4.8.12 (Sharpsign A)}.
+
+@subsubsection Examples of Printing Arrays
+
+@lisp
+ (let ((a (make-array '(3 3)))
+       (*print-pretty* t)
+       (*print-array* t))
+   (dotimes (i 3) (dotimes (j 3) (setf (aref a i j) (format nil "<~D,~D>" i j))))
+   (print a)
+   (print (make-array 9 :displaced-to a)))
+@OUT{} #2A(("<0,0>" "<0,1>" "<0,2>")
+@OUT{}     ("<1,0>" "<1,1>" "<1,2>")
+@OUT{}     ("<2,0>" "<2,1>" "<2,2>"))
+@OUT{} #("<0,0>" "<0,1>" "<0,2>" "<1,0>" "<1,1>" "<1,2>" "<2,0>" "<2,1>" "<2,2>")
+@EV{} #<ARRAY 9 indirect 36363476>
+@end lisp
+
+
+
+@subsubsection Printing Random States
+@anchor{PrintingRandomStates}
+
+A specific syntax for printing @term{objects} @oftype{random-state} is
+not specified. However, every @term{implementation}
+must arrange to print a @term{random state} @term{object} in such a way that,
+within the same implementation, @code{read}
+can construct from the printed representation a copy of the
+@term{random state}
+object as if the copy had been made by @code{make-random-state}.
+
+If the type @term{random state} is effectively implemented
+by using the machinery for @code{defstruct},
+the usual structure syntax can then be used for printing
+@term{random state}
+objects; one might look something like
+
+@lisp
+ #S(RANDOM-STATE :DATA #(14 49 98436589 786345 8734658324 ... ))
+@end lisp
+
+where the components are @term{implementation-dependent}.
+
+@subsubsection Printing Pathnames
+@anchor{PrintingPathnames}
+
+
+When @term{printer escaping} is enabled,
+the syntax @f{#P"..."} is how a
+@term{pathname} is printed by @code{write} and the other functions herein described.
+The @f{"..."} is the namestring representation of the pathname.
+
+
+When @term{printer escaping} is disabled,
+@code{write} writes a @term{pathname} @i{P}
+by writing @f{(namestring @i{P})} instead.
+
+For information on how the @term{Lisp reader} parses @term{pathnames},
+see @ref{SharpsignP, Section 2.4.8.14 (Sharpsign P)}.
+
+
+@subsubsection Printing Structures
+@anchor{PrintingStructures}
+
+By default, a @term{structure} of type @mat{S} is printed using @f{#S} syntax.
+This behavior can be customized by specifying a @kwd{print-function}
+or @kwd{print-object} option to the @code{defstruct} @term{form} that defines @mat{S},
+or by writing a @code{print-object} @term{method}
+that is @term{specialized} for @term{objects} of type @mat{S}.
+
+Different structures might print out in different ways;
+the default notation for structures is:
+
+@lisp
+ #S(@param{structure-name} @star{@curly{@param{slot-key} @param{slot-value}}})
+@end lisp
+
+where @f{#S} indicates structure syntax,
+@param{structure-name} is a @term{structure name},
+each @param{slot-key} is an initialization argument @term{name}
+for a @term{slot} in the @term{structure},
+and each corresponding @param{slot-value} is a representation
+of the @term{object} in that @term{slot}.
+
+For information on how the @term{Lisp reader} parses @term{structures},
+see @ref{SharpsignS, Section 2.4.8.13 (Sharpsign S)}.
+
+@subsubsection Printing Other Objects
+@anchor{PrintingOtherObjects}
+
+Other @term{objects} are printed in an @term{implementation-dependent} manner.
+It is not required that an @term{implementation} print those @term{objects}
+@term{readably}.
+
+For example, @term{hash tables},
+@term{readtables},
+@term{packages},
+@term{streams},
+and @term{functions}
+might not print @term{readably}.
+
+A common notation to use in this circumstance is @f{#<...>}.
+Since @f{#<} is not readable by the @term{Lisp reader},
+the precise format of the text which follows is not important,
+but a common format to use is that provided by @themacro{print-unreadable-object}.
+
+For information on how the @term{Lisp reader} treats this notation,
+see @ref{SharpsignLeftAngle, Section 2.4.8.20 (Sharpsign Less-Than-Sign)}.
+For information on how to notate @term{objects} that cannot be printed @term{readably},
+see @ref{SharpsignDot, Section 2.4.8.6 (Sharpsign Dot)}.
+
+
+
+@node Examples of Printer Behavior
+@subsection Examples of Printer Behavior
+
+@lisp
+ (let ((*print-escape* t)) (fresh-line) (write #@bsl{}a))
+@OUT{} #@bsl{}a
+@EV{} #@bsl{}a
+ (let ((*print-escape* nil) (*print-readably* nil))
+   (fresh-line)
+   (write #@bsl{}a))
+@OUT{} a
+@EV{} #@bsl{}a
+ (progn (fresh-line) (prin1 #@bsl{}a))
+@OUT{} #@bsl{}a
+@EV{} #@bsl{}a
+ (progn (fresh-line) (print #@bsl{}a))
+@OUT{}
+@OUT{} #@bsl{}a
+@EV{} #@bsl{}a
+ (progn (fresh-line) (princ #@bsl{}a))
+@OUT{} a
+@EV{} #@bsl{}a
+@medbreak{}
+ (dolist (val '(t nil))
+   (let ((*print-escape* val) (*print-readably* val))
+     (print '#@bsl{}a)
+     (prin1 #@bsl{}a) (write-char #@bsl{}Space)
+     (princ #@bsl{}a) (write-char #@bsl{}Space)
+     (write #@bsl{}a)))
+@OUT{} #@bsl{}a #@bsl{}a a #@bsl{}a
+@OUT{} #@bsl{}a #@bsl{}a a a
+@EV{} NIL
+@medbreak{}
+ (progn (fresh-line) (write '(let ((a 1) (b 2)) (+ a b))))
+@OUT{} (LET ((A 1) (B 2)) (+ A B))
+@EV{} (LET ((A 1) (B 2)) (+ A B))
+@medbreak{}
+ (progn (fresh-line) (pprint '(let ((a 1) (b 2)) (+ a b))))
+@OUT{} (LET ((A 1)
+@OUT{}       (B 2))
+@OUT{}   (+ A B))
+@EV{} (LET ((A 1) (B 2)) (+ A B))
+@medbreak{}
+ (progn (fresh-line)
+        (write '(let ((a 1) (b 2)) (+ a b)) :pretty t))
+@OUT{} (LET ((A 1)
+@OUT{}       (B 2))
+@OUT{}   (+ A B))
+@EV{} (LET ((A 1) (B 2)) (+ A B))
+@medbreak{}
+ (with-output-to-string (s)
+    (write 'write :stream s)
+    (prin1 'prin1 s))
+@EV{} "WRITEPRIN1"
+@end lisp
+
+
+
+
+@node The Lisp Pretty Printer
+@section The Lisp Pretty Printer
+
+
+@menu
+* Pretty Printer Concepts::
+* Examples of using the Pretty Printer::
+* Notes about the Pretty Printer's Background::
+@end menu
+@node Pretty Printer Concepts
+@subsection Pretty Printer Concepts
+
+The facilities provided by the @newterm{pretty printer} permit
+@term{programs} to redefine the way in which @term{code} is displayed,
+and allow the full power of @term{pretty printing} to be applied
+to complex combinations of data structures.
+
+Whether any given style of output is in fact ``pretty'' is inherently a
+somewhat subjective issue.  However, since the effect of the
+@term{pretty printer} can be customized by @term{conforming programs},
+the necessary flexibility is provided for individual @term{programs}
+to achieve an arbitrary degree of aesthetic control.
+
+By providing direct access to the mechanisms within the pretty printer
+that make dynamic decisions about layout, the macros and functions
+@code{pprint-logical-block}, @code{pprint-newline}, and
+@code{pprint-indent} make it possible to specify pretty printing
+layout rules as a part of any function that produces output.  They also
+make it very easy for the detection of circularity and sharing, and
+abbreviation based on length and nesting depth to be supported by the
+function.
+
+The @term{pretty printer} is driven entirely by dispatch based on
+@thevalueof{*print-pprint-dispatch*}.
+@Thefunction{set-pprint-dispatch} makes it possible
+for @term{conforming programs} to associate new pretty printing
+functions with a @term{type}.
+
+@subsubsection Dynamic Control of the Arrangement of Output
+@anchor{DynamicControlofOutput}
+
+The actions of the @term{pretty printer} when a piece of output is too
+large to fit in the space available can be precisely controlled.
+Three concepts underlie
+the way these operations work---@newterm{logical blocks},
+@newterm{conditional newlines},
+and @newterm{sections}.
+Before proceeding further, it is important to define these terms.
+
+The first line of @thenextfigure{}@spc{}shows a schematic piece of output.  Each of
+the characters in the output is represented by ``@f{-}''.  The positions of
+conditional newlines are indicated by digits.  The beginnings and ends of
+logical blocks are indicated by ``@f{<}'' and ``@f{>}'' respectively.
+
+The output as a whole is a logical block and the outermost section.  This
+section is indicated by the @f{0}'s on the second line of Figure 1.  Logical
+blocks nested within the output are specified by the macro
+@code{pprint-logical-block}.  Conditional newline positions are specified
+by calls to @code{pprint-newline}.  Each conditional newline defines
+two sections (one before it and one after it) and is associated with a
+third (the section immediately containing it).
+
+The section after a conditional newline consists of: all the output up to,
+but not including, (a) the next conditional newline immediately contained
+in the same logical block; or if (a) is not applicable, (b) the next
+newline that is at a lesser level of nesting in logical blocks; or if (b)
+is not applicable, (c) the end of the output.
+
+The section before a conditional newline consists of: all the output back
+to, but not including, (a) the previous conditional newline that is
+immediately contained in the same logical block; or if (a) is not
+applicable, (b) the beginning of the immediately containing logical block.
+The last four lines in Figure 1 indicate the sections before and after the
+four conditional newlines.
+
+The section immediately containing a conditional newline is the shortest
+section that contains the conditional newline in question.  In @thenextfigure{},
+the first conditional newline is immediately contained in the section
+marked with @f{0}'s, the second and third conditional newlines are immediately
+contained in the section before the fourth conditional newline, and the
+fourth conditional newline is immediately contained in the section after
+the first conditional newline.
+
+@float Figure,fig22.3
+@lisp
+ <-1---<--<--2---3->--4-->->
+ 000000000000000000000000000
+ 11 111111111111111111111111
+           22 222
+              333 3333
+        44444444444444 44444
+@end lisp
+
+@caption{Example of Logical Blocks, Conditional Newlines, and Sections}
+@end float
+
+
+Whenever possible, the pretty printer displays the entire contents of a
+section on a single line.  However, if the section is too long to fit in
+the space available, line breaks are inserted at conditional newline
+positions within the section.
+
+
+@subsubsection Format Directive Interface
+
+The primary interface to operations for dynamically determining the
+arrangement of output is provided through the functions and macros of the
+pretty printer.  @Thenextfigure{}@spc{}shows the defined names related to @term{pretty printing}.
+
+
+@float Figure,fig22.4
+@cartouche
+@multitable{*print-pprint-dispatch*}{pprint-exit-if-list-exhausted}{set-pprint-dispatch}
+
+@item *print-lines* @tab pprint-dispatch @tab pprint-pop
+@item *print-miser-width* @tab pprint-exit-if-list-exhausted @tab pprint-tab
+@item *print-pprint-dispatch* @tab pprint-fill @tab pprint-tabular
+@item *print-right-margin* @tab pprint-indent @tab set-pprint-dispatch
+@item copy-pprint-dispatch @tab pprint-linear @tab write
+@item format @tab pprint-logical-block @tab
+@item formatter @tab pprint-newline @tab
+@end multitable
+@end cartouche
+@caption{Defined names related to pretty printing.}
+@end float
+
+
+@Thenextfigure{}@spc{}identifies a set of @term{format directives} which serve
+as an alternate interface to the same pretty printing operations in a
+more textually compact form.
+
+
+
+@float Figure,fig22.5
+@cartouche
+@multitable{@formatOp{:T}}{@formatOp{/.../}}{@formatOp{<...@tie{}:>}}
+
+@item @formatOp{I} @tab @formatOp{W} @tab @formatOp{<...@tie{}:>}
+@item @formatOp{:T} @tab @formatOp{/.../} @tab @formatOp{_}
+@end multitable
+@end cartouche
+@caption{Format directives related to Pretty Printing}
+@end float
+
+
+
+@subsubsection Compiling Format Strings
+@anchor{CompilingFormatStrings}
+
+A @term{format string} is essentially a program in a special-purpose language
+that performs printing, and that is interpreted by @thefunction{format}.
+@Themacro{formatter} provides the efficiency of using a @term{compiled function}
+to do that same printing but without losing the textual compactness of @term{format strings}.
+
+A @newterm{format control} is either a @term{format string} or a @term{function}
+that was returned by the @themacro{formatter}.
+
+
+@subsubsection Pretty Print Dispatch Tables
+@anchor{PPrintDispatchTables}
+
+
+A @newterm{pprint dispatch table} is a mapping from keys to pairs of values.
+Each key is a @term{type specifier}.
+The values associated with a key are
+a ``function'' (specifically, a @term{function designator} or @nil{})
+and a ``numerical priority'' (specifically, a @term{real}).
+Basic insertion and retrieval is done based on the keys with the equality
+of keys being tested by @code{equal}.
+
+When @code{*print-pretty*} is @term{true},
+the @newterm{current pprint dispatch table} (in @code{*print-pprint-dispatch*})
+controls how @term{objects} are printed.
+The information in this table takes precedence over
+all other mechanisms for specifying how to print @term{objects}.
+In particular, it
+has priority over
+user-defined @code{print-object} @term{methods}
+because the @term{current pprint dispatch table} is consulted first.
+
+The function is chosen from the @term{current pprint dispatch table}
+by finding the highest priority function
+that is associated with a @term{type specifier} that matches the @term{object};
+if there is more than one such function,
+it is @term{implementation-dependent} which is used.
+
+However, if there is no
+information in the table
+about how to @term{pretty print} a particular kind of @term{object},
+a @term{function} is invoked which uses @code{print-object} to print the @term{object}.
+The value of @code{*print-pretty*} is still @term{true}
+when this function is @term{called},
+and individual methods for @code{print-object} might still elect to
+produce output in a special format conditional on @thevalueof{*print-pretty*}.
+
+
+@subsubsection Pretty Printer Margins
+
+A primary goal of pretty printing is to keep the output between a pair of
+margins.
+The column where the output begins is taken as the left margin.
+If the current column cannot be determined at the time output begins,
+the left margin is assumed to be zero.
+The right margin is controlled by @code{*print-right-margin*}.
+
+
+
+@node Examples of using the Pretty Printer
+@subsection Examples of using the Pretty Printer
+
+As an example of the interaction of logical blocks, conditional newlines,
+and indentation, consider the function @f{simple-pprint-defun} below.  This
+function prints out lists whose @term{cars} are @code{defun} in the
+standard way assuming that the list has exactly length @f{4}.
+
+@lisp
+(defun simple-pprint-defun (*standard-output* list)
+  (pprint-logical-block (*standard-output* list :prefix "(" :suffix ")")
+    (write (first list))
+    (write-char #@bsl{}Space)
+    (pprint-newline :miser)
+    (pprint-indent :current 0)
+    (write (second list))
+    (write-char #@bsl{}Space)
+    (pprint-newline :fill)
+    (write (third list))
+    (pprint-indent :block 1)
+    (write-char #@bsl{}Space)
+    (pprint-newline :linear)
+    (write (fourth list))))
+@end lisp
+
+
+Suppose that one evaluates the following:
+
+@lisp
+(simple-pprint-defun *standard-output* '(defun prod (x y) (* x y)))
+@end lisp
+
+
+If the line width available is greater than or equal to @f{26}, then all of the
+output appears on one line.  If the line width available is reduced to @f{25},
+a line break is inserted at the
+linear-style conditional newline
+@cindex linear-style conditional newline
+before the
+@term{expression} @f{(* x y)}, producing the output shown.  The
+@f{(pprint-indent :block 1)} causes @f{(* x y)} to be printed at a relative
+indentation of @f{1} in the logical block.
+
+@lisp
+ (DEFUN PROD (X Y)
+   (* X Y))
+@end lisp
+
+
+If the line width available is @f{15}, a line break is also inserted at the
+fill style conditional newline before the argument list.  The call on
+@f{(pprint-indent :current 0)} causes the argument list to line up under the
+function name.
+
+@lisp
+(DEFUN PROD
+       (X Y)
+  (* X Y))
+@end lisp
+
+
+If @code{*print-miser-width*} were greater than or equal to 14, the example
+output above would have been as follows, because all indentation changes
+are ignored in miser mode and line breaks are inserted at
+miser-style conditional newlines.
+@cindex miser-style conditional newline
+
+@lisp
+ (DEFUN
+  PROD
+  (X Y)
+  (* X Y))
+@end lisp
+
+
+As an example of a per-line prefix, consider that evaluating the following
+produces the output shown with a line width of @f{20} and
+@code{*print-miser-width*} of @nil{}.
+
+@lisp
+ (pprint-logical-block (*standard-output* nil :per-line-prefix ";;; ")
+   (simple-pprint-defun *standard-output* '(defun prod (x y) (* x y))))
+
+ ;;; (DEFUN PROD
+ ;;;        (X Y)
+ ;;;   (* X Y))
+@end lisp
+
+
+As a more complex (and realistic) example, consider the function @f{pprint-let}
+below.  This specifies how to print a @code{let} @term{form} in the traditional
+style.  It is more complex than the example above, because it has to deal with
+nested structure.  Also, unlike the example above it contains complete code to
+readably print any possible list that begins with the @term{symbol} @code{let}.
+The outermost @code{pprint-logical-block} @term{form} handles the printing of
+the input list as a whole and specifies that parentheses should be printed in the
+output.  The second @code{pprint-logical-block} @term{form} handles the list
+of binding pairs.  Each pair in the list is itself printed by the innermost
+@code{pprint-logical-block}.  (A @code{loop} @term{form} is used instead of
+merely decomposing the pair into two @term{objects} so that readable output will
+be produced no matter whether the list corresponding to the pair has one element,
+two elements, or (being malformed) has more than two elements.)
+A space and a
+fill-style conditional newline
+@cindex fill-style conditional newline
+are placed after
+each pair except the last.  The loop at the end of the topmost
+@code{pprint-logical-block} @term{form} prints out the forms in the body
+of the @code{let} @term{form} separated by spaces and
+linear-style conditional newlines.
+
+@lisp
+ (defun pprint-let (*standard-output* list)
+   (pprint-logical-block (nil list :prefix "(" :suffix ")")
+     (write (pprint-pop))
+     (pprint-exit-if-list-exhausted)
+     (write-char #@bsl{}Space)
+     (pprint-logical-block (nil (pprint-pop) :prefix "(" :suffix ")")
+       (pprint-exit-if-list-exhausted)
+       (loop (pprint-logical-block (nil (pprint-pop) :prefix "(" :suffix ")")
+               (pprint-exit-if-list-exhausted)
+               (loop (write (pprint-pop))
+                     (pprint-exit-if-list-exhausted)
+                     (write-char #@bsl{}Space)
+                     (pprint-newline :linear)))
+             (pprint-exit-if-list-exhausted)
+             (write-char #@bsl{}Space)
+             (pprint-newline :fill)))
+     (pprint-indent :block 1)
+     (loop (pprint-exit-if-list-exhausted)
+           (write-char #@bsl{}Space)
+           (pprint-newline :linear)
+           (write (pprint-pop)))))
+@end lisp
+
+
+Suppose that one evaluates the following with @code{*print-level*} being 4,
+and @code{*print-circle*} being @term{true}.
+
+@lisp
+ (pprint-let *standard-output*
+             '#1=(let (x (*print-length* (f (g 3)))
+                       (z . 2) (k (car y)))
+                   (setq x (sqrt z)) #1#))
+@end lisp
+
+
+If the line length is greater than or equal to @f{77}, the output produced
+appears on one line.  However, if the line length is @f{76}, line breaks are
+inserted at the linear-style conditional newlines separating the forms in
+the body and the output below is produced.  Note that, the degenerate
+binding pair @f{x} is printed readably even though it fails to be a list; a
+depth abbreviation marker is printed in place of @f{(g 3)}; the binding pair
+@f{(z . 2)} is printed readably even though it is not a proper list; and
+appropriate circularity markers are printed.
+
+@lisp
+ #1=(LET (X (*PRINT-LENGTH* (F #)) (Z . 2) (K (CAR Y)))
+      (SETQ X (SQRT Z))
+      #1#)
+@end lisp
+
+
+If the line length is reduced to @f{35}, a line break is inserted at one of the
+fill-style conditional newlines separating the binding pairs.
+
+@lisp
+ #1=(LET (X (*PRINT-PRETTY* (F #))
+          (Z . 2) (K (CAR Y)))
+      (SETQ X (SQRT Z))
+      #1#)
+@end lisp
+
+
+Suppose that the line length is further reduced to @f{22} and @code{*print-length*} is
+set to @f{3}. In this situation, line breaks are inserted after both the first
+and second binding pairs.  In addition, the second binding pair is itself
+broken across two lines.  Clause (b) of the description of fill-style
+conditional newlines (see the @term{function} @ref{pprint-newline})
+prevents the binding pair @f{(z . 2)} from being printed
+at the end of the third line.  Note that the length abbreviation hides the
+circularity from view and therefore the printing of circularity markers
+disappears.
+
+@lisp
+ (LET (X
+       (*PRINT-LENGTH*
+        (F #))
+       (Z . 2) ...)
+   (SETQ X (SQRT Z))
+   ...)
+@end lisp
+
+
+The next function prints a vector using ``@f{#(...)}'' notation.
+
+@lisp
+(defun pprint-vector (*standard-output* v)
+  (pprint-logical-block (nil nil :prefix "#(" :suffix ")")
+    (let ((end (length v)) (i 0))
+      (when (plusp end)
+        (loop (pprint-pop)
+              (write (aref v i))
+              (if (= (incf i) end) (return nil))
+              (write-char #@bsl{}Space)
+              (pprint-newline :fill))))))
+@end lisp
+
+
+Evaluating the following with a line length of 15 produces the output shown.
+
+@lisp
+ (pprint-vector *standard-output* '#(12 34 567 8 9012 34 567 89 0 1 23))
+
+ #(12 34 567 8
+   9012 34 567
+   89 0 1 23)
+@end lisp
+
+
+As examples of the convenience of specifying pretty printing with
+@term{format strings}, consider that the functions @f{simple-pprint-defun}
+and @f{pprint-let} used as examples above can be compactly defined as follows.
+(The function @f{pprint-vector} cannot be defined using @code{format}
+because the data structure it traverses is not a list.)
+
+@lisp
+(defun simple-pprint-defun (*standard-output* list)
+  (format T "~:<~W ~@@_~:I~W ~:_~W~1I ~_~W~:>" list))
+
+(defun pprint-let (*standard-output* list)
+  (format T "~:<~W~@hat{}~:<~@@@lcurly{}~:<~@@@lcurly{}~W~@hat{}~_~@rcurly{}~:>~@hat{}~:_~@rcurly{}~:>~1I~@@@lcurly{}~@hat{}~_~W~@rcurly{}~:>" list))
+@end lisp
+
+
+In the following example, the first @term{form} restores
+@code{*print-pprint-dispatch*} to the equivalent of its initial value.
+The next two forms then set up a special way to pretty print ratios.
+Note that the more specific @term{type specifier} has to be associated
+with a higher priority.
+
+@lisp
+ (setq *print-pprint-dispatch* (copy-pprint-dispatch nil))
+
+ (set-pprint-dispatch 'ratio
+   #'(lambda (s obj)
+       (format s "#.(/ ~W ~W)"
+                 (numerator obj) (denominator obj))))
+
+ (set-pprint-dispatch '(and ratio (satisfies minusp))
+   #'(lambda (s obj)
+       (format s "#.(- (/ ~W ~W))"
+               (- (numerator obj)) (denominator obj)))
+   5)
+
+ (pprint '(1/3 -2/3))
+ (#.(/ 1 3) #.(- (/ 2 3)))
+@end lisp
+
+
+The following two @term{forms} illustrate the definition of
+pretty printing functions for types of @term{code}.  The first
+@term{form} illustrates how to specify the traditional method
+for printing quoted objects using @term{single-quote}.  Note
+the care taken to ensure that data lists that happen to begin
+with @t{quote} will be printed readably.  The second form
+specifies that lists beginning with the symbol @f{my-let}
+should print the same way that lists beginning with @code{let}
+print when the initial @term{pprint dispatch table} is in effect.
+
+@lisp
+ (set-pprint-dispatch '(cons (member quote)) ()
+   #'(lambda (s list)
+       (if (and (consp (cdr list)) (null (cddr list)))
+          (funcall (formatter "'~W") s (cadr list))
+          (pprint-fill s list))))
+
+ (set-pprint-dispatch '(cons (member my-let))
+                      (pprint-dispatch '(let) nil))
+@end lisp
+
+
+The next example specifies a default method for printing lists that do not
+correspond to function calls.  Note that the functions @code{pprint-linear},
+@code{pprint-fill}, and @code{pprint-tabular} are all defined with
+optional @param{colon-p} and @param{at-sign-p} arguments so that they can
+be used as @code{pprint dispatch functions} as well as @formatOp{/.../}
+functions.
+
+@lisp
+ (set-pprint-dispatch '(cons (not (and symbol (satisfies fboundp))))
+                      #'pprint-fill -5)
+
+ ;; Assume a line length of 9
+ (pprint '(0 b c d e f g h i j k))
+ (0 b c d
+  e f g h
+  i j k)
+@end lisp
+
+
+This final example shows how to define a pretty printing function for a
+user defined data structure.
+
+@lisp
+ (defstruct family mom kids)
+
+ (set-pprint-dispatch 'family
+   #'(lambda (s f)
+       (funcall (formatter "~@@<#<~;~W and ~2I~_~/pprint-fill/~;>~:>")
+               s (family-mom f) (family-kids f))))
+@end lisp
+
+
+The pretty printing function for the structure @f{family} specifies how to
+adjust the layout of the output so that it can fit aesthetically into
+a variety of line widths.  In addition, it obeys
+the printer control variables @code{*print-level*},
+@code{*print-length*}, @code{*print-lines*},
+@code{*print-circle*}
+and @code{*print-escape*},
+and can tolerate several different kinds of malformity in the data structure.
+The output below shows what is printed out with a right margin of @f{25},
+@code{*print-pretty*} being @term{true}, @code{*print-escape*} being @term{false},
+and a malformed @f{kids} list.
+
+@lisp
+ (write (list 'principal-family
+              (make-family :mom "Lucy"
+                           :kids '("Mark" "Bob" . "Dan")))
+        :right-margin 25 :pretty T :escape nil :miser-width nil)
+ (PRINCIPAL-FAMILY
+  #<Lucy and
+      Mark Bob . Dan>)
+@end lisp
+
+
+Note that a pretty printing function for a structure is different from
+the structure's @code{print-object} @term{method}.
+While
+@code{print-object} @term{methods}
+are permanently associated with a structure,
+pretty printing functions are stored in
+@term{pprint dispatch tables} and can be rapidly changed to reflect
+different printing needs.  If there is no pretty printing function for
+a structure in the current @term{pprint dispatch table},
+its @code{print-object} @term{method}
+is used instead.
+
+
+@node Notes about the Pretty Printer's Background
+@subsection Notes about the Pretty Printer's Background
+
+For a background reference to the abstract concepts detailed in this
+section, see @XPPaper{}.  The details of that paper are not binding on
+this document, but may be helpful in establishing a conceptual basis for
+understanding this material.
+
+
+
+@node Formatted Output
+@section Formatted Output
+
+@editornote{KMP: This is transplanted from FORMAT and will need a bit of work before
+it looks good standing alone. Bear with me.}
+
+@code{format} is useful for producing nicely formatted text, producing
+good-looking messages, and so on.  @code{format} can generate and return
+a @term{string} or output to @param{destination}.
+
+The @param{control-string} argument to @code{format} is actually a @term{format control}.
+That is, it can be either a @term{format string} or a @term{function},
+for example a @term{function} returned
+by the @code{formatter} @term{macro}.
+
+If it is a @term{function}, the @term{function} is called with the appropriate
+output stream as its first argument and the data arguments to @code{format}
+as its remaining arguments.  The function should perform whatever output is
+necessary and return the unused tail of the arguments (if any).
+
+The compilation process performed by @code{formatter} produces a @term{function}
+that would do with its @term{arguments} as the @code{format} interpreter
+would do with those @term{arguments}.
+
+The remainder of this section describes what happens if the @param{control-string}
+is a @term{format string}.
+
+@param{Control-string} is composed of simple text (@term{characters})
+and embedded directives.
+
+@code{format} writes the simple text as is;
+each embedded directive specifies further text output
+that is to appear at the corresponding point within the simple text.
+Most directives use one or more elements of @param{args} to
+create their output.
+
+A directive consists of a @term{tilde},
+optional prefix parameters
+separated by commas, optional @term{colon} and @term{at-sign} modifiers,
+and a single character indicating what kind of directive this is.
+There is no required ordering between the @term{at-sign} and @term{colon} modifier.
+The @term{case} of the directive character is ignored.
+Prefix parameters are notated as signed (sign is optional) decimal numbers,
+or as a @term{single-quote} followed by a character.
+For example, @f{@tild{}5,'0d} can be used
+to print an @term{integer}
+in decimal radix in five columns with leading zeros,
+or @f{@tild{}5,'*d} to get leading asterisks.
+
+In place of a prefix parameter to a directive, @f{V} (or @f{v}) can be used.
+In this case, @code{format} takes an argument from @param{args} as a parameter to
+the directive.  The argument should be an @term{integer} or @term{character}.
+If the @param{arg} used by a @f{V} parameter is @nil{},
+the effect is as if the parameter had been omitted.
+@f{#} can be used in place of a prefix parameter; it
+represents the number of @param{args} remaining to be processed.
+When used within a recursive format, in the context of @f{@tild{}?} or @f{@tild{}@lcurly{}},
+the @f{#} prefix parameter represents the number of @term{format arguments}
+remaining within the recursive call.
+
+Examples of @term{format strings}:
+
+
+@float Figure,fig22.6
+@cartouche
+@multitable{@f{"@tild{}3,-4:@@s"}}{;This is an S directive with two parameters, @f{3} and @f{-4},}
+
+@item @f{"@tild{}S"} @tab ;This is an S directive with no parameters or modifiers.
+@item @f{"@tild{}3,-4:@@s"} @tab ;This is an S directive with two parameters, @f{3} and @f{-4},
+@item  @tab ; and both the @term{colon} and @term{at-sign} flags.
+@item @f{"@tild{},+4S"} @tab ;Here the first prefix parameter is omitted and takes
+@item  @tab ; on its default value, while the second parameter is @f{4}.
+@end multitable
+@end cartouche
+@caption{Examples of format control strings}
+@end float
+
+
+@code{format} sends the output to @param{destination}.
+If @param{destination} is @nil{},
+@code{format} creates and returns a @term{string}
+containing the output from @param{control-string}.
+If @param{destination} is @term{non-nil},
+it must be a @term{string} with a @term{fill pointer},
+a @term{stream}, or the symbol @code{t}.
+If @param{destination} is a @term{string} with a @term{fill pointer},
+the output is added to the end of the @term{string}.
+If @param{destination} is a @term{stream},
+the output is sent to that @term{stream}.
+If @param{destination} is @code{t},
+the output is sent to @term{standard output}.
+
+In the description of the directives that follows,
+the term @j{arg} in general
+refers to the next item of the set of @param{args} to be processed.
+The word or phrase at the beginning of each description is a mnemonic
+for the directive.
+@code{format} directives do not bind any of the printer control
+variables (@code{*print-...*}) except as specified in the following
+descriptions.
+Implementations may specify the binding of new, implementation-specific
+printer control variables for each @code{format} directive, but they
+may neither bind any standard printer control variables not
+specified in description of a @code{format}
+directive nor fail to bind
+any standard printer control variables as specified in the
+description.
+
+@menu
+* FORMAT Basic Output::
+* FORMAT Radix Control::
+* FORMAT Floating-Point Printers::
+* FORMAT Printer Operations::
+* FORMAT Pretty Printer Operations::
+* FORMAT Layout Control::
+* FORMAT Control-Flow Operations::
+* FORMAT Miscellaneous Operations::
+* FORMAT Miscellaneous Pseudo-Operations::
+* Additional Information about FORMAT Operations::
+* Examples of FORMAT::
+* Notes about FORMAT::
+@end menu
+@node FORMAT Basic Output
+@subsection FORMAT Basic Output
+
+@subsubsection Tilde C: Character
+@cindex C (format directive)
+@cindex Tilde C (format directive)
+
+
+The next @j{arg} should be a @term{character};
+it is printed
+according to the modifier flags.
+
+@f{@tild{}C} prints the @term{character}
+as if by using @code{write-char} if it is a @term{simple character}.
+@term{Characters} that are not @term{simple}
+are not necessarily printed as if by @code{write-char},
+but are displayed in an @term{implementation-defined}, abbreviated format.
+For example,
+
+@lisp
+ (format nil "~C" #@bsl{}A) @EV{} "A"
+ (format nil "~C" #@bsl{}Space) @EV{} " "
+@end lisp
+
+
+@f{@tild{}:C} is the same as @f{@tild{}C} for @term{printing} @term{characters},
+but other @term{characters} are ``spelled out.''  The intent is that this
+is a ``pretty'' format for printing characters.
+For @term{simple} @term{characters} that are not @term{printing},
+what is spelled out is the @term{name} of the @term{character} (see @code{char-name}).
+For @term{characters} that are not @term{simple} and not @term{printing},
+what is spelled out is @term{implementation-defined}.
+For example,
+
+@lisp
+ (format nil "~:C" #@bsl{}A) @EV{} "A"
+ (format nil "~:C" #@bsl{}Space) @EV{} "Space"
+;; This next example assumes an implementation-defined "Control" attribute.
+ (format nil "~:C" #@bsl{}Control-Space)
+@EV{} "Control-Space"
+@OV{} "c-Space"
+@end lisp
+
+
+@f{@tild{}:@@C} prints what @f{@tild{}:C} would, and then
+if the @term{character} requires unusual shift keys on the keyboard to type it,
+this fact is mentioned.  For example,
+
+@begingroup{}
+@lisp
+ (format nil "~:@@C" #@bsl{}Control-Partial) @EV{} "Control-@Partial{} (Top-F)"
+@end lisp
+
+@endgroup{}
+
+This is the format used for telling the user about a key he is expected to type,
+in prompts, for instance.  The precise output may depend not only
+on the implementation, but on the particular I/O devices in use.
+
+@f{@tild{}@@C}
+prints the @term{character} in a way that the @term{Lisp reader} can understand,
+using @f{#@bsl{}} syntax.
+
+@f{@tild{}@@C}  binds @code{*print-escape*} to @code{t}.
+
+
+@subsubsection Tilde Percent: Newline
+@cindex Percent (format directive)
+@cindex Tilde Percent (format directive)
+
+This outputs a @f{#@bsl{}Newline} character, thereby terminating the current
+output line and beginning a new one.
+@f{@tild{}@j{n}@percent{}} outputs @j{n} newlines.
+No @j{arg} is used.
+
+
+@subsubsection Tilde Ampersand: Fresh-Line
+@cindex Ampersand (format directive)
+@cindex Tilde Ampersand (format directive)
+
+Unless it can be determined that the output stream
+is already at the beginning of a line,
+this outputs a newline.
+@f{@tild{}@j{n}@ampers{}} calls @code{fresh-line}
+and then outputs @j{n}@minussign{} 1 newlines.
+@f{@tild{}0@ampers{}} does nothing.
+
+
+@subsubsection Tilde Vertical-Bar: Page
+@cindex Vertical-Bar (format directive)
+@cindex Tilde Vertical-Bar (format directive)
+
+This outputs a page separator character, if possible.
+@f{@tild{}@j{n}|} does this @j{n} times.
+
+
+@subsubsection Tilde Tilde: Tilde
+@cindex Tilde (format directive)
+@cindex Tilde Tilde (format directive)
+
+This outputs a @term{tilde}.  @f{@tild{}@j{n}@tild{}} outputs @j{n} tildes.
+
+
+
+@node FORMAT Radix Control
+@subsection FORMAT Radix Control
+
+@subsubsection Tilde R: Radix
+@cindex R (format directive)
+@cindex Tilde R (format directive)
+
+@f{@tild{}@j{n}R} prints @j{arg} in radix @j{n}.
+The modifier flags and any remaining parameters are used as for
+the @f{@tild{}D} directive.
+@f{@tild{}D} is the same as @f{@tild{}10R}.
+The full form is
+@f{@tild{}@j{radix},@j{mincol},@j{padchar},@j{commachar},@j{comma-interval}R}.
+
+If no prefix parameters are given to @f{@tild{}R}, then a different
+interpretation is given.  The argument should be an @term{integer}.
+For example, if @j{arg} is 4:
+
+
+@itemize @bullet{}
+@item
+@f{@tild{}R} prints @j{arg} as a cardinal English number: @f{four}.
+
+@item
+@f{@tild{}:R} prints @j{arg} as an ordinal English number: @f{fourth}.
+
+@item
+@f{@tild{}@@R} prints @j{arg} as a Roman numeral: @f{IV}.
+
+@item
+@f{@tild{}:@@R} prints @j{arg} as an old Roman numeral: @f{IIII}.
+@end itemize
+
+
+For example:
+
+@lisp
+ (format nil "~,,' ,4:B" 13) @EV{} "1101"
+ (format nil "~,,' ,4:B" 17) @EV{} "1 0001"
+ (format nil "~19,0,' ,4:B" 3333) @EV{} "0000 1101 0000 0101"
+ (format nil "~3,,,' ,2:R" 17) @EV{} "1 22"
+ (format nil "~,,'|,2:D" #xFFFF) @EV{}  "6|55|35"
+@end lisp
+
+
+If and only if the first parameter, @j{n}, is supplied,
+@f{@tild{}R} binds
+@code{*print-escape*} to @term{false},
+@code{*print-radix*} to @term{false},
+@code{*print-base*} to @j{n},
+and @code{*print-readably*} to @term{false}.
+
+If and only if no parameters are supplied,
+@f{@tild{}R} binds @code{*print-base*} to @f{10}.
+
+
+@subsubsection Tilde D: Decimal
+@cindex D (format directive)
+@cindex Tilde D (format directive)
+
+An @j{arg}, which should be an @term{integer},
+is printed in decimal radix.
+@f{@tild{}D} will never put a decimal point after the number.
+
+@f{@tild{}@j{mincol}D} uses
+a column width of @j{mincol}; spaces are inserted on
+the left if the number requires fewer than @j{mincol} columns for its digits
+and sign.  If the number doesn't fit in @j{mincol} columns, additional columns
+are used as needed.
+
+@f{@tild{}@j{mincol},@j{padchar}D} uses @j{padchar} as the pad character
+instead of space.
+
+If @j{arg} is not an @term{integer}, it is printed in @f{@tild{}A} format and decimal base.
+
+The @f{@@} modifier causes the number's sign to be printed always; the default
+is to print it only if the number is negative.
+The @f{:} modifier causes commas to be printed between groups of digits;
+@j{commachar} may be used to change the character used as the comma.
+@j{comma-interval}
+must be an @term{integer} and defaults to 3.  When the @f{:}
+modifier is given to any of
+these directives, the @j{commachar}
+is printed between groups of @j{comma-interval}
+digits.
+
+Thus the most general form of @f{@tild{}D} is
+@f{@tild{}@j{mincol},@j{padchar},@j{commachar},@j{comma-interval}D}.
+
+@f{@tild{}D} binds
+@code{*print-escape*} to @term{false},
+@code{*print-radix*} to @term{false},
+@code{*print-base*} to @f{10},
+and @code{*print-readably*} to @term{false}.
+
+
+@subsubsection Tilde B: Binary
+@cindex B (format directive)
+@cindex Tilde B (format directive)
+
+This is just like @f{@tild{}D} but prints in binary radix (radix 2)
+instead of decimal.  The full form is therefore
+@f{@tild{}@j{mincol},@j{padchar},@j{commachar},@j{comma-interval}B}.
+
+@f{@tild{}B} binds
+@code{*print-escape*} to @term{false},
+@code{*print-radix*} to @term{false},
+@code{*print-base*} to @f{2},
+and @code{*print-readably*} to @term{false}.
+
+
+@subsubsection Tilde O: Octal
+@cindex O (format directive)
+@cindex Tilde O (format directive)
+
+This is just like @f{@tild{}D} but prints in octal radix (radix 8)
+instead of decimal.  The full form is therefore
+@f{@tild{}@j{mincol},@j{padchar},@j{commachar},@j{comma-interval}O}.
+
+@f{@tild{}O} binds
+@code{*print-escape*} to @term{false},
+@code{*print-radix*} to @term{false},
+@code{*print-base*} to @f{8},
+and @code{*print-readably*} to @term{false}.
+
+
+@subsubsection Tilde X: Hexadecimal
+@cindex X (format directive)
+@cindex Tilde X (format directive)
+
+This is just like @f{@tild{}D} but prints in hexadecimal radix
+(radix 16) instead of decimal.  The full form is therefore
+@f{@tild{}@j{mincol},@j{padchar},@j{commachar},@j{comma-interval}X}.
+
+@f{@tild{}X} binds
+@code{*print-escape*} to @term{false},
+@code{*print-radix*} to @term{false},
+@code{*print-base*} to @f{16},
+and @code{*print-readably*} to @term{false}.
+
+
+
+@node FORMAT Floating-Point Printers
+@subsection FORMAT Floating-Point Printers
+
+@subsubsection Tilde F: Fixed-Format Floating-Point
+@cindex F (format directive)
+@cindex Tilde F (format directive)
+
+The next @j{arg} is printed as a @term{float}.
+
+The full form is @f{@tild{}@j{w},@j{d},@j{k},@j{overflowchar},@j{padchar}F}.
+The parameter @j{w}
+is the width of the field to be printed; @j{d} is the number
+of digits to print after the decimal point; @j{k} is a scale factor
+that defaults to zero.
+
+Exactly @j{w} characters will
+be output.  First, leading copies of the character @j{padchar}
+(which defaults to a space) are printed, if necessary, to pad the
+field on the left.
+If the @j{arg} is negative, then a minus sign is printed;
+if the @j{arg} is not negative, then a plus sign is printed
+if and only if the @f{@@}
+modifier was supplied.  Then a sequence
+of digits, containing a single embedded decimal point, is printed;
+this represents the magnitude of the value of @j{arg} times @mat{10^@j{k}},
+rounded to @j{d} fractional digits.
+When rounding up and rounding down would produce printed values
+equidistant from the scaled value of @j{arg}, then the implementation
+is free to use either one.  For example, printing the argument
+@f{6.375} using the format @f{@tild{}4,2F} may correctly produce
+either @f{6.37} or @f{6.38}.
+Leading zeros are not permitted, except that a single
+zero digit is output before the decimal point if the printed value
+is less than one, and this single zero digit is not output
+at all if @j{w}=@j{d}+1.
+
+If it is impossible to print the value in the required format in a field
+of width @j{w}, then one of two actions is taken.  If the
+parameter @j{overflowchar} is supplied, then @j{w} copies of that
+parameter are printed instead of the scaled value of @j{arg}.
+If the @j{overflowchar} parameter is omitted, then the scaled value
+is printed using more than @j{w} characters, as many more as may be
+needed.
+
+If the @j{w} parameter is omitted, then the field is of variable width.
+In effect, a value is chosen
+for @j{w} in such a way that no leading pad characters need to be printed
+and exactly @j{d} characters will follow the decimal point.
+For example, the directive @f{@tild{},2F} will print exactly
+two digits after the decimal point and as many as necessary before the
+decimal point.
+
+If the parameter @j{d} is omitted, then there is no constraint
+on the number of digits to appear after the decimal point.
+A value is chosen for @j{d} in such a way that as many digits
+as possible may be printed subject to the width constraint
+imposed by the parameter @j{w} and the constraint that no trailing
+zero digits may appear in the fraction, except that if the
+fraction to be printed is zero, then a single zero digit should
+appear after the decimal point if permitted by the width constraint.
+
+If both @j{w} and @j{d} are omitted, then the effect is to print
+the value using ordinary free-format output; @code{prin1} uses this format
+for any number whose magnitude is either zero or between
+@mat{10^-3} (inclusive) and @mat{10^7} (exclusive).
+
+If @j{w} is omitted, then if the magnitude of @j{arg} is so large (or, if
+@j{d} is also omitted, so small) that more than 100 digits would have to
+be printed, then an implementation is free, at its discretion, to print
+the number using exponential notation instead, as if by the directive
+@f{@tild{}E} (with all parameters to @f{@tild{}E} defaulted, not
+taking their values from the @f{@tild{}F} directive).
+
+If @j{arg} is a @term{rational}
+number, then it is coerced to be a @term{single float}
+and then printed.  Alternatively, an implementation is permitted to
+process a @term{rational}
+number by any other method that has essentially the
+same behavior but avoids loss of precision or overflow
+because of the coercion.  If @j{w} and @j{d} are
+not supplied and the number has no exact decimal representation,
+for example @f{1/3}, some precision cutoff must be chosen
+by the implementation since only a finite number of digits may be printed.
+
+If @j{arg} is a @term{complex} number or some non-numeric
+@term{object},
+then it is printed using the format directive @f{@tild{}@j{w}D},
+thereby printing it in decimal radix and a minimum field width of @j{w}.
+
+@f{@tild{}F} binds
+@code{*print-escape*} to @term{false}
+and @code{*print-readably*} to @term{false}.
+
+
+@subsubsection Tilde E: Exponential Floating-Point
+@cindex E (format directive)
+@cindex Tilde E (format directive)
+
+The next @j{arg} is printed as a @term{float} in exponential notation.
+
+The full form is
+@f{@tild{}@j{w},@j{d},@j{e},@j{k},@j{overflowchar},@j{padchar},@j{exponentchar}E}.
+The parameter @j{w}
+is the width of the field to be printed; @j{d} is the number
+of digits to print after the decimal point; @j{e} is the number
+of digits to use when printing the exponent;
+@j{k} is a scale factor that defaults to one (not zero).
+
+Exactly @j{w} characters will
+be output.  First, leading copies of the character @j{padchar}
+(which defaults to a space) are printed, if necessary, to pad the
+field on the left.
+If the @j{arg} is negative, then a minus sign is printed;
+if the @j{arg} is not negative, then a plus sign is printed
+if and only if the @f{@@}
+modifier was supplied.  Then a sequence
+of digits containing a single embedded decimal point is printed.
+The form of this sequence of digits depends on the scale factor @j{k}.
+If @j{k} is zero, then @j{d} digits are printed after the decimal
+point, and a single zero digit appears before the decimal point if
+the total field width will permit it.  If @j{k} is positive,
+then it must be strictly less than @j{d}+2;  @j{k} significant digits
+are printed before the decimal point, and @j{d}@minussign{} @j{k}+1
+digits are printed after the decimal point.  If @j{k} is negative,
+then it must be strictly greater than @minussign{} @j{d};
+a single zero digit appears before the decimal point if
+the total field width will permit it, and after the decimal point
+are printed first
+@minussign{} @j{k} zeros and then @j{d}+@j{k} significant digits.
+The printed fraction must be properly rounded.
+When rounding up and rounding down would produce printed values
+equidistant from the scaled value of @j{arg}, then the implementation
+is free to use either one.  For example, printing the argument
+@f{637.5} using the format @f{@tild{}8,2E} may correctly produce
+either @f{6.37E+2} or @f{6.38E+2}.
+
+Following the digit sequence, the exponent is printed.
+First the character parameter @j{exponentchar} is printed; if this
+parameter is omitted, then the @term{exponent marker} that
+@code{prin1} would use is printed, as determined from the
+type of the @term{float} and the current value of
+@code{*read-default-float-format*}.
+Next, either a plus sign or a minus sign
+is printed, followed by @j{e} digits representing the power of
+ten by which the printed fraction must be multiplied
+to properly represent the rounded value of @j{arg}.
+
+If it is impossible to print the value in the required format in a field
+of width @j{w}, possibly because @j{k} is too large or too small
+or because the exponent cannot be printed in @j{e} character positions,
+then one of two actions is taken.  If the
+parameter @j{overflowchar} is supplied, then @j{w} copies of that
+parameter are printed instead of the scaled value of @j{arg}.
+If the @j{overflowchar} parameter is omitted, then the scaled value
+is printed using more than @j{w} characters, as many more as may be
+needed; if the problem is that @j{d} is too small for the supplied @j{k}
+or that @j{e} is too small, then a larger value is used for @j{d} or @j{e}
+as may be needed.
+
+If the @j{w} parameter is omitted, then the field is of variable width.
+In effect a value is chosen
+for @j{w} in such a way that no leading pad characters need to be printed.
+
+If the parameter @j{d} is omitted, then there is no constraint
+on the number of digits to appear.
+A value is chosen for @j{d} in such a way that as many digits
+as possible may be printed subject to the width constraint
+imposed by the parameter @j{w}, the constraint of the scale factor @j{k},
+and the constraint that no trailing
+zero digits may appear in the fraction, except that if the
+fraction to be printed is zero then a single zero digit should
+appear after the decimal point.
+
+If the parameter @j{e} is omitted, then the exponent is printed
+using the smallest number of digits necessary to represent its value.
+
+If all of @j{w}, @j{d}, and @j{e} are omitted, then the effect is to print
+the value using ordinary free-format exponential-notation output;
+@code{prin1} uses
+a similar
+format for any non-zero number whose magnitude
+is less than @mat{10^-3} or greater than or equal to @mat{10^7}.
+The only difference is that the @f{@tild{}E}
+directive always prints a plus or minus sign in front of the
+exponent, while @code{prin1} omits the plus sign if the exponent is
+non-negative.
+
+If @j{arg} is a @term{rational}
+number, then it is coerced to be a @term{single float}
+and then printed.  Alternatively, an implementation is permitted to
+process a @term{rational}
+number by any other method that has essentially the
+same behavior but avoids loss of precision or overflow
+because of the coercion.  If @j{w} and @j{d} are
+unsupplied and the number has no exact decimal representation,
+for example @f{1/3}, some precision cutoff must be chosen
+by the implementation since only a finite number of digits may be printed.
+
+If @j{arg} is a @term{complex} number or some non-numeric
+@term{object},
+then it is printed using the format directive @f{@tild{}@j{w}D},
+thereby printing it in decimal radix and a minimum field width of @j{w}.
+
+@f{@tild{}E} binds
+@code{*print-escape*} to @term{false}
+and @code{*print-readably*} to @term{false}.
+
+
+@subsubsection Tilde G: General Floating-Point
+@cindex G (format directive)
+@cindex Tilde G (format directive)
+
+The next @j{arg} is printed as a @term{float}
+in either fixed-format or exponential notation as appropriate.
+
+The full form is @f{@tild{}@j{w},@j{d},@j{e},@j{k},@j{overflowchar},@j{padchar},@j{exponentchar}G}.
+The format in which to print @j{arg} depends on the magnitude (absolute
+value) of the @j{arg}.  Let @j{n} be an integer such that
+@mat{10^@j{n}-1} @mat{@le{}} |@j{arg}| < @mat{10^@j{n}}.
+Let @j{ee} equal @j{e}+2, or 4 if @j{e} is omitted.
+Let @j{ww} equal @j{w}@minussign{} @j{ee},
+or @nil{}@spc{}if @j{w} is omitted.  If @j{d} is omitted, first let @j{q}
+be the number of digits needed to print @j{arg} with no loss
+of information and without leading or trailing zeros;
+then let @j{d} equal @f{(max @j{q} (min @j{n} 7))}.
+Let @j{dd} equal @j{d}@minussign{} @j{n}.
+
+If 0 @mat{@le{}} @j{dd} @mat{@le{}} @j{d}, then @j{arg} is printed
+as if by the format directives
+
+@f{@tild{}@j{ww},@j{dd},,@j{overflowchar},@j{padchar}F@tild{}@j{ee}@@T}
+
+Note that the scale factor @j{k} is not passed to the @f{@tild{}F}
+directive.  For all other values of @j{dd}, @j{arg} is printed as if
+by the format directive
+
+@f{@tild{}@j{w},@j{d},@j{e},@j{k},@j{overflowchar},@j{padchar},@j{exponentchar}E}
+
+In either case, an @f{@@}
+modifier is supplied to the @f{@tild{}F}
+or @f{@tild{}E} directive if and only if one was supplied to the
+@f{@tild{}G} directive.
+
+@f{@tild{}G} binds
+@code{*print-escape*} to @term{false}
+and @code{*print-readably*} to @term{false}.
+
+
+@subsubsection Tilde Dollarsign: Monetary Floating-Point
+@cindex Dollarsign (format directive)
+@cindex Tilde Dollarsign (format directive)
+
+The next @j{arg} is printed as a @term{float} in fixed-format notation.
+
+The full form is @f{@tild{}@j{d},@j{n},@j{w},@j{padchar}@dollar{}}.
+The parameter @j{d} is the number
+of digits to print after the decimal point (default value 2);
+@j{n} is the minimum number of digits to print before the decimal
+point (default value 1);
+@j{w} is the minimum total width of the field to be printed (default
+value 0).
+
+First padding and the sign are output.
+If the @j{arg} is negative, then a minus sign is printed;
+if the @j{arg} is not negative, then a plus sign is printed
+if and only if the @f{@@} modifier was supplied.
+If the @f{:} modifier is used, the sign appears before any padding,
+and otherwise after the padding.
+If @j{w} is supplied and the number of other characters to be output
+is less than @j{w}, then copies of @j{padchar} (which defaults
+to a space) are output to
+make the total field width equal @j{w}.
+Then @j{n} digits are printed for the integer part of @j{arg},
+with leading zeros if necessary; then a decimal point;
+then @j{d} digits of fraction, properly rounded.
+
+If the magnitude of @j{arg} is so large that more than @j{m} digits would
+have to be printed, where @j{m} is the larger of @j{w} and 100, then an
+implementation is free, at its discretion, to print the number using
+exponential notation instead, as if by the directive
+@f{@tild{}@j{w},@j{q},,,,@j{padchar}E}, where @j{w} and @j{padchar} are
+present or omitted according to whether they were present or omitted in
+the @f{@tild{}@dollar{}} directive, and where @j{q}=@j{d}+@j{n}@minussign{} 1,
+where @j{d} and @j{n} are the (possibly default) values given to the
+@f{@tild{}@dollar{}} directive.
+
+If @j{arg} is a @term{rational}
+number, then it is coerced to be a @term{single float}
+and then printed.  Alternatively, an implementation is permitted to
+process a @term{rational} number by any
+other method that has essentially the
+same behavior but avoids loss of precision or overflow
+because of the coercion.
+
+If @j{arg} is a @term{complex} number or some non-numeric
+@term{object},
+then it is printed using the format directive @f{@tild{}@j{w}D},
+thereby printing it in decimal radix and a minimum field width of @j{w}.
+
+@f{@tild{}@dollar{}} binds @code{*print-escape*} to @term{false}
+and @code{*print-readably*} to @term{false}.
+
+
+
+
+@node FORMAT Printer Operations
+@subsection FORMAT Printer Operations
+
+@subsubsection Tilde A: Aesthetic
+@cindex A (format directive)
+@cindex Tilde A (format directive)
+
+An @j{arg}, any @term{object},
+is printed without escape characters
+(as by @code{princ}).  If @j{arg} is a @term{string},
+its @term{characters}
+will be output verbatim.
+If @j{arg} is @nil{}@spc{}it will be printed as @nil{};
+the @term{colon} modifier (@f{@tild{}:A}) will cause an @j{arg} of @nil{}@spc{}to be printed as @empty{},
+but if @j{arg} is a composite structure, such as a @term{list} or @term{vector},
+any contained occurrences of @nil{}@spc{}will still be printed as @nil{}.
+
+@f{@tild{}@j{mincol}A} inserts spaces on the right, if necessary, to make the
+width at least @j{mincol} columns.  The @f{@@}
+modifier causes the spaces
+to be inserted on the left rather than the right.
+
+@f{@tild{}@j{mincol},@j{colinc},@j{minpad},@j{padchar}A}
+is the full form of @f{@tild{}A},
+which allows control of the padding.
+The @term{string} is padded on the right (or on the left if the
+@f{@@} modifier is used) with at least @j{minpad} copies
+of @j{padchar}; padding characters are then inserted @j{colinc} characters
+at a time until the total width is at least @j{mincol}.
+The defaults are @f{0} for @j{mincol} and @j{minpad}, @f{1} for @j{colinc},
+and the space character for @j{padchar}.
+
+@f{@tild{}A} binds @code{*print-escape*} to @term{false},
+and @code{*print-readably*} to @term{false}.
+
+
+@subsubsection Tilde S: Standard
+@cindex S (format directive)
+@cindex Tilde S (format directive)
+
+This is just like @f{@tild{}A}, but @j{arg} is printed with escape
+characters (as by @code{prin1} rather than @f{princ}).  The output is
+therefore suitable for input to @code{read}.  @f{@tild{}S} accepts
+all the arguments and modifiers that @f{@tild{}A} does.
+
+@f{@tild{}S} binds @code{*print-escape*} to @code{t}.
+
+
+@subsubsection Tilde W: Write
+@cindex W (format directive)
+@cindex Tilde W (format directive)
+
+An argument, any @term{object}, is printed obeying every printer control
+variable (as by @code{write}).  In addition, @f{@tild{}W} interacts correctly with depth
+abbreviation, by not resetting the depth counter to zero.  @f{@tild{}W} does not
+accept parameters.  If given the @term{colon} modifier, @f{@tild{}W} binds @code{*print-pretty*}
+to @term{true}.  If given the @term{at-sign} modifier, @f{@tild{}W} binds @code{*print-level*}
+and @code{*print-length*} to @nil{}.
+
+@f{@tild{}W} provides automatic support for the detection of circularity and
+sharing.  If @thevalueof{*print-circle*} is not @nil{}@spc{}and @f{@tild{}W} is applied
+to an argument that is a circular (or shared) reference, an appropriate
+@f{#@param{n}#} marker is inserted in the output instead of printing the argument.
+
+
+
+@node FORMAT Pretty Printer Operations
+@subsection FORMAT Pretty Printer Operations
+
+
+The following constructs provide access to the @term{pretty printer}:
+
+@subsubsection Tilde Underscore: Conditional Newline
+@anchor{TildeUnderscore}
+@cindex Underscore (format directive)
+@cindex Tilde Underscore (format directive)
+
+Without any modifiers, @f{@tild{}_} is the same as @f{(pprint-newline :linear)}.
+@f{@tild{}@@_}  is the same as @f{(pprint-newline :miser)}.
+@f{@tild{}:_}  is the same as @f{(pprint-newline :fill)}.
+@f{@tild{}:@@_} is the same as @f{(pprint-newline :mandatory)}.
+
+
+@subsubsection Tilde Less-Than-Sign: Logical Block
+@anchor{TildeLessThanLogicalBlock}
+@cindex Less-Than-Sign (format directive)
+@cindex Tilde Less-Than-Sign (format directive)
+
+@f{@tild{}<...@tild{}:>}
+
+If @f{@tild{}:>} is used to terminate a @f{@tild{}<...@tild{}>},
+the directive is equivalent to a call to @code{pprint-logical-block}.
+The argument corresponding to the @f{@tild{}<...@tild{}:>} directive is treated in
+the same way as the @term{list} argument to @code{pprint-logical-block},
+thereby providing automatic support for non-@term{list} arguments and
+the detection of circularity, sharing, and depth abbreviation.
+The portion of the @param{control-string} nested within the @f{@tild{}<...@tild{}:>}
+specifies the @kwd{prefix} (or @kwd{per-line-prefix}), @kwd{suffix},
+and body of the @code{pprint-logical-block}.
+
+The @param{control-string} portion enclosed by @f{@tild{}<...@tild{}:>} can be divided
+into segments @f{@tild{}<@param{prefix}@tild{};@param{body}@tild{};@param{suffix}@tild{}:>}
+by @f{@tild{};} directives.  If the first section is terminated by @f{@tild{}@@;},
+it specifies a per-line prefix rather than a simple prefix.
+The @param{prefix} and @param{suffix} cannot contain format directives.
+An error is signaled if either the prefix or suffix fails to be a
+constant string or if the enclosed portion is divided into more than three segments.
+
+If the enclosed portion is divided into only two segments, the @param{suffix}
+defaults to the null string.  If the enclosed portion consists of only
+a single segment, both the @param{prefix} and the @param{suffix} default to
+the null string.  If the @term{colon} modifier is used (@ie{} @f{@tild{}:<...@tild{}:>}),
+the @param{prefix} and @param{suffix} default to @f{"("} and @f{")"}
+(respectively) instead of the null string.
+
+The body segment can be any arbitrary @term{format string}.
+This @term{format string} is applied to the elements of the list
+corresponding to the @f{@tild{}<...@tild{}:>} directive as a whole.
+Elements are extracted from this list using @code{pprint-pop},
+thereby providing automatic support for malformed lists, and the detection
+of circularity, sharing, and length abbreviation.
+Within the body segment, @f{@tild{}@hat{}} acts like @code{pprint-exit-if-list-exhausted}.
+
+@f{@tild{}<...@tild{}:>} supports a feature not supported by @code{pprint-logical-block}.
+If @f{@tild{}:@@>} is used to terminate the directive (@ie{} @f{@tild{}<...@tild{}:@@>}),
+then a fill-style conditional newline is automatically inserted after each
+group of blanks immediately contained in the body (except for blanks
+after a @tie{}@NewlineChar{}@spc{}directive).  This makes it easy to achieve the
+equivalent of paragraph filling.
+
+If the @term{at-sign} modifier is used with @f{@tild{}<...@tild{}:>}, the entire remaining argument
+list is passed to the directive as its argument.  All of the remaining
+arguments are always consumed by @f{@tild{}@@<...@tild{}:>}, even if they are not all used
+by the @term{format string} nested in the directive.  Other than the difference in
+its argument, @f{@tild{}@@<...@tild{}:>} is exactly the same as @f{@tild{}<...@tild{}:>} except that
+circularity detection is not applied if @f{@tild{}@@<...@tild{}:>} is encountered at top
+level in a @term{format string}.  This ensures that circularity detection is
+applied only to data lists, not to @term{format argument} @term{lists}.
+
+@f{" . #@param{n}#"} is printed if circularity or sharing has to be indicated
+for its argument as a whole.
+
+To a considerable extent, the basic form of the directive @f{@tild{}<...@tild{}>} is
+incompatible with the dynamic control of the arrangement of output by
+@f{@tild{}W}, @f{@tild{}_}, @f{@tild{}<...@tild{}:>}, @f{@tild{}I}, and @f{@tild{}:T}.  As a result, an error
+is signaled if any of these directives is nested within @f{@tild{}<...@tild{}>}.
+Beyond this, an error is also signaled if the @f{@tild{}<...@tild{}:;...@tild{}>} form of
+@f{@tild{}<...@tild{}>} is used in the same @term{format string} with
+@f{@tild{}W}, @f{@tild{}_}, @f{@tild{}<...@tild{}:>}, @f{@tild{}I}, or @f{@tild{}:T}.
+
+See also @ref{TildeLessThanJustification, Section 22.3.6.2 (Tilde Less-Than-Sign. Justification)}.
+
+
+@subsubsection Tilde I: Indent
+@anchor{TildeI}
+@cindex I (format directive)
+@cindex Tilde I (format directive)
+
+@f{@tild{}@param{n}I}  is the same as @f{(pprint-indent :block n)}.
+
+@f{@tild{}@param{n}:I} is the same as @f{(pprint-indent :current n)}.
+In both cases, @param{n} defaults to zero, if it is omitted.
+
+
+@subsubsection Tilde Slash: Call Function
+@cindex Slash (format directive)
+@cindex Tilde Slash (format directive)
+
+@f{@tild{}/@param{name}/}
+
+User defined functions can be called from within a format
+string by using the directive @f{@tild{}/@param{name}/}.
+The @term{colon} modifier, the @term{at-sign} modifier, and arbitrarily many parameters
+can be specified with the @f{@tild{}/@param{name}/} directive.
+@param{name} can be any arbitrary string that does not contain a "/".
+All of the characters in @param{name} are treated as if they were upper case.
+If @param{name} contains a single @term{colon} (@f{:}) or double @term{colon} (@f{::}),
+then everything up to but not including the first @f{":"} or @f{"::"}
+is taken to be a @term{string} that names a @term{package}.
+Everything after the first @f{":"} or @f{"::"} (if any) is taken to be a
+@term{string} that names a @f{symbol}.  The function corresponding to a
+@f{@tild{}/name/} directive is obtained by looking up the @term{symbol}
+that has the indicated name in the indicated @term{package}.
+If @param{name} does not contain a @f{":"} or @f{"::"},
+then the whole @param{name} string is looked up in the @code{COMMON-LISP-USER} @term{package}.
+
+When a @f{@tild{}/name/} directive is encountered,
+the indicated function is called with four or more arguments.
+The first four arguments are:
+the output stream,
+the @term{format argument} corresponding to the directive,
+a @term{generalized boolean} that is @term{true} if the @term{colon} modifier was used,
+and a @term{generalized boolean} that is @term{true} if the @term{at-sign} modifier was used.
+The remaining arguments consist of any parameters specified with the directive.
+The function should print the argument appropriately.
+Any values returned by the function are ignored.
+
+The three @term{functions}
+@code{pprint-linear},
+@code{pprint-fill},
+and @code{pprint-tabular}
+are specifically designed so that they can be called by @f{@tild{}/.../}
+(@ie{} @f{@tild{}/pprint-linear/}, @f{@tild{}/pprint-fill/}, and @f{@tild{}/pprint-tabular/}).
+In particular they take @term{colon} and @term{at-sign} arguments.
+
+
+
+
+@node FORMAT Layout Control
+@subsection FORMAT Layout Control
+
+@subsubsection Tilde T: Tabulate
+@cindex T (format directive)
+@cindex Tilde T (format directive)
+
+This spaces over to a given column.
+@f{@tild{}@j{colnum},@j{colinc}T} will output
+sufficient spaces to move the cursor to column @j{colnum}.  If the cursor
+is already at or beyond column @j{colnum}, it will output spaces to move it to
+column @j{colnum}+@j{k}*@j{colinc} for the smallest positive integer
+@j{k} possible, unless @j{colinc} is zero, in which case no spaces
+are output if the cursor is already at or beyond column @j{colnum}.
+@j{colnum} and @j{colinc} default to @f{1}.
+
+If for some reason the current absolute column position cannot be determined
+by direct inquiry,
+@code{format}
+may be able to deduce the current column position by noting
+that certain directives (such as @f{@tild{}@percent{}}, or @f{@tild{}@ampers{}},
+or @f{@tild{}A}
+with the argument being a string containing a newline) cause
+the column position to be reset to zero, and counting the number of characters
+emitted since that point.  If that fails, @code{format}
+may attempt a
+similar deduction on the riskier assumption that the destination was
+at column zero when @code{format}
+was invoked.  If even this heuristic fails
+or is implementationally inconvenient, at worst
+the @f{@tild{}T} operation will simply output two spaces.
+
+@f{@tild{}@@T} performs relative tabulation.
+@f{@tild{}@j{colrel},@j{colinc}@@T} outputs @j{colrel} spaces
+and then outputs the smallest non-negative
+number of additional spaces necessary to move the cursor
+to a column that is a multiple
+of @j{colinc}.  For example, the directive
+@f{@tild{}3,8@@T} outputs
+three spaces and then moves the cursor to a ``standard multiple-of-eight
+tab stop'' if not at one already.
+If the current output column cannot be determined, however,
+then @j{colinc} is ignored, and exactly @j{colrel} spaces are output.
+
+If the @term{colon} modifier is used with the @f{@tild{}T} directive,
+the tabbing computation is done relative to the horizontal position where the
+section immediately containing the directive begins, rather than with
+respect to a horizontal position of zero.  The numerical parameters are
+both interpreted as being in units of @term{ems} and both default to @f{1}.
+@f{@tild{}@param{n},@param{m}:T} is the same as
+@f{(pprint-tab :section @param{n} @param{m})}.
+@f{@tild{}@param{n},@param{m}:@@T} is the same as
+@f{(pprint-tab :section-relative @param{n} @param{m})}.
+
+
+@subsubsection Tilde Less-Than-Sign: Justification
+@anchor{TildeLessThanJustification}
+@cindex Less-Than-Sign (format directive)
+@cindex Tilde Less-Than-Sign (format directive)
+
+@f{@tild{}@j{mincol},@j{colinc},@j{minpad},@j{padchar}<@j{str}@tild{}>}
+
+This justifies the text produced by processing @j{str}
+within a field at least @j{mincol} columns wide.  @j{str}
+may be divided up into segments with @f{@tild{};}, in which case the
+spacing is evenly divided between the text segments.
+
+With no modifiers, the leftmost text segment is left justified in the
+field, and the rightmost text segment is right justified.  If there is
+only one text element, as a special case, it is right justified.
+The @f{:} modifier causes
+spacing to be introduced before the first text segment;  the
+@f{@@} modifier causes spacing to be added after the last.
+The @j{minpad} parameter (default @f{0}) is the minimum number of
+padding characters to be output between each segment.
+The padding character is supplied by @j{padchar},
+which defaults to the space character.
+If the total width needed to satisfy these constraints is greater
+than @j{mincol}, then the width used is @j{mincol}+@j{k}*@j{colinc}
+for the smallest possible non-negative integer value @j{k}.
+@j{colinc} defaults to @f{1}, and @j{mincol} defaults to @f{0}.
+
+Note that @j{str} may include @code{format} directives.
+All the clauses in @j{str} are processed in order;
+it is the resulting pieces of text that are justified.
+
+The @f{@tild{}@hat{} } directive may be used to terminate processing of the
+clauses prematurely, in which case only the completely processed clauses
+are justified.
+
+If the first clause of a @f{@tild{}<}
+is terminated with @f{@tild{}:;} instead of
+@f{@tild{};}, then it is used in a special way.  All of the clauses are
+processed (subject to @f{@tild{}@hat{} }, of course), but the
+first one is not used
+in performing the spacing and padding.  When the padded result has been
+determined, then if it will fit on the current line of output, it is
+output, and the text for the first clause is discarded.  If, however, the
+padded text will not fit on the current line, then the text segment for
+the first clause is output before the padded text.  The first clause
+ought to contain a newline (such as a @f{@tild{}@percent{}} directive).  The first
+clause is always processed, and so any arguments it refers to will be
+used; the decision is whether to use the resulting segment of text, not
+whether to process the first clause.  If the @f{@tild{}:;} has a prefix
+parameter @j{n}, then the padded text must fit on the current line with
+@j{n} character positions to spare to avoid outputting the first clause's
+text.  For example, the control string
+
+@lisp
+ "~%;; ~@lbr{}@spc{}~<~%;; ~1:; ~S~>~@hat{}@spc{},~@rbr{}@spc{}.~%"
+@end lisp
+
+
+can be used to print a list of items separated by commas without
+breaking items over line boundaries, beginning each line with
+@f{;; }.  The prefix parameter
+@f{1} in @f{@tild{}1:;} accounts for the width of the
+comma that will follow the justified item if it is not the last
+element in the list, or the period
+if it is.  If @f{@tild{}:;} has a second
+prefix parameter, then it is used as the width of the line,
+thus overriding the natural line width of the output stream.  To make
+the preceding example use a line width of 50, one would write
+
+@lisp
+ "~%;; ~@lbr{}@spc{}~<~%;; ~1,50:; ~S~>~@hat{}@spc{},~@rbr{} @spc{}.~%"
+@end lisp
+
+If the second argument is not supplied, then @code{format} uses the
+line width of the @param{destination} output stream.
+If this cannot be determined (for example, when producing a
+@term{string} result), then @code{format} uses @f{72} as the line length.
+
+See also @ref{TildeLessThanLogicalBlock, Section 22.3.5.2 (Tilde Less-Than-Sign. Logical Block)}.
+
+
+@subsubsection Tilde Greater-Than-Sign: End of Justification
+@cindex Greater-Than-Sign (format directive)
+@cindex Tilde Greater-Than-Sign (format directive)
+
+@f{@tild{}>} terminates a @f{@tild{}<}.
+The consequences of using it elsewhere are undefined.
+
+
+
+@node FORMAT Control-Flow Operations
+@subsection FORMAT Control-Flow Operations
+
+@subsubsection Tilde Asterisk: Go-To
+@cindex Asterisk (format directive)
+@cindex Tilde Asterisk (format directive)
+
+
+The next @j{arg} is ignored.
+@f{@tild{}@j{n}*} ignores the next @j{n} arguments.
+
+@f{@tild{}:*} backs up in the list of
+arguments so that the argument last processed will be processed again.
+@f{@tild{}@j{n}:*} backs up @j{n} arguments.
+
+When within a @f{@tild{}@lcurly{}} construct
+(see below), the ignoring (in either direction) is relative to the list
+of arguments being processed by the iteration.
+
+@f{@tild{}@j{n}@@*}
+goes to the @j{n}th @j{arg}, where 0 means the first one;
+@j{n} defaults to 0, so @f{@tild{}@@*} goes back to the first @j{arg}.
+Directives after a @f{@tild{}@j{n}@@*}
+will take arguments in sequence beginning with the one gone to.
+When within a @f{@tild{}@lcurly{}} construct, the ``goto''
+is relative to the list of arguments being processed by the iteration.
+
+
+@subsubsection Tilde Left-Bracket: Conditional Expression
+@cindex Left-Bracket (format directive)
+@cindex Tilde Left-Bracket (format directive)
+
+@f{@tild{}[@j{str0}@tild{};@j{str1}@tild{};@j{...}@tild{};@j{strn}@tild{}]}
+
+This is a set of control strings, called @j{clauses}, one of which is
+chosen and used.  The clauses are separated by @f{@tild{};}
+and the construct is terminated by @f{@tild{}]}.  For example,
+
+@f{"@tild{}[Siamese@tild{};Manx@tild{};Persian@tild{}] Cat"}
+
+The @j{arg}th
+clause is selected, where the first clause is number 0.
+If a prefix parameter is given (as @f{@tild{}@j{n}[}),
+then the parameter is used instead of an argument.
+If @j{arg} is out of range then no clause is selected
+and no error is signaled.
+After the selected alternative has been processed, the control string
+continues after the @f{@tild{}]}.
+
+@f{@tild{}[@j{str0}@tild{};@j{str1}@tild{};@j{...}@tild{};@j{strn}@tild{}:;@j{default}@tild{}]}
+has a default case.
+If the @j{last} @f{@tild{};} used to separate clauses
+is @f{@tild{}:;} instead, then the last clause is an else clause
+that is performed if no other clause is selected.
+For example:
+
+@f{"@tild{}[Siamese@tild{};Manx@tild{};Persian@tild{}:;Alley@tild{}] Cat"}
+
+@f{@tild{}:[@param{alternative}@tild{};@param{consequent}@tild{}]}
+selects the @param{alternative} control string if @j{arg} is @term{false},
+and selects the @param{consequent} control string otherwise.
+
+@f{@tild{}@@[@param{consequent}@tild{}]}
+tests the argument.  If it is @term{true},
+then the argument is not used up by the @f{@tild{}[} command
+but remains as the next one to be processed,
+and the one clause @param{consequent} is processed.
+If the @j{arg} is @term{false}, then the argument is used up,
+and the clause is not processed.
+The clause therefore should normally use exactly one argument,
+and may expect it to be @term{non-nil}.
+For example:
+
+@lisp
+ (setq *print-level* nil *print-length* 5)
+ (format nil
+        "~@@[ print level = ~D~]~@@[ print length = ~D~]"
+        *print-level* *print-length*)
+@EV{}  " print length = 5"
+@end lisp
+
+
+Note also that
+
+@lisp
+ (format @param{stream} "...~@@[@param{str}~]..." ...)
+@EQ{} (format @param{stream} "...~:[~;~:*@param{str}~]..." ...)
+@end lisp
+
+
+The combination of @f{@tild{}[} and @f{#} is useful, for
+example, for dealing with English conventions for printing lists:
+
+@lisp
+ (setq foo "Items:~#[ none~; ~S~; ~S and ~S~
+           ~:;~@@@lcurly{}~#[~; and~] ~S~@hat{}@spc{},~@rcurly{}~].")
+ (format nil foo) @EV{}  "Items: none."
+ (format nil foo 'foo) @EV{}  "Items: FOO."
+ (format nil foo 'foo 'bar) @EV{}  "Items: FOO and BAR."
+ (format nil foo 'foo 'bar 'baz) @EV{}  "Items: FOO, BAR, and BAZ."
+ (format nil foo 'foo 'bar 'baz 'quux) @EV{}  "Items: FOO, BAR, BAZ, and QUUX."
+@end lisp
+
+
+
+@subsubsection Tilde Right-Bracket: End of Conditional Expression
+@cindex Right-Bracket (format directive)
+@cindex Tilde Right-Bracket (format directive)
+
+@f{@tild{}]} terminates a @f{@tild{}[}.
+The consequences of using it elsewhere are undefined.
+
+
+@subsubsection Tilde Left-Brace: Iteration
+@cindex Left-Brace (format directive)
+@cindex Tilde Left-Brace (format directive)
+
+@f{@tild{}@lcurly{}@j{str}@tild{}@rcurly{}}
+
+This is an iteration construct.  The argument should be a @term{list},
+which is used as a set of arguments
+as if for a recursive call to @code{format}.
+The @term{string} @j{str} is used repeatedly as the control string.
+Each iteration can absorb as many elements of the @term{list} as it likes
+as arguments;
+if @j{str} uses up two arguments by itself, then two elements of the
+@term{list} will get used up each time around the loop.
+If before any iteration step the @term{list}
+is empty, then the iteration is terminated.
+Also, if a prefix parameter @j{n} is given, then there will be at most @j{n}
+repetitions of processing of @j{str}.
+Finally, the @f{@tild{}@hat{} } directive can be
+used to terminate the iteration prematurely.
+
+For example:
+
+@lisp
+ (format nil "The winners are:~@lcurly{} ~S~@rcurly{}."
+         '(fred harry jill))
+@EV{} "The winners are: FRED HARRY JILL."
+ (format nil "Pairs:~@lcurly{} <~S,~S>~@rcurly{}."
+         '(a 1 b 2 c 3))
+@EV{} "Pairs: <A,1> <B,2> <C,3>."
+@end lisp
+
+
+@f{@tild{}:@lbr{} @j{str}@tild{}@rbr{}  } is similar,
+but the argument should be a @term{list} of sublists.
+At each repetition step, one sublist
+is used as the set of arguments for
+processing @j{str}; on the next repetition, a new sublist
+is used, whether
+or not all of the last sublist had been processed.
+For example:
+
+
+
+@lisp
+ (format nil "Pairs:~:@lbr{} <~S,~S>~@rbr{}@spc{}."
+                 '((a 1) (b 2) (c 3)))
+@EV{} "Pairs: <A,1> <B,2> <C,3>."
+@end lisp
+
+
+@f{@tild{}@@@lbr{} @j{str}@tild{}@rbr{} }
+is similar to @f{@tild{}@lbr{} @j{str}@tild{}@rbr{}  }, but instead of
+using one argument that is a list, all the remaining arguments
+are used as the list of arguments for the iteration.
+Example:
+
+@lisp
+ (format nil "Pairs:~@@@lbr{} <~S,~S>~@rbr{}@spc{}." 'a 1 'b 2 'c 3)
+@EV{} "Pairs: <A,1> <B,2> <C,3>."
+@end lisp
+
+If the iteration is terminated before all the remaining arguments are
+consumed, then any arguments not processed by the iteration remain to be
+processed by any directives following the iteration construct.
+
+@f{@tild{}:@@@lbr{} @j{str}@tild{}@rbr{}  }
+combines the features
+of @f{@tild{}:@lbr{} @j{str}@tild{}@rbr{}  }
+and @f{@tild{}@@@lbr{} @j{str}@tild{}@rbr{}  }.
+All the remaining arguments
+are used, and each one must be a @term{list}.
+On each iteration, the next argument is
+used as a @term{list} of arguments to @j{str}.
+Example:
+
+@lisp
+ (format nil "Pairs:~:@@@lbr{} <~S,~S>~@rbr{}@spc{}."
+              '(a 1) '(b 2) '(c 3))
+@EV{} "Pairs: <A,1> <B,2> <C,3>."
+@end lisp
+
+Terminating the repetition construct with @f{@tild{}:@rbr{} }
+instead of @f{@tild{}@rbr{}  }
+forces @j{str} to be processed at least once, even if the initial
+list of arguments is null. However, this will not override an explicit
+prefix parameter of zero.
+
+If @j{str} is empty, then an argument is used as @j{str}.
+It must be a @term{format control}
+and precede any arguments processed by the iteration.  As an example,
+the following are equivalent:
+
+@lisp
+    (apply #'format stream string arguments)
+ @EQ{} (format stream "~1@lcurly{}~:@rcurly{}" string arguments)
+@end lisp
+
+
+This will use @f{string} as a formatting string.
+The @f{@tild{}1@lbr{} } says it will
+be processed at most once, and the @f{@tild{}:@rbr{} }
+says it will be processed at least once.
+Therefore it is processed exactly once, using @f{arguments} as the arguments.
+This case may be handled more clearly by the @f{@tild{}?} directive,
+but this general feature of @f{@tild{}@lbr{}  }
+is more powerful than @f{@tild{}?}.
+
+
+@subsubsection Tilde Right-Brace: End of Iteration
+@cindex Right-Brace (format directive)
+@cindex Tilde Right-Brace (format directive)
+
+
+@f{@tild{}@rcurly{}} terminates a @f{@tild{}@lcurly{}}.
+The consequences of using it elsewhere are undefined.
+
+
+@subsubsection Tilde Question-Mark: Recursive Processing
+@cindex Question-Mark (format directive)
+@cindex Tilde Question-Mark (format directive)
+
+The next @j{arg} must be a @term{format control}, and the one after it a @term{list};
+both are consumed by the @f{@tild{}?} directive.
+The two are processed as a @param{control-string}, with the elements of the @term{list}
+as the arguments.  Once the recursive processing
+has been finished, the processing of the control
+string containing the @f{@tild{}?} directive is resumed.
+Example:
+
+@lisp
+ (format nil "~? ~D" "<~A ~D>" '("Foo" 5) 7) @EV{} "<Foo 5> 7"
+ (format nil "~? ~D" "<~A ~D>" '("Foo" 5 14) 7) @EV{} "<Foo 5> 7"
+@end lisp
+
+Note that in the second example three arguments are supplied
+to the @term{format string} @f{"<@tild{}A @tild{}D>"}, but only two are processed
+and the third is therefore ignored.
+
+With the @f{@@}
+modifier, only one @j{arg} is directly consumed.
+The @j{arg} must be a @term{string};
+it is processed as part of the control
+string as if it had appeared in place of the @f{@tild{}@@?} construct,
+and any directives in the recursively processed control string may
+consume arguments of the control string containing the @f{@tild{}@@?}
+directive.
+Example:
+
+@lisp
+ (format nil "~@@? ~D" "<~A ~D>" "Foo" 5 7) @EV{} "<Foo 5> 7"
+ (format nil "~@@? ~D" "<~A ~D>" "Foo" 5 14 7) @EV{} "<Foo 5> 14"
+@end lisp
+
+
+
+
+@node FORMAT Miscellaneous Operations
+@subsection FORMAT Miscellaneous Operations
+
+@subsubsection Tilde Left-Paren: Case Conversion
+@cindex Left-Paren (format directive)
+@cindex Tilde Left-Paren (format directive)
+
+@f{@tild{}(@j{str}@tild{})}
+
+The contained control string @j{str} is processed, and what it produces
+is subject to case conversion.
+
+With no flags, every @term{uppercase} @term{character}
+is converted to the corresponding @term{lowercase} @term{character}.
+
+@f{@tild{}:(} capitalizes all words, as if by @code{string-capitalize}.
+
+@f{@tild{}@@(}
+capitalizes just the first word and forces the rest to lower
+case.
+
+@f{@tild{}:@@(} converts every lowercase character
+to the corresponding uppercase character.
+
+In this example @f{@tild{}@@(} is used to cause the first word
+produced by @f{@tild{}@@R} to be capitalized:
+
+@lisp
+ (format nil "~@@R ~(~@@R~)" 14 14)
+@EV{} "XIV xiv"
+ (defun f (n) (format nil "~@@(~R~) error~:P detected." n)) @EV{} F
+ (f 0) @EV{} "Zero errors detected."
+ (f 1) @EV{} "One error detected."
+ (f 23) @EV{} "Twenty-three errors detected."
+@end lisp
+
+
+When case conversions appear nested, the outer conversion dominates,
+as illustrated in the following example:
+
+@lisp
+ (format nil "~@@(how is ~:(BOB SMITH~)?~)")
+ @EV{} "How is bob smith?"
+ @NV{} "How is Bob Smith?"
+@end lisp
+
+
+
+@subsubsection Tilde Right-Paren: End of Case Conversion
+@cindex Right-Paren (format directive)
+@cindex Tilde Right-Paren (format directive)
+
+@f{@tild{})} terminates a @f{@tild{}(}.
+The consequences of using it elsewhere are undefined.
+
+
+@subsubsection Tilde P: Plural
+@cindex P (format directive)
+@cindex Tilde P (format directive)
+
+If @j{arg} is not @code{eql}
+to the integer @f{1}, a lowercase @f{s} is
+printed; if @j{arg} is @code{eql} to @f{1}, nothing is printed.
+If @j{arg} is a floating-point @f{1.0}, the @f{s} is
+printed.
+
+@f{@tild{}:P} does the same thing,
+after doing a @f{@tild{}:*} to back up one argument;
+that is, it prints a lowercase @f{s} if the previous argument was not
+@f{1}.
+
+@f{@tild{}@@P}
+prints @f{y} if the argument is @f{1}, or @f{ies} if it is
+not.  @f{@tild{}:@@P} does the same thing, but backs up first.
+
+@lisp
+ (format nil "~D tr~:@@P/~D win~:P" 7 1) @EV{} "7 tries/1 win"
+ (format nil "~D tr~:@@P/~D win~:P" 1 0) @EV{} "1 try/0 wins"
+ (format nil "~D tr~:@@P/~D win~:P" 1 3) @EV{} "1 try/3 wins"
+@end lisp
+
+
+
+
+@node FORMAT Miscellaneous Pseudo-Operations
+@subsection FORMAT Miscellaneous Pseudo-Operations
+
+@subsubsection Tilde Semicolon: Clause Separator
+@cindex Semicolon (format directive)
+@cindex Tilde Semicolon (format directive)
+
+This separates clauses in @f{@tild{}[} and @f{@tild{}<} constructs.
+The consequences of using it elsewhere are undefined.
+
+
+@subsubsection Tilde Circumflex: Escape Upward
+@cindex Circumflex (format directive)
+@cindex Tilde Circumflex (format directive)
+
+@f{@tild{}@hat{} }
+
+This is an escape construct.  If there are no more arguments remaining to
+be processed, then the immediately
+enclosing @f{@tild{}@lbr{}  } or @f{@tild{}<} construct
+is terminated.  If there is no such enclosing construct, then the entire
+formatting operation is terminated.
+In the @f{@tild{}<} case, the formatting
+is performed, but no more segments are processed before doing the
+justification.
+@f{@tild{}@hat{} } may appear anywhere in a @f{@tild{}@lbr{}  }
+construct.
+
+@lisp
+ (setq donestr "Done.~@hat{} ~D warning~:P.~@hat{} ~D error~:P.")
+@EV{} "Done.~@hat{} ~D warning~:P.~@hat{} ~D error~:P."
+ (format nil donestr) @EV{} "Done."
+ (format nil donestr 3) @EV{} "Done. 3 warnings."
+ (format nil donestr 1 5) @EV{} "Done. 1 warning. 5 errors."
+@end lisp
+
+
+If a prefix parameter is given, then termination occurs if the parameter
+is zero.  (Hence @f{@tild{}@hat{}} is equivalent to
+@f{@tild{}#@hat{}}.)  If two
+parameters are given, termination occurs if they are equal.
+@reviewer{Barmar: Which equality predicate?}  If three
+parameters are given, termination occurs if the first is less than or
+equal to the second and the second is less than or equal to the third.
+Of course, this is useless if all the prefix parameters are constants; at
+least one of them should be a @f{#} or a @f{V} parameter.
+
+If @f{@tild{}@hat{}} is used within a @f{@tild{}:@lbr{}  }
+construct, then it terminates
+the current iteration step because in the standard case it tests for
+remaining arguments of the current step only; the next iteration step
+commences immediately.  @f{@tild{}:@hat{}} is used to terminate
+the iteration process.
+@f{@tild{}:@hat{}}
+may be used only if the command it would terminate is
+@f{@tild{}:@lbr{}  } or @f{@tild{}:@@@lbr{}  }.
+The entire iteration process is terminated if and only if the sublist that is
+supplying the arguments for the current iteration step is the last sublist in
+the case of @f{@tild{}:@lbr{} },
+or the last @code{format}
+argument in the case of @f{@tild{}:@@@lbr{}  }.
+@f{@tild{}:@hat{}} is not
+equivalent to @f{@tild{}#:@hat{}};
+the latter terminates the entire iteration if and only if no
+arguments remain for the current iteration step.
+For example:
+
+@lisp
+ (format nil "~:@lbr{}@spc{}~@@?~:@hat{}@spc{}...~@rbr{}@spc{}" '(("a") ("b"))) @EV{} "a...b"
+@end lisp
+
+
+If @f{@tild{}@hat{}} appears within a control string being processed
+under the control of a @f{@tild{}?} directive, but not within
+any @f{@tild{}@lbr{}  } or @f{@tild{}<} construct within that string,
+then the string being
+processed will be terminated, thereby ending processing
+of the @f{@tild{}?} directive.  Processing then
+continues within the string
+containing the @f{@tild{}?} directive at the point following that directive.
+
+If @f{@tild{}@hat{}}
+appears within a @f{@tild{}[} or @f{@tild{}(} construct,
+then all the commands up to the @f{@tild{}@hat{}} are properly selected
+or case-converted,
+the @f{@tild{}[} or @f{@tild{}(} processing is terminated,
+and the outward search continues
+for a @f{@tild{}@lbr{}  } or @f{@tild{}<} construct
+to be terminated.  For example:
+
+@lisp
+ (setq tellstr "~@@(~@@[~R~]~@hat{} ~A!~)")
+@EV{} "~@@(~@@[~R~]~@hat{} ~A!~)"
+ (format nil tellstr 23) @EV{} "Twenty-three!"
+ (format nil tellstr nil "losers") @EV{} " Losers!"
+ (format nil tellstr 23 "losers") @EV{} "Twenty-three losers!"
+@end lisp
+
+
+Following are examples of the use of @f{@tild{}@hat{}}
+within a @f{@tild{}<} construct.
+
+@lisp
+ (format nil "~15<~S~;~@hat{}~S~;~@hat{}~S~>" 'foo)
+@EV{}  "            FOO"
+ (format nil "~15<~S~;~@hat{}~S~;~@hat{}~S~>" 'foo 'bar)
+@EV{}  "FOO         BAR"
+ (format nil "~15<~S~;~@hat{}~S~;~@hat{}~S~>" 'foo 'bar 'baz)
+@EV{}  "FOO   BAR   BAZ"
+@end lisp
+
+
+
+@subsubsection Tilde Newline: Ignored Newline
+@cindex Newline (format directive)
+@cindex Tilde Newline (format directive)
+
+@term{Tilde} immediately followed by a @term{newline} ignores the @term{newline}
+and any following non-newline @term{whitespace}@sub1{} characters.
+With a @f{:},
+the @term{newline} is ignored,
+but any following @term{whitespace}@sub1{} is left in place.
+With an @f{@@},
+the @term{newline} is left in place,
+but any following @term{whitespace}@sub1{} is ignored.
+For example:
+
+@lisp
+ (defun type-clash-error (fn nargs argnum right-type wrong-type)
+   (format *error-output*
+           "~&~S requires its ~:[~:R~;~*~]~
+           argument to be of type ~S,~%but it was called ~
+           with an argument of type ~S.~%"
+           fn (eql nargs 1) argnum right-type wrong-type))
+ (type-clash-error 'aref nil 2 'integer 'vector)  prints:
+AREF requires its second argument to be of type INTEGER,
+but it was called with an argument of type VECTOR.
+NIL
+ (type-clash-error 'car 1 1 'list 'short-float)  prints:
+CAR requires its argument to be of type LIST,
+but it was called with an argument of type SHORT-FLOAT.
+NIL
+@end lisp
+
+Note that in this example newlines appear in the output only as specified
+by the @f{@tild{}@ampers{}} and @f{@tild{}@percent{}} directives; the
+actual newline characters
+in the control string are suppressed because each is preceded by a tilde.
+
+
+
+@node Additional Information about FORMAT Operations
+@subsection Additional Information about FORMAT Operations
+
+@subsubsection Nesting of FORMAT Operations
+
+The case-conversion, conditional, iteration, and justification
+constructs can contain other formatting constructs by bracketing them.
+These constructs must nest properly with respect to each other.
+For example, it is not legitimate to put the start of a case-conversion
+construct in each arm of a conditional and the
+end of the case-conversion construct outside the conditional:
+
+@lisp
+ (format nil "~:[abc~:@@(def~;ghi~
+:@@(jkl~]mno~)" x) ;Invalid!
+@end lisp
+
+This notation is invalid because the @f{@tild{}[...@tild{};...@tild{}]}
+and @f{@tild{}(...@tild{})} constructs are not properly nested.
+
+The processing indirection caused by the @f{@tild{}?} directive
+is also a kind of nesting for the purposes of this rule of proper nesting.
+It is not permitted to
+start a bracketing construct within a string processed
+under control of a @f{@tild{}?}
+directive and end the construct at some point after the @f{@tild{}?} construct
+in the string containing that construct, or vice versa.
+For example, this situation is invalid:
+
+@lisp
+ (format nil "~@@?ghi~)" "abc~@@(def") ;Invalid!
+@end lisp
+
+This notation
+is invalid because the @f{@tild{}?}
+and @f{@tild{}(...@tild{})} constructs are not properly nested.
+
+
+@subsubsection Missing and Additional FORMAT Arguments
+
+The consequences are undefined if no @param{arg} remains for a directive
+requiring an argument.  However, it is permissible for one or more @param{args}
+to remain unprocessed by a directive; such @param{args} are ignored.
+
+
+@subsubsection Additional FORMAT Parameters
+
+The consequences are undefined if a format directive is given more parameters
+than it is described here as accepting.
+
+
+@subsubsection Undefined FORMAT Modifier Combinations
+
+The consequences are undefined if @term{colon} or @term{at-sign} modifiers
+are given to a directive in a combination not specifically described
+here as being meaningful.
+
+
+
+@node Examples of FORMAT
+@subsection Examples of FORMAT
+
+@lisp
+ (format nil "foo") @EV{} "foo"
+ (setq x 5) @EV{} 5
+ (format nil "The answer is ~D." x) @EV{} "The answer is 5."
+ (format nil "The answer is ~3D." x) @EV{} "The answer is   5."
+ (format nil "The answer is ~3,'0D." x) @EV{} "The answer is 005."
+ (format nil "The answer is ~:D." (expt 47 x))
+@EV{} "The answer is 229,345,007."
+ (setq y "elephant") @EV{} "elephant"
+ (format nil "Look at the ~A!" y) @EV{} "Look at the elephant!"
+ (setq n 3) @EV{} 3
+ (format nil "~D item~:P found." n) @EV{} "3 items found."
+ (format nil "~R dog~:[s are~; is~] here." n (= n 1))
+@EV{} "three dogs are here."
+ (format nil "~R dog~:*~[s are~; is~:;s are~] here." n)
+@EV{} "three dogs are here."
+ (format nil "Here ~[are~;is~:;are~] ~:*~R pupp~:@@P." n)
+@EV{} "Here are three puppies."
+@end lisp
+
+@lisp
+ (defun foo (x)
+   (format nil "~6,2F|~6,2,1,'*F|~6,2,,'?F|~6F|~,2F|~F"
+           x x x x x x)) @EV{} FOO
+ (foo 3.14159)  @EV{} "  3.14| 31.42|  3.14|3.1416|3.14|3.14159"
+ (foo -3.14159) @EV{} " -3.14|-31.42| -3.14|-3.142|-3.14|-3.14159"
+ (foo 100.0)    @EV{} "100.00|******|100.00| 100.0|100.00|100.0"
+ (foo 1234.0)   @EV{} "1234.00|******|??????|1234.0|1234.00|1234.0"
+ (foo 0.006)    @EV{} "  0.01|  0.06|  0.01| 0.006|0.01|0.006"
+@end lisp
+
+@lisp
+ (defun foo (x)
+    (format nil
+           "~9,2,1,,'*E|~10,3,2,2,'?,,'@dollar{}E|~
+            ~9,3,2,-2,'%@@E|~9,2E"
+           x x x x))
+ (foo 3.14159)  @EV{} "  3.14E+0| 31.42@dollar{}-01|+.003E+03|  3.14E+0"
+ (foo -3.14159) @EV{} " -3.14E+0|-31.42@dollar{}-01|-.003E+03| -3.14E+0"
+ (foo 1100.0)   @EV{} "  1.10E+3| 11.00@dollar{}+02|+.001E+06|  1.10E+3"
+ (foo 1100.0L0) @EV{} "  1.10L+3| 11.00@dollar{}+02|+.001L+06|  1.10L+3"
+ (foo 1.1E13)   @EV{} "*********| 11.00@dollar{}+12|+.001E+16| 1.10E+13"
+ (foo 1.1L120)  @EV{} "*********|??????????|%%%%%%%%%|1.10L+120"
+ (foo 1.1L1200) @EV{} "*********|??????????|%%%%%%%%%|1.10L+1200"
+@end lisp
+
+As an example of the effects of varying the scale factor, the code
+
+@lisp
+ (dotimes (k 13)
+   (format t "~%Scale factor ~2D: |~13,6,2,VE|"
+           (- k 5) (- k 5) 3.14159))
+@end lisp
+
+produces the following output:
+
+@lisp
+Scale factor -5: | 0.000003E+06|
+Scale factor -4: | 0.000031E+05|
+Scale factor -3: | 0.000314E+04|
+Scale factor -2: | 0.003142E+03|
+Scale factor -1: | 0.031416E+02|
+Scale factor  0: | 0.314159E+01|
+Scale factor  1: | 3.141590E+00|
+Scale factor  2: | 31.41590E-01|
+Scale factor  3: | 314.1590E-02|
+Scale factor  4: | 3141.590E-03|
+Scale factor  5: | 31415.90E-04|
+Scale factor  6: | 314159.0E-05|
+Scale factor  7: | 3141590.E-06|
+@end lisp
+
+
+@lisp
+ (defun foo (x)
+   (format nil "~9,2,1,,'*G|~9,3,2,3,'?,,'@dollar{}G|~9,3,2,0,'%G|~9,2G"
+          x x x x))
+ (foo 0.0314159) @EV{} "  3.14E-2|314.2@dollar{}-04|0.314E-01|  3.14E-2"
+ (foo 0.314159)  @EV{} "  0.31   |0.314    |0.314    | 0.31    "
+ (foo 3.14159)   @EV{} "   3.1   | 3.14    | 3.14    |  3.1    "
+ (foo 31.4159)   @EV{} "   31.   | 31.4    | 31.4    |  31.    "
+ (foo 314.159)   @EV{} "  3.14E+2| 314.    | 314.    |  3.14E+2"
+ (foo 3141.59)   @EV{} "  3.14E+3|314.2@dollar{}+01|0.314E+04|  3.14E+3"
+ (foo 3141.59L0) @EV{} "  3.14L+3|314.2@dollar{}+01|0.314L+04|  3.14L+3"
+ (foo 3.14E12)   @EV{} "*********|314.0@dollar{}+10|0.314E+13| 3.14E+12"
+ (foo 3.14L120)  @EV{} "*********|?????????|%%%%%%%%%|3.14L+120"
+ (foo 3.14L1200) @EV{} "*********|?????????|%%%%%%%%%|3.14L+1200"
+@end lisp
+
+
+@lisp
+ (format nil "~10<foo~;bar~>")   @EV{} "foo    bar"
+ (format nil "~10:<foo~;bar~>")  @EV{} "  foo  bar"
+ (format nil "~10<foobar~>")     @EV{} "    foobar"
+ (format nil "~10:<foobar~>")    @EV{} "    foobar"
+ (format nil "~10:@@<foo~;bar~>") @EV{} "  foo bar "
+ (format nil "~10@@<foobar~>")    @EV{} "foobar    "
+ (format nil "~10:@@<foobar~>")   @EV{} "  foobar  "
+@end lisp
+
+
+@lisp
+  (FORMAT NIL "Written to ~A." #P"foo.bin")
+  @EV{} "Written to foo.bin."
+@end lisp
+
+
+
+@node Notes about FORMAT
+@subsection Notes about FORMAT
+
+Formatted output is performed not only by @code{format},
+but by certain other functions that accept a @term{format control}
+the way @code{format} does.  For example, error-signaling functions
+such as @code{cerror} accept @term{format controls}.
+
+Note that the meaning of @nil{}@spc{}and @code{t}@spc{}as destinations to @code{format}
+are different than those of @nil{}@spc{}and @code{t}@spc{}as @term{stream designators}.
+
+The @f{@tild{}@hat{}} should appear only at the beginning of a @f{@tild{}<} clause,
+because it aborts the entire clause in which it appears (as well as
+all following clauses).
+
+
+@node copy-pprint-dispatch
+@heading copy-pprint-dispatch (Function)
+@syindex copy-pprint-dispatch
+@cindex copy-pprint-dispatch
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{copy-pprint-dispatch, @opt{} table, new-table}
+
+@subsubheading Arguments and Values:
+
+@param{table}---a @term{pprint dispatch table}, or @nil{}.
+
+@param{new-table}---a @term{fresh} @term{pprint dispatch table}.
+
+@subsubheading Description:
+
+Creates and returns a copy of the specified @param{table},
+or of @thevalueof{*print-pprint-dispatch*} if no @param{table} is specified,
+or of the initial @term{value} of @code{*print-pprint-dispatch*} if @nil{}@spc{}is specified.
+
+@subsubheading Exceptional Situations:
+
+Should signal an error @oftype{type-error} if @param{table}
+is not a @term{pprint dispatch table}.
+
+
+
+@node formatter
+@heading formatter (Macro)
+@syindex formatter
+@cindex formatter
+
+
+
+@subsubheading Syntax:
+
+@DefmacWithValues{formatter, control-string, function}
+
+@subsubheading Arguments and Values:
+
+@param{control-string}---a @term{format string}; @noeval{}.
+
+@param{function}---a @term{function}.
+
+@subsubheading Description:
+
+Returns a @term{function} which has behavior equivalent to:
+
+@lisp
+  #'(lambda (*standard-output* &rest arguments)
+      (apply #'format t @i{control-string} arguments)
+      @i{arguments-tail})
+@end lisp
+
+
+where @i{arguments-tail} is either the tail of @i{arguments}
+which has as its @term{car} the argument that would be processed next
+if there were more format directives in the @param{control-string},
+or else @nil{}@spc{}if no more @i{arguments} follow the most recently
+processed argument.
+
+@subsubheading Examples:
+
+@lisp
+(funcall (formatter "~&~A~A") *standard-output* 'a 'b 'c)
+@OUT{} AB
+@EV{} (C)
+
+(format t (formatter "~&~A~A") 'a 'b 'c)
+@OUT{} AB
+@EV{} NIL
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+Might signal an error (at macro expansion time or at run time) if the argument
+is not a valid @term{format string}.
+
+@subsubheading See Also:
+
+@ref{format}
+
+
+
+@node pprint-dispatch
+@heading pprint-dispatch (Function)
+@syindex pprint-dispatch
+@cindex pprint-dispatch
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{pprint-dispatch, object @opt{} table, function\, found-p}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{table}---a @term{pprint dispatch table}, or @nil{}.
+@Default{@thevalueof{*print-pprint-dispatch*}}
+
+@param{function}---a @term{function designator}.
+
+@param{found-p}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+Retrieves the highest priority function in @param{table} that is
+associated with a @term{type specifier} that matches @param{object}.
+The function is chosen by finding all of the @term{type specifiers} in @param{table}
+that match the @param{object} and
+selecting the highest priority function associated with any of these
+@term{type specifiers}.  If there is more than one highest priority function,
+an arbitrary choice is made.  If no @term{type specifiers} match the
+@param{object}, a function is returned that prints @param{object}
+using @code{print-object}.
+
+The @term{secondary value}, @param{found-p}, is @term{true} if a matching
+@term{type specifier} was found in @param{table}, or @term{false} otherwise.
+
+If @param{table} is @nil{},
+retrieval is done in the
+@term{initial pprint dispatch table}.
+
+@subsubheading Affected By:
+
+The state of the @param{table}.
+
+@subsubheading Exceptional Situations:
+
+Should signal an error @oftype{type-error} if @term{table} is neither a
+@term{pprint-dispatch-table} nor @nil{}.
+
+@subsubheading Notes:
+
+@lisp
+(let ((*print-pretty* t))
+  (write object :stream s))
+@EQ{} (funcall (pprint-dispatch object) s object)
+@end lisp
+
+
+
+
+@node pprint-exit-if-list-exhausted
+@heading pprint-exit-if-list-exhausted (Local Macro)
+@syindex pprint-exit-if-list-exhausted
+@cindex pprint-exit-if-list-exhausted
+
+
+
+@subsubheading Syntax:
+
+@DefmacWithValues{pprint-exit-if-list-exhausted, @noargs{}, @nil{}}
+
+@subsubheading Description:
+
+Tests whether or not the @param{list} passed to
+the @term{lexically current logical block}
+has been exhausted; see @ref{DynamicControlofOutput, Section 22.2.1.1 (Dynamic Control of the Arrangement of Output)}.
+If this @param{list} has been
+reduced to @nil{}, @code{pprint-exit-if-list-exhausted} terminates the execution
+of the @term{lexically current logical block} except for the printing
+of the suffix.  Otherwise @code{pprint-exit-if-list-exhausted} returns @nil{}.
+
+Whether or not @code{pprint-exit-if-list-exhausted} is @term{fbound} in the
+@term{global environment} is @term{implementation-dependent};
+however, the restrictions on redefinition and @term{shadowing} of
+@code{pprint-exit-if-list-exhausted} are the same as for @term{symbols} in the @code{COMMON-LISP} @term{package}
+which are @term{fbound} in the @term{global environment}.
+The consequences of attempting to use @code{pprint-exit-if-list-exhausted} outside
+of @code{pprint-logical-block} are undefined.
+
+@subsubheading Exceptional Situations:
+
+An error is signaled (at macro expansion time or at run time) if
+@code{pprint-exit-if-list-exhausted} is used anywhere other than
+lexically within a call on @code{pprint-logical-block}.
+Also, the consequences of executing @code{pprint-if-list-exhausted} outside
+of the dynamic extent of the @code{pprint-logical-block} which lexically
+contains it are undefined.
+
+@subsubheading See Also:
+
+@ref{pprint-logical-block}, @ref{pprint-pop}.
+
+
+
+@node pprint-fill; pprint-linear; pprint-tabular
+@heading pprint-fill, pprint-linear, pprint-tabular (Function)
+@syindex pprint-fill
+@cindex pprint-fill
+@syindex pprint-linear
+@cindex pprint-linear
+@syindex pprint-tabular
+@cindex pprint-tabular
+@anchor{pprint-fill}
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{pprint-fill, stream object @opt{} colon-p at-sign-p, @nil{}}
+@DefunWithValues{pprint-linear, stream object @opt{} colon-p at-sign-p, @nil{}}
+@DefunWithValues{pprint-tabular, stream object @opt{} colon-p at-sign-p tabsize, @nil{}}
+
+@subsubheading Arguments and Values:
+
+@param{stream}---an @term{output} @term{stream designator}.
+
+@param{object}---an @term{object}.
+
+@param{colon-p}---a @term{generalized boolean}.
+@Default{@term{true}}
+
+@param{at-sign-p}---a @term{generalized boolean}.
+@Default{@term{implementation-dependent}}
+
+@param{tabsize}---a non-negative @term{integer}.
+@Default{@f{16}}
+
+@subsubheading Description:
+
+The functions @code{pprint-fill}, @code{pprint-linear}, and
+@code{pprint-tabular} specify particular ways of @term{pretty printing}
+a @term{list} to @param{stream}.
+Each function prints parentheses around the output if and only
+if @param{colon-p} is @term{true}.
+Each function ignores its @param{at-sign-p} argument.
+(Both arguments are included even though only one is needed
+so that these functions can be used via @formatOp{/.../}
+and as @code{set-pprint-dispatch} functions, as well as directly.)
+Each function handles abbreviation and the detection of circularity
+and sharing correctly, and uses @code{write} to print @param{object}
+when it is a @term{non-list}.
+
+If @param{object} is a @term{list} and
+if @thevalueof{*print-pretty*} is @term{false},
+each of these functions prints @param{object}
+using a minimum of @term{whitespace},
+as described in @ref{PrintingListsAndConses, Section 22.1.3.5 (Printing Lists and Conses)}.
+Otherwise (if @param{object} is a @term{list} and
+if @thevalueof{*print-pretty*} is @term{true}):
+
+
+@itemize @bullet{}
+
+@item
+@Thefunction{pprint-linear} prints a @term{list} either all on one line,
+or with each @term{element} on a separate line.
+
+@item
+@Thefunction{pprint-fill} prints a @term{list} with as many @term{elements}
+as possible on each line.
+
+@item
+@Thefunction{pprint-tabular} is the same as @code{pprint-fill}
+except that it prints the @term{elements} so that they line up in columns.
+The @param{tabsize} specifies the column spacing in @term{ems},
+which is the total spacing from the leading edge of one column to
+the leading edge of the next.
+@end itemize
+
+
+
+@subsubheading Examples:
+
+Evaluating the following with a line length of @f{25} produces the output shown.
+
+@lisp
+(progn (princ "Roads ")
+       (pprint-tabular *standard-output* '(elm main maple center) nil nil 8))
+Roads ELM     MAIN
+      MAPLE   CENTER
+@end lisp
+
+
+@subsubheading Side Effects:
+
+Performs output to the indicated @term{stream}.
+
+@subsubheading Affected By:
+
+The cursor position on the indicated @term{stream}, if it can be determined.
+
+@subsubheading Notes:
+
+@Thefunction{pprint-tabular} could be defined as follows:
+
+@lisp
+(defun pprint-tabular (s list &optional (colon-p t) at-sign-p (tabsize nil))
+  (declare (ignore at-sign-p))
+  (when (null tabsize) (setq tabsize 16))
+  (pprint-logical-block (s list :prefix (if colon-p "(" "")
+                                :suffix (if colon-p ")" ""))
+    (pprint-exit-if-list-exhausted)
+    (loop (write (pprint-pop) :stream s)
+          (pprint-exit-if-list-exhausted)
+          (write-char #@bsl{}Space s)
+          (pprint-tab :section-relative 0 tabsize s)
+          (pprint-newline :fill s))))
+@end lisp
+
+
+Note that it would have been inconvenient to specify this function
+using @code{format}, because of the need to pass its @param{tabsize} argument
+through to a @formatdirective{:T} nested within an iteration over a list.
+
+
+
+@node pprint-indent
+@heading pprint-indent (Function)
+@syindex pprint-indent
+@cindex pprint-indent
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{pprint-indent, relative-to n @opt{} stream, @nil{}}
+
+@subsubheading Arguments and Values:
+
+@param{relative-to}---either @kwd{block} or @kwd{current}.
+
+@param{n}---a @term{real}.
+
+@param{stream}---an @term{output} @term{stream designator}.
+@Default{@term{standard output}}
+
+@subsubheading Description:
+
+@code{pprint-indent} specifies the indentation to use in a logical block on @term{stream}.
+If @param{stream} is a @term{pretty printing stream}
+and @thevalueof{*print-pretty*} is @term{true},
+@code{pprint-indent} sets the indentation in the innermost
+dynamically enclosing logical block;
+otherwise, @code{pprint-indent} has no effect.
+
+@param{N} specifies the indentation in
+@term{ems}.  If @param{relative-to} is @kwd{block}, the indentation is set
+to the horizontal position of the first character in the @term{dynamically current logical block} plus @param{n}
+@term{ems}. If @param{relative-to} is @kwd{current}, the indentation is set
+to the current output position plus @param{n} @term{ems}. (For robustness
+in the face of variable-width fonts, it is advisable to use @kwd{current}
+with an @param{n} of zero whenever possible.)
+
+@param{N} can be negative;
+however, the total indentation cannot be moved
+left of the beginning of the line
+or left of the end of the rightmost per-line prefix---an attempt to move beyond
+one of these limits is treated
+the same as an attempt to move to that limit.
+Changes in indentation caused by @param{pprint-indent}
+do not take effect until after the next line break.  In addition, in
+miser mode all calls to @code{pprint-indent} are ignored, forcing the lines
+corresponding to the logical block to line up under the first character in
+the block.
+
+@subsubheading Exceptional Situations:
+
+An error is signaled if @param{relative-to} is any @term{object} other
+than @kwd{block} or @kwd{current}.
+
+@subsubheading See Also:
+
+@ref{TildeI, Section 22.3.5.3 (Tilde I. Indent)}
+
+
+
+@node pprint-logical-block
+@heading pprint-logical-block (Macro)
+@syindex pprint-logical-block
+@cindex pprint-logical-block
+
+
+
+
+@subsubheading Syntax:
+
+@DefmacWithValuesNewline{pprint-logical-block, @vtop{@hbox{@paren{stream-symbol object  @key{} prefix per-line-prefix suffix}} @hbox{@starparam{declaration} @starparam{form}}}, @nil{}}
+
+@subsubheading Arguments and Values:
+
+@param{stream-symbol}---a @term{stream variable designator}.
+
+@param{object}---an @term{object}; @eval{}.
+
+@kwd{prefix}---a @term{string}; @eval{}.
+@HairyDefault{}.
+
+@kwd{per-line-prefix}---a @term{string}; @eval{}.
+@HairyDefault{}.
+
+@kwd{suffix}---a @term{string}; @eval{}.
+@Default{the @term{null} @term{string}}
+
+@param{declaration}---a @t{declare} @term{expression}; @noeval{}.
+
+@param{forms}---an @term{implicit progn}.
+
+@subsubheading Description:
+
+Causes printing to be grouped into a logical block.
+
+The logical block is printed to the @term{stream} that is the @term{value}
+of the @term{variable} denoted by @param{stream-symbol}.
+During the execution of the @term{forms},
+that @term{variable} is @term{bound} to a @term{pretty printing stream}
+that supports decisions about the arrangement of output
+and then forwards the output to the destination stream.
+All the standard printing functions
+(@eg{} @code{write},
+@code{princ},
+and @code{terpri})
+can be used to print output to the @term{pretty printing stream}.
+All and only the output sent to this @term{pretty printing stream}
+is treated as being in the logical block.
+
+The @param{prefix} specifies a prefix to be printed before the beginning of
+the logical block.
+The @param{per-line-prefix} specifies a prefix that is printed before the block
+and at the beginning of each new line in the block.
+The @kwd{prefix} and @kwd{pre-line-prefix} @term{arguments} are mutually exclusive.
+If neither @kwd{prefix} nor @kwd{per-line-prefix} is specified,
+a @param{prefix} of the @term{null} @term{string} is assumed.
+
+The @param{suffix} specifies a suffix that is printed just after the logical block.
+
+The @param{object} is
+normally
+a @term{list} that the body @param{forms} are responsible for printing.
+If @param{object} is not a @term{list},
+it is printed using @code{write}.
+(This makes it easier to write printing functions that are robust
+in the face of malformed arguments.)
+If @code{*print-circle*}
+is @term{non-nil} and @param{object} is a circular (or shared) reference to a @term{cons},
+then an appropriate ``@f{#@i{n}#}'' marker is printed.  (This
+makes it easy to write printing functions that provide full support
+for circularity and sharing abbreviation.)  If @code{*print-level*} is not
+@nil{}@spc{}and the logical block is at a dynamic nesting depth of greater
+than @code{*print-level*} in logical blocks, ``@f{#}'' is printed.
+(This makes easy to write printing functions that provide full support for depth
+abbreviation.)
+
+If either of the three conditions above occurs, the indicated output is
+printed on @param{stream-symbol} and the body @param{forms} are skipped
+along with the printing of the @kwd{prefix} and @kwd{suffix}.
+(If the body @param{forms} are not to be responsible for printing a list,
+then the first two tests above can be turned off by supplying @nil{}@spc{}for
+the @param{object} argument.)
+
+In addition to the @param{object} argument of @code{pprint-logical-block},
+the arguments of the standard printing functions (such as @code{write},
+@code{print}, @code{prin1}, and @code{pprint}, as well as the arguments
+of the standard @term{format directives} such as @formatOp{A}, @formatOp{S},
+(and @formatOp{W}) are all checked (when necessary) for circularity and sharing.
+However, such checking is not applied to the arguments of the
+functions @code{write-line}, @code{write-string}, and @code{write-char}
+or to the literal text output by @code{format}.  A consequence of this is
+that you must use one of the latter functions if you want to print some
+literal text in the output that is not supposed to be checked for circularity
+or sharing.
+
+The body @param{forms} of a @code{pprint-logical-block} @term{form}
+must not perform any side-effects on the surrounding environment; for
+example, no @term{variables} must be assigned which have not been
+@term{bound} within its scope.
+
+@Themacro{pprint-logical-block} may be used regardless of @thevalueof{*print-pretty*}.
+
+@subsubheading Affected By:
+
+@code{*print-circle*}, @code{*print-level*}.
+
+@subsubheading Exceptional Situations:
+
+An error @oftype{type-error} is signaled if any of the @kwd{suffix},
+@kwd{prefix}, or @kwd{per-line-prefix} is supplied but does not evaluate
+to a @term{string}.
+
+An error is signaled if @kwd{prefix} and @kwd{pre-line-prefix} are both used.
+
+@code{pprint-logical-block} and the @term{pretty printing stream} it creates
+have @term{dynamic extent}.  The consequences are undefined if, outside
+of this extent, output is attempted to the @term{pretty printing stream} it creates.
+
+It is also unspecified what happens if, within this extent, any output is
+sent directly to the underlying destination stream.
+
+@subsubheading See Also:
+
+@ref{pprint-pop},
+@ref{pprint-exit-if-list-exhausted},
+@ref{TildeLessThanLogicalBlock, Section 22.3.5.2 (Tilde Less-Than-Sign. Logical Block)}
+
+@subsubheading Notes:
+
+One reason for using @themacro{pprint-logical-block} when @thevalueof{*print-pretty*}
+is @nil{}@spc{}would be to allow it to perform checking for @term{dotted lists},
+as well as (in conjunction with @code{pprint-pop})
+checking for @code{*print-level*} or @code{*print-length*} being exceeded.
+
+Detection of circularity and sharing is supported by the @term{pretty printer}
+by in essence performing requested output twice.  On the first pass,
+circularities and sharing are detected and the actual outputting of characters
+is suppressed.  On the second pass, the appropriate ``@f{#@param{n}=}''
+and ``@f{#@param{n}#}'' markers are inserted and characters are output.
+This is why the restriction on side-effects is necessary.
+Obeying this restriction is facilitated by using @code{pprint-pop},
+instead of an ordinary @code{pop} when traversing a list being printed by
+the body @param{forms} of the @code{pprint-logical-block} @term{form}.)
+
+
+
+
+@node pprint-newline
+@heading pprint-newline (Function)
+@syindex pprint-newline
+@cindex pprint-newline
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{pprint-newline, kind @opt{} stream, @nil{}}
+
+@subsubheading Arguments and Values:
+
+@param{kind}---one of @kwd{linear}, @kwd{fill}, @kwd{miser}, or @kwd{mandatory}.
+
+@param{stream}---a @term{stream designator}.
+@Default{@term{standard output}}
+
+@subsubheading Description:
+
+If @param{stream} is a @term{pretty printing stream}
+and @thevalueof{*print-pretty*} is @term{true},
+a line break is inserted in the output
+when the appropriate condition below is satisfied;
+otherwise, @code{pprint-newline} has no effect.
+
+@param{Kind} specifies the style of conditional newline.
+This @term{parameter} is treated as follows:
+
+
+@table @asis
+
+@item @id{@kwd{linear}}
+
+
+This specifies a
+``linear-style'' @term{conditional newline}.
+@cindex linear-style conditional newline
+A line break is inserted
+if and only if the immediately containing @term{section}
+cannot be printed on one line.
+The effect of this is that line breaks are
+either inserted at every linear-style conditional newline in a logical block
+or at none of them.
+
+@item @id{@kwd{miser}}
+
+
+This specifies a
+``miser-style'' @term{conditional newline}.
+@cindex miser-style conditional newline
+A line break is inserted
+if and only if the immediately containing @term{section}
+cannot be printed on one line
+and miser style is in effect in the immediately containing logical block.
+The effect of this is that miser-style conditional newlines
+act like linear-style conditional newlines,
+but only when miser style is in effect.
+Miser style is in effect for a logical block if and only if
+the starting position of the logical block
+is less than or equal to
+@code{*print-miser-width*} @term{ems} from the right margin.
+
+@item @id{@kwd{fill}}
+
+
+This specifies a
+``fill-style'' @term{conditional newline}.
+@cindex fill-style conditional newline
+A line break is inserted if and only if
+either (a) the following @term{section} cannot be printed
+on the end of the current line,
+(b) the preceding @term{section} was not printed on a single line,
+or (c) the immediately containing @term{section} cannot
+be printed on one line and miser style is in effect
+in the immediately containing logical block.
+If a logical block is broken up into a number of subsections
+by fill-style conditional newlines,
+the basic effect is that the logical block
+is printed with as many subsections as possible on each line.
+However, if miser style is in effect,
+fill-style conditional newlines act like linear-style conditional newlines.
+
+@item @id{@kwd{mandatory}}
+
+
+This specifies a
+``mandatory-style'' @term{conditional newline}.
+@cindex mandatory-style conditional newline
+A line break is always inserted.
+This implies that  none of the containing @term{sections}
+can be printed on a single line and
+will therefore trigger the insertion of line breaks
+at linear-style conditional newlines in these @term{sections}.
+@end table
+
+
+When a line break is inserted by any type of conditional newline,
+any blanks that immediately precede the conditional newline are omitted
+from the output and indentation is introduced at the beginning of the next line.
+By default, the indentation causes the following line to begin
+in the same horizontal position
+as the first character in the immediately containing logical block.
+(The indentation can be changed via @code{pprint-indent}.)
+
+There are a variety of ways unconditional newlines can be introduced into
+the output (@ie{} via @code{terpri} or by printing a string containing a newline
+character).  As with mandatory conditional newlines, this prevents any of
+the containing @term{sections} from being printed on one line.  In general, when
+an unconditional newline is encountered, it is printed out without
+suppression of the preceding blanks and without any indentation following
+it.  However, if a per-line prefix has been specified (see
+@code{pprint-logical-block}), this prefix will always be printed no matter
+how a newline originates.
+
+@subsubheading Examples:
+
+See @ref{Examples of using the Pretty Printer, Section 22.2.2 (Examples of using the Pretty Printer)}.
+
+@subsubheading Side Effects:
+
+Output to @param{stream}.
+
+@subsubheading Affected By:
+
+@code{*print-pretty*}, @code{*print-miser*}.
+The presence of containing logical blocks.
+The placement of newlines and conditional newlines.
+
+@subsubheading Exceptional Situations:
+
+An error @oftype{type-error} is signaled if @param{kind}
+is not one of @kwd{linear}, @kwd{fill}, @kwd{miser}, or @kwd{mandatory}.
+
+@subsubheading See Also:
+
+@ref{TildeUnderscore, Section 22.3.5.1 (Tilde Underscore. Conditional Newline)},
+@ref{Examples of using the Pretty Printer, Section 22.2.2 (Examples of using the Pretty Printer)}
+
+
+
+@node pprint-pop
+@heading pprint-pop (Local Macro)
+@syindex pprint-pop
+@cindex pprint-pop
+
+
+
+@subsubheading Syntax:
+
+@DefmacWithValues{pprint-pop, @noargs{}, object}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{element} of the @term{list}
+being printed in the @term{lexically current logical block},
+or @nil{}.
+
+@subsubheading Description:
+
+Pops one @term{element} from the @term{list} being printed
+in the @term{lexically current logical block}, obeying @code{*print-length*}
+and @code{*print-circle*} as described below.
+
+Each time @code{pprint-pop} is called, it pops the next value off the
+@term{list} passed to the @term{lexically current logical block} and returns it.
+However, before doing this, it performs three tests:
+
+
+@itemize @bullet{}
+@item
+If the remaining `list' is not a @term{list},
+``@f{. }''
+@cindex dot
+is printed followed by the remaining `list.'
+(This makes it easier to write printing functions that
+are robust in the face of malformed arguments.)
+
+@item
+If @code{*print-length*} is @term{non-nil},
+and @code{pprint-pop} has already been called @code{*print-length*} times
+within the immediately containing logical block,
+``@f{...}''
+@cindex Dot Dot Dot
+@cindex ...
+is printed.
+(This makes it easy to write printing functions that properly handle
+@code{*print-length*}.)
+
+@item
+If @code{*print-circle*} is
+@term{non-nil}, and the remaining list is a circular (or shared) reference,
+then ``@f{. }'' is printed followed by an appropriate
+``@f{#@i{n}#}''
+@cindex Sharpsign Sharpsign (reader macro)
+marker.
+(This catches instances of @term{cdr} circularity and sharing in lists.)
+@end itemize
+
+
+If either of the three conditions above occurs, the indicated output is
+printed on the @term{pretty printing stream} created by the immediately containing
+@code{pprint-logical-block} and the execution of the immediately containing
+@code{pprint-logical-block} is terminated except for the printing of the suffix.
+
+If @code{pprint-logical-block} is given a `list' argument of @nil{}---because
+it is not processing a list---@code{pprint-pop} can still be used to obtain
+support for @code{*print-length*}.
+In this situation, the first and third tests above are disabled and
+@code{pprint-pop} always returns @nil{}.
+See @ref{Examples of using the Pretty Printer, Section 22.2.2 (Examples of using the Pretty Printer)}---specifically, the @code{pprint-vector} example.
+
+Whether or not @code{pprint-pop} is @term{fbound} in the
+@term{global environment} is @term{implementation-dependent};
+however, the restrictions on redefinition and @term{shadowing} of
+@code{pprint-pop} are the same as for @term{symbols} in the @code{COMMON-LISP} @term{package}
+which are @term{fbound} in the @term{global environment}.
+The consequences of attempting to use @code{pprint-pop} outside
+of @code{pprint-logical-block} are undefined.
+
+@subsubheading Side Effects:
+
+Might cause output
+to the @term{pretty printing stream} associated with the lexically current logical block.
+
+@subsubheading Affected By:
+
+@code{*print-length*}, @code{*print-circle*}.
+
+@subsubheading Exceptional Situations:
+
+An error is signaled (either at macro expansion time or at run time)
+if a usage of @code{pprint-pop} occurs where there is no lexically
+containing @code{pprint-logical-block} @term{form}.
+
+The consequences are undefined if @code{pprint-pop} is executed outside
+of the @term{dynamic extent} of this @code{pprint-logical-block}.
+
+@subsubheading See Also:
+
+@ref{pprint-exit-if-list-exhausted}, @ref{pprint-logical-block}.
+
+@subsubheading Notes:
+
+It is frequently a good idea to call @code{pprint-exit-if-list-exhausted}
+before calling @code{pprint-pop}.
+
+
+
+@node pprint-tab
+@heading pprint-tab (Function)
+@syindex pprint-tab
+@cindex pprint-tab
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{pprint-tab, kind colnum colinc @opt{} stream, @nil{}}
+
+@subsubheading Arguments and Values:
+
+@param{kind}---one of @kwd{line}, @kwd{section}, @kwd{line-relative},
+or @kwd{section-relative}.
+
+@param{colnum}---a non-negative @term{integer}.
+
+@param{colinc}---a non-negative @term{integer}.
+
+@param{stream}---an @term{output} @term{stream designator}.
+
+@subsubheading Description:
+
+Specifies tabbing to @param{stream} as performed by the standard @formatdirective{T}.
+If @param{stream} is a @term{pretty printing stream} and
+@thevalueof{*print-pretty*} is @term{true},
+tabbing is performed;
+otherwise, @code{pprint-tab} has no effect.
+
+The arguments @param{colnum} and @param{colinc} correspond to the two
+@param{parameters} to @formatOp{T} and are in terms of @term{ems}.
+The @param{kind} argument specifies the style of tabbing.  It must be one of
+@kwd{line} (tab as by @formatOp{T}),
+@kwd{section} (tab as by @formatOp{:T},
+but measuring horizontal positions relative to
+the start of the dynamically enclosing section),
+@kwd{line-relative} (tab as by @formatOp{@@T}), or
+@kwd{section-relative} (tab as by @formatOp{:@@T},
+but measuring horizontal positions relative to
+the start of the dynamically enclosing section).
+
+@subsubheading Exceptional Situations:
+
+An error is signaled if @param{kind} is not one of @kwd{line},
+@kwd{section}, @kwd{line-relative}, or @kwd{section-relative}.
+
+@subsubheading See Also:
+
+@ref{pprint-logical-block}
+
+
+
+@node print-object
+@heading print-object (Standard Generic Function)
+@syindex print-object
+@cindex print-object
+
+
+@subsubheading Syntax:
+
+@DefgenWithValues{print-object, object stream, object}
+
+@subsubheading Method Signatures:
+
+ print-object @paren{@param{object} standard-object} @param{stream}
+ print-object @paren{@param{object} structure-object} @param{stream}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{stream}---a @term{stream}.
+
+@subsubheading Description:
+
+@TheGF{print-object} writes the printed representation of @param{object}
+to @param{stream}.
+@Thefunction{print-object} is called by the @term{Lisp printer};
+it should not be called by the user.
+
+Each implementation is required to provide a @term{method} on
+@theclass{standard-object} and on @theclass{structure-object}.
+In addition, each @term{implementation} must provide
+@term{methods} on enough other @term{classes}
+so as to ensure that there is always an applicable @term{method}.
+Implementations are free to add @term{methods} for other @term{classes}.
+Users may write @term{methods} for @code{print-object} for their own
+@term{classes} if they do not wish to inherit an
+@term{implementation-dependent} @term{method}.
+
+The @term{method} on @theclass{structure-object} prints the object in the
+default @f{#S} notation; see @ref{PrintingStructures, Section 22.1.3.12 (Printing Structures)}.
+
+@term{Methods} on @code{print-object} are responsible for implementing
+their part of the semantics of the @term{printer control variables}, as follows:
+
+
+@table @asis
+
+
+@item @id{@code{*print-readably*}}
+
+
+All methods for @code{print-object} must obey @code{*print-readably*}.
+This includes both user-defined methods and @term{implementation-defined} methods.
+Readable printing of @term{structures} and @term{standard objects}
+is controlled by their @code{print-object} method,
+not by their @code{make-load-form} @term{method}.
+@term{Similarity} for these @term{objects} is application dependent
+and hence is defined to be whatever these @term{methods} do;
+see @ref{Similarity, Section 3.2.4.2 (Similarity of Literal Objects)}.
+
+
+@item @id{@code{*print-escape*}}
+
+
+Each @term{method} must implement @code{*print-escape*}.
+
+@item @id{@code{*print-pretty*}}
+
+
+The @term{method} may wish to perform specialized line breaking
+or other output conditional on @thevalueof{*print-pretty*}.
+For further information,
+see (for example) the @term{macro} @code{pprint-fill}.
+See also @ref{PPrintDispatchTables, Section 22.2.1.4 (Pretty Print Dispatch Tables)}@spc{}and @ref{Examples of using the Pretty Printer, Section 22.2.2 (Examples of using the Pretty Printer)}.
+
+@item @id{@code{*print-length*}}
+
+
+@term{Methods} that produce output of indefinite length must obey
+@code{*print-length*}.
+For further information,
+see (for example) the @term{macros} @code{pprint-logical-block}
+and @code{pprint-pop}.
+See also @ref{PPrintDispatchTables, Section 22.2.1.4 (Pretty Print Dispatch Tables)}@spc{}and @ref{Examples of using the Pretty Printer, Section 22.2.2 (Examples of using the Pretty Printer)}.
+
+@item @id{@code{*print-level*}}
+
+
+The printer takes care of @code{*print-level*} automatically,
+provided that each @term{method} handles exactly one level of structure and
+calls @code{write} (or an equivalent @term{function}) recursively if
+there are more structural levels.  The printer's decision of whether an
+@term{object} has components (and therefore should not be printed when the
+printing depth is not less than @code{*print-level*}) is
+@term{implementation-dependent}.  In some implementations its
+@code{print-object} @term{method} is not called;
+in others the @term{method} is called,
+and the determination that the @term{object} has components is based on what
+it tries to write to the @param{stream}.
+
+@item @id{@code{*print-circle*}}
+
+
+When @thevalueof{*print-circle*} is @term{true},
+a user-defined
+@code{print-object} @term{method}
+can print @term{objects} to the supplied @term{stream}
+using @code{write},
+@code{prin1},
+@code{princ},
+or @code{format}
+and expect circularities to be detected
+and printed using the @f{#@i{n}#} syntax.
+If a user-defined
+@code{print-object} @term{method}
+prints to a @term{stream} other than the one
+that was supplied, then circularity detection starts over for that
+@term{stream}.  See @code{*print-circle*}.
+
+@item @id{@code{*print-base*}, @code{*print-radix*}, @code{*print-case*},  @code{*print-gensym*}, and @code{*print-array*}}
+
+
+These @term{printer control variables} apply to specific types of @term{objects}
+and are handled by the @term{methods} for those @term{objects}.
+@end table
+
+
+If these rules are not obeyed, the results are undefined.
+
+In general, the printer and the @code{print-object} methods should not
+rebind the print control variables as they operate recursively through the
+structure, but this is @term{implementation-dependent}.
+
+In some implementations the @param{stream} argument passed to a
+@code{print-object} @term{method} is not the original @term{stream},
+but is an intermediate @term{stream} that implements part of the printer.
+@term{methods} should therefore not depend on the identity of this @term{stream}.
+
+
+@subsubheading See Also:
+
+@ref{pprint-fill},
+@ref{pprint-logical-block},
+@ref{pprint-pop},
+@ref{write},
+@ref{*print-readably*},
+@ref{*print-escape*},
+@ref{*print-pretty*},
+@ref{*print-length*},
+@ref{Default Print-Object Methods, Section 22.1.3 (Default Print-Object Methods)},
+@ref{PrintingStructures, Section 22.1.3.12 (Printing Structures)},
+@ref{PPrintDispatchTables, Section 22.2.1.4 (Pretty Print Dispatch Tables)},
+@ref{Examples of using the Pretty Printer, Section 22.2.2 (Examples of using the Pretty Printer)}
+
+
+@node print-unreadable-object
+@heading print-unreadable-object (Macro)
+@syindex print-unreadable-object
+@cindex print-unreadable-object
+
+
+@subsubheading Syntax:
+
+@DefmacWithValues{print-unreadable-object, @paren{object stream @key{} type identity} @starparam{form}, @nil{}}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}; @eval{}.
+
+@param{stream}---
+a @term{stream designator}; @eval{}.
+
+@param{type}---a @term{generalized boolean}; @eval{}.
+
+@param{identity}---a @term{generalized boolean}; @eval{}.
+
+@param{forms}---an @term{implicit progn}.
+
+@subsubheading Description:
+
+Outputs a printed representation of @param{object} on @param{stream},
+beginning with ``@f{#<}'' and ending with ``@f{>}''.
+Everything output to @param{stream} by the body @param{forms}
+is enclosed in the the angle brackets.
+If @param{type} is @term{true}, the output from @param{forms}
+is preceded by a brief description of the @param{object}'s
+@term{type} and a space character.
+If @param{identity} is @term{true},
+the output from @param{forms} is followed by a space character
+and a representation of the @param{object}'s identity,
+typically a storage address.
+
+If either @param{type} or @param{identity} is not supplied,
+its value is @term{false}.  It is valid to omit the body @param{forms}.
+If @param{type} and @param{identity} are both true and there are no
+body @param{forms}, only one space character separates the type
+and the identity.
+
+@subsubheading Examples:
+
+;; Note that in this example, the precise form of the output
+;; is @term{implementation-dependent}.
+
+@lisp
+ (defmethod print-object ((obj airplane) stream)
+   (print-unreadable-object (obj stream :type t :identity t)
+     (princ (tail-number obj) stream)))
+
+ (prin1-to-string my-airplane)
+@EV{} "#<Airplane NW0773 36000123135>"
+@OV{} "#<FAA:AIRPLANE NW0773 17>"
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+If @code{*print-readably*} is @term{true}, @code{print-unreadable-object}
+signals an error @oftype{print-not-readable} without printing anything.
+
+
+
+@node set-pprint-dispatch
+@heading set-pprint-dispatch (Function)
+@syindex set-pprint-dispatch
+@cindex set-pprint-dispatch
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{set-pprint-dispatch, type-specifier function @opt{} priority table, @nil{}}
+
+@subsubheading Arguments and Values:
+
+@param{type-specifier}---a @term{type specifier}.
+
+@param{function}---a @term{function}, a @term{function name}, or @nil{}.
+
+@param{priority}---a @term{real}.
+@Default{@f{0}}
+
+@param{table}---a @term{pprint dispatch table}.
+@Default{@thevalueof{*print-pprint-dispatch*}}
+
+@subsubheading Description:
+
+Installs an entry into the @term{pprint dispatch table} which is @param{table}.
+
+@param{Type-specifier}
+is the @term{key}
+of the entry.  The first action of @code{set-pprint-dispatch} is to remove any
+pre-existing entry associated with @param{type-specifier}.  This guarantees that
+there will never be two entries associated with the same @term{type specifier}
+in a given @term{pprint dispatch table}.  Equality of @term{type specifiers} is
+tested by @code{equal}.
+
+Two values are associated with each @term{type specifier} in a
+@term{pprint dispatch table}: a @param{function} and a @param{priority}.
+The @param{function} must accept two arguments: the @term{stream} to which output
+is sent and the @term{object} to be printed.  The @param{function} should
+@term{pretty print} the @term{object} to the @param{stream}.  The @param{function}
+can assume that object satisfies the @term{type} given by @term{type-specifier}.
+The @param{function} must obey @code{*print-readably*}.
+Any values returned by the @param{function} are ignored.
+
+@param{Priority} is a priority to resolve conflicts
+when an object matches more than one entry.
+
+It is permissible for @param{function} to be @nil{}.  In this situation,
+there will be no @param{type-specifier} entry in @param{table} after
+@code{set-pprint-dispatch} returns.
+
+@subsubheading Exceptional Situations:
+
+An error is signaled if @param{priority} is not a @term{real}.
+
+@subsubheading Notes:
+
+Since @term{pprint dispatch tables} are often used to control the pretty
+printing of Lisp code, it is common for the @param{type-specifier} to be
+an @term{expression} of the form
+
+@lisp
+ (cons @param{car-type} @param{cdr-type})
+@end lisp
+
+
+This signifies that the corresponding object must be a cons cell
+whose @term{car} matches the @term{type specifier} @param{car-type}
+and whose @term{cdr} matches the @term{type specifier} @param{cdr-type}.
+The @param{cdr-type} can be omitted in which case it defaults to @t{t}.
+
+
+
+@node write; prin1; print; pprint; princ
+@heading write, prin1, print, pprint, princ (Function)
+@syindex write
+@cindex write
+@syindex prin1
+@cindex prin1
+@syindex print
+@cindex print
+@syindex pprint
+@cindex pprint
+@syindex princ
+@cindex princ
+@anchor{write}
+
+
+@subsubheading Syntax:
+
+@DefunWithValuesNewline{write, @param{object} @key{} @writekeys{stream}, object}
+
+@DefunWithValues{prin1, object @opt{} output-stream, object}
+@DefunWithValues{princ, object @opt{} output-stream, object}
+@DefunWithValues{print, object @opt{} output-stream, object}
+@DefunWithValues{pprint, object @opt{} output-stream, @novalues{}}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{output-stream}---an @term{output} @term{stream designator}.
+@Default{@term{standard output}}
+
+@writekeydescriptions{@param{stream}---an @term{output} @term{stream designator}.
+@Default{@term{standard output}}}
+
+@subsubheading Description:
+
+@code{write}, @code{prin1}, @code{princ}, @code{print}, and @code{pprint}
+write the printed representation of @param{object} to @param{output-stream}.
+
+@code{write} is the general entry point to the @term{Lisp printer}.
+For each explicitly supplied @term{keyword parameter} named in @thenextfigure{},
+the corresponding @term{printer control variable} is dynamically bound to its @term{value}
+while printing goes on;
+for each @term{keyword parameter} in @thenextfigure{}@spc{}that is not explicitly supplied,
+the value of the corresponding @term{printer control variable} is the same as it was
+at the time @code{write} was invoked.
+Once the appropriate @term{bindings} are @term{established},
+the @term{object} is output by the @term{Lisp printer}.
+
+
+@float Figure,fig22.7
+@cartouche
+@multitable{@param{pprint-dispatch}}{@code{*print-pprint-dispatch*}}
+@headitem Parameter @tab Corresponding Dynamic Variable
+@item @param{array} @tab @code{*print-array*}
+@item @param{base} @tab @code{*print-base*}
+@item @param{case} @tab @code{*print-case*}
+@item @param{circle} @tab @code{*print-circle*}
+@item @param{escape} @tab @code{*print-escape*}
+@item @param{gensym} @tab @code{*print-gensym*}
+@item @param{length} @tab @code{*print-length*}
+@item @param{level} @tab @code{*print-level*}
+@item @param{lines} @tab @code{*print-lines*}
+@item @param{miser-width} @tab @code{*print-miser-width*}
+@item @param{pprint-dispatch} @tab @code{*print-pprint-dispatch*}
+@item @param{pretty} @tab @code{*print-pretty*}
+@item @param{radix} @tab @code{*print-radix*}
+@item @param{readably} @tab @code{*print-readably*}
+@item @param{right-margin} @tab @code{*print-right-margin*}
+@end multitable
+@end cartouche
+@caption{Argument correspondences for the WRITE function.}
+@end float
+
+
+@code{prin1}, @code{princ}, @code{print}, and @code{pprint} implicitly
+@term{bind} certain print parameters to particular values.  The remaining parameter
+values are taken from
+@code{*print-array*},
+@code{*print-base*},
+@code{*print-case*},
+@code{*print-circle*},
+@code{*print-escape*},
+@code{*print-gensym*},
+@code{*print-length*},
+@code{*print-level*},
+@code{*print-lines*},
+@code{*print-miser-width*},
+@code{*print-pprint-dispatch*},
+@code{*print-pretty*},
+@code{*print-radix*},
+and @code{*print-right-margin*}.
+
+@code{prin1} produces output suitable for input to @code{read}.
+It binds @code{*print-escape*} to @term{true}.
+
+@code{princ} is just like @code{prin1} except that the
+output has no @term{escape} @term{characters}.
+It binds @code{*print-escape*}   to @term{false}
+and @code{*print-readably*} to @term{false}.
+The general rule is that output from @code{princ} is intended to look
+good to people, while output from @code{prin1} is intended to
+be acceptable to @code{read}.
+
+@code{print} is just like @code{prin1}
+except that the printed representation
+of @param{object} is preceded by a newline
+and followed by a space.
+
+@code{pprint} is just like @code{print} except that the trailing
+space is omitted and
+@param{object} is printed with the @code{*print-pretty*} flag @term{non-nil}
+to produce pretty output.
+
+@param{Output-stream} specifies the @term{stream} to which
+output is to be sent.
+
+@subsubheading Affected By:
+
+@code{*standard-output*},
+@code{*terminal-io*},
+@code{*print-escape*},
+@code{*print-radix*},
+@code{*print-base*},
+@code{*print-circle*},
+@code{*print-pretty*},
+@code{*print-level*},
+@code{*print-length*},
+@code{*print-case*},
+@code{*print-gensym*},
+@code{*print-array*},
+@code{*read-default-float-format*}.
+
+@subsubheading See Also:
+
+@ref{readtable-case},
+@ref{FORMAT Printer Operations, Section 22.3.4 (FORMAT Printer Operations)}
+
+@subsubheading Notes:
+
+@Thefunctions{prin1} and @code{print} do not bind @code{*print-readably*}.
+
+@lisp
+ (prin1 object output-stream)
+@EQ{} (write object :stream output-stream :escape t)
+@end lisp
+
+
+@lisp
+ (princ object output-stream)
+@EQ{} (write object stream output-stream :escape nil :readably nil)
+@end lisp
+
+
+@lisp
+ (print object output-stream)
+@EQ{} (progn (terpri output-stream)
+           (write object :stream output-stream
+                         :escape t)
+           (write-char #@bsl{}space output-stream))
+@end lisp
+
+
+@lisp
+ (pprint object output-stream)
+@EQ{} (write object :stream output-stream :escape t :pretty t)
+@end lisp
+
+
+@node write-to-string; prin1-to-string; princ-to-string
+@heading write-to-string, prin1-to-string, princ-to-string (Function)
+@syindex write-to-string
+@cindex write-to-string
+@syindex prin1-to-string
+@cindex prin1-to-string
+@syindex princ-to-string
+@cindex princ-to-string
+@anchor{write-to-string}
+
+
+@subsubheading Syntax:
+
+@DefunWithValuesNewline{write-to-string, object @key{} @writekeys{}, string}
+
+@DefunWithValues{prin1-to-string, object, string}
+
+@DefunWithValues{princ-to-string, object, string}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@writekeydescriptions{}
+
+@param{string}---a @term{string}.
+
+@subsubheading Description:
+
+@code{write-to-string}, @code{prin1-to-string}, and @code{princ-to-string}
+are used to create a @term{string} consisting of the printed representation
+of @param{object}.
+@param{Object} is effectively printed as if by @code{write},
+@code{prin1}, or @code{princ}, respectively,
+and the @term{characters} that would be output are made
+into a @term{string}.
+
+@code{write-to-string} is the general output function.
+It has the ability to specify all the parameters applicable
+to the printing of @param{object}.
+
+@code{prin1-to-string} acts like @code{write-to-string} with
+@f{:escape t}, that is, escape characters are written where appropriate.
+
+@code{princ-to-string} acts like @code{write-to-string} with
+@f{:escape nil :readably nil}.
+Thus no @term{escape} @term{characters} are written.
+
+All other keywords that would be specified to @code{write-to-string}
+are default values when @code{prin1-to-string}
+or @code{princ-to-string} is invoked.
+
+The meanings and defaults for the keyword arguments to @code{write-to-string}
+are the same as those for @code{write}.
+
+@subsubheading Examples:
+
+@lisp
+ (prin1-to-string "abc") @EV{} "@bsl{}"abc@bsl{}""
+ (princ-to-string "abc") @EV{} "abc"
+@end lisp
+
+
+@subsubheading Affected By:
+
+@code{*print-escape*},
+@code{*print-radix*},
+@code{*print-base*},
+@code{*print-circle*},
+@code{*print-pretty*},
+@code{*print-level*},
+@code{*print-length*},
+@code{*print-case*},
+@code{*print-gensym*},
+@code{*print-array*},
+@code{*read-default-float-format*}.
+
+@subsubheading See Also:
+
+@ref{write}
+
+@subsubheading Notes:
+
+@lisp
+ (write-to-string @param{object} @star{@curly{@param{key} @param{argument}}})
+@EQ{} (with-output-to-string (#1=#:string-stream)
+     (write object :stream #1# @star{@curly{@param{key} @param{argument}}}))
+
+ (princ-to-string @param{object})
+@EQ{} (with-output-to-string (string-stream)
+     (princ @param{object} string-stream))
+
+ (prin1-to-string @param{object})
+@EQ{} (with-output-to-string (string-stream)
+     (prin1 @param{object} string-stream))
+@end lisp
+
+
+@node *print-array*
+@heading *print-array* (Variable)
+@syindex *print-array*
+@cindex *print-array*
+
+
+@subsubheading Value Type:
+
+a @term{generalized boolean}.
+
+@subsubheading Initial Value:
+
+@term{implementation-dependent}.
+
+@subsubheading Description:
+
+Controls the format in which @term{arrays} are printed.
+If it is @term{false}, the contents of @term{arrays} other than @term{strings}
+are never printed.  Instead, @term{arrays} are printed in a concise form using
+@f{#<} that gives enough information for the user to be able to identify the
+@term{array}, but does not include the entire @term{array} contents.
+If it is @term{true}, non-@term{string} @term{arrays} are printed using
+@f{#(...)}, @f{#*}, or @f{#nA} syntax.
+
+@subsubheading Affected By:
+
+The @term{implementation}.
+
+@subsubheading See Also:
+
+@ref{SharpsignLeftParen, Section 2.4.8.3 (Sharpsign Left-Parenthesis)},
+@ref{SharpsignLeftAngle, Section 2.4.8.20 (Sharpsign Less-Than-Sign)}
+
+
+@node *print-base*; *print-radix*
+@heading *print-base*, *print-radix* (Variable)
+@syindex *print-base*
+@cindex *print-base*
+@syindex *print-radix*
+@cindex *print-radix*
+
+
+@subsubheading Value Type:
+
+@code{*print-base*}---a @term{radix}.
+@code{*print-radix*}---a @term{generalized boolean}.
+
+@subsubheading Initial Value:
+
+The initial @term{value} of @code{*print-base*} is @f{10}.
+The initial @term{value} of @code{*print-radix*} is @term{false}.
+
+@subsubheading Description:
+
+@code{*print-base*} and @code{*print-radix*} control the printing
+of @term{rationals}.
+@Thevalueof{*print-base*} is called the @newterm{current output base}.
+
+@Thevalueof{*print-base*} is the @term{radix} in which the printer
+will print @term{rationals}.   For radices above @f{10}, letters of
+the alphabet are used to represent digits above @f{9}.
+
+If @thevalueof{*print-radix*} is @term{true},
+the printer will print a radix specifier to indicate the @term{radix}
+in which it is printing a @term{rational} number.  The radix specifier
+is always printed using lowercase letters.  If @code{*print-base*}
+is @f{2}, @f{8}, or @f{16}, then the radix specifier used is @f{#b},
+@f{#o}, or @f{#x}, respectively.  For @term{integers}, base ten is
+indicated by a trailing decimal point instead of a leading radix
+specifier; for @term{ratios}, @f{#10r} is used.
+
+@subsubheading Examples:
+
+@lisp
+ (let ((*print-base* 24.) (*print-radix* t))
+   (print 23.))
+@OUT{} #24rN
+@EV{} 23
+ (setq *print-base* 10) @EV{} 10
+ (setq *print-radix* nil) @EV{} NIL
+ (dotimes (i 35)
+    (let ((*print-base* (+ i 2)))           ;print the decimal number 40
+      (write 40)                            ;in each base from 2 to 36
+      (if (zerop (mod i 10)) (terpri) (format t " "))))
+@OUT{} 101000
+@OUT{} 1111 220 130 104 55 50 44 40 37 34
+@OUT{} 31 2C 2A 28 26 24 22 20 1J 1I
+@OUT{} 1H 1G 1F 1E 1D 1C 1B 1A 19 18
+@OUT{} 17 16 15 14
+@EV{} NIL
+ (dolist (pb '(2 3 8 10 16))
+    (let ((*print-radix* t)                 ;print the integer 10 and
+          (*print-base* pb))                ;the ratio 1/10 in bases 2,
+     (format t "~&~S  ~S~%" 10 1/10)))        ;3, 8, 10, 16
+@OUT{} #b1010  #b1/1010
+@OUT{} #3r101  #3r1/101
+@OUT{} #o12  #o1/12
+@OUT{} 10.  #10r1/10
+@OUT{} #xA  #x1/A
+@EV{} NIL
+@end lisp
+
+
+@subsubheading Affected By:
+
+Might be @term{bound} by @code{format}, and @code{write}, @code{write-to-string}.
+
+@subsubheading See Also:
+
+@ref{format},
+@ref{write},
+@ref{write-to-string}
+
+
+@node *print-case*
+@heading *print-case* (Variable)
+@syindex *print-case*
+@cindex *print-case*
+
+
+@subsubheading Value Type:
+
+One of the @term{symbols} @kwd{upcase}, @kwd{downcase}, or @kwd{capitalize}.
+
+@subsubheading Initial Value:
+
+The @term{symbol} @kwd{upcase}.
+
+@subsubheading Description:
+
+@Thevalueof{*print-case*} controls the case (upper, lower, or mixed) in
+which to print any uppercase characters in the names of @term{symbols}
+when vertical-bar syntax is not used.
+
+@code{*print-case*} has an effect at all times when @thevalueof{*print-escape*}
+is @term{false}. @code{*print-case*} also has an effect when
+@thevalueof{*print-escape*} is @term{true} unless inside an escape context
+(@ie{} unless between @term{vertical-bars} or after a @term{slash}).
+
+@subsubheading Examples:
+
+@lisp
+ (defun test-print-case ()
+   (dolist (*print-case* '(:upcase :downcase :capitalize))
+     (format t "~&~S ~S~%" 'this-and-that '|And-something-elSE|)))
+@EV{} TEST-PC
+;; Although the choice of which characters to escape is specified by
+;; *PRINT-CASE*, the choice of how to escape those characters
+;; (i.e., whether single escapes or multiple escapes are used)
+;; is implementation-dependent.  The examples here show two of the
+;; many valid ways in which escaping might appear.
+ (test-print-case) ;Implementation A
+@OUT{} THIS-AND-THAT |And-something-elSE|
+@OUT{} this-and-that a@bsl{}n@bsl{}d-@bsl{}s@bsl{}o@bsl{}m@bsl{}e@bsl{}t@bsl{}h@bsl{}i@bsl{}n@bsl{}g-@bsl{}e@bsl{}lse
+@OUT{} This-And-That A@bsl{}n@bsl{}d-@bsl{}s@bsl{}o@bsl{}m@bsl{}e@bsl{}t@bsl{}h@bsl{}i@bsl{}n@bsl{}g-@bsl{}e@bsl{}lse
+@EV{} NIL
+ (test-print-case) ;Implementation B
+@OUT{} THIS-AND-THAT |And-something-elSE|
+@OUT{} this-and-that a|nd-something-el|se
+@OUT{} This-And-That A|nd-something-el|se
+@EV{} NIL
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{write}
+
+@subsubheading Notes:
+
+@code{read} normally converts lowercase characters appearing
+in @term{symbols} to corresponding uppercase characters,
+so that internally print names normally contain only uppercase characters.
+
+If @code{*print-escape*} is @term{true},
+lowercase characters in the @term{name} of a @term{symbol}
+are always printed in lowercase, and
+are preceded by a single escape character
+or enclosed by multiple escape characters;
+uppercase characters in the @term{name} of a @term{symbol}
+are printed in upper case, in lower case, or in mixed case
+so as to capitalize words, according to the value of
+@code{*print-case*}.  The convention for what constitutes
+a ``word'' is the same as for @code{string-capitalize}.
+
+@node *print-circle*
+@heading *print-circle* (Variable)
+@syindex *print-circle*
+@cindex *print-circle*
+
+
+
+@subsubheading Value Type:
+
+a @term{generalized boolean}.
+
+@subsubheading Initial Value:
+
+@term{false}.
+
+@subsubheading Description:
+
+Controls the attempt to detect circularity and sharing in an @term{object}
+being printed.
+
+If @term{false},
+the printing process merely proceeds by recursive descent without attempting
+to detect circularity and sharing.
+
+If @term{true},
+the printer will endeavor to detect cycles and sharing
+in the structure to be printed,
+and to use @f{#@i{n}=} and @f{#@i{n}#}
+syntax to indicate the circularities or shared components.
+
+If @term{true}, a user-defined
+@code{print-object} @term{method}
+can print
+@term{objects} to the supplied @term{stream} using @code{write}, @code{prin1},
+@code{princ}, or @code{format} and expect circularities and sharing
+to be detected and printed using the @f{#@i{n}#} syntax.
+If a user-defined
+@code{print-object} @term{method}
+prints to a @term{stream} other than the one
+that was supplied, then circularity detection starts over for that @term{stream}.
+
+Note that implementations should not use @f{#@i{n}#} notation
+when the @term{Lisp reader} would automatically assure sharing without it
+(@eg{} as happens with @term{interned} @term{symbols}).
+
+@subsubheading Examples:
+
+@lisp
+ (let ((a (list 1 2 3)))
+   (setf (cdddr a) a)
+   (let ((*print-circle* t))
+     (write a)
+     :done))
+@OUT{} #1=(1 2 3 . #1#)
+@EV{} :DONE
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{write}
+
+@subsubheading Notes:
+
+An attempt to print a circular structure with @code{*print-circle*}
+set to @nil{}@spc{}may lead to looping behavior and failure to terminate.
+
+
+
+@node *print-escape*
+@heading *print-escape* (Variable)
+@syindex *print-escape*
+@cindex *print-escape*
+
+
+@subsubheading Value Type:
+
+a @term{generalized boolean}.
+
+@subsubheading Initial Value:
+
+@term{true}.
+
+@subsubheading Description:
+
+If @term{false},
+escape characters and @term{package prefixes} are not output
+when an expression is printed.
+
+If @term{true}, an attempt is made to print an @term{expression}
+in such a way that it can be read again to produce an @code{equal} @term{expression}.
+(This is only a guideline; not a requirement.  See @code{*print-readably*}.)
+
+For more specific details of how @thevalueof{*print-escape*}
+affects the printing of certain @term{types},
+see @ref{Default Print-Object Methods, Section 22.1.3 (Default Print-Object Methods)}.
+
+@subsubheading Examples:
+@lisp
+ (let ((*print-escape* t)) (write #@bsl{}a))
+@OUT{} #@bsl{}a
+@EV{} #@bsl{}a
+ (let ((*print-escape* nil)) (write #@bsl{}a))
+@OUT{} a
+@EV{} #@bsl{}a
+@end lisp
+
+
+@subsubheading Affected By:
+
+@code{princ}, @code{prin1}, @code{format}
+
+@subsubheading See Also:
+
+@ref{write}, @ref{readtable-case}
+
+@subsubheading Notes:
+
+@code{princ} effectively binds @code{*print-escape*} to @term{false}.
+@code{prin1} effectively binds @code{*print-escape*} to @term{true}.
+
+
+@node *print-gensym*
+@heading *print-gensym* (Variable)
+@syindex *print-gensym*
+@cindex *print-gensym*
+
+
+@subsubheading Value Type:
+
+a @term{generalized boolean}.
+
+@subsubheading Initial Value:
+
+@term{true}.
+
+@subsubheading Description:
+
+Controls whether the prefix ``@f{#:}'' is printed before
+@term{apparently uninterned} @term{symbols}.
+The prefix is printed before such @term{symbols}
+if and only if @thevalueof{*print-gensym*} is @term{true}.
+
+@subsubheading Examples:
+
+@lisp
+ (let ((*print-gensym* nil))
+   (print (gensym)))
+@OUT{} G6040
+@EV{} #:G6040
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{write}, @ref{*print-escape*}
+
+
+@node *print-level*; *print-length*
+@heading *print-level*, *print-length* (Variable)
+@syindex *print-level*
+@cindex *print-level*
+@syindex *print-length*
+@cindex *print-length*
+@anchor{*print-length*}
+
+
+@subsubheading Value Type:
+
+a non-negative @term{integer}, or @nil{}.
+
+@subsubheading Initial Value:
+
+@nil{}.
+
+@subsubheading Description:
+
+@code{*print-level*} controls how many levels deep a nested @term{object} will print.
+If it is @term{false}, then no control is exercised.
+Otherwise, it is an @term{integer} indicating the maximum level to be printed.
+An @term{object} to be printed is at level @f{0};
+its components (as of a @term{list} or @term{vector}) are at level @f{1};
+and so on.
+If an @term{object} to be recursively printed has components
+and is at a level equal to or greater than @thevalueof{*print-level*},
+then the @term{object} is printed as ``@f{#}''.
+
+@code{*print-length*} controls how many elements at a given level are printed.
+If it is @term{false}, there is no limit to the number of components printed.
+Otherwise, it is an @term{integer} indicating the maximum number of @term{elements}
+of an @term{object} to be printed.  If exceeded, the printer will print
+``@f{...}'' in place of the other @term{elements}.  In the case of a @term{dotted list},
+if the @term{list} contains exactly as many @term{elements} as @thevalueof{*print-length*},
+the terminating @term{atom} is printed rather than printing ``@f{...}''
+
+@code{*print-level*} and @code{*print-length*} affect the printing
+of an any @term{object} printed with a list-like syntax.  They do not affect
+the printing of @term{symbols}, @term{strings}, and @term{bit vectors}.
+
+@subsubheading Examples:
+
+@medbreak{}
+@lisp
+ (setq a '(1 (2 (3 (4 (5 (6))))))) @EV{} (1 (2 (3 (4 (5 (6))))))
+ (dotimes (i 8)
+   (let ((*print-level* i))
+     (format t "~&~D -- ~S~%" i a)))
+@OUT{} 0 -- #
+@OUT{} 1 -- (1 #)
+@OUT{} 2 -- (1 (2 #))
+@OUT{} 3 -- (1 (2 (3 #)))
+@OUT{} 4 -- (1 (2 (3 (4 #))))
+@OUT{} 5 -- (1 (2 (3 (4 (5 #)))))
+@OUT{} 6 -- (1 (2 (3 (4 (5 (6))))))
+@OUT{} 7 -- (1 (2 (3 (4 (5 (6))))))
+@EV{} NIL
+@medbreak{}
+ (setq a '(1 2 3 4 5 6)) @EV{} (1 2 3 4 5 6)
+ (dotimes (i 7)
+   (let ((*print-length* i))
+     (format t "~&~D -- ~S~%" i a)))
+@OUT{} 0 -- (...)
+@OUT{} 1 -- (1 ...)
+@OUT{} 2 -- (1 2 ...)
+@OUT{} 3 -- (1 2 3 ...)
+@OUT{} 4 -- (1 2 3 4 ...)
+@OUT{} 5 -- (1 2 3 4 5 6)
+@OUT{} 6 -- (1 2 3 4 5 6)
+@EV{} NIL
+@medbreak{}
+(dolist (level-length '((0 1) (1 1) (1 2) (1 3) (1 4)
+                        (2 1) (2 2) (2 3) (3 2) (3 3) (3 4)))
+ (let ((*print-level*  (first  level-length))
+       (*print-length* (second level-length)))
+   (format t "~&~D ~D -- ~S~%"
+           *print-level* *print-length*
+           '(if (member x y) (+ (car x) 3) '(foo . #(a b c d "Baz"))))))
+@OUT{} 0 1 -- #
+@OUT{} 1 1 -- (IF ...)
+@OUT{} 1 2 -- (IF # ...)
+@OUT{} 1 3 -- (IF # # ...)
+@OUT{} 1 4 -- (IF # # #)
+@OUT{} 2 1 -- (IF ...)
+@OUT{} 2 2 -- (IF (MEMBER X ...) ...)
+@OUT{} 2 3 -- (IF (MEMBER X Y) (+ # 3) ...)
+@OUT{} 3 2 -- (IF (MEMBER X ...) ...)
+@OUT{} 3 3 -- (IF (MEMBER X Y) (+ (CAR X) 3) ...)
+@OUT{} 3 4 -- (IF (MEMBER X Y) (+ (CAR X) 3) '(FOO . #(A B C D ...)))
+@EV{} NIL
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{write}
+
+
+@node *print-lines*
+@heading *print-lines* (Variable)
+@syindex *print-lines*
+@cindex *print-lines*
+
+
+@subsubheading Value Type:
+
+a non-negative @term{integer}, or @nil{}.
+
+@subsubheading Initial Value:
+
+@nil{}.
+
+@subsubheading Description:
+
+When @thevalueof{*print-lines*} is other than @nil{},
+it is a limit on the number of output lines produced when something is pretty
+printed.  If an attempt is made to go beyond that many lines,
+``@f{..}''
+@cindex Dot Dot
+@cindex ..
+is printed at the end of the last line followed by all of the
+suffixes (closing delimiters) that are pending to be printed.
+
+@subsubheading Examples:
+
+@lisp
+ (let ((*print-right-margin* 25) (*print-lines* 3))
+   (pprint '(progn (setq a 1 b 2 c 3 d 4))))
+@OUT{} (PROGN (SETQ A 1
+@OUT{}              B 2
+@OUT{}              C 3 ..))
+@EV{} @novalues{}
+@end lisp
+
+
+@subsubheading Notes:
+
+The ``@f{..}'' notation is intentionally different than
+the ``@f{...}'' notation used for level abbreviation, so that the two
+different situations can be visually distinguished.
+
+This notation is used to increase the likelihood that the @term{Lisp reader}
+will signal an error if an attempt is later made to read the abbreviated output.
+Note however that if the truncation occurs in a @term{string},
+as in @f{"This string has been trunc.."}, the problem situation cannot be
+detected later and no such error will be signaled.
+
+
+@node *print-miser-width*
+@heading *print-miser-width* (Variable)
+@syindex *print-miser-width*
+@cindex *print-miser-width*
+
+
+
+@subsubheading Value Type:
+
+a non-negative @term{integer}, or @nil{}.
+
+@subsubheading Initial Value:
+
+@term{implementation-dependent}
+
+@subsubheading Description:
+
+If it is not @nil{}, the @term{pretty printer} switches to a compact
+style of output (called miser style) whenever the width available for
+printing a substructure is less than or equal to this many @term{ems}.
+
+
+
+@node *print-pprint-dispatch*
+@heading *print-pprint-dispatch* (Variable)
+@syindex *print-pprint-dispatch*
+@cindex *print-pprint-dispatch*
+
+
+
+@subsubheading Value Type:
+
+a @term{pprint dispatch table}.
+
+@subsubheading Initial Value:
+
+@term{implementation-dependent}, but the initial entries all use a
+special class of priorities that have the property that they are less
+than every priority that can be specified using @code{set-pprint-dispatch},
+so that the initial contents of any entry can be overridden.
+
+@subsubheading Description:
+
+The @term{pprint dispatch table} which currently controls the @term{pretty printer}.
+
+@subsubheading See Also:
+
+@ref{*print-pretty*},
+@ref{PPrintDispatchTables, Section 22.2.1.4 (Pretty Print Dispatch Tables)}
+
+@subsubheading Notes:
+
+The intent is that the initial @term{value} of this @term{variable} should
+cause `traditional' @term{pretty printing} of @term{code}.
+In general, however, you can put a value in @code{*print-pprint-dispatch*}
+that makes pretty-printed output look exactly like non-pretty-printed output.
+Setting @code{*print-pretty*} to @term{true}
+just causes the functions contained in the @term{current pprint dispatch table}
+to have priority over normal @code{print-object} methods;
+it has no magic way of enforcing that those functions actually produce pretty
+output.  For details, see @ref{PPrintDispatchTables, Section 22.2.1.4 (Pretty Print Dispatch Tables)}.
+
+
+@node *print-pretty*
+@heading *print-pretty* (Variable)
+@syindex *print-pretty*
+@cindex *print-pretty*
+
+
+@subsubheading Value Type:
+
+a @term{generalized boolean}.
+
+@subsubheading Initial Value:
+
+@term{implementation-dependent}.
+
+@subsubheading Description:
+
+Controls whether the @term{Lisp printer} calls the @term{pretty printer}.
+
+If it is @term{false},
+the @term{pretty printer} is not used and
+a minimum
+of @term{whitespace}@sub1{}
+is output when printing an expression.
+
+If it is @term{true},
+the @term{pretty printer} is used, and the @term{Lisp printer} will endeavor
+to insert extra @term{whitespace}@sub1{} where appropriate to make @term{expressions}
+more readable.
+
+@code{*print-pretty*} has an effect even when @thevalueof{*print-escape*}
+is @term{false}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq *print-pretty* 'nil) @EV{} NIL
+ (progn (write '(let ((a 1) (b 2) (c 3)) (+ a b c))) nil)
+@OUT{} (LET ((A 1) (B 2) (C 3)) (+ A B C))
+@EV{} NIL
+ (let ((*print-pretty* t))
+   (progn (write '(let ((a 1) (b 2) (c 3)) (+ a b c))) nil))
+@OUT{} (LET ((A 1)
+@OUT{}       (B 2)
+@OUT{}       (C 3))
+@OUT{}   (+ A B C))
+@EV{} NIL
+;; Note that the first two expressions printed by this next form
+;; differ from the second two only in whether escape characters are printed.
+;; In all four cases, extra whitespace is inserted by the pretty printer.
+ (flet ((test (x)
+          (let ((*print-pretty* t))
+            (print x)
+            (format t "~%~S " x)
+            (terpri) (princ x) (princ " ")
+            (format t "~%~A " x))))
+  (test '#'(lambda () (list "a" #@backslash{}b 'c #'d))))
+@OUT{} #'(LAMBDA ()
+@OUT{}     (LIST "a" #@backslash{}b 'C #'D))
+@OUT{} #'(LAMBDA ()
+@OUT{}     (LIST "a" #@backslash{}b 'C #'D))
+@OUT{} #'(LAMBDA ()
+@OUT{}     (LIST a b 'C #'D))
+@OUT{} #'(LAMBDA ()
+@OUT{}     (LIST a b 'C #'D))
+@EV{} NIL
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{write}
+
+
+@node *print-readably*
+@heading *print-readably* (Variable)
+@syindex *print-readably*
+@cindex *print-readably*
+
+
+@subsubheading Value Type:
+
+a @term{generalized boolean}.
+
+@subsubheading Initial Value:
+
+@term{false}.
+
+@subsubheading Description:
+
+If @code{*print-readably*} is @term{true},
+some special rules for printing @term{objects} go into effect.
+Specifically, printing any @term{object} @mat{O@sub1{}} produces a printed
+representation that, when seen by the @term{Lisp reader}
+while the @term{standard readtable} is in effect,
+will produce
+an @term{object} @mat{O@sub2{}} that is @term{similar} to @mat{O@sub1{}}.
+The printed representation produced might or might not be the same as
+the printed representation produced when @code{*print-readably*} is @term{false}.
+If printing an @term{object} @term{readably} is not possible,
+an error @oftype{print-not-readable} is signaled rather than
+using a syntax (@eg{} the ``@f{#<}'' syntax) that would not be readable by
+the same @term{implementation}.
+If the @term{value} of some other @term{printer control variable} is such
+that these requirements would be violated, the @term{value} of that other
+@term{variable} is ignored.
+
+Specifically, if @code{*print-readably*} is @term{true},
+printing proceeds as if
+@code{*print-escape*},
+@code{*print-array*},
+and @code{*print-gensym*} were also @term{true},
+and as if
+@code{*print-length*},
+@code{*print-level*},
+and @code{*print-lines*} were @term{false}.
+
+If @code{*print-readably*} is @term{false},
+the normal rules for printing and the normal interpretations
+of other @term{printer control variables} are in effect.
+
+Individual @term{methods} for @code{print-object}, including user-defined
+@term{methods}, are responsible for implementing these requirements.
+
+If @code{*read-eval*} is @term{false} and @code{*print-readably*} is @term{true},
+any such method that would output a reference to the ``@f{#.}'' @term{reader macro}
+will either output something else or will signal an error (as described above).
+
+@subsubheading Examples:
+
+@lisp
+ (let ((x (list "a" '@bsl{}a (gensym) '((a (b (c))) d e f g)))
+       (*print-escape* nil)
+       (*print-gensym* nil)
+       (*print-level* 3)
+       (*print-length* 3))
+   (write x)
+   (let ((*print-readably* t))
+     (terpri)
+     (write x)
+     :done))
+@OUT{} (a a G4581 ((A #) D E ...))
+@OUT{} ("a" |a| #:G4581 ((A (B (C))) D E F G))
+@EV{} :DONE
+
+;; This is setup code is shared between the examples
+;; of three hypothetical implementations which follow.
+ (setq table (make-hash-table)) @EV{} #<HASH-TABLE EQL 0/120 32005763>
+ (setf (gethash table 1) 'one) @EV{} ONE
+ (setf (gethash table 2) 'two) @EV{} TWO
+
+;; Implementation A
+ (let ((*print-readably* t)) (print table))
+ Error: Can't print #<HASH-TABLE EQL 0/120 32005763> readably.
+
+;; Implementation B
+;; No standardized #S notation for hash tables is defined,
+;; but there might be an implementation-defined notation.
+ (let ((*print-readably* t)) (print table))
+@OUT{} #S(HASH-TABLE :TEST EQL :SIZE 120 :CONTENTS (1 ONE 2 TWO))
+@EV{} #<HASH-TABLE EQL 0/120 32005763>
+
+;; Implementation C
+;; Note that #. notation can only be used if *READ-EVAL* is true.
+;; If *READ-EVAL* were false, this same implementation might have to
+;; signal an error unless it had yet another printing strategy to fall
+;; back on.
+ (let ((*print-readably* t)) (print table))
+@OUT{} #.(LET ((HASH-TABLE (MAKE-HASH-TABLE)))
+@OUT{}     (SETF (GETHASH 1 HASH-TABLE) ONE)
+@OUT{}     (SETF (GETHASH 2 HASH-TABLE) TWO)
+@OUT{}     HASH-TABLE)
+@EV{} #<HASH-TABLE EQL 0/120 32005763>
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{write}, @ref{print-unreadable-object}
+
+@subsubheading Notes:
+
+The rules for ``@term{similarity}'' imply that
+@f{#A} or @f{#(}
+syntax cannot be used for @term{arrays} of @term{element type}
+other than @code{t}.
+An implementation will have to use another syntax
+or signal an error @oftype{print-not-readable}.
+
+
+
+
+@node *print-right-margin*
+@heading *print-right-margin* (Variable)
+@syindex *print-right-margin*
+@cindex *print-right-margin*
+
+
+
+@subsubheading Value Type:
+
+a non-negative @term{integer}, or @nil{}.
+
+@subsubheading Initial Value:
+
+@nil{}.
+
+@subsubheading Description:
+
+If it is @term{non-nil}, it specifies the right margin (as @term{integer}
+number of @term{ems}) to use when the @term{pretty printer} is making
+layout decisions.
+
+If it is @nil{}, the right margin is taken to be the maximum line length
+such that output can be displayed without wraparound or truncation.
+If this cannot be determined, an @term{implementation-dependent} value is used.
+
+@subsubheading Notes:
+
+This measure is in units of @term{ems} in order to be compatible with
+@term{implementation-defined} variable-width fonts while still not
+requiring the language to provide support for fonts.
+
+
+
+@node print-not-readable
+@heading print-not-readable (Condition Type)
+@syindex print-not-readable
+@cindex print-not-readable
+
+
+@subsubheading Class Precedence List:
+@code{print-not-readable},
+@code{error},
+@code{serious-condition},
+@code{condition},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{print-not-readable} consists of error conditions that occur during
+output while @code{*print-readably*} is @term{true}, as a result of attempting
+to write a printed representation with the @term{Lisp printer}
+that would not be correctly read back with the @term{Lisp reader}.
+The object which could not be printed is initialized by
+@theinitkeyarg{object} to @code{make-condition}, and is @term{accessed} by
+@thefunction{print-not-readable-object}.
+
+@subsubheading See Also:
+
+@ref{print-not-readable-object}
+
+
+@node print-not-readable-object
+@heading print-not-readable-object (Function)
+@syindex print-not-readable-object
+@cindex print-not-readable-object
+
+@subsubheading Syntax:
+
+@DefunWithValues{print-not-readable-object, condition, object}
+
+@subsubheading Arguments and Values:
+
+@param{condition}---a @term{condition} @oftype{print-not-readable}.
+
+@param{object}---an @term{object}.
+
+@subsubheading Description:
+
+Returns the @term{object} that could not be printed readably
+in the situation represented by @param{condition}.
+
+@subsubheading See Also:
+
+@ref{print-not-readable},
+@ref{Conditions, Chapter 9 (Conditions)}
+
+
+@node format
+@heading format (Function)
+@syindex format
+@cindex format
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{format, destination control-string @rest{} args, result}
+
+@subsubheading Arguments and Values:
+
+@param{destination}---@nil{},
+@code{t},
+a @term{stream},
+or a @term{string} with a @term{fill pointer}.
+
+@param{control-string}---a @term{format control}.
+
+@param{args}---@term{format arguments} for @param{control-string}.
+
+@param{result}---if @param{destination} is @term{non-nil}, then @nil{};
+otherwise, a @term{string}.
+
+@subsubheading Description:
+
+@code{format} produces formatted output by outputting the characters
+of @param{control-string} and observing that a @term{tilde}
+introduces a directive.  The character after the tilde, possibly preceded
+by prefix parameters and modifiers, specifies what kind of formatting
+is desired.  Most directives use one or more elements of @param{args} to
+create their output.
+
+If @param{destination} is a @term{string}, a @term{stream}, or @code{t},
+then the @param{result} is @nil{}.  Otherwise, the @param{result} is
+a @term{string} containing the `output.'
+
+@code{format} is useful for producing nicely formatted text, producing
+good-looking messages, and so on.  @code{format} can generate and return
+a @term{string} or output to @param{destination}.
+
+For details on how the @param{control-string} is interpreted,
+see @ref{Formatted Output, Section 22.3 (Formatted Output)}.
+
+@subsubheading Affected By:
+
+@code{*standard-output*},
+@code{*print-escape*},
+@code{*print-radix*},
+@code{*print-base*},
+@code{*print-circle*},
+@code{*print-pretty*},
+@code{*print-level*},
+@code{*print-length*},
+@code{*print-case*},
+@code{*print-gensym*},
+@code{*print-array*}.
+
+@subsubheading Exceptional Situations:
+
+If @param{destination} is a @term{string} with a @term{fill pointer},
+the consequences are undefined if destructive modifications are performed
+directly on the @term{string} during the @term{dynamic extent} of the call.
+
+@subsubheading See Also:
+
+@ref{write},
+@ref{Documentation of Implementation-Defined Scripts, Section 13.1.10 (Documentation of Implementation-Defined Scripts)}

@@ -1,0 +1,2828 @@
+@node Packages
+@chapter Packages
+@menu
+* Package Concepts::
+
+Dictionary
+
+* package::
+* export::
+* find-symbol::
+* find-package::
+* find-all-symbols::
+* import::
+* list-all-packages::
+* rename-package::
+* shadow::
+* shadowing-import::
+* delete-package::
+* make-package::
+* with-package-iterator::
+* unexport::
+* unintern::
+* in-package::
+* unuse-package::
+* use-package::
+* defpackage::
+* do-symbols; do-external-symbols; do-all-symbols::
+* intern::
+* package-name::
+* package-nicknames::
+* package-shadowing-symbols::
+* package-use-list::
+* package-used-by-list::
+* packagep::
+* *package*::
+* package-error::
+* package-error-package::
+@end menu
+
+@node Package Concepts
+@section Package Concepts
+
+@menu
+* Introduction to Packages::
+* Standardized Packages::
+@end menu
+@node Introduction to Packages
+@subsection Introduction to Packages
+
+A @newterm{package} establishes a mapping from names to @term{symbols}.
+At any given time, one @term{package} is current.
+The @newterm{current package} is the one that is @thevalueof{*package*}.
+When using the @term{Lisp reader},
+it is possible to refer to @term{symbols} in @term{packages}
+other than the current one through the use of @term{package prefixes} in the
+printed representation of the @term{symbol}.
+
+@Thenextfigure{}@spc{}lists some @term{defined names} that are applicable
+to @term{packages}.
+Where an @term{operator}
+takes an argument that is either a @term{symbol} or a @term{list}
+of @term{symbols},
+an argument of @nil{}@spc{}is treated as an empty @term{list} of @term{symbols}.
+Any @param{package} argument may be either a @term{string}, a @term{symbol}, or
+a @term{package}.  If a @term{symbol} is supplied, its name will be used
+as the @term{package} name.
+
+@float Figure,fig11.1
+@cartouche
+@multitable{do-external-symbols}{package-shadowing-symbols}{shadowing-import}
+
+@item *modules* @tab import @tab provide
+@item *package* @tab in-package @tab rename-package
+@item defpackage @tab intern @tab require
+@item do-all-symbols @tab list-all-packages @tab shadow
+@item do-external-symbols @tab make-package @tab shadowing-import
+@item do-symbols @tab package-name @tab unexport
+@item export @tab package-nicknames @tab unintern
+@item find-all-symbols @tab package-shadowing-symbols @tab unuse-package
+@item find-package @tab package-use-list @tab use-package
+@item find-symbol @tab package-used-by-list @tab
+@end multitable
+@end cartouche
+@caption{Some Defined Names related to Packages}
+@end float
+
+
+@subsubsection Package Names and Nicknames
+
+Each @term{package} has a @term{name} (a @term{string}) and perhaps some @term{nicknames}
+(also @term{strings}).
+These are assigned when the @term{package} is created and can be changed later.
+
+There is a single namespace for @term{packages}.
+@Thefunction{find-package} translates a package
+@term{name} or @term{nickname} into the associated @term{package}.
+@Thefunction{package-name} returns the @term{name} of a @term{package}.
+@Thefunction{package-nicknames} returns
+a @term{list} of all @term{nicknames} for a @term{package}.
+@code{rename-package} removes a @term{package}'s
+current @term{name} and @term{nicknames} and replaces them with new ones
+specified by the caller.
+
+
+@subsubsection Symbols in a Package
+
+@unnumberedsubsubsec 11.1.1.2.1 Internal and External Symbols
+
+
+The mappings in a @term{package} are divided into two classes, external and internal.
+The @term{symbols} targeted by these different mappings
+are called @term{external symbols} and @term{internal symbols}
+@cindex internal symbol
+of the
+@term{package}. Within a @term{package}, a name refers to one
+@term{symbol} or to none; if it does refer
+to a @term{symbol}, then it is either external or internal in that
+@term{package}, but not both.
+@cindex external symbol
+@dfn{External symbols}
+are part of the package's public interface to other @term{packages}.
+@term{Symbols} become @term{external symbols} of a given
+@term{package} if they have been @term{exported} from that @term{package}.
+
+A @term{symbol} has the same @term{name} no matter what @term{package}
+it is @term{present} in, but it might be an @term{external symbol} of some @term{packages}
+and an @term{internal symbol} of others.
+
+
+@unnumberedsubsubsec 11.1.1.2.2 Package Inheritance
+
+
+@term{Packages} can be built up in layers.  From one point of view,
+a @term{package} is a single collection
+of mappings from @term{strings} into @term{internal symbols} and
+@term{external symbols}.
+However, some of these mappings might be established within the @term{package}
+itself, while other mappings are inherited from other @term{packages}
+via @code{use-package}.
+A @term{symbol} is said to be @newterm{present} in a @term{package}
+if the mapping is in the @term{package} itself and is
+not inherited from somewhere else.
+
+There is no way to inherit the @term{internal symbols} of another @term{package};
+to refer to an @term{internal symbol} using the @term{Lisp reader},
+a @term{package} containing the @term{symbol}
+must be made to be the @term{current package},
+a @term{package prefix} must be used,
+or the @term{symbol} must be @term{imported} into the @term{current package}.
+
+
+@unnumberedsubsubsec 11.1.1.2.3 Accessibility of Symbols in a Package
+
+
+A @term{symbol} becomes @newterm{accessible} in a @term{package}
+if that is its @term{home package} when it is created,
+or if it is @term{imported} into that @term{package},
+or by inheritance via @code{use-package}.
+
+If a @term{symbol} is @term{accessible} in a @term{package},
+it can be referred to when using the @term{Lisp reader}
+without a @term{package prefix} when that @term{package} is the @term{current package},
+regardless of whether it is @term{present} or inherited.
+
+@term{Symbols} from one @term{package} can be made @term{accessible}
+in another @term{package} in two ways.
+
+
+@itemize --
+@item
+Any individual @term{symbol} can be added to a @term{package} by use
+of @code{import}.  After the call to @code{import} the
+@term{symbol} is @term{present} in the importing @term{package}.
+The status of the @term{symbol} in the @term{package}
+it came from (if any) is unchanged, and the @term{home package} for
+this @term{symbol} is unchanged.
+Once @term{imported}, a @term{symbol} is @term{present} in the
+importing @term{package}
+and can be removed only by calling @code{unintern}.
+
+A @term{symbol} is @term{shadowed}@sub3{} by another @term{symbol}
+in some @term{package} if the first @term{symbol} would be @term{accessible}
+by inheritance if not for the presence of the second @term{symbol}.
+See @code{shadowing-import}.
+
+@item
+The second mechanism for making @term{symbols} from one @term{package}
+@term{accessible} in another is provided by @code{use-package}.
+All of the @term{external symbols} of the used @term{package} are inherited
+by the using @term{package}.
+@Thefunction{unuse-package} undoes the effects of a previous @code{use-package}.
+@end itemize
+
+
+
+@unnumberedsubsubsec 11.1.1.2.4 Locating a Symbol in a Package
+
+
+When a @term{symbol} is to be located in a given @term{package}
+the following occurs:
+
+@itemize --
+@item The @term{external symbols} and @term{internal symbols} of the
+@term{package} are searched for the @term{symbol}.
+@item The @term{external symbols} of the used @term{packages} are
+searched
+in some unspecified order.  The
+order does not matter; see the rules for handling name
+conflicts listed below.
+@end itemize
+
+
+
+@unnumberedsubsubsec 11.1.1.2.5 Prevention of Name Conflicts in Packages
+
+
+Within one @term{package}, any particular name can refer to at most one
+@term{symbol}.  A name conflict is said to occur when there would be more than
+one candidate @term{symbol}.  Any time a name conflict is about to occur,
+a @term{correctable} @term{error} is signaled.
+
+The following rules apply to name conflicts:
+
+@itemize --
+@item
+Name conflicts are detected when they become possible, that is, when the
+package structure is altered.  Name
+conflicts are not checked during every name lookup.
+
+@item
+If the @term{same} @term{symbol} is @term{accessible} to a @term{package}
+through more than one path, there is no name conflict.
+A @term{symbol} cannot conflict with itself.
+Name conflicts occur only between @term{distinct} @term{symbols} with
+the same name (under @code{string=}).
+
+@item Every @term{package} has a list of shadowing @term{symbols}.
+A shadowing @term{symbol} takes precedence over any other @term{symbol} of
+the same name that would otherwise be @term{accessible} in the @term{package}.
+A name conflict involving a shadowing symbol is always resolved in favor of
+the shadowing @term{symbol}, without signaling an error (except for one
+exception involving @code{import}).
+See @code{shadow} and @code{shadowing-import}.
+
+@item
+The functions @code{use-package}, @code{import}, and
+@code{export} check for name conflicts.
+
+@item
+@code{shadow} and @code{shadowing-import}
+never signal a name-conflict error.
+
+@item
+@code{unuse-package} and @code{unexport}
+do not need to do any name-conflict checking.
+@code{unintern} does name-conflict checking only when a @term{symbol}
+being @term{uninterned} is a @term{shadowing symbol}
+@cindex shadowing symbol
+.
+
+@item
+Giving a shadowing symbol to @code{unintern}
+can uncover a name conflict that had
+previously been resolved by the shadowing.
+
+@item
+Package functions signal name-conflict errors @oftype{package-error} before making any
+change to the package structure.  When multiple changes are to be made,
+it is
+permissible for the implementation to process each change separately.
+For example, when @code{export} is given a
+@term{list} of
+@term{symbols},
+aborting from a name
+conflict caused by the second @term{symbol}
+in the @term{list} might still export the
+first @term{symbol} in the @term{list}.
+However, a name-conflict error caused by @code{export}
+of a single @term{symbol} will be signaled before
+that @term{symbol}'s @term{accessibility} in any @term{package} is changed.
+
+@item
+Continuing from a name-conflict error must offer the user a chance to
+resolve the name conflict in favor of either of the candidates.  The
+@term{package}
+structure should be altered to reflect the resolution of the
+name conflict, via @code{shadowing-import},
+@code{unintern},
+or @code{unexport}.
+
+@item
+A name conflict in @code{use-package} between a @term{symbol}
+@term{present} in the using @term{package} and an @term{external symbol} of the used
+@term{package} is resolved in favor of the first @term{symbol} by making it a
+shadowing @term{symbol}, or in favor of the second @term{symbol} by uninterning
+the first @term{symbol} from the using @term{package}.
+
+@item
+A name conflict in @code{export} or @code{unintern}
+due to a @term{package}'s inheriting two @term{distinct} @term{symbols}
+with the @term{same} @term{name} (under @code{string=})
+from two other @term{packages} can be resolved in
+favor of either @term{symbol} by importing it into the using
+@term{package} and making it a @term{shadowing symbol}
+@cindex shadowing symbol
+,
+just as with @code{use-package}.
+@end itemize
+
+
+
+
+
+@node Standardized Packages
+@subsection Standardized Packages
+
+This section describes the @term{packages} that are available
+in every @term{conforming implementation}.  A summary of the
+@term{names} and @term{nicknames} of those @term{standardized} @term{packages}
+is given in @thenextfigure{}.
+
+
+@float Figure,fig11.2
+@cartouche
+@multitable{@code{COMMON-LISP-USER}}{@code{CL-USER}}
+@headitem Name @tab Nicknames
+@item @code{COMMON-LISP} @tab @code{CL}
+@item @code{COMMON-LISP-USER} @tab @code{CL-USER}
+@item @code{KEYWORD} @tab @i{none}
+@end multitable
+@end cartouche
+@caption{Standardized Package Names}
+@end float
+
+
+
+
+@subsubsection The COMMON-LISP Package
+@cindex COMMON-LISP
+@cindex CL
+
+
+The @code{COMMON-LISP} @term{package} contains the primitives of the @clisp{}@spc{}system as
+defined by this specification.  Its @term{external} @term{symbols} include
+all of the @term{defined names} (except for @term{defined names} in
+the @code{KEYWORD} @term{package}) that are present in the @clisp{}@spc{}system,
+such as @code{car}, @code{cdr},  @code{*package*}, etc.
+The @code{COMMON-LISP} @term{package} has the @term{nickname} @code{CL}.
+
+The @code{COMMON-LISP} @term{package} has as @term{external} @term{symbols} those
+symbols enumerated in the figures in @ref{Symbols in the COMMON-LISP Package, Section 1.9 (Symbols in the COMMON-LISP Package)}, and no others.
+These @term{external} @term{symbols} are @term{present} in the @code{COMMON-LISP} @term{package}
+but their @term{home package} need not be the @code{COMMON-LISP} @term{package}.
+
+For example, the symbol @f{HELP} cannot be an @term{external symbol} of
+the @code{COMMON-LISP} @term{package} because it is not mentioned in @ref{Symbols in the COMMON-LISP Package, Section 1.9 (Symbols in the COMMON-LISP Package)}.
+In contrast, the @term{symbol} @t{variable}
+must be an @term{external symbol} of the @code{COMMON-LISP} @term{package}
+even though it has no definition
+because it is listed in that section
+(to support its use as a valid second @term{argument} to @thefunction{documentation}).
+
+The @code{COMMON-LISP} @term{package} can have additional @term{internal symbols}.
+
+@unnumberedsubsubsec 11.1.2.1.1 Constraints on the COMMON-LISP Package for Conforming Implementations
+
+
+In a @term{conforming implementation},
+an @term{external} @term{symbol} of the @code{COMMON-LISP} @term{package} can have
+a @term{function}, @term{macro}, or @term{special operator} definition,
+a @term{global variable} definition
+(or other status as a @term{dynamic variable}
+due to a @code{special} @term{proclamation}),
+or a @term{type} definition
+only if explicitly permitted in this standard.
+For example,
+@code{fboundp} @term{yields} @term{false}
+for any @term{external symbol} of the @code{COMMON-LISP} @term{package}
+that is not the @term{name} of a @term{standardized}
+@term{function}, @term{macro} or @term{special operator},
+and
+@code{boundp} returns @term{false}
+for any @term{external symbol} of the @code{COMMON-LISP} @term{package}
+that is not the @term{name} of a @term{standardized} @term{global variable}.
+It also follows that
+@term{conforming programs} can use @term{external symbols} of the @code{COMMON-LISP} @term{package}
+as the @term{names} of local @term{lexical variables}
+with confidence that those @term{names} have not been @term{proclaimed} @code{special}
+by the @term{implementation}
+unless those @term{symbols} are
+@term{names} of @term{standardized} @term{global variables}.
+
+A @term{conforming implementation} must not place any @term{property} on
+an @term{external symbol} of the @code{COMMON-LISP} @term{package} using a @term{property indicator}
+that is either an @term{external symbol} of any @term{standardized} @term{package}
+or a @term{symbol} that is otherwise @term{accessible} in the @code{COMMON-LISP-USER} @term{package}.
+
+
+@unnumberedsubsubsec 11.1.2.1.2 Constraints on the COMMON-LISP Package for Conforming Programs
+
+@cindex redefinition
+Except where explicitly allowed, the consequences are undefined if any
+of the following actions are performed on an @term{external symbol}
+of the @code{COMMON-LISP} @term{package}:
+
+
+@enumerate 1
+
+@item @term{Binding} or altering its value (lexically or dynamically).
+(Some exceptions are noted below.)
+
+@item Defining,
+undefining,
+or @term{binding} it as a @term{function}.
+(Some exceptions are noted below.)
+
+@item Defining,
+undefining,
+or @term{binding} it as a @term{macro}
+or @term{compiler macro}.
+(Some exceptions are noted below.)
+
+@item Defining it as a @term{type specifier}
+(via @code{defstruct},
+@code{defclass},
+@code{deftype},
+@code{define-condition}).
+
+@item Defining it as a structure (via @code{defstruct}).
+
+@item Defining it as a @term{declaration}
+with a @code{declaration} @term{proclamation}.
+
+@item Defining it as a @term{symbol macro}.
+
+@item Altering its @term{home package}.
+
+@item Tracing it  (via @code{trace}).
+
+@item Declaring or proclaiming it
+@code{special}
+(via @t{declare},
+@code{declaim},
+or @code{proclaim}).
+
+@item Declaring or proclaiming its @code{type} or @code{ftype}
+(via @t{declare},
+@code{declaim},
+or @code{proclaim}).
+(Some exceptions are noted below.)
+
+@item Removing it from the @code{COMMON-LISP} @term{package}.
+
+
+@item Defining a @term{setf expander} for it
+(via @code{defsetf} or @code{define-setf-method}).
+
+@item Defining, undefining, or binding its @term{setf function name}.
+
+@item Defining it as a @term{method combination} type
+(via @code{define-method-combination}).
+
+@item Using it as the class-name argument
+to @code{setf} of @code{find-class}.
+
+@item Binding it as a @term{catch tag}.
+
+@item Binding it as a @term{restart} @term{name}.
+
+@item Defining a @term{method}
+for a @term{standardized} @term{generic function}
+which is @term{applicable} when all of the @term{arguments}
+are @term{direct instances} of @term{standardized} @term{classes}.
+
+@end enumerate
+
+
+@unnumberedsubsubsec 11.1.2.1.2.1 Some Exceptions to Constraints on the COMMON-LISP Package for Conforming Programs
+
+
+If an @term{external symbol} of the @code{COMMON-LISP} @term{package}
+is not globally defined as a @term{standardized} @term{dynamic variable}
+or @term{constant variable},
+it is allowed to lexically @term{bind} it
+and to declare the @code{type} of that @term{binding},
+and
+it is allowed to locally @term{establish} it as a @term{symbol macro}
+(@eg{} with @code{symbol-macrolet}).
+
+Unless explicitly specified otherwise,
+if an @term{external symbol} of the @code{COMMON-LISP} @term{package}
+is globally defined as a @term{standardized} @term{dynamic variable},
+it is permitted to @term{bind} or @term{assign} that @term{dynamic variable}
+provided that the ``Value Type'' constraints on the @term{dynamic variable}
+are maintained, and that the new @term{value} of the @term{variable}
+is consistent with the stated purpose of the @term{variable}.
+
+If an @term{external symbol} of the @code{COMMON-LISP} @term{package} is not defined
+as a @term{standardized} @term{function}, @term{macro}, or @term{special operator},
+it is allowed to lexically @term{bind} it as a @term{function} (@eg{} with @code{flet}),
+to declare the @code{ftype} of that @term{binding},
+and
+(in @term{implementations} which provide the ability to do so)
+to @code{trace} that @term{binding}.
+
+If an @term{external symbol} of the @code{COMMON-LISP} @term{package} is not defined
+as a @term{standardized} @term{function}, @term{macro}, or @term{special operator},
+it is allowed to lexically @term{bind} it as a @term{macro} (@eg{} with @code{macrolet}).
+
+
+If an @term{external symbol} of the @code{COMMON-LISP} @term{package} is not defined
+as a @term{standardized} @term{function}, @term{macro}, or @term{special operator},
+it is allowed to lexically @term{bind} its @term{setf function name}
+as a @term{function},
+and to declare the @code{ftype} of that @term{binding}.
+
+
+
+
+@subsubsection The COMMON-LISP-USER Package
+@cindex COMMON-LISP-USER
+@cindex CL-USER
+
+The @code{COMMON-LISP-USER} @term{package} is the @term{current package} when
+a @clisp{}@spc{}system starts up.  This @term{package} @term{uses} the @code{COMMON-LISP} @term{package}.
+The @code{COMMON-LISP-USER} @term{package} has the @term{nickname} @code{CL-USER}.
+The @code{COMMON-LISP-USER} @term{package} can have additional @term{symbols} @term{interned} within it;
+it can @term{use} other @term{implementation-defined} @term{packages}.
+
+
+@subsubsection The KEYWORD Package
+@cindex KEYWORD
+
+The @code{KEYWORD} @term{package} contains @term{symbols}, called @term{keywords}@sub1{},
+that are typically used as special markers in @term{programs}
+and their associated data @term{expressions}@sub1{}.
+
+@term{Symbol} @term{tokens} that start with a @term{package marker}
+are parsed by the @term{Lisp reader} as @term{symbols}
+in the @code{KEYWORD} @term{package}; see @ref{Symbols as Tokens, Section 2.3.4 (Symbols as Tokens)}.
+This makes it notationally convenient to use @term{keywords}
+when communicating between programs in different @term{packages}.
+For example, the mechanism for passing @term{keyword parameters} in a @term{call} uses
+@term{keywords}@sub1{} to name the corresponding @term{arguments};
+see @ref{Ordinary Lambda Lists, Section 3.4.1 (Ordinary Lambda Lists)}.
+
+@term{Symbols} in the @code{KEYWORD} @term{package} are, by definition, @oftype{keyword}.
+
+@unnumberedsubsubsec 11.1.2.3.1 Interning a Symbol in the KEYWORD Package
+
+
+The @code{KEYWORD} @term{package} is treated differently than other @term{packages}
+in that special actions are taken when a @term{symbol} is @term{interned} in it.
+In particular, when a @term{symbol} is @term{interned} in the @code{KEYWORD} @term{package},
+it is automatically made to be an @term{external symbol}
+and is automatically made to be a @term{constant variable} with itself as a @term{value}.
+
+
+@unnumberedsubsubsec 11.1.2.3.2 Notes about The KEYWORD Package
+
+
+It is generally best to confine the use of @term{keywords} to situations in which
+there are a finitely enumerable set of names to be selected between.  For example,
+if there were two states of a light switch, they might be called @kwd{on} and @kwd{off}.
+
+In situations where the set of names is not finitely enumerable
+(@ie{} where name conflicts might arise)
+it is frequently best to use @term{symbols} in some @term{package}
+other than @code{KEYWORD} so that conflicts will be naturally avoided.
+For example, it is generally not wise for a @term{program} to use a @term{keyword}@sub1{}
+as a @term{property indicator}, since if there were ever another @term{program}
+that did the same thing, each would clobber the other's data.
+
+
+
+@subsubsection Implementation-Defined Packages
+
+Other, @term{implementation-defined} @term{packages} might be present
+in the initial @clisp{}@spc{}environment.
+
+It is recommended, but not required, that the documentation for a
+@term{conforming implementation} contain a full list of all @term{package} names
+initially present in that @term{implementation} but not specified in this specification.
+(See also the @term{function} @code{list-all-packages}.)
+
+
+
+
+@node package
+@heading package (System Class)
+@syindex package
+@cindex package
+
+
+@subsubheading Class Precedence List:
+@code{package},
+@code{t}
+
+@subsubheading Description:
+
+A @term{package} is a @term{namespace} that maps @term{symbol} @term{names}
+to @term{symbols}; see @ref{Package Concepts, Section 11.1 (Package Concepts)}.
+
+@subsubheading See Also:
+
+@ref{Package Concepts, Section 11.1 (Package Concepts)},
+@ref{PrintingOtherObjects, Section 22.1.3.13 (Printing Other Objects)},
+@ref{Symbols as Tokens, Section 2.3.4 (Symbols as Tokens)}
+
+
+@node export
+@heading export (Function)
+@syindex export
+@cindex export
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{export, symbols @opt{} package, @code{t}}
+
+@subsubheading Arguments and Values:
+
+@param{symbols}---a @term{designator} for a @term{list} of @term{symbols}.
+
+@param{package}---a @term{package designator}.
+@Default{the @term{current package}}
+
+@subsubheading Description:
+
+@code{export} makes one or more @param{symbols} that are @term{accessible}
+in @param{package} (whether directly or by inheritance) be @term{external symbols}
+of that @param{package}.
+
+If any of the @param{symbols} is already @term{accessible} as
+an @term{external symbol} of @param{package},
+@code{export} has no effect on that @term{symbol}.
+If the @param{symbol} is
+@term{present} in @param{package}
+as an internal symbol, it is simply changed to external status.
+If it is @term{accessible} as an @term{internal symbol} via @code{use-package},
+it
+is first @term{imported} into @param{package},
+then @term{exported}.
+(The @param{symbol} is then @term{present} in the @param{package}
+whether or not @param{package} continues to use the @term{package} through
+which the @term{symbol} was originally inherited.)
+
+@code{export} makes
+each @param{symbol}
+@term{accessible} to all the @term{packages} that use @param{package}.
+All of these @term{packages} are checked for name conflicts:
+@f{(export @i{s} @i{p})} does
+@f{(find-symbol (symbol-name @i{s}) @i{q})} for each package @i{q}
+in @f{(package-used-by-list @i{p})}.  Note that in the usual case of
+an @code{export} during the initial definition of a @term{package},
+the
+result of @code{package-used-by-list}
+is @nil{}@spc{}and the name-conflict checking
+takes negligible time.
+When multiple changes are to be made,
+for example when @code{export}
+is given a @param{list} of @param{symbols}, it is
+permissible for the implementation to process each change separately,
+so that aborting from a name
+conflict caused by any but the first @param{symbol} in the
+@term{list} does not unexport the
+first @param{symbol} in the @param{list}.
+However, aborting from a name-conflict error
+caused by @code{export}
+of one of @param{symbols} does not leave that @term{symbol}
+@term{accessible}
+to some @term{packages}
+and @term{inaccessible} to others; with respect to
+each of @param{symbols} processed, @code{export}
+behaves as if it were as an atomic operation.
+
+A name conflict in @code{export} between one of
+@param{symbols} being exported and a
+@term{symbol} already @term{present} in a @term{package}
+that would inherit the
+newly-exported @term{symbol}
+may be resolved in favor of the exported @term{symbol}
+by uninterning the other one, or in favor of the already-present
+@term{symbol} by making it a shadowing symbol.
+
+@subsubheading Examples:
+
+@lisp
+ (make-package 'temp :use nil) @EV{} #<PACKAGE "TEMP">
+ (use-package 'temp) @EV{} T
+ (intern "TEMP-SYM" 'temp) @EV{} TEMP::TEMP-SYM, NIL
+ (find-symbol "TEMP-SYM") @EV{} NIL, NIL
+ (export (find-symbol "TEMP-SYM" 'temp) 'temp) @EV{} T
+ (find-symbol "TEMP-SYM") @EV{} TEMP-SYM, :INHERITED
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The package system is modified.
+
+@subsubheading Affected By:
+
+@term{Accessible} @term{symbols}.
+
+@subsubheading Exceptional Situations:
+
+If any of the @param{symbols} is not @term{accessible} at all in @param{package},
+an error @oftype{package-error} is signaled that is @term{correctable}
+by permitting the @term{user}
+to interactively specify whether that @term{symbol} should be @term{imported}.
+
+@subsubheading See Also:
+
+@ref{import},
+@ref{unexport},
+@ref{Package Concepts, Section 11.1 (Package Concepts)}
+
+
+@node find-symbol
+@heading find-symbol (Function)
+@syindex find-symbol
+@cindex find-symbol
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{find-symbol, string @opt{} package, symbol\, status}
+
+@subsubheading Arguments and Values:
+
+@param{string}---a @term{string}.
+
+@param{package}---a @term{package designator}.
+@Default{the @term{current package}}
+
+@param{symbol}---a @term{symbol} accessible in the @param{package},
+or @nil{}.
+
+@param{status}---one of @kwd{inherited}, @kwd{external}, @kwd{internal}, or @nil{}.
+
+@subsubheading Description:
+
+@code{find-symbol} locates a @term{symbol} whose @term{name} is
+@param{string} in a @term{package}.
+If a @term{symbol} named @param{string} is found in @param{package},
+directly or by inheritance, the @term{symbol}
+found is returned as the first
+value; the second value is as follows:
+
+
+@table @asis
+@item @id{@kwd{internal}}
+
+
+If the @term{symbol} is @term{present} in @param{package}
+as an @term{internal symbol}.
+
+@item @id{@kwd{external}}
+
+
+If the @term{symbol} is @term{present} in @param{package}
+as an @term{external symbol}.
+
+@item @id{@kwd{inherited}}
+
+
+If the @term{symbol} is inherited by @param{package}
+through @code{use-package},
+but is not @term{present} in @param{package}.
+@end table
+
+
+If no such @term{symbol} is @term{accessible} in @param{package},
+both values are @nil{}.
+
+@subsubheading Examples:
+
+@lisp
+ (find-symbol "NEVER-BEFORE-USED") @EV{} NIL, NIL
+ (find-symbol "NEVER-BEFORE-USED") @EV{} NIL, NIL
+ (intern "NEVER-BEFORE-USED") @EV{} NEVER-BEFORE-USED, NIL
+ (intern "NEVER-BEFORE-USED") @EV{} NEVER-BEFORE-USED, :INTERNAL
+ (find-symbol "NEVER-BEFORE-USED") @EV{} NEVER-BEFORE-USED, :INTERNAL
+ (find-symbol "never-before-used") @EV{} NIL, NIL
+ (find-symbol "CAR" 'common-lisp-user) @EV{} CAR, :INHERITED
+ (find-symbol "CAR" 'common-lisp) @EV{} CAR, :EXTERNAL
+ (find-symbol "NIL" 'common-lisp-user) @EV{} NIL, :INHERITED
+ (find-symbol "NIL" 'common-lisp) @EV{} NIL, :EXTERNAL
+ (find-symbol "NIL" (prog1 (make-package "JUST-TESTING" :use '())
+                           (intern "NIL" "JUST-TESTING")))
+@EV{} JUST-TESTING::NIL, :INTERNAL
+ (export 'just-testing::nil 'just-testing)
+ (find-symbol "NIL" 'just-testing) @EV{} JUST-TESTING:NIL, :EXTERNAL
+ (find-symbol "NIL" "KEYWORD")
+@EV{} NIL, NIL
+@OV{} :NIL, :EXTERNAL
+ (find-symbol (symbol-name :nil) "KEYWORD") @EV{} :NIL, :EXTERNAL
+@end lisp
+
+
+@subsubheading Affected By:
+
+@code{intern},
+@code{import},
+@code{export},
+@code{use-package},
+@code{unintern},
+@code{unexport},
+@code{unuse-package}
+
+@subsubheading See Also:
+
+@ref{intern}, @ref{find-all-symbols}
+
+@subsubheading Notes:
+
+@code{find-symbol} is operationally equivalent to @code{intern},
+except that it never creates a new @term{symbol}.
+
+
+@node find-package
+@heading find-package (Function)
+@syindex find-package
+@cindex find-package
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{find-package, name, package}
+
+@subsubheading Arguments and Values:
+
+@param{name}---a @term{string designator} or a @term{package} @term{object}.
+
+@param{package}---a @term{package} @term{object} or @nil{}.
+
+@subsubheading Description:
+
+If @param{name} is a @term{string designator},
+@code{find-package} locates and returns the
+@term{package} whose name or nickname is @param{name}.
+This
+search is case sensitive.
+If there is no such @term{package},
+@code{find-package} returns @nil{}.
+
+If @param{name} is a @term{package} @term{object},
+that @term{package} @term{object} is returned.
+
+@subsubheading Examples:
+
+@lisp
+ (find-package 'common-lisp) @EV{} #<PACKAGE "COMMON-LISP">
+ (find-package "COMMON-LISP-USER") @EV{} #<PACKAGE "COMMON-LISP-USER">
+ (find-package 'not-there) @EV{} NIL
+@end lisp
+
+
+@subsubheading Affected By:
+
+The set of @term{packages} created by the @term{implementation}.
+
+@code{defpackage},
+@code{delete-package},
+@code{make-package},
+@code{rename-package}
+
+@subsubheading See Also:
+
+@ref{make-package}
+
+
+@node find-all-symbols
+@heading find-all-symbols (Function)
+@syindex find-all-symbols
+@cindex find-all-symbols
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{find-all-symbols, string, symbols}
+
+@subsubheading Arguments and Values:
+
+@param{string}---a @term{@symbolnamedesignator{}}.
+
+@param{symbols}---a @term{list} of @term{symbols}.
+
+@subsubheading Description:
+
+@code{find-all-symbols} searches
+@term{name} that is the @term{same} (under @code{string=}) as
+@param{string}.  A @term{list} of all such @term{symbols} is returned.
+Whether or how the @term{list} is ordered is
+@term{implementation-dependent}.
+
+@subsubheading Examples:
+
+@lisp
+ (find-all-symbols 'car)
+@EV{} (CAR)
+@OV{} (CAR VEHICLES:CAR)
+@OV{} (VEHICLES:CAR CAR)
+ (intern "CAR" (make-package 'temp :use nil)) @EV{} TEMP::CAR, NIL
+ (find-all-symbols 'car)
+@EV{} (TEMP::CAR CAR)
+@OV{} (CAR TEMP::CAR)
+@OV{} (TEMP::CAR CAR VEHICLES:CAR)
+@OV{} (CAR TEMP::CAR VEHICLES:CAR)
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{find-symbol}
+
+
+@node import
+@heading import (Function)
+@syindex import
+@cindex import
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{import, symbols @opt{} package, @code{t}}
+
+@subsubheading Arguments and Values:
+
+@param{symbols}---a @term{designator} for a @term{list} of @term{symbols}.
+
+@param{package}---a @term{package designator}.
+@Default{the @term{current package}}
+
+@subsubheading Description:
+
+@code{import} adds @param{symbol} or
+@param{symbols} to the internals of @param{package}, checking for name
+conflicts with existing @term{symbols} either @term{present} in @param{package}
+or @term{accessible} to it.  Once the @param{symbols} have been
+@term{imported}, they may be referenced in the @term{importing}
+@param{package} without the use of a @term{package prefix} when using the @term{Lisp reader}.
+
+A name conflict in @code{import} between the
+@param{symbol} being imported and a symbol inherited from some other @term{package} can
+be resolved in favor of the
+@param{symbol} being @term{imported}
+by making it a shadowing symbol, or in favor
+of the @term{symbol} already @term{accessible} by
+not doing the @code{import}.  A
+name conflict in @code{import} with a @term{symbol}
+already @term{present} in the
+@param{package}
+may be resolved by uninterning that @term{symbol}, or by not
+doing the @code{import}.
+
+The imported @term{symbol} is
+not automatically exported from the @term{current package}, but if it is
+already @term{present} and external, then the fact that it
+is external is not changed.
+If any @term{symbol} to be @term{imported} has no home
+package (@ie{} @tt{(symbol-package @param{symbol}) @EV{}@spc{}nil}),
+@code{import} sets the @term{home package}
+of the @param{symbol} to @param{package}.
+
+If the @param{symbol} is already @term{present} in the importing @param{package},
+@code{import} has no effect.
+
+@subsubheading Examples:
+
+@lisp
+ (import 'common-lisp::car (make-package 'temp :use nil)) @EV{} T
+ (find-symbol "CAR" 'temp) @EV{} CAR, :INTERNAL
+ (find-symbol "CDR" 'temp) @EV{} NIL, NIL
+@end lisp
+
+
+The form @f{(import 'editor:buffer)} takes the external symbol named
+@f{buffer} in the @code{EDITOR} @term{package} (this symbol was located when the form
+was read by the @term{Lisp reader}) and adds it to the @term{current package}
+as an @term{internal symbol}. The symbol @f{buffer} is then @term{present} in
+the @term{current package}.
+
+@subsubheading Side Effects:
+
+The package system is modified.
+
+@subsubheading Affected By:
+
+Current state of the package system.
+
+@subsubheading Exceptional Situations:
+
+@code{import} signals a @term{correctable} error @oftype{package-error}
+if any of the @param{symbols} to be @term{imported} has the @term{same} @term{name}
+(under @code{string=}) as some distinct @term{symbol} (under @code{eql})
+already @term{accessible} in the @param{package}, even if the conflict is
+with a @term{shadowing symbol} of the @param{package}.
+
+@subsubheading See Also:
+
+@ref{shadow}, @ref{export}
+
+
+@node list-all-packages
+@heading list-all-packages (Function)
+@syindex list-all-packages
+@cindex list-all-packages
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{list-all-packages, @noargs{}, packages}
+
+@subsubheading Arguments and Values:
+
+@param{packages}---a @term{list} of @term{package} @term{objects}.
+
+@subsubheading Description:
+
+@code{list-all-packages} returns a
+@term{fresh}
+@term{list} of
+all @term{registered packages}.
+
+@subsubheading Examples:
+
+@lisp
+ (let ((before (list-all-packages)))
+    (make-package 'temp)
+    (set-difference (list-all-packages) before)) @EV{} (#<PACKAGE "TEMP">)
+@end lisp
+
+
+@subsubheading Affected By:
+
+@code{defpackage},
+@code{delete-package},
+@code{make-package}
+
+
+@node rename-package
+@heading rename-package (Function)
+@syindex rename-package
+@cindex rename-package
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{rename-package, package new-name @opt{} new-nicknames, package-object}
+
+@subsubheading Arguments and Values:
+
+@param{package}---a @term{package designator}.
+
+@param{new-name}---a @term{package designator}.
+
+@param{new-nicknames}---a @term{list} of @term{@packagenamedesignators{}}.
+@Default{the @term{empty list}}
+
+@param{package-object}---the renamed @param{package} @term{object}.
+
+@subsubheading Description:
+
+Replaces the name and nicknames of @param{package}.
+The old name and all of the old nicknames of @param{package} are eliminated
+and are replaced by @param{new-name} and @param{new-nicknames}.
+
+The consequences are undefined if @param{new-name} or any @param{new-nickname}
+conflicts with any existing package names.
+
+@subsubheading Examples:
+
+@lisp
+ (make-package 'temporary :nicknames '("TEMP")) @EV{} #<PACKAGE "TEMPORARY">
+ (rename-package 'temp 'ephemeral) @EV{} #<PACKAGE "EPHEMERAL">
+ (package-nicknames (find-package 'ephemeral)) @EV{} ()
+ (find-package 'temporary) @EV{} NIL
+ (rename-package 'ephemeral 'temporary '(temp fleeting))
+@EV{} #<PACKAGE "TEMPORARY">
+ (package-nicknames (find-package 'temp)) @EV{} ("TEMP" "FLEETING")
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{make-package}
+
+
+@node shadow
+@heading shadow (Function)
+@syindex shadow
+@cindex shadow
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{shadow, symbol-names @opt{} package, @code{t}}
+
+@subsubheading Arguments and Values:
+
+@param{symbol-names}---a @term{designator} for
+a @term{list} of @term{@symbolnamedesignators{}}.
+
+@param{package}---a @term{package designator}.
+@Default{the @term{current package}}
+
+@subsubheading Description:
+
+@code{shadow} assures that @term{symbols} with names given
+by @param{symbol-names} are @term{present}
+in
+the @param{package}.
+
+Specifically, @param{package} is searched for @term{symbols}
+with the @term{names} supplied by @param{symbol-names}.
+For each such @term{name}, if a corresponding @term{symbol}
+is not @term{present} in @param{package} (directly, not by inheritance),
+then a corresponding @term{symbol} is created with that @term{name},
+and inserted into @param{package} as an @term{internal symbol}.
+The corresponding @term{symbol}, whether pre-existing or newly created,
+is then added, if not already present, to the @term{shadowing symbols list}
+of @param{package}.
+
+@subsubheading Examples:
+
+@lisp
+ (package-shadowing-symbols (make-package 'temp)) @EV{} NIL
+ (find-symbol 'car 'temp) @EV{} CAR, :INHERITED
+ (shadow 'car 'temp) @EV{} T
+ (find-symbol 'car 'temp) @EV{} TEMP::CAR, :INTERNAL
+ (package-shadowing-symbols 'temp) @EV{} (TEMP::CAR)
+@end lisp
+
+
+@lisp
+ (make-package 'test-1) @EV{} #<PACKAGE "TEST-1">
+ (intern "TEST" (find-package 'test-1)) @EV{} TEST-1::TEST, NIL
+ (shadow 'test-1::test (find-package 'test-1)) @EV{} T
+ (shadow 'TEST (find-package 'test-1)) @EV{} T
+ (assert (not (null (member 'test-1::test (package-shadowing-symbols
+                                            (find-package 'test-1))))))
+
+ (make-package 'test-2) @EV{} #<PACKAGE "TEST-2">
+ (intern "TEST" (find-package 'test-2)) @EV{} TEST-2::TEST, NIL
+ (export 'test-2::test (find-package 'test-2)) @EV{} T
+ (use-package 'test-2 (find-package 'test-1))    ;should not error
+
+@end lisp
+
+
+@subsubheading Side Effects:
+
+@code{shadow} changes the state of the package system in such a
+way that the package consistency rules do not hold across the change.
+
+@subsubheading Affected By:
+
+Current state of the package system.
+
+@subsubheading See Also:
+
+@ref{package-shadowing-symbols},
+@ref{Package Concepts, Section 11.1 (Package Concepts)}
+
+@subsubheading Notes:
+
+If a @term{symbol} with a name in @param{symbol-names} already exists
+in @param{package}, but by inheritance, the inherited symbol becomes
+@term{shadowed}@sub3{} by a newly created @term{internal symbol}.
+
+
+@node shadowing-import
+@heading shadowing-import (Function)
+@syindex shadowing-import
+@cindex shadowing-import
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{shadowing-import, symbols @opt{} package, @code{t}}
+
+@subsubheading Arguments and Values:
+
+@param{symbols}---a @term{designator} for a @term{list} of @term{symbols}.
+
+@param{package} ---a @term{package designator}.
+@Default{the @term{current package}}
+
+@subsubheading Description:
+
+@code{shadowing-import} is like @code{import},
+but it does not signal an error even if the importation of a @term{symbol}
+would shadow some @term{symbol} already @term{accessible} in @param{package}.
+
+@code{shadowing-import} inserts each of @param{symbols}
+into @param{package} as an internal symbol, regardless
+of whether another @term{symbol} of the same name is shadowed by this
+action.
+If a different @term{symbol} of the same name is already @term{present}
+in @param{package},
+that @term{symbol} is first @term{uninterned} from @param{package}.
+The new @term{symbol} is added to @param{package}'s shadowing-symbols list.
+
+@code{shadowing-import} does name-conflict
+checking to the extent that it checks whether a distinct existing
+@term{symbol} with the same name is @term{accessible}; if so, it is shadowed by
+the new @term{symbol}, which implies that it must be uninterned
+if it was
+@term{present} in @param{package}.
+
+@subsubheading Examples:
+@lisp
+ (in-package "COMMON-LISP-USER") @EV{} #<PACKAGE "COMMON-LISP-USER">
+ (setq sym (intern "CONFLICT")) @EV{} CONFLICT
+ (intern "CONFLICT" (make-package 'temp)) @EV{} TEMP::CONFLICT, NIL
+ (package-shadowing-symbols 'temp) @EV{} NIL
+ (shadowing-import sym 'temp) @EV{} T
+ (package-shadowing-symbols 'temp) @EV{} (CONFLICT)
+@end lisp
+
+
+@subsubheading Side Effects:
+
+@code{shadowing-import}
+changes the state of the package system in such a way that
+the consistency rules do not hold across the change.
+
+@param{package}'s shadowing-symbols list is modified.
+
+@subsubheading Affected By:
+
+Current state of the package system.
+
+@subsubheading See Also:
+
+@ref{import}, @ref{unintern}, @ref{package-shadowing-symbols}
+
+
+@node delete-package
+@heading delete-package (Function)
+@syindex delete-package
+@cindex delete-package
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{delete-package, package, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{package}---a @term{package designator}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@code{delete-package} deletes @param{package} from all package system
+data structures.
+If the operation is successful, @code{delete-package} returns
+true, otherwise @nil{}.
+The effect of @code{delete-package} is that the name and nicknames
+of @param{package} cease to be recognized package names.
+The package @term{object} is still a @term{package}
+(@ie{} @code{packagep} is @term{true} of it)
+but @code{package-name} returns @nil{}.
+The consequences of deleting the @code{COMMON-LISP} @term{package} or the @code{KEYWORD} @term{package} are undefined.
+The consequences of invoking any other package operation on @param{package}
+once it has been deleted are unspecified.
+In particular, the consequences of invoking @code{find-symbol},
+@code{intern} and other functions that look for a symbol name in
+a @term{package} are unspecified if they are called with @code{*package*}
+bound to the deleted @param{package} or with the deleted @param{package}
+as an argument.
+
+If @param{package} is a @term{package} @term{object} that has already
+been deleted, @code{delete-package} immediately returns @nil{}.
+
+After this operation completes, the
+@term{home package}
+of any @term{symbol} whose @term{home package}
+had previously been
+@param{package}
+is
+@term{implementation-dependent}.
+Except for this, @term{symbols} @term{accessible}
+in @param{package} are not modified in any other way;
+@term{symbols} whose @term{home package} is not @param{package} remain unchanged.
+
+@subsubheading Examples:
+
+@lisp
+ (setq *foo-package* (make-package "FOO" :use nil))
+ (setq *foo-symbol*  (intern "FOO" *foo-package*))
+ (export *foo-symbol* *foo-package*)
+
+ (setq *bar-package* (make-package "BAR" :use '("FOO")))
+ (setq *bar-symbol*  (intern "BAR" *bar-package*))
+ (export *foo-symbol* *bar-package*)
+ (export *bar-symbol* *bar-package*)
+
+ (setq *baz-package* (make-package "BAZ" :use '("BAR")))
+
+ (symbol-package *foo-symbol*) @EV{} #<PACKAGE "FOO">
+ (symbol-package *bar-symbol*) @EV{} #<PACKAGE "BAR">
+
+ (prin1-to-string *foo-symbol*) @EV{} "FOO:FOO"
+ (prin1-to-string *bar-symbol*) @EV{} "BAR:BAR"
+
+ (find-symbol "FOO" *bar-package*) @EV{} FOO:FOO, :EXTERNAL
+
+ (find-symbol "FOO" *baz-package*) @EV{} FOO:FOO, :INHERITED
+ (find-symbol "BAR" *baz-package*) @EV{} BAR:BAR, :INHERITED
+
+ (packagep *foo-package*) @EV{} @term{true}
+ (packagep *bar-package*) @EV{} @term{true}
+ (packagep *baz-package*) @EV{} @term{true}
+
+ (package-name *foo-package*) @EV{} "FOO"
+ (package-name *bar-package*) @EV{} "BAR"
+ (package-name *baz-package*) @EV{} "BAZ"
+
+ (package-use-list *foo-package*) @EV{} ()
+ (package-use-list *bar-package*) @EV{} (#<PACKAGE "FOO">)
+ (package-use-list *baz-package*) @EV{} (#<PACKAGE "BAR">)
+
+ (package-used-by-list *foo-package*) @EV{} (#<PACKAGE "BAR">)
+ (package-used-by-list *bar-package*) @EV{} (#<PACKAGE "BAZ">)
+ (package-used-by-list *baz-package*) @EV{} ()
+
+ (delete-package *bar-package*)
+@OUT{} Error: Package BAZ uses package BAR.
+@OUT{} If continued, BAZ will be made to unuse-package BAR,
+@OUT{} and then BAR will be deleted.
+@OUT{} Type :CONTINUE to continue.
+@OUT{} Debug> @IN{:CONTINUE}
+@EV{} T
+
+ (symbol-package *foo-symbol*) @EV{} #<PACKAGE "FOO">
+ (symbol-package *bar-symbol*) is unspecified
+
+ (prin1-to-string *foo-symbol*) @EV{} "FOO:FOO"
+ (prin1-to-string *bar-symbol*) is unspecified
+
+ (find-symbol "FOO" *bar-package*) is unspecified
+
+ (find-symbol "FOO" *baz-package*) @EV{} NIL, NIL
+ (find-symbol "BAR" *baz-package*) @EV{} NIL, NIL
+
+ (packagep *foo-package*) @EV{} T
+ (packagep *bar-package*) @EV{} T
+ (packagep *baz-package*) @EV{} T
+
+ (package-name *foo-package*) @EV{} "FOO"
+ (package-name *bar-package*) @EV{} NIL
+ (package-name *baz-package*) @EV{} "BAZ"
+
+ (package-use-list *foo-package*) @EV{} ()
+ (package-use-list *bar-package*) is unspecified
+ (package-use-list *baz-package*) @EV{} ()
+
+ (package-used-by-list *foo-package*) @EV{} ()
+ (package-used-by-list *bar-package*) is unspecified
+ (package-used-by-list *baz-package*) @EV{} ()
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+If the @param{package} @term{designator} is a @term{name} that does not
+currently name a @term{package},
+a @term{correctable} error @oftype{package-error} is signaled.
+If correction is attempted, no deletion action is attempted;
+instead, @code{delete-package} immediately returns @nil{}.
+
+If @param{package} is used by other @term{packages},
+a @term{correctable} error @oftype{package-error} is signaled.
+If correction is attempted,
+@code{unuse-package} is effectively called to remove any dependencies,
+causing @param{package}'s @term{external symbols} to cease being @term{accessible} to those
+@term{packages} that use @param{package}.
+@code{delete-package} then deletes @param{package} just as it would have had
+there been no @term{packages} that used it.
+
+@subsubheading See Also:
+
+@ref{unuse-package}
+
+
+
+@node make-package
+@heading make-package (Function)
+@syindex make-package
+@cindex make-package
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{make-package, package-name @key{} nicknames use, package}
+
+@subsubheading Arguments and Values:
+
+@param{package-name}---a @term{@packagenamedesignator{}}.
+
+@param{nicknames}---a @term{list} of @term{@packagenamedesignators{}}.
+@Default{the @term{empty list}}
+
+@param{use}---
+a @term{list} of @term{package designators}.
+@Default{@term{implementation-defined}}
+
+@param{package}---a @term{package}.
+
+@subsubheading Description:
+
+Creates a new @term{package} with the name @param{package-name}.
+
+@param{Nicknames} are additional @term{names} which may be used
+to refer to the new @term{package}.
+
+@param{use} specifies zero or more @term{packages}
+the @term{external symbols} of which are to be inherited by
+the new @term{package}.  See the @term{function} @ref{use-package}.
+
+@subsubheading Examples:
+
+@lisp
+ (make-package 'temporary :nicknames '("TEMP" "temp")) @EV{} #<PACKAGE "TEMPORARY">
+ (make-package "OWNER" :use '("temp")) @EV{} #<PACKAGE "OWNER">
+ (package-used-by-list 'temp) @EV{} (#<PACKAGE "OWNER">)
+ (package-use-list 'owner) @EV{} (#<PACKAGE "TEMPORARY">)
+@end lisp
+
+
+@subsubheading Affected By:
+
+The existence of other @term{packages} in the system.
+
+@subsubheading Exceptional Situations:
+
+The consequences are unspecified if @term{packages} denoted by @param{use}
+do not exist.
+
+A @term{correctable} error is signaled if the @param{package-name}
+or any of the @param{nicknames} is already
+the @term{name} or @term{nickname} of an existing @term{package}.
+
+@subsubheading See Also:
+
+@ref{defpackage},
+@ref{use-package}
+
+@subsubheading Notes:
+
+In situations where the @term{packages} to be used contain symbols which would conflict,
+it is necessary to first create the package with @f{:use '()},
+then to use @code{shadow} or @code{shadowing-import} to address the conflicts,
+and then after that to use @code{use-package} once the conflicts have been addressed.
+
+When packages are being created as part of the static definition of a program
+rather than dynamically by the program, it is generally considered more stylistically
+appropriate to use @code{defpackage} rather than @code{make-package}.
+
+
+@node with-package-iterator
+@heading with-package-iterator (Macro)
+@syindex with-package-iterator
+@cindex with-package-iterator
+
+
+
+
+@subsubheading Syntax:
+
+@DefmacWithValuesNewline{with-package-iterator, @paren{name package-list-form @rest{} symbol-types} @starparam{declaration} @starparam{form}, @starparam{result}}
+
+@subsubheading Arguments and Values:
+
+@param{name}---a @term{symbol}.
+
+@param{package-list-form}---a @term{form}; evaluated once to produce a @param{package-list}.
+
+@param{package-list}---a @term{designator} for a list of @term{package designators}.
+
+@param{symbol-type}---one of the @term{symbols}
+@kwd{internal}, @kwd{external}, or @kwd{inherited}.
+
+@param{declaration}---a @t{declare} @term{expression}; @noeval{}.
+
+@param{forms}---an @term{implicit progn}.
+
+@param{results}---the @term{values} of the @param{forms}.
+
+@subsubheading Description:
+
+Within the lexical scope of the body @param{forms},
+the @param{name} is defined via @code{macrolet}
+such that successive invocations of @tt{(@param{name})}
+will return the @term{symbols}, one by one,
+from the @term{packages} in @param{package-list}.
+
+It is unspecified whether @term{symbols} inherited from
+multiple @term{packages} are returned more than once.
+The order of @term{symbols} returned does not necessarily reflect the order
+of @term{packages} in @param{package-list}.  When @param{package-list} has
+more than one element, it is unspecified whether duplicate @term{symbols} are
+returned once or more than once.
+
+@param{Symbol-types} controls which @term{symbols} that are @term{accessible}
+in a @term{package} are returned as follows:
+
+
+@table @asis
+@item @id{@kwd{internal}}
+
+
+The @term{symbols} that are @term{present} in the @term{package},
+but that are not @term{exported}.
+
+@item @id{@kwd{external}}
+
+
+The @term{symbols} that are @term{present} in the @term{package}
+and are @term{exported}.
+
+@item @id{@kwd{inherited}}
+
+
+The @term{symbols} that are @term{exported} by used @term{packages}
+and that are not @term{shadowed}.
+@end table
+
+
+When more than one argument is supplied for @param{symbol-types},
+a @term{symbol} is returned if its @term{accessibility} matches
+any one of the @param{symbol-types} supplied.
+Implementations may extend this syntax by recognizing additional
+symbol accessibility types.
+
+An invocation of @tt{(@param{name})} returns four values as follows:
+
+
+@enumerate 1
+@item A flag that indicates whether a @term{symbol} is returned
+(true means that a @term{symbol} is returned).
+@item A @term{symbol} that is @term{accessible} in one the
+indicated @term{packages}.
+@item The accessibility type for that @term{symbol};
+@ie{} one of the symbols @kwd{internal}, @kwd{external}, or @kwd{inherited}.
+@item The @term{package} from which the @term{symbol} was obtained.
+The @term{package} is one of the @term{packages} present
+or named in @param{package-list}.
+@end enumerate
+
+
+After all @term{symbols} have been returned by successive invocations of
+@tt{(@param{name})}, then only one value is returned, namely @nil{}.
+
+The meaning of the second, third, and fourth @term{values} is that the returned
+@term{symbol} is @term{accessible} in the returned @term{package}
+in the way indicated by the second return value as follows:
+
+
+@table @asis
+@item @id{@kwd{internal}}
+
+
+Means @term{present} and not @term{exported}.
+
+@item @id{@kwd{external}}
+
+
+Means @term{present} and @term{exported}.
+
+@item @id{@kwd{inherited}}
+
+
+Means not @term{present} (thus not @term{shadowed}) but inherited
+from some used @term{package}.
+@end table
+
+
+It is unspecified what happens if any of the implicit interior state
+of an iteration is returned outside the dynamic extent of the
+@code{with-package-iterator}
+form such as by returning some @term{closure} over the invocation @term{form}.
+
+Any number of invocations of @code{with-package-iterator}
+can be nested, and the body of the innermost one can invoke all of the
+locally @term{established} @term{macros}, provided all those @term{macros}
+have distinct names.
+
+@subsubheading Examples:
+
+The following function should return @code{t}@spc{}on any @term{package}, and signal
+an error if the usage of @code{with-package-iterator} does not agree
+with the corresponding usage of @code{do-symbols}.
+
+@lisp
+ (defun test-package-iterator (package)
+   (unless (packagep package)
+     (setq package (find-package package)))
+   (let ((all-entries '())
+         (generated-entries '()))
+     (do-symbols (x package)
+       (multiple-value-bind (symbol accessibility)
+           (find-symbol (symbol-name x) package)
+         (push (list symbol accessibility) all-entries)))
+     (with-package-iterator (generator-fn package
+                             :internal :external :inherited)
+       (loop
+         (multiple-value-bind (more? symbol accessibility pkg)
+             (generator-fn)
+           (unless more? (return))
+           (let ((l (multiple-value-list (find-symbol (symbol-name symbol)
+                                                      package))))
+             (unless (equal l (list symbol accessibility))
+               (error "Symbol ~S not found as ~S in package ~A [~S]"
+                      symbol accessibility (package-name package) l))
+             (push l generated-entries)))))
+     (unless (and (subsetp all-entries generated-entries :test #'equal)
+                  (subsetp generated-entries all-entries :test #'equal))
+      (error "Generated entries and Do-Symbols entries don't correspond"))
+     t))
+@end lisp
+
+
+The following function prints out every @term{present} @term{symbol}
+(possibly more than once):
+
+@lisp
+ (defun print-all-symbols ()
+   (with-package-iterator (next-symbol (list-all-packages)
+                           :internal :external)
+     (loop
+       (multiple-value-bind (more? symbol) (next-symbol)
+         (if more?
+            (print symbol)
+            (return))))))
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@code{with-package-iterator} signals an error @oftype{program-error} if
+no @param{symbol-types} are supplied or if a @param{symbol-type} is not
+recognized  by the implementation is supplied.
+
+The consequences are undefined if the local function named @param{name}
+@term{established} by @code{with-package-iterator} is called after it
+has returned @term{false} as its @term{primary value}.
+
+@subsubheading See Also:
+
+@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+
+
+
+@node unexport
+@heading unexport (Function)
+@syindex unexport
+@cindex unexport
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{unexport, symbols @opt{} package, @code{t}}
+
+@subsubheading Arguments and Values:
+
+@param{symbols}---a @term{designator} for a @term{list} of @term{symbols}.
+
+@param{package}---a @term{package designator}.
+@Default{the @term{current package}}
+
+@subsubheading Description:
+
+@code{unexport} reverts external @param{symbols} in @param{package} to
+internal status; it undoes the effect of @code{export}.
+
+@code{unexport} works only on @term{symbols}
+@term{present}
+in @param{package}, switching them back to internal status.
+If @code{unexport} is given a @term{symbol} that is
+already @term{accessible} as an @term{internal symbol} in @param{package},
+it does nothing.
+
+@subsubheading Examples:
+
+@lisp
+ (in-package "COMMON-LISP-USER") @EV{} #<PACKAGE "COMMON-LISP-USER">
+ (export (intern "CONTRABAND" (make-package 'temp)) 'temp) @EV{} T
+ (find-symbol "CONTRABAND") @EV{} NIL, NIL
+ (use-package 'temp) @EV{} T
+ (find-symbol "CONTRABAND") @EV{} CONTRABAND, :INHERITED
+ (unexport 'contraband 'temp) @EV{} T
+ (find-symbol "CONTRABAND") @EV{} NIL, NIL
+@end lisp
+
+
+@subsubheading Side Effects:
+
+Package system is modified.
+
+@subsubheading Affected By:
+
+Current state of the package system.
+
+@subsubheading Exceptional Situations:
+
+If @code{unexport} is given a @term{symbol}
+not @term{accessible} in @param{package} at all,
+an error @oftype{package-error} is signaled.
+
+The consequences are undefined if @param{package} is the @code{KEYWORD} @term{package}
+or the @code{COMMON-LISP} @term{package}.
+
+@subsubheading See Also:
+
+@ref{export}, @ref{Package Concepts, Section 11.1 (Package Concepts)}
+
+
+@node unintern
+@heading unintern (Function)
+@syindex unintern
+@cindex unintern
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{unintern, symbol @opt{} package, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{symbol}---a @term{symbol}.
+
+@param{package}---a @term{package designator}.
+@Default{the @term{current package}}
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+@code{unintern} removes @param{symbol} from @param{package}.
+If @param{symbol} is @term{present} in @param{package}, it is
+removed from @param{package} and also from @param{package}'s
+@term{shadowing symbols list} if it is present there.  If @param{package} is the
+@term{home package} for @param{symbol}, @param{symbol} is made to have no
+@term{home package}.
+@param{Symbol} may continue to be @term{accessible}
+in @param{package} by inheritance.
+
+Use of @code{unintern} can result in a @term{symbol}
+that has no
+recorded @term{home package},
+but that in fact is @term{accessible} in some @term{package}.
+@clisp{}@spc{}does not check for this pathological case,
+and such @term{symbols}
+are always printed preceded by @f{#:}.
+
+@code{unintern} returns @term{true} if it removes @param{symbol}, and @nil{}@spc{}otherwise.
+
+@subsubheading Examples:
+
+@lisp
+ (in-package "COMMON-LISP-USER") @EV{} #<PACKAGE "COMMON-LISP-USER">
+ (setq temps-unpack (intern "UNPACK" (make-package 'temp))) @EV{} TEMP::UNPACK
+ (unintern temps-unpack 'temp) @EV{} T
+ (find-symbol "UNPACK" 'temp) @EV{} NIL, NIL
+ temps-unpack @EV{} #:UNPACK
+@end lisp
+
+
+@subsubheading Side Effects:
+
+@code{unintern} changes the state of the
+package system in such a way that the consistency rules do not hold
+across the change.
+
+@subsubheading Affected By:
+Current state of the package system.
+
+@subsubheading Exceptional Situations:
+Giving a shadowing symbol to @code{unintern}
+can uncover a name conflict that had
+previously been resolved by the shadowing.  If package A uses packages
+B and C, A contains a shadowing symbol @f{x}, and B and C each contain external
+symbols named @f{x}, then removing the shadowing symbol @f{x}
+from A will reveal a name
+conflict between @f{b:x} and @f{c:x} if those two @term{symbols} are distinct.
+In this case @code{unintern} will signal an error.
+
+@subsubheading See Also:
+
+@ref{Package Concepts, Section 11.1 (Package Concepts)}
+
+
+@node in-package
+@heading in-package (Macro)
+@syindex in-package
+@cindex in-package
+
+
+
+@subsubheading Syntax:
+
+@DefmacWithValues{in-package, name, package}
+
+@subsubheading Arguments and Values:
+
+@param{name}---a @term{@packagenamedesignator{}}; @noeval{}.
+
+@param{package}---the @term{package} named by @param{name}.
+
+@subsubheading Description:
+
+Causes the the @term{package} named by @param{name}
+to become the @term{current package}---that is, @thevalueof{*package*}.
+If no such @term{package} already exists, an error @oftype{package-error} is signaled.
+
+Everything @code{in-package} does is also performed at compile time
+if the call appears as a @term{top level form}.
+
+@subsubheading Side Effects:
+
+@Thevariable{*package*} is assigned.
+If the @code{in-package} @term{form} is a @term{top level form},
+this assignment also occurs at compile time.
+
+@subsubheading Exceptional Situations:
+
+An error @oftype{package-error} is signaled if the specified @term{package} does not exist.
+
+@subsubheading See Also:
+
+@ref{*package*}
+
+
+
+@node unuse-package
+@heading unuse-package (Function)
+@syindex unuse-package
+@cindex unuse-package
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{unuse-package, packages-to-unuse @opt{} package, @code{t}}
+
+@subsubheading Arguments and Values:
+
+@param{packages-to-unuse}---a @term{designator} for
+a @term{list} of @term{package designators}.
+
+@param{package}---a @term{package designator}.
+@Default{the @term{current package}}
+
+@subsubheading Description:
+
+@code{unuse-package} causes @param{package} to cease inheriting
+all the @term{external symbols} of
+@param{packages-to-unuse}; @code{unuse-package} undoes
+the effects of @code{use-package}.   The
+@param{packages-to-unuse}
+are removed from the @term{use list} of @param{package}.
+
+Any @term{symbols} that have been
+@term{imported} into @param{package} continue to be @term{present} in @param{package}.
+
+@subsubheading Examples:
+
+@lisp
+ (in-package "COMMON-LISP-USER") @EV{} #<PACKAGE "COMMON-LISP-USER">
+ (export (intern "SHOES" (make-package 'temp)) 'temp) @EV{} T
+ (find-symbol "SHOES") @EV{} NIL, NIL
+ (use-package 'temp) @EV{} T
+ (find-symbol "SHOES") @EV{} SHOES, :INHERITED
+ (find (find-package 'temp) (package-use-list 'common-lisp-user)) @EV{} #<PACKAGE "TEMP">
+ (unuse-package 'temp) @EV{} T
+ (find-symbol "SHOES") @EV{} NIL, NIL
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The @term{use list} of @param{package} is modified.
+
+@subsubheading Affected By:
+Current state of the package system.
+@subsubheading See Also:
+
+@ref{use-package}, @ref{package-use-list}
+
+
+@node use-package
+@heading use-package (Function)
+@syindex use-package
+@cindex use-package
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{use-package, packages-to-use @opt{} package, @code{t}}
+
+@subsubheading Arguments and Values:
+
+@param{packages-to-use}---a @term{designator} for
+a @term{list} of @term{package designators}.
+The @code{KEYWORD} @term{package} may not be supplied.
+
+@param{package}---a @term{package designator}.
+@Default{the @term{current package}}
+The @param{package} cannot be the @code{KEYWORD} @term{package}.
+
+@subsubheading Description:
+
+@code{use-package} causes @param{package} to inherit all the
+@term{external symbols} of @param{packages-to-use}.
+The inherited @term{symbols} become @term{accessible} as
+@term{internal symbols} of @param{package}.
+
+@param{Packages-to-use} are added to the @term{use list} of @param{package}
+if they are not there already.  All @term{external symbols} in
+@param{packages-to-use} become @term{accessible} in @param{package}
+as @term{internal symbols}.
+@code{use-package} does not cause any new @term{symbols} to be @term{present}
+in @param{package} but only makes them @term{accessible} by inheritance.
+
+@code{use-package} checks for
+name conflicts between the newly imported symbols and those already
+@term{accessible} in @param{package}.
+A name conflict in @code{use-package}
+between two external symbols inherited
+by @param{package} from @param{packages-to-use} may be resolved in favor of
+either @term{symbol}
+by @term{importing} one of them into @param{package} and making it a
+shadowing symbol.
+
+@subsubheading Examples:
+
+@lisp
+ (export (intern "LAND-FILL" (make-package 'trash)) 'trash) @EV{} T
+ (find-symbol "LAND-FILL" (make-package 'temp)) @EV{} NIL, NIL
+ (package-use-list 'temp) @EV{} (#<PACKAGE "TEMP">)
+ (use-package 'trash 'temp) @EV{} T
+ (package-use-list 'temp) @EV{} (#<PACKAGE "TEMP"> #<PACKAGE "TRASH">)
+ (find-symbol "LAND-FILL" 'temp) @EV{} TRASH:LAND-FILL, :INHERITED
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The @term{use list} of @param{package} may be modified.
+
+@subsubheading See Also:
+
+@ref{unuse-package},
+@ref{package-use-list},
+@ref{Package Concepts, Section 11.1 (Package Concepts)}
+
+@subsubheading Notes:
+
+It is permissible for a @term{package} @mat{P@sub1{}}
+to @term{use} a @term{package} @mat{P@sub2{}}
+even if @mat{P@sub2{}} already uses @mat{P@sub1{}}.
+The using of @term{packages} is not transitive,
+so no problem results from the apparent circularity.
+
+
+@node defpackage
+@heading defpackage (Macro)
+@syindex defpackage
+@cindex defpackage
+
+
+
+@subsubheading Syntax:
+
+@DefmacWithValues{defpackage, defined-package-name @interleave{@down{option}}, package}
+
+@auxbnf{option, @starparen{@kwd{nicknames} @starparam{nickname}} | @CR{} @paren{@kwd{documentation} @i{string}} | @CR{} @starparen{@kwd{use} @starparam{package-name}} | @CR{} @starparen{@kwd{shadow} @stardown{symbol-name}} | @CR{} @starparen{@kwd{shadowing-import-from} @param{package-name} @stardown{symbol-name}} | @CR{} @starparen{@kwd{import-from} @param{package-name} @stardown{symbol-name}} | @CR{} @starparen{@kwd{export} @stardown{symbol-name}} | @CR{} @starparen{@kwd{intern} @stardown{symbol-name}} | @CR{} @paren{@kwd{size} @term{integer}}}
+
+@subsubheading Arguments and Values:
+
+@param{defined-package-name}---a @term{@packagenamedesignator{}}.
+
+@param{package-name}---a @term{package designator}.
+
+@param{nickname}---a @term{@packagenamedesignator{}}.
+
+@param{symbol-name}---a @term{@symbolnamedesignator{}}.
+
+@param{package}---the @term{package} named @param{package-name}.
+
+@subsubheading Description:
+
+@code{defpackage} creates a @term{package} as specified and returns
+the @term{package}.
+
+If @param{defined-package-name} already refers to an existing
+@term{package}, the name-to-package mapping for that name is not changed.
+If the new definition is at variance with the current state of that
+@term{package}, the consequences are undefined;  an implementation
+might choose to modify the existing @term{package} to reflect the
+new definition.  If @param{defined-package-name} is a @term{symbol},
+its @term{name} is used.
+
+The standard @i{options} are described below.
+
+
+@table @asis
+@item @id{@kwd{nicknames}}
+
+
+The arguments to @kwd{nicknames} set the @term{package}'s nicknames to the
+supplied names.
+
+@item @id{@kwd{documentation}}
+
+
+The argument to @kwd{documentation} specifies a @term{documentation string};
+it is attached as a @term{documentation string} to the @term{package}.
+At most one @kwd{documentation} option
+can appear in a single @code{defpackage} @term{form}.
+
+@item @id{@kwd{use}}
+
+
+The arguments to @kwd{use} set the @term{packages} that the @term{package}
+named by @param{package-name}
+will inherit from. If @kwd{use} is not supplied,
+it defaults to the same @term{implementation-dependent} value as @thekeyarg{use} to
+@code{make-package}.
+
+@item @id{@kwd{shadow}}
+
+
+The arguments to @kwd{shadow}, @param{symbol-names}, name @term{symbols}
+that are to be created in the @term{package} being defined.
+These @term{symbols} are added to the list of shadowing
+@term{symbols} effectively as if by @code{shadow}.
+
+@item @id{@kwd{shadowing-import-from}}
+
+
+The @term{symbols} named by the argument @param{symbol-names}
+are found (involving a lookup as if by @code{find-symbol})
+in the specified @param{package-name}.  The resulting @term{symbols}
+are @term{imported} into the @term{package} being defined, and
+placed on the shadowing symbols list as if by @code{shadowing-import}.
+In no case are @term{symbols} created in any @term{package}
+other than the one being defined.
+
+@item @id{@kwd{import-from}}
+
+
+The @term{symbols} named by the argument @param{symbol-names}
+are found in the @term{package} named by @param{package-name} and
+they are @term{imported} into the @term{package} being defined.
+In no case are @term{symbols} created in any @term{package}
+other than the one being defined.
+
+@item @id{@kwd{export}}
+
+
+The @term{symbols} named by
+the argument @param{symbol-names}  are found
+or created in the @term{package} being defined
+and @term{exported}.
+The @kwd{export} option interacts
+with the @kwd{use} option, since inherited @term{symbols}
+can be used rather than new ones created.
+The @kwd{export} option interacts
+with the
+@kwd{import-from} and @kwd{shadowing-import-from} options, since
+@term{imported}
+symbols can be used rather than new ones created.
+If an argument to the @kwd{export} option is @term{accessible} as
+an (inherited) @term{internal symbol} via @code{use-package}, that the
+@term{symbol} named by @param{symbol-name}
+is first @term{imported} into the @term{package} being
+defined, and is then @term{exported} from that @term{package}.
+
+@item @id{@kwd{intern}}
+
+
+The @term{symbols} named by the argument @param{symbol-names}
+are found or created in the @term{package} being defined.
+The @kwd{intern} option interacts with the
+@kwd{use} option, since inherited @term{symbols}
+can be used rather than new ones created.
+
+@item @id{@kwd{size}}
+
+
+The argument to the @kwd{size} option
+declares the approximate number of @term{symbols} expected in the
+@term{package}.
+This is an efficiency hint only and might be ignored by an
+implementation.
+@end table
+
+
+The order in which the options appear in a
+@code{defpackage} form is irrelevant.
+The order in which they are executed is as follows:
+
+@enumerate 1
+@item
+@kwd{shadow} and @kwd{shadowing-import-from}.
+@item
+@kwd{use}.
+@item
+@kwd{import-from} and @kwd{intern}.
+@item
+@kwd{export}.
+@end enumerate
+
+Shadows are established first, since they might  be necessary to block
+spurious name conflicts when the @kwd{use}
+option is processed. The @kwd{use} option is executed
+next so that @kwd{intern} and @kwd{export} options can refer to normally
+inherited @term{symbols}.
+The @kwd{export} option is executed last so that it can refer to
+@term{symbols} created by any of the other options; in
+particular, @term{shadowing symbols} and
+@term{imported} @term{symbols} can be made external.
+
+If a defpackage @term{form} appears as a @term{top level form},
+all of the actions normally performed by this @term{macro}
+at load time must also be performed at compile time.
+
+@subsubheading Examples:
+
+@lisp
+ (defpackage "MY-PACKAGE"
+   (:nicknames "MYPKG" "MY-PKG")
+   (:use "COMMON-LISP")
+   (:shadow "CAR" "CDR")
+   (:shadowing-import-from "VENDOR-COMMON-LISP"  "CONS")
+   (:import-from "VENDOR-COMMON-LISP"  "GC")
+   (:export "EQ" "CONS" "FROBOLA")
+   )
+
+
+ (defpackage my-package
+   (:nicknames mypkg :MY-PKG)  ; remember Common Lisp conventions for case
+   (:use common-lisp)          ; conversion on symbols
+   (:shadow CAR :cdr #:cons)
+   (:export "CONS")            ; this is the shadowed one.
+   )
+@end lisp
+
+
+@subsubheading Affected By:
+
+Existing @term{packages}.
+
+@subsubheading Exceptional Situations:
+
+If one of the supplied @kwd{nicknames} already
+refers to an existing @term{package},
+an error @oftype{package-error} is signaled.
+
+An error @oftype{program-error} should be signaled if @kwd{size} or @kwd{documentation}
+appears more than once.
+
+Since @term{implementations} might allow extended @i{options}
+an error @oftype{program-error} should be signaled
+if an @i{option} is present that is not
+actually supported in the host @term{implementation}.
+
+The collection of @param{symbol-name} arguments given to the options
+@kwd{shadow}, @kwd{intern},
+@kwd{import-from}, and @kwd{shadowing-import-from} must
+all be disjoint; additionally, the @param{symbol-name} arguments given to
+@kwd{export} and @kwd{intern}
+must be disjoint.
+Disjoint in this context is defined as no two of the @param{symbol-names}
+being @code{string=} with each other. If either condition is
+violated, an error @oftype{program-error} should be signaled.
+
+For the @kwd{shadowing-import-from} and @kwd{import-from} options,
+a @term{correctable} @term{error} @oftype{package-error}
+is signaled if no @term{symbol} is
+@term{accessible} in the @term{package} named by
+@param{package-name} for one of the argument @param{symbol-names}.
+
+Name conflict errors are handled by the underlying calls to
+@code{make-package}, @code{use-package}, @code{import}, and
+@code{export}. See @ref{Package Concepts, Section 11.1 (Package Concepts)}.
+
+@subsubheading See Also:
+
+@ref{documentation},
+@ref{Package Concepts, Section 11.1 (Package Concepts)},
+@ref{Compilation, Section 3.2 (Compilation)}
+
+@subsubheading Notes:
+
+The @kwd{intern} option is useful if an @kwd{import-from} or a
+@kwd{shadowing-import-from} option in a subsequent call to @code{defpackage}
+(for some other @term{package}) expects to find
+these @term{symbols} @term{accessible} but not necessarily external.
+
+
+It is recommended that the entire @term{package} definition is put
+in a single place, and that all the @term{package} definitions of a
+program are in a single file.  This file can be @term{loaded} before
+@term{loading} or compiling anything else that depends on those
+@term{packages}. Such a file can be read in the @code{COMMON-LISP-USER} @term{package},
+avoiding any initial state issues.
+
+@code{defpackage} cannot be used to create two ``mutually
+recursive'' packages, such as:
+
+@lisp
+ (defpackage my-package
+   (:use common-lisp your-package)    ;requires your-package to exist first
+   (:export "MY-FUN"))
+ (defpackage your-package
+   (:use common-lisp)
+   (:import-from my-package "MY-FUN") ;requires my-package to exist first
+   (:export "MY-FUN"))
+@end lisp
+
+
+However, nothing prevents the user from using the
+@term{package}-affecting functions
+such as @code{use-package},
+@code{import}, and @code{export} to establish such links
+after a more standard use of @code{defpackage}.
+
+The macroexpansion of @code{defpackage}
+could usefully canonicalize the names
+into @term{strings},
+so that even if a source file has random @term{symbols} in the
+@code{defpackage} form, the compiled file would only contain
+@term{strings}.
+
+Frequently additional @term{implementation-dependent} options take the
+form of a @term{keyword} standing by itself as an abbreviation for a list
+@tt{(keyword T)}; this syntax should be properly reported as an unrecognized
+option in implementations that do not support it.
+
+
+@node do-symbols; do-external-symbols; do-all-symbols
+@heading do-symbols, do-external-symbols, do-all-symbols (Macro)
+@syindex do-symbols
+@cindex do-symbols
+@syindex do-external-symbols
+@cindex do-external-symbols
+@syindex do-all-symbols
+@cindex do-all-symbols
+
+
+
+@subsubheading Syntax:
+
+@DefmacWithValuesNewline{do-symbols, @vtop{@hbox{@paren{var @brac{package @brac{result-form}}}} @hbox{@starparam{declaration} @star{@curly{tag | statement}}}}, @starparam{result}}
+
+@DefmacWithValuesNewline{do-external-symbols, @vtop{@hbox{@paren{var @brac{package @brac{result-form}}}} @hbox{@starparam{declaration} @star{@curly{tag | statement}}}}, @starparam{result}}
+
+@DefmacWithValuesNewline{do-all-symbols, @vtop{@hbox{@paren{var @brac{result-form}}} @hbox{@starparam{declaration} @star{@curly{tag | statement}}}}, @starparam{result}}
+
+@subsubheading Arguments and Values:
+
+@param{var}---a @term{variable} @term{name}; @noeval{}.
+
+@param{package}---a @term{package designator}; @eval{}.
+@DefaultIn{@code{do-symbols} and @code{do-external-symbols}, the @term{current package}}
+
+@param{result-form}---a @term{form}; @evalspecial{}.
+@Default{@nil{}}
+
+@param{declaration}---a @t{declare} @term{expression}; @noeval{}.
+
+@param{tag}---a @term{go tag}; @noeval{}.
+
+@param{statement}---a @term{compound form}; @evalspecial{}.
+
+@param{results}---the @term{values} returned by the @param{result-form}
+if a @term{normal return} occurs,
+or else, if an @term{explicit return} occurs, the @term{values} that were transferred.
+
+@subsubheading Description:
+
+@code{do-symbols},
+@code{do-external-symbols}, and
+@code{do-all-symbols} iterate over the @term{symbols}
+of @term{packages}.
+For each @term{symbol} in the set of @term{packages} chosen,
+the @param{var} is bound to the @term{symbol},
+and the @param{statements} in the body are executed.
+When all the @term{symbols} have been processed,
+@param{result-form} is evaluated and returned as the value of the macro.
+
+@code{do-symbols} iterates
+over the @term{symbols} @term{accessible} in
+@param{package}.
+@param{Statements} may execute more than once for @term{symbols}
+that are inherited from multiple @term{packages}.
+
+@code{do-all-symbols} iterates on every @term{registered package}.
+@code{do-all-symbols} will not process every @term{symbol}
+whatsoever, because a @term{symbol} not @term{accessible} in any
+@term{registered package} will not be processed.
+@code{do-all-symbols} may cause a @term{symbol} that is @term{present} in
+several @term{packages} to be processed more than once.
+
+@code{do-external-symbols} iterates on the external symbols of @param{package}.
+
+When @param{result-form} is evaluated, @param{var} is bound and has the value @nil{}.
+
+An @term{implicit block} named @nil{}@spc{}surrounds the entire @code{do-symbols},
+@code{do-external-symbols}, or @code{do-all-symbols} @term{form}.
+@code{return} or @code{return-from} may be used to terminate the
+iteration prematurely.
+
+If execution of the body affects which @term{symbols}
+are contained in the set of @term{packages} over which iteration
+is occurring, other than to
+remove the @term{symbol}
+currently the value of @param{var} by using @code{unintern},
+the consequences are undefined.
+
+For each of these macros, the
+@term{scope} of the name binding does not include any
+initial value form, but the optional result forms are included.
+
+Any @param{tag} in the body is treated as with @code{tagbody}.
+
+@subsubheading Examples:
+
+@lisp
+ (make-package 'temp :use nil) @EV{} #<PACKAGE "TEMP">
+ (intern "SHY" 'temp) @EV{} TEMP::SHY, NIL ;SHY will be an internal symbol
+                                         ;in the package TEMP
+ (export (intern "BOLD" 'temp) 'temp)  @EV{} T  ;BOLD will be external
+ (let ((lst ()))
+   (do-symbols (s (find-package 'temp)) (push s lst))
+   lst)
+@EV{} (TEMP::SHY TEMP:BOLD)
+@OV{} (TEMP:BOLD TEMP::SHY)
+ (let ((lst ()))
+   (do-external-symbols (s (find-package 'temp) lst) (push s lst))
+   lst)
+@EV{} (TEMP:BOLD)
+ (let ((lst ()))
+   (do-all-symbols (s lst)
+     (when (eq (find-package 'temp) (symbol-package s)) (push s lst)))
+   lst)
+@EV{} (TEMP::SHY TEMP:BOLD)
+@OV{} (TEMP:BOLD TEMP::SHY)
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{intern},
+@ref{export},
+@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+
+
+
+@node intern
+@heading intern (Function)
+@syindex intern
+@cindex intern
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{intern, string @opt{} package, symbol\, status}
+
+@subsubheading Arguments and Values:
+
+@param{string}---a @term{string}.
+
+@param{package}---a @term{package designator}.
+@Default{the @term{current package}}
+
+@param{symbol}---a @term{symbol}.
+
+@param{status}---one of @kwd{inherited}, @kwd{external}, @kwd{internal}, or @nil{}.
+
+@subsubheading Description:
+
+@code{intern} enters a @term{symbol} named @param{string} into @param{package}.
+If a @term{symbol} whose name is the same as @param{string}
+is already @term{accessible} in @param{package}, it is returned.
+If no such @term{symbol} is @term{accessible} in @param{package},
+a new @term{symbol} with the given name is created
+and entered into @param{package} as an @term{internal symbol},
+or as an @term{external symbol} if the @param{package} is the @code{KEYWORD} @term{package};
+@param{package} becomes the @term{home package} of the created @term{symbol}.
+
+The first value returned by @code{intern}, @param{symbol},
+is the @term{symbol} that was found or
+created.
+The meaning of the @term{secondary value}, @param{status}, is as follows:
+
+@table @asis
+@item @id{@kwd{internal}}
+
+
+The @term{symbol} was found
+and is
+@term{present} in @param{package} as an @term{internal symbol}.
+
+@item @id{@kwd{external}}
+
+
+The @term{symbol} was found
+and is
+@term{present} as an @term{external symbol}.
+
+@item @id{@kwd{inherited}}
+
+
+The @term{symbol} was found
+and is inherited via @code{use-package}
+(which implies that the @term{symbol} is internal).
+
+@item @id{@nil{}}
+
+
+No pre-existing @term{symbol} was found,
+so one was created.
+
+It is @term{implementation-dependent} whether the @term{string}
+that becomes the new @term{symbol}'s @term{name} is the given
+@param{string} or a copy of it.  Once a @term{string}
+has been given as the @param{string} @term{argument} to
+@term{intern} in this situation where a new @term{symbol} is created,
+the consequences are undefined if a
+subsequent attempt is made to alter that @term{string}.
+@end table
+
+
+@subsubheading Examples:
+
+@lisp
+ (in-package "COMMON-LISP-USER") @EV{} #<PACKAGE "COMMON-LISP-USER">
+ (intern "Never-Before") @EV{} |Never-Before|, NIL
+ (intern "Never-Before") @EV{} |Never-Before|, :INTERNAL
+ (intern "NEVER-BEFORE" "KEYWORD") @EV{} :NEVER-BEFORE, NIL
+ (intern "NEVER-BEFORE" "KEYWORD") @EV{} :NEVER-BEFORE, :EXTERNAL
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{find-symbol},
+@ref{read},
+@ref{symbol},
+@ref{unintern},
+@ref{Symbols as Tokens, Section 2.3.4 (Symbols as Tokens)}
+
+@subsubheading Notes:
+
+@code{intern} does not need to do any name conflict checking
+because it never creates a new @term{symbol}
+if there is already an @term{accessible} @term{symbol} with the name given.
+
+
+@node package-name
+@heading package-name (Function)
+@syindex package-name
+@cindex package-name
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{package-name, package, name}
+
+@subsubheading Arguments and Values:
+
+@param{package}---a @term{package designator}.
+
+@param{name}---a @term{string}
+or @nil{}.
+
+@subsubheading Description:
+
+@code{package-name} returns the @term{string} that names @param{package},
+or @nil{}@spc{}if the @param{package} @term{designator}
+is a @term{package} @term{object} that has no name (see the @term{function} @ref{delete-package}).
+
+@subsubheading Examples:
+
+@lisp
+ (in-package "COMMON-LISP-USER") @EV{} #<PACKAGE "COMMON-LISP-USER">
+ (package-name *package*) @EV{} "COMMON-LISP-USER"
+ (package-name (symbol-package :test)) @EV{} "KEYWORD"
+ (package-name (find-package 'common-lisp)) @EV{} "COMMON-LISP"
+@end lisp
+
+
+@lisp
+ (defvar *foo-package* (make-package "FOO"))
+ (rename-package "FOO" "FOO0")
+ (package-name *foo-package*) @EV{} "FOO0"
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{package, a @term{package designator}}
+
+
+@node package-nicknames
+@heading package-nicknames (Function)
+@syindex package-nicknames
+@cindex package-nicknames
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{package-nicknames, package, nicknames}
+
+@subsubheading Arguments and Values:
+
+@param{package}---a @term{package designator}.
+
+@param{nicknames}---a @term{list} of @term{strings}.
+
+@subsubheading Description:
+
+Returns the @term{list} of nickname @term{strings}
+for @param{package}, not including the name of @param{package}.
+
+@subsubheading Examples:
+
+@lisp
+ (package-nicknames (make-package 'temporary
+                                   :nicknames '("TEMP" "temp")))
+@EV{} ("temp" "TEMP")
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{package, a @term{package designator}}
+
+
+@node package-shadowing-symbols
+@heading package-shadowing-symbols (Function)
+@syindex package-shadowing-symbols
+@cindex package-shadowing-symbols
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{package-shadowing-symbols, package, symbols}
+
+@subsubheading Arguments and Values:
+
+@param{package}---a @term{package designator}.
+
+@param{symbols}---a @term{list} of @term{symbols}.
+
+@subsubheading Description:
+
+Returns a @term{list} of @term{symbols} that have been declared
+as @term{shadowing symbols} in @param{package} by @code{shadow}
+or @code{shadowing-import} (or the equivalent @code{defpackage} options).
+All @term{symbols} on this @term{list} are @term{present} in @param{package}.
+
+@subsubheading Examples:
+
+@lisp
+ (package-shadowing-symbols (make-package 'temp)) @EV{} ()
+ (shadow 'cdr 'temp) @EV{} T
+ (package-shadowing-symbols 'temp) @EV{} (TEMP::CDR)
+ (intern "PILL" 'temp) @EV{} TEMP::PILL, NIL
+ (shadowing-import 'pill 'temp) @EV{} T
+ (package-shadowing-symbols 'temp) @EV{} (PILL TEMP::CDR)
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{package, a @term{package designator}}
+
+@subsubheading See Also:
+
+@ref{shadow},
+@ref{shadowing-import}
+
+@subsubheading Notes:
+
+Whether the list of @param{symbols} is @term{fresh} is @term{implementation-dependent}.
+
+
+@node package-use-list
+@heading package-use-list (Function)
+@syindex package-use-list
+@cindex package-use-list
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{package-use-list, package, use-list}
+
+@subsubheading Arguments and Values:
+
+@param{package}---a @term{package designator}.
+
+@param{use-list}---a @term{list} of @term{package} @term{objects}.
+
+@subsubheading Description:
+
+Returns a @term{list} of other @term{packages} used by @param{package}.
+
+@subsubheading Examples:
+
+@lisp
+ (package-use-list (make-package 'temp)) @EV{} (#<PACKAGE "COMMON-LISP">)
+ (use-package 'common-lisp-user 'temp) @EV{} T
+ (package-use-list 'temp) @EV{} (#<PACKAGE "COMMON-LISP"> #<PACKAGE "COMMON-LISP-USER">)
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{package, a @term{package designator}}
+
+@subsubheading See Also:
+
+@ref{use-package},
+@ref{unuse-package}
+
+
+@node package-used-by-list
+@heading package-used-by-list (Function)
+@syindex package-used-by-list
+@cindex package-used-by-list
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{package-used-by-list, package, used-by-list}
+
+@subsubheading Arguments and Values:
+
+@param{package}---a @term{package designator}.
+
+@param{used-by-list}---a @term{list} of @term{package} @term{objects}.
+
+@subsubheading Description:
+
+@code{package-used-by-list} returns a @term{list}
+of other @term{packages} that use @param{package}.
+
+@subsubheading Examples:
+
+@lisp
+ (package-used-by-list (make-package 'temp)) @EV{} ()
+ (make-package 'trash :use '(temp)) @EV{} #<PACKAGE "TRASH">
+ (package-used-by-list 'temp) @EV{} (#<PACKAGE "TRASH">)
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{package, a @term{package}}
+
+@subsubheading See Also:
+
+@ref{use-package},
+@ref{unuse-package}
+
+
+@node packagep
+@heading packagep (Function)
+@syindex packagep
+@cindex packagep
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{packagep, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{object, package}
+
+@subsubheading Examples:
+@lisp
+ (packagep *package*) @EV{} @term{true}
+ (packagep 'common-lisp) @EV{} @term{false}
+ (packagep (find-package 'common-lisp)) @EV{} @term{true}
+@end lisp
+
+
+@subsubheading Notes:
+
+@lisp
+ (packagep @param{object}) @EQ{} (typep @param{object} 'package)
+@end lisp
+
+
+
+@node *package*
+@heading *package* (Variable)
+@syindex *package*
+@cindex *package*
+
+
+@subsubheading Value Type:
+
+a @term{package} @term{object}.
+
+@subsubheading Initial Value:
+
+the @code{COMMON-LISP-USER} @term{package}.
+
+@subsubheading Description:
+
+Whatever @term{package} @term{object} is currently
+@thevalueof{*package*} is referred to as the @term{current package}.
+
+@subsubheading Examples:
+
+@lisp
+ (in-package "COMMON-LISP-USER") @EV{} #<PACKAGE "COMMON-LISP-USER">
+ *package* @EV{} #<PACKAGE "COMMON-LISP-USER">
+ (make-package "SAMPLE-PACKAGE" :use '("COMMON-LISP"))
+@EV{} #<PACKAGE "SAMPLE-PACKAGE">
+ (list
+   (symbol-package
+     (let ((*package* (find-package 'sample-package)))
+       (setq *some-symbol* (read-from-string "just-testing"))))
+   *package*)
+@EV{} (#<PACKAGE "SAMPLE-PACKAGE"> #<PACKAGE "COMMON-LISP-USER">)
+ (list (symbol-package (read-from-string "just-testing"))
+       *package*)
+@EV{} (#<PACKAGE "COMMON-LISP-USER"> #<PACKAGE "COMMON-LISP-USER">)
+ (eq 'foo (intern "FOO")) @EV{} @term{true}
+ (eq 'foo (let ((*package* (find-package 'sample-package)))
+            (intern "FOO")))
+@EV{} @term{false}
+@end lisp
+
+
+@subsubheading Affected By:
+
+@code{load},
+@code{compile-file},
+@code{in-package}
+
+@subsubheading See Also:
+
+@ref{compile-file},
+@ref{in-package},
+@ref{load},
+@ref{package}
+
+
+@node package-error
+@heading package-error (Condition Type)
+@syindex package-error
+@cindex package-error
+
+
+@subsubheading Class Precedence List:
+@code{package-error},
+@code{error},
+@code{serious-condition},
+@code{condition},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{package-error} consists of @term{error} @term{conditions}
+related to operations on @term{packages}.
+The offending @term{package} (or @term{package} @term{name})
+is initialized by @theinitkeyarg{package} to @code{make-condition},
+and is @term{accessed} by @thefunction{package-error-package}.
+
+@subsubheading See Also:
+
+@ref{package-error-package},
+@ref{Conditions, Chapter 9 (Conditions)}
+
+
+@node package-error-package
+@heading package-error-package (Function)
+@syindex package-error-package
+@cindex package-error-package
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{package-error-package, condition, package}
+
+@subsubheading Arguments and Values:
+
+@param{condition}---a @term{condition} @oftype{package-error}.
+
+@param{package}---a @term{package designator}.
+
+@subsubheading Description:
+
+Returns a @term{designator} for the offending @term{package}
+in the @term{situation} represented by the @param{condition}.
+
+@subsubheading Examples:
+
+@lisp
+ (package-error-package
+   (make-condition 'package-error
+     :package (find-package "COMMON-LISP")))
+@EV{} #<Package "COMMON-LISP">
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{package-error}

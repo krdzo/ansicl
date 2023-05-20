@@ -1,0 +1,6039 @@
+@node Numbers
+@chapter Numbers
+@menu
+* Number Concepts::
+
+Dictionary
+
+* number::
+* complex (System Class)::
+* real::
+* float (System Class)::
+* short-float; single-float; double-float; long-float::
+* rational (System Class)::
+* ratio::
+* integer::
+* signed-byte::
+* unsigned-byte::
+* mod (Type Specifier)::
+* bit (Type)::
+* fixnum::
+* bignum::
+* =; /=; <; >; <=; >=::
+* max; min::
+* minusp; plusp::
+* zerop::
+* floor; ffloor; ceiling; fceiling; truncate; ftruncate; round; fround::
+* sin; cos; tan::
+* asin; acos; atan::
+* pi::
+* sinh; cosh; tanh; asinh; acosh; atanh::
+* * (Function)::
+* + (Function)::
+* - (Function)::
+* / (Function)::
+* 1+; 1-::
+* abs::
+* evenp; oddp::
+* exp; expt::
+* gcd::
+* incf; decf::
+* lcm::
+* log::
+* mod; rem::
+* signum::
+* sqrt; isqrt::
+* random-state::
+* make-random-state::
+* random::
+* random-state-p::
+* *random-state*::
+* numberp::
+* cis::
+* complex (Function)::
+* complexp::
+* conjugate::
+* phase::
+* realpart; imagpart::
+* upgraded-complex-part-type::
+* realp::
+* numerator; denominator::
+* rational; rationalize::
+* rationalp::
+* ash::
+* integer-length::
+* integerp::
+* parse-integer::
+* boole::
+* boole-1; boole-2; boole-and; boole-andc1; boole-andc2; boole-c1; boole-+::
+* logand; logandc1; logandc2; logeqv; logior; lognand; lognor; lognot; lo+::
+* logbitp::
+* logcount::
+* logtest::
+* byte; byte-size; byte-position::
+* deposit-field::
+* dpb::
+* ldb::
+* ldb-test::
+* mask-field::
+* most-positive-fixnum; most-negative-fixnum::
+* decode-float; scale-float; float-radix; float-sign; float-digits; float+::
+* float (Function)::
+* floatp::
+* most-positive-short-float; least-positive-short-float; least-positive-n+::
+* short-float-epsilon; short-float-negative-epsilon; single-float-epsilon+::
+* arithmetic-error::
+* arithmetic-error-operands; arithmetic-error-operation::
+* division-by-zero::
+* floating-point-invalid-operation::
+* floating-point-inexact::
+* floating-point-overflow::
+* floating-point-underflow::
+@end menu
+
+@node Number Concepts
+@section Number Concepts
+
+@menu
+* Numeric Operations::
+* Implementation-Dependent Numeric Constants::
+* Rational Computations::
+* Floating-point Computations::
+* Complex Computations::
+* Interval Designators::
+* Random-State Operations::
+@end menu
+@node Numeric Operations
+@subsection Numeric Operations
+
+@clisp{}@spc{}provides a large variety of operations related to @term{numbers}.
+This section provides an overview of those operations by grouping them
+into categories that emphasize some of the relationships among them.
+
+@Thenextfigure{}@spc{}shows @term{operators} relating to
+arithmetic operations.
+
+
+@float Figure,fig12.1
+@cartouche
+@multitable{*}{conjugate}{incf}
+
+@item * @tab 1+ @tab gcd
+@item + @tab 1- @tab incf
+@item - @tab conjugate @tab lcm
+@item / @tab decf @tab
+@end multitable
+@end cartouche
+@caption{Operators relating to Arithmetic.}
+@end float
+
+
+@Thenextfigure{}@spc{}shows @term{defined names} relating to
+exponential, logarithmic, and trigonometric operations.
+
+
+@float Figure,fig12.2
+@cartouche
+@multitable{acosh}{isqrt}{signum}
+
+@item abs @tab cos @tab signum
+@item acos @tab cosh @tab sin
+@item acosh @tab exp @tab sinh
+@item asin @tab expt @tab sqrt
+@item asinh @tab isqrt @tab tan
+@item atan @tab log @tab tanh
+@item atanh @tab phase @tab
+@item cis @tab pi @tab
+@end multitable
+@end cartouche
+@caption{Defined names relating to Exponentials, Logarithms, and Trigonometry.}
+@end float
+
+
+@Thenextfigure{}@spc{}shows @term{operators} relating to
+numeric comparison and predication.
+
+
+@float Figure,fig12.3
+@cartouche
+@multitable{/=}{minusp}{plusp}
+
+@item /= @tab >= @tab oddp
+@item < @tab evenp @tab plusp
+@item <= @tab max @tab zerop
+@item = @tab min @tab
+@item > @tab minusp @tab
+@end multitable
+@end cartouche
+@caption{Operators for numeric comparison and predication.}
+@end float
+
+
+@Thenextfigure{}@spc{}shows @term{defined names} relating to
+numeric type manipulation and coercion.
+
+
+@float Figure,fig12.4
+@cartouche
+@multitable{float-precision}{integer-decode-float}{rationalize}
+
+@item ceiling @tab float-radix @tab rational
+@item complex @tab float-sign @tab rationalize
+@item decode-float @tab floor @tab realpart
+@item denominator @tab fround @tab rem
+@item fceiling @tab ftruncate @tab round
+@item ffloor @tab imagpart @tab scale-float
+@item float @tab integer-decode-float @tab truncate
+@item float-digits @tab mod @tab
+@item float-precision @tab numerator @tab
+@end multitable
+@end cartouche
+@caption{Defined names relating to numeric type manipulation and coercion.}
+@end float
+
+
+@subsubsection Associativity and Commutativity in Numeric Operations
+
+For functions that are mathematically associative (and possibly commutative),
+a @term{conforming implementation} may process the @term{arguments} in any manner
+consistent with associative (and possibly commutative) rearrangement.  This does not
+affect the order in which the @term{argument} @term{forms} are @term{evaluated};
+for a discussion of evaluation order, see @ref{FunctionForms, Section 3.1.2.1.2.3 (Function Forms)}.
+What is unspecified is only the order in which the @term{parameter} @term{values}
+are processed.  This implies that @term{implementations} may differ in which
+automatic @term{coercions} are applied; see @ref{NumericContagionRules, Section 12.1.1.2 (Contagion in Numeric Operations)}.
+
+A @term{conforming program} can control the order of processing explicitly by
+separating the operations into separate (possibly nested) @term{function forms},
+or by writing explicit calls to @term{functions} that perform coercions.
+
+@unnumberedsubsubsec 12.1.1.1.1 Examples of Associativity and Commutativity in Numeric Operations
+
+
+Consider the following expression, in which we assume that @f{1.0} and
+@f{1.0e-15} both denote @term{single floats}:
+
+@lisp
+ (+ 1/3 2/3 1.0d0 1.0 1.0e-15)
+@end lisp
+
+
+One @term{conforming implementation} might
+process the @term{arguments} from left to right,
+first adding @f{1/3} and @f{2/3} to get @f{1},
+then converting that to a @term{double float}
+for combination with @f{1.0d0},
+then successively converting and adding @f{1.0} and @f{1.0e-15}.
+
+Another @term{conforming implementation} might process the @term{arguments} from
+right to left, first performing a @term{single float} addition of @f{1.0} and
+@f{1.0e-15} (perhaps losing accuracy in the process), then converting the sum to
+a @term{double float} and adding @f{1.0d0}, then converting @f{2/3} to a
+@term{double float} and adding it, and then converting @f{1/3} and adding that.
+
+A third @term{conforming implementation} might first scan all the @term{arguments},
+process all the @term{rationals} first to keep that part of the computation exact,
+then find an @term{argument} of the largest floating-point format among all the
+@term{arguments} and add that, and then add in all other @term{arguments}, converting
+each in turn (all in a perhaps misguided attempt to make the computation as accurate
+as possible).
+
+In any case, all three strategies are legitimate.
+
+A @term{conforming program} could control the order by writing, for example,
+
+@lisp
+ (+ (+ 1/3 2/3) (+ 1.0d0 1.0e-15) 1.0)
+@end lisp
+
+
+
+
+@subsubsection Contagion in Numeric Operations
+@anchor{NumericContagionRules}
+
+For information about the contagion rules for implicit coercions of @term{arguments}
+in numeric operations, see
+@ref{RuleOfFloatPrecisionContagion, Section 12.1.4.4 (Rule of Float Precision Contagion)},
+@ref{RuleOfFloatAndRationalContagion, Section 12.1.4.1 (Rule of Float and Rational Contagion)},
+and @ref{RuleOfComplexContagion, Section 12.1.5.2 (Rule of Complex Contagion)}.
+
+
+@subsubsection Viewing Integers as Bits and Bytes
+
+@unnumberedsubsubsec 12.1.1.3.1 Logical Operations on Integers
+
+
+Logical operations require @term{integers} as arguments;
+an error @oftype{type-error} should be signaled
+if an argument is supplied that is not an @term{integer}.
+@term{Integer} arguments to logical operations are treated as if
+they were represented in two's-complement notation.
+
+@Thenextfigure{}@spc{}shows @term{defined names} relating to
+logical operations on numbers.
+
+
+@float Figure,fig12.5
+@cartouche
+@multitable{boole-andc1}{integer-length}{logcount}
+
+@item ash @tab boole-ior @tab logbitp
+@item boole @tab boole-nand @tab logcount
+@item boole-1 @tab boole-nor @tab logeqv
+@item boole-2 @tab boole-orc1 @tab logior
+@item boole-and @tab boole-orc2 @tab lognand
+@item boole-andc1 @tab boole-set @tab lognor
+@item boole-andc2 @tab boole-xor @tab lognot
+@item boole-c1 @tab integer-length @tab logorc1
+@item boole-c2 @tab logand @tab logorc2
+@item boole-clr @tab logandc1 @tab logtest
+@item boole-eqv @tab logandc2 @tab logxor
+@end multitable
+@end cartouche
+@caption{Defined names relating to logical operations on numbers.}
+@end float
+
+
+
+@unnumberedsubsubsec 12.1.1.3.2 Byte Operations on Integers
+
+
+The byte-manipulation @term{functions} use @term{objects}
+called @term{byte specifiers} to designate the size and position
+of a specific @term{byte} within an @term{integer}.
+The representation of a @term{byte specifier} is @term{implementation-dependent};
+it might or might not be a @term{number}.
+@Thefunction{byte} will construct a @term{byte specifier},
+which various other byte-manipulation @term{functions} will accept.
+
+@Thenextfigure{}@spc{}shows @term{defined names} relating to
+manipulating @term{bytes} of @term{numbers}.
+
+
+@float Figure,fig12.6
+@cartouche
+@multitable{byte-position}{deposit-field}{mask-field}
+
+@item byte @tab deposit-field @tab ldb-test
+@item byte-position @tab dpb @tab mask-field
+@item byte-size @tab ldb @tab
+@end multitable
+@end cartouche
+@caption{Defined names relating to byte manipulation.}
+@end float
+
+
+
+
+
+@node Implementation-Dependent Numeric Constants
+@subsection Implementation-Dependent Numeric Constants
+
+@Thenextfigure{}@spc{}shows @term{defined names} relating to
+@term{implementation-dependent} details about @term{numbers}.
+
+
+@float Figure,fig12.7
+@cartouche
+@multitable{double-float-negative-epsilon}{single-float-negative-epsilon}
+
+@item double-float-epsilon @tab most-negative-fixnum
+@item double-float-negative-epsilon @tab most-negative-long-float
+@item least-negative-double-float @tab most-negative-short-float
+@item least-negative-long-float @tab most-negative-single-float
+@item least-negative-short-float @tab most-positive-double-float
+@item least-negative-single-float @tab most-positive-fixnum
+@item least-positive-double-float @tab most-positive-long-float
+@item least-positive-long-float @tab most-positive-short-float
+@item least-positive-short-float @tab most-positive-single-float
+@item least-positive-single-float @tab short-float-epsilon
+@item long-float-epsilon @tab short-float-negative-epsilon
+@item long-float-negative-epsilon @tab single-float-epsilon
+@item most-negative-double-float @tab single-float-negative-epsilon
+@end multitable
+@end cartouche
+@caption{Defined names relating to implementation-dependent details about numbers.}
+@end float
+
+
+@node Rational Computations
+@subsection Rational Computations
+
+The rules in this section apply to @term{rational} computations.
+
+@subsubsection Rule of Unbounded Rational Precision
+
+Rational computations cannot overflow in the usual sense
+(though there may not be enough storage to represent a result),
+since @term{integers} and @term{ratios} may in principle be of any magnitude.
+
+
+@subsubsection Rule of Canonical Representation for Rationals
+
+If any computation produces a result that is a mathematical ratio of two integers
+such that the denominator evenly divides the numerator, then the result is converted
+to the equivalent @term{integer}.
+
+If the denominator does not evenly divide the numerator,
+the canonical representation of a @term{rational} number is as the @term{ratio}
+that numerator and that denominator, where the greatest common divisor of
+the numerator and denominator is one, and where the denominator is positive
+and greater than one.
+
+When used as input (in the default syntax),
+the notation @f{-0} always denotes the @term{integer} @f{0}.
+A @term{conforming implementation} must not have a
+representation of ``minus zero'' for @term{integers}
+that is distinct from its representation of zero for @term{integers}.
+However, such a distinction is possible for @term{floats};
+see @thetype{float}.
+
+
+@subsubsection Rule of Float Substitutability
+@anchor{FloatSubstitutability}
+
+When the arguments to an irrational mathematical @term{function}
+@reviewer{Barmar: There should be a table of these functions.}
+are all @term{rational} and the true mathematical result
+is also (mathematically) rational, then unless otherwise noted
+an implementation is free to return either an accurate
+@term{rational} result
+or a @term{single float} approximation.
+If the arguments are all @term{rational}
+but the result cannot be expressed
+as a @term{rational} number, then a @term{single float}
+approximation is always returned.
+
+If the arguments to
+an irrational
+mathematical @term{function} are all of type
+@f{(or rational (complex rational))}
+and the true mathematical result is
+(mathematically) a complex number with rational real and imaginary
+parts, then unless otherwise noted an implementation is free to return
+either an accurate result of type @f{(or rational (complex rational))}
+or
+a @term{single float}
+(permissible only if the imaginary part of the true mathematical
+result is zero) or @f{(complex single-float)}. If the arguments are
+all of type @f{(or rational (complex rational))}
+but the result cannot be
+expressed as a @term{rational} or @term{complex rational},
+then the returned
+value will be @oftype{single-float}
+(permissible only if the imaginary
+part of the true mathematical result is zero) or @f{(complex single-float)}.
+
+Float substitutability applies neither to the rational @term{functions}
+@code{+},
+@code{-},
+@code{*},
+and @code{/}
+nor to the related @term{operators}
+@code{1+},
+@code{1-},
+@code{incf},
+@code{decf},
+and @code{conjugate}.
+For rational @term{functions},
+if all arguments are @term{rational},
+then the result is @term{rational};
+if all arguments are of type @f{(or rational (complex rational))},
+then the result is of type @f{(or rational (complex rational))}.
+
+
+@float Figure,fig12.8
+@cartouche
+@multitable{@code{signum}}{@f{(signum #c(3 4)) @EV{}@spc{}#c(3/5 4/5) @i{or} #c(0.6 0.8)}}
+@headitem Function @tab Sample Results
+@item @code{abs} @tab @f{(abs #c(3 4)) @EV{}@spc{}5 @i{or} 5.0}
+@item @code{acos} @tab @f{(acos 1) @EV{}@spc{}0 @i{or} 0.0}
+@item @code{acosh} @tab @f{(acosh 1) @EV{}@spc{}0 @i{or} 0.0}
+@item @code{asin} @tab @f{(asin 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @code{asinh} @tab @f{(asinh 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @code{atan} @tab @f{(atan 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @code{atanh} @tab @f{(atanh 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @code{cis} @tab @f{(cis 0) @EV{}@spc{}1 @i{or} #c(1.0 0.0)}
+@item @code{cos} @tab @f{(cos 0) @EV{}@spc{}1 @i{or} 1.0}
+@item @code{cosh} @tab @f{(cosh 0) @EV{}@spc{}1 @i{or} 1.0}
+@item @code{exp} @tab @f{(exp 0) @EV{}@spc{}1 @i{or} 1.0}
+@item @code{expt} @tab @f{(expt 8 1/3) @EV{}@spc{}2 @i{or} 2.0}
+@item @code{log} @tab @f{(log 1) @EV{}@spc{}0 @i{or} 0.0}
+@item  @tab @f{(log 8 2) @EV{}@spc{}3 @i{or} 3.0}
+@item @code{phase} @tab @f{(phase 7) @EV{}@spc{}0 @i{or} 0.0}
+@item @code{signum} @tab @f{(signum #c(3 4)) @EV{}@spc{}#c(3/5 4/5) @i{or} #c(0.6 0.8)}
+@item @code{sin} @tab @f{(sin 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @code{sinh} @tab @f{(sinh 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @code{sqrt} @tab @f{(sqrt 4) @EV{}@spc{}2 @i{or} 2.0}
+@item  @tab @f{(sqrt 9/16) @EV{}@spc{}3/4 @i{or} 0.75}
+@item @code{tan} @tab @f{(tan 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @code{tanh} @tab @f{(tanh 0) @EV{}@spc{}0 @i{or} 0.0}
+@end multitable
+@end cartouche
+@caption{Functions Affected by Rule of Float Substitutability}
+@end float
+
+
+
+@node Floating-point Computations
+@subsection Floating-point Computations
+
+The following rules apply to floating point computations.
+
+@subsubsection Rule of Float and Rational Contagion
+@anchor{RuleOfFloatAndRationalContagion}
+
+When @term{rationals} and @term{floats} are combined by a numerical function,
+the @term{rational} is first converted to a @term{float} of the same format.
+For @term{functions} such as @code{+} that take more than two arguments,
+it is permitted that part of the operation be carried out exactly using
+@term{rationals} and the rest be done using floating-point arithmetic.
+
+When @term{rationals} and @term{floats} are compared by a numerical function,
+@thefunction{rational} is effectively called to convert the @term{float}
+to a @term{rational} and then an exact
+comparison is performed. In the case of @term{complex} numbers,
+the real and imaginary parts are effectively handled individually.
+
+@unnumberedsubsubsec 12.1.4.1.1 Examples of Rule of Float and Rational Contagion
+
+
+@lisp
+ ;;;; Combining rationals with floats.
+ ;;; This example assumes an implementation in which
+ ;;; (float-radix 0.5) is 2 (as in IEEE) or 16 (as in IBM/360),
+ ;;; or else some other implementation in which 1/2 has an exact
+ ;;;  representation in floating point.
+ (+ 1/2 0.5) @EV{} 1.0
+ (- 1/2 0.5d0) @EV{} 0.0d0
+ (+ 0.5 -0.5 1/2) @EV{} 0.5
+
+ ;;;; Comparing rationals with floats.
+ ;;; This example assumes an implementation in which the default float
+ ;;; format is IEEE single-float, IEEE double-float, or some other format
+ ;;; in which 5/7 is rounded upwards by FLOAT.
+ (< 5/7 (float 5/7)) @EV{} @term{true}
+ (< 5/7 (rational (float 5/7))) @EV{} @term{true}
+ (< (float 5/7) (float 5/7)) @EV{} @term{false}
+@end lisp
+
+
+
+
+
+@subsubsection Rule of Float Approximation
+Computations with @term{floats} are only approximate,
+although they are described as if the results
+were mathematically accurate.
+Two mathematically identical
+expressions may be computationally different because of errors
+inherent in the floating-point approximation process.
+The precision of a @term{float} is not necessarily
+correlated with the accuracy of that number.
+For instance, 3.142857142857142857 is a more precise approximation
+to @mat{@pi{}} than 3.14159, but the latter is more accurate.
+The precision refers to the number of bits retained in the representation.
+When an operation combines a @term{short float} with a
+@term{long float},
+the result will be a @term{long float}.
+@clisp{}@spc{}functions assume that the accuracy of
+arguments to them does not exceed their precision.  Therefore
+when two @term{small floats}
+are combined, the result is a @term{small float}.
+@clisp{}@spc{}functions
+never convert automatically from a larger size to a smaller one.
+
+@subsubsection Rule of Float Underflow and Overflow
+
+An error of @term{type} @code{floating-point-overflow}
+or @code{floating-point-underflow} should be signaled if a
+floating-point computation causes exponent overflow or underflow, respectively.
+
+
+@subsubsection Rule of Float Precision Contagion
+@anchor{RuleOfFloatPrecisionContagion}
+
+The result of a numerical function is a @term{float} of the
+largest format among all the floating-point arguments to the @term{function}.
+
+
+@node Complex Computations
+@subsection Complex Computations
+
+The following rules apply to @term{complex} computations:
+
+@subsubsection Rule of Complex Substitutability
+
+Except during the execution of irrational and transcendental @term{functions},
+no numerical @term{function} ever @term{yields} a @term{complex} unless
+one or more of its @term{arguments} is a @term{complex}.
+
+
+@subsubsection Rule of Complex Contagion
+
+@anchor{RuleOfComplexContagion}
+When a
+@term{real}
+and
+a @term{complex} are both part of a computation,
+the
+@term{real}
+is first converted to a @term{complex} by providing an imaginary part of @f{0}.
+
+@subsubsection Rule of Canonical Representation for Complex Rationals
+@anchor{RuleOfCanonRepForComplexRationals}
+
+If the result of any computation would be a @term{complex}
+number whose real part is @oftype{rational} and whose imaginary
+part is zero, the result is converted to the @term{rational}
+which is the real part.
+This rule does not apply to @term{complex} numbers whose parts
+are @term{floats}.
+For example, @f{#C(5 0)} and @f{5} are not @term{different} @term{objects} in @clisp{}
+(they are always the @term{same} under @code{eql});
+@f{#C(5.0 0.0)} and @f{5.0} are always @term{different} @term{objects} in @clisp{}
+(they are never the @term{same} under @code{eql},
+although they are the @term{same} under @code{equalp} and @code{=}).
+
+@unnumberedsubsubsec 12.1.5.3.1 Examples of Rule of Canonical Representation for Complex Rationals
+
+
+@lisp
+ #c(1.0 1.0) @EV{} #C(1.0 1.0)
+ #c(0.0 0.0) @EV{} #C(0.0 0.0)
+ #c(1.0 1) @EV{} #C(1.0 1.0)
+ #c(0.0 0) @EV{} #C(0.0 0.0)
+ #c(1 1) @EV{} #C(1 1)
+ #c(0 0) @EV{} 0
+ (typep #c(1 1) '(complex (eql 1))) @EV{} @term{true}
+ (typep #c(0 0) '(complex (eql 0))) @EV{} @term{false}
+@end lisp
+
+
+
+
+@subsubsection Principal Values and Branch Cuts
+
+Many of the irrational and transcendental functions are multiply defined
+in the complex domain; for example, there are in general an infinite
+number of complex values for the logarithm function.  In each such
+case, a @term{principal} @term{value} must be chosen for the function to return.
+In general, such values cannot be chosen so as to make the range
+continuous; lines in the domain
+called branch cuts must be defined, which in turn
+define the discontinuities in the range.
+@clisp{}@spc{}defines the branch cuts, @term{principal} @term{values}, and boundary
+conditions for the complex functions following ``@PrincipalValues{}.'' The branch
+cut rules that apply to each function are located with the description of
+that function.
+
+@Thenextfigure{}@spc{}lists
+the identities that are obeyed
+throughout the applicable portion of the complex domain, even on
+the branch cuts:
+
+
+@float Figure,fig12.9
+@cartouche
+@multitable{sin i z = i sinh z}{arcsin i z = i arcsinh z}{arctan  i z = i arctanh z}
+
+@item sin i z = i sinh z @tab sinh i z = i sin z @tab arctan  i z = i arctanh z
+@item cos i z = cosh z @tab cosh i z = cos z @tab arcsinh i z = i arcsin z
+@item tan i z = i tanh z @tab arcsin i z = i arcsinh z @tab arctanh i z = i arctan z
+@end multitable
+@end cartouche
+@caption{Trigonometric Identities for Complex Domain}
+@end float
+
+
+The quadrant numbers referred to in the discussions of branch cuts are as illustrated
+in @thenextfigure{}.
+
+@quadrant{}
+
+
+@node Interval Designators
+@subsection Interval Designators
+
+The @term{compound type specifier} form of the numeric @term{type specifiers}
+permit the user to specify an interval on the real number line
+which describe a @term{subtype} of the @term{type} which would be described by the
+corresponding @term{atomic type specifier}.  A @term{subtype} of some @term{type}
+@param{T} is specified using an ordered pair of @term{objects} called
+@term{interval designators} for @term{type} @param{T}.
+
+The first of the two @term{interval designators} for @term{type} @param{T} can be
+any of the following:
+
+
+@table @asis
+
+@item @id{a number @param{N} of @term{type} @param{T}}
+
+
+This denotes a lower inclusive bound of @param{N}.  That is, @term{elements}
+of the @term{subtype} of @param{T} will be greater than or equal to @param{N}.
+
+@item @id{a @term{singleton} @term{list} whose @term{element} is a number @param{M} of @term{type} @param{T}}
+
+
+This denotes a lower exclusive bound of @param{M}.  That is, @term{elements}
+of the @term{subtype} of @param{T} will be greater than @param{M}.
+
+@item @id{the symbol @t{*}}
+
+
+This denotes the absence of a lower bound on the interval.
+@end table
+
+
+The second of the two @term{interval designators} for @term{type} @param{T} can be
+any of the following:
+
+
+@table @asis
+
+@item @id{a number @param{N} of @term{type} @param{T}}
+
+
+This denotes an upper inclusive bound of @param{N}.  That is, @term{elements}
+of the @term{subtype} of @param{T} will be less than or equal to @param{N}.
+
+@item @id{a @term{singleton} @term{list} whose @term{element} is a number @param{M} of @term{type} @param{T}}
+
+
+This denotes an upper exclusive bound of @param{M}.  That is, @term{elements}
+of the @term{subtype} of @param{T} will be less than @param{M}.
+
+@item @id{the symbol @t{*}}
+
+
+This denotes the absence of an upper bound on the interval.
+@end table
+
+
+
+@node Random-State Operations
+@subsection Random-State Operations
+
+@Thenextfigure{}@spc{}lists some @term{defined names} that are applicable to @term{random states}.
+
+
+@float Figure,fig12.11
+@cartouche
+@multitable{make-random-state}{random-state-p}{}
+
+@item *random-state* @tab random @tab
+@item make-random-state @tab random-state-p @tab
+@end multitable
+@end cartouche
+@caption{Random-state defined names}
+@end float
+
+
+
+@node number
+@heading number (System Class)
+@syindex number
+@cindex number
+
+
+@subsubheading Class Precedence List:
+@code{number},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{number} contains @term{objects} which represent
+mathematical numbers.
+The @term{types} @code{real} and @code{complex} are @term{disjoint}
+@term{subtypes} of @code{number}.
+
+@Thefunction{=} tests for numerical equality.
+@Thefunction{eql}, when its arguments are both @term{numbers},
+tests that they have both the same @term{type} and numerical value.
+Two @term{numbers} that are the @term{same} under @code{eql} or @code{=}
+are not necessarily the @term{same} under @code{eq}.
+
+@subsubheading Notes:
+
+@clisp{}@spc{}differs from mathematics on some naming issues.  In mathematics,
+the set of real numbers is traditionally described as a subset of the
+complex numbers, but in @clisp{}, @thetype{real} and @thetype{complex} are
+disjoint.  The @clisp{}@spc{}type which includes all mathematical complex
+numbers is called @code{number}.  The reasons for these differences
+include historical precedent, compatibility with most other popular
+computer languages, and various issues of time and space efficiency.
+
+@node complex (System Class)
+@heading complex (System Class)
+@syindex complex
+@cindex complex
+
+
+@subsubheading Class Precedence List:
+@code{complex},
+@code{number},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{complex} includes all mathematical complex numbers
+other than those included in @thetype{rational}.
+@term{Complexes} are
+expressed
+in Cartesian form with a
+real part and an imaginary part, each of which is a @term{real}.
+The real part and imaginary part are either both
+@term{rational} or both of the same @term{float} @term{type}.
+The imaginary part can be a @term{float} zero, but can never
+be a @term{rational} zero, for such a number is always represented
+by @clisp{}@spc{}as a @term{rational} rather than a @term{complex}.
+
+@subsubheading Compound Type Specifier Kind:
+
+Specializing.
+
+@subsubheading Compound Type Specifier Syntax:
+
+@Deftype{complex, @ttbrac{typespec | @t{*}}}
+
+@subsubheading Compound Type Specifier Arguments:
+
+@param{typespec}---a @term{type specifier} that denotes a @subtypeof{real}.
+
+@subsubheading Compound Type Specifier Description:
+
+@editornote{KMP: If you ask me, this definition is a complete mess.  Looking at
+issue ARRAY-TYPE-ELEMENT-TYPE-SEMANTICS:UNIFY-UPGRADING does not help me figure
+it out, either.  Anyone got any suggestions?}
+
+Every element of this @term{type} is a @term{complex} whose
+real part and imaginary part are each of type
+@f{(upgraded-complex-part-type @param{typespec})}.
+This @term{type} encompasses those @term{complexes}
+that can result by giving numbers of @term{type} @param{typespec}
+to @code{complex}.
+
+@tt{(complex @param{type-specifier})}
+refers to all @term{complexes} that can result from giving
+@term{numbers} of @param{type} @param{type-specifier} to @thefunction{complex},
+plus all other @term{complexes} of the same specialized representation.
+
+
+@subsubheading See Also:
+
+@ref{RuleOfCanonRepForComplexRationals, Section 12.1.5.3 (Rule of Canonical Representation for Complex Rationals)},
+@ref{Constructing Numbers from Tokens, Section 2.3.2 (Constructing Numbers from Tokens)},
+@ref{PrintingComplexes, Section 22.1.3.1.4 (Printing Complexes)}
+
+@subsubheading Notes:
+
+The input syntax for a @term{complex} with real part @mat{r} and
+imaginary part @mat{i} is @f{#C(@mat{r} @mat{i})}.
+For further details, see @ref{Standard Macro Characters, Section 2.4 (Standard Macro Characters)}.
+
+For every @term{float}, @mat{n}, there is a @term{complex}
+which represents the same mathematical number
+and which can be obtained by @tt{(COERCE @mat{n} 'COMPLEX)}.
+
+@node real
+@heading real (System Class)
+@syindex real
+@cindex real
+
+
+
+@subsubheading Class Precedence List:
+@code{real},
+@code{number},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{real} includes all @term{numbers} that
+represent mathematical real numbers, though there are mathematical real
+numbers (@eg{} irrational numbers) that do not have an exact representation
+in @clisp{}.  Only @term{reals} can be ordered using the
+@code{<}, @code{>}, @code{<=}, and @code{>=} functions.
+
+The @term{types} @code{rational} and @code{float} are @term{disjoint}
+@subtypesof{real}.
+
+@realtypespec{real}
+
+
+@node float (System Class)
+@heading float (System Class)
+@syindex float
+@cindex float
+
+
+@subsubheading Class Precedence List:
+@code{float},
+@code{real},
+@code{number},
+@code{t}
+
+@subsubheading Description:
+
+A @term{float}
+is a mathematical rational (but @i{not} a @clisp{}@spc{}@term{rational})
+of the form
+@mat{s@cdot{} f@cdot{} b^e-p},
+where @mat{s} is @mat{+1} or @mat{-1}, the @i{sign};
+@mat{b} is an @term{integer}
+greater than@tie{}1, the @i{base} or @i{radix} of the representation;
+@mat{p} is a positive @term{integer},
+the @i{precision} (in base-@mat{b} digits) of the @term{float};
+@mat{f} is a positive @term{integer}
+between @mat{b^p-1} and
+@mat{b^p-1} (inclusive), the significand;
+and @mat{e} is an @term{integer}, the exponent.
+The value of @mat{p} and the range of@tie{}@mat{e}
+depends on the implementation and on the type of @term{float}
+within that implementation. In addition, there is a floating-point zero;
+depending on the implementation, there can also be a ``minus zero''. If there
+is no minus zero, then @mat{0.0} and@tie{}@mat{-0.0} are both interpreted as simply a
+floating-point zero.
+@tt{(= 0.0 -0.0)} is always true.
+If there is a minus zero, @tt{(eql -0.0 0.0)} is @term{false},
+otherwise it is @term{true}.
+
+@reviewer{Barmar: What about IEEE NaNs and infinities?}
+
+@reviewer{RWK: In the following, what is the ``ordering''?  precision? range?
+Can there be additional subtypes of float or does ``others'' in the
+list of four?}
+
+The @term{types} @code{short-float}, @code{single-float}, @code{double-float},
+and @code{long-float} are @subtypesof{float}.  Any two of them must be
+either @term{disjoint} @term{types} or the @term{same} @term{type};
+if the @term{same} @term{type}, then any other @term{types} between them in the
+above ordering must also be the @term{same} @term{type}.  For example,
+if @thetype{single-float} and @thetype{long-float} are the @term{same} @term{type},
+then @thetype{double-float} must be the @term{same} @term{type} also.
+
+@realtypespec{float}
+
+@subsubheading See Also:
+
+@ref{SyntaxForNumericTokens, Figure 2.9},
+@ref{Constructing Numbers from Tokens, Section 2.3.2 (Constructing Numbers from Tokens)},
+@ref{PrintingFloats, Section 22.1.3.1.3 (Printing Floats)}
+
+@subsubheading Notes:
+
+Note that all mathematical integers are representable not only as
+@clisp{}@spc{}@term{reals}, but also as @term{complex floats}.  For example,
+possible representations of the mathematical number @mat{1}
+include the @term{integer} @f{1},
+the @term{float} @f{1.0},
+or the @term{complex} @f{#C(1.0 0.0)}.
+
+@node short-float; single-float; double-float; long-float
+@heading short-float, single-float, double-float, long-float (Type)
+@syindex short-float
+@cindex short-float
+@syindex single-float
+@cindex single-float
+@syindex double-float
+@cindex double-float
+@syindex long-float
+@cindex long-float
+
+
+@subsubheading Supertypes:
+
+@code{short-float}:
+@code{short-float},
+@code{float},
+@code{real},
+@code{number},
+@code{t}
+
+@code{single-float}:
+@code{single-float},
+@code{float},
+@code{real},
+@code{number},
+@code{t}
+
+@code{double-float}:
+@code{double-float},
+@code{float},
+@code{real},
+@code{number},
+@code{t}
+
+@code{long-float}:
+@code{long-float},
+@code{float},
+@code{real},
+@code{number},
+@code{t}
+
+@subsubheading Description:
+
+For the four defined @subtypesof{float}, it is true that
+intermediate between @thetype{short-float} and @thetype{long-float} are
+@thetype{single-float} and @thetype{double-float}.
+The precise definition of these categories is
+@term{implementation-defined}.
+The precision (measured in ``bits'', computed as @mat{p@log{}@sub2{}b})
+and the exponent size (also measured in ``bits,'' computed as
+@mat{@log{}@sub2{}(n+1)}, where @mat{n} is the maximum exponent value) is recommended
+to be at least as great
+as the values in @thenextfigure{}.
+Each of the defined @subtypesof{float} might or might not have a minus zero.
+
+
+@float Figure,fig12.12
+@cartouche
+@multitable{@hfil{}@b{Format}}{@b{Minimum Precision}}{@b{Minimum Exponent Size}}
+
+@item @hfil{}@b{Format} @tab @b{Minimum Precision} @tab @b{Minimum Exponent Size}
+@item Short @tab 13 bits @tab 5 bits
+@item Single @tab 24 bits @tab 8 bits
+@item Double @tab 50 bits @tab 8 bits
+@item Long @tab 50 bits @tab 8 bits
+@end multitable
+@end cartouche
+@caption{Recommended Minimum Floating-Point Precision and Exponent Size}
+@end float
+
+
+There can be fewer than four internal
+representations for @term{floats}.
+If there are fewer distinct representations, the following rules apply:
+
+@itemize --
+@item If there is only one, it is
+@thetype{single-float}.
+In this representation, an @term{object} is simultaneously of @term{types}
+@code{single-float}, @code{double-float}, @code{short-float},
+and @code{long-float}.
+@item Two internal representations can be arranged in either of the
+following ways:
+
+@itemize @bullet{}
+@item Two @term{types} are provided: @code{single-float} and
+@code{short-float}.  An @term{object} is simultaneously
+of @term{types} @code{single-float}, @code{double-float}, and @code{long-float}.
+@item Two @term{types} are provided: @code{single-float} and
+@code{double-float}. An @term{object} is simultaneously of @term{types}
+@code{single-float} and @code{short-float}, or
+@code{double-float} and @code{long-float}.
+@end itemize
+
+@item Three internal representations can be arranged in either
+of the following ways:
+
+@itemize @bullet{}
+@item Three @term{types} are provided: @code{short-float},
+@code{single-float}, and @code{double-float}.
+An @term{object} can simultaneously be of @term{type} @code{double-float}
+and @code{long-float}.
+@item Three @term{types} are provided:
+@code{single-float}, @code{double-float},
+and @code{long-float}. An @term{object} can simultaneously
+be of @term{types} @code{single-float} and @code{short-float}.
+@end itemize
+@end itemize
+
+
+@subsubheading Compound Type Specifier Kind:
+
+Abbreviating.
+
+@subsubheading Compound Type Specifier Syntax:
+
+@Deftype{short-float, @ttbrac{short-lower-limit   @brac{short-upper-limit}}}
+@Deftype{single-float, @ttbrac{single-lower-limit @brac{single-upper-limit}}}
+@Deftype{double-float, @ttbrac{double-lower-limit @brac{double-upper-limit}}}
+@Deftype{long-float, @ttbrac{long-lower-limit     @brac{long-upper-limit}}}
+
+@subsubheading Compound Type Specifier Arguments:
+
+@param{short-lower-limit}, @param{short-upper-limit}---@term{interval designators}
+for @term{type} @code{short-float}.
+@DefaultEach{@param{lower-limit} and @param{upper-limit}, the @term{symbol} @t{*}}
+
+@param{single-lower-limit}, @param{single-upper-limit}---@term{interval designators}
+for @term{type} @code{single-float}.
+@DefaultEach{@param{lower-limit} and @param{upper-limit}, the @term{symbol} @t{*}}
+
+@param{double-lower-limit}, @param{double-upper-limit}---@term{interval designators}
+for @term{type} @code{double-float}.
+@DefaultEach{@param{lower-limit} and @param{upper-limit}, the @term{symbol} @t{*}}
+
+@param{long-lower-limit}, @param{long-upper-limit}---@term{interval designators}
+for @term{type} @code{long-float}.
+@DefaultEach{@param{lower-limit} and @param{upper-limit}, the @term{symbol} @t{*}}
+
+@subsubheading Compound Type Specifier Description:
+
+Each of these denotes the set of @term{floats} of the indicated @term{type}
+that are on the interval specified by the @term{interval designators}.
+
+@node rational (System Class)
+@heading rational (System Class)
+@syindex rational
+@cindex rational
+
+
+@subsubheading Class Precedence List:
+@code{rational},
+@code{real},
+@code{number},
+@code{t}
+
+@subsubheading Description:
+
+The canonical representation of a @term{rational}
+is as an @term{integer} if its value is integral,
+and otherwise as a @term{ratio}.
+
+The @term{types} @code{integer} and @code{ratio}
+are @term{disjoint} @subtypesof{rational}.
+
+@realtypespec{rational}
+
+@node ratio
+@heading ratio (System Class)
+@syindex ratio
+@cindex ratio
+
+
+@subsubheading Class Precedence List:
+@code{ratio},
+@code{rational},
+@code{real},
+@code{number},
+@code{t}
+
+@subsubheading Description:
+
+A @term{ratio} is a @term{number}
+representing the mathematical ratio of two non-zero integers,
+the numerator and denominator,
+whose greatest common divisor is one,
+and of which the denominator is positive and greater than one.
+
+@subsubheading See Also:
+
+@ref{SyntaxForNumericTokens, Figure 2.9},
+@ref{Constructing Numbers from Tokens, Section 2.3.2 (Constructing Numbers from Tokens)},
+@ref{PrintingRatios, Section 22.1.3.1.2 (Printing Ratios)}
+
+@node integer
+@heading integer (System Class)
+@syindex integer
+@cindex integer
+
+
+@subsubheading Class Precedence List:
+@code{integer},
+@code{rational},
+@code{real},
+@code{number},
+@code{t}
+
+@subsubheading Description:
+
+An @term{integer} is a mathematical integer. There is no limit on the
+magnitude of an @term{integer}.
+
+The @term{types} @code{fixnum} and @code{bignum}
+form an @term{exhaustive partition} of @term{type} @code{integer}.
+
+@realtypespec{integer}
+
+@subsubheading See Also:
+
+@ref{SyntaxForNumericTokens, Figure 2.9},
+@ref{Constructing Numbers from Tokens, Section 2.3.2 (Constructing Numbers from Tokens)},
+@ref{PrintingIntegers, Section 22.1.3.1.1 (Printing Integers)}
+
+@subsubheading Notes:
+
+The @term{type} @f{(integer @i{lower} @i{upper})},
+where @i{lower} and @i{upper}
+are @code{most-negative-fixnum} and @code{most-positive-fixnum}, respectively,
+is also called @code{fixnum}.
+
+The @term{type} @f{(integer 0 1)} is also called @code{bit}.
+The @term{type} @f{(integer 0 *)} is also called @code{unsigned-byte}.
+
+@node signed-byte
+@heading signed-byte (Type)
+@syindex signed-byte
+@cindex signed-byte
+
+
+@subsubheading Supertypes:
+
+@code{signed-byte},
+@code{integer},
+@code{rational},
+@code{real},
+@code{number},
+@code{t}
+
+@subsubheading Description:
+
+The atomic @term{type specifier} @code{signed-byte} denotes the same
+type as is denoted by the @term{type specifier} @code{integer};
+however, the list forms of these two @term{type specifiers} have different semantics.
+
+@subsubheading Compound Type Specifier Kind:
+
+Abbreviating.
+
+@subsubheading Compound Type Specifier Syntax:
+
+@Deftype{signed-byte, @ttbrac{s | @t{*}}}
+
+@subsubheading Compound Type Specifier Arguments:
+
+@param{s}---a positive @term{integer}.
+
+@subsubheading Compound Type Specifier Description:
+
+This denotes the set of @term{integers} that can be represented
+in two's-complement form in a @term{byte} of @param{s} bits.  This is
+equivalent to @f{(integer @mat{-2^s-1} @mat{2^s-1-1})}.  The type
+@code{signed-byte} or the type @f{(signed-byte *)} is the same
+as @thetype{integer}.
+
+@node unsigned-byte
+@heading unsigned-byte (Type)
+@syindex unsigned-byte
+@cindex unsigned-byte
+
+
+@subsubheading Supertypes:
+
+@code{unsigned-byte},
+@code{signed-byte},
+@code{integer},
+@code{rational},
+@code{real},
+@code{number},
+@code{t}
+
+@subsubheading Description:
+
+The atomic @term{type specifier} @code{unsigned-byte} denotes the same
+type as is denoted by the @term{type specifier} @f{(integer 0 *)}.
+
+@subsubheading Compound Type Specifier Kind:
+
+Abbreviating.
+
+@subsubheading Compound Type Specifier Syntax:
+
+@Deftype{unsigned-byte, @ttbrac{@param{s} | @t{*}}}
+
+@subsubheading Compound Type Specifier Arguments:
+
+@param{s}---a positive @term{integer}.
+
+@subsubheading Compound Type Specifier Description:
+
+This denotes the set of non-negative @term{integers} that can be
+represented in a byte of size @param{s} (bits).
+This is equivalent
+to @f{(mod @param{m})} for @mat{@hbox{@param{m}}=2^s}, or
+to @f{(integer 0 @param{n})} for @mat{@hbox{@param{n}}=2^s-1}.
+@Thetype{unsigned-byte} or
+the type @f{(unsigned-byte *)} is the same as
+the type @f{(integer 0 *)}, the set of non-negative @term{integers}.
+
+@subsubheading Notes:
+
+The @term{type} @f{(unsigned-byte 1)} is also called @code{bit}.
+
+
+@node mod (Type Specifier)
+@heading mod (Type Specifier)
+@syindex mod
+@cindex mod
+
+
+@subsubheading Compound Type Specifier Kind:
+
+Abbreviating.
+
+@subsubheading Compound Type Specifier Syntax:
+
+@Deftype{mod, n}
+
+@subsubheading Compound Type Specifier Arguments:
+
+@param{n}---a positive @term{integer}.
+
+@subsubheading Compound Type Specifier Description:
+
+This denotes the set of non-negative @term{integers} less than @param{n}.
+This is equivalent to
+@f{(integer 0 (@param{n}))}
+or to
+@f{(integer 0 @param{m})},
+where @mat{@hbox{@param{m}}=@hbox{@param{n}}-1}.
+
+The argument is required, and cannot be @t{*}.
+
+The symbol @code{mod} is not valid as a @term{type specifier}.
+
+
+@node bit (Type)
+@heading bit (Type)
+@syindex bit
+@cindex bit
+
+
+@subsubheading Supertypes:
+
+@code{bit},
+@code{unsigned-byte},
+@code{signed-byte},
+@code{integer},
+@code{rational},
+@code{real},
+@code{number},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{bit} is equivalent to the @term{type} @f{(integer 0 1)}
+and @f{(unsigned-byte 1)}.
+
+
+@node fixnum
+@heading fixnum (Type)
+@syindex fixnum
+@cindex fixnum
+
+
+@subsubheading Supertypes:
+
+@code{fixnum},
+@code{integer},
+@code{rational},
+@code{real},
+@code{number},
+@code{t}
+
+@subsubheading Description:
+
+A @term{fixnum} is an @term{integer} whose value is between
+@code{most-negative-fixnum} and @code{most-positive-fixnum} inclusive.
+Exactly which @term{integers} are @term{fixnums} is
+@term{implementation-defined}.
+The @term{type} @code{fixnum} is required to be a supertype of
+@f{(signed-byte 16)}.
+
+
+@node bignum
+@heading bignum (Type)
+@syindex bignum
+@cindex bignum
+
+
+@subsubheading Supertypes:
+
+@code{bignum},
+@code{integer},
+@code{rational},
+@code{real},
+@code{number},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{bignum} is defined to be exactly @f{(and integer (not fixnum))}.
+
+
+@node =; /=; <; >; <=; >=
+@heading =, /=, <, >, <=, >= (Function)
+@syindex =
+@cindex =
+@syindex /=
+@cindex /=
+@syindex <
+@cindex <
+@syindex >
+@cindex >
+@syindex <=
+@cindex <=
+@syindex >=
+@cindex >=
+@anchor{=}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{=, @rest{} @plus{numbers}, generalized-boolean}
+@DefunWithValues{/=, @rest{} @plus{numbers}, generalized-boolean}
+@DefunWithValues{<, @rest{} @plus{numbers}, generalized-boolean}
+@DefunWithValues{>, @rest{} @plus{numbers}, generalized-boolean}
+@DefunWithValues{<=, @rest{} @plus{numbers}, generalized-boolean}
+@DefunWithValues{>=, @rest{} @plus{numbers}, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{number}---for @code{<}, @code{>}, @code{<=}, @code{>=}: a @term{real};
+for @code{=}, @code{/=}: a @term{number}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@code{=}, @code{/=}, @code{<}, @code{>}, @code{<=}, and @code{>=}
+perform arithmetic comparisons on their arguments as follows:
+
+
+@table @asis
+@item @id{@code{=}}
+
+
+The value of @code{=} is @term{true} if all @param{numbers} are the same in value;
+otherwise it is @term{false}.
+Two @term{complexes} are considered equal by @code{=}
+if their real and imaginary parts are equal according to @code{=}.
+
+@item @id{@code{/=}}
+
+
+The value of @code{/=} is @term{true} if no two @param{numbers} are the same in value;
+otherwise it is @term{false}.
+
+@item @id{@code{<}}
+
+
+The value of @code{<} is @term{true} if the @param{numbers} are in monotonically increasing order;
+otherwise it is @term{false}.
+
+@item @id{@code{>}}
+
+
+The value of @code{>} is @term{true} if the @param{numbers} are in monotonically decreasing order;
+otherwise it is @term{false}.
+
+@item @id{@code{<=}}
+
+
+The value of @code{<=} is @term{true} if the @param{numbers} are in monotonically
+nondecreasing order;
+otherwise it is @term{false}.
+
+@item @id{@code{>=}}
+
+
+The value of @code{>=} is @term{true} if the @param{numbers} are in monotonically
+nonincreasing order;
+otherwise it is @term{false}.
+@end table
+
+
+@code{=}, @code{/=}, @code{<}, @code{>}, @code{<=}, and @code{>=}
+perform necessary type conversions.
+
+@subsubheading Examples:
+
+The uses of these functions are illustrated in @thenextfigure{}.
+
+
+@float Figure,fig12.13
+@cartouche
+@multitable{@f{(= 3.0 #c(3.0 0.0))} is @term{true}.}{@f{(/= 3.0 #c(3.0 1.0))} is @term{true}.}
+
+@item @f{(= 3 3)} is @term{true}. @tab @f{(/= 3 3)} is @term{false}.
+@item @f{(= 3 5)} is @term{false}. @tab @f{(/= 3 5)} is @term{true}.
+@item @f{(= 3 3 3 3)} is @term{true}. @tab @f{(/= 3 3 3 3)} is @term{false}.
+@item @f{(= 3 3 5 3)} is @term{false}. @tab @f{(/= 3 3 5 3)} is @term{false}.
+@item @f{(= 3 6 5 2)} is @term{false}. @tab @f{(/= 3 6 5 2)} is @term{true}.
+@item @f{(= 3 2 3)} is @term{false}. @tab @f{(/= 3 2 3)} is @term{false}.
+@item @f{(< 3 5)} is @term{true}. @tab @f{(<= 3 5)} is @term{true}.
+@item @f{(< 3 -5)} is @term{false}. @tab @f{(<= 3 -5)} is @term{false}.
+@item @f{(< 3 3)} is @term{false}. @tab @f{(<= 3 3)} is @term{true}.
+@item @f{(< 0 3 4 6 7)} is @term{true}. @tab @f{(<= 0 3 4 6 7)} is @term{true}.
+@item @f{(< 0 3 4 4 6)} is @term{false}. @tab @f{(<= 0 3 4 4 6)} is @term{true}.
+@item @f{(> 4 3)} is @term{true}. @tab @f{(>= 4 3)} is @term{true}.
+@item @f{(> 4 3 2 1 0)} is @term{true}. @tab @f{(>= 4 3 2 1 0)} is @term{true}.
+@item @f{(> 4 3 3 2 0)} is @term{false}. @tab @f{(>= 4 3 3 2 0)} is @term{true}.
+@item @f{(> 4 3 1 2 0)} is @term{false}. @tab @f{(>= 4 3 1 2 0)} is @term{false}.
+@item @f{(= 3)} is @term{true}. @tab @f{(/= 3)} is @term{true}.
+@item @f{(< 3)} is @term{true}. @tab @f{(<= 3)} is @term{true}.
+@item @f{(= 3.0 #c(3.0 0.0))} is @term{true}. @tab @f{(/= 3.0 #c(3.0 1.0))} is @term{true}.
+@item @f{(= 3 3.0)} is @term{true}. @tab @f{(= 3.0s0 3.0d0)} is @term{true}.
+@item @f{(= 0.0 -0.0)} is @term{true}. @tab @f{(= 5/2 2.5)} is @term{true}.
+@item @f{(> 0.0 -0.0)} is @term{false}. @tab @f{(= 0 -0.0)} is @term{true}.
+@end multitable
+@end cartouche
+@caption{Uses of /=, =, <, >, <=, and >=}
+@end float
+
+
+@subsubheading Exceptional Situations:
+
+Might signal @code{type-error} if some @term{argument} is not a @term{real}.
+Might signal @code{arithmetic-error} if otherwise unable to fulfill its contract.
+
+@subsubheading Notes:
+
+@code{=} differs from @code{eql} in that
+@f{(= 0.0 -0.0)} is always true,
+because @code{=} compares the mathematical values of its operands,
+whereas @code{eql} compares the representational values, so to speak.
+
+
+@node max; min
+@heading max, min (Function)
+@syindex max
+@cindex max
+@syindex min
+@cindex min
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{max, @rest{} @plus{reals}, max-real}
+@DefunWithValues{min, @rest{} @plus{reals}, min-real}
+
+@subsubheading Arguments and Values:
+
+@param{real}---a @term{real}.
+
+@param{max-real}, @param{min-real}---a @term{real}.
+
+@subsubheading Description:
+
+@code{max} returns the @param{real} that is greatest (closest to positive infinity).
+@code{min} returns the @param{real} that is least (closest to negative infinity).
+
+For @code{max},
+the implementation has the choice of returning the largest
+argument as is or applying the rules of floating-point @term{contagion},
+taking all the arguments into consideration for @term{contagion} purposes.
+Also, if one or more of the arguments are @code{=}, then any one
+of them may be chosen as the value to return.
+For example, if the @param{reals} are a mixture of @term{rationals} and @term{floats},
+and the largest argument is a @term{rational},
+then the implementation is free to
+produce either that @term{rational}
+or its @term{float} approximation;
+if the largest argument is a
+@term{float} of a smaller format
+than the largest format of any @term{float} argument,
+then the implementation is free to
+return the argument in its given format or expanded to the larger format.
+Similar remarks apply to @code{min}
+(replacing ``largest argument'' by ``smallest argument'').
+
+@subsubheading Examples:
+
+@lisp
+ (max 3) @EV{} 3
+ (min 3) @EV{} 3
+ (max 6 12) @EV{} 12
+ (min 6 12) @EV{} 6
+ (max -6 -12) @EV{} -6
+ (min -6 -12) @EV{} -12
+ (max 1 3 2 -7) @EV{} 3
+ (min 1 3 2 -7) @EV{} -7
+ (max -2 3 0 7) @EV{} 7
+ (min -2 3 0 7) @EV{} -2
+ (max 5.0 2) @EV{} 5.0
+ (min 5.0 2)
+@EV{} 2
+@OV{} 2.0
+ (max 3.0 7 1)
+@EV{} 7
+@OV{} 7.0
+ (min 3.0 7 1)
+@EV{} 1
+@OV{} 1.0
+ (max 1.0s0 7.0d0) @EV{} 7.0d0
+ (min 1.0s0 7.0d0)
+@EV{} 1.0s0
+@OV{} 1.0d0
+ (max 3 1 1.0s0 1.0d0)
+@EV{} 3
+@OV{} 3.0d0
+ (min 3 1 1.0s0 1.0d0)
+@EV{} 1
+@OV{} 1.0s0
+@OV{} 1.0d0
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldcheckanytype{number, a @term{real}}
+
+
+@node minusp; plusp
+@heading minusp, plusp (Function)
+@syindex minusp
+@cindex minusp
+@syindex plusp
+@cindex plusp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{minusp, real, generalized-boolean}
+
+@DefunWithValues{plusp, real, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{real}---a @term{real}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@NamedPredicate{minusp, real, less than zero}
+
+@NamedPredicate{plusp, real, greater than zero}
+
+Regardless of whether an @term{implementation} provides distinct
+representations for positive and negative @term{float} zeros,
+@f{(minusp -0.0)} always returns @term{false}.
+
+@subsubheading Examples:
+@lisp
+ (minusp -1) @EV{} @term{true}
+ (plusp 0) @EV{} @term{false}
+ (plusp least-positive-single-float) @EV{} @term{true}
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{real, a @term{real}}
+
+
+@node zerop
+@heading zerop (Function)
+@syindex zerop
+@cindex zerop
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{zerop, number, generalized-boolean}
+
+@subsubheading Pronunciation:
+
+@pronounced{@Stress{z@harde{}}(@stress{})r@hardo{}(@stress{})p@harde{}}
+
+@subsubheading Arguments and Values:
+
+@param{number}---a @term{number}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@Predicate{number, zero (@term{integer}\, @term{float}\, or @term{complex})}
+
+Regardless of whether an @term{implementation} provides distinct representations
+for positive and negative floating-point zeros, @f{(zerop -0.0)}
+always returns @term{true}.
+
+@subsubheading Examples:
+
+@lisp
+ (zerop 0) @EV{} @term{true}
+ (zerop 1) @EV{} @term{false}
+ (zerop -0.0) @EV{} @term{true}
+ (zerop 0/100) @EV{} @term{true}
+ (zerop #c(0 0.0)) @EV{} @term{true}
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{number, a @term{number}}
+
+@subsubheading Notes:
+
+@lisp
+ (zerop @param{number}) @EQ{} (= @param{number} 0)
+@end lisp
+
+
+
+@node floor; ffloor; ceiling; fceiling; truncate; ftruncate; round; fround
+@heading floor, ffloor, ceiling, fceiling, truncate, ftruncate, round, fround (Function)
+@syindex floor
+@cindex floor
+@syindex ffloor
+@cindex ffloor
+@syindex ceiling
+@cindex ceiling
+@syindex fceiling
+@cindex fceiling
+@syindex truncate
+@cindex truncate
+@syindex ftruncate
+@cindex ftruncate
+@syindex round
+@cindex round
+@syindex fround
+@cindex fround
+@anchor{floor}
+@anchor{ceiling}
+@anchor{truncate}
+@anchor{round}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{floor, number @opt{} divisor, quotient\, remainder}
+@DefunWithValues{ffloor, number @opt{} divisor, quotient\, remainder}
+@DefunWithValues{ceiling, number @opt{} divisor, quotient\, remainder}
+@DefunWithValues{fceiling, number @opt{} divisor, quotient\, remainder}
+@DefunWithValues{truncate, number @opt{} divisor, quotient\, remainder}
+@DefunWithValues{ftruncate, number @opt{} divisor, quotient\, remainder}
+@DefunWithValues{round, number @opt{} divisor, quotient\, remainder}
+@DefunWithValues{fround, number @opt{} divisor, quotient\, remainder}
+
+
+@subsubheading Arguments and Values:
+
+@param{number}---a @term{real}.
+
+@param{divisor}---a non-zero @term{real}.
+@Default{the @term{integer} @f{1}}
+
+@param{quotient}---for @code{floor}, @code{ceiling},
+@code{truncate}, and @code{round}: an @term{integer};
+for @code{ffloor}, @code{fceiling},
+@code{ftruncate}, and @code{fround}: a @term{float}.
+
+@param{remainder}---a @term{real}.
+
+@subsubheading Description:
+
+These functions divide @param{number} by @param{divisor},
+returning a @param{quotient} and @param{remainder}, such that
+
+@quad{}@param{quotient}@centerdot{} @param{divisor}+@param{remainder}=@param{number}
+
+The @param{quotient} always represents a mathematical integer.
+When more than one mathematical integer might be possible
+(@ie{} when the remainder is not zero),
+the kind of rounding or truncation depends on the @term{operator}:
+
+
+@table @asis
+
+@item @id{@code{floor}, @code{ffloor}}
+
+
+@code{floor} and @code{ffloor} produce a @param{quotient}
+that has been truncated toward negative infinity;
+that is, the @param{quotient} represents the largest mathematical integer
+that is not larger than the mathematical quotient.
+
+@item @id{@code{ceiling}, @code{fceiling}}
+
+
+@code{ceiling} and @code{fceiling} produce a @param{quotient}
+that has been truncated toward positive infinity;
+that is, the @param{quotient} represents the smallest mathematical integer
+that is not smaller than the mathematical result.
+
+@item @id{@code{truncate}, @code{ftruncate}}
+
+
+@code{truncate} and @code{ftruncate} produce a @param{quotient}
+that has been truncated towards zero;
+that is, the @param{quotient} represents the mathematical integer
+of the same sign as the mathematical quotient, and
+that has the greatest integral magnitude not greater than that of the mathematical quotient.
+
+@item @id{@code{round}, @code{fround}}
+
+
+@code{round} and @code{fround} produce a @param{quotient}
+that has been rounded to the nearest mathematical integer;
+if the mathematical quotient is exactly halfway between two integers,
+(that is, it has the form @i{integer}+@mat{1@over2{}}),
+then the @param{quotient} has been rounded to the even (divisible by two) integer.
+@end table
+
+
+All of these functions perform type conversion operations on @param{numbers}.
+
+The @param{remainder}
+is an @term{integer}  if both   @f{x} and @f{y} are @term{integers},
+is a  @term{rational} if both   @f{x} and @f{y} are @term{rationals}, and
+is a  @term{float}    if either @f{x} or  @f{y} is  a @term{float}.
+
+@code{ffloor}, @code{fceiling}, @code{ftruncate}, and @code{fround}
+handle arguments of different @term{types} in the following way:
+If  @param{number}  is     a @term{float},
+and @param{divisor} is not a @term{float} of longer format,
+then the first result is a @term{float} of the same @term{type} as @param{number}.
+Otherwise, the first result is of the @term{type} determined by @term{contagion} rules;
+see @ref{NumericContagionRules, Section 12.1.1.2 (Contagion in Numeric Operations)}.
+
+@subsubheading Examples:
+
+@lisp
+ (floor 3/2) @EV{} 1, 1/2
+ (ceiling 3 2) @EV{} 2, -1
+ (ffloor 3 2) @EV{} 1.0, 1
+ (ffloor -4.7) @EV{} -5.0, 0.3
+ (ffloor 3.5d0) @EV{} 3.0d0, 0.5d0
+ (fceiling 3/2) @EV{} 2.0, -1/2
+ (truncate 1) @EV{} 1, 0
+ (truncate .5) @EV{} 0, 0.5
+ (round .5) @EV{} 0, 0.5
+ (ftruncate -7 2) @EV{} -3.0, -1
+ (fround -7 2) @EV{} -4.0, 1
+ (dolist (n '(2.6 2.5 2.4 0.7 0.3 -0.3 -0.7 -2.4 -2.5 -2.6))
+   (format t "~&~4,1@@F ~2,' D ~2,' D ~2,' D ~2,' D"
+           n (floor n) (ceiling n) (truncate n) (round n)))
+@OUT{} +2.6  2  3  2  3
+@OUT{} +2.5  2  3  2  2
+@OUT{} +2.4  2  3  2  2
+@OUT{} +0.7  0  1  0  1
+@OUT{} +0.3  0  1  0  0
+@OUT{} -0.3 -1  0  0  0
+@OUT{} -0.7 -1  0  0 -1
+@OUT{} -2.4 -3 -2 -2 -2
+@OUT{} -2.5 -3 -2 -2 -2
+@OUT{} -2.6 -3 -2 -2 -3
+@EV{} NIL
+@end lisp
+
+
+@subsubheading Notes:
+
+When only @param{number} is given, the two results are exact;
+the mathematical sum of the two results is always equal to the
+mathematical value of @param{number}.
+
+@f{(@i{function} @param{number} @param{divisor})}
+and @f{(@i{function} (/ @param{number} @param{divisor}))}
+(where @i{function} is any of one
+of @code{floor}, @code{ceiling}, @code{ffloor},
+@code{fceiling}, @code{truncate},
+@code{round}, @code{ftruncate}, and @code{fround})
+return the same first value, but
+they return different remainders as the second value. For example:
+
+@lisp
+ (floor 5 2) @EV{} 2, 1
+ (floor (/ 5 2)) @EV{} 2, 1/2
+@end lisp
+
+
+If an effect is desired that is similar to @code{round},
+but that always rounds up or down (rather than toward the nearest even integer)
+if the mathematical quotient is exactly halfway between two integers,
+the programmer should consider a construction such as
+@f{(floor (+ x 1/2))}
+or @f{(ceiling (- x 1/2))}.
+
+
+@node sin; cos; tan
+@heading sin, cos, tan (Function)
+@syindex sin
+@cindex sin
+@syindex cos
+@cindex cos
+@syindex tan
+@cindex tan
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{sin, radians, number}
+@DefunWithValues{cos, radians, number}
+@DefunWithValues{tan, radians, number}
+
+@subsubheading Arguments and Values:
+
+@param{radians}---a @term{number} given in radians.
+
+@param{number}---a @term{number}.
+
+@subsubheading Description:
+
+@code{sin}, @code{cos}, and @code{tan}
+return the sine, cosine, and tangent, respectively, of @param{radians}.
+
+@subsubheading Examples:
+
+@lisp
+ (sin 0) @EV{} 0.0
+ (cos 0.7853982) @EV{} 0.707107
+ (tan #c(0 1)) @EV{} #C(0.0 0.761594)
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{radians, a @term{number}}
+Might signal @code{arithmetic-error}.
+
+@subsubheading See Also:
+
+@ref{asin},
+@ref{acos},
+@ref{atan},
+@ref{FloatSubstitutability, Section 12.1.3.3 (Rule of Float Substitutability)}
+
+
+@node asin; acos; atan
+@heading asin, acos, atan (Function)
+@syindex asin
+@cindex asin
+@syindex acos
+@cindex acos
+@syindex atan
+@cindex atan
+@anchor{asin}
+@anchor{acos}
+@anchor{atan}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{asin, number, radians}
+@DefunWithValues{acos, number, radians}
+@DefunWithValues{atan, number1 @opt{} number2, radians}
+
+@subsubheading Arguments and Values:
+
+@param{number}---a @term{number}.
+
+@param{number1}---a @term{number} if @param{number2} is not supplied,
+or a @term{real}   if @param{number2} is     supplied.
+
+@param{number2}---a @term{real}.
+
+@param{radians}---a @term{number} (of radians).
+
+@subsubheading Description:
+
+@code{asin}, @code{acos}, and @code{atan}
+compute the arc sine, arc cosine, and arc tangent respectively.
+
+The arc sine, arc cosine, and arc tangent (with only @param{number1} supplied)
+functions can be defined mathematically for
+@param{number} or @param{number1} specified as @i{x} as in @thenextfigure{}.
+
+
+@float Figure,fig12.14
+@cartouche
+@multitable{Arc tangent}{@mat{ -i@spc{}@ff{log} @bigl{}((1+ix)@spc{}@sqrt{1/(1+x^2)} @bigr{}) }}
+@headitem Function @tab Definition
+@item Arc sine @tab @mat{ -i@spc{}@ff{log} @bigl{}(ix+     @sqrt{1-x^2}     @bigr{}) }
+@item Arc cosine @tab @mat{ (@pi{}/2) - @ff{arcsin} x }
+@item Arc tangent @tab @mat{ -i@spc{}@ff{log} @bigl{}((1+ix)@spc{}@sqrt{1/(1+x^2)} @bigr{}) }
+@end multitable
+@end cartouche
+@caption{Mathematical definition of arc sine, arc cosine, and arc tangent}
+@end float
+
+
+These formulae are mathematically correct, assuming
+completely accurate computation. They are not necessarily
+the simplest ones for real-valued computations.
+
+If both @param{number1} and @param{number2} are supplied
+for @code{atan}, the result is the arc tangent
+of @hbox{@param{number1}/@param{number2}}.
+The value of @code{atan} is always between
+@mat{-@pi{}} (exclusive) and@tie{}@mat{@pi{}} (inclusive)
+when minus zero is not supported.
+The range of the two-argument arc tangent when minus zero is supported
+includes @mat{-@pi{}}.
+
+For a
+@term{real}
+@param{number1},
+the result is
+a @term{real}
+and lies between
+@mat{-@pi{}/2} and@tie{}@mat{@pi{}/2} (both exclusive).
+@param{number1} can be a @term{complex} if @param{number2}
+is not supplied. If both are supplied, @param{number2} can be zero provided
+@param{number1} is not zero.
+@reviewer{Barmar: Should add ``However, if the implementation distinguishes
+positive and negative zero, both may be signed zeros,
+and limits are used to define the result.''}
+
+The following definition for arc sine determines the range and
+branch cuts:
+
+
+@quotation
+@mat{ @ff{arcsin} z = -i@spc{}@ff{log} @Bigl{}(iz+@sqrt{1-z^2}@Bigr{}) }
+@end quotation
+
+
+The branch cut for the arc sine function is in two pieces:
+one along the negative real axis to the left of@tie{}@mat{-1}
+(inclusive), continuous with quadrant II, and one along the positive real
+axis to the right of@tie{}@mat{1} (inclusive), continuous with quadrant IV.  The
+range is that strip of the complex plane containing numbers whose real
+part is between @mat{-@pi{}/2} and@tie{}@mat{@pi{}/2}.  A number with real
+part equal to @mat{-@pi{}/2} is in the range if and only if its imaginary
+part is non-negative; a number with real part equal to @mat{@pi{}/2} is in
+the range if and only if its imaginary part is non-positive.
+
+The following definition for arc cosine determines the range and
+branch cuts:
+
+
+
+@quotation
+@mat{ @ff{arccos} z = @pi{}@over2{}- @ff{arcsin} z}
+@end quotation
+
+
+or, which are equivalent,
+
+
+@quotation
+@mat{ @ff{arccos} z = -i@spc{}@ff{log} @Bigl{}(z+i@spc{}@sqrt{1-z^2}@Bigr{}) }
+@end quotation
+
+
+
+@quotation
+@mat{ @ff{arccos} z = 2@spc{}@ff{log} @bigl{}(@sqrt{(1+z)/2} + i@spc{}@sqrt{(1-z)/2}@bigr{})@over{i}}
+@end quotation
+
+
+The branch cut for the arc cosine function is in two pieces:
+one along the negative real axis to the left of@tie{}@mat{-1}
+(inclusive), continuous with quadrant II, and one along the positive real
+axis to the right of@tie{}@mat{1} (inclusive), continuous with quadrant IV.
+This is the same branch cut as for arc sine.
+The range is that strip of the complex plane containing numbers whose real
+part is between 0 and@tie{}@mat{@pi{}}.  A number with real
+part equal to 0 is in the range if and only if its imaginary
+part is non-negative; a number with real part equal to @mat{@pi{}} is in
+the range if and only if its imaginary part is non-positive.
+
+The following definition for (one-argument) arc tangent determines the
+range and branch cuts:
+
+
+@quotation
+@mat{ @ff{arctan} z = (@ff{log} (1+iz) - @ff{log} (1-iz))/2i }
+@end quotation
+
+Beware of simplifying this formula; ``obvious'' simplifications are likely
+to alter the branch cuts or the values on the branch cuts incorrectly.
+The branch cut for the arc tangent function is in two pieces:
+one along the positive imaginary axis above @mat{i}
+(exclusive), continuous with quadrant II, and one along the negative imaginary
+axis below @mat{-i} (exclusive), continuous with quadrant IV.
+The points @mat{i} and@tie{}@mat{-i} are excluded from the domain.
+The range is that strip of the complex plane containing numbers whose real
+part is between @mat{-@pi{}/2} and@tie{}@mat{@pi{}/2}.  A number with real
+part equal to @mat{-@pi{}/2} is in the range if and only if its imaginary
+part is strictly positive; a number with real part equal to @mat{@pi{}/2} is in
+the range if and only if its imaginary part is strictly negative.  Thus the range of
+arc tangent is identical to that of arc sine with the points
+@mat{-@pi{}/2} and@tie{}@mat{@pi{}/2} excluded.
+
+For @code{atan},
+the signs of @param{number1} (indicated as @i{x})
+and @param{number2} (indicated as @i{y}) are used to derive quadrant
+information. @Thenextfigure{}@spc{}details various special cases.
+The asterisk (*) indicates that the entry in the figure applies to
+implementations that support minus zero.
+
+
+@float Figure,fig12.15
+@cartouche
+@multitable{@starN{}@i{y} Condition}{@i{x} Condition}{Cartesian locus}{@mat{-@pi{} < @Result{} < -@pi{}/2}}
+@headitem @starN{}@i{y} Condition @tab @i{x} Condition @tab Cartesian locus @tab Range of result
+@item @starN{}@mat{ y =  0 } @tab @mat{ x >  0 } @tab Positive x-axis @tab @mat{ 0}
+@item @starY{}@mat{ y = +0 } @tab @mat{ x >  0 } @tab Positive x-axis @tab @mat{+0}
+@item @starY{}@mat{ y = -0 } @tab @mat{ x >  0 } @tab Positive x-axis @tab @mat{-0}
+@item @starN{}@mat{ y >  0 } @tab @mat{ x >  0 } @tab Quadrant I @tab @mat{0 < @Result{} < @pi{}/2 }
+@item @starN{}@mat{ y >  0 } @tab @mat{ x =  0 } @tab Positive y-axis @tab @mat{@pi{}/2}
+@item @starN{}@mat{ y >  0 } @tab @mat{ x <  0 } @tab Quadrant II @tab @mat{@pi{}/2 < @Result{} < @pi{}}
+@item @starN{}@mat{ y =  0 } @tab @mat{ x <  0 } @tab Negative x-axis @tab @mat{ @pi{}}
+@item @starY{}@mat{ y = +0 } @tab @mat{ x <  0 } @tab Negative x-axis @tab @mat{+@pi{}}
+@item @starY{}@mat{ y = -0 } @tab @mat{ x <  0 } @tab Negative x-axis @tab @mat{-@pi{}}
+@item @starN{}@mat{ y <  0 } @tab @mat{ x <  0 } @tab Quadrant III @tab @mat{-@pi{} < @Result{} < -@pi{}/2}
+@item @starN{}@mat{ y <  0 } @tab @mat{ x =  0 } @tab Negative y-axis @tab @mat{-@pi{}/2}
+@item @starN{}@mat{ y <  0 } @tab @mat{ x >  0 } @tab Quadrant IV @tab @mat{-@pi{}/2 < @Result{} < 0 }
+@item @starN{}@mat{ y =  0 } @tab @mat{ x =  0 } @tab Origin @tab undefined consequences
+@item @starY{}@mat{ y = +0 } @tab @mat{ x = +0 } @tab Origin @tab @mat{+0}
+@item @starY{}@mat{ y = -0 } @tab @mat{ x = +0 } @tab Origin @tab @mat{-0}
+@item @starY{}@mat{ y = +0 } @tab @mat{ x = -0 } @tab Origin @tab @mat{+@pi{}}
+@item @starY{}@mat{ y = -0 } @tab @mat{ x = -0 } @tab Origin @tab @mat{-@pi{}}
+@end multitable
+@end cartouche
+@caption{Quadrant information for arc tangent}
+@end float
+
+
+@subsubheading Examples:
+
+@lisp
+ (asin 0) @EV{} 0.0
+ (acos #c(0 1))  @EV{} #C(1.5707963267948966 -0.8813735870195432)
+ (/ (atan 1 (sqrt 3)) 6)  @EV{} 0.087266
+ (atan #c(0 2)) @EV{} #C(-1.5707964 0.54930615)
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@code{acos} and @code{asin} @shouldchecktype{number, a @term{number}}
+@code{atan} should signal @code{type-error} if
+one argument is supplied and that argument is not a @term{number},
+or if two arguments are supplied and both of those arguments are not @term{reals}.
+
+@code{acos}, @code{asin}, and @code{atan} might signal @code{arithmetic-error}.
+
+@subsubheading See Also:
+
+@ref{log},
+@ref{sqrt},
+@ref{FloatSubstitutability, Section 12.1.3.3 (Rule of Float Substitutability)}
+
+@subsubheading Notes:
+
+The result of either @code{asin} or @code{acos} can be a @term{complex}
+even if @param{number} is not a @term{complex}; this occurs when the
+absolute value of @param{number} is greater than one.
+
+
+@node pi
+@heading pi (Constant Variable)
+@syindex pi
+@cindex pi
+
+
+@subsubheading Value:
+
+an @term{implementation-dependent} @term{long float}.
+
+@subsubheading Description:
+
+The best @term{long float} approximation to the mathematical constant @mat{@pi{}}.
+
+@subsubheading Examples:
+
+@lisp
+ ;; In each of the following computations, the precision depends
+ ;; on the implementation.  Also, if `long float' is treated by
+ ;; the implementation as equivalent to some other float format
+ ;; (e.g., `double float') the exponent marker might be the marker
+ ;; for that equivalent (e.g., `D' instead of `L').
+ pi @EV{} 3.141592653589793L0
+ (cos pi) @EV{} -1.0L0
+
+ (defun sin-of-degrees (degrees)
+   (let ((x (if (floatp degrees) degrees (float degrees pi))))
+     (sin (* x (/ (float pi x) 180)))))
+@end lisp
+
+
+@subsubheading Notes:
+
+An approximation to @mat{@pi{}} in some other precision can be obtained
+by writing @f{(float pi x)}, where @f{x} is a @term{float} of the
+desired precision, or by writing @f{(coerce pi @i{type})},
+where @i{type} is the desired type, such as @code{short-float}.
+
+
+@node sinh; cosh; tanh; asinh; acosh; atanh
+@heading sinh, cosh, tanh, asinh, acosh, atanh (Function)
+@syindex sinh
+@cindex sinh
+@syindex cosh
+@cindex cosh
+@syindex tanh
+@cindex tanh
+@syindex asinh
+@cindex asinh
+@syindex acosh
+@cindex acosh
+@syindex atanh
+@cindex atanh
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{sinh, number, result}
+@DefunWithValues{cosh, number, result}
+@DefunWithValues{tanh, number, result}
+@DefunWithValues{asinh, number, result}
+@DefunWithValues{acosh, number, result}
+@DefunWithValues{atanh, number, result}
+
+@subsubheading Arguments and Values:
+
+@param{number}---a @term{number}.
+
+@param{result}---a @term{number}.
+
+@subsubheading Description:
+
+These functions compute the hyperbolic sine, cosine, tangent,
+arc sine, arc cosine, and arc tangent functions,
+which are mathematically defined for an argument @i{x}
+as given in @thenextfigure{}.
+
+
+@float Figure,fig12.16
+@cartouche
+@multitable{Hyperbolic arc tangent}{@mat{ 2@spc{}@ff{log} (@sqrt{(x+1)/2} + @sqrt{(x-1)/2}) }}
+@headitem Function @tab Definition
+@item Hyperbolic sine @tab @mat{ (e^x-e^-x)/2                       }
+@item Hyperbolic cosine @tab @mat{ (e^x+e^-x)/2                       }
+@item Hyperbolic tangent @tab @mat{ (e^x-e^-x)/(e^x+e^-x)            }
+@item Hyperbolic arc sine @tab @mat{ @ff{log} (x+@sqrt{1+x^2})            }
+@item Hyperbolic arc cosine @tab @mat{ 2@spc{}@ff{log} (@sqrt{(x+1)/2} + @sqrt{(x-1)/2}) }
+@item Hyperbolic arc tangent @tab @mat{ (@ff{log} (1+x) - @ff{log}(1-x))/2   }
+@end multitable
+@end cartouche
+@caption{Mathematical definitions for hyperbolic functions}
+@end float
+
+
+The following definition for the inverse hyperbolic cosine
+determines the range and branch cuts:
+
+
+@quotation
+@mat{ @ff{arccosh} z = 2@spc{}@ff{log} @Bigl{}(@sqrt{(z+1)/2} + @sqrt{(z-1)/2}@Bigr{}). }
+@end quotation
+
+
+The branch cut for the inverse hyperbolic cosine function
+lies along the real axis to the left of@tie{}@mat{1} (inclusive), extending
+indefinitely along the negative real axis, continuous with quadrant II
+and (between @mat{0} and@tie{}@mat{1}) with quadrant I.
+The range is that half-strip of the complex plane containing numbers whose
+real part is non-negative and whose imaginary
+part is between @mat{-@pi{}} (exclusive) and@tie{}@mat{@pi{}} (inclusive).
+A number with real part zero is in the range
+if its imaginary part is between zero (inclusive) and@tie{}@mat{@pi{}} (inclusive).
+
+The following definition for the inverse hyperbolic sine determines
+the range and branch cuts:
+
+
+@quotation
+@mat{ @ff{arcsinh} z = @ff{log} @Bigl{}(z+@sqrt{1+z^2}@Bigr{}). }
+@end quotation
+
+
+The branch cut for the inverse hyperbolic sine function is in two pieces:
+one along the positive imaginary axis above @mat{i}
+(inclusive), continuous with quadrant I, and one along the negative imaginary
+axis below @mat{-i} (inclusive), continuous with quadrant III.
+The range is that strip of the complex plane containing numbers whose imaginary
+part is between @mat{-@pi{}/2} and@tie{}@mat{@pi{}/2}.  A number with imaginary
+part equal to @mat{-@pi{}/2} is in the range if and only if its real
+part is non-positive; a number with imaginary part equal to @mat{@pi{}/2} is in
+the range if and only if its imaginary part is non-negative.
+
+The following definition for the inverse hyperbolic tangent
+determines the range and branch cuts:
+
+
+@quotation
+@mat{ @ff{arctanh} z = (@ff{log} (1+z) - @ff{log} (1-z))/2. }
+@end quotation
+
+Note that:
+
+
+@quotation
+@mat{ i@spc{}@ff{arctan} z = @ff{arctanh} iz. }
+@end quotation
+
+
+The branch cut for the inverse hyperbolic tangent function
+is in two pieces: one along the negative real axis to the left of
+@mat{-1} (inclusive), continuous with quadrant III, and one along
+the positive real axis to the right of@tie{}@mat{1} (inclusive), continuous with
+quadrant I.  The points @mat{-1} and@tie{}@mat{1} are excluded from the
+domain.
+The range is that strip of the complex plane containing
+numbers whose imaginary part is between @mat{-@pi{}/2} and
+@mat{@pi{}/2}.  A number with imaginary part equal to @mat{-@pi{}/2}
+is in the range if and only if its real part is strictly negative; a number with
+imaginary part equal to @mat{@pi{}/2} is in the range if and only if its imaginary
+part is strictly positive.
+Thus the range of the inverse hyperbolic tangent function is identical to
+that of the inverse hyperbolic sine function with the points
+@mat{-@pi{} i/2} and@tie{}@mat{@pi{} i/2} excluded.
+
+@subsubheading Examples:
+
+@lisp
+ (sinh 0) @EV{} 0.0
+ (cosh (complex 0 -1)) @EV{} #C(0.540302 -0.0)
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{number, a @term{number}}
+Might signal @code{arithmetic-error}.
+
+@subsubheading See Also:
+
+@ref{log},
+@ref{sqrt},
+@ref{FloatSubstitutability, Section 12.1.3.3 (Rule of Float Substitutability)}
+
+@subsubheading Notes:
+
+The result of @code{acosh} may be a @term{complex} even if @param{number}
+is not a @term{complex}; this occurs when @param{number} is less than one.
+Also, the result of @code{atanh} may be a @term{complex} even if @param{number}
+is not a @term{complex}; this occurs when the absolute value of @param{number}
+is greater than one.
+
+The branch cut formulae are mathematically correct, assuming
+completely accurate computation.
+Implementors should consult a good text on
+numerical analysis.  The formulae given above are not necessarily
+the simplest ones for real-valued computations; they are chosen
+to define the branch cuts in desirable ways for the complex case.
+
+
+@node * (Function)
+@heading * (Function)
+@syindex *
+@cindex *
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{*, @rest{} numbers, product}
+
+@subsubheading Arguments and Values:
+
+@param{number}---a @term{number}.
+
+@param{product}---a @term{number}.
+
+@subsubheading Description:
+
+Returns the product of @param{numbers},
+performing any necessary type conversions in the process.
+If no @param{numbers} are supplied, @f{1} is returned.
+
+@subsubheading Examples:
+
+@lisp
+ (*) @EV{} 1
+ (* 3 5) @EV{} 15
+ (* 1.0 #c(22 33) 55/98) @EV{} #C(12.346938775510203 18.520408163265305)
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+Might signal @code{type-error} if some @term{argument} is not a @term{number}.
+Might signal @code{arithmetic-error}.
+
+@subsubheading See Also:
+
+@ref{Numeric Operations, Section 12.1.1 (Numeric Operations)},
+@ref{Rational Computations, Section 12.1.3 (Rational Computations)},
+@ref{Floating-point Computations, Section 12.1.4 (Floating-point Computations)},
+@ref{Complex Computations, Section 12.1.5 (Complex Computations)}
+
+
+@node + (Function)
+@heading + (Function)
+@syindex +
+@cindex +
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{+, @rest{} numbers, sum}
+
+@subsubheading Arguments and Values:
+
+@param{number}---a @term{number}.
+
+@param{sum}---a @term{number}.
+
+@subsubheading Description:
+
+Returns the sum of @param{numbers},
+performing any necessary type conversions in the process.
+If no @param{numbers} are supplied, @f{0} is returned.
+
+@subsubheading Examples:
+@lisp
+ (+) @EV{} 0
+ (+ 1) @EV{} 1
+ (+ 31/100 69/100) @EV{} 1
+ (+ 1/5 0.8) @EV{} 1.0
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+Might signal @code{type-error} if some @term{argument} is not a @term{number}.
+Might signal @code{arithmetic-error}.
+
+@subsubheading See Also:
+
+@ref{Numeric Operations, Section 12.1.1 (Numeric Operations)},
+@ref{Rational Computations, Section 12.1.3 (Rational Computations)},
+@ref{Floating-point Computations, Section 12.1.4 (Floating-point Computations)},
+@ref{Complex Computations, Section 12.1.5 (Complex Computations)}
+
+
+@node - (Function)
+@heading - (Function)
+@syindex -
+@cindex -
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{-, number, negation}
+
+@DefunWithValues{-, minuend @rest{} @plus{subtrahends}, difference}
+
+@subsubheading Arguments and Values:
+
+@param{number}, @param{minuend}, @param{subtrahend}---a @term{number}.
+
+@param{negation}, @param{difference}---a @term{number}.
+
+@subsubheading Description:
+
+@Thefunction{-} performs arithmetic subtraction and negation.
+
+If only one @param{number} is supplied,
+the negation of that @param{number} is returned.
+
+If more than one @term{argument} is given,
+it subtracts all of the @param{subtrahends} from the @param{minuend}
+and returns the result.
+
+@Thefunction{-} performs necessary type conversions.
+
+@subsubheading Examples:
+
+@lisp
+ (- 55.55) @EV{} -55.55
+ (- #c(3 -5)) @EV{} #C(-3 5)
+ (- 0) @EV{} 0
+ (eql (- 0.0) -0.0) @EV{} @term{true}
+ (- #c(100 45) #c(0 45)) @EV{} 100
+ (- 10 1 2 3 4) @EV{} 0
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+Might signal @code{type-error} if some @term{argument} is not a @term{number}.
+Might signal @code{arithmetic-error}.
+
+@subsubheading See Also:
+
+@ref{Numeric Operations, Section 12.1.1 (Numeric Operations)},
+@ref{Rational Computations, Section 12.1.3 (Rational Computations)},
+@ref{Floating-point Computations, Section 12.1.4 (Floating-point Computations)},
+@ref{Complex Computations, Section 12.1.5 (Complex Computations)}
+
+
+@node / (Function)
+@heading / (Function)
+@syindex /
+@cindex /
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{/, number, reciprocal}
+@DefunWithValues{/, numerator @rest{} @plus{denominators}, quotient}
+
+@subsubheading Arguments and Values:
+
+@param{number}, @param{denominator}---a non-zero @term{number}.
+
+@param{numerator}, @param{quotient}, @param{reciprocal}---a @term{number}.
+
+@subsubheading Description:
+
+@Thefunction{/} performs division or reciprocation.
+
+If no @param{denominators} are supplied,
+@thefunction{/} returns the reciprocal of @param{number}.
+
+If at least one @param{denominator} is supplied,
+@thefunction{/} divides the @param{numerator} by all of the @param{denominators}
+and returns the resulting @param{quotient}.
+
+If each @term{argument} is either an @term{integer} or a @term{ratio},
+and the result is not an @term{integer}, then it is a @term{ratio}.
+
+@Thefunction{/} performs necessary type conversions.
+
+If any @param{argument} is a @term{float} then
+the rules of floating-point contagion apply;
+see @ref{Floating-point Computations, Section 12.1.4 (Floating-point Computations)}.
+
+@subsubheading Examples:
+
+@lisp
+ (/ 12 4) @EV{} 3
+ (/ 13 4) @EV{} 13/4
+ (/ -8) @EV{} -1/8
+ (/ 3 4 5) @EV{} 3/20
+ (/ 0.5) @EV{} 2.0
+ (/ 20 5) @EV{} 4
+ (/ 5 20) @EV{} 1/4
+ (/ 60 -2 3 5.0) @EV{} -2.0
+ (/ 2 #c(2 2)) @EV{} #C(1/2 -1/2)
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+The consequences are unspecified if any @term{argument} other than the first is zero.
+If there is only one @term{argument}, the consequences are unspecified if it is zero.
+
+Might signal @code{type-error} if some @term{argument} is not a @term{number}.
+Might signal @code{division-by-zero} if division by zero is attempted.
+Might signal @code{arithmetic-error}.
+
+@subsubheading See Also:
+
+@ref{floor}, @ref{ceiling}, @ref{truncate}, @ref{round}
+
+
+@node 1+; 1-
+@heading 1+, 1- (Function)
+@syindex 1+
+@cindex 1+
+@syindex 1-
+@cindex 1-
+@anchor{1+}
+@anchor{1- (Function)}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{1+, number, successor}
+@DefunWithValues{1-, number, predecessor}
+
+@subsubheading Arguments and Values:
+
+@param{number}---a @term{number}.
+
+@param{successor}, @param{predecessor}---a @term{number}.
+
+@subsubheading Description:
+
+@code{1+} returns a @term{number} that is one more than its argument @param{number}.
+@code{1-} returns a @term{number} that is one less than its argument @param{number}.
+
+@subsubheading Examples:
+
+@lisp
+ (1+ 99) @EV{} 100
+ (1- 100) @EV{} 99
+ (1+ (complex 0.0)) @EV{} #C(1.0 0.0)
+ (1- 5/3) @EV{} 2/3
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+Might signal @code{type-error} if its @term{argument} is not a @term{number}.
+Might signal @code{arithmetic-error}.
+
+@subsubheading See Also:
+
+@ref{incf}, @ref{decf}
+
+@subsubheading Notes:
+
+@lisp
+ (1+ @param{number}) @EQ{} (+ @param{number} 1)
+ (1- @param{number}) @EQ{} (- @param{number} 1)
+@end lisp
+
+Implementors are encouraged to make the performance of both the previous
+expressions be the same.
+
+
+@node abs
+@heading abs (Function)
+@syindex abs
+@cindex abs
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{abs, number, absolute-value}
+
+@subsubheading Arguments and Values:
+
+@param{number}---a @term{number}.
+
+@param{absolute-value}---a non-negative @term{real}.
+
+@subsubheading Description:
+
+@code{abs} returns the absolute value of @param{number}.
+
+If @param{number} is
+a @term{real},
+the result is  of the same @term{type} as @param{number}.
+
+If @param{number} is a @term{complex},
+the result is a positive
+@term{real}
+with
+the same magnitude as @param{number}.
+The result can be a @term{float}
+@reviewer{Barmar: Single-float.}
+even if @param{number}'s components are @term{rationals}
+and an exact rational result
+would have been possible.
+Thus the result of @f{(abs #c(3 4))} can be either @f{5} or @f{5.0},
+depending on the implementation.
+
+@subsubheading Examples:
+
+@lisp
+ (abs 0) @EV{} 0
+ (abs 12/13) @EV{} 12/13
+ (abs -1.09) @EV{} 1.09
+ (abs #c(5.0 -5.0)) @EV{} 7.071068
+ (abs #c(5 5)) @EV{} 7.071068
+ (abs #c(3/5 4/5)) @EV{} 1 or approximately 1.0
+ (eql (abs -0.0) -0.0) @EV{} @term{true}
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{FloatSubstitutability, Section 12.1.3.3 (Rule of Float Substitutability)}
+
+@subsubheading Notes:
+
+If @param{number} is a @term{complex},
+the result is equivalent to the following:
+
+@f{(sqrt (+ (expt (realpart @param{number}) 2)  (expt (imagpart @param{number}) 2)))}
+
+An implementation should not use this formula directly
+for all @term{complexes}
+but should handle very large or very small components specially
+to avoid intermediate overflow or underflow.
+
+
+@node evenp; oddp
+@heading evenp, oddp (Function)
+@syindex evenp
+@cindex evenp
+@syindex oddp
+@cindex oddp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{evenp, integer, generalized-boolean}
+@DefunWithValues{oddp, integer, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{integer}---an @term{integer}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@NamedPredicate{evenp, integer, even (divisible by two)}
+
+@NamedPredicate{oddp, integer, odd (not divisible by two)}
+
+@subsubheading Examples:
+
+@lisp
+ (evenp 0) @EV{} @term{true}
+ (oddp 10000000000000000000000) @EV{} @term{false}
+ (oddp -1) @EV{} @term{true}
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{integer, an @term{integer}}
+
+@subsubheading Notes:
+
+@lisp
+ (evenp @param{integer}) @EQ{} (not (oddp @param{integer}))
+ (oddp @param{integer})  @EQ{} (not (evenp @param{integer}))
+@end lisp
+
+
+
+@node exp; expt
+@heading exp, expt (Function)
+@syindex exp
+@cindex exp
+@syindex expt
+@cindex expt
+@anchor{exp}
+@anchor{expt}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{exp, number, result}
+@DefunWithValues{expt, base-number power-number, result}
+
+@subsubheading Arguments and Values:
+
+@param{number}---a @term{number}.
+
+@param{base-number}---a @term{number}.
+
+@param{power-number}---a @term{number}.
+
+@param{result}---a @term{number}.
+
+@subsubheading Description:
+
+@code{exp} and @code{expt} perform exponentiation.
+
+@code{exp} returns @i{e} raised to the power @param{number},
+where @i{e} is the base of the natural logarithms.
+@code{exp} has no branch cut.
+
+@code{expt} returns @param{base-number}
+raised to the power @param{power-number}.
+If the @param{base-number} is a @term{rational}
+and @param{power-number} is
+an @term{integer},
+the calculation is exact and the result will be @oftype{rational};
+otherwise a floating-point approximation might result.
+For @code{expt} of a @term{complex rational} to an @term{integer} power,
+the calculation must be exact and the result is
+of type @f{(or rational (complex rational))}.
+
+The result of @code{expt} can be a @term{complex},
+even when neither argument is a @term{complex},
+if @param{base-number} is negative and @param{power-number}
+is not an @term{integer}.
+The result is always the @term{principal} @term{complex} @term{value}.
+For example, @f{(expt -8 1/3)} is not permitted to return @f{-2},
+even though @f{-2} is one of the cube roots of @f{-8}.
+The @term{principal} cube root is a @term{complex}
+approximately equal to @f{#C(1.0 1.73205)}, not @f{-2}.
+
+@code{expt} is defined
+as @i{@mat{b^x} = @mat{e^x log b}}.
+This defines the @term{principal} @term{values} precisely.  The range of
+@code{expt} is the entire complex plane.  Regarded
+as a function of @i{x}, with @i{b} fixed, there is no branch cut.
+Regarded as a function of @i{b}, with @i{x} fixed, there is in general
+a branch cut along the negative real axis, continuous with quadrant II.
+The domain excludes the origin.
+By definition, @mat{0^0}=1.  If @i{b}=0 and the real part of @i{x} is strictly
+positive, then
+@i{@mat{b^x}}=0. For all other values of @i{x}, @mat{0^@i{x}}
+is an error.
+
+When @param{power-number} is an @term{integer} @f{0},
+then the result is always the value one in the @term{type}
+of @param{base-number},
+even if the @param{base-number} is zero (of any @term{type}).  That is:
+
+@lisp
+ (expt x 0) @EQ{} (coerce 1 (type-of x))
+@end lisp
+
+If @param{power-number} is a zero of any other @term{type},
+then the result is also the value one, in the @term{type} of the arguments
+after the application of the contagion rules in @ref{NumericContagionRules, Section 12.1.1.2 (Contagion in Numeric Operations)},
+with one exception:
+the consequences are undefined if @param{base-number} is zero when @param{power-number}
+is zero and not @oftype{integer}.
+
+@subsubheading Examples:
+
+@lisp
+ (exp 0) @EV{} 1.0
+ (exp 1) @EV{} 2.718282
+ (exp (log 5)) @EV{} 5.0
+ (expt 2 8) @EV{} 256
+ (expt 4 .5) @EV{} 2.0
+ (expt #c(0 1) 2) @EV{} -1
+ (expt #c(2 2) 3) @EV{} #C(-16 16)
+ (expt #c(2 2) 4) @EV{} -64
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{log},
+@ref{FloatSubstitutability, Section 12.1.3.3 (Rule of Float Substitutability)}
+
+@subsubheading Notes:
+
+Implementations of @code{expt} are permitted to use different algorithms
+for the cases of a @param{power-number} @oftype{rational}
+and a @param{power-number} @oftype{float}.
+
+
+Note that by the following logic,
+@f{(sqrt (expt @i{x} 3))} is not equivalent to
+@f{(expt @i{x} 3/2)}.
+
+@lisp
+ (setq x (exp (/ (* 2 pi #c(0 1)) 3)))         ;exp(2.pi.i/3)
+ (expt x 3) @EV{} 1 ;except for round-off error
+ (sqrt (expt x 3)) @EV{} 1 ;except for round-off error
+ (expt x 3/2) @EV{} -1 ;except for round-off error
+@end lisp
+
+
+
+@node gcd
+@heading gcd (Function)
+@syindex gcd
+@cindex gcd
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{gcd, @rest{} integers, greatest-common-denominator}
+
+@subsubheading Arguments and Values:
+
+@param{integer}---an @term{integer}.
+
+@param{greatest-common-denominator}---a non-negative @term{integer}.
+
+@subsubheading Description:
+
+Returns the greatest common divisor of @param{integers}.
+If only one @param{integer} is supplied, its absolute value is returned.
+If no @param{integers} are given, @code{gcd} returns @f{0},
+which is an identity for this operation.
+
+@subsubheading Examples:
+
+@lisp
+ (gcd) @EV{} 0
+ (gcd 60 42) @EV{} 6
+ (gcd 3333 -33 101) @EV{} 1
+ (gcd 3333 -33 1002001) @EV{} 11
+ (gcd 91 -49) @EV{} 7
+ (gcd 63 -42 35) @EV{} 7
+ (gcd 5) @EV{} 5
+ (gcd -4) @EV{} 4
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldcheckanytype{integer, an @term{integer}}
+
+@subsubheading See Also:
+
+@ref{lcm}
+
+@subsubheading Notes:
+For three or more arguments,
+
+@lisp
+ (gcd b c ... z) @EQ{} (gcd (gcd a b) c ... z)
+@end lisp
+
+
+@node incf; decf
+@heading incf, decf (Macro)
+@syindex incf
+@cindex incf
+@syindex decf
+@cindex decf
+@anchor{incf}
+@anchor{decf}
+
+
+@subsubheading Syntax:
+
+@DefmacWithValues{incf, place @brac{delta-form}, new-value}
+@DefmacWithValues{decf, place @brac{delta-form}, new-value}
+
+@subsubheading Arguments and Values:
+
+@param{place}---a @term{place}.
+
+@param{delta-form}---a @term{form}; evaluated to produce a @param{delta}.
+@Default{@f{1}}
+
+@param{delta}---a @term{number}.
+
+@param{new-value}---a @term{number}.
+
+@subsubheading Description:
+
+@code{incf} and @code{decf} are used for incrementing and
+decrementing the @term{value} of @param{place}, respectively.
+
+The @param{delta} is
+added to        (in the case of @code{incf})
+or subtracted from (in the case of @code{decf})
+the number in @param{place} and the result is stored in @param{place}.
+
+Any necessary type conversions are performed automatically.
+
+For information about the @term{evaluation} of @term{subforms} of @param{places},
+see @ref{GenRefSubFormEval, Section 5.1.1.1 (Evaluation of Subforms to Places)}.
+
+@subsubheading Examples:
+@lisp
+ (setq n 0)
+ (incf n) @EV{} 1
+ n @EV{} 1
+ (decf n 3) @EV{} -2
+ n @EV{} -2
+ (decf n -5) @EV{} 3
+ (decf n) @EV{} 2
+ (incf n 0.5) @EV{} 2.5
+ (decf n) @EV{} 1.5
+ n @EV{} 1.5
+@end lisp
+
+
+@subsubheading Side Effects:
+
+@param{Place} is modified.
+
+@subsubheading See Also:
+
+@ref{+ (Function)}, @ref{- (Function)}, @ref{1+}, @ref{1- (Function)}, @ref{setf}
+
+
+@node lcm
+@heading lcm (Function)
+@syindex lcm
+@cindex lcm
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{lcm, @rest{} integers, least-common-multiple}
+
+@subsubheading Arguments and Values:
+
+@param{integer}---an @term{integer}.
+
+@param{least-common-multiple}---a non-negative @term{integer}.
+
+@subsubheading Description:
+
+@code{lcm} returns the least common multiple of the @param{integers}.
+
+If no @param{integer} is supplied, the @term{integer} @f{1} is returned.
+
+If only one @param{integer} is supplied,
+the absolute value of that @param{integer} is returned.
+
+For two arguments that are not both zero,
+
+@lisp
+ (lcm a b) @EQ{} (/ (abs (* a b)) (gcd a b))
+@end lisp
+
+
+If one or both arguments are zero,
+
+@lisp
+ (lcm a 0) @EQ{} (lcm 0 a) @EQ{} 0
+@end lisp
+
+
+For three or more arguments,
+
+@lisp
+ (lcm a b c ... z) @EQ{} (lcm (lcm a b) c ... z)
+@end lisp
+
+
+@subsubheading Examples:
+@lisp
+ (lcm 10) @EV{} 10
+ (lcm 25 30) @EV{} 150
+ (lcm -24 18 10) @EV{} 360
+ (lcm 14 35) @EV{} 70
+ (lcm 0 5) @EV{} 0
+ (lcm 1 2 3 4 5 6) @EV{} 60
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+Should signal @code{type-error} if any argument is not an @term{integer}.
+
+@subsubheading See Also:
+
+@ref{gcd}
+
+
+@node log
+@heading log (Function)
+@syindex log
+@cindex log
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{log, number @opt{} base, logarithm}
+
+@subsubheading Arguments and Values:
+
+@param{number}---a non-zero @term{number}.
+
+@param{base}---a @term{number}.
+
+@param{logarithm}---a @term{number}.
+
+@subsubheading Description:
+
+@code{log} returns the logarithm of @param{number} in base @param{base}.
+If @param{base} is not supplied its value is @i{e},
+the base of the natural logarithms.
+
+@code{log} may return a @term{complex} when given a
+@term{real}
+negative @param{number}.
+
+@lisp
+ (log -1.0) @EQ{} (complex 0.0 (float pi 0.0))
+@end lisp
+
+
+If @param{base} is zero,
+@code{log} returns zero.
+
+The result of @f{(log 8 2)} may be either @f{3} or @f{3.0}, depending on the
+implementation. An implementation can use floating-point calculations
+even if an exact integer result is possible.
+
+The branch cut for the logarithm function of one argument (natural
+logarithm) lies along the negative real axis, continuous with quadrant II.
+The domain excludes the origin.
+
+The mathematical definition of a complex logarithm
+is as follows, whether or not minus zero is supported by the
+implementation:
+
+@lisp
+(log @i{x}) @EQ{} (complex (log (abs @i{x})) (phase @i{x}))
+@end lisp
+
+
+Therefore the range of the one-argument logarithm function is that strip
+of the complex plane containing numbers with imaginary parts between
+@mat{-@pi{}} (exclusive) and@tie{}@mat{@pi{}} (inclusive) if minus zero is not supported,
+or @mat{-@pi{}} (inclusive) and@tie{}@mat{@pi{}} (inclusive) if minus zero is supported.
+
+The two-argument logarithm function is defined as
+
+@lisp
+ (log @param{base} @param{number})
+ @EQ{} (/ (log @param{number}) (log @param{base}))
+@end lisp
+
+
+This defines the @term{principal} @term{values} precisely.
+The range of the two-argument logarithm function is the entire complex plane.
+
+@subsubheading Examples:
+
+@lisp
+ (log 100 10)
+@EV{} 2.0
+@EV{} 2
+ (log 100.0 10) @EV{} 2.0
+ (log #c(0 1) #c(0 -1))
+@EV{} #C(-1.0 0.0)
+@OV{} #C(-1 0)
+ (log 8.0 2) @EV{} 3.0
+@end lisp
+
+
+@lisp
+ (log #c(-16 16) #c(2 2)) @EV{} 3 or approximately #c(3.0 0.0)
+                               or approximately 3.0 (unlikely)
+@end lisp
+
+
+@subsubheading Affected By:
+
+The implementation.
+
+@subsubheading See Also:
+
+@ref{exp},
+@ref{expt},
+@ref{FloatSubstitutability, Section 12.1.3.3 (Rule of Float Substitutability)}
+
+
+@node mod; rem
+@heading mod, rem (Function)
+@syindex mod
+@cindex mod
+@syindex rem
+@cindex rem
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{mod, number divisor, modulus}
+@DefunWithValues{rem, number divisor, remainder}
+
+@subsubheading Arguments and Values:
+
+@param{number}---a @term{real}.
+
+@param{divisor}---a @term{real}.
+
+@param{modulus}, @param{remainder}---a @term{real}.
+
+@subsubheading Description:
+
+@code{mod} and @code{rem} are generalizations of the modulus
+and remainder functions respectively.
+
+@code{mod} performs the operation @code{floor}
+on @param{number} and @param{divisor}
+and returns the remainder of the @code{floor} operation.
+
+@code{rem} performs the operation @code{truncate}
+on @param{number} and @param{divisor}
+and returns the remainder of the @code{truncate} operation.
+
+@code{mod} and @code{rem} are
+the modulus and remainder functions
+when @param{number} and @param{divisor} are @term{integers}.
+
+@subsubheading Examples:
+@lisp
+ (rem -1 5) @EV{} -1
+ (mod -1 5) @EV{} 4
+ (mod 13 4) @EV{} 1
+ (rem 13 4) @EV{} 1
+ (mod -13 4) @EV{} 3
+ (rem -13 4) @EV{} -1
+ (mod 13 -4) @EV{} -3
+ (rem 13 -4) @EV{} 1
+ (mod -13 -4) @EV{} -1
+ (rem -13 -4) @EV{} -1
+ (mod 13.4 1) @EV{} 0.4
+ (rem 13.4 1) @EV{} 0.4
+ (mod -13.4 1) @EV{} 0.6
+ (rem -13.4 1) @EV{} -0.4
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{floor}, @ref{truncate}
+
+@subsubheading Notes:
+
+The result of @code{mod} is either zero or a
+@term{real}
+with the same sign as @param{divisor}.
+
+@node signum
+@heading signum (Function)
+@syindex signum
+@cindex signum
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{signum, number, signed-prototype}
+
+@subsubheading Arguments and Values:
+
+@param{number}---a @term{number}.
+
+@param{signed-prototype}---a @term{number}.
+
+@subsubheading Description:
+
+@code{signum} determines a numerical value that indicates whether
+@param{number} is negative, zero, or positive.
+
+For a @term{rational},
+@code{signum} returns one of @f{-1}, @f{0}, or @f{1}
+according to whether @param{number} is negative, zero, or positive.
+For a @term{float},
+the result is a @term{float} of the same format
+whose value is minus one, zero, or one.
+For a @term{complex} number @f{z},
+@f{(signum @i{z})} is a complex number of the same phase but with unit magnitude,
+unless @f{z} is a complex zero, in which case the result is @f{z}.
+
+For @term{rational} @term{arguments}, @code{signum} is a rational function,
+but it may be irrational for @term{complex} @term{arguments}.
+
+If @param{number} is a @term{float}, the result is a @term{float}.
+If @param{number} is a @term{rational}, the result is a @term{rational}.
+If @param{number} is a @term{complex float}, the result is a @term{complex float}.
+If @param{number} is a @term{complex rational}, the result is a @term{complex},
+but it is @term{implementation-dependent} whether that result is a
+@term{complex rational} or a @term{complex float}.
+
+@subsubheading Examples:
+
+@lisp
+ (signum 0) @EV{} 0
+ (signum 99) @EV{} 1
+ (signum 4/5) @EV{} 1
+ (signum -99/100) @EV{} -1
+ (signum 0.0) @EV{} 0.0
+ (signum #c(0 33)) @EV{} #C(0.0 1.0)
+ (signum #c(7.5 10.0)) @EV{} #C(0.6 0.8)
+ (signum #c(0.0 -14.7)) @EV{} #C(0.0 -1.0)
+ (eql (signum -0.0) -0.0) @EV{} @term{true}
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{FloatSubstitutability, Section 12.1.3.3 (Rule of Float Substitutability)}
+
+@subsubheading Notes:
+@lisp
+ (signum x) @EQ{} (if (zerop x) x (/ x (abs x)))
+@end lisp
+
+
+
+@node sqrt; isqrt
+@heading sqrt, isqrt (Function)
+@syindex sqrt
+@cindex sqrt
+@syindex isqrt
+@cindex isqrt
+@anchor{sqrt}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{sqrt, number, root}
+@DefunWithValues{isqrt, natural, natural-root}
+
+@subsubheading Arguments and Values:
+
+@param{number}, @param{root}---a @term{number}.
+
+@param{natural}, @param{natural-root}---a non-negative @term{integer}.
+
+@subsubheading Description:
+
+@code{sqrt} and @code{isqrt} compute square roots.
+
+@code{sqrt} returns the @term{principal} square root of @param{number}.
+If the @param{number} is not a @term{complex} but is negative,
+then the result is a @term{complex}.
+
+@code{isqrt} returns the greatest @term{integer}
+less than or equal to the exact positive square root of @param{natural}.
+
+If @param{number} is a positive @term{rational},
+it is @term{implementation-dependent}
+whether @param{root} is a @term{rational} or a @term{float}.
+If @param{number} is a negative @term{rational},
+it is @term{implementation-dependent}
+whether @param{root} is a @term{complex rational} or a @term{complex float}.
+
+The mathematical definition of complex square root (whether or not
+minus zero is supported) follows:
+
+@f{(sqrt @i{x}) = (exp (/ (log @i{x}) 2))}
+
+
+The branch cut for square root lies along the negative real axis,
+continuous with quadrant II.
+The range consists of the right half-plane, including the non-negative
+imaginary axis and excluding the negative imaginary axis.
+
+@subsubheading Examples:
+
+@lisp
+ (sqrt 9.0) @EV{} 3.0
+ (sqrt -9.0) @EV{} #C(0.0 3.0)
+ (isqrt 9) @EV{} 3
+ (sqrt 12) @EV{} 3.4641016
+ (isqrt 12) @EV{} 3
+ (isqrt 300) @EV{} 17
+ (isqrt 325) @EV{} 18
+ (sqrt 25)
+@EV{} 5
+@OV{} 5.0
+ (isqrt 25) @EV{} 5
+ (sqrt -1) @EV{} #C(0.0 1.0)
+ (sqrt #c(0 2)) @EV{} #C(1.0 1.0)
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Thefunction{sqrt} should signal @code{type-error} if its argument
+is not a @term{number}.
+
+@Thefunction{isqrt} should signal @code{type-error} if its argument
+is not a non-negative @term{integer}.
+
+The functions @code{sqrt} and @code{isqrt} might signal @code{arithmetic-error}.
+
+@subsubheading See Also:
+
+@ref{exp},
+@ref{log},
+@ref{FloatSubstitutability, Section 12.1.3.3 (Rule of Float Substitutability)}
+
+@subsubheading Notes:
+
+@lisp
+ (isqrt x) @EQ{} (values (floor (sqrt x)))
+@end lisp
+
+but it is potentially more efficient.
+
+
+@node random-state
+@heading random-state (System Class)
+@syindex random-state
+@cindex random-state
+
+
+@subsubheading Class Precedence List:
+@code{random-state},
+@code{t}
+
+@subsubheading Description:
+
+A @term{random state} @term{object} contains state
+information used by the pseudo-random number generator.
+The nature of a @term{random state} @term{object} is @term{implementation-dependent}.
+It can be printed out and successfully read back in by the same @term{implementation},
+but might not function correctly as a @term{random state} in another @term{implementation}.
+
+@term{Implementations} are required to provide a read syntax for
+@term{objects} @oftype{random-state}, but the specific nature of that syntax
+is @term{implementation-dependent}.
+
+@subsubheading See Also:
+
+@ref{*random-state*},
+@ref{random},
+@ref{PrintingRandomStates, Section 22.1.3.10 (Printing Random States)}
+
+
+@node make-random-state
+@heading make-random-state (Function)
+@syindex make-random-state
+@cindex make-random-state
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{make-random-state, @opt{} state, new-state}
+
+@subsubheading Arguments and Values:
+
+@param{state}---a @term{random state}, or @nil{}, or @code{t}.
+@Default{@nil{}}
+
+@param{new-state}---a @term{random state} @term{object}.
+
+@subsubheading Description:
+
+Creates a @term{fresh} @term{object} @oftype{random-state} suitable
+for use as @thevalueof{*random-state*}.
+
+If @param{state} is a @term{random state} @term{object},
+the @param{new-state} is a @term{copy}@sub5{} of that @term{object}.
+If @param{state} is @nil{},
+the @param{new-state} is a @term{copy}@sub5{} of the @term{current random state}.
+If @param{state} is @code{t},
+the @param{new-state} is a @term{fresh} @term{random state} @term{object}
+that has been randomly initialized by some means.
+
+@subsubheading Examples:
+
+@lisp
+ (let* ((rs1 (make-random-state nil))
+        (rs2 (make-random-state t))
+        (rs3 (make-random-state rs2))
+        (rs4 nil))
+   (list (loop for i from 1 to 10
+               collect (random 100)
+               when (= i 5)
+                do (setq rs4 (make-random-state)))
+         (loop for i from 1 to 10 collect (random 100 rs1))
+         (loop for i from 1 to 10 collect (random 100 rs2))
+         (loop for i from 1 to 10 collect (random 100 rs3))
+         (loop for i from 1 to 10 collect (random 100 rs4))))
+@EV{} ((29 25 72 57 55 68 24 35 54 65)
+    (29 25 72 57 55 68 24 35 54 65)
+    (93 85 53 99 58 62 2 23 23 59)
+    (93 85 53 99 58 62 2 23 23 59)
+    (68 24 35 54 65 54 55 50 59 49))
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{state, a @term{random state}\, or @nil{}\, or @code{t}}
+
+@subsubheading See Also:
+
+@ref{random}, @ref{*random-state*}
+
+@subsubheading Notes:
+
+One important use of @code{make-random-state} is to allow the same
+series of pseudo-random @term{numbers} to be generated many times within a
+single program.
+
+
+@node random
+@heading random (Function)
+@syindex random
+@cindex random
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{random, limit @opt{} random-state, random-number}
+
+@subsubheading Arguments and Values:
+
+@param{limit}---a positive @term{integer},
+or a positive @term{float}.
+
+@param{random-state}---a @term{random state}.
+@Default{the @term{current random state}}
+
+@param{random-number}---a non-negative @term{number}
+less than @param{limit}
+and of the same @term{type} as @param{limit}.
+
+@subsubheading Description:
+
+Returns a pseudo-random number that is a non-negative @term{number}
+less than @param{limit} and of the same @term{type} as @param{limit}.
+
+The @param{random-state}, which is modified by this function,
+encodes the internal state maintained by the random number generator.
+
+An approximately uniform choice distribution is used.  If @param{limit}
+is an @term{integer}, each of the possible results occurs with
+(approximate) probability 1/@param{limit}.
+
+@subsubheading Examples:
+
+@lisp
+ (<= 0 (random 1000) 1000) @EV{} @term{true}
+ (let ((state1 (make-random-state))
+       (state2 (make-random-state)))
+   (= (random 1000 state1) (random 1000 state2))) @EV{} @term{true}
+@end lisp
+
+
+@subsubheading Side Effects:
+
+The @param{random-state} is modified.
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{limit, a positive @term{integer} or a positive @term{real}}
+
+@subsubheading See Also:
+
+@ref{make-random-state}, @ref{*random-state*}
+
+@subsubheading Notes:
+
+See @CLtL{}@spc{}for information about generating random numbers.
+
+
+@node random-state-p
+@heading random-state-p (Function)
+@syindex random-state-p
+@cindex random-state-p
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{random-state-p, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{object, random-state}
+
+@subsubheading Examples:
+
+@lisp
+ (random-state-p *random-state*) @EV{} @term{true}
+ (random-state-p (make-random-state)) @EV{} @term{true}
+ (random-state-p 'test-function) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{make-random-state}, @ref{*random-state*}
+
+@subsubheading Notes:
+
+@lisp
+ (random-state-p @param{object}) @EQ{} (typep @param{object} 'random-state)
+@end lisp
+
+
+
+@node *random-state*
+@heading *random-state* (Variable)
+@syindex *random-state*
+@cindex *random-state*
+
+
+@subsubheading Value Type:
+
+a @term{random state}.
+
+@subsubheading Initial Value:
+
+@term{implementation-dependent}.
+
+@subsubheading Description:
+
+The @term{current random state}, which is used, for example,
+by @thefunction{random} when a @term{random state} is not explicitly supplied.
+
+@subsubheading Examples:
+
+@lisp
+ (random-state-p *random-state*) @EV{} @term{true}
+ (setq snap-shot (make-random-state))
+ ;; The series from any given point is random,
+ ;; but if you backtrack to that point, you get the same series.
+ (list (loop for i from 1 to 10 collect (random))
+       (let ((*random-state* snap-shot))
+         (loop for i from 1 to 10 collect (random)))
+       (loop for i from 1 to 10 collect (random))
+       (let ((*random-state* snap-shot))
+         (loop for i from 1 to 10 collect (random))))
+@EV{} ((19 16 44 19 96 15 76 96 13 61)
+    (19 16 44 19 96 15 76 96 13 61)
+    (16 67 0 43 70 79 58 5 63 50)
+    (16 67 0 43 70 79 58 5 63 50))
+@end lisp
+
+
+@subsubheading Affected By:
+
+The @term{implementation}.
+
+@code{random}.
+
+@subsubheading See Also:
+
+@ref{make-random-state},
+@ref{random},
+@ref{random-state}
+
+@subsubheading Notes:
+
+@term{Binding} @code{*random-state*} to a different
+@term{random state} @term{object} correctly saves and
+restores the old @term{random state} @term{object}.
+
+
+@node numberp
+@heading numberp (Function)
+@syindex numberp
+@cindex numberp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{numberp, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{object, number}
+
+@subsubheading Examples:
+
+@lisp
+ (numberp 12) @EV{} @term{true}
+ (numberp (expt 2 130)) @EV{} @term{true}
+ (numberp #c(5/3 7.2)) @EV{} @term{true}
+ (numberp nil) @EV{} @term{false}
+ (numberp (cons 1 2)) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading Notes:
+
+@lisp
+ (numberp @param{object}) @EQ{} (typep @param{object} 'number)
+@end lisp
+
+
+
+@node cis
+@heading cis (Function)
+@syindex cis
+@cindex cis
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{cis, radians, number}
+
+@subsubheading Arguments and Values:
+
+@param{radians}---a @term{real}.
+
+@param{number}---a @term{complex}.
+
+@subsubheading Description:
+
+@code{cis} returns the value of@tie{}@mat{@i{e}^i@cdot{}@spc{}@i{radians}},
+which is a @term{complex} in which the
+real part is equal to the cosine of @param{radians}, and the
+imaginary part is equal to the sine of @param{radians}.
+
+@subsubheading Examples:
+@lisp
+ (cis 0) @EV{} #C(1.0 0.0)
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{FloatSubstitutability, Section 12.1.3.3 (Rule of Float Substitutability)}
+
+
+@node complex (Function)
+@heading complex (Function)
+@syindex complex
+@cindex complex
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{complex, realpart @opt{} imagpart, complex}
+
+@subsubheading Arguments and Values:
+
+@param{realpart}---a @term{real}.
+
+@param{imagpart}---a @term{real}.
+
+@param{complex}---a @term{rational} or a @term{complex}.
+
+@subsubheading Description:
+
+@code{complex} returns a @term{number}
+whose real      part is @param{realpart}
+and whose imaginary part is @param{imagpart}.
+
+If @param{realpart} is a @term{rational}
+and @param{imagpart} is the @term{rational} number zero,
+the result of @code{complex} is @param{realpart}, a @term{rational}.
+Otherwise, the result is a @term{complex}.
+
+If either @param{realpart} or @param{imagpart} is a @term{float},
+the non-@term{float} is converted to a @term{float}
+before the @term{complex} is created.
+If @param{imagpart} is not supplied, the imaginary part is a
+zero of the same @term{type} as @param{realpart}; @ie{}
+@tt{(coerce 0 (type-of @param{realpart}))} is
+effectively used.
+
+
+Type upgrading implies a movement upwards in the type
+hierarchy lattice.
+In the case of @term{complexes}, the @param{type-specifier}
+@reviewer{Barmar: What type specifier?}
+must be a subtype of
+@tt{(upgraded-complex-part-type @param{type-specifier})}.
+If @param{type-specifier1} is a subtype of @param{type-specifier2}, then
+@tt{(upgraded-complex-element-type '@param{type-specifier1})}
+must also be a subtype of
+@tt{(upgraded-complex-element-type '@param{type-specifier2})}.
+Two disjoint types can be upgraded into
+the same thing.
+
+
+@subsubheading Examples:
+@lisp
+ (complex 0) @EV{} 0
+ (complex 0.0) @EV{} #C(0.0 0.0)
+ (complex 1 1/2) @EV{} #C(1 1/2)
+ (complex 1 .99) @EV{} #C(1.0 0.99)
+ (complex 3/2 0.0) @EV{} #C(1.5 0.0)
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{realpart},
+@ref{imagpart},
+@ref{SharpsignC, Section 2.4.8.11 (Sharpsign C)}
+
+
+@node complexp
+@heading complexp (Function)
+@syindex complexp
+@cindex complexp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{complexp, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{object, complex}
+
+@subsubheading Examples:
+@lisp
+ (complexp 1.2d2) @EV{} @term{false}
+ (complexp #c(5/3 7.2)) @EV{} @term{true}
+
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{complex (Function)} (@term{function} and @term{type}), @ref{typep}
+
+@subsubheading Notes:
+
+@lisp
+ (complexp @param{object}) @EQ{} (typep @param{object} 'complex)
+@end lisp
+
+
+
+@node conjugate
+@heading conjugate (Function)
+@syindex conjugate
+@cindex conjugate
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{conjugate, number, conjugate}
+
+@subsubheading Arguments and Values:
+
+@param{number}---a @term{number}.
+
+@param{conjugate}---a @term{number}.
+
+@subsubheading Description:
+
+Returns the complex conjugate of @param{number}.
+The conjugate of a
+@term{real}
+number is itself.
+
+@subsubheading Examples:
+
+@lisp
+ (conjugate #c(0 -1)) @EV{} #C(0 1)
+ (conjugate #c(1 1)) @EV{} #C(1 -1)
+ (conjugate 1.5) @EV{} 1.5
+ (conjugate #C(3/5 4/5)) @EV{} #C(3/5 -4/5)
+ (conjugate #C(0.0D0 -1.0D0)) @EV{} #C(0.0D0 1.0D0)
+ (conjugate 3.7) @EV{} 3.7
+@end lisp
+
+
+@subsubheading Notes:
+
+For a @term{complex} number @f{z},
+
+@lisp
+ (conjugate z) @EQ{} (complex (realpart z) (- (imagpart z)))
+@end lisp
+
+
+
+@node phase
+@heading phase (Function)
+@syindex phase
+@cindex phase
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{phase, number, phase}
+
+@subsubheading Arguments and Values:
+
+@param{number}---a @term{number}.
+
+@param{phase}---a @term{number}.
+
+@subsubheading Description:
+
+@code{phase}
+returns the phase
+of @param{number} (the angle part of its polar representation)
+in radians, in the range
+@mat{-@pi{}} (exclusive) if minus zero is not supported, or
+@mat{-@pi{}} (inclusive) if minus zero is supported,
+to @mat{@pi{}} (inclusive).  The phase of a positive
+@term{real}
+number
+is zero; that of a negative
+@term{real}
+number is @mat{@pi{}}.
+The phase of zero is defined to be zero.
+
+If @param{number} is a @term{complex float},
+the result is a @term{float} of the same @term{type}
+as the components of @param{number}.
+If @param{number} is a @term{float}, the result is a
+@term{float} of the same @term{type}.
+If @param{number} is a @term{rational} or a @term{complex rational},
+the result is a @term{single float}.
+
+The branch cut for @code{phase} lies along the negative real
+axis, continuous with quadrant II.  The range consists of that portion of
+the real axis between @mat{-@pi{}} (exclusive) and@tie{}@mat{@pi{}} (inclusive).
+
+The mathematical definition of @code{phase} is as follows:
+
+@f{(phase @i{x}) = (atan (imagpart @i{x}) (realpart @i{x}))}
+
+@subsubheading Examples:
+
+@lisp
+ (phase 1) @EV{} 0.0s0
+ (phase 0) @EV{} 0.0s0
+ (phase (cis 30)) @EV{} -1.4159266
+ (phase #c(0 1)) @EV{} 1.5707964
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+Should signal @code{type-error} if its argument is not a @term{number}.
+Might signal @code{arithmetic-error}.
+
+@subsubheading See Also:
+
+@ref{FloatSubstitutability, Section 12.1.3.3 (Rule of Float Substitutability)}
+
+
+@node realpart; imagpart
+@heading realpart, imagpart (Function)
+@syindex realpart
+@cindex realpart
+@syindex imagpart
+@cindex imagpart
+@anchor{realpart}
+@anchor{imagpart}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{realpart, number, real}
+@DefunWithValues{imagpart, number, real}
+
+@subsubheading Arguments and Values:
+
+@param{number}---a @term{number}.
+
+@param{real}---a @term{real}.
+
+@subsubheading Description:
+
+@code{realpart} and @code{imagpart} return the real and
+imaginary parts of @param{number} respectively.
+If @param{number} is
+@term{real},
+then @code{realpart} returns @param{number} and @code{imagpart}
+returns @f{(* 0 @param{number})}, which has the effect that the
+imaginary part of a @term{rational} is @f{0} and that of
+a @term{float} is a floating-point zero of the same format.
+
+@subsubheading Examples:
+
+@lisp
+ (realpart #c(23 41)) @EV{} 23
+ (imagpart #c(23 41.0)) @EV{} 41.0
+ (realpart #c(23 41.0)) @EV{} 23.0
+ (imagpart 23.0) @EV{} 0.0
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{number, a @term{number}}
+
+@subsubheading See Also:
+
+@ref{complex (Function)}
+
+
+@node upgraded-complex-part-type
+@heading upgraded-complex-part-type (Function)
+@syindex upgraded-complex-part-type
+@cindex upgraded-complex-part-type
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{upgraded-complex-part-type, typespec @opt{} environment, upgraded-typespec}
+
+@subsubheading Arguments and Values:
+
+@param{typespec}---a @term{type specifier}.
+
+@param{environment}---an @term{environment} @term{object}.
+@Default{@nil{}, denoting the @term{null lexical environment}
+and the and current @term{global environment}}
+
+@param{upgraded-typespec}---a @term{type specifier}.
+
+@subsubheading Description:
+
+@code{upgraded-complex-part-type} returns the part type of the
+most specialized @term{complex} number representation that can
+hold parts of @term{type} @term{typespec}.
+
+The @param{typespec} is a @term{subtype} of
+(and possibly @term{type equivalent} to)
+the @param{upgraded-typespec}.
+
+The purpose of @code{upgraded-complex-part-type}
+is to reveal how an implementation does its @term{upgrading}.
+
+@subsubheading See Also:
+
+@ref{complex (Function)} (@term{function} and @term{type})
+
+@subsubheading Notes:
+
+
+
+@node realp
+@heading realp (Function)
+@syindex realp
+@cindex realp
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{realp, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{object, real}
+
+@subsubheading Examples:
+@lisp
+ (realp 12) @EV{} @term{true}
+ (realp #c(5/3 7.2)) @EV{} @term{false}
+ (realp nil) @EV{} @term{false}
+ (realp (cons 1 2)) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading Notes:
+
+@lisp
+ (realp @param{object}) @EQ{} (typep @param{object} 'real)
+@end lisp
+
+
+
+@node numerator; denominator
+@heading numerator, denominator (Function)
+@syindex numerator
+@cindex numerator
+@syindex denominator
+@cindex denominator
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{numerator, rational, numerator}
+@DefunWithValues{denominator, rational, denominator}
+
+@subsubheading Arguments and Values:
+
+@param{rational}---a @term{rational}.
+
+@param{numerator}---an @term{integer}.
+
+@param{denominator}---a positive @term{integer}.
+
+@subsubheading Description:
+
+@code{numerator} and @code{denominator} reduce @param{rational}
+to canonical form and compute the numerator or denominator of that number.
+
+@code{numerator} and @code{denominator} return the numerator
+or denominator of the canonical form of @param{rational}.
+
+If @param{rational} is an @term{integer},
+@code{numerator} returns @param{rational}
+and @code{denominator} returns 1.
+
+@subsubheading Examples:
+@lisp
+ (numerator 1/2) @EV{} 1
+ (denominator 12/36) @EV{} 3
+ (numerator -1) @EV{} -1
+ (denominator (/ -33)) @EV{} 33
+ (numerator (/ 8 -6)) @EV{} -4
+ (denominator (/ 8 -6)) @EV{} 3
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{/ (Function)}
+
+@subsubheading Notes:
+@lisp
+ (gcd (numerator x) (denominator x)) @EV{} 1
+@end lisp
+
+
+
+@node rational; rationalize
+@heading rational, rationalize (Function)
+@syindex rational
+@cindex rational
+@syindex rationalize
+@cindex rationalize
+@anchor{rational}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{rational, number, rational}
+@DefunWithValues{rationalize, number, rational}
+
+@subsubheading Arguments and Values:
+
+@param{number}---a @term{real}.
+
+@param{rational}---a @term{rational}.
+
+@subsubheading Description:
+
+@code{rational} and @code{rationalize} convert
+@term{reals}
+to @term{rationals}.
+
+If @param{number} is already @term{rational}, it is returned.
+
+If @param{number} is a @term{float},
+@code{rational} returns a @term{rational}
+that is mathematically equal in value to the @term{float}.
+@code{rationalize} returns a @term{rational} that
+approximates the @term{float} to the accuracy of
+the underlying floating-point representation.
+
+@code{rational} assumes that the @term{float} is completely accurate.
+
+@code{rationalize} assumes that the
+@term{float} is accurate only to the precision of the
+floating-point representation.
+
+@subsubheading Examples:
+@lisp
+ (rational 0) @EV{} 0
+ (rationalize -11/100) @EV{} -11/100
+ (rational .1) @EV{} 13421773/134217728 ;implementation-dependent
+ (rationalize .1) @EV{} 1/10
+@end lisp
+
+
+@subsubheading Affected By:
+
+The @term{implementation}.
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{number, a @term{real}}
+Might signal @code{arithmetic-error}.
+
+@subsubheading Notes:
+
+It is always the case that
+
+@lisp
+ (float (rational x) x) @EQ{} x
+@end lisp
+
+and
+
+@lisp
+ (float (rationalize x) x) @EQ{} x
+@end lisp
+
+That is, rationalizing a @term{float} by either method
+and then converting it back
+to a @term{float}
+of the same format produces the original @param{number}.
+
+@node rationalp
+@heading rationalp (Function)
+@syindex rationalp
+@cindex rationalp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{rationalp, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{object, rational}
+
+@subsubheading Examples:
+
+@lisp
+ (rationalp 12) @EV{} @term{true}
+ (rationalp 6/5) @EV{} @term{true}
+ (rationalp 1.212) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{rational}
+
+@subsubheading Notes:
+@lisp
+ (rationalp @param{object}) @EQ{} (typep @param{object} 'rational)
+@end lisp
+
+
+
+@node ash
+@heading ash (Function)
+@syindex ash
+@cindex ash
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{ash, integer count, shifted-integer}
+
+@subsubheading Arguments and Values:
+
+@param{integer}---an @term{integer}.
+
+@param{count}---an @term{integer}.
+
+@param{shifted-integer}---an @term{integer}.
+
+@subsubheading Description:
+
+@code{ash} performs the arithmetic shift operation on the binary
+representation of @param{integer}, which is treated as if it were binary.
+
+@code{ash} shifts @param{integer} arithmetically left by @param{count} bit
+positions if @param{count} is positive,
+or right @param{count} bit positions if @param{count} is negative.
+The shifted value of the same sign
+as @param{integer} is returned.
+
+Mathematically speaking, @code{ash} performs the computation
+@f{floor}(@param{integer}@centerdot{} @mat{2^@param{count}}).
+Logically, @code{ash}
+moves all of the bits in @param{integer} to the left,
+adding zero-bits at the right, or moves them to the right,
+discarding bits.
+
+@code{ash} is defined to behave as if @param{integer} were
+represented in two's complement form, regardless of
+how @term{integers} are represented internally.
+@subsubheading Examples:
+@lisp
+ (ash 16 1) @EV{} 32
+ (ash 16 0) @EV{} 16
+ (ash 16 -1) @EV{} 8
+ (ash -100000000000000000000000000000000 -100) @EV{} -79
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{integer, an @term{integer}}
+@Shouldchecktype{count, an @term{integer}}
+Might signal @code{arithmetic-error}.
+
+@subsubheading Notes:
+
+@lisp
+ (logbitp @param{j} (ash @param{n} @param{k}))
+ @EQ{} (and (>= @param{j} @param{k}) (logbitp (- @param{j} @param{k}) @param{n}))
+@end lisp
+
+
+@node integer-length
+@heading integer-length (Function)
+@syindex integer-length
+@cindex integer-length
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{integer-length, integer, number-of-bits}
+
+@subsubheading Arguments and Values:
+
+@param{integer}---an @term{integer}.
+
+@param{number-of-bits}---a non-negative @term{integer}.
+
+@subsubheading Description:
+
+Returns the number of bits needed to represent @param{integer}
+in binary two's-complement format.
+
+@subsubheading Examples:
+
+@lisp
+ (integer-length 0) @EV{} 0
+ (integer-length 1) @EV{} 1
+ (integer-length 3) @EV{} 2
+ (integer-length 4) @EV{} 3
+ (integer-length 7) @EV{} 3
+ (integer-length -1) @EV{} 0
+ (integer-length -4) @EV{} 2
+ (integer-length -7) @EV{} 3
+ (integer-length -8) @EV{} 3
+ (integer-length (expt 2 9)) @EV{} 10
+ (integer-length (1- (expt 2 9))) @EV{} 9
+ (integer-length (- (expt 2 9))) @EV{} 9
+ (integer-length (- (1+ (expt 2 9)))) @EV{} 10
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{integer, an @term{integer}}
+
+@subsubheading Notes:
+
+This function could have been defined by:
+
+@lisp
+(defun integer-length (integer)
+  (ceiling (log (if (minusp integer)
+                    (- integer)
+                    (1+ integer))
+                2)))
+@end lisp
+
+
+If @param{integer} is non-negative, then its value can be represented
+in unsigned binary form in a field whose width in bits is
+no smaller than @tt{(integer-length @param{integer})}.
+Regardless of the sign of @param{integer}, its value can be
+represented in signed binary two's-complement form in a field
+whose width in bits is no smaller than @tt{(+ (integer-length @param{integer}) 1)}.
+
+
+@node integerp
+@heading integerp (Function)
+@syindex integerp
+@cindex integerp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{integerp, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{object, integer}
+
+@subsubheading Examples:
+@lisp
+ (integerp 1) @EV{} @term{true}
+ (integerp (expt 2 130)) @EV{} @term{true}
+ (integerp 6/5) @EV{} @term{false}
+ (integerp nil) @EV{} @term{false}
+
+@end lisp
+
+
+@subsubheading Notes:
+
+@lisp
+ (integerp @param{object}) @EQ{} (typep @param{object} 'integer)
+@end lisp
+
+
+
+@node parse-integer
+@heading parse-integer (Function)
+@syindex parse-integer
+@cindex parse-integer
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{parse-integer, string @key{} start end radix junk-allowed, integer\, pos}
+
+@subsubheading Arguments and Values:
+
+@param{string}---a @term{string}.
+
+@param{start}, @param{end}---@term{bounding index designators} of @param{string}.
+@Defaults{@param{start} and @param{end}, @f{0} and @nil{}}
+
+@param{radix}---a @term{radix}.
+@Default{@f{10}}
+
+@param{junk-allowed}---a @term{generalized boolean}.
+@Default{@term{false}}
+
+@param{integer}---an @term{integer} or @term{false}.
+
+@param{pos}---a @term{bounding index} of @param{string}.
+
+@subsubheading Description:
+
+@code{parse-integer} parses an @term{integer} in the specified @param{radix}
+from the substring of @param{string} delimited by @param{start} and @param{end}.
+
+@code{parse-integer} expects an optional sign (@f{+} or @f{-}) followed by
+a a non-empty sequence of digits to be interpreted in the specified @param{radix}.
+Optional leading and trailing @term{whitespace}@sub1{} is ignored.
+
+@code{parse-integer} does not recognize the syntactic radix-specifier
+prefixes @f{#O}, @f{#B}, @f{#X}, and @f{#@i{n}R},
+nor does it recognize a trailing decimal point.
+
+If @param{junk-allowed} is @term{false}, an error @oftype{parse-error} is
+signaled if substring does not consist entirely of the representation of a
+signed @term{integer}, possibly surrounded on either side by @term{whitespace}@sub1{}
+@term{characters}.
+
+The first @term{value} returned is either
+the @term{integer} that was parsed,
+or else @nil{}@spc{}if no syntactically correct @term{integer}
+was seen but @param{junk-allowed} was @term{true}.
+
+The second @term{value} is either
+the index into the @term{string} of the delimiter that terminated the parse,
+or the upper @term{bounding index} of the substring if the parse terminated at
+the end of the substring (as is always the case if @param{junk-allowed}
+is @term{false}).
+
+@subsubheading Examples:
+@lisp
+ (parse-integer "123") @EV{} 123, 3
+ (parse-integer "123" :start 1 :radix 5) @EV{} 13, 3
+ (parse-integer "no-integer" :junk-allowed t) @EV{} NIL, 0
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+If @param{junk-allowed} is @term{false},
+an error is signaled if substring does not consist entirely of
+the representation of an @term{integer},
+possibly surrounded on either side by
+@term{whitespace}@sub1{} characters.
+
+
+@node boole
+@heading boole (Function)
+@syindex boole
+@cindex boole
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{boole, op integer-1 integer-2, result-integer}
+
+@subsubheading Arguments and Values:
+
+@param{Op}---a @term{bit-wise logical operation specifier}.
+
+@param{integer-1}---an @term{integer}.
+
+@param{integer-2}---an @term{integer}.
+
+@param{result-integer}---an @term{integer}.
+
+@subsubheading Description:
+
+@code{boole} performs bit-wise logical operations on
+@param{integer-1} and @param{integer-2}, which are treated as if
+they were binary and in two's complement representation.
+
+The operation to be performed and the return value are determined by
+@param{op}.
+
+@code{boole} returns the values
+specified for any @param{op} in @thenextfigure{}.
+
+
+@float Figure,fig12.17
+@cartouche
+@multitable{@code{boole-andc1}}{and complement of @param{integer-1} with @param{integer-2}}
+@headitem Op @tab Result
+@item @code{boole-1} @tab @param{integer-1}
+@item @code{boole-2} @tab @param{integer-2}
+@item @code{boole-andc1} @tab and complement of @param{integer-1} with @param{integer-2}
+@item @code{boole-andc2} @tab and @param{integer-1} with complement of @param{integer-2}
+@item @code{boole-and} @tab and
+@item @code{boole-c1} @tab complement of @param{integer-1}
+@item @code{boole-c2} @tab complement of @param{integer-2}
+@item @code{boole-clr} @tab always 0 (all zero bits)
+@item @code{boole-eqv} @tab equivalence (exclusive nor)
+@item @code{boole-ior} @tab inclusive or
+@item @code{boole-nand} @tab not-and
+@item @code{boole-nor} @tab not-or
+@item @code{boole-orc1} @tab or complement of @param{integer-1} with @param{integer-2}
+@item @code{boole-orc2} @tab or @param{integer-1} with complement of @param{integer-2}
+@item @code{boole-set} @tab always -1 (all one bits)
+@item @code{boole-xor} @tab exclusive or
+@end multitable
+@end cartouche
+@caption{Bit-Wise Logical Operations}
+@end float
+
+
+@subsubheading Examples:
+
+@lisp
+ (boole boole-ior 1 16) @EV{} 17
+ (boole boole-and -2 5) @EV{} 4
+ (boole boole-eqv 17 15) @EV{} -31
+
+;;; These examples illustrate the result of applying BOOLE and each
+;;; of the possible values of OP to each possible combination of bits.
+ (progn
+   (format t "~&Results of (BOOLE <op> #b0011 #b0101) ...~
+           ~%---Op-------Decimal-----Binary----Bits---~%")
+   (dolist (symbol '(boole-1     boole-2    boole-and  boole-andc1
+                     boole-andc2 boole-c1   boole-c2   boole-clr
+                     boole-eqv   boole-ior  boole-nand boole-nor
+                     boole-orc1  boole-orc2 boole-set  boole-xor))
+     (let ((result (boole (symbol-value symbol) #b0011 #b0101)))
+       (format t "~& ~A~13T~3,' D~23T~:*~5,' B~31T ...~4,'0B~%"
+               symbol result (logand result #b1111)))))
+@OUT{} Results of (BOOLE <op> #b0011 #b0101) ...
+@OUT{} ---Op-------Decimal-----Binary----Bits---
+@OUT{}  BOOLE-1       3          11    ...0011
+@OUT{}  BOOLE-2       5         101    ...0101
+@OUT{}  BOOLE-AND     1           1    ...0001
+@OUT{}  BOOLE-ANDC1   4         100    ...0100
+@OUT{}  BOOLE-ANDC2   2          10    ...0010
+@OUT{}  BOOLE-C1     -4        -100    ...1100
+@OUT{}  BOOLE-C2     -6        -110    ...1010
+@OUT{}  BOOLE-CLR     0           0    ...0000
+@OUT{}  BOOLE-EQV    -7        -111    ...1001
+@OUT{}  BOOLE-IOR     7         111    ...0111
+@OUT{}  BOOLE-NAND   -2         -10    ...1110
+@OUT{}  BOOLE-NOR    -8       -1000    ...1000
+@OUT{}  BOOLE-ORC1   -3         -11    ...1101
+@OUT{}  BOOLE-ORC2   -5        -101    ...1011
+@OUT{}  BOOLE-SET    -1          -1    ...1111
+@OUT{}  BOOLE-XOR     6         110    ...0110
+@EV{} NIL
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+Should signal @code{type-error} if its first argument is not a
+@term{bit-wise logical operation specifier} or if any subsequent argument is not
+an @term{integer}.
+
+@subsubheading See Also:
+
+@ref{logand}
+
+@subsubheading Notes:
+
+In general,
+
+@lisp
+ (boole boole-and x y) @EQ{} (logand x y)
+@end lisp
+
+
+@term{Programmers} who would prefer to use numeric indices rather than
+@term{bit-wise logical operation specifiers} can get an equivalent effect
+by a technique such as the following:
+
+@lisp
+;; The order of the values in this `table' are such that
+;; (logand (boole (elt boole-n-vector n) #b0101 #b0011) #b1111) => n
+ (defconstant boole-n-vector
+    (vector boole-clr   boole-and  boole-andc1 boole-2
+            boole-andc2 boole-1    boole-xor   boole-ior
+            boole-nor   boole-eqv  boole-c1    boole-orc1
+            boole-c2    boole-orc2 boole-nand  boole-set))
+@EV{} BOOLE-N-VECTOR
+ (proclaim '(inline boole-n))
+@EV{} @term{implementation-dependent}
+ (defun boole-n (n integer &rest more-integers)
+   (apply #'boole (elt boole-n-vector n) integer more-integers))
+@EV{} BOOLE-N
+ (boole-n #b0111 5 3) @EV{} 7
+ (boole-n #b0001 5 3) @EV{} 1
+ (boole-n #b1101 5 3) @EV{} -3
+ (loop for n from #b0000 to #b1111 collect (boole-n n 5 3))
+@EV{} (0 1 2 3 4 5 6 7 -8 -7 -6 -5 -4 -3 -2 -1)
+@end lisp
+
+
+
+@node boole-1; boole-2; boole-and; boole-andc1; boole-andc2; boole-c1; boole-+
+@heading boole-1, boole-2, boole-and, boole-andc1, boole-andc2, boole-c1, boole-c2, boole-clr, boole-eqv, boole-ior, boole-nand, boole-nor, boole-orc1, boole-orc2, boole-set, boole-xor (Constant Variable)
+@syindex boole-1
+@cindex boole-1
+@syindex boole-2
+@cindex boole-2
+@syindex boole-and
+@cindex boole-and
+@syindex boole-andc1
+@cindex boole-andc1
+@syindex boole-andc2
+@cindex boole-andc2
+@syindex boole-c1
+@cindex boole-c1
+@syindex boole-c2
+@cindex boole-c2
+@syindex boole-clr
+@cindex boole-clr
+@syindex boole-eqv
+@cindex boole-eqv
+@syindex boole-ior
+@cindex boole-ior
+@syindex boole-nand
+@cindex boole-nand
+@syindex boole-nor
+@cindex boole-nor
+@syindex boole-orc1
+@cindex boole-orc1
+@syindex boole-orc2
+@cindex boole-orc2
+@syindex boole-set
+@cindex boole-set
+@syindex boole-xor
+@cindex boole-xor
+
+
+@subsubheading Constant Value:
+
+The identity and nature of the @term{values} of each of these @term{variables}
+is @term{implementation-dependent},
+except that it must be @term{distinct} from each of the @term{values} of the others,
+and it must be a valid first @term{argument} to @thefunction{boole}.
+
+@subsubheading Description:
+
+Each of these @term{constants} has a @term{value} which is one of the
+sixteen possible @term{bit-wise logical operation specifiers}.
+
+@subsubheading Examples:
+@lisp
+ (boole boole-ior 1 16) @EV{} 17
+ (boole boole-and -2 5) @EV{} 4
+ (boole boole-eqv 17 15) @EV{} -31
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{boole}
+
+
+@node logand; logandc1; logandc2; logeqv; logior; lognand; lognor; lognot; lo+
+@heading logand, logandc1, logandc2, logeqv, logior, lognand, lognor, lognot, logorc1, logorc2, logxor (Function)
+@syindex logand
+@cindex logand
+@syindex logandc1
+@cindex logandc1
+@syindex logandc2
+@cindex logandc2
+@syindex logeqv
+@cindex logeqv
+@syindex logior
+@cindex logior
+@syindex lognand
+@cindex lognand
+@syindex lognor
+@cindex lognor
+@syindex lognot
+@cindex lognot
+@syindex logorc1
+@cindex logorc1
+@syindex logorc2
+@cindex logorc2
+@syindex logxor
+@cindex logxor
+@anchor{logand}
+@anchor{lognot}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{logand, @rest{} integers, result-integer}
+@DefunWithValues{logandc1, integer-1 integer-2, result-integer}
+@DefunWithValues{logandc2, integer-1 integer-2, result-integer}
+@DefunWithValues{logeqv, @rest{} integers, result-integer}
+@DefunWithValues{logior, @rest{} integers, result-integer}
+@DefunWithValues{lognand, integer-1 integer-2, result-integer}
+@DefunWithValues{lognor, integer-1 integer-2, result-integer}
+@DefunWithValues{lognot, integer, result-integer}
+@DefunWithValues{logorc1, integer-1 integer-2, result-integer}
+@DefunWithValues{logorc2, integer-1 integer-2, result-integer}
+@DefunWithValues{logxor, @rest{} integers, result-integer}
+
+@subsubheading Arguments and Values:
+
+@param{integers}---@term{integers}.
+
+@param{integer}---an @term{integer}.
+
+@param{integer-1}---an @term{integer}.
+
+@param{integer-2}---an @term{integer}.
+
+@param{result-integer}---an @term{integer}.
+
+@subsubheading Description:
+
+The @term{functions}
+@code{logandc1},
+@code{logandc2},
+@code{logand},
+@code{logeqv},
+@code{logior},
+@code{lognand},
+@code{lognor},
+@code{lognot},
+@code{logorc1},
+@code{logorc2},
+and @code{logxor}
+perform bit-wise logical operations on their @term{arguments},
+that are treated as if they were binary.
+
+@Thenextfigure{}@spc{}lists the meaning of each of the @term{functions}.
+Where an `identity' is shown, it indicates the @term{value} @term{yielded}
+by the @term{function} when no @term{arguments} are supplied.
+
+
+@float Figure,fig12.18
+@cartouche
+@multitable{@code{logandc1}}{Identity}{and complement of @param{integer-1} with @param{integer-2}}
+@headitem Function @tab Identity @tab Operation performed
+@item @code{logandc1} @tab --- @tab and complement of @param{integer-1} with @param{integer-2}
+@item @code{logandc2} @tab --- @tab and @param{integer-1} with complement of @param{integer-2}
+@item @code{logand} @tab @f{-1} @tab and
+@item @code{logeqv} @tab @f{-1} @tab equivalence (exclusive nor)
+@item @code{logior} @tab @f{0} @tab inclusive or
+@item @code{lognand} @tab --- @tab complement of @param{integer-1} and @param{integer-2}
+@item @code{lognor} @tab --- @tab complement of @param{integer-1} or @param{integer-2}
+@item @code{lognot} @tab --- @tab complement
+@item @code{logorc1} @tab --- @tab or complement of @param{integer-1} with @param{integer-2}
+@item @code{logorc2} @tab --- @tab or @param{integer-1} with complement of @param{integer-2}
+@item @code{logxor} @tab @f{0} @tab exclusive or
+@end multitable
+@end cartouche
+@caption{Bit-wise Logical Operations on Integers}
+@end float
+
+
+Negative @param{integers} are treated as if they were in two's-complement notation.
+
+@subsubheading Examples:
+
+@lisp
+ (logior 1 2 4 8) @EV{} 15
+ (logxor 1 3 7 15) @EV{} 10
+ (logeqv) @EV{} -1
+ (logand 16 31) @EV{} 16
+ (lognot 0) @EV{} -1
+ (lognot 1) @EV{} -2
+ (lognot -1) @EV{} 0
+ (lognot (1+ (lognot 1000))) @EV{} 999
+
+;;; In the following example, m is a mask.  For each bit in
+;;; the mask that is a 1, the corresponding bits in x and y are
+;;; exchanged.  For each bit in the mask that is a 0, the
+;;; corresponding bits of x and y are left unchanged.
+ (flet ((show (m x y)
+          (format t "~%m = #o~6,'0O~%x = #o~6,'0O~%y = #o~6,'0O~%"
+                  m x y)))
+   (let ((m #o007750)
+         (x #o452576)
+         (y #o317407))
+     (show m x y)
+     (let ((z (logand (logxor x y) m)))
+       (setq x (logxor z x))
+       (setq y (logxor z y))
+       (show m x y))))
+@OUT{} m = #o007750
+@OUT{} x = #o452576
+@OUT{} y = #o317407
+@OUT{}
+@OUT{} m = #o007750
+@OUT{} x = #o457426
+@OUT{} y = #o312557
+@EV{} NIL
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+Should signal @code{type-error} if any argument is not an @term{integer}.
+
+@subsubheading See Also:
+
+@ref{boole}
+
+@subsubheading Notes:
+
+@f{(logbitp @param{k} -1)} returns @term{true} for all values of @param{k}.
+
+Because the following functions are not associative,
+they take exactly two arguments rather than any number
+of arguments.
+
+@lisp
+ (lognand @param{n1} @param{n2}) @EQ{} (lognot (logand @param{n1} @param{n2}))
+ (lognor @param{n1} @param{n2}) @EQ{} (lognot (logior @param{n1} @param{n2}))
+ (logandc1 @param{n1} @param{n2}) @EQ{} (logand (lognot @param{n1}) @param{n2})
+ (logandc2 @param{n1} @param{n2}) @EQ{} (logand @param{n1} (lognot @param{n2}))
+ (logiorc1 @param{n1} @param{n2}) @EQ{} (logior (lognot @param{n1}) @param{n2})
+ (logiorc2 @param{n1} @param{n2}) @EQ{} (logior @param{n1} (lognot @param{n2}))
+ (logbitp @param{j} (lognot @param{x})) @EQ{} (not (logbitp @param{j} @param{x}))
+@end lisp
+
+
+
+@node logbitp
+@heading logbitp (Function)
+@syindex logbitp
+@cindex logbitp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{logbitp, index integer, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{index}---a non-negative @term{integer}.
+
+@param{integer}---an @term{integer}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@code{logbitp} is used to test the value of a particular bit
+in @param{integer}, that is treated as if it were binary.
+The value of @code{logbitp} is @term{true} if the bit in @param{integer}
+whose index is @param{index} (that is, its weight is @mat{2^@i{index}})
+is a one-bit; otherwise it is @term{false}.
+
+Negative @param{integers} are treated as if they were in
+two's-complement notation.
+
+@subsubheading Examples:
+@lisp
+ (logbitp 1 1) @EV{} @term{false}
+ (logbitp 0 1) @EV{} @term{true}
+ (logbitp 3 10) @EV{} @term{true}
+ (logbitp 1000000 -1) @EV{} @term{true}
+ (logbitp 2 6) @EV{} @term{true}
+ (logbitp 0 6) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{index, a non-negative @term{integer}}
+@Shouldchecktype{integer, an @term{integer}}
+
+@subsubheading Notes:
+
+@lisp
+ (logbitp @param{k} @param{n}) @EQ{} (ldb-test (byte 1 @param{k}) @param{n})
+@end lisp
+
+
+
+@node logcount
+@heading logcount (Function)
+@syindex logcount
+@cindex logcount
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{logcount, integer, number-of-on-bits}
+
+@subsubheading Arguments and Values:
+
+@param{integer}---an @term{integer}.
+
+@param{number-of-on-bits}---a non-negative @term{integer}.
+
+@subsubheading Description:
+
+Computes and returns the number of bits
+in the two's-complement binary representation of @param{integer}
+that are `on' or `set'.
+If @param{integer} is negative, the @f{0} bits are counted;
+otherwise, the @f{1} bits are counted.
+
+@subsubheading Examples:
+
+@lisp
+ (logcount 0) @EV{} 0
+ (logcount -1) @EV{} 0
+ (logcount 7) @EV{} 3
+ (logcount  13) @EV{} 3 ;Two's-complement binary: ...0001101
+ (logcount -13) @EV{} 2 ;Two's-complement binary: ...1110011
+ (logcount  30) @EV{} 4 ;Two's-complement binary: ...0011110
+ (logcount -30) @EV{} 4 ;Two's-complement binary: ...1100010
+ (logcount (expt 2 100)) @EV{} 1
+ (logcount (- (expt 2 100))) @EV{} 100
+ (logcount (- (1+ (expt 2 100)))) @EV{} 1
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+Should signal @code{type-error} if its argument is not an @term{integer}.
+
+@subsubheading Notes:
+
+Even if the @term{implementation} does not represent @term{integers} internally
+in two's complement binary, @code{logcount} behaves as if it did.
+
+The following identity always holds:
+
+@lisp
+    (logcount @param{x})
+ @EQ{} (logcount (- (+ @param{x} 1)))
+ @EQ{} (logcount (lognot @param{x}))
+@end lisp
+
+
+
+@node logtest
+@heading logtest (Function)
+@syindex logtest
+@cindex logtest
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{logtest, integer-1 integer-2, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{integer-1}---an @term{integer}.
+
+@param{integer-2}---an @term{integer}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+Returns @term{true} if any of the bits designated by the 1's
+in @param{integer-1} is 1 in @param{integer-2};
+otherwise it is @term{false}.
+@param{integer-1} and @param{integer-2} are treated as if they were binary.
+
+Negative @param{integer-1} and @param{integer-2} are treated as if
+they were represented in two's-complement binary.
+
+@subsubheading Examples:
+
+@lisp
+ (logtest 1 7) @EV{} @term{true}
+ (logtest 1 2) @EV{} @term{false}
+ (logtest -2 -1) @EV{} @term{true}
+ (logtest 0 -1) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{integer-1, an @term{integer}}
+@Shouldchecktype{integer-2, an @term{integer}}
+
+@subsubheading Notes:
+
+@lisp
+ (logtest @param{x} @param{y}) @EQ{} (not (zerop (logand @param{x} @param{y})))
+@end lisp
+
+
+
+@node byte; byte-size; byte-position
+@heading byte, byte-size, byte-position (Function)
+@syindex byte
+@cindex byte
+@syindex byte-size
+@cindex byte-size
+@syindex byte-position
+@cindex byte-position
+@anchor{byte}
+@anchor{byte-size}
+@anchor{byte-position}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{byte, size position, bytespec}
+
+@DefunWithValues{byte-size, bytespec, size}
+@DefunWithValues{byte-position, bytespec, position}
+
+@subsubheading Arguments and Values:
+
+@param{size}, @param{position}---a non-negative @term{integer}.
+
+@param{bytespec}---a @term{byte specifier}.
+
+@subsubheading Description:
+
+@code{byte} returns a @term{byte specifier} that indicates
+a @term{byte} of width @param{size} and whose bits have weights
+@mat{2^@param{position} + @param{size} - 1} through @mat{2^@param{position}},
+and whose representation is
+@term{implementation-dependent}.
+
+@code{byte-size} returns the number of bits specified by @param{bytespec}.
+
+@code{byte-position} returns the position specified by @param{bytespec}.
+
+@subsubheading Examples:
+
+@lisp
+ (setq b (byte 100 200)) @EV{} #<BYTE-SPECIFIER size 100 position 200>
+ (byte-size b) @EV{} 100
+ (byte-position b) @EV{} 200
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{ldb}, @ref{dpb}
+
+@subsubheading Notes:
+
+@lisp
+ (byte-size (byte @param{j} @param{k})) @EQ{} @param{j}
+ (byte-position (byte @param{j} @param{k})) @EQ{} @param{k}
+@end lisp
+
+
+A @term{byte} of @term{size} of @f{0} is permissible;
+it refers to a @term{byte} of width zero.  For example,
+
+@lisp
+ (ldb (byte 0 3) #o7777) @EV{} 0
+ (dpb #o7777 (byte 0 3) 0) @EV{} 0
+@end lisp
+
+
+
+@node deposit-field
+@heading deposit-field (Function)
+@syindex deposit-field
+@cindex deposit-field
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{deposit-field, newbyte bytespec integer, result-integer}
+
+@subsubheading Arguments and Values:
+
+@param{newbyte}---an @term{integer}.
+
+@param{bytespec}---a @term{byte specifier}.
+
+@param{integer}---an @term{integer}.
+
+@param{result-integer}---an @term{integer}.
+
+@subsubheading Description:
+
+Replaces a field of bits within @param{integer}; specifically,
+returns an @term{integer} that contains the bits of @param{newbyte}
+within the @term{byte} specified by @param{bytespec},
+and elsewhere contains the bits of @param{integer}.
+
+@subsubheading Examples:
+
+@lisp
+ (deposit-field 7 (byte 2 1) 0) @EV{} 6
+ (deposit-field -1 (byte 4 0) 0) @EV{} 15
+ (deposit-field 0 (byte 2 1) -3) @EV{} -7
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{byte},
+@ref{dpb}
+
+@subsubheading Notes:
+
+@lisp
+ (logbitp @param{j} (deposit-field @param{m} (byte @param{s} @param{p}) @param{n}))
+ @EQ{} (if (and (>= @param{j} @param{p}) (< @param{j} (+ @param{p} @param{s})))
+        (logbitp @param{j} @param{m})
+        (logbitp @param{j} @param{n}))
+@end lisp
+
+
+@code{deposit-field} is to @code{mask-field}
+as @code{dpb}           is to @code{ldb}.
+
+
+@node dpb
+@heading dpb (Function)
+@syindex dpb
+@cindex dpb
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{dpb, newbyte bytespec integer, result-integer}
+
+@subsubheading Pronunciation:
+
+@pronounced{@stress{d@schwa{} }@Stress{pib}}
+or @pronounced{@stress{d@schwa{} }@Stress{p@schwa{} b}}
+or @pronounced{@Stress{d@harde{}}@Stress{p@harde{}}@Stress{b@harde{}}}
+
+@subsubheading Arguments and Values:
+
+@param{newbyte}---an @term{integer}.
+
+@param{bytespec}---a @term{byte specifier}.
+
+@param{integer}---an @term{integer}.
+
+@param{result-integer}---an @term{integer}.
+
+@subsubheading Description:
+
+@code{dpb} (deposit byte) is used to
+replace a field of bits within @param{integer}.
+@code{dpb} returns an @term{integer} that is
+the same as @param{integer} except in the bits specified by @param{bytespec}.
+
+Let @f{s} be the size specified
+by @param{bytespec}; then the low @f{s} bits of @param{newbyte} appear in
+the result in the byte specified by @param{bytespec}.
+@param{Newbyte} is interpreted as
+being right-justified, as if it were the result of @code{ldb}.
+
+@subsubheading Examples:
+
+@lisp
+ (dpb 1 (byte 1 10) 0) @EV{} 1024
+ (dpb -2 (byte 2 10) 0) @EV{} 2048
+ (dpb 1 (byte 2 10) 2048) @EV{} 1024
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{byte}, @ref{deposit-field}, @ref{ldb}
+
+@subsubheading Notes:
+
+@lisp
+ (logbitp @param{j} (dpb @param{m} (byte @param{s} @param{p}) @param{n}))
+ @EQ{} (if (and (>= @param{j} @param{p}) (< @param{j} (+ @param{p} @param{s})))
+        (logbitp (- @param{j} @param{p}) @param{m})
+        (logbitp @param{j} @param{n}))
+@end lisp
+
+
+In general,
+
+@lisp
+ (dpb @param{x} (byte 0 @param{y}) @param{z}) @EV{} @param{z}
+@end lisp
+
+
+for all valid values of @param{x}, @param{y}, and @param{z}.
+
+Historically, the name ``dpb'' comes from a DEC PDP-10 assembly language
+instruction meaning ``deposit byte.''
+
+
+@node ldb
+@heading ldb (Accessor)
+@syindex ldb
+@cindex ldb
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{ldb, bytespec integer, byte}
+
+@Defsetf{ldb, bytespec place, new-byte}
+
+@subsubheading Pronunciation:
+
+@pronounced{@Stress{lid}ib}
+or @pronounced{@Stress{lid}@schwa{} b}
+or @pronounced{@Stress{el}@Stress{d@harde{}}@Stress{b@harde{}}}
+
+@subsubheading Arguments and Values:
+
+@param{bytespec}---a @term{byte specifier}.
+
+@param{integer}---an @term{integer}.
+
+@param{byte}, @param{new-byte}---a non-negative @term{integer}.
+
+@subsubheading Description:
+
+@code{ldb} extracts and returns the @term{byte} of @param{integer}
+specified by @param{bytespec}.
+
+@code{ldb} returns an @term{integer} in which the bits with weights
+@mat{2^(@i{s}-1)} through @mat{2^0} are the same as those in
+@param{integer} with weights @mat{2^(@i{p}+@i{s}-1)}
+through @mat{2^@i{p}}, and all other bits zero; @i{s} is
+@f{(byte-size @param{bytespec})}
+and @i{p} is @f{(byte-position @param{bytespec})}.
+
+@code{setf} may be used with @code{ldb} to modify
+a byte within the @param{integer} that is stored
+in a given @param{place}.
+The order of evaluation, when an @code{ldb} form is supplied
+to @code{setf}, is exactly left-to-right.
+@cindex order of evaluation
+@cindex evaluation order
+The effect is to perform a @code{dpb} operation
+and then store the result back into the @param{place}.
+
+@subsubheading Examples:
+
+@lisp
+ (ldb (byte 2 1) 10) @EV{} 1
+ (setq a (list 8)) @EV{} (8)
+ (setf (ldb (byte 2 1) (car a)) 1) @EV{} 1
+ a @EV{} (10)
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{byte},
+@ref{byte-position},
+@ref{byte-size},
+@ref{dpb}
+
+@subsubheading Notes:
+
+@lisp
+ (logbitp @param{j} (ldb (byte @param{s} @param{p}) @param{n}))
+    @EQ{} (and (< @param{j} @param{s}) (logbitp (+ @param{j} @param{p}) @param{n}))
+@end lisp
+
+
+In general,
+
+@lisp
+ (ldb (byte 0 @param{x}) @param{y}) @EV{} 0
+@end lisp
+
+
+for all valid values of @param{x} and @param{y}.
+
+Historically, the name ``ldb'' comes from a DEC PDP-10 assembly language
+instruction meaning ``load byte.''
+
+
+@node ldb-test
+@heading ldb-test (Function)
+@syindex ldb-test
+@cindex ldb-test
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{ldb-test, bytespec integer, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{bytespec}---a @term{byte specifier}.
+
+@param{integer}---an @term{integer}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+Returns @term{true} if any of the bits of the byte in @param{integer}
+specified by @param{bytespec} is non-zero; otherwise returns @term{false}.
+
+@subsubheading Examples:
+
+@lisp
+ (ldb-test (byte 4 1) 16) @EV{} @term{true}
+ (ldb-test (byte 3 1) 16) @EV{} @term{false}
+ (ldb-test (byte 3 2) 16) @EV{} @term{true}
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{byte}, @ref{ldb}, @ref{zerop}
+
+@subsubheading Notes:
+@lisp
+ (ldb-test bytespec n) @EQ{}
+ (not (zerop (ldb bytespec n))) @EQ{}
+ (logtest (ldb bytespec -1) n)
+@end lisp
+
+
+
+@node mask-field
+@heading mask-field (Accessor)
+@syindex mask-field
+@cindex mask-field
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{mask-field, bytespec integer, masked-integer}
+@Defsetf{mask-field, bytespec place, new-masked-integer}
+
+@subsubheading Arguments and Values:
+
+@param{bytespec}---a @term{byte specifier}.
+
+@param{integer}---an @term{integer}.
+
+@param{masked-integer}, @param{new-masked-integer}---a non-negative @term{integer}.
+
+@subsubheading Description:
+
+@code{mask-field} performs a ``mask'' operation on @param{integer}.
+It returns an @term{integer} that has the same bits as @param{integer} in
+the @term{byte} specified by @param{bytespec}, but that has zero-bits everywhere else.
+
+@code{setf} may be used with @code{mask-field}
+to modify a byte within the @term{integer} that is stored
+in a given @param{place}.
+The effect is to perform a @code{deposit-field} operation
+and then store the result back into the @param{place}.
+
+@subsubheading Examples:
+
+@lisp
+ (mask-field (byte 1 5) -1) @EV{} 32
+ (setq a 15) @EV{} 15
+ (mask-field (byte 2 0) a) @EV{} 3
+ a @EV{} 15
+ (setf (mask-field (byte 2 0) a) 1) @EV{} 1
+ a @EV{} 13
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{byte},
+@ref{ldb}
+
+@subsubheading Notes:
+
+@lisp
+ (ldb @param{bs} (mask-field @param{bs} @param{n})) @EQ{} (ldb @param{bs} @param{n})
+ (logbitp @param{j} (mask-field (byte @param{s} @param{p}) @param{n}))
+   @EQ{} (and (>= @param{j} @param{p}) (< @param{j} @param{s}) (logbitp @param{j} @param{n}))
+ (mask-field @param{bs} @param{n}) @EQ{} (logand @param{n} (dpb -1 @param{bs} 0))
+@end lisp
+
+
+
+@node most-positive-fixnum; most-negative-fixnum
+@heading most-positive-fixnum, most-negative-fixnum (Constant Variable)
+@syindex most-positive-fixnum
+@cindex most-positive-fixnum
+@syindex most-negative-fixnum
+@cindex most-negative-fixnum
+
+
+@subsubheading Constant Value:
+
+@term{implementation-dependent}.
+
+@subsubheading Description:
+
+@code{most-positive-fixnum} is that @term{fixnum} closest in value
+to positive infinity provided by the implementation,
+and greater than or equal to both @mat{2^15} - 1 and
+@code{array-dimension-limit}.
+
+@code{most-negative-fixnum} is that @term{fixnum} closest in value
+to negative infinity provided by the implementation,
+and less than or equal to @mat{-2^15}.
+
+
+@node decode-float; scale-float; float-radix; float-sign; float-digits; float+
+@heading decode-float, scale-float, float-radix, float-sign, float-digits, float-precision, integer-decode-float (Function)
+@syindex decode-float
+@cindex decode-float
+@syindex scale-float
+@cindex scale-float
+@syindex float-radix
+@cindex float-radix
+@syindex float-sign
+@cindex float-sign
+@syindex float-digits
+@cindex float-digits
+@syindex float-precision
+@cindex float-precision
+@syindex integer-decode-float
+@cindex integer-decode-float
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{decode-float, float, significand\, exponent\, sign}
+
+@DefunWithValues{scale-float, float integer, scaled-float}
+
+@DefunWithValues{float-radix, float, float-radix}
+
+@DefunWithValues{float-sign, float-1 @opt{} float-2, signed-float}
+
+@DefunWithValues{float-digits, float, digits1}
+
+@DefunWithValues{float-precision, float, digits2}
+
+@DefunWithValues{integer-decode-float, float, significand\, exponent\, integer-sign}
+
+@subsubheading Arguments and Values:
+
+@param{digits1}---a non-negative @term{integer}.
+
+@param{digits2}---a non-negative @term{integer}.
+
+@param{exponent}---an @term{integer}.
+
+@param{float}---a @term{float}.
+
+@param{float-1}---a @term{float}.
+
+@param{float-2}---a @term{float}.
+
+@param{float-radix}---an @term{integer}.
+
+@param{integer}---a non-negative @term{integer}.
+
+@param{integer-sign}---the @term{integer} @f{-1},
+or the @term{integer} @f{1}.
+
+@param{scaled-float}---a @term{float}.
+
+@param{sign}---A @term{float} of the same @term{type} as @param{float}
+but numerically equal to @f{1.0} or @f{-1.0}.
+
+@param{signed-float}---a @term{float}.
+
+@param{significand}---a @term{float}.
+
+@subsubheading Description:
+
+@code{decode-float} computes three values that characterize
+@param{float}.
+The first value is of the same @term{type}
+as @param{float} and
+represents the significand.
+The second value represents the exponent
+to which the radix (notated in this description by @i{b}) must
+be raised to obtain the value that, when multiplied with the first
+result, produces the absolute value of @param{float}.
+If @param{float} is zero, any @term{integer} value may be returned,
+provided that the identity shown for @code{scale-float} holds.
+The third value
+is of the same @term{type} as @param{float}
+and is 1.0 if @param{float} is greater
+than or equal to zero or -1.0 otherwise.
+
+@code{decode-float}
+divides @param{float} by an integral power of @i{b}
+so as to bring its value between @mat{1/@i{b}} (inclusive) and@tie{}@mat{1} (exclusive),
+and returns the quotient as the first value.
+If @param{float} is zero, however, the result
+equals the absolute value of @param{float} (that is, if there is a negative
+zero, its significand is considered to be a positive zero).
+
+@code{scale-float} returns
+@tt{(* @param{float} (expt (float @i{b} @param{float})
+@param{integer}))}, where @i{b} is the radix of the floating-point
+representation. @param{float} is not necessarily between @mat{1/@i{b}} and@tie{}@mat{1}.
+
+
+@code{float-radix} returns
+the radix of @param{float}.
+
+@code{float-sign} returns a number @f{z} such
+that @f{z} and @param{float-1} have the same sign and also such that
+@f{z} and @param{float-2} have the same absolute value.
+If @param{float-2} is not supplied, its value is @f{(float 1 @param{float-1})}.
+If an implementation
+has distinct representations for negative zero and positive zero,
+then @f{(float-sign -0.0)} @EV{}@spc{}@f{-1.0}.
+
+@code{float-digits} returns
+the number of radix @i{b} digits
+used in the representation of @param{float} (including any implicit
+digits, such as a ``hidden bit'').
+
+@code{float-precision}
+returns
+the number of significant radix @i{b} digits present in @param{float};
+if @param{float} is a @term{float}
+zero, then the result is an @term{integer} zero.
+
+For @term{normalized} @term{floats},
+the results of @code{float-digits} and @code{float-precision} are the same,
+but the precision is less than the number of representation digits
+for a @term{denormalized} or zero number.
+
+@code{integer-decode-float} computes three values that characterize
+@param{float} -
+the significand scaled so as to be an @term{integer},
+and the same last two
+values that are returned by @code{decode-float}.
+If @param{float} is zero, @code{integer-decode-float} returns
+zero as the first value.
+The second value bears the same relationship to the first value
+as for @code{decode-float}:
+
+@lisp
+ (multiple-value-bind (signif expon sign)
+                      (integer-decode-float f)
+   (scale-float (float signif f) expon)) @EQ{} (abs f)
+@end lisp
+
+
+@subsubheading Examples:
+
+@lisp
+ ;; Note that since the purpose of this functionality is to expose
+ ;; details of the implementation, all of these examples are necessarily
+ ;; very implementation-dependent.  Results may vary widely.
+ ;; Values shown here are chosen consistently from one particular implementation.
+ (decode-float .5) @EV{} 0.5, 0, 1.0
+ (decode-float 1.0) @EV{} 0.5, 1, 1.0
+ (scale-float 1.0 1) @EV{} 2.0
+ (scale-float 10.01 -2) @EV{} 2.5025
+ (scale-float 23.0 0) @EV{} 23.0
+ (float-radix 1.0) @EV{} 2
+ (float-sign 5.0) @EV{} 1.0
+ (float-sign -5.0) @EV{} -1.0
+ (float-sign 0.0) @EV{} 1.0
+ (float-sign 1.0 0.0) @EV{} 0.0
+ (float-sign 1.0 -10.0) @EV{} 10.0
+ (float-sign -1.0 10.0) @EV{} -10.0
+ (float-digits 1.0) @EV{} 24
+ (float-precision 1.0) @EV{} 24
+ (float-precision least-positive-single-float) @EV{} 1
+ (integer-decode-float 1.0) @EV{} 8388608, -23, 1
+@end lisp
+
+
+@subsubheading Affected By:
+
+The implementation's representation for @term{floats}.
+
+@subsubheading Exceptional Situations:
+
+The functions @code{decode-float}, @code{float-radix}, @code{float-digits},
+@code{float-precision}, and @code{integer-decode-float} should signal an error
+if their only argument is not a @term{float}.
+
+@Thefunction{scale-float} should signal an error if its first argument
+is not a @term{float} or if its second argument is not an @term{integer}.
+
+@Thefunction{float-sign} should signal an error if its first argument
+is not a @term{float} or if its second argument is supplied but is
+not a @term{float}.
+
+@subsubheading Notes:
+
+The product of the first result of @code{decode-float} or @code{integer-decode-float},
+of the radix raised to the power of the second result, and of the third result
+is exactly equal to the value of @param{float}.
+
+@lisp
+ (multiple-value-bind (signif expon sign)
+                      (decode-float f)
+   (scale-float signif expon))
+@EQ{} (abs f)
+@end lisp
+
+and
+
+@lisp
+ (multiple-value-bind (signif expon sign)
+                      (decode-float f)
+   (* (scale-float signif expon) sign))
+@EQ{} f
+@end lisp
+
+
+@node float (Function)
+@heading float (Function)
+@syindex float
+@cindex float
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{float, number @opt{} prototype, float}
+
+@subsubheading Arguments and Values:
+
+@param{number}---a @term{real}.
+
+@param{prototype}---a @term{float}.
+
+@param{float}---a @term{float}.
+
+@subsubheading Description:
+
+@code{float} converts a
+@term{real}
+number to a @term{float}.
+
+If a @param{prototype} is supplied,
+a @term{float} is returned that is mathematically equal to @param{number}
+but has the same format as @param{prototype}.
+
+If @param{prototype} is not supplied,
+then if the @param{number} is already a @term{float}, it is returned;
+otherwise, a @term{float} is returned that is mathematically equal to @param{number}
+but is a @term{single float}.
+
+@subsubheading Examples:
+
+@lisp
+ (float 0) @EV{} 0.0
+ (float 1 .5) @EV{} 1.0
+ (float 1.0) @EV{} 1.0
+ (float 1/2) @EV{} 0.5
+@EV{} 1.0d0
+@OV{} 1.0
+ (eql (float 1.0 1.0d0) 1.0d0) @EV{} @term{true}
+@end lisp
+
+
+@subsubheading See Also:
+
+@ref{coerce}
+
+
+@node floatp
+@heading floatp (Function)
+@syindex floatp
+@cindex floatp
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{floatp, object, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{object}---an @term{object}.
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@TypePredicate{object, float}
+
+@subsubheading Examples:
+
+@lisp
+ (floatp 1.2d2) @EV{} @term{true}
+ (floatp 1.212) @EV{} @term{true}
+ (floatp 1.2s2) @EV{} @term{true}
+ (floatp (expt 2 130)) @EV{} @term{false}
+@end lisp
+
+
+@subsubheading Notes:
+
+@lisp
+ (floatp @param{object}) @EQ{} (typep @param{object} 'float)
+@end lisp
+
+
+
+@node most-positive-short-float; least-positive-short-float; least-positive-n+
+@heading most-positive-short-float, least-positive-short-float, least-positive-normalized-short-float, most-positive-double-float, least-positive-double-float, least-positive-normalized-double-float, most-positive-long-float, least-positive-long-float, least-positive-normalized-long-float, most-positive-single-float, least-positive-single-float, least-positive-normalized-single-float, most-negative-short-float, least-negative-short-float, least-negative-normalized-short-float, most-negative-single-float, least-negative-single-float, least-negative-normalized-single-float, most-negative-double-float, least-negative-double-float, least-negative-normalized-double-float, most-negative-long-float, least-negative-long-float, least-negative-normalized-long-float (Constant Variable)
+@syindex most-positive-short-float
+@cindex most-positive-short-float
+@syindex least-positive-short-float
+@cindex least-positive-short-float
+@syindex least-positive-normalized-short-float
+@cindex least-positive-normalized-short-float
+@syindex most-positive-double-float
+@cindex most-positive-double-float
+@syindex least-positive-double-float
+@cindex least-positive-double-float
+@syindex least-positive-normalized-double-float
+@cindex least-positive-normalized-double-float
+@syindex most-positive-long-float
+@cindex most-positive-long-float
+@syindex least-positive-long-float
+@cindex least-positive-long-float
+@syindex least-positive-normalized-long-float
+@cindex least-positive-normalized-long-float
+@syindex most-positive-single-float
+@cindex most-positive-single-float
+@syindex least-positive-single-float
+@cindex least-positive-single-float
+@syindex least-positive-normalized-single-float
+@cindex least-positive-normalized-single-float
+@syindex most-negative-short-float
+@cindex most-negative-short-float
+@syindex least-negative-short-float
+@cindex least-negative-short-float
+@syindex least-negative-normalized-short-float
+@cindex least-negative-normalized-short-float
+@syindex most-negative-single-float
+@cindex most-negative-single-float
+@syindex least-negative-single-float
+@cindex least-negative-single-float
+@syindex least-negative-normalized-single-float
+@cindex least-negative-normalized-single-float
+@syindex most-negative-double-float
+@cindex most-negative-double-float
+@syindex least-negative-double-float
+@cindex least-negative-double-float
+@syindex least-negative-normalized-double-float
+@cindex least-negative-normalized-double-float
+@syindex most-negative-long-float
+@cindex most-negative-long-float
+@syindex least-negative-long-float
+@cindex least-negative-long-float
+@syindex least-negative-normalized-long-float
+@cindex least-negative-normalized-long-float
+
+
+
+@subsubheading Constant Value:
+
+@term{implementation-dependent}.
+
+@subsubheading Description:
+
+These @term{constant variables} provide a way for programs to examine
+the @term{implementation-defined} limits for the various float formats.
+
+Of these @term{variables},
+each which has ``@f{-normalized}'' in its @term{name}
+must have a @term{value} which is a @term{normalized} @term{float}, and
+each which does not have ``@f{-normalized}'' in its name
+may have a @term{value} which is either a @term{normalized} @term{float}
+or a @term{denormalized} @term{float}, as appropriate.
+
+Of these @term{variables},
+each which has ``@f{short-float}'' in its name
+must have a @term{value} which is a @term{short float},
+each which has ``@f{single-float}'' in its name
+must have a @term{value} which is a @term{single float},
+each which has ``@f{double-float}'' in its name
+must have a @term{value} which is a @term{double float}, and
+each which has ``@f{long-float}'' in its name
+must have a @term{value} which is a @term{long float}.
+
+
+@itemize @bullet{}
+
+@item
+@vtop{@hbox{@code{most-positive-short-float},
+@code{most-positive-single-float},}
+@hbox{@code{most-positive-double-float},
+@code{most-positive-long-float}}}
+
+
+Each of these @term{constant variables} has as its @term{value}
+the positive @term{float} of the largest magnitude
+(closest in value to, but not equal to, positive infinity)
+for the float format implied by its name.
+
+@item
+@vtop{@hbox{@code{least-positive-short-float},
+@code{least-positive-normalized-short-float},}
+@hbox{@code{least-positive-single-float},
+@code{least-positive-normalized-single-float},}
+@hbox{@code{least-positive-double-float},
+@code{least-positive-normalized-double-float},}
+@hbox{@code{least-positive-long-float},
+@code{least-positive-normalized-long-float}}}
+
+
+Each of these @term{constant variables} has as its @term{value}
+the smallest positive (nonzero) @term{float}
+for the float format implied by its name.
+
+@item
+@vtop{@hbox{@code{least-negative-short-float},
+@code{least-negative-normalized-short-float},}
+@hbox{@code{least-negative-single-float},
+@code{least-negative-normalized-single-float},}
+@hbox{@code{least-negative-double-float},
+@code{least-negative-normalized-double-float},}
+@hbox{@code{least-negative-long-float},
+@code{least-negative-normalized-long-float}}}
+
+
+Each of these @term{constant variables} has as its @term{value}
+the negative (nonzero) @term{float} of the smallest magnitude
+for the float format implied by its name.
+(If an implementation supports minus zero as a @term{different}
+@term{object} from positive zero, this value must not be minus zero.)
+
+@item
+@vtop{@hbox{@code{most-negative-short-float},
+@code{most-negative-single-float},}
+@hbox{@code{most-negative-double-float},
+@code{most-negative-long-float}}}
+
+
+Each of these @term{constant variables} has as its @term{value}
+the negative @term{float} of the largest magnitude
+(closest in value to, but not equal to, negative infinity)
+for the float format implied by its name.
+@end itemize
+
+
+@subsubheading Notes:
+
+
+
+@node short-float-epsilon; short-float-negative-epsilon; single-float-epsilon+
+@heading short-float-epsilon, short-float-negative-epsilon, single-float-epsilon, single-float-negative-epsilon, double-float-epsilon, double-float-negative-epsilon, long-float-epsilon, long-float-negative-epsilon (Constant Variable)
+@syindex short-float-epsilon
+@cindex short-float-epsilon
+@syindex short-float-negative-epsilon
+@cindex short-float-negative-epsilon
+@syindex single-float-epsilon
+@cindex single-float-epsilon
+@syindex single-float-negative-epsilon
+@cindex single-float-negative-epsilon
+@syindex double-float-epsilon
+@cindex double-float-epsilon
+@syindex double-float-negative-epsilon
+@cindex double-float-negative-epsilon
+@syindex long-float-epsilon
+@cindex long-float-epsilon
+@syindex long-float-negative-epsilon
+@cindex long-float-negative-epsilon
+
+
+@subsubheading Constant Value:
+
+@term{implementation-dependent}.
+
+@subsubheading Description:
+
+The value of each of the constants @code{short-float-epsilon},
+@code{single-float-epsilon},
+@code{double-float-epsilon}, and @code{long-float-epsilon} is
+the smallest positive @term{float} @mat{@epsilon{}} of the given format,
+such that the following expression is @term{true} when evaluated:
+
+@tt{(not (= (float 1 @mat{@epsilon{}}) (+ (float 1 @mat{@epsilon{}}) @mat{@epsilon{}})))}
+
+The value of each of the constants @code{short-float-negative-epsilon},
+@code{single-float-negative-epsilon},
+@code{double-float-negative-epsilon}, and
+@code{long-float-negative-epsilon} is the smallest positive
+@term{float} @mat{@epsilon{}} of the given format, such that the following
+expression is @term{true} when evaluated:
+
+@tt{(not (= (float 1 @mat{@epsilon{}}) (- (float 1 @mat{@epsilon{}}) @mat{@epsilon{}})))}
+
+
+@node arithmetic-error
+@heading arithmetic-error (Condition Type)
+@syindex arithmetic-error
+@cindex arithmetic-error
+
+
+@subsubheading Class Precedence List:
+@code{arithmetic-error},
+@code{error},
+@code{serious-condition},
+@code{condition},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{arithmetic-error} consists of error conditions
+that occur during arithmetic operations.
+The operation and operands are initialized with
+@theinitkeyargs{operation} and @kwd{operands} to @code{make-condition},
+and are @term{accessed} by
+the functions @code{arithmetic-error-operation} and
+@code{arithmetic-error-operands}.
+
+@subsubheading See Also:
+
+@ref{arithmetic-error-operation}, @ref{arithmetic-error-operands}
+
+
+@node arithmetic-error-operands; arithmetic-error-operation
+@heading arithmetic-error-operands, arithmetic-error-operation (Function)
+@syindex arithmetic-error-operands
+@cindex arithmetic-error-operands
+@syindex arithmetic-error-operation
+@cindex arithmetic-error-operation
+@anchor{arithmetic-error-operands}
+@anchor{arithmetic-error-operation}
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{arithmetic-error-operands, condition, operands}
+@DefunWithValues{arithmetic-error-operation, condition, operation}
+
+@subsubheading Arguments and Values:
+
+@param{condition}---a @term{condition} @oftype{arithmetic-error}.
+
+@param{operands}---a @term{list}.
+
+@param{operation}---a @term{function designator}.
+
+@subsubheading Description:
+
+@code{arithmetic-error-operands} returns a @term{list} of the operands
+which were used in the offending call to the operation that signaled
+the @param{condition}.
+
+@code{arithmetic-error-operation} returns a @term{list} of
+the offending operation in the offending call that signaled the @param{condition}.
+
+@subsubheading See Also:
+
+@ref{arithmetic-error},
+@ref{Conditions, Chapter 9 (Conditions)}
+
+@subsubheading Notes:
+
+
+@node division-by-zero
+@heading division-by-zero (Condition Type)
+@syindex division-by-zero
+@cindex division-by-zero
+
+
+@subsubheading Class Precedence List:
+@code{division-by-zero},
+@code{arithmetic-error},
+@code{error},
+@code{serious-condition},
+@code{condition},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{division-by-zero} consists of error conditions that
+occur because of division by zero.
+
+
+@node floating-point-invalid-operation
+@heading floating-point-invalid-operation (Condition Type)
+@syindex floating-point-invalid-operation
+@cindex floating-point-invalid-operation
+
+
+
+@subsubheading Class Precedence List:
+@code{floating-point-invalid-operation},
+@code{arithmetic-error},
+@code{error},
+@code{serious-condition},
+@code{condition},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{floating-point-invalid-operation} consists of
+error conditions that occur because of certain
+floating point traps.
+
+It is @term{implementation-dependent} whether floating point traps
+occur, and whether or how they may be enabled or disabled.  Therefore,
+conforming code may establish handlers for this condition, but must not
+depend on its being @term{signaled}.
+
+
+
+@node floating-point-inexact
+@heading floating-point-inexact (Condition Type)
+@syindex floating-point-inexact
+@cindex floating-point-inexact
+
+
+
+@subsubheading Class Precedence List:
+@code{floating-point-inexact},
+@code{arithmetic-error},
+@code{error},
+@code{serious-condition},
+@code{condition},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{floating-point-inexact} consists of
+error conditions that occur because of certain
+floating point traps.
+
+It is @term{implementation-dependent} whether floating point traps
+occur, and whether or how they may be enabled or disabled.  Therefore,
+conforming code may establish handlers for this condition, but must not
+depend on its being @term{signaled}.
+
+
+
+@node floating-point-overflow
+@heading floating-point-overflow (Condition Type)
+@syindex floating-point-overflow
+@cindex floating-point-overflow
+
+
+@subsubheading Class Precedence List:
+@code{floating-point-overflow},
+@code{arithmetic-error},
+@code{error},
+@code{serious-condition},
+@code{condition},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{floating-point-overflow} consists of error
+conditions that occur because of floating-point overflow.
+
+
+@node floating-point-underflow
+@heading floating-point-underflow (Condition Type)
+@syindex floating-point-underflow
+@cindex floating-point-underflow
+
+
+@subsubheading Class Precedence List:
+@code{floating-point-underflow},
+@code{arithmetic-error},
+@code{error},
+@code{serious-condition},
+@code{condition},
+@code{t}
+
+@subsubheading Description:
+
+@Thetype{floating-point-underflow} consists of
+error conditions that occur because of floating-point underflow.

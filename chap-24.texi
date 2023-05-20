@@ -1,0 +1,1072 @@
+@node System Construction
+@chapter System Construction
+@menu
+* System Construction Concepts::
+
+Dictionary
+
+* compile-file::
+* compile-file-pathname::
+* load::
+* with-compilation-unit::
+* *features*::
+* *compile-file-pathname*; *compile-file-truename*::
+* *load-pathname*; *load-truename*::
+* *compile-print*; *compile-verbose*::
+* *load-print*; *load-verbose*::
+* *modules*::
+* provide; require::
+@end menu
+
+@node System Construction Concepts
+@section System Construction Concepts
+
+@menu
+* Loading::
+* Features::
+@end menu
+@node Loading
+@subsection Loading
+
+To @code{load} a @term{file} is to treat its contents as @term{code}
+and @term{execute} that @term{code}.
+The @term{file} may contain @newterm{source code} or @newterm{compiled code}.
+
+A @term{file} containing @term{source code} is called a @newterm{source file}.
+@term{Loading} a @term{source file} is accomplished essentially
+by sequentially @term{reading}@sub2{} the @term{forms} in the file,
+@term{evaluating} each immediately after it is @term{read}.
+
+A @term{file} containing @term{compiled code} is called a @newterm{compiled file}.
+@term{Loading} a @term{compiled file} is similar to @term{loading} a @term{source file},
+except that the @term{file} does not contain text but rather an
+@term{implementation-dependent} representation of pre-digested @term{expressions}
+created by the @term{compiler}.  Often, a @term{compiled file} can be @term{loaded}
+more quickly than a @term{source file}.
+See @ref{Compilation, Section 3.2 (Compilation)}.
+
+The way in which a @term{source file} is distinguished from a @term{compiled file}
+is @term{implementation-dependent}.
+
+
+@node Features
+@subsection Features
+
+A @newterm{feature} is an aspect or attribute
+of @clisp{},
+of the @term{implementation},
+or of the @term{environment}.
+A @term{feature} is identified by a @term{symbol}.
+
+A @term{feature} is said to be @newterm{present} in a @term{Lisp image}
+if and only if the @term{symbol} naming it is an @term{element} of the
+@term{list} held by @thevariable{*features*},
+which is called the @newterm{features list}.
+
+@subsubsection Feature Expressions
+@anchor{FeatureExpressions}
+
+Boolean combinations of @term{features}, called
+@cindex feature expression
+@dfn{feature expressions},
+are used by the @f{#+} and @f{#-} @term{reader macros} in order to
+direct conditional @term{reading} of @term{expressions} by the @term{Lisp reader}.
+
+The rules for interpreting a @term{feature expression} are as follows:
+
+
+@table @asis
+
+@item @id{@term{feature}}
+
+
+If a @term{symbol} naming a @term{feature} is used as a @term{feature expression},
+the @term{feature expression} succeeds if that @term{feature} is @term{present};
+otherwise it fails.
+
+@item @id{@f{(not @param{feature-conditional})}}
+
+
+A @t{not} @term{feature expression} succeeds
+if its argument @param{feature-conditional} fails;
+otherwise, it succeeds.
+
+@item @id{@f{(and @starparam{feature-conditional})}}
+
+
+An @t{and} @term{feature expression} succeeds
+if all of its argument @param{feature-conditionals} succeed;
+otherwise, it fails.
+
+@item @id{@f{(or @starparam{feature-conditional})}}
+
+
+An @t{or} @term{feature expression} succeeds
+if any of its argument @param{feature-conditionals} succeed;
+otherwise, it fails.
+@end table
+
+
+@unnumberedsubsubsec 24.1.2.1.1 Examples of Feature Expressions
+
+@anchor{FeatureExpExamples}
+For example, suppose that
+in @term{implementation} A, the @term{features} @f{spice} and @f{perq} are @term{present},
+but the @term{feature} @f{lispm} is not @term{present};
+in @term{implementation} B, the feature @f{lispm} is @term{present},
+but the @term{features} @f{spice} and @f{perq} are
+not @term{present};
+and
+in @term{implementation} C, none of the features @f{spice}, @term{lispm}, or @f{perq} are
+@term{present}.
+@Thenextfigure{}@spc{}shows some sample @term{expressions}, and how they would be
+@term{read}@sub2{} in these @term{implementations}.
+
+
+@float Figure,fig24.1
+@cartouche
+@multitable{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+
+@item @f{(cons #+spice "Spice" #-spice "Lispm" x)} @tab
+@item @quad{} in @term{implementation} A @mat{@ldots{}} @tab @f{(CONS "Spice" X)}
+@item @quad{} in @term{implementation} B @mat{@ldots{}} @tab @f{(CONS "Lispm" X)}
+@item @quad{} in @term{implementation} C @mat{@ldots{}} @tab @f{(CONS "Lispm" X)}
+@item @f{(cons #+spice "Spice" #+LispM "Lispm" x)} @tab
+@item @quad{} in @term{implementation} A @mat{@ldots{}} @tab @f{(CONS "Spice" X)}
+@item @quad{} in @term{implementation} B @mat{@ldots{}} @tab @f{(CONS "Lispm" X)}
+@item @quad{} in @term{implementation} C @mat{@ldots{}} @tab @f{(CONS X)}
+@item @f{(setq a '(1 2 #+perq 43 #+(not perq) 27))} @tab
+@item @quad{} in @term{implementation} A @mat{@ldots{}} @tab @f{(SETQ A '(1 2 43))}
+@item @quad{} in @term{implementation} B @mat{@ldots{}} @tab @f{(SETQ A '(1 2 27))}
+@item @quad{} in @term{implementation} C @mat{@ldots{}} @tab @f{(SETQ A '(1 2 27))}
+@item @f{(let ((a 3) #+(or spice lispm) (b 3)) (foo a))} @tab
+@item @quad{} in @term{implementation} A @mat{@ldots{}} @tab @f{(LET ((A 3) (B 3)) (FOO A))}
+@item @quad{} in @term{implementation} B @mat{@ldots{}} @tab @f{(LET ((A 3) (B 3)) (FOO A))}
+@item @quad{} in @term{implementation} C @mat{@ldots{}} @tab @f{(LET ((A 3)) (FOO A))}
+@item @f{(cons #+Lispm "#+Spice" #+Spice "foo" #-(or Lispm Spice) 7 x)} @tab
+@item @quad{} in @term{implementation} A @mat{@ldots{}} @tab @f{(CONS "foo" X)}
+@item @quad{} in @term{implementation} B @mat{@ldots{}} @tab @f{(CONS "#+Spice" X)}
+@item @quad{} in @term{implementation} C @mat{@ldots{}} @tab @f{(CONS 7 X)}
+@end multitable
+@end cartouche
+@caption{Features examples}
+@end float
+
+
+
+
+@node compile-file
+@heading compile-file (Function)
+@syindex compile-file
+@cindex compile-file
+
+
+@subsubheading Syntax:
+
+@DefunWithValuesNewline{compile-file, input-file @key{} @vtop{@hbox{output-file verbose} @hbox{print external-format}}, output-truename\, warnings-p\, failure-p}
+
+@subsubheading Arguments and Values:
+
+@param{input-file}---a @term{pathname designator}.
+(Default fillers for unspecified components are taken from
+@code{*default-pathname-defaults*}.)
+
+@param{output-file}---a @term{pathname designator}.
+@Default{@term{implementation-defined}}
+
+@param{verbose}---a @term{generalized boolean}.
+@Default{@thevalueof{*compile-verbose*}}
+
+@param{print}---a @term{generalized boolean}.
+@Default{@thevalueof{*compile-print*}}
+
+
+@param{external-format}---an @term{external file format designator}.
+@Default{@kwd{default}}
+
+@param{output-truename}---a @term{pathname} (the @code{truename} of the output @term{file}),
+or @nil{}.
+
+@param{warnings-p}---a @term{generalized boolean}.
+
+@param{failure-p}---a @term{generalized boolean}.
+
+
+
+@subsubheading Description:
+
+@code{compile-file} transforms the contents of the file specified
+by @param{input-file} into @term{implementation-dependent} binary data
+which are placed in the file specified by @param{output-file}.
+
+The @term{file} to which @param{input-file} refers should be a @term{source file}.
+@param{output-file} can be used to specify an output @term{pathname};
+the actual @term{pathname} of the @term{compiled file}
+to which @term{compiled code} will be output
+is computed as if by calling @code{compile-file-pathname}.
+
+If @param{input-file} or @param{output-file} is a @term{logical pathname},
+it is translated into a @term{physical pathname} as if by calling
+@code{translate-logical-pathname}.
+
+If @param{verbose} is @term{true},
+@code{compile-file} prints a message in the form of a comment
+(@ie{} with a leading @term{semicolon})
+to @term{standard output} indicating what @term{file} is being @term{compiled}
+and other useful information.
+If @param{verbose} is @term{false},
+@code{compile-file} does not print
+this information.
+
+If @param{print} is @term{true},
+information about @term{top level forms} in the file being
+compiled is printed to @term{standard output}.
+Exactly what is printed is @term{implementation-dependent},
+but nevertheless some information is printed.
+If @param{print} is @nil{}, no information is printed.
+
+The @param{external-format} specifies the @term{external file format}
+to be used when opening the @term{file}; see the @term{function} @ref{open}.
+@code{compile-file} and @code{load} must cooperate in such a way that
+the resulting @term{compiled file} can be @term{loaded}
+without specifying an @term{external file format} anew; see the @term{function} @ref{load}.
+
+@code{compile-file} binds @code{*readtable*} and @code{*package*}
+to the values they held before processing the file.
+
+@code{*compile-file-truename*} is bound by @code{compile-file}
+to hold the @term{truename} of the @term{pathname} of the file being compiled.
+
+@code{*compile-file-pathname*} is bound by @code{compile-file}
+to hold a @term{pathname} denoted by the first argument to @code{compile-file},
+merged against the defaults;
+that is, @f{(pathname (merge-pathnames @param{input-file}))}.
+
+The compiled @term{functions} contained in the @term{compiled file} become available
+for use when the @term{compiled file} is @term{loaded} into Lisp.
+Any function definition that is processed by the
+compiler, including @f{#'(lambda ...)} forms and local function
+definitions made by @code{flet}, @code{labels} and @code{defun} forms,
+result in an @term{object} @oftype{compiled-function}.
+
+The @term{primary value} returned by @code{compile-file}, @param{output-truename},
+is the @code{truename} of the output file, or @nil{}@spc{}if the file could not be created.
+
+The @term{secondary value}, @param{warnings-p}, is @term{false}
+if no @term{conditions} @oftype{error} or @code{warning}
+were detected by the compiler, and @term{true} otherwise.
+
+The @term{tertiary value}, @param{failure-p}, is @term{false}
+if no @term{conditions} @oftype{error} or @code{warning}
+(other than @code{style-warning})
+were detected by the compiler, and @term{true} otherwise.
+
+For general information about how @term{files} are processed by the @term{file compiler},
+see @ref{File Compilation, Section 3.2.3 (File Compilation)}.
+
+
+@term{Programs} to be compiled by the @term{file compiler} must only contain
+@term{externalizable objects}; for details on such @term{objects},
+see @ref{Literal Objects in Compiled Files, Section 3.2.4 (Literal Objects in Compiled Files)}.
+For information on how to extend the set of @term{externalizable objects},
+see the @term{function} @ref{make-load-form} and @ref{CallingMakeLoadForm, Section 3.2.4.4 (Additional Constraints on Externalizable Objects)}.
+
+@subsubheading Affected By:
+@code{*error-output*},
+@code{*standard-output*}, @code{*compile-verbose*}, @code{*compile-print*}
+
+The computer's file system.
+@subsubheading Exceptional Situations:
+
+For information about errors detected during the compilation process,
+see @ref{Exceptional Situations in the Compiler, Section 3.2.5 (Exceptional Situations in the Compiler)}.
+
+An error @oftype{file-error} might be signaled if
+@tt{(wild-pathname-p @param{input-file})} returns true.
+
+If either the attempt to open the @term{source file} for input
+or the attempt to open the @term{compiled file} for output
+fails,
+an error @oftype{file-error} is signaled.
+
+@subsubheading See Also:
+
+@ref{compile},
+@ref{declare},
+@ref{eval-when},
+@ref{pathname (System Class)},
+@ref{logical-pathname (System Class)},
+@ref{File System Concepts, Section 20.1 (File System Concepts)},
+@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+
+
+
+@node compile-file-pathname
+@heading compile-file-pathname (Function)
+@syindex compile-file-pathname
+@cindex compile-file-pathname
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{compile-file-pathname, input-file @key{} output-file @allowotherkeys{}, pathname}
+
+@subsubheading Arguments and Values:
+
+@param{input-file}---a @term{pathname designator}.
+(Default fillers for unspecified components are taken from
+@code{*default-pathname-defaults*}.)
+
+@param{output-file}---a @term{pathname designator}.
+@Default{@term{implementation-defined}}
+
+@param{pathname}---a @term{pathname}.
+
+@subsubheading Description:
+
+Returns the @term{pathname} that @code{compile-file} would write into,
+if given the same arguments.
+
+The defaults for the @param{output-file}
+are taken from the @term{pathname}
+that results from merging the @param{input-file}
+with @thevalueof{*default-pathname-defaults*},
+except that the type component
+should default to the appropriate
+@term{implementation-defined} default type for @term{compiled files}.
+
+If @param{input-file} is a @term{logical pathname} and @param{output-file}
+is unsupplied, the result is a @term{logical pathname}.
+If @param{input-file} is a @term{logical pathname},
+it is translated into a physical pathname as if by calling
+@code{translate-logical-pathname}.
+If @param{input-file} is a @term{stream},
+the @term{stream} can be either open or closed.
+@code{compile-file-pathname} returns the same @term{pathname} after a
+file is closed as it did when the file was open.
+It is an error if @param{input-file} is a @term{stream} that is
+created with @code{make-two-way-stream}, @code{make-echo-stream},
+@code{make-broadcast-stream}, @code{make-concatenated-stream},
+@code{make-string-input-stream}, @code{make-string-output-stream}.
+
+If an implementation supports additional keyword arguments to @code{compile-file},
+@code{compile-file-pathname} must accept the same arguments.
+
+@subsubheading Examples:
+
+See @code{logical-pathname-translations}.
+
+@subsubheading Exceptional Situations:
+
+An error @oftype{file-error} might be signaled if either @param{input-file} or
+@param{output-file} is @term{wild}.
+
+@subsubheading See Also:
+
+@ref{compile-file},
+@ref{pathname (System Class)},
+@ref{logical-pathname (System Class)},
+@ref{File System Concepts, Section 20.1 (File System Concepts)},
+@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+
+
+
+
+@node load
+@heading load (Function)
+@syindex load
+@cindex load
+
+
+@subsubheading Syntax:
+
+@DefunWithValuesNewline{load, filespec @key{} @vtop{@hbox{verbose print} @hbox{if-does-not-exist external-format}}, generalized-boolean}
+
+@subsubheading Arguments and Values:
+
+@param{filespec}---a @term{stream}, or a @term{pathname designator}.
+@Default{taken from @code{*default-pathname-defaults*}}
+
+@param{verbose}---a @term{generalized boolean}.
+@Default{@thevalueof{*load-verbose*}}
+
+@param{print}---a @term{generalized boolean}.
+@Default{@thevalueof{*load-print*}}
+
+@param{if-does-not-exist}---a @term{generalized boolean}.
+@Default{@term{true}}
+
+@param{external-format}---an @term{external file format designator}.
+@Default{@kwd{default}}
+
+@param{generalized-boolean}---a @term{generalized boolean}.
+
+@subsubheading Description:
+
+@code{load} @term{loads} the @term{file} named by @param{filespec}
+into the @Lisp{}@spc{}environment.
+
+The manner in which a @term{source file}
+is distinguished from a @term{compiled file} is @term{implementation-dependent}.
+If the file specification is not complete and both a @term{source file} and a
+@term{compiled file} exist which might match,
+then which of those files @code{load} selects is @term{implementation-dependent}.
+
+If @param{filespec} is a @term{stream},
+@code{load} determines what kind of @term{stream} it is
+and loads directly from the @term{stream}.
+If @param{filespec} is a @term{logical pathname},
+it is translated into a @term{physical pathname}
+as if by calling @code{translate-logical-pathname}.
+
+@code{load} sequentially executes each @term{form} it encounters
+in the @term{file} named by @param{filespec}.
+If the @term{file} is a @term{source file}
+and the @term{implementation} chooses to perform @term{implicit compilation},
+@code{load} must recognize @term{top level forms}
+as described in @ref{TopLevelForms, Section 3.2.3.1 (Processing of Top Level Forms)}
+and arrange for each @term{top level form} to be executed
+before beginning @term{implicit compilation} of the next.
+(Note, however, that processing of @code{eval-when} @term{forms}
+by @code{load} is controlled by the @kwd{execute} situation.)
+
+If @param{verbose} is @term{true},
+@code{load} prints a message in the form of a comment
+(@ie{} with a leading @term{semicolon})
+to @term{standard output} indicating what @term{file} is being @term{loaded}
+and other useful information.
+If @param{verbose} is @term{false},
+@code{load} does not print this information.
+
+If @param{print} is @term{true},
+@code{load} incrementally prints information to @term{standard output}
+showing the progress of the @term{loading} process.
+For a @term{source file},
+this information might mean printing the @term{values}
+@term{yielded} by each @term{form} in the @term{file}
+as soon as those @term{values} are returned.
+For a @term{compiled file},
+what is printed might not reflect precisely the contents of the @term{source file},
+but some information is generally printed.
+If @param{print} is @term{false},
+@code{load} does not print this information.
+
+If the file named by @param{filespec} is successfully loaded,
+@code{load} returns @term{true}.
+
+@reviewer{Loosemore: What happens if the file cannot be loaded for some reason other
+than that it doesn't exist?} @editornote{KMP: i.e., can it return NIL? must it?}
+
+If the file does not exist,
+the specific action taken depends on @param{if-does-not-exist}:
+if it is @nil{}, @code{load} returns @nil{};
+otherwise, @code{load} signals an error.
+
+The @param{external-format} specifies the @term{external file format}
+to be used when opening the @term{file} (see the @term{function} @ref{open}),
+except that when the @term{file} named by @param{filespec} is a @term{compiled file},
+the @param{external-format} is ignored.
+@code{compile-file} and @code{load} cooperate
+in an @term{implementation-dependent} way to assure
+the preservation of the @term{similarity} of @term{characters}
+referred to in the @term{source file}
+at the time the @term{source file} was processed by the @term{file compiler}
+under a given @term{external file format},
+regardless of the value of @param{external-format}
+at the time the @term{compiled file} is @term{loaded}.
+
+@code{load} binds @code{*readtable*} and @code{*package*}
+to the values they held before @term{loading} the file.
+
+@code{*load-truename*} is @term{bound} by @code{load} to hold
+the @term{truename} of the @term{pathname} of the file being @term{loaded}.
+
+@code{*load-pathname*} is @term{bound} by @code{load} to hold
+a @term{pathname} that represents @param{filespec} merged against the defaults.
+That is, @tt{(pathname (merge-pathnames @param{filespec}))}.
+
+@subsubheading Examples:
+
+@lisp
+;Establish a data file...
+ (with-open-file (str "data.in" :direction :output :if-exists :error)
+   (print 1 str) (print '(setq a 888) str) t)
+@EV{} T
+ (load "data.in") @EV{} @term{true}
+ a @EV{} 888
+ (load (setq p (merge-pathnames "data.in")) :verbose t)
+; Loading contents of file /fred/data.in
+; Finished loading /fred/data.in
+@EV{} @term{true}
+ (load p :print t)
+; Loading contents of file /fred/data.in
+;  1
+;  888
+; Finished loading /fred/data.in
+@EV{} @term{true}
+@end lisp
+
+
+@medbreak{}
+@lisp
+ ;----[Begin file SETUP]----
+ (in-package "MY-STUFF")
+ (defmacro compile-truename () `',*compile-file-truename*)
+ (defvar *my-compile-truename* (compile-truename) "Just for debugging.")
+ (defvar *my-load-pathname* *load-pathname*)
+ (defun load-my-system ()
+   (dolist (module-name '("FOO" "BAR" "BAZ"))
+     (load (merge-pathnames module-name *my-load-pathname*))))
+ ;----[End of file SETUP]----
+
+
+ (load "SETUP")
+ (load-my-system)
+@end lisp
+
+
+@subsubheading Affected By:
+
+The implementation, and the host computer's file system.
+
+@subsubheading Exceptional Situations:
+
+If @kwd{if-does-not-exist} is supplied and is @term{true}, or is not supplied,
+@code{load} signals an error @oftype{file-error} if the file named by
+@param{filespec} does not exist,
+or if the @term{file system} cannot perform the requested operation.
+
+An error @oftype{file-error} might be signaled if
+@f{(wild-pathname-p @param{filespec})} returns @term{true}.
+
+@subsubheading See Also:
+
+@ref{error (Function)},
+@ref{merge-pathnames},
+@ref{*load-verbose*},
+@ref{*default-pathname-defaults*},
+@ref{pathname (System Class)},
+@ref{logical-pathname (System Class)},
+@ref{File System Concepts, Section 20.1 (File System Concepts)},
+@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+
+
+
+@node with-compilation-unit
+@heading with-compilation-unit (Macro)
+@syindex with-compilation-unit
+@cindex with-compilation-unit
+
+
+
+@subsubheading Syntax:
+
+@DefmacWithValues{with-compilation-unit, @paren{@interleave{@down{option}}} @starparam{form}, @starparam{result}}
+
+@auxbnf{option, @kwd{override} override}
+
+@subsubheading Arguments and Values:
+
+@param{override}---a @term{generalized boolean}; @eval{}.
+@Default{@nil{}}
+
+@param{forms}---an @term{implicit progn}.
+
+@param{results}---the @term{values} returned by the @term{forms}.
+
+@subsubheading Description:
+
+Executes @param{forms} from left to right.
+Within the @term{dynamic environment} of @code{with-compilation-unit},
+actions deferred by the compiler until the end of compilation will be
+deferred until the end of the outermost call to @code{with-compilation-unit}.
+
+The set of @term{options} permitted may be extended by the implementation,
+but the only @term{standardized} keyword is @kwd{override}.
+
+If nested dynamically only the outer call to
+@code{with-compilation-unit} has any effect unless the value
+associated with @kwd{override} is @term{true}, in which case warnings are
+deferred only to the end of the innermost call for which @param{override} is @term{true}.
+
+The function @code{compile-file}
+provides the effect of
+
+@lisp
+ (with-compilation-unit (:override nil) ...)
+@end lisp
+
+around its @term{code}.
+
+Any @term{implementation-dependent} extensions can only be provided as the
+result of an explicit programmer request by use of an
+@term{implementation-dependent} keyword.  @term{Implementations} are forbidden
+from attaching additional meaning to a use of this macro which involves either
+no keywords or just the keyword @kwd{override}.
+
+@subsubheading Examples:
+
+If an @term{implementation} would normally defer certain kinds of warnings,
+such as warnings about undefined functions, to the end of a compilation
+unit (such as a @term{file}), the following example shows how to cause those
+warnings to be deferred to the end of the compilation of several files.
+
+@lisp
+ (defun compile-files (&rest files)
+   (with-compilation-unit ()
+     (mapcar #'(lambda (file) (compile-file file)) files)))
+
+ (compile-files "A" "B" "C")
+@end lisp
+
+
+Note however that if the implementation does not normally defer any warnings,
+use of @term{with-compilation-unit} might not have any effect.
+
+@subsubheading See Also:
+
+@ref{compile}, @ref{compile-file}
+
+
+
+@node *features*
+@heading *features* (Variable)
+@syindex *features*
+@cindex *features*
+
+
+@subsubheading Value Type:
+
+a @term{proper list}.
+
+@subsubheading Initial Value:
+
+@term{implementation-dependent}.
+
+@subsubheading Description:
+
+@Thevalueof{*features*} is called the @term{features list}.
+It is a @term{list} of @term{symbols}, called @term{features},
+that correspond to some aspect of the @term{implementation} or @term{environment}.
+
+Most @term{features} have @term{implementation-dependent} meanings;
+The following meanings have been assigned to feature names:
+
+
+@table @asis
+
+@item @id{@kwd{cltl1}}
+
+
+If present, indicates that the @code{LISP} @term{package} @term{purports to conform}
+to the 1984 specification @CLtL{}.
+It is possible, but not required, for a @term{conforming implementation}
+to have this feature because this specification specifies that
+its @term{symbols} are to be in the @code{COMMON-LISP} @term{package},
+not the @code{LISP} package.
+
+@item @id{@kwd{cltl2}}
+
+
+If present, indicates that the implementation @term{purports to conform}
+to @CLtLTwo{}.
+This feature must not be present in any @term{conforming implementation},
+since conformance to that document is not compatible with conformance
+to this specification.
+The name, however, is reserved by this specification in order to help
+programs distinguish implementations which conform to that document
+from implementations which conform to this specification.
+
+@item @id{@kwd{ieee-floating-point}}
+
+
+If present, indicates that the implementation @term{purports to conform}
+to the requirements of @IEEEFloatingPoint{}.
+
+@item @id{@kwd{x3j13}}
+
+
+If present, indicates that the implementation conforms to some
+particular working draft of this specification,
+or to some subset of features that approximates a belief about
+what this specification might turn out to contain.
+A @term{conforming implementation} might or might not contain
+such a feature.
+(This feature is intended primarily as a stopgap in order to
+provide implementors something to use prior to the availability
+of a draft standard, in order to discourage them from introducing
+the @kwd{draft-ansi-cl} and @kwd{ansi-cl} @term{features} prematurely.)
+
+@item @id{@kwd{draft-ansi-cl}}
+
+
+If present, indicates that the @term{implementation}
+@term{purports to conform} to the first full draft of this specification,
+which went to public review in 1992.
+A @term{conforming implementation}
+which has the @kwd{draft-ansi-cl-2} or @kwd{ansi-cl} @term{feature}
+is not permitted to retain the @kwd{draft-ansi-cl} @term{feature}
+since incompatible changes were made subsequent to the first draft.
+
+@item @id{@kwd{draft-ansi-cl-2}}
+
+
+If present, indicates that a second full draft of this specification
+has gone to public review, and that the @term{implementation}
+@term{purports to conform} to that specification.
+(If additional public review drafts are produced, this keyword
+will continue to refer to the second draft, and additional keywords
+will be added to identify conformance with such later drafts.
+As such, the meaning of this keyword can be relied upon not to
+change over time.)
+A @term{conforming implementation} which has the @kwd{ansi-cl}
+@term{feature} is only permitted to retain the @kwd{draft-ansi-cl}
+@term{feature} if the finally approved standard is not incompatible
+with the draft standard.
+
+@item @id{@kwd{ansi-cl}}
+
+
+If present, indicates that this specification has been adopted by ANSI
+as an official standard, and that the @term{implementation}
+@term{purports to conform}.
+
+@item @id{@kwd{common-lisp}}
+
+
+This feature must appear in @code{*features*} for any implementation that
+has one or more of the features @kwd{x3j13}, @kwd{draft-ansi-cl},
+or @kwd{ansi-cl}.  It is intended that it should also appear in
+implementations which have the features @kwd{cltl1} or @kwd{cltl2},
+but this specification cannot force such behavior.  The intent is
+that this feature should identify the language family named ``Common Lisp,''
+rather than some specific dialect within that family.
+@end table
+
+
+@subsubheading See Also:
+
+@ref{ReadTimeConditionals, Section 1.5.2.1.1 (Use of Read-Time Conditionals)},
+@ref{Standard Macro Characters, Section 2.4 (Standard Macro Characters)}
+
+@subsubheading Notes:
+
+@Thevalueof{*features*} is used by the @f{#+} and @f{#-} reader syntax.
+
+@term{Symbols} in the @term{features list} may be in any @term{package},
+but in practice they are generally in the @code{KEYWORD} @term{package}.
+This is because @code{KEYWORD} is the @term{package} used by default
+when @term{reading}@sub2{} @term{feature expressions}
+in the @f{#+} and @f{#-} @term{reader macros}.
+@term{Code} that needs to name a @term{feature}@sub2{} in a
+@term{package} @mat{P} (other than @code{KEYWORD}) can do so
+by making explicit use of a @term{package prefix} for @mat{P},
+but note that such @term{code} must also assure that the @term{package} @mat{P}
+exists in order for the @term{feature expression} to be @term{read}@sub2{}---even
+in cases where the @term{feature expression} is expected to fail.
+
+It is generally considered wise for an @term{implementation} to include
+one or more @term{features} identifying the specific @term{implementation},
+so that conditional expressions can be written which distinguish
+idiosyncrasies of one @term{implementation} from those of another.
+Since features are normally @term{symbols} in the @code{KEYWORD} @term{package}
+where name collisions might easily result, and since no uniquely defined mechanism
+is designated for deciding who has the right to use which @term{symbol} for
+what reason, a conservative strategy is to prefer names derived from
+one's own company or product name, since those names are often trademarked
+and are hence less likely to be used unwittingly by another @term{implementation}.
+
+
+@node *compile-file-pathname*; *compile-file-truename*
+@heading *compile-file-pathname*, *compile-file-truename* (Variable)
+@syindex *compile-file-pathname*
+@cindex *compile-file-pathname*
+@syindex *compile-file-truename*
+@cindex *compile-file-truename*
+
+
+
+@subsubheading Value Type:
+
+@Thevalueof{*compile-file-pathname*} must always be a @term{pathname}          or @nil{}.
+@Thevalueof{*compile-file-truename*} must always be a @term{physical pathname} or @nil{}.
+
+@subsubheading Initial Value:
+
+@nil{}.
+
+@subsubheading Description:
+
+During a call to @code{compile-file},
+@code{*compile-file-pathname*} is @term{bound} to
+the @term{pathname} denoted by the first argument to @code{compile-file},
+merged against the defaults;
+that is, it is @term{bound} to @f{(pathname (merge-pathnames @param{input-file}))}.
+During the same time interval,
+@code{*compile-file-truename*} is @term{bound} to
+the @term{truename} of the @term{file} being @term{compiled}.
+
+At other times, the @term{value} of these @term{variables} is @nil{}.
+
+If a @term{break loop} is entered while @code{compile-file} is ongoing,
+it is @term{implementation-dependent} whether these @term{variables} retain
+the @term{values} they had just prior to entering the @term{break loop}
+or whether they are @term{bound} to @nil{}.
+
+The consequences are unspecified if
+an attempt is made to @term{assign} or @term{bind} either of these @term{variables}.
+
+@subsubheading Affected By:
+
+The @term{file system}.
+
+@subsubheading See Also:
+
+@ref{compile-file}
+
+
+
+@node *load-pathname*; *load-truename*
+@heading *load-pathname*, *load-truename* (Variable)
+@syindex *load-pathname*
+@cindex *load-pathname*
+@syindex *load-truename*
+@cindex *load-truename*
+
+
+@subsubheading Value Type:
+
+@Thevalueof{*load-pathname*} must always be a @term{pathname}          or @nil{}.
+@Thevalueof{*load-truename*} must always be a @term{physical pathname} or @nil{}.
+
+@subsubheading Initial Value:
+
+@nil{}.
+
+@subsubheading Description:
+
+During a call to @code{load},
+@code{*load-pathname*} is @term{bound} to
+the @term{pathname} denoted by the the first argument to @code{load},
+merged against the defaults;
+that is, it is @term{bound} to @f{(pathname (merge-pathnames @param{filespec}))}.
+During the same time interval,
+@code{*load-truename*} is @term{bound} to
+the @term{truename} of the @term{file} being loaded.
+
+At other times, the @term{value} of these @term{variables} is @nil{}.
+
+If a @term{break loop} is entered while @code{load} is ongoing,
+it is @term{implementation-dependent} whether these @term{variables} retain
+the @term{values} they had just prior to entering the @term{break loop}
+or whether they are @term{bound} to @nil{}.
+
+The consequences are unspecified if
+an attempt is made to @term{assign} or @term{bind} either of these @term{variables}.
+
+@subsubheading Affected By:
+
+The @term{file system}.
+
+@subsubheading See Also:
+
+@ref{load}
+
+
+
+@node *compile-print*; *compile-verbose*
+@heading *compile-print*, *compile-verbose* (Variable)
+@syindex *compile-print*
+@cindex *compile-print*
+@syindex *compile-verbose*
+@cindex *compile-verbose*
+
+
+
+@subsubheading Value Type:
+
+a @term{generalized boolean}.
+
+@subsubheading Initial Value:
+
+@term{implementation-dependent}.
+
+@subsubheading Description:
+
+@Thevalueof{*compile-print*}   is the default value of @thekeyarg{print}
+to @code{compile-file}.
+@Thevalueof{*compile-verbose*} is the default value of @thekeyarg{verbose}
+to @code{compile-file}.
+
+@subsubheading See Also:
+
+@ref{compile-file}
+
+
+
+@node *load-print*; *load-verbose*
+@heading *load-print*, *load-verbose* (Variable)
+@syindex *load-print*
+@cindex *load-print*
+@syindex *load-verbose*
+@cindex *load-verbose*
+@anchor{*load-verbose*}
+
+
+@subsubheading Value Type:
+
+a @term{generalized boolean}.
+
+@subsubheading Initial Value:
+
+The initial @term{value} of @code{*load-print*}   is @term{false}.
+The initial @term{value} of @code{*load-verbose*} is @term{implementation-dependent}.
+
+@subsubheading Description:
+
+@Thevalueof{*load-print*}   is the default value of @thekeyarg{print}   to @code{load}.
+@Thevalueof{*load-verbose*} is the default value of @thekeyarg{verbose} to @code{load}.
+
+@subsubheading See Also:
+
+@ref{load}
+
+
+
+@node *modules*
+@heading *modules* (Variable)
+@syindex *modules*
+@cindex *modules*
+
+
+
+@subsubheading Value Type:
+
+a @term{list} of @term{strings}.
+
+@subsubheading Initial Value:
+
+@term{implementation-dependent}.
+
+@subsubheading Description:
+
+@Thevalueof{*modules*} is a list of names of the modules
+that have been loaded into the current @term{Lisp image}.
+
+@subsubheading Affected By:
+
+@code{provide}
+
+@subsubheading See Also:
+
+@ref{provide},
+@ref{require}
+
+@subsubheading Notes:
+
+The variable @code{*modules*} is deprecated.
+
+
+
+@node provide; require
+@heading provide, require (Function)
+@syindex provide
+@cindex provide
+@syindex require
+@cindex require
+@anchor{provide}
+@anchor{require}
+
+
+
+@subsubheading Syntax:
+
+@DefunWithValues{provide, module-name, @term{implementation-dependent}}
+@DefunWithValues{require, module-name @opt{} pathname-list, @term{implementation-dependent}}
+
+@subsubheading Arguments and Values:
+
+@param{module-name}---a @term{@symbolnamedesignator{}}.
+
+@param{pathname-list}---@nil{}, or
+a @term{designator}
+for a @term{non-empty} @term{list} of @term{pathname designators}.
+@Default{@nil{}}
+
+@subsubheading Description:
+
+@code{provide} adds the @param{module-name} to the @term{list} held by
+@code{*modules*}, if such a name is not already present.
+
+@code{require} tests for the presence of the @param{module-name} in the
+@term{list} held by @code{*modules*}.
+If it is present, @code{require} immediately returns.
+Otherwise, an attempt is made to load an appropriate set of @term{files} as follows:
+The @param{pathname-list} argument, if @term{non-nil},
+specifies a list of @term{pathnames} to be loaded in order, from left to right.
+If the @param{pathname-list} is @nil{},
+an @term{implementation-dependent} mechanism will be invoked in an attempt
+to load the module named @param{module-name};
+if no such module can be loaded, an error @oftype{error} is signaled.
+
+Both functions use @code{string=} to test for the presence of a @param{module-name}.
+
+@subsubheading Examples:
+
+
+@lisp
+;;; This illustrates a nonportable use of REQUIRE, because it
+;;; depends on the implementation-dependent file-loading mechanism.
+
+(require "CALCULUS")
+
+;;; This use of REQUIRE is nonportable because of the literal
+;;; physical pathname.
+
+(require "CALCULUS" "/usr/lib/lisp/calculus")
+
+;;; One form of portable usage involves supplying a logical pathname,
+;;; with appropriate translations defined elsewhere.
+
+(require "CALCULUS" "lib:calculus")
+
+;;; Another form of portable usage involves using a variable or
+;;; table lookup function to determine the pathname, which again
+;;; must be initialized elsewhere.
+
+(require "CALCULUS" *calculus-module-pathname*)
+@end lisp
+
+
+@subsubheading Side Effects:
+
+@code{provide} modifies @code{*modules*}.
+
+@subsubheading Affected By:
+
+The specific action taken by @code{require} is affected by calls to @code{provide}
+(or, in general, any changes to @thevalueof{*modules*}).
+
+@subsubheading Exceptional Situations:
+
+@Shouldchecktype{module-name, a @term{@symbolnamedesignator{}}}
+
+If @code{require} fails to perform the requested operation
+due to a problem while interacting with the @term{file system},
+an error @oftype{file-error} is signaled.
+
+An error @oftype{file-error} might be signaled if any @term{pathname}
+in @param{pathname-list} is a @term{designator} for a @term{wild} @term{pathname}.
+
+@subsubheading See Also:
+
+@ref{*modules*},
+@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+
+@subsubheading Notes:
+
+The functions @code{provide} and @code{require} are deprecated.
+
+If a module consists of a single @term{package},
+it is customary for the package and module names to be the same.
