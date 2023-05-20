@@ -252,7 +252,7 @@ A @term{character} with @term{case} has the property of being either
 Every @term{character} with @term{case} is in one-to-one correspondence
 with some other @term{character} with the opposite @term{case}.
 
-@unnumberedsubsubsec 13.1.4.3.1 Uppercase Characters
+@subsubsection Uppercase Characters
 
 
 An uppercase @term{character} is one that has a corresponding
@@ -264,7 +264,7 @@ Of the @term{standard characters}, only these are @term{uppercase} @term{charact
 @f{A B C D E F G H I J K L M N O P Q R S T U V W X Y Z}
 
 
-@unnumberedsubsubsec 13.1.4.3.2 Lowercase Characters
+@subsubsection Lowercase Characters
 
 
 A lowercase @term{character} is one that has a corresponding
@@ -276,7 +276,7 @@ Of the @term{standard characters}, only these are @term{lowercase} @term{charact
 @f{a b c d e f g h i j k l m n o p q r s t u v w x y z}
 
 
-@unnumberedsubsubsec 13.1.4.3.3 Corresponding Characters in the Other Case
+@subsubsection Corresponding Characters in the Other Case
 
 
 The @term{uppercase} @term{standard characters} @f{A} through @f{Z} mentioned above
@@ -286,7 +286,7 @@ For example, the @term{uppercase} @term{character} @f{E}
 corresponds to the @term{lowercase} @term{character} @f{e}, and vice versa.
 
 
-@unnumberedsubsubsec 13.1.4.3.4 Case of Implementation-Defined Characters
+@subsubsection Case of Implementation-Defined Characters
 
 
 An @term{implementation} may define that other @term{implementation-defined}

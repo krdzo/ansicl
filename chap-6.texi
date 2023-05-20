@@ -37,7 +37,7 @@ Dictionary
 simple @code{loop} @term{forms}
 and extended @code{loop} @term{forms}.
 
-@unnumberedsubsubsec 6.1.1.1.1 Simple Loop
+@subsubsection Simple Loop
 
 @anchor{SimpleLoop}
 
@@ -52,7 +52,7 @@ transfering control to the @term{implicit block} (using @code{return} or
 @code{return-from}) or to some @term{exit point} outside of the @term{block}
 (@eg{} using @code{throw}, @code{go}, or @code{return-from}).
 
-@unnumberedsubsubsec 6.1.1.1.2 Extended Loop
+@subsubsection Extended Loop
 
 
 An extended @code{loop} @term{form} is one that has a body containing
@@ -199,7 +199,7 @@ can be used to return values from @code{loop} or to exit @code{loop}.
 
 Loop clauses fall into one of the following categories:
 
-@unnumberedsubsubsec 6.1.1.5.1 Summary of Variable Initialization and Stepping Clauses
+@subsubsection Summary of Variable Initialization and Stepping Clauses
 
 
 The @loopref{for} and @loopref{as} constructs provide iteration control clauses
@@ -215,7 +215,7 @@ to get @term{parallel} initialization.
 For more information, see @ref{Variable Initialization and Stepping Clauses, Section 6.1.2 (Variable Initialization and Stepping Clauses)}.
 
 
-@unnumberedsubsubsec 6.1.1.5.2 Summary of Value Accumulation Clauses
+@subsubsection Summary of Value Accumulation Clauses
 
 
 The @loopref{collect} (or @loopref{collecting}) construct
@@ -260,7 +260,7 @@ By default, the maximum value is returned when the @code{loop} finishes.
 For more information, see @ref{Value Accumulation Clauses, Section 6.1.3 (Value Accumulation Clauses)}.
 
 
-@unnumberedsubsubsec 6.1.1.5.3 Summary of Termination Test Clauses
+@subsubsection Summary of Termination Test Clauses
 
 
 The @loopref{for} and @loopref{as} constructs provide a termination test
@@ -304,7 +304,7 @@ the @code{loop} @term{form} terminates if any are satisfied.
 For more information, see @ref{Termination Test Clauses, Section 6.1.4 (Termination Test Clauses)}.
 
 
-@unnumberedsubsubsec 6.1.1.5.4 Summary of Unconditional Execution Clauses
+@subsubsection Summary of Unconditional Execution Clauses
 
 
 The @loopref{do} (or @loopref{doing}) construct evaluates all @term{forms} in its clause.
@@ -320,7 +320,7 @@ clause, or @nil{}@spc{}if there is no @loopref{named} clause.
 For more information, see @ref{Unconditional Execution Clauses, Section 6.1.5 (Unconditional Execution Clauses)}.
 
 
-@unnumberedsubsubsec 6.1.1.5.5 Summary of Conditional Execution Clauses
+@subsubsection Summary of Conditional Execution Clauses
 
 
 The @loopref{if} and @loopref{when} constructs take one @term{form} as a test
@@ -344,7 +344,7 @@ end of a conditional clause.
 For more information, see @ref{Conditional Execution Clauses, Section 6.1.6 (Conditional Execution Clauses)}.
 
 
-@unnumberedsubsubsec 6.1.1.5.6 Summary of Miscellaneous Clauses
+@subsubsection Summary of Miscellaneous Clauses
 
 
 @Theloopconstruct{named} gives a name for the @term{block} of the loop.
@@ -632,7 +632,7 @@ the elements of the list.
 By convention, @loopref{for} introduces new iterations and @loopref{as}
 introduces iterations that depend on a previous iteration specification.
 
-@unnumberedsubsubsec 6.1.2.1.1 The for-as-arithmetic subclause
+@subsubsection The for-as-arithmetic subclause
 
 
 In the @i{for-as-arithmetic} subclause, the @loopref{for}
@@ -758,7 +758,7 @@ inclusive limit allows @param{var} to attain the value of
 @param{form2}; @loopref{to}, @loopref{downto}, and @loopref{upto} provide inclusive
 limits.
 
-@unnumberedsubsubsec 6.1.2.1.1.1 Examples of for-as-arithmetic subclause
+@subsubsection Examples of for-as-arithmetic subclause
 
 
 @lisp
@@ -791,7 +791,7 @@ limits.
 
 
 
-@unnumberedsubsubsec 6.1.2.1.2 The for-as-in-list subclause
+@subsubsection The for-as-in-list subclause
 
 
 In the @i{for-as-in-list} subclause,
@@ -809,7 +809,7 @@ this syntax.
 The @loopref{for} or @loopref{as} construct causes termination when the
 end of the @term{list} is reached.
 
-@unnumberedsubsubsec 6.1.2.1.2.1 Examples of for-as-in-list subclause
+@subsubsection Examples of for-as-in-list subclause
 
 
 @lisp
@@ -837,7 +837,7 @@ end of the @term{list} is reached.
 
 
 
-@unnumberedsubsubsec 6.1.2.1.3 The for-as-on-list subclause
+@subsubsection The for-as-on-list subclause
 
 
 In the @i{for-as-on-list} subclause, the @loopref{for} or @loopref{as}
@@ -853,7 +853,7 @@ prepositions in this syntax.
 The @loopref{for} or @loopref{as} construct causes termination when the
 end of the @term{list} is reached.
 
-@unnumberedsubsubsec 6.1.2.1.3.1 Examples of for-as-on-list subclause
+@subsubsection Examples of for-as-on-list subclause
 
 
 @lisp
@@ -875,7 +875,7 @@ end of the @term{list} is reached.
 
 
 
-@unnumberedsubsubsec 6.1.2.1.4 The for-as-equals-then subclause
+@subsubsection The for-as-equals-then subclause
 
 
 In the @i{for-as-equals-then} subclause
@@ -891,7 +891,7 @@ The @term{loop keywords} @mat{=} and @loopref{then} serve as valid prepositions
 in this syntax.
 This construct does not provide any termination tests.
 
-@unnumberedsubsubsec 6.1.2.1.4.1 Examples of for-as-equals-then subclause
+@subsubsection Examples of for-as-equals-then subclause
 
 
 @lisp
@@ -905,7 +905,7 @@ This construct does not provide any termination tests.
 
 
 
-@unnumberedsubsubsec 6.1.2.1.5 The for-as-across subclause
+@subsubsection The for-as-across subclause
 
 
 In the @i{for-as-across} subclause the @loopref{for}
@@ -918,7 +918,7 @@ Iteration stops when there are no more elements in the supplied
 Some implementations might recognize a @code{the} special form
 in the @param{vector} form to produce more efficient code.
 
-@unnumberedsubsubsec 6.1.2.1.5.1 Examples of for-as-across subclause
+@subsubsection Examples of for-as-across subclause
 
 
 @lisp
@@ -929,7 +929,7 @@ in the @param{vector} form to produce more efficient code.
 
 
 
-@unnumberedsubsubsec 6.1.2.1.6 The for-as-hash subclause
+@subsubsection The for-as-hash subclause
 
 
 In the @i{for-as-hash} subclause
@@ -1011,7 +1011,7 @@ Iteration stops when there are no more hash keys or hash values to be
 referenced in the supplied @param{hash-table}.
 
 
-@unnumberedsubsubsec 6.1.2.1.7 The for-as-package subclause
+@subsubsection The for-as-package subclause
 
 
 In the @i{for-as-package} subclause
@@ -1102,7 +1102,7 @@ is a compound preposition.
 Iteration stops when there are no more @term{symbols} to be referenced
 in the supplied @param{package}.
 
-@unnumberedsubsubsec 6.1.2.1.7.1 Examples of for-as-package subclause
+@subsubsection Examples of for-as-package subclause
 
 
 @lisp
@@ -1209,7 +1209,7 @@ the following code:
 @end lisp
 
 
-@unnumberedsubsubsec 6.1.2.2.1 Examples of WITH clause
+@subsubsection Examples of WITH clause
 
 
 @lisp
@@ -1899,7 +1899,7 @@ does not execute any @loopref{finally} clause that
 the @code{loop} @term{form}
 is given.
 
-@unnumberedsubsubsec 6.1.7.1.1 Examples of NAMED clause
+@subsubsection Examples of NAMED clause
 
 
 @lisp

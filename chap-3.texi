@@ -180,7 +180,7 @@ associated with its @term{name}
 in the @term{lexical environment} or, if not, there is a @term{binding}
 associated with its name in the @term{global environment}.
 
-@unnumberedsubsubsec 3.1.1.3.1 The Null Lexical Environment
+@subsubsection The Null Lexical Environment
 
 @anchor{NullLexicalEnv}
 
@@ -229,7 +229,7 @@ describe the components of the @clisp{}@spc{}evaluation model.
 @term{symbols}, @term{conses}, and @term{self-evaluating objects}.
 The following sections explain these categories.
 
-@unnumberedsubsubsec 3.1.2.1.1 Symbols as Forms
+@subsubsection Symbols as Forms
 
 @anchor{SymbolsAsForms}
 
@@ -293,7 +293,7 @@ are applicable to assigning, binding, and defining @term{variables}.
 
 The following is a description of each kind of variable.
 
-@unnumberedsubsubsec 3.1.2.1.1.1 Lexical Variables
+@subsubsection Lexical Variables
 
 
 A @term{lexical variable} is a @term{variable} that can be referenced only within
@@ -317,7 +317,7 @@ is there any @term{operator} that can make a @term{lexical variable} be @term{un
 @term{Bindings} of @term{lexical variables} are found in the @term{lexical environment}.
 
 
-@unnumberedsubsubsec 3.1.2.1.1.2 Dynamic Variables
+@subsubsection Dynamic Variables
 
 
 A @term{variable} is a @term{dynamic variable} if one of the following
@@ -363,7 +363,7 @@ those variables whose initial value is
 defined in this specification or by an @term{implementation}.
 
 
-@unnumberedsubsubsec 3.1.2.1.1.3 Constant Variables
+@subsubsection Constant Variables
 
 @anchor{ConstantVars}
 
@@ -382,7 +382,7 @@ and @term{symbols} declared as constant using @code{defconstant}
 are @term{constant variables}.
 
 
-@unnumberedsubsubsec 3.1.2.1.1.4 Symbols Naming Both Lexical and Dynamic Variables
+@subsubsection Symbols Naming Both Lexical and Dynamic Variables
 
 
 The same @term{symbol} can name both
@@ -408,7 +408,7 @@ and as the @term{name} of a @term{dynamic variable}.
 
 
 
-@unnumberedsubsubsec 3.1.2.1.2 Conses as Forms
+@subsubsection Conses as Forms
 
 
 A @term{cons} that is used as a @term{form} is called a @term{compound form}.
@@ -430,7 +430,7 @@ How a @term{compound form} is processed depends on whether it is
 classified as a @term{special form}, a @term{macro form},
 a @term{function form}, or a @term{lambda form}.
 
-@unnumberedsubsubsec 3.1.2.1.2.1 Special Forms
+@subsubsection Special Forms
 
 
 A @term{special form} is a @term{form} with special syntax,
@@ -478,7 +478,7 @@ that have definitions as @term{special operators}.
 
 
 
-@unnumberedsubsubsec 3.1.2.1.2.2 Macro Forms
+@subsubsection Macro Forms
 
 
 If the @term{operator} names a @term{macro},
@@ -532,7 +532,7 @@ to @term{macros}.
 
 
 
-@unnumberedsubsubsec 3.1.2.1.2.3 Function Forms
+@subsubsection Function Forms
 
 @anchor{FunctionForms}
 
@@ -611,7 +611,7 @@ or @code{labels}.
 
 
 
-@unnumberedsubsubsec 3.1.2.1.2.4 Lambda Forms
+@subsubsection Lambda Forms
 
 @anchor{LambdaForms}
 
@@ -629,7 +629,7 @@ For further information, see @ref{Lambda Expressions, Section 3.1.3 (Lambda Expr
 
 
 
-@unnumberedsubsubsec 3.1.2.1.3 Self-Evaluating Objects
+@subsubsection Self-Evaluating Objects
 
 
 A @term{form} that is neither a @term{symbol} nor a @term{cons} is
@@ -646,7 +646,7 @@ general set of rules for the @term{evaluation} of @term{symbols} and
 The consequences are undefined if @term{literal objects} (including
 @term{self-evaluating objects}) are destructively modified.
 
-@unnumberedsubsubsec 3.1.2.1.3.1 Examples of Self-Evaluating Objects
+@subsubsection Examples of Self-Evaluating Objects
 
 
 @term{Numbers}, @term{pathnames}, and @term{arrays} are examples of
@@ -1187,7 +1187,7 @@ be used in place of the original @term{form}.
 @end float
 
 
-@unnumberedsubsubsec 3.2.2.1.1 Purpose of Compiler Macros
+@subsubsection Purpose of Compiler Macros
 
 
 The purpose of the @term{compiler macro} facility is to permit
@@ -1221,7 +1221,7 @@ a @term{compiler macro} @term{form}, the expansion is also treated as a @term{to
 for the purposes of @code{eval-when} processing; see @ref{TopLevelForms, Section 3.2.3.1 (Processing of Top Level Forms)}.
 
 
-@unnumberedsubsubsec 3.2.2.1.2 Naming of Compiler Macros
+@subsubsection Naming of Compiler Macros
 
 
 @term{Compiler macros} may be defined for @term{function names} that name
@@ -1242,7 +1242,7 @@ Compiler macros are global, and the function
 with other lexical and global definitions.
 
 
-@unnumberedsubsubsec 3.2.2.1.3 When Compiler Macros Are Used
+@subsubsection When Compiler Macros Are Used
 
 
 The presence of a @term{compiler macro} definition for a @term{function} or @term{macro}
@@ -1282,7 +1282,7 @@ the call form appears within the scope of the declaration.
 It is unspecified whether @term{compiler macros} are expanded or used in any other
 situations.
 
-@unnumberedsubsubsec 3.2.2.1.3.1 Notes about the Implementation of Compiler Macros
+@subsubsection Notes about the Implementation of Compiler Macros
 
 
 Although it is technically permissible, as described above,
@@ -1600,7 +1600,7 @@ specifying the @kwd{execute} situation is treated as an @term{implicit progn}
 including the @term{forms} in the body of the @code{eval-when} @term{form};
 otherwise, the @term{forms} in the body are ignored.
 
-@unnumberedsubsubsec 3.2.3.1.1 Processing of Defining Macros
+@subsubsection Processing of Defining Macros
 
 
 
@@ -1669,7 +1669,7 @@ top level.
 
 
 
-@unnumberedsubsubsec 3.2.3.1.2 Constraints on Macros and Compiler Macros
+@subsubsection Constraints on Macros and Compiler Macros
 
 
 
@@ -1752,7 +1752,7 @@ existed at the time the @term{file compiler} was operating.
 @subsubsection Similarity of Literal Objects
 @anchor{Similarity}
 
-@unnumberedsubsubsec 3.2.4.2.1 Similarity of Aggregate Objects
+@subsubsection Similarity of Aggregate Objects
 
 
 Of the @term{types} over which @term{similarity} is defined,
@@ -1763,7 +1763,7 @@ and to satisfy the @term{similarity} relationship, the values of the
 corresponding qualities of the two @term{objects} must also be similar.
 
 
-@unnumberedsubsubsec 3.2.4.2.2 Definition of Similarity
+@subsubsection Definition of Similarity
 
 
 Two @term{objects} @mat{S} (in @term{source code}) and @mat{C} (in @term{compiled code})
@@ -2664,7 +2664,7 @@ would be flagged by @kwd{allow-other-keys}, then @kwd{allow-other-keys} has both
 its special-cased meaning (identifying whether additional keywords are permitted)
 and its normal meaning (data flow into the function in question).
 
-@unnumberedsubsubsec 3.4.1.4.1 Suppressing Keyword Argument Checking
+@subsubsection Suppressing Keyword Argument Checking
 
 @anchor{SuppressingKeyArgChecks}
 
@@ -2680,7 +2680,7 @@ in that call.
 @term{keyword}@sub2{} @term{arguments}, even when its associated @term{value}
 is @term{false}.
 
-@unnumberedsubsubsec 3.4.1.4.1.1 Examples of Suppressing Keyword Argument Checking
+@subsubsection Examples of Suppressing Keyword Argument Checking
 
 
 @lisp
@@ -3086,7 +3086,7 @@ A destructuring operation requires an @term{object} to be decomposed,
 a pattern that specifies what components are to be extracted, and the names
 of the variables whose values are to be the components.
 
-@unnumberedsubsubsec 3.4.4.1.1 Data-directed Destructuring by Lambda Lists
+@subsubsection Data-directed Destructuring by Lambda Lists
 
 
 In data-directed destructuring,
@@ -3095,7 +3095,7 @@ Wherever a component is to be extracted,
 a @term{symbol} appears in the pattern;
 this @term{symbol} is the name of the variable whose value will be that component.
 
-@unnumberedsubsubsec 3.4.4.1.1.1 Examples of Data-directed Destructuring by Lambda Lists
+@subsubsection Examples of Data-directed Destructuring by Lambda Lists
 
 
 An example pattern is
@@ -3113,7 +3113,7 @@ simplicity and the ability to extend it to lambda-list-directed destructuring.
 
 
 
-@unnumberedsubsubsec 3.4.4.1.2 Lambda-list-directed Destructuring by Lambda Lists
+@subsubsection Lambda-list-directed Destructuring by Lambda Lists
 
 
 An extension of data-directed destructuring of @term{trees} is
@@ -3560,7 +3560,7 @@ For example, if a @term{programmer} calls @code{mapcar} from @term{safe}
 as @term{safe}, the @term{implementation} is required to ensure that
 @code{mapcar} makes a @term{safe call} as well.
 
-@unnumberedsubsubsec 3.5.1.1.1 Error Detection Time in Safe Calls
+@subsubsection Error Detection Time in Safe Calls
 
 
 If an error is signaled in a @term{safe call},

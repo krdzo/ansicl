@@ -107,7 +107,7 @@ otherwise, it fails.
 @end table
 
 
-@unnumberedsubsubsec 24.1.2.1.1 Examples of Feature Expressions
+@subsubsection Examples of Feature Expressions
 
 @anchor{FeatureExpExamples}
 For example, suppose that

@@ -242,7 +242,7 @@ references is not specified.
 
 Rules 2, 3 and 4 cover all @term{standardized} @term{macros} that manipulate @term{places}.
 
-@unnumberedsubsubsec 5.1.1.1.1 Examples of Evaluation of Subforms to Places
+@subsubsection Examples of Evaluation of Subforms to Places
 
 
 @lisp
@@ -335,7 +335,7 @@ is implemented by a @term{setf expander} or a @term{setf function}.
 Also, it follows from this that it is @term{implementation-dependent}
 whether the name @f{(setf @param{F})} is @term{fbound}.
 
-@unnumberedsubsubsec 5.1.1.2.1 Examples of Setf Expansions
+@subsubsection Examples of Setf Expansions
 
 
 Examples of the contents of the constituents of @term{setf expansions}

@@ -78,7 +78,7 @@ and any attempt to @term{access} an @term{element}
 is an error.  However, other properties of the @term{array},
 such as the @term{dimensions} themselves, may be used.
 
-@unnumberedsubsubsec 15.1.1.2.1 Implementation Limits on Individual Array Dimensions
+@subsubsection Implementation Limits on Individual Array Dimensions
 
 
 An @term{implementation} may impose a limit on @term{dimensions} of an @term{array},
@@ -95,13 +95,13 @@ If the rank of an @term{array} is zero then the @term{array} is said to have
 no @term{dimensions}, and the product of the dimensions (see @code{array-total-size})
 is then 1; a zero-rank @term{array} therefore has a single element.
 
-@unnumberedsubsubsec 15.1.1.3.1 Vectors
+@subsubsection Vectors
 
 
 An @term{array} of @term{rank} one (@ie{} a one-dimensional @term{array})
 is called a @newterm{vector}.
 
-@unnumberedsubsubsec 15.1.1.3.1.1 Fill Pointers
+@subsubsection Fill Pointers
 
 
 A @newterm{fill pointer} is a non-negative @term{integer} no
@@ -122,10 +122,10 @@ that has a @term{fill pointer} can be created.
 
 
 
-@unnumberedsubsubsec 15.1.1.3.2 Multidimensional Arrays
+@subsubsection Multidimensional Arrays
 
 
-@unnumberedsubsubsec 15.1.1.3.2.1 Storage Layout for Multidimensional Arrays
+@subsubsection Storage Layout for Multidimensional Arrays
 
 
 Multidimensional @term{arrays} store their components in row-major order;
@@ -134,7 +134,7 @@ one-dimensional @term{array}, with the multidimensional index sets
 ordered lexicographically, last index varying fastest.
 
 
-@unnumberedsubsubsec 15.1.1.3.2.2 Implementation Limits on Array Rank
+@subsubsection Implementation Limits on Array Rank
 
 
 An @term{implementation} may impose a limit on the @term{rank} of an @term{array},

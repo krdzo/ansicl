@@ -516,7 +516,7 @@ that are to appear in the sequence must be preceded by a @term{single escape}
 @term{Vertical-bar} is a @term{multiple escape} @term{character}
 in @term{standard syntax}.
 
-@unnumberedsubsubsec 2.1.4.5.1 Examples of Multiple Escape Characters
+@subsubsection Examples of Multiple Escape Characters
 
 
 @lisp
@@ -543,7 +543,7 @@ or which @term{constituent traits} it has.
 
 @term{Backslash} is a @term{single escape} @term{character} in @term{standard syntax}.
 
-@unnumberedsubsubsec 2.1.4.6.1 Examples of Single Escape Characters
+@subsubsection Examples of Single Escape Characters
 
 
 @lisp
@@ -566,7 +566,7 @@ or which @term{constituent traits} it has.
 @term{Space} and @term{newline} are @term{whitespace}@sub2{} @term{characters}
 in @term{standard syntax}.
 
-@unnumberedsubsubsec 2.1.4.7.1 Examples of Whitespace Characters
+@subsubsection Examples of Whitespace Characters
 
 
 @lisp
@@ -891,7 +891,7 @@ If there is an ambiguity as to whether
 a letter should be treated as a digit or as a number marker,
 the letter is treated as a digit.
 
-@unnumberedsubsubsec 2.3.1.1.1 Escape Characters and Potential Numbers
+@subsubsection Escape Characters and Potential Numbers
 
 @anchor{EscCharsAndPotentialNums}
 
@@ -912,7 +912,7 @@ would
 cause the token to be a @term{potential number}.
 
 
-@unnumberedsubsubsec 2.3.1.1.2 Examples of Potential Numbers
+@subsubsection Examples of Potential Numbers
 
 
 As examples, the @term{tokens} in @thenextfigure{}@spc{}are @term{potential numbers},
@@ -989,7 +989,7 @@ This section summarizes the full syntax for @term{numbers}.
 
 @subsubsection Syntax of a Rational
 
-@unnumberedsubsubsec 2.3.2.1.1 Syntax of an Integer
+@subsubsection Syntax of an Integer
 
 @anchor{SyntaxOfIntegers}
 
@@ -1004,7 +1004,7 @@ the @term{digits} are taken to be in radix given by the @term{current input base
 For information on how @term{integers} are printed, see @ref{PrintingIntegers, Section 22.1.3.1.1 (Printing Integers)}.
 
 
-@unnumberedsubsubsec 2.3.2.1.2 Syntax of a Ratio
+@subsubsection Syntax of a Ratio
 
 @anchor{SyntaxOfRatios}
 
@@ -1554,7 +1554,7 @@ Some text editors make assumptions about desired indentation based on
 the number of @term{semicolons} that begin a comment.  The following style
 conventions are common, although not by any means universal.
 
-@unnumberedsubsubsec 2.4.4.2.1 Use of Single Semicolon
+@subsubsection Use of Single Semicolon
 
 
 Comments that begin with a single @term{semicolon} are all aligned to
@@ -1565,7 +1565,7 @@ this is sometimes indicated by indenting all but the first with an additional
 space (after the @term{semicolon}).
 
 
-@unnumberedsubsubsec 2.4.4.2.2 Use of Double Semicolon
+@subsubsection Use of Double Semicolon
 
 
 Comments that begin with a double @term{semicolon} are all aligned to
@@ -1577,7 +1577,7 @@ the @term{code} which follows the comment,
 or both.
 
 
-@unnumberedsubsubsec 2.4.4.2.3 Use of Triple Semicolon
+@subsubsection Use of Triple Semicolon
 
 
 Comments that begin with a triple @term{semicolon} are all aligned to
@@ -1585,7 +1585,7 @@ the left margin.  Usually they are used prior to a definition or set
 of definitions, rather than within a definition.
 
 
-@unnumberedsubsubsec 2.4.4.2.4 Use of Quadruple Semicolon
+@subsubsection Use of Quadruple Semicolon
 
 
 Comments that begin with a quadruple @term{semicolon} are all aligned to
@@ -1595,7 +1595,7 @@ header or footer of a program that prepares code for presentation as
 a hardcopy document.
 
 
-@unnumberedsubsubsec 2.4.4.2.5 Examples of Style for Semicolon
+@subsubsection Examples of Style for Semicolon
 
 
 @lisp
@@ -2081,7 +2081,7 @@ Neither a @term{single escape} nor a @term{multiple escape} is permitted in this
 For information on how the @term{Lisp printer} prints @term{bit vectors},
 see @ref{PrintingBitVectors, Section 22.1.3.6 (Printing Bit Vectors)}.
 
-@unnumberedsubsubsec 2.4.8.4.1 Examples of Sharpsign Asterisk
+@subsubsection Examples of Sharpsign Asterisk
 
 
 For example,
@@ -2517,7 +2517,7 @@ For examples, see @ref{FeatureExpExamples, Section 24.1.2.1.1 (Examples of Featu
 It must be balanced with respect to other occurrences of @f{#|} and @f{|#},
 but otherwise may contain any characters whatsoever.
 
-@unnumberedsubsubsec 2.4.8.19.1 Examples of Sharpsign Vertical-Bar
+@subsubsection Examples of Sharpsign Vertical-Bar
 
 
 The following are some examples that exploit the @f{#|...|#} notation:
@@ -2581,7 +2581,7 @@ The following are some examples that exploit the @f{#|...|#} notation:
 
 
 
-@unnumberedsubsubsec 2.4.8.19.2 Notes about Style for Sharpsign Vertical-Bar
+@subsubsection Notes about Style for Sharpsign Vertical-Bar
 
 
 Some text editors that purport to understand Lisp syntax treat any @f{|...|}

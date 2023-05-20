@@ -104,7 +104,7 @@ specified by the caller.
 
 @subsubsection Symbols in a Package
 
-@unnumberedsubsubsec 11.1.1.2.1 Internal and External Symbols
+@subsubsection Internal and External Symbols
 
 
 The mappings in a @term{package} are divided into two classes, external and internal.
@@ -127,7 +127,7 @@ it is @term{present} in, but it might be an @term{external symbol} of some @term
 and an @term{internal symbol} of others.
 
 
-@unnumberedsubsubsec 11.1.1.2.2 Package Inheritance
+@subsubsection Package Inheritance
 
 
 @term{Packages} can be built up in layers.  From one point of view,
@@ -149,7 +149,7 @@ a @term{package prefix} must be used,
 or the @term{symbol} must be @term{imported} into the @term{current package}.
 
 
-@unnumberedsubsubsec 11.1.1.2.3 Accessibility of Symbols in a Package
+@subsubsection Accessibility of Symbols in a Package
 
 
 A @term{symbol} becomes @newterm{accessible} in a @term{package}
@@ -193,7 +193,7 @@ by the using @term{package}.
 
 
 
-@unnumberedsubsubsec 11.1.1.2.4 Locating a Symbol in a Package
+@subsubsection Locating a Symbol in a Package
 
 
 When a @term{symbol} is to be located in a given @term{package}
@@ -211,7 +211,7 @@ conflicts listed below.
 
 
 
-@unnumberedsubsubsec 11.1.1.2.5 Prevention of Name Conflicts in Packages
+@subsubsection Prevention of Name Conflicts in Packages
 
 
 Within one @term{package}, any particular name can refer to at most one
@@ -362,7 +362,7 @@ because it is listed in that section
 
 The @code{COMMON-LISP} @term{package} can have additional @term{internal symbols}.
 
-@unnumberedsubsubsec 11.1.2.1.1 Constraints on the COMMON-LISP Package for Conforming Implementations
+@subsubsection Constraints on the COMMON-LISP Package for Conforming Implementations
 
 
 In a @term{conforming implementation},
@@ -396,7 +396,7 @@ that is either an @term{external symbol} of any @term{standardized} @term{packag
 or a @term{symbol} that is otherwise @term{accessible} in the @code{COMMON-LISP-USER} @term{package}.
 
 
-@unnumberedsubsubsec 11.1.2.1.2 Constraints on the COMMON-LISP Package for Conforming Programs
+@subsubsection Constraints on the COMMON-LISP Package for Conforming Programs
 
 @cindex redefinition
 Except where explicitly allowed, the consequences are undefined if any
@@ -475,7 +475,7 @@ are @term{direct instances} of @term{standardized} @term{classes}.
 @end enumerate
 
 
-@unnumberedsubsubsec 11.1.2.1.2.1 Some Exceptions to Constraints on the COMMON-LISP Package for Conforming Programs
+@subsubsection Some Exceptions to Constraints on the COMMON-LISP Package for Conforming Programs
 
 
 If an @term{external symbol} of the @code{COMMON-LISP} @term{package}
@@ -546,7 +546,7 @@ see @ref{Ordinary Lambda Lists, Section 3.4.1 (Ordinary Lambda Lists)}.
 
 @term{Symbols} in the @code{KEYWORD} @term{package} are, by definition, @oftype{keyword}.
 
-@unnumberedsubsubsec 11.1.2.3.1 Interning a Symbol in the KEYWORD Package
+@subsubsection Interning a Symbol in the KEYWORD Package
 
 
 The @code{KEYWORD} @term{package} is treated differently than other @term{packages}
@@ -556,7 +556,7 @@ it is automatically made to be an @term{external symbol}
 and is automatically made to be a @term{constant variable} with itself as a @term{value}.
 
 
-@unnumberedsubsubsec 11.1.2.3.2 Notes about The KEYWORD Package
+@subsubsection Notes about The KEYWORD Package
 
 
 It is generally best to confine the use of @term{keywords} to situations in which

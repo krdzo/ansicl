@@ -241,7 +241,7 @@ can define other special version @term{symbols}.
 @subsubsection Strings in Component Values
 
 
-@unnumberedsubsubsec 19.2.2.1.1 Special Characters in Pathname Components
+@subsubsection Special Characters in Pathname Components
 
 
 @term{Strings} in @term{pathname} component values
@@ -267,7 +267,7 @@ For example,
 
 
 
-@unnumberedsubsubsec 19.2.2.1.2 Case in Pathname Components
+@subsubsection Case in Pathname Components
 
 @anchor{PathnameComponentCase}
 
@@ -293,7 +293,7 @@ relating to @term{pathnames} that permit a @kwd{case} argument:
 @end float
 
 
-@unnumberedsubsubsec 19.2.2.1.2.1 Local Case in Pathname Components
+@subsubsection Local Case in Pathname Components
 
 
 For the functions in @ref{PathnameCaseFuns, Figure 19.2},
@@ -311,7 +311,7 @@ as written.  If the file system only supports one @term{case},
 the @term{strings} will be translated to that @term{case}.
 
 
-@unnumberedsubsubsec 19.2.2.1.2.2 Common Case in Pathname Components
+@subsubsection Common Case in Pathname Components
 
 
 For the functions in @ref{PathnameCaseFuns, Figure 19.2},
@@ -340,7 +340,7 @@ from @kwd{local} to @kwd{common} and back to @kwd{local} is information-preservi
 @subsubsection Special Pathname Component Values
 @anchor{SpecialComponentValues}
 
-@unnumberedsubsubsec 19.2.2.2.1 NIL as a Component Value
+@subsubsection NIL as a Component Value
 
 
 As a @term{pathname} component value,
@@ -354,7 +354,7 @@ When constructing a @term{pathname},
 rather than an actual @nil{}@spc{}in some @term{implementations}.
 
 
-@unnumberedsubsubsec 19.2.2.2.2 :WILD as a Component Value
+@subsubsection :WILD as a Component Value
 
 @anchor{WildComponents}
 
@@ -381,7 +381,7 @@ or the same as @f{(:absolute :wild)} in a @term{file system} that does not suppo
 @cindex :wild-inferiors
 
 
-@unnumberedsubsubsec 19.2.2.2.3 :UNSPECIFIC as a Component Value
+@subsubsection :UNSPECIFIC as a Component Value
 
 @anchor{UnspecificComponent}
 
@@ -411,7 +411,7 @@ When @term{writing}@sub1{} the value of any @term{pathname} component,
 the consequences are undefined if @kwd{unspecific} is given
 for a @term{pathname} in a @term{file system} for which it does not make sense.
 
-@unnumberedsubsubsec 19.2.2.2.3.1 Relation between component values NIL and :UNSPECIFIC
+@subsubsection Relation between component values NIL and :UNSPECIFIC
 
 
 If a @term{pathname} is converted to a @term{namestring},
@@ -478,13 +478,13 @@ see @ref{ConstructingPathnames, Section 19.2.2.5 (Restrictions on Constructing P
 When examining @term{pathname} components,
 @term{conforming programs} should be aware of the following restrictions.
 
-@unnumberedsubsubsec 19.2.2.4.1 Restrictions on Examining a Pathname Host Component
+@subsubsection Restrictions on Examining a Pathname Host Component
 
 
 It is @term{implementation-dependent} what @term{object} is used to represent the host.
 
 
-@unnumberedsubsubsec 19.2.2.4.2 Restrictions on Examining a Pathname Device Component
+@subsubsection Restrictions on Examining a Pathname Device Component
 
 
 The device might be a @term{string},
@@ -496,7 +496,7 @@ from @term{writing}@sub1{} such a component value;
 see @ref{WildcardRestrictions, Section 19.2.2.3 (Restrictions on Wildcard Pathnames)}@spc{}and @ref{ConstructingPathnames, Section 19.2.2.5 (Restrictions on Constructing Pathnames)}.
 
 
-@unnumberedsubsubsec 19.2.2.4.3 Restrictions on Examining a Pathname Directory Component
+@subsubsection Restrictions on Examining a Pathname Directory Component
 
 
 The directory might be a @term{string},
@@ -618,7 +618,7 @@ designates
 
 
 
-@unnumberedsubsubsec 19.2.2.4.3.1 Directory Components in Non-Hierarchical File Systems
+@subsubsection Directory Components in Non-Hierarchical File Systems
 
 
 In non-hierarchical @term{file systems},
@@ -630,21 +630,21 @@ in non-hierarchical @term{file systems}.
 
 
 
-@unnumberedsubsubsec 19.2.2.4.4 Restrictions on Examining a Pathname Name Component
+@subsubsection Restrictions on Examining a Pathname Name Component
 
 
 The name might be a @term{string},
 @kwd{wild}, @kwd{unspecific}, or @nil{}.
 
 
-@unnumberedsubsubsec 19.2.2.4.5 Restrictions on Examining a Pathname Type Component
+@subsubsection Restrictions on Examining a Pathname Type Component
 
 
 The type might be a @term{string},
 @kwd{wild}, @kwd{unspecific}, or @nil{}.
 
 
-@unnumberedsubsubsec 19.2.2.4.6 Restrictions on Examining a Pathname Version Component
+@subsubsection Restrictions on Examining a Pathname Version Component
 
 
 The version can be any @term{symbol} or any @term{integer}.
@@ -662,7 +662,7 @@ restrictions; see @ref{SpecialComponentValues, Section 19.2.2.2 (Special Pathnam
 Other @term{symbols} and @term{integers}
 have @term{implementation-defined} meaning.
 
-@unnumberedsubsubsec 19.2.2.4.7 Notes about the Pathname Version Component
+@subsubsection Notes about the Pathname Version Component
 
 
 It is suggested, but not required, that implementations do the following:
@@ -825,7 +825,7 @@ with no two @term{asterisks} adjacent.
 
 @subsubsection Additional Information about Parsing Logical Pathname Namestrings
 
-@unnumberedsubsubsec 19.3.1.1.1 The Host part of a Logical Pathname Namestring
+@subsubsection The Host part of a Logical Pathname Namestring
 
 
 The @param{host} must have been defined as a @term{logical pathname} host;
@@ -836,7 +836,7 @@ The existence and meaning of @f{SYS:} @term{logical pathnames}
 is @term{implementation-defined}.
 
 
-@unnumberedsubsubsec 19.3.1.1.2 The Device part of a Logical Pathname Namestring
+@subsubsection The Device part of a Logical Pathname Namestring
 
 
 There is no syntax for a @term{logical pathname} device since
@@ -844,7 +844,7 @@ the device component of a @term{logical pathname} is always @kwd{unspecific};
 see @ref{LogicalPathCompUnspecific, Section 19.3.2.1 (Unspecific Components of a Logical Pathname)}.
 
 
-@unnumberedsubsubsec 19.3.1.1.3 The Directory part of a Logical Pathname Namestring
+@subsubsection The Directory part of a Logical Pathname Namestring
 
 
 If a @param{relative-directory-marker} precedes the @param{directories},
@@ -855,7 +855,7 @@ If a @param{wild-inferiors-marker} is specified,
 it parses into @kwd{wild-inferiors}.
 
 
-@unnumberedsubsubsec 19.3.1.1.4 The Type part of a Logical Pathname Namestring
+@subsubsection The Type part of a Logical Pathname Namestring
 
 
 The @param{type} of a @term{logical pathname} for a @term{source file}
@@ -863,7 +863,7 @@ is @f{"LISP"}.   This should be translated into whatever type is
 appropriate in a physical pathname.
 
 
-@unnumberedsubsubsec 19.3.1.1.5 The Version part of a Logical Pathname Namestring
+@subsubsection The Version part of a Logical Pathname Namestring
 
 
 Some @term{file systems} do not have @param{versions}.
@@ -876,7 +876,7 @@ If a @param{wildcard-version} is specified,
 it parses into @kwd{wild}.
 
 
-@unnumberedsubsubsec 19.3.1.1.6 Wildcard Words in a Logical Pathname Namestring
+@subsubsection Wildcard Words in a Logical Pathname Namestring
 
 
 Each @term{asterisk} in a @param{wildcard-word} matches a sequence of
@@ -884,14 +884,14 @@ zero or more characters.  The @param{wildcard-word} ``@f{*}''
 parses into @kwd{wild}; other @term{wildcard-words} parse into @term{strings}.
 
 
-@unnumberedsubsubsec 19.3.1.1.7 Lowercase Letters in a Logical Pathname Namestring
+@subsubsection Lowercase Letters in a Logical Pathname Namestring
 
 
 When parsing @param{words} and @param{wildcard-words},
 lowercase letters are translated to uppercase.
 
 
-@unnumberedsubsubsec 19.3.1.1.8 Other Syntax in a Logical Pathname Namestring
+@subsubsection Other Syntax in a Logical Pathname Namestring
 
 
 The consequences of using characters other than those specified here

@@ -1498,14 +1498,14 @@ applicable methods, producing the effective method.
 @end enumerate
 
 
-@unnumberedsubsubsec 7.6.6.1.1 Selecting the Applicable Methods
+@subsubsection Selecting the Applicable Methods
 
 @anchor{SelApplMeth}
 
 This step is described in @ref{Introduction to Methods, Section 7.6.2 (Introduction to Methods)}.
 
 
-@unnumberedsubsubsec 7.6.6.1.2 Sorting the Applicable Methods by Precedence Order
+@subsubsection Sorting the Applicable Methods by Precedence Order
 
 
 To compare the precedence of two methods, their @term{parameter specializers}
@@ -1541,7 +1541,7 @@ The resulting list of @term{applicable methods} has the most specific
 @term{method} first and the least specific @term{method} last.
 
 
-@unnumberedsubsubsec 7.6.6.1.3 Applying method combination to the sorted list of applicable methods
+@subsubsection Applying method combination to the sorted list of applicable methods
 
 @anchor{ApplyMethCombToSortedMethods}
 

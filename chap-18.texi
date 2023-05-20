@@ -141,14 +141,14 @@ As a consequence of the behavior for @code{equal},
 the rules for visible modification of @term{objects} not explicitly mentioned in this
 section are inherited from those in @ref{VisModEQL, Section 18.1.2.1 (Visible Modification of Objects with respect to EQ and EQL)}.
 
-@unnumberedsubsubsec 18.1.2.2.1 Visible Modification of Conses with respect to EQUAL
+@subsubsection Visible Modification of Conses with respect to EQUAL
 
 
 Any visible change to the @term{car} or the @term{cdr} of a @term{cons}
 is considered a visible modification with regard to @code{equal}.
 
 
-@unnumberedsubsubsec 18.1.2.2.2 Visible Modification of Bit Vectors and Strings with respect to EQUAL
+@subsubsection Visible Modification of Bit Vectors and Strings with respect to EQUAL
 
 
 For a @term{vector} @oftype{bit-vector} or @oftype{string}, any visible change
@@ -165,14 +165,14 @@ As a consequence of the behavior for @code{equalp},
 the rules for visible modification of @term{objects} not explicitly mentioned in this
 section are inherited from those in @ref{VisModEQUAL, Section 18.1.2.2 (Visible Modification of Objects with respect to EQUAL)}.
 
-@unnumberedsubsubsec 18.1.2.3.1 Visible Modification of Structures with respect to EQUALP
+@subsubsection Visible Modification of Structures with respect to EQUALP
 
 
 Any visible change to a @term{slot} of a @term{structure}
 is considered a visible modification with regard to @code{equalp}.
 
 
-@unnumberedsubsubsec 18.1.2.3.2 Visible Modification of Arrays with respect to EQUALP
+@subsubsection Visible Modification of Arrays with respect to EQUALP
 
 
 In an @term{array}, any visible change
@@ -182,7 +182,7 @@ or to the @term{dimensions} (if the @term{array} is @term{actually adjustable})
 is considered a visible modification with regard to @code{equalp}.
 
 
-@unnumberedsubsubsec 18.1.2.3.3 Visible Modification of Hash Tables with respect to EQUALP
+@subsubsection Visible Modification of Hash Tables with respect to EQUALP
 
 
 In a @term{hash table}, any visible change

@@ -140,7 +140,7 @@ relate to or affect the behavior of the @term{Lisp printer}:
 @end float
 
 
-@unnumberedsubsubsec 22.1.1.1.1 Printer Escaping
+@subsubsection Printer Escaping
 
 
 @Thevariable{*print-escape*} controls whether the @term{Lisp printer}
@@ -187,7 +187,7 @@ This section describes the default behavior of
 
 @subsubsection Printing Numbers
 
-@unnumberedsubsubsec 22.1.3.1.1 Printing Integers
+@subsubsection Printing Integers
 
 @anchor{PrintingIntegers}
 
@@ -204,7 +204,7 @@ depending on @thevalueof{*print-radix*}.
 For related information about the syntax of an @term{integer},
 see @ref{SyntaxOfIntegers, Section 2.3.2.1.1 (Syntax of an Integer)}.
 
-@unnumberedsubsubsec 22.1.3.1.2 Printing Ratios
+@subsubsection Printing Ratios
 
 @anchor{PrintingRatios}
 @cindex ratio
@@ -223,7 +223,7 @@ If the ratio is negative, a minus sign is printed before the numerator.
 For related information about the syntax of a @term{ratio},
 see @ref{SyntaxOfRatios, Section 2.3.2.1.2 (Syntax of a Ratio)}.
 
-@unnumberedsubsubsec 22.1.3.1.3 Printing Floats
+@subsubsection Printing Floats
 
 @anchor{PrintingFloats}
 @cindex float
@@ -262,7 +262,7 @@ is printed as @f{6.02S23}.
 For related information about the syntax of a @term{float},
 see @ref{SyntaxOfFloats, Section 2.3.2.2 (Syntax of a Float)}.
 
-@unnumberedsubsubsec 22.1.3.1.4 Printing Complexes
+@subsubsection Printing Complexes
 
 @anchor{PrintingComplexes}
 @cindex complex
@@ -275,7 +275,7 @@ a close parenthesis.
 For related information about the syntax of a @term{complex},
 see @ref{SyntaxOfComplexes, Section 2.3.2.3 (Syntax of a Complex)}@spc{}and @ref{SharpsignC, Section 2.4.8.11 (Sharpsign C)}.
 
-@unnumberedsubsubsec 22.1.3.1.5 Note about Printing Numbers
+@subsubsection Note about Printing Numbers
 
 
 The printed representation of a number must not contain @term{escape} @term{characters};
@@ -341,7 +341,7 @@ see @ref{Symbols as Tokens, Section 2.3.4 (Symbols as Tokens)}@spc{}and @ref{Sha
 when @code{*print-pretty*} is @term{true}
 and @term{printer escaping} is enabled.
 
-@unnumberedsubsubsec 22.1.3.3.1 Package Prefixes for Symbols
+@subsubsection Package Prefixes for Symbols
 
 
 @term{Package prefixes} are printed if necessary.
@@ -405,7 +405,7 @@ in the @term{current package}.
 
 
 
-@unnumberedsubsubsec 22.1.3.3.2 Effect of Readtable Case on the Lisp Printer
+@subsubsection Effect of Readtable Case on the Lisp Printer
 
 @anchor{ReadtableCasePrintEffect}
 
@@ -484,7 +484,7 @@ no @term{alphabetic} @term{characters} need be escaped.
 @end table
 
 
-@unnumberedsubsubsec 22.1.3.3.2.1 Examples of Effect of Readtable Case on the Lisp Printer
+@subsubsection Examples of Effect of Readtable Case on the Lisp Printer
 
 @anchor{ReadtableCasePrintExamples}
 

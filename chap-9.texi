@@ -363,7 +363,7 @@ program} must be permitted to assume that if these style guidelines are
 followed, proper aesthetics will be maintained.  Where appropriate, any
 specific requirements on such routines are explicitly mentioned below.
 
-@unnumberedsubsubsec 9.1.3.1.1 Capitalization and Punctuation in Condition Reports
+@subsubsection Capitalization and Punctuation in Condition Reports
 
 
 It is recommended that a @term{report message} be a complete sentences, in the
@@ -380,7 +380,7 @@ trailing period.
 
 
 
-@unnumberedsubsubsec 9.1.3.1.2 Leading and Trailing Newlines in Condition Reports
+@subsubsection Leading and Trailing Newlines in Condition Reports
 
 
 It is recommended that a @term{report message} not begin with any
@@ -404,7 +404,7 @@ by the routine invoking the @term{condition reporter}.
 
 
 
-@unnumberedsubsubsec 9.1.3.1.3 Embedded Newlines in Condition Reports
+@subsubsection Embedded Newlines in Condition Reports
 
 
 Especially if it is long, it is permissible and appropriate for
@@ -439,7 +439,7 @@ aligned.
 
 
 
-@unnumberedsubsubsec 9.1.3.1.4 Note about Tabs in Condition Reports
+@subsubsection Note about Tabs in Condition Reports
 
 
 Because the indentation of a @term{report message} might be shifted to the right or
@@ -450,7 +450,7 @@ Unless the @term{implementation} specifically defines its behavior
 in this context, its use should be avoided.
 
 
-@unnumberedsubsubsec 9.1.3.1.5 Mentioning Containing Function in Condition Reports
+@subsubsection Mentioning Containing Function in Condition Reports
 
 
 The name of the containing function should generally not be mentioned in
@@ -562,7 +562,7 @@ the @term{signaling} of @term{conditions}.
 @end float
 
 
-@unnumberedsubsubsec 9.1.4.1.1 Resignaling a Condition
+@subsubsection Resignaling a Condition
 
 
 During the @term{dynamic extent} of the @term{signaling} process for
@@ -648,7 +648,7 @@ the values resulting from the @term{restart} function are
 returned by the function that invoked the restart, either
 @code{invoke-restart} or @code{invoke-restart-interactively}.
 
-@unnumberedsubsubsec 9.1.4.2.1 Interactive Use of Restarts
+@subsubsection Interactive Use of Restarts
 
 
 
@@ -679,7 +679,7 @@ not transfer control but rather returns values, the precise
 action of the debugger on those values is @term{implementation-defined}.
 
 
-@unnumberedsubsubsec 9.1.4.2.2 Interfaces to Restarts
+@subsubsection Interfaces to Restarts
 
 @anchor{InterfacesToRestarts}
 
@@ -712,7 +712,7 @@ and that are provided simply for notational convenience.
 
 
 
-@unnumberedsubsubsec 9.1.4.2.3 Restart Tests
+@subsubsection Restart Tests
 
 
 
@@ -723,7 +723,7 @@ the @kwd{test-function} option to @code{restart-bind} or
 the @kwd{test} option to @code{restart-case}.
 
 
-@unnumberedsubsubsec 9.1.4.2.4 Associating a Restart with a Condition
+@subsubsection Associating a Restart with a Condition
 
 @anchor{AssocRestartWithCond}
 

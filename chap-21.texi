@@ -107,7 +107,7 @@ and @code{read-byte} is only defined for @term{binary} @term{streams}.
 
 @subsubsection Abstract Classifications of Streams
 
-@unnumberedsubsubsec 21.1.1.1.1 Input, Output, and Bidirectional Streams
+@subsubsection Input, Output, and Bidirectional Streams
 
 
 A @term{stream}, whether a @term{character} @term{stream} or a @term{binary} @term{stream},
@@ -178,7 +178,7 @@ shows a list of @term{operators} that relate specificaly to
 
 
 
-@unnumberedsubsubsec 21.1.1.1.2 Open and Closed Streams
+@subsubsection Open and Closed Streams
 
 
 @term{Streams} are either @newterm{open} or @newterm{closed}.
@@ -202,7 +202,7 @@ the result might be different for an @term{open} @term{stream}
 and for that same @term{stream} once it has been @term{closed}.
 
 
-@unnumberedsubsubsec 21.1.1.1.3 Interactive Streams
+@subsubsection Interactive Streams
 
 @anchor{InteractiveStreams}
 
@@ -243,7 +243,7 @@ so interactive queries to such streams might not have the expected effect.
 
 @subsubsection Abstract Classifications of Streams
 
-@unnumberedsubsubsec 21.1.1.2.4 File Streams
+@subsubsection File Streams
 
 
 Some @term{streams}, called

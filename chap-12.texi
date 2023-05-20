@@ -207,7 +207,7 @@ A @term{conforming program} can control the order of processing explicitly by
 separating the operations into separate (possibly nested) @term{function forms},
 or by writing explicit calls to @term{functions} that perform coercions.
 
-@unnumberedsubsubsec 12.1.1.1.1 Examples of Associativity and Commutativity in Numeric Operations
+@subsubsection Examples of Associativity and Commutativity in Numeric Operations
 
 
 Consider the following expression, in which we assume that @f{1.0} and
@@ -261,7 +261,7 @@ and @ref{RuleOfComplexContagion, Section 12.1.5.2 (Rule of Complex Contagion)}.
 
 @subsubsection Viewing Integers as Bits and Bytes
 
-@unnumberedsubsubsec 12.1.1.3.1 Logical Operations on Integers
+@subsubsection Logical Operations on Integers
 
 
 Logical operations require @term{integers} as arguments;
@@ -296,7 +296,7 @@ logical operations on numbers.
 
 
 
-@unnumberedsubsubsec 12.1.1.3.2 Byte Operations on Integers
+@subsubsection Byte Operations on Integers
 
 
 The byte-manipulation @term{functions} use @term{objects}
@@ -496,7 +496,7 @@ to a @term{rational} and then an exact
 comparison is performed. In the case of @term{complex} numbers,
 the real and imaginary parts are effectively handled individually.
 
-@unnumberedsubsubsec 12.1.4.1.1 Examples of Rule of Float and Rational Contagion
+@subsubsection Examples of Rule of Float and Rational Contagion
 
 
 @lisp
@@ -596,7 +596,7 @@ For example, @f{#C(5 0)} and @f{5} are not @term{different} @term{objects} in @c
 (they are never the @term{same} under @code{eql},
 although they are the @term{same} under @code{equalp} and @code{=}).
 
-@unnumberedsubsubsec 12.1.5.3.1 Examples of Rule of Canonical Representation for Complex Rationals
+@subsubsection Examples of Rule of Canonical Representation for Complex Rationals
 
 
 @lisp
