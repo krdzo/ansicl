@@ -1371,6 +1371,7 @@ generic function definition.
 If a @term{generic function} is passed a keyword argument that no applicable
 method accepts, an error should be signaled; see @ref{Error Checking in Function Calls, Section 3.5 (Error Checking in Function Calls)}.
 
+@node Examples of Keyword Arguments in Generic Functions and Methods
 @subsubsection Examples of Keyword Arguments in Generic Functions and Methods
 
 For example, suppose there are two methods defined for @tt{width}
@@ -1437,6 +1438,7 @@ it is invoked with the same @term{arguments} as were passed to the @term{generic
 Whatever @term{values} it returns are returned as the @term{values}
 of the @term{generic function}.
 
+@node Determining the Effective Method
 @subsubsection Determining the Effective Method
 @anchor{DeterminingtheEffectiveMethod}
 
@@ -1455,6 +1457,7 @@ applicable methods, producing the effective method.
 @end enumerate
 
 
+@node Selecting the Applicable Methods
 @subsubsection Selecting the Applicable Methods
 
 @anchor{SelApplMeth}
@@ -1462,6 +1465,7 @@ applicable methods, producing the effective method.
 This step is described in @ref{Introduction to Methods, Section 7.6.2 (Introduction to Methods)}.
 
 
+@node Sorting the Applicable Methods by Precedence Order
 @subsubsection Sorting the Applicable Methods by Precedence Order
 
 
@@ -1498,6 +1502,7 @@ The resulting list of @term{applicable methods} has the most specific
 @term{method} first and the least specific @term{method} last.
 
 
+@node Applying method combination to the sorted list of applicable methods
 @subsubsection Applying method combination to the sorted list of applicable methods
 
 @anchor{ApplyMethCombToSortedMethods}
@@ -1541,6 +1546,7 @@ New types of method combination can be defined by using
 
 
 
+@node Standard Method Combination
 @subsubsection Standard Method Combination
 @anchor{StdMethComb}
 @cindex standard
@@ -1662,6 +1668,7 @@ used, only the most specific method is invoked; that is, more specific
 methods shadow more general ones.
 
 
+@node Declarative Method Combination
 @subsubsection Declarative Method Combination
 
 The macro @code{define-method-combination} defines new forms of method
@@ -1677,6 +1684,7 @@ arbitrary control structures within method combination and for
 arbitrary processing of method @term{qualifiers}.
 
 
+@node Built-in Method Combination Types
 @subsubsection Built-in Method Combination Types
 @anchor{BuiltInMethCombTypes}
 

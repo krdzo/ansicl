@@ -18,6 +18,7 @@
 An @term{array} contains a set of @term{objects} called @term{elements}
 that can be referenced individually according to a rectilinear coordinate system.
 
+@node Array Indices
 @subsubsection Array Indices
 
 An @term{array} @term{element} is referred to by a (possibly empty) series of indices.
@@ -27,6 +28,7 @@ less than the corresponding @term{array} @term{dimension}.
 @term{Array} indexing is zero-origin.
 
 
+@node Array Dimensions
 @subsubsection Array Dimensions
 
 An axis of an @term{array} is called a @newterm{dimension}.
@@ -40,6 +42,7 @@ and any attempt to @term{access} an @term{element}
 is an error.  However, other properties of the @term{array},
 such as the @term{dimensions} themselves, may be used.
 
+@node Implementation Limits on Individual Array Dimensions
 @subsubsection Implementation Limits on Individual Array Dimensions
 
 
@@ -48,6 +51,7 @@ but there is a minimum requirement on that limit.  See the @term{variable} @ref{
 
 
 
+@node Array Rank
 @subsubsection Array Rank
 
 An @term{array} can have any number of @term{dimensions} (including zero).
@@ -57,12 +61,14 @@ If the rank of an @term{array} is zero then the @term{array} is said to have
 no @term{dimensions}, and the product of the dimensions (see @code{array-total-size})
 is then 1; a zero-rank @term{array} therefore has a single element.
 
+@node Vectors
 @subsubsection Vectors
 
 
 An @term{array} of @term{rank} one (@ie{} a one-dimensional @term{array})
 is called a @newterm{vector}.
 
+@node Fill Pointers
 @subsubsection Fill Pointers
 
 
@@ -84,9 +90,11 @@ that has a @term{fill pointer} can be created.
 
 
 
+@node Multidimensional Arrays
 @subsubsection Multidimensional Arrays
 
 
+@node Storage Layout for Multidimensional Arrays
 @subsubsection Storage Layout for Multidimensional Arrays
 
 
@@ -96,6 +104,7 @@ one-dimensional @term{array}, with the multidimensional index sets
 ordered lexicographically, last index varying fastest.
 
 
+@node Implementation Limits on Array Rank
 @subsubsection Implementation Limits on Array Rank
 
 
@@ -142,6 +151,7 @@ creation, @term{access}, and information operations.
 @end float
 
 
+@node Array Upgrading
 @subsubsection Array Upgrading
 @anchor{ArrayUpgrading}
 
@@ -178,6 +188,7 @@ will @term{upgrade} a given @term{type}.
 
 
 
+@node Required Kinds of Specialized Arrays
 @subsubsection Required Kinds of Specialized Arrays
 @anchor{RequiredSpecializedArrays}
 

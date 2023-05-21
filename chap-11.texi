@@ -70,8 +70,10 @@ current @term{name} and @term{nicknames} and replaces them with new ones
 specified by the caller.
 
 
+@node Symbols in a Package
 @subsubsection Symbols in a Package
 
+@node Internal and External Symbols
 @subsubsection Internal and External Symbols
 
 
@@ -95,6 +97,7 @@ it is @term{present} in, but it might be an @term{external symbol} of some @term
 and an @term{internal symbol} of others.
 
 
+@node Package Inheritance
 @subsubsection Package Inheritance
 
 
@@ -117,6 +120,7 @@ a @term{package prefix} must be used,
 or the @term{symbol} must be @term{imported} into the @term{current package}.
 
 
+@node Accessibility of Symbols in a Package
 @subsubsection Accessibility of Symbols in a Package
 
 
@@ -161,6 +165,7 @@ by the using @term{package}.
 
 
 
+@node Locating a Symbol in a Package
 @subsubsection Locating a Symbol in a Package
 
 
@@ -179,6 +184,7 @@ conflicts listed below.
 
 
 
+@node Prevention of Name Conflicts in Packages
 @subsubsection Prevention of Name Conflicts in Packages
 
 
@@ -303,6 +309,7 @@ is given in @thenextfigure{}.
 
 
 
+@node The COMMON-LISP Package
 @subsubsection The COMMON-LISP Package
 @cindex COMMON-LISP
 @cindex CL
@@ -330,6 +337,7 @@ because it is listed in that section
 
 The @code{COMMON-LISP} @term{package} can have additional @term{internal symbols}.
 
+@node Constraints on the COMMON-LISP Package for Conforming Implementations
 @subsubsection Constraints on the COMMON-LISP Package for Conforming Implementations
 
 
@@ -364,6 +372,7 @@ that is either an @term{external symbol} of any @term{standardized} @term{packag
 or a @term{symbol} that is otherwise @term{accessible} in the @code{COMMON-LISP-USER} @term{package}.
 
 
+@node Constraints on the COMMON-LISP Package for Conforming Programs
 @subsubsection Constraints on the COMMON-LISP Package for Conforming Programs
 
 @cindex redefinition
@@ -443,6 +452,7 @@ are @term{direct instances} of @term{standardized} @term{classes}.
 @end enumerate
 
 
+@node Some Exceptions to Constraints on the COMMON-LISP Package for Conforming Programs
 @subsubsection Some Exceptions to Constraints on the COMMON-LISP Package for Conforming Programs
 
 
@@ -485,6 +495,7 @@ and to declare the @code{ftype} of that @term{binding}.
 
 
 
+@node The COMMON-LISP-USER Package
 @subsubsection The COMMON-LISP-USER Package
 @cindex COMMON-LISP-USER
 @cindex CL-USER
@@ -496,6 +507,7 @@ The @code{COMMON-LISP-USER} @term{package} can have additional @term{symbols} @t
 it can @term{use} other @term{implementation-defined} @term{packages}.
 
 
+@node The KEYWORD Package
 @subsubsection The KEYWORD Package
 @cindex KEYWORD
 
@@ -514,6 +526,7 @@ see @ref{Ordinary Lambda Lists, Section 3.4.1 (Ordinary Lambda Lists)}.
 
 @term{Symbols} in the @code{KEYWORD} @term{package} are, by definition, @oftype{keyword}.
 
+@node Interning a Symbol in the KEYWORD Package
 @subsubsection Interning a Symbol in the KEYWORD Package
 
 
@@ -524,6 +537,7 @@ it is automatically made to be an @term{external symbol}
 and is automatically made to be a @term{constant variable} with itself as a @term{value}.
 
 
+@node Notes about The KEYWORD Package
 @subsubsection Notes about The KEYWORD Package
 
 
@@ -541,6 +555,7 @@ that did the same thing, each would clobber the other's data.
 
 
 
+@node Implementation-Defined Packages
 @subsubsection Implementation-Defined Packages
 
 Other, @term{implementation-defined} @term{packages} might be present

@@ -56,6 +56,7 @@ those (unescaped) letters are converted to the opposite @term{case}.
 @end table
 
 
+@node Examples of Effect of Readtable Case on the Lisp Reader
 @subsubsection Examples of Effect of Readtable Case on the Lisp Reader
 @anchor{ReadtableCaseReadExamples}
 
@@ -100,6 +101,7 @@ The output from @f{(test-readtable-case-reading)} should be as follows:
 @node Argument Conventions of Some Reader Functions
 @subsection Argument Conventions of Some Reader Functions
 
+@node The EOF-ERROR-P argument
 @subsubsection The EOF-ERROR-P argument
 
 @param{Eof-error-p} in input function calls
@@ -134,6 +136,7 @@ Thus an @param{eof-error-p} argument controls what happens
 when the file ends between @term{objects}.
 
 
+@node The RECURSIVE-P argument
 @subsubsection The RECURSIVE-P argument
 
 If @param{recursive-p} is supplied and not @nil{}, it specifies that

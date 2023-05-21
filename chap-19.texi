@@ -169,30 +169,35 @@ a name,
 a type,
 and a version.
 
+@node The Pathname Host Component
 @subsubsection The Pathname Host Component
 
 The name of the file system on which the file resides,
 or the name of a @term{logical host}.
 
 
+@node The Pathname Device Component
 @subsubsection The Pathname Device Component
 
 Corresponds to the ``device'' or ``file structure'' concept in many
 host file systems: the name of a logical or physical device containing files.
 
 
+@node The Pathname Directory Component
 @subsubsection The Pathname Directory Component
 
 Corresponds to the ``directory'' concept in many host file systems:
 the name of a group of related files.
 
 
+@node The Pathname Name Component
 @subsubsection The Pathname Name Component
 
 The ``name'' part of a group of @term{files} that can be thought of
 as conceptually related.
 
 
+@node The Pathname Type Component
 @subsubsection The Pathname Type Component
 
 Corresponds to the ``filetype'' or ``extension'' concept in many host
@@ -200,6 +205,7 @@ file systems.  This says what kind of file this is.
 This component is always a @term{string}, @nil{}, @kwd{wild}, or @kwd{unspecific}.
 
 
+@node The Pathname Version Component
 @subsubsection The Pathname Version Component
 
 Corresponds to the ``version number'' concept in many host file systems.
@@ -219,9 +225,11 @@ can define other special version @term{symbols}.
 @node Interpreting Pathname Component Values
 @subsection Interpreting Pathname Component Values
 
+@node Strings in Component Values
 @subsubsection Strings in Component Values
 
 
+@node Special Characters in Pathname Components
 @subsubsection Special Characters in Pathname Components
 
 
@@ -248,6 +256,7 @@ For example,
 
 
 
+@node Case in Pathname Components
 @subsubsection Case in Pathname Components
 
 @anchor{PathnameComponentCase}
@@ -274,6 +283,7 @@ relating to @term{pathnames} that permit a @kwd{case} argument:
 @end float
 
 
+@node Local Case in Pathname Components
 @subsubsection Local Case in Pathname Components
 
 
@@ -292,6 +302,7 @@ as written.  If the file system only supports one @term{case},
 the @term{strings} will be translated to that @term{case}.
 
 
+@node Common Case in Pathname Components
 @subsubsection Common Case in Pathname Components
 
 
@@ -318,9 +329,11 @@ from @kwd{local} to @kwd{common} and back to @kwd{local} is information-preservi
 
 
 
+@node Special Pathname Component Values
 @subsubsection Special Pathname Component Values
 @anchor{SpecialComponentValues}
 
+@node NIL as a Component Value
 @subsubsection NIL as a Component Value
 
 
@@ -335,6 +348,7 @@ When constructing a @term{pathname},
 rather than an actual @nil{}@spc{}in some @term{implementations}.
 
 
+@node :WILD as a Component Value
 @subsubsection :WILD as a Component Value
 
 @anchor{WildComponents}
@@ -362,6 +376,7 @@ or the same as @f{(:absolute :wild)} in a @term{file system} that does not suppo
 @cindex :wild-inferiors
 
 
+@node :UNSPECIFIC as a Component Value
 @subsubsection :UNSPECIFIC as a Component Value
 
 @anchor{UnspecificComponent}
@@ -392,6 +407,7 @@ When @term{writing}@sub1{} the value of any @term{pathname} component,
 the consequences are undefined if @kwd{unspecific} is given
 for a @term{pathname} in a @term{file system} for which it does not make sense.
 
+@node Relation between component values NIL and :UNSPECIFIC
 @subsubsection Relation between component values NIL and :UNSPECIFIC
 
 
@@ -413,6 +429,7 @@ see the @term{function} @ref{merge-pathnames} and @ref{Merging Pathnames, Sectio
 
 
 
+@node Restrictions on Wildcard Pathnames
 @subsubsection Restrictions on Wildcard Pathnames
 @anchor{WildcardRestrictions}
 
@@ -438,6 +455,7 @@ representing an @term{implementation-dependent} wildcard pattern.
 
 
 
+@node Restrictions on Examining Pathname Components
 @subsubsection Restrictions on Examining Pathname Components
 
 The space of possible @term{objects} that a @term{conforming program}
@@ -459,12 +477,14 @@ see @ref{ConstructingPathnames, Section 19.2.2.5 (Restrictions on Constructing P
 When examining @term{pathname} components,
 @term{conforming programs} should be aware of the following restrictions.
 
+@node Restrictions on Examining a Pathname Host Component
 @subsubsection Restrictions on Examining a Pathname Host Component
 
 
 It is @term{implementation-dependent} what @term{object} is used to represent the host.
 
 
+@node Restrictions on Examining a Pathname Device Component
 @subsubsection Restrictions on Examining a Pathname Device Component
 
 
@@ -477,6 +497,7 @@ from @term{writing}@sub1{} such a component value;
 see @ref{WildcardRestrictions, Section 19.2.2.3 (Restrictions on Wildcard Pathnames)}@spc{}and @ref{ConstructingPathnames, Section 19.2.2.5 (Restrictions on Constructing Pathnames)}.
 
 
+@node Restrictions on Examining a Pathname Directory Component
 @subsubsection Restrictions on Examining a Pathname Directory Component
 
 
@@ -599,6 +620,7 @@ designates
 
 
 
+@node Directory Components in Non-Hierarchical File Systems
 @subsubsection Directory Components in Non-Hierarchical File Systems
 
 
@@ -611,6 +633,7 @@ in non-hierarchical @term{file systems}.
 
 
 
+@node Restrictions on Examining a Pathname Name Component
 @subsubsection Restrictions on Examining a Pathname Name Component
 
 
@@ -618,6 +641,7 @@ The name might be a @term{string},
 @kwd{wild}, @kwd{unspecific}, or @nil{}.
 
 
+@node Restrictions on Examining a Pathname Type Component
 @subsubsection Restrictions on Examining a Pathname Type Component
 
 
@@ -625,6 +649,7 @@ The type might be a @term{string},
 @kwd{wild}, @kwd{unspecific}, or @nil{}.
 
 
+@node Restrictions on Examining a Pathname Version Component
 @subsubsection Restrictions on Examining a Pathname Version Component
 
 
@@ -643,6 +668,7 @@ restrictions; see @ref{SpecialComponentValues, Section 19.2.2.2 (Special Pathnam
 Other @term{symbols} and @term{integers}
 have @term{implementation-defined} meaning.
 
+@node Notes about the Pathname Version Component
 @subsubsection Notes about the Pathname Version Component
 
 
@@ -661,6 +687,7 @@ to designate the smallest existing version number.
 
 
 
+@node Restrictions on Constructing Pathnames
 @subsubsection Restrictions on Constructing Pathnames
 @anchor{ConstructingPathnames}
 
@@ -727,6 +754,7 @@ the pathname argument to such a function
 is merged with @code{*default-pathname-defaults*} before accessing the @term{file system}
 (as if by @code{merge-pathnames}).
 
+@node Examples of Merging Pathnames
 @subsubsection Examples of Merging Pathnames
 
 Although the following examples are possible to execute only in
@@ -804,8 +832,10 @@ with no two @term{asterisks} adjacent.
 
 @param{pos-int}---a positive @term{integer}.
 
+@node Additional Information about Parsing Logical Pathname Namestrings
 @subsubsection Additional Information about Parsing Logical Pathname Namestrings
 
+@node The Host part of a Logical Pathname Namestring
 @subsubsection The Host part of a Logical Pathname Namestring
 
 
@@ -817,6 +847,7 @@ The existence and meaning of @f{SYS:} @term{logical pathnames}
 is @term{implementation-defined}.
 
 
+@node The Device part of a Logical Pathname Namestring
 @subsubsection The Device part of a Logical Pathname Namestring
 
 
@@ -825,6 +856,7 @@ the device component of a @term{logical pathname} is always @kwd{unspecific};
 see @ref{LogicalPathCompUnspecific, Section 19.3.2.1 (Unspecific Components of a Logical Pathname)}.
 
 
+@node The Directory part of a Logical Pathname Namestring
 @subsubsection The Directory part of a Logical Pathname Namestring
 
 
@@ -836,6 +868,7 @@ If a @param{wild-inferiors-marker} is specified,
 it parses into @kwd{wild-inferiors}.
 
 
+@node The Type part of a Logical Pathname Namestring
 @subsubsection The Type part of a Logical Pathname Namestring
 
 
@@ -844,6 +877,7 @@ is @f{"LISP"}.   This should be translated into whatever type is
 appropriate in a physical pathname.
 
 
+@node The Version part of a Logical Pathname Namestring
 @subsubsection The Version part of a Logical Pathname Namestring
 
 
@@ -857,6 +891,7 @@ If a @param{wildcard-version} is specified,
 it parses into @kwd{wild}.
 
 
+@node Wildcard Words in a Logical Pathname Namestring
 @subsubsection Wildcard Words in a Logical Pathname Namestring
 
 
@@ -865,6 +900,7 @@ zero or more characters.  The @param{wildcard-word} ``@f{*}''
 parses into @kwd{wild}; other @term{wildcard-words} parse into @term{strings}.
 
 
+@node Lowercase Letters in a Logical Pathname Namestring
 @subsubsection Lowercase Letters in a Logical Pathname Namestring
 
 
@@ -872,6 +908,7 @@ When parsing @param{words} and @param{wildcard-words},
 lowercase letters are translated to uppercase.
 
 
+@node Other Syntax in a Logical Pathname Namestring
 @subsubsection Other Syntax in a Logical Pathname Namestring
 
 
@@ -888,6 +925,7 @@ The consequences of using any value not specified here as a
 @node Logical Pathname Components
 @subsection Logical Pathname Components
 
+@node Unspecific Components of a Logical Pathname
 @subsubsection Unspecific Components of a Logical Pathname
 @anchor{LogicalPathCompUnspecific}
 
@@ -895,6 +933,7 @@ The device component of a @term{logical pathname} is always @kwd{unspecific};
 no other component of a @term logical pathname can be @kwd{unspecific}.
 
 
+@node Null Strings as Components of a Logical Pathname
 @subsubsection Null Strings as Components of a Logical Pathname
 
 The null string, @f{""}, is not a valid value for any component of a @term{logical pathname}.

@@ -135,6 +135,7 @@ The @term{truename} for a @term{file} is often, but not necessarily, unique for
 each @term{file}.  For instance, a Unix @term{file} with multiple hard links
 could have several @term{truenames}.
 
+@node Examples of Truenames
 @subsubsection Examples of Truenames
 
 For example, a DEC TOPS-20 system with @term{files} @f{PS:<JOE>FOO.TXT.1}

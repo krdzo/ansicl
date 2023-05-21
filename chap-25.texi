@@ -129,6 +129,7 @@ time intervals are represented as a non-negative @term{real} number of seconds.
 @end float
 
 
+@node Decoded Time
 @subsubsection Decoded Time
 @anchor{DecodedTime}
 
@@ -212,6 +213,7 @@ A @term{time zone}.
 
 
 
+@node Universal Time
 @subsubsection Universal Time
 @anchor{UniversalTime}
 
@@ -244,6 +246,7 @@ times before the base time of midnight, January 1, 1900 GMT cannot be processed 
 
 
 
+@node Internal Time
 @subsubsection Internal Time
 @anchor{InternalTime}
 
@@ -269,6 +272,7 @@ Absolute time is relative to an arbitrary time base.
 
 
 
+@node Seconds
 @subsubsection Seconds
 
 One function, @code{sleep}, takes its argument as a non-negative @term{real} number

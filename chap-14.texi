@@ -64,6 +64,7 @@ establish some relationship among that data.
 @end float
 
 
+@node General Restrictions on Parameters that must be Trees
 @subsubsection General Restrictions on Parameters that must be Trees
 
 Except as explicitly stated otherwise,
@@ -115,6 +116,7 @@ because some @term{cons} in the chain is the @term{cdr} of a later @term{cons}.
 @end float
 
 
+@node Lists as Association Lists
 @subsubsection Lists as Association Lists
 
 An @newterm{association list} is a @term{list} of @term{conses}
@@ -136,6 +138,7 @@ and the @term{cdr} is the @term{value} associated with that @term{key}.
 
 
 
+@node Lists as Sets
 @subsubsection Lists as Sets
 
 @term{Lists} are sometimes viewed as sets by considering their elements
@@ -156,6 +159,7 @@ unordered and by assuming there is no duplication of elements.
 
 
 
+@node General Restrictions on Parameters that must be Lists
 @subsubsection General Restrictions on Parameters that must be Lists
 
 Except as explicitly specified otherwise,

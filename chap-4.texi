@@ -539,6 +539,7 @@ of @theclass{standard-generic-function},
 and all @term{methods} are @term{instances} of @theclass{standard-method}.
 
 
+@node Standard Metaclasses
 @subsubsection Standard Metaclasses
 
 The @CLOS{}@spc{}provides a number of predefined @term{metaclasses}.
@@ -659,6 +660,7 @@ the inheritance of @term{slots} and @term{slot} options,
 and the inheritance of @term{class} options.
 
 
+@node Examples of Inheritance
 @subsubsection Examples of Inheritance
 
 @lisp
@@ -686,6 +688,7 @@ The class @f{C2} has a @term{method} for @f{C2-S3} for reading the value of slot
 there is also a @term{method} for @f{(setf C2-S3)} that writes the value of @f{S3}.
 
 
+@node Inheritance of Class Options
 @subsubsection Inheritance of Class Options
 
 The @kwd{default-initargs} class option is inherited.  The set of
@@ -756,6 +759,7 @@ If @mat{R} is inconsistent, an error is signaled.
 
 @goodbreak{}
 
+@node Topological Sorting
 @subsubsection Topological Sorting
 
 Topological sorting proceeds by finding a class @mat{C} in@tie{}@mat{S@subs1{C}} such
@@ -803,6 +807,7 @@ All the @term{classes} of @mat{T@sub2{}} are next.
 The @term{class} @mat{J} and its @term{superclasses} appear last.
 
 
+@node Examples of Class Precedence List Determination
 @subsubsection Examples of Class Precedence List Determination
 
 This example determines a @term{class precedence list} for the
@@ -972,6 +977,7 @@ initializes the newly-added @term{local slots} and performs any other
 user-defined actions. These two steps are further specified
 in the next two sections.
 
+@node Modifying the Structure of Instances
 @subsubsection Modifying the Structure of Instances
 
 @reviewer{Barmar: What about shared slots that are deleted?}
@@ -998,6 +1004,7 @@ The value of a @term{slot} that is specified as shared in the old
 a @term{shared slot} was unbound, the @term{local slot} is unbound.
 
 
+@node Initializing Newly Added Local slots
 @subsubsection Initializing Newly Added Local Slots
 
 The second step initializes the newly added @term{local slots} and performs
@@ -1036,6 +1043,7 @@ the newly added @term{slots}, and the initialization
 arguments it received.
 
 
+@node Customizing Class Redefinition
 @subsubsection Customizing Class Redefinition
 
 @reviewer{Barmar: This description is hard to follow.}

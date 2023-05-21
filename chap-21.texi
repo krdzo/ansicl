@@ -46,8 +46,10 @@ Other operations are only meaningful on certain @term{stream} @term{types}.
 For example, @code{read-char} is only defined for @term{character} @term{streams}
 and @code{read-byte} is only defined for @term{binary} @term{streams}.
 
+@node Abstract Classifications of streams
 @subsubsection Abstract Classifications of Streams
 
+@node Input - Output - and Bidirectional Streams
 @subsubsection Input, Output, and Bidirectional Streams
 
 
@@ -119,6 +121,7 @@ shows a list of @term{operators} that relate specificaly to
 
 
 
+@node Open and Closed Streams
 @subsubsection Open and Closed Streams
 
 
@@ -143,6 +146,7 @@ the result might be different for an @term{open} @term{stream}
 and for that same @term{stream} once it has been @term{closed}.
 
 
+@node Interactive Streams
 @subsubsection Interactive Streams
 
 @anchor{InteractiveStreams}
@@ -182,8 +186,10 @@ so interactive queries to such streams might not have the expected effect.
 @term{Terminal I/O} might or might not be an @term{interactive stream}.
 
 
+@node Abstract Classifications of Streams
 @subsubsection Abstract Classifications of Streams
 
+@node File Streams
 @subsubsection File Streams
 
 
@@ -202,6 +208,7 @@ for the duration of a given body of @term{code},
 and assuring that the resulting @term{stream} is closed upon exit from that body.
 
 
+@node Other Subclasses of Stream
 @subsubsection Other Subclasses of Stream
 
 @Theclass{stream} has a number of @term{subclasses} defined

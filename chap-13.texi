@@ -76,6 +76,7 @@ The following figures contain lists of @term{defined names} applicable to
 @node Introduction to Scripts and Repertoires
 @subsection Introduction to Scripts and Repertoires
 
+@node Character Scripts
 @subsubsection Character Scripts
 @anchor{CharScripts}
 
@@ -99,6 +100,7 @@ Whether and how the @term{script} or @term{scripts} used by any given
 @term{implementation} are named is @term{implementation-dependent}.
 
 
+@node Character Repertoires
 @subsubsection Character Repertoires
 @anchor{CharRepertoires}
 
@@ -171,6 +173,7 @@ in whether are not they are members of one of the aforementioned categories.
 Note that these terms are defined independently of any special syntax
 which might have been enabled in the @term{current readtable}.
 
+@node Graphic Characters
 @subsubsection Graphic Characters
 @anchor{GraphicChars}
 
@@ -201,6 +204,7 @@ if they are supported by the @term{implementation},
 are @term{non-graphic}.
 
 
+@node Alphabetic Characters
 @subsubsection Alphabetic Characters
 
 The @term{alphabetic}@sub1{} @term{characters} are
@@ -219,6 +223,7 @@ it is @term{implementation-defined} whether
 that @term{character} is @term{alphabetic}@sub1{}.
 
 
+@node Characters With Case
 @subsubsection Characters With Case
 @anchor{CharactersWithCase}
 
@@ -229,6 +234,7 @@ A @term{character} with @term{case} has the property of being either
 Every @term{character} with @term{case} is in one-to-one correspondence
 with some other @term{character} with the opposite @term{case}.
 
+@node Uppercase Characters
 @subsubsection Uppercase Characters
 
 
@@ -241,6 +247,7 @@ Of the @term{standard characters}, only these are @term{uppercase} @term{charact
 @f{A B C D E F G H I J K L M N O P Q R S T U V W X Y Z}
 
 
+@node Lowercase Characters
 @subsubsection Lowercase Characters
 
 
@@ -253,6 +260,7 @@ Of the @term{standard characters}, only these are @term{lowercase} @term{charact
 @f{a b c d e f g h i j k l m n o p q r s t u v w x y z}
 
 
+@node Corresponding Characters in the Other Case
 @subsubsection Corresponding Characters in the Other Case
 
 
@@ -263,6 +271,7 @@ For example, the @term{uppercase} @term{character} @f{E}
 corresponds to the @term{lowercase} @term{character} @f{e}, and vice versa.
 
 
+@node Case of Implementation-Defined Characters
 @subsubsection Case of Implementation-Defined Characters
 
 
@@ -273,6 +282,7 @@ be done in pairs---one @term{uppercase} @term{character} in one-to-one
 
 
 
+@node Numeric Characters
 @subsubsection Numeric Characters
 
 The @term{numeric} @term{characters} are
@@ -286,6 +296,7 @@ that has no @term{case}, the @term{implementation} must define whether
 or not it is a @term{numeric} @term{character}.
 
 
+@node Alphanumeric Characters
 @subsubsection Alphanumeric Characters
 
 The set of @term{alphanumeric} @term{characters} is the union of
@@ -293,6 +304,7 @@ the set of @term{alphabetic}@sub1{} @term{characters}
 and the set of @term{numeric} @term{characters}.
 
 
+@node Digits in a Radix
 @subsubsection Digits in a Radix
 @anchor{Digits}
 

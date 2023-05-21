@@ -24,12 +24,14 @@
 
 @Themacro{loop} performs iteration.
 
+@node Simple vs Extended Loop
 @subsubsection Simple vs Extended Loop
 
 @code{loop} @term{forms} are partitioned into two categories:
 simple @code{loop} @term{forms}
 and extended @code{loop} @term{forms}.
 
+@node Simple Loop
 @subsubsection Simple Loop
 
 @anchor{SimpleLoop}
@@ -45,6 +47,7 @@ transfering control to the @term{implicit block} (using @code{return} or
 @code{return-from}) or to some @term{exit point} outside of the @term{block}
 (@eg{} using @code{throw}, @code{go}, or @code{return-from}).
 
+@node Extended Loop
 @subsubsection Extended Loop
 
 
@@ -60,6 +63,7 @@ each which is in turn made up of @term{loop keywords} and @term{forms}.
 
 
 
+@node Loop Keywords
 @subsubsection Loop Keywords
 
 @term{Loop keywords} are not true @term{keywords}@sub1{};
@@ -78,6 +82,7 @@ If no @term{loop keywords} are supplied in a @code{loop} @term{form},
 the Loop Facility executes the loop body repeatedly; see @ref{SimpleLoop, Section 6.1.1.1.1 (Simple Loop)}.
 
 
+@node Parsing Loop Clauses
 @subsubsection Parsing Loop Clauses
 
 The syntactic parts of an extended @code{loop} @term{form} are called clauses;
@@ -117,6 +122,7 @@ For detailed information about @code{loop} syntax,
 see the @term{macro} @ref{loop}.
 
 
+@node Expanding Loop Forms
 @subsubsection Expanding Loop Forms
 
 A @code{loop} @term{macro form} expands into a @term{form} containing
@@ -188,10 +194,12 @@ Thus, @code{return-from} (and sometimes @code{return})
 can be used to return values from @code{loop} or to exit @code{loop}.
 
 
+@node Summary of Loop Clauses
 @subsubsection Summary of Loop Clauses
 
 Loop clauses fall into one of the following categories:
 
+@node Summary of Variable Initialization and Stepping Clauses
 @subsubsection Summary of Variable Initialization and Stepping Clauses
 
 
@@ -208,6 +216,7 @@ to get @term{parallel} initialization.
 For more information, see @ref{Variable Initialization and Stepping Clauses, Section 6.1.2 (Variable Initialization and Stepping Clauses)}.
 
 
+@node Summary of Value Accumulation Clauses
 @subsubsection Summary of Value Accumulation Clauses
 
 
@@ -253,6 +262,7 @@ By default, the maximum value is returned when the @code{loop} finishes.
 For more information, see @ref{Value Accumulation Clauses, Section 6.1.3 (Value Accumulation Clauses)}.
 
 
+@node Summary of Termination Test Clauses
 @subsubsection Summary of Termination Test Clauses
 
 
@@ -297,6 +307,7 @@ the @code{loop} @term{form} terminates if any are satisfied.
 For more information, see @ref{Termination Test Clauses, Section 6.1.4 (Termination Test Clauses)}.
 
 
+@node Summary of Unconditional Execution Clauses
 @subsubsection Summary of Unconditional Execution Clauses
 
 
@@ -313,6 +324,7 @@ clause, or @nil{}@spc{}if there is no @loopref{named} clause.
 For more information, see @ref{Unconditional Execution Clauses, Section 6.1.5 (Unconditional Execution Clauses)}.
 
 
+@node Summary of Conditional Execution Clauses
 @subsubsection Summary of Conditional Execution Clauses
 
 
@@ -337,6 +349,7 @@ end of a conditional clause.
 For more information, see @ref{Conditional Execution Clauses, Section 6.1.6 (Conditional Execution Clauses)}.
 
 
+@node Summary of Miscellaneous Clauses
 @subsubsection Summary of Miscellaneous Clauses
 
 
@@ -354,6 +367,7 @@ For more information, see @ref{Miscellaneous Clauses, Section 6.1.7 (Miscellaneo
 
 
 
+@node Order of Execution
 @subsubsection Order of Execution
 
 
@@ -407,6 +421,7 @@ loop body.
 
 
 
+@node Destructuring
 @subsubsection Destructuring
 @anchor{DestructuringLOOPVars}
 
@@ -549,6 +564,7 @@ local variables, iteration control variables, and variables found by
 destructuring.
 
 
+@node Restrictions on Side-Effects
 @subsubsection Restrictions on Side-Effects
 
 See @ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}.
@@ -558,6 +574,7 @@ See @ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side
 @node Variable Initialization and Stepping Clauses
 @subsection Variable Initialization and Stepping Clauses
 
+@node Iteration Control
 @subsubsection Iteration Control
 
 Iteration control clauses allow direction of @code{loop} iteration.
@@ -625,6 +642,7 @@ the elements of the list.
 By convention, @loopref{for} introduces new iterations and @loopref{as}
 introduces iterations that depend on a previous iteration specification.
 
+@node The for-as-arithmetic subclause
 @subsubsection The for-as-arithmetic subclause
 
 
@@ -751,6 +769,7 @@ inclusive limit allows @param{var} to attain the value of
 @param{form2}; @loopref{to}, @loopref{downto}, and @loopref{upto} provide inclusive
 limits.
 
+@node Examples of for-as-arithmetic subclause
 @subsubsection Examples of for-as-arithmetic subclause
 
 
@@ -784,6 +803,7 @@ limits.
 
 
 
+@node The for-as-in-list subclause
 @subsubsection The for-as-in-list subclause
 
 
@@ -802,6 +822,7 @@ this syntax.
 The @loopref{for} or @loopref{as} construct causes termination when the
 end of the @term{list} is reached.
 
+@node Examples of for-as-in-list subclause
 @subsubsection Examples of for-as-in-list subclause
 
 
@@ -830,6 +851,7 @@ end of the @term{list} is reached.
 
 
 
+@node The for-as-on-list subclause
 @subsubsection The for-as-on-list subclause
 
 
@@ -846,6 +868,7 @@ prepositions in this syntax.
 The @loopref{for} or @loopref{as} construct causes termination when the
 end of the @term{list} is reached.
 
+@node Examples of for-as-on-list subclause
 @subsubsection Examples of for-as-on-list subclause
 
 
@@ -868,6 +891,7 @@ end of the @term{list} is reached.
 
 
 
+@node The for-as-equals-then subclause
 @subsubsection The for-as-equals-then subclause
 
 
@@ -884,6 +908,7 @@ The @term{loop keywords} @mat{=} and @loopref{then} serve as valid prepositions
 in this syntax.
 This construct does not provide any termination tests.
 
+@node Examples of for-as-equals-then subclause
 @subsubsection Examples of for-as-equals-then subclause
 
 
@@ -898,6 +923,7 @@ This construct does not provide any termination tests.
 
 
 
+@node The for-as-across subclause
 @subsubsection The for-as-across subclause
 
 
@@ -911,6 +937,7 @@ Iteration stops when there are no more elements in the supplied
 Some implementations might recognize a @code{the} special form
 in the @param{vector} form to produce more efficient code.
 
+@node Examples of for-as-across subclause
 @subsubsection Examples of for-as-across subclause
 
 
@@ -922,6 +949,7 @@ in the @param{vector} form to produce more efficient code.
 
 
 
+@node The for-as-hash subclause
 @subsubsection The for-as-hash subclause
 
 
@@ -1004,6 +1032,7 @@ Iteration stops when there are no more hash keys or hash values to be
 referenced in the supplied @param{hash-table}.
 
 
+@node The for-as-package subclause
 @subsubsection The for-as-package subclause
 
 
@@ -1095,6 +1124,7 @@ is a compound preposition.
 Iteration stops when there are no more @term{symbols} to be referenced
 in the supplied @param{package}.
 
+@node Examples of for-as-package subclause
 @subsubsection Examples of for-as-package subclause
 
 
@@ -1116,6 +1146,7 @@ in the supplied @param{package}.
 
 
 
+@node Local Variable Initializations
 @subsubsection Local Variable Initializations
 
 When a @code{loop} @term{form} is executed, the local variables are bound and are
@@ -1202,6 +1233,7 @@ the following code:
 @end lisp
 
 
+@node Examples of WITH clause
 @subsubsection Examples of WITH clause
 
 
@@ -1422,6 +1454,7 @@ a different
 @term{variable}.
 
 
+@node Examples of COLLECT clause
 @subsubsection Examples of COLLECT clause
 
 @lisp
@@ -1445,6 +1478,7 @@ a different
 
 
 
+@node Examples of APPEND and NCONC clauses
 @subsubsection Examples of APPEND and NCONC clauses
 
 @lisp
@@ -1463,6 +1497,7 @@ a different
 
 
 
+@node Examples of COUNT clause
 @subsubsection Examples of COUNT clause
 
 @lisp
@@ -1473,6 +1508,7 @@ a different
 
 
 
+@node Examples of MAXIMIZE and MINIMIZE clauses
 @subsubsection Examples of MAXIMIZE and MINIMIZE clauses
 
 @lisp
@@ -1500,6 +1536,7 @@ a different
 
 
 
+@node Examples of SUM clause
 @subsubsection Examples of SUM clause
 
 @lisp
@@ -1638,6 +1675,7 @@ Since @code{loop-finish} transfers control to the loop epilogue,
 using @code{loop-finish} within a @loopref{finally} expression can cause
 infinite looping.
 
+@node Examples of REPEAT clause
 @subsubsection Examples of REPEAT clause
 
 @lisp
@@ -1654,6 +1692,7 @@ infinite looping.
 
 
 
+@node Examples of ALWAYS
 @subsubsection Examples of ALWAYS, NEVER, and THEREIS clauses
 
 @lisp
@@ -1711,6 +1750,7 @@ infinite looping.
 
 
 
+@node Examples of WHILE and UNTIL clauses
 @subsubsection Examples of WHILE and UNTIL clauses
 
 @lisp
@@ -1758,6 +1798,7 @@ It is equivalent to the clause
 where @i{block-name} is the name specified in a @loopref{named}
 clause, or @nil{}@spc{}if there is no @loopref{named} clause.
 
+@node Examples of unconditional execution
 @subsubsection Examples of unconditional execution
 
 @lisp
@@ -1820,6 +1861,7 @@ The optional @term{loop keyword} @loopref{end} marks the end of the clause.  If 
 keyword is not supplied, the next @term{loop keyword} marks the end.  The construct
 @loopref{end} can be used to distinguish the scoping of compound clauses.
 
+@node Examples of WHEN clause
 @subsubsection Examples of WHEN clause
 
 @lisp
@@ -1873,6 +1915,7 @@ Error: non-numeric value: A
 @node Miscellaneous Clauses
 @subsection Miscellaneous Clauses
 
+@node Control Transfer Clauses
 @subsubsection Control Transfer Clauses
 
 The @loopref{named} construct
@@ -1892,6 +1935,7 @@ does not execute any @loopref{finally} clause that
 the @code{loop} @term{form}
 is given.
 
+@node Examples of NAMED clause
 @subsubsection Examples of NAMED clause
 
 
@@ -1908,6 +1952,7 @@ is given.
 
 
 
+@node Initial and Final Execution
 @subsubsection Initial and Final Execution
 
 The @loopref{initially} and @loopref{finally} constructs
@@ -1990,6 +2035,7 @@ In this example, @f{x} and @f{y} are stepped in @term{parallel}:
 @end lisp
 
 
+@node Examples of clause grouping
 @subsubsection Examples of clause grouping
 @lisp
 ;; Group conditional clauses.

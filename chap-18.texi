@@ -111,6 +111,7 @@ are described in terms of modification of components, and are defined
 recursively.  Visible modifications of components of the @term{object} are
 visible modifications of the @term{object}.
 
+@node Visible Modification of Objects with respect to EQ and EQL
 @subsubsection Visible Modification of Objects with respect to EQ and EQL
 @anchor{VisModEQL}
 
@@ -118,6 +119,7 @@ No @term{standardized} @term{function} is provided that is capable of visibly
 modifying an @term{object} with regard to @code{eq} or @code{eql}.
 
 
+@node Visible Modification of Objects with respect to EQUAL
 @subsubsection Visible Modification of Objects with respect to EQUAL
 @anchor{VisModEQUAL}
 
@@ -125,6 +127,7 @@ As a consequence of the behavior for @code{equal},
 the rules for visible modification of @term{objects} not explicitly mentioned in this
 section are inherited from those in @ref{VisModEQL, Section 18.1.2.1 (Visible Modification of Objects with respect to EQ and EQL)}.
 
+@node Visible Modification of Conses with respect to EQUAL
 @subsubsection Visible Modification of Conses with respect to EQUAL
 
 
@@ -132,6 +135,7 @@ Any visible change to the @term{car} or the @term{cdr} of a @term{cons}
 is considered a visible modification with regard to @code{equal}.
 
 
+@node Visible Modification of Bit Vectors and Strings with respect to EQUAL
 @subsubsection Visible Modification of Bit Vectors and Strings with respect to EQUAL
 
 
@@ -143,12 +147,14 @@ is considered a visible modification with regard to @code{equal}.
 
 
 
+@node Visible Modification of Objects with respect to EQUALP
 @subsubsection Visible Modification of Objects with respect to EQUALP
 
 As a consequence of the behavior for @code{equalp},
 the rules for visible modification of @term{objects} not explicitly mentioned in this
 section are inherited from those in @ref{VisModEQUAL, Section 18.1.2.2 (Visible Modification of Objects with respect to EQUAL)}.
 
+@node Visible Modification of Structures with respect to EQUALP
 @subsubsection Visible Modification of Structures with respect to EQUALP
 
 
@@ -156,6 +162,7 @@ Any visible change to a @term{slot} of a @term{structure}
 is considered a visible modification with regard to @code{equalp}.
 
 
+@node Visible Modification of Arrays with respect to EQUALP
 @subsubsection Visible Modification of Arrays with respect to EQUALP
 
 
@@ -166,6 +173,7 @@ or to the @term{dimensions} (if the @term{array} is @term{actually adjustable})
 is considered a visible modification with regard to @code{equalp}.
 
 
+@node Visible Modification of Hash Tables with respect to EQUALP
 @subsubsection Visible Modification of Hash Tables with respect to EQUALP
 
 
@@ -180,6 +188,7 @@ of the @term{hash table}, not on the specification of @code{equalp}.
 
 
 
+@node Visible Modifications by Language Extensions
 @subsubsection Visible Modifications by Language Extensions
 
 @term{Implementations} that extend the language by providing additional mutator

@@ -50,6 +50,7 @@ if and only if the @term{symbol} naming it is an @term{element} of the
 @term{list} held by @thevariable{*features*},
 which is called the @newterm{features list}.
 
+@node Feature Expressions
 @subsubsection Feature Expressions
 @anchor{FeatureExpressions}
 
@@ -94,6 +95,7 @@ otherwise, it fails.
 @end table
 
 
+@node Examples of Feature Expressions
 @subsubsection Examples of Feature Expressions
 
 @anchor{FeatureExpExamples}

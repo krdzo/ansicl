@@ -82,6 +82,7 @@ A @term{setf expansion} can be derived from any @term{place}.
 New @term{setf expanders} can be defined by using @code{defsetf}
 and @code{define-setf-expander}.
 
+@node Evaluation of Subforms to Places
 @subsubsection Evaluation of Subforms to Places
 @anchor{GenRefSubFormEval}
 
@@ -171,6 +172,7 @@ references is not specified.
 
 Rules 2, 3 and 4 cover all @term{standardized} @term{macros} that manipulate @term{places}.
 
+@node Examples of Evaluation of Subforms to Places
 @subsubsection Examples of Evaluation of Subforms to Places
 
 
@@ -195,6 +197,7 @@ then modifies the @term{car} of this latest value to be @tt{((a) . b)}.
 
 
 
+@node Setf Expansions
 @subsubsection Setf Expansions
 @anchor{SetfExpansions}
 
@@ -264,6 +267,7 @@ is implemented by a @term{setf expander} or a @term{setf function}.
 Also, it follows from this that it is @term{implementation-dependent}
 whether the name @f{(setf @param{F})} is @term{fbound}.
 
+@node Examples of Setf Expansions
 @subsubsection Examples of Setf Expansions
 
 
@@ -358,12 +362,14 @@ Several kinds of @term{places} are defined by @clisp{};
 this section enumerates them.
 This set can be extended by @term{implementations} and by @term{programmer code}.
 
+@node Variable Names as Places
 @subsubsection Variable Names as Places
 
 The name of a @term{lexical variable} or @term{dynamic variable}
 can be used as a @term{place}.
 
 
+@node Function Call Forms as Places
 @subsubsection Function Call Forms as Places
 @anchor{FnFormsAsGenRefs}
 
@@ -587,6 +593,7 @@ For example:
 
 
 
+@node VALUES Forms as Places
 @subsubsection VALUES Forms as Places
 @anchor{SETFofVALUES}
 
@@ -621,6 +628,7 @@ same as the number of @term{place} forms.  This may be more or fewer
 values than are produced by the @param{values-form}.
 
 
+@node THE Forms as Places
 @subsubsection THE Forms as Places
 
 A @code{the} @term{form} can be used as a @term{place},
@@ -639,6 +647,7 @@ is processed as if it were
 
 
 
+@node APPLY Forms as Places
 @subsubsection APPLY Forms as Places
 @anchor{SETFofAPPLY}
 
@@ -686,6 +695,7 @@ to preserve proper left-to-right evaluation of argument @term{subforms}:
 
 
 
+@node Setf Expansions and Places
 @subsubsection Setf Expansions and Places
 
 Any @term{compound form} for which the @term{operator} has a
@@ -698,6 +708,7 @@ rather than a locally defined @term{function} or @term{macro}.
 
 
 
+@node Macro Forms as Places
 @subsubsection Macro Forms as Places
 
 A @term{macro form} can be used as a @term{place},
@@ -708,6 +719,7 @@ Such @term{macro expansion} is attempted only after exhausting all other possibi
 other than expanding into a call to a function named @f{(setf @param{reader})}.
 
 
+@node Symbol Macros as Places
 @subsubsection Symbol Macros as Places
 
 A reference to a @term{symbol} that has been @term{established} as a @term{symbol macro}
@@ -715,6 +727,7 @@ can be used as a @term{place}.  In this case,
 @code{setf} expands the reference and then analyzes the resulting @term{form}.
 
 
+@node Other Compound Forms as Places
 @subsubsection Other Compound Forms as Places
 
 For any other @term{compound form} for which the @term{operator} is a

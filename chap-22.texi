@@ -30,6 +30,7 @@ typically
 produces an @term{object} that is @code{equal} to the
 originally printed @term{object}.
 
+@node Multiple Possible Textual Representations
 @subsubsection Multiple Possible Textual Representations
 
 Most @term{objects} have more than one possible textual representation.
@@ -107,6 +108,7 @@ relate to or affect the behavior of the @term{Lisp printer}:
 @end float
 
 
+@node Printer Escaping
 @subsubsection Printer Escaping
 
 
@@ -152,8 +154,10 @@ see @ref{Default Print-Object Methods, Section 22.1.3 (Default Print-Object Meth
 This section describes the default behavior of
 @code{print-object} methods for the @term{standardized} @term{types}.
 
+@node Printing Numbers
 @subsubsection Printing Numbers
 
+@node Printing Integers
 @subsubsection Printing Integers
 
 @anchor{PrintingIntegers}
@@ -171,6 +175,7 @@ depending on @thevalueof{*print-radix*}.
 For related information about the syntax of an @term{integer},
 see @ref{SyntaxOfIntegers, Section 2.3.2.1.1 (Syntax of an Integer)}.
 
+@node Printing Ratios
 @subsubsection Printing Ratios
 
 @anchor{PrintingRatios}
@@ -190,6 +195,7 @@ If the ratio is negative, a minus sign is printed before the numerator.
 For related information about the syntax of a @term{ratio},
 see @ref{SyntaxOfRatios, Section 2.3.2.1.2 (Syntax of a Ratio)}.
 
+@node Printing Floats
 @subsubsection Printing Floats
 
 @anchor{PrintingFloats}
@@ -229,6 +235,7 @@ is printed as @f{6.02S23}.
 For related information about the syntax of a @term{float},
 see @ref{SyntaxOfFloats, Section 2.3.2.2 (Syntax of a Float)}.
 
+@node Printing Complexes
 @subsubsection Printing Complexes
 
 @anchor{PrintingComplexes}
@@ -242,12 +249,14 @@ a close parenthesis.
 For related information about the syntax of a @term{complex},
 see @ref{SyntaxOfComplexes, Section 2.3.2.3 (Syntax of a Complex)}@spc{}and @ref{SharpsignC, Section 2.4.8.11 (Sharpsign C)}.
 
+@node Note about Printing Numbers
 @subsubsection Note about Printing Numbers
 
 
 The printed representation of a number must not contain @term{escape} @term{characters};
 see @ref{EscCharsAndPotentialNums, Section 2.3.1.1.1 (Escape Characters and Potential Numbers)}.
 
+@node Printing Characters
 @subsubsection Printing Characters
 @anchor{PrintingCharacters}
 
@@ -271,6 +280,7 @@ the @term{character} also has a @term{name}@sub5{}.
 
 For details about the @f{#@bsl{}} @term{reader macro}, see @ref{SharpsignBackslash, Section 2.4.8.1 (Sharpsign Backslash)}.
 
+@node Printing Symbols
 @subsubsection Printing Symbols
 @anchor{PrintingSymbols}
 
@@ -308,6 +318,7 @@ see @ref{Symbols as Tokens, Section 2.3.4 (Symbols as Tokens)}@spc{}and @ref{Sha
 when @code{*print-pretty*} is @term{true}
 and @term{printer escaping} is enabled.
 
+@node Package Prefixes for Symbols
 @subsubsection Package Prefixes for Symbols
 
 
@@ -372,6 +383,7 @@ in the @term{current package}.
 
 
 
+@node Effect of Readtable Case on the Lisp Printer
 @subsubsection Effect of Readtable Case on the Lisp Printer
 
 @anchor{ReadtableCasePrintEffect}
@@ -451,6 +463,7 @@ no @term{alphabetic} @term{characters} need be escaped.
 @end table
 
 
+@node Examples of Effect of Readtable Case on the Lisp Printer
 @subsubsection Examples of Effect of Readtable Case on the Lisp Printer
 
 @anchor{ReadtableCasePrintExamples}
@@ -520,6 +533,7 @@ The output from @f{(test-readtable-case-printing)} should be as follows:
 
 
 
+@node Printing Strings
 @subsubsection Printing Strings
 @anchor{PrintingStrings}
 
@@ -533,6 +547,7 @@ Only the @term{active} @term{elements} of the @term{string} are printed.
 For information on how the @term{Lisp reader} parses @term{strings},
 see @ref{Double-Quote, Section 2.4.5 (Double-Quote)}.
 
+@node Printing Lists and Conses
 @subsubsection Printing Lists and Conses
 @anchor{PrintingListsAndConses}
 
@@ -616,6 +631,7 @@ Following are examples of printed representations of @term{lists}:
 For information on how the @term{Lisp reader} parses @term{lists} and @term{conses},
 see @ref{Left-Parenthesis, Section 2.4.1 (Left-Parenthesis)}.
 
+@node Printing Bit Vectors
 @subsubsection Printing Bit Vectors
 @anchor{PrintingBitVectors}
 
@@ -630,6 +646,7 @@ notation for @f{#*00000}.}
 For information on @term{Lisp reader} parsing of @term{bit vectors},
 see @ref{SharpsignStar, Section 2.4.8.4 (Sharpsign Asterisk)}.
 
+@node Printing Other Vectors
 @subsubsection Printing Other Vectors
 @anchor{PrintingOtherVectors}
 
@@ -666,6 +683,7 @@ see the @term{variable} @ref{*print-readably*}.
 For information on how the @term{Lisp reader} parses these ``other @term{vectors},''
 see @ref{SharpsignLeftParen, Section 2.4.8.3 (Sharpsign Left-Parenthesis)}.
 
+@node Printing Other Arrays
 @subsubsection Printing Other Arrays
 @anchor{PrintingOtherArrays}
 
@@ -727,6 +745,7 @@ this may be important for arrays having some dimension @f{0}.
 For information on how the @term{Lisp reader} parses these ``other @term{arrays},''
 see @ref{SharpsignA, Section 2.4.8.12 (Sharpsign A)}.
 
+@node Examples of Printing Arrays
 @subsubsection Examples of Printing Arrays
 
 @lisp
@@ -745,6 +764,7 @@ see @ref{SharpsignA, Section 2.4.8.12 (Sharpsign A)}.
 
 
 
+@node Printing Random States
 @subsubsection Printing Random States
 @anchor{PrintingRandomStates}
 
@@ -768,6 +788,7 @@ objects; one might look something like
 
 where the components are @term{implementation-dependent}.
 
+@node Printing Pathnames
 @subsubsection Printing Pathnames
 @anchor{PrintingPathnames}
 
@@ -786,6 +807,7 @@ For information on how the @term{Lisp reader} parses @term{pathnames},
 see @ref{SharpsignP, Section 2.4.8.14 (Sharpsign P)}.
 
 
+@node Printing Structures
 @subsubsection Printing Structures
 @anchor{PrintingStructures}
 
@@ -812,6 +834,7 @@ of the @term{object} in that @term{slot}.
 For information on how the @term{Lisp reader} parses @term{structures},
 see @ref{SharpsignS, Section 2.4.8.13 (Sharpsign S)}.
 
+@node Printing Other Objects
 @subsubsection Printing Other Objects
 @anchor{PrintingOtherObjects}
 
@@ -935,6 +958,7 @@ The @term{pretty printer} is driven entirely by dispatch based on
 for @term{conforming programs} to associate new pretty printing
 functions with a @term{type}.
 
+@node Dynamic Control of the Arrangement of Output
 @subsubsection Dynamic Control of the Arrangement of Output
 @anchor{DynamicControlofOutput}
 
@@ -1000,6 +1024,7 @@ the space available, line breaks are inserted at conditional newline
 positions within the section.
 
 
+@node Format Directive Interface
 @subsubsection Format Directive Interface
 
 The primary interface to operations for dynamically determining the
@@ -1043,6 +1068,7 @@ more textually compact form.
 
 
 
+@node Compiling Format Strings
 @subsubsection Compiling Format Strings
 @anchor{CompilingFormatStrings}
 
@@ -1055,6 +1081,7 @@ A @newterm{format control} is either a @term{format string} or a @term{function}
 that was returned by the @themacro{formatter}.
 
 
+@node Pretty Print Dispatch Tables
 @subsubsection Pretty Print Dispatch Tables
 @anchor{PPrintDispatchTables}
 
@@ -1093,6 +1120,7 @@ and individual methods for @code{print-object} might still elect to
 produce output in a special format conditional on @thevalueof{*print-pretty*}.
 
 
+@node Pretty Printer Margins
 @subsubsection Pretty Printer Margins
 
 A primary goal of pretty printing is to keep the output between a pair of
@@ -1589,6 +1617,7 @@ description.
 @node FORMAT Basic Output
 @subsection FORMAT Basic Output
 
+@node Tilde C: Character
 @subsubsection Tilde C: Character
 @cindex C (format directive)
 @cindex Tilde C (format directive)
@@ -1652,6 +1681,7 @@ using @f{#@bsl{}} syntax.
 @f{@tild{}@@C}  binds @code{*print-escape*} to @code{t}.
 
 
+@node Tilde Percent: Newline
 @subsubsection Tilde Percent: Newline
 @cindex Percent (format directive)
 @cindex Tilde Percent (format directive)
@@ -1662,6 +1692,7 @@ output line and beginning a new one.
 No @j{arg} is used.
 
 
+@node Tilde Ampersand: Fresh-Line
 @subsubsection Tilde Ampersand: Fresh-Line
 @cindex Ampersand (format directive)
 @cindex Tilde Ampersand (format directive)
@@ -1674,6 +1705,7 @@ and then outputs @j{n}@minussign{} 1 newlines.
 @f{@tild{}0@ampers{}} does nothing.
 
 
+@node Tilde Vertical-Bar: Page
 @subsubsection Tilde Vertical-Bar: Page
 @cindex Vertical-Bar (format directive)
 @cindex Tilde Vertical-Bar (format directive)
@@ -1682,6 +1714,7 @@ This outputs a page separator character, if possible.
 @f{@tild{}@j{n}|} does this @j{n} times.
 
 
+@node Tilde Tilde: Tilde
 @subsubsection Tilde Tilde: Tilde
 @cindex Tilde (format directive)
 @cindex Tilde Tilde (format directive)
@@ -1693,6 +1726,7 @@ This outputs a @term{tilde}.  @f{@tild{}@j{n}@tild{}} outputs @j{n} tildes.
 @node FORMAT Radix Control
 @subsection FORMAT Radix Control
 
+@node Tilde R: Radix
 @subsubsection Tilde R: Radix
 @cindex R (format directive)
 @cindex Tilde R (format directive)
@@ -1746,6 +1780,7 @@ If and only if no parameters are supplied,
 @f{@tild{}R} binds @code{*print-base*} to @f{10}.
 
 
+@node Tilde D: Decimal
 @subsubsection Tilde D: Decimal
 @cindex D (format directive)
 @cindex Tilde D (format directive)
@@ -1786,6 +1821,7 @@ Thus the most general form of @f{@tild{}D} is
 and @code{*print-readably*} to @term{false}.
 
 
+@node Tilde B: Binary
 @subsubsection Tilde B: Binary
 @cindex B (format directive)
 @cindex Tilde B (format directive)
@@ -1801,6 +1837,7 @@ instead of decimal.  The full form is therefore
 and @code{*print-readably*} to @term{false}.
 
 
+@node Tilde O: Octal
 @subsubsection Tilde O: Octal
 @cindex O (format directive)
 @cindex Tilde O (format directive)
@@ -1816,6 +1853,7 @@ instead of decimal.  The full form is therefore
 and @code{*print-readably*} to @term{false}.
 
 
+@node Tilde X: Hexadecimal
 @subsubsection Tilde X: Hexadecimal
 @cindex X (format directive)
 @cindex Tilde X (format directive)
@@ -1835,6 +1873,7 @@ and @code{*print-readably*} to @term{false}.
 @node FORMAT Floating-Point Printers
 @subsection FORMAT Floating-Point Printers
 
+@node Tilde F: Fixed-Format Floating-Point
 @subsubsection Tilde F: Fixed-Format Floating-Point
 @cindex F (format directive)
 @cindex Tilde F (format directive)
@@ -1926,6 +1965,7 @@ thereby printing it in decimal radix and a minimum field width of @j{w}.
 and @code{*print-readably*} to @term{false}.
 
 
+@node Tilde E: Exponential Floating-Point
 @subsubsection Tilde E: Exponential Floating-Point
 @cindex E (format directive)
 @cindex Tilde E (format directive)
@@ -2040,6 +2080,7 @@ thereby printing it in decimal radix and a minimum field width of @j{w}.
 and @code{*print-readably*} to @term{false}.
 
 
+@node Tilde G: General Floating-Point
 @subsubsection Tilde G: General Floating-Point
 @cindex G (format directive)
 @cindex Tilde G (format directive)
@@ -2080,6 +2121,7 @@ or @f{@tild{}E} directive if and only if one was supplied to the
 and @code{*print-readably*} to @term{false}.
 
 
+@node Tilde Dollarsign: Monetary Floating-Point
 @subsubsection Tilde Dollarsign: Monetary Floating-Point
 @cindex Dollarsign (format directive)
 @cindex Tilde Dollarsign (format directive)
@@ -2140,6 +2182,7 @@ and @code{*print-readably*} to @term{false}.
 @node FORMAT Printer Operations
 @subsection FORMAT Printer Operations
 
+@node Tilde A: Aesthetic
 @subsubsection Tilde A: Aesthetic
 @cindex A (format directive)
 @cindex Tilde A (format directive)
@@ -2173,6 +2216,7 @@ and the space character for @j{padchar}.
 and @code{*print-readably*} to @term{false}.
 
 
+@node Tilde S: Standard
 @subsubsection Tilde S: Standard
 @cindex S (format directive)
 @cindex Tilde S (format directive)
@@ -2185,6 +2229,7 @@ all the arguments and modifiers that @f{@tild{}A} does.
 @f{@tild{}S} binds @code{*print-escape*} to @code{t}.
 
 
+@node Tilde W: Write
 @subsubsection Tilde W: Write
 @cindex W (format directive)
 @cindex Tilde W (format directive)
@@ -2209,6 +2254,7 @@ to an argument that is a circular (or shared) reference, an appropriate
 
 The following constructs provide access to the @term{pretty printer}:
 
+@node Tilde Underscore: Conditional Newline
 @subsubsection Tilde Underscore: Conditional Newline
 @anchor{TildeUnderscore}
 @cindex Underscore (format directive)
@@ -2220,6 +2266,7 @@ Without any modifiers, @f{@tild{}_} is the same as @f{(pprint-newline :linear)}.
 @f{@tild{}:@@_} is the same as @f{(pprint-newline :mandatory)}.
 
 
+@node Tilde Less-Than-Sign: Logical Block
 @subsubsection Tilde Less-Than-Sign: Logical Block
 @anchor{TildeLessThanLogicalBlock}
 @cindex Less-Than-Sign (format directive)
@@ -2290,6 +2337,7 @@ Beyond this, an error is also signaled if the @f{@tild{}<...@tild{}:;...@tild{}>
 See also @ref{TildeLessThanJustification, Section 22.3.6.2 (Tilde Less-Than-Sign. Justification)}.
 
 
+@node Tilde I: Indent
 @subsubsection Tilde I: Indent
 @anchor{TildeI}
 @cindex I (format directive)
@@ -2301,6 +2349,7 @@ See also @ref{TildeLessThanJustification, Section 22.3.6.2 (Tilde Less-Than-Sign
 In both cases, @param{n} defaults to zero, if it is omitted.
 
 
+@node Tilde Slash: Call Function
 @subsubsection Tilde Slash: Call Function
 @cindex Slash (format directive)
 @cindex Tilde Slash (format directive)
@@ -2348,6 +2397,7 @@ In particular they take @term{colon} and @term{at-sign} arguments.
 @node FORMAT Layout Control
 @subsection FORMAT Layout Control
 
+@node Tilde T: Tabulate
 @subsubsection Tilde T: Tabulate
 @cindex T (format directive)
 @cindex Tilde T (format directive)
@@ -2400,6 +2450,7 @@ both interpreted as being in units of @term{ems} and both default to @f{1}.
 @f{(pprint-tab :section-relative @param{n} @param{m})}.
 
 
+@node Tilde Less-Than-Sign: Justification
 @subsubsection Tilde Less-Than-Sign: Justification
 @anchor{TildeLessThanJustification}
 @cindex Less-Than-Sign (format directive)
@@ -2481,6 +2532,7 @@ If this cannot be determined (for example, when producing a
 See also @ref{TildeLessThanLogicalBlock, Section 22.3.5.2 (Tilde Less-Than-Sign. Logical Block)}.
 
 
+@node Tilde Greater-Than-Sign: End of Justification
 @subsubsection Tilde Greater-Than-Sign: End of Justification
 @cindex Greater-Than-Sign (format directive)
 @cindex Tilde Greater-Than-Sign (format directive)
@@ -2493,6 +2545,7 @@ The consequences of using it elsewhere are undefined.
 @node FORMAT Control-Flow Operations
 @subsection FORMAT Control-Flow Operations
 
+@node Tilde Asterisk: Go-To
 @subsubsection Tilde Asterisk: Go-To
 @cindex Asterisk (format directive)
 @cindex Tilde Asterisk (format directive)
@@ -2518,6 +2571,7 @@ When within a @f{@tild{}@lcurly{}} construct, the ``goto''
 is relative to the list of arguments being processed by the iteration.
 
 
+@node Tilde Left-Bracket: Conditional Expression
 @subsubsection Tilde Left-Bracket: Conditional Expression
 @cindex Left-Bracket (format directive)
 @cindex Tilde Left-Bracket (format directive)
@@ -2595,6 +2649,7 @@ example, for dealing with English conventions for printing lists:
 
 
 
+@node Tilde Right-Bracket: End of Conditional Expression
 @subsubsection Tilde Right-Bracket: End of Conditional Expression
 @cindex Right-Bracket (format directive)
 @cindex Tilde Right-Bracket (format directive)
@@ -2603,6 +2658,7 @@ example, for dealing with English conventions for printing lists:
 The consequences of using it elsewhere are undefined.
 
 
+@node Tilde Left-Brace: Iteration
 @subsubsection Tilde Left-Brace: Iteration
 @cindex Left-Brace (format directive)
 @cindex Tilde Left-Brace (format directive)
@@ -2712,6 +2768,7 @@ but this general feature of @f{@tild{}@lbr{}  }
 is more powerful than @f{@tild{}?}.
 
 
+@node Tilde Right-Brace: End of Iteration
 @subsubsection Tilde Right-Brace: End of Iteration
 @cindex Right-Brace (format directive)
 @cindex Tilde Right-Brace (format directive)
@@ -2721,6 +2778,7 @@ is more powerful than @f{@tild{}?}.
 The consequences of using it elsewhere are undefined.
 
 
+@node Tilde Question-Mark: Recursive Processing
 @subsubsection Tilde Question-Mark: Recursive Processing
 @cindex Question-Mark (format directive)
 @cindex Tilde Question-Mark (format directive)
@@ -2763,6 +2821,7 @@ Example:
 @node FORMAT Miscellaneous Operations
 @subsection FORMAT Miscellaneous Operations
 
+@node Tilde Left-Paren: Case Conversion
 @subsubsection Tilde Left-Paren: Case Conversion
 @cindex Left-Paren (format directive)
 @cindex Tilde Left-Paren (format directive)
@@ -2808,6 +2867,7 @@ as illustrated in the following example:
 
 
 
+@node Tilde Right-Paren: End of Case Conversion
 @subsubsection Tilde Right-Paren: End of Case Conversion
 @cindex Right-Paren (format directive)
 @cindex Tilde Right-Paren (format directive)
@@ -2816,6 +2876,7 @@ as illustrated in the following example:
 The consequences of using it elsewhere are undefined.
 
 
+@node Tilde P: Plural
 @subsubsection Tilde P: Plural
 @cindex P (format directive)
 @cindex Tilde P (format directive)
@@ -2847,6 +2908,7 @@ not.  @f{@tild{}:@@P} does the same thing, but backs up first.
 @node FORMAT Miscellaneous Pseudo-Operations
 @subsection FORMAT Miscellaneous Pseudo-Operations
 
+@node Tilde Semicolon: Clause Separator
 @subsubsection Tilde Semicolon: Clause Separator
 @cindex Semicolon (format directive)
 @cindex Tilde Semicolon (format directive)
@@ -2855,6 +2917,7 @@ This separates clauses in @f{@tild{}[} and @f{@tild{}<} constructs.
 The consequences of using it elsewhere are undefined.
 
 
+@node Tilde Circumflex: Escape Upward
 @subsubsection Tilde Circumflex: Escape Upward
 @cindex Circumflex (format directive)
 @cindex Tilde Circumflex (format directive)
@@ -2957,6 +3020,7 @@ within a @f{@tild{}<} construct.
 
 
 
+@node Tilde Newline: Ignored Newline
 @subsubsection Tilde Newline: Ignored Newline
 @cindex Newline (format directive)
 @cindex Tilde Newline (format directive)
@@ -2998,6 +3062,7 @@ in the control string are suppressed because each is preceded by a tilde.
 @node Additional Information about FORMAT Operations
 @subsection Additional Information about FORMAT Operations
 
+@node Nesting of FORMAT Operations
 @subsubsection Nesting of FORMAT Operations
 
 The case-conversion, conditional, iteration, and justification
@@ -3033,6 +3098,7 @@ is invalid because the @f{@tild{}?}
 and @f{@tild{}(...@tild{})} constructs are not properly nested.
 
 
+@node Missing and Additional FORMAT Arguments
 @subsubsection Missing and Additional FORMAT Arguments
 
 The consequences are undefined if no @param{arg} remains for a directive
@@ -3040,12 +3106,14 @@ requiring an argument.  However, it is permissible for one or more @param{args}
 to remain unprocessed by a directive; such @param{args} are ignored.
 
 
+@node Additional FORMAT Parameters
 @subsubsection Additional FORMAT Parameters
 
 The consequences are undefined if a format directive is given more parameters
 than it is described here as accepting.
 
 
+@node Undefined FORMAT Modifier Combinations
 @subsubsection Undefined FORMAT Modifier Combinations
 
 The consequences are undefined if @term{colon} or @term{at-sign} modifiers

@@ -139,6 +139,7 @@ it is as if a @kwd{test} argument of @f{#'eql} was supplied.
 The consequences are unspecified if both a @kwd{test} and a @kwd{test-not} @term{argument}
 are supplied in the same @term{call} to @mat{F}.
 
+@node Examples of Satisfying a Two-Argument Test
 @subsubsection Examples of Satisfying a Two-Argument Test
 
 @lisp
@@ -220,6 +221,7 @@ ends in ``@f{-if-not}'' accept a first @term{argument} that is a @term{designato
 An @mat{E@subs1{i}} is said to @newterm{satisfy the test} if this @kwd{test} @term{function}
 returns a @term{generalized boolean} representing @term{false}.
 
+@node Examples of Satisfying a One-Argument Test
 @subsubsection Examples of Satisfying a One-Argument Test
 
 @lisp
