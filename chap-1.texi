@@ -1909,7 +1909,7 @@ shall be
 
 
 @table @asis
-@item @id{}
+@item @id{@t{}}
  ``@metavar{Implementation} conforms with the requirements
 of ANSI @metavar{standard number}''
 @end table
@@ -1920,7 +1920,7 @@ standard, then the conformance statement shall be
 
 
 @table @asis
-@item @id{}
+@item @id{@t{}}
  ``@metavar{Implementation} conforms with the requirements of
 ANSI @metavar{standard number} with the following exceptions:
 @metavar{reference to or complete list of the requirements of

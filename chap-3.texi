@@ -1551,17 +1551,17 @@ The @b{Action} column specifies one of three actions:
 
 @table @asis
 
-@item @id{}
+@item @id{@t{}}
 @b{Process:} process the body as @term{top level forms} in the
 specified mode.
 
-@item @id{}
+@item @id{@t{}}
 @b{Evaluate:} evaluate the body in the dynamic execution
 context of the compiler, using the @term{evaluation environment} as
 the global environment and the @term{lexical environment} in which
 the @code{eval-when} appears.
 
-@item @id{}
+@item @id{@t{}}
 @b{Discard:} ignore the @term{form}.
 @end table
 
@@ -1977,7 +1977,7 @@ In addition, the following are constraints on the handling of
 
 @table @asis
 
-@item @id{}
+@item @id{@t{}}
 @b{array:} If an @term{array} in the source code is a
 @term{simple array}, then the corresponding @term{array}
 in the compiled code will also be a @term{simple array}.  If
@@ -1988,19 +1988,19 @@ qualities. If an @term{array} in the source code has a fill
 pointer, then the corresponding @term{array} in the compiled
 code might be only the size implied by the fill pointer.
 
-@item @id{}
+@item @id{@t{}}
 @b{packages:} The loader is required to find the
 corresponding @term{package} @term{object} as if by calling
 @code{find-package} with the package name as an argument.
 An error @oftype{package-error} is signaled if no
 @term{package} of that name exists at load time.
 
-@item @id{}
+@item @id{@t{}}
 @b{random-state:} A constant @term{random state}
 object cannot be used as the state argument
 to @thefunction{random} because @code{random} modifies this data structure.
 
-@item @id{}
+@item @id{@t{}}
 @b{structure, standard-object:}
 @term{Objects} of @term{type} @code{structure-object} and @code{standard-object}
 may appear in compiled constants if there is an
@@ -2016,7 +2016,7 @@ that is referenced as a @term{literal object} if the @term{object} is a
 The @term{file compiler} only calls @code{make-load-form} once for
 any given @term{object} within a single @term{file}.
 
-@item @id{}
+@item @id{@t{}}
 @b{symbol:} In order to guarantee that @term{compiled files} can be @term{loaded}
 correctly, users must ensure that the @term{packages} referenced in those @term{files}
 are defined consistently at compile time and load time.  @term{Conforming programs}
@@ -3202,7 +3202,7 @@ Each following element is one of
 
 @table @asis
 
-@item @id{}
+@item @id{@t{}}
 
 a @term{variable},
 
