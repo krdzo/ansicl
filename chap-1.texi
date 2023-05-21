@@ -1638,7 +1638,7 @@ For @term{functions} a @term{lambda list} is given.
 In both cases, however, the outermost parentheses are omitted,
 and default value information is omitted.
 
-            @subsubsection Special ``Syntax'' Notations for Overloaded Operators
+@subsubsection Special ``Syntax'' Notations for Overloaded Operators
 
 
 If two descriptions exist for the same operation but with different numbers of

@@ -1,45 +1,43 @@
-@c -*- Mode: Texinfo; coding: latin-1; -*-
-@ifinfo
-@definfoenclose code,ÿ,ş
+@c -*- Mode: Texinfo -*-
 
 @macro metavar {arg}
-«\arg\»
+Â«\arg\Â»
 @end macro
 
 @macro cubed {}
-³
+Â³
 @end macro
 
 @macro result {}
-@r{ı}
-@end macro
-
-@macro OUT {}
-Ö
-@end macro
-
-@macro EQ {}
-Õ
+@r{â†’}
 @end macro
 
 @macro CRLF {}
-ô
+â†©
+@end macro
+
+@macro OUT {}
+â–·
+@end macro
+
+@macro EQ {}
+â‰¡
 @end macro
 
 @macro uumlaut {}
-ü
+Ã¼
 @end macro
 
 @macro down {arg}
-@t{û}\arg\
+@t{â†“}\arg\
 @end macro
 
 @macro prevplus {}
-ú
+âº
 @end macro
 
 @macro begininterleave {}
-ù
+ã€š
 @end macro
 
 @macro extrainterleave {}
@@ -47,7 +45,7 @@
 @end macro
 
 @macro endinterleave {}
-ø
+ã€›
 @end macro
 
 @macro ssso {}
@@ -66,147 +64,149 @@
 @sub1{}@sub6{}
 @end macro
 
+@c â‰ , yuck makeinfo mangles nbsp which is one of the byte-values.
 @macro neq {}
-â
+â‰ 
 @end macro
 
 @macro in {}
-÷
+âˆˆ
 @end macro
 
 @macro geq {}
-ö
+â‰¥
 @end macro
 
 @macro bigcup {}
-õ
+â‹ƒ
 @end macro
 
 @macro leq {}
-ó
+â‰¤
 @end macro
 
 @macro langle {}
-ò
+âŒ©
 @end macro
 
 @macro rangle {}
-ñ
+âŒª
 @end macro
 
 @macro downarrow {}
-ğ
+â†“
 @end macro
 
 @macro Partial {}
-ï
+âˆ‚
 @end macro
 
 @macro pi {}
-î
+Ï€
 @end macro
 
 @macro epsilon {}
-í
+Îµ
 @end macro
 
 @macro alfa {}
-ì
+Î±
 @end macro
 
 @macro cdot {}
-ë
+Â·
 @end macro
 
 @macro centerdot {}
-@cdot{}
+Â·
 @end macro
-
 @macro Stress {arg}
-ê\arg\
+Ëˆ\arg\
 @end macro
 
 @macro stress {arg}
-é\arg\
+ËŒ\arg\
 @end macro
 
 @macro schwa {}
-è
+É™
 @end macro
 
 @macro harda {}
-ç
+Ä
 @end macro
 
 @macro harde {}
-æ
+Ä“
 @end macro
 
 @macro hardo {arg}
-å
+Å
 @end macro
 
 @macro maybeStress {arg}
-ä\arg\
+Ë\arg\
 @end macro
 
 @macro one {arg}
-\arg\¹
+\arg\Â¹
 @end macro
 
 @rmacro subs {arg}
+@html
 _@{\arg\@}
+@end html
+
 @end rmacro
 
-@macro subs1 {arg}
+@rmacro subs1 {arg}
 _\arg\
+@end rmacro
+
+@macro subOne {}
+â‚
 @end macro
 
 @macro sub0 {}
-Ø
+â‚€
 @end macro
 
 @macro sub1 {}
-á
+â‚
 @end macro
 
 @macro sub2 {}
-à
+â‚‚
 @end macro
 
 @macro sub3 {}
-ß
+â‚ƒ
 @end macro
 
 @macro sub4 {}
-Ş
+â‚„
 @end macro
 
 @macro sub5 {}
-İ
+â‚…
 @end macro
 
 @macro sub6 {}
-Ü
+â‚†
 @end macro
 
 @macro sub7 {}
-Û
+â‚‡
 @end macro
 
 @macro sub8 {}
-Ú
+â‚ˆ
 @end macro
 
 @macro sub9 {}
-Ù
-@end macro
-
-@macro subOne {}
-@sub1{}
+â‚‰
 @end macro
 
 @macro le {}
-ã
+â‰¤
 @end macro
-@end ifinfo

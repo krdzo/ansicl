@@ -4,7 +4,7 @@
 @settitle ANSI Common Lisp
 @paragraphindent 0
 @exampleindent 0
-@documentencoding ISO-8859-1
+@documentencoding UTF-8
 @defindex sy
 @c %**end of header
 

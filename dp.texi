@@ -2,7 +2,7 @@
 @c ----- diverse.
 
 @ifinfo
-@include dpi.texi
+@include dpii.texi
 @end ifinfo
 
 @ifnotinfo
