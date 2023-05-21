@@ -5,6 +5,7 @@
 @paragraphindent 0
 @exampleindent 0
 @documentencoding UTF-8
+@documentlanguage en
 @defindex sy
 @c %**end of header
 
