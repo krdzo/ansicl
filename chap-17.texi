@@ -263,7 +263,7 @@ returns a @term{generalized boolean} representing @term{false}.
 
 
 @node sequence
-@heading sequence (System Class)
+@subsection sequence (System Class)
 @syindex sequence
 @cindex sequence
 
@@ -289,7 +289,7 @@ when given @term{sequences} represented as @term{vectors}.
 
 
 @node copy-seq
-@heading copy-seq (Function)
+@subsection copy-seq (Function)
 @syindex copy-seq
 @cindex copy-seq
 
@@ -344,7 +344,7 @@ However, the programmer intent is typically very different in these two cases.
 
 
 @node elt
-@heading elt (Accessor)
+@subsection elt (Accessor)
 @syindex elt
 @cindex elt
 
@@ -396,7 +396,7 @@ elements that are beyond the @term{vector}'s @term{fill pointer}.
 
 
 @node fill
-@heading fill (Function)
+@subsection fill (Function)
 @syindex fill
 @cindex fill
 
@@ -454,7 +454,7 @@ with @param{item}.
 
 
 @node make-sequence
-@heading make-sequence (Function)
+@subsection make-sequence (Function)
 @syindex make-sequence
 @cindex make-sequence
 
@@ -535,7 +535,7 @@ the number of elements and @param{size} is different from that number.
 
 
 @node subseq
-@heading subseq (Accessor)
+@subsection subseq (Accessor)
 @syindex subseq
 @cindex subseq
 
@@ -609,7 +609,7 @@ are not modified in the operation.
 
 
 @node map
-@heading map (Function)
+@subsection map (Function)
 @syindex map
 @cindex map
 
@@ -704,7 +704,7 @@ is different from that number.
 
 
 @node map-into
-@heading map-into (Function)
+@subsection map-into (Function)
 @syindex map-into
 @cindex map-into
 
@@ -791,7 +791,7 @@ arguments, while @code{map} requires at least three arguments.
 
 
 @node reduce
-@heading reduce (Function)
+@subsection reduce (Function)
 @syindex reduce
 @cindex reduce
 
@@ -889,7 +889,7 @@ This is the only case where the
 
 
 @node count; count-if; count-if-not
-@heading count, count-if, count-if-not (Function)
+@subsection count, count-if, count-if-not (Function)
 @syindex count
 @cindex count
 @syindex count-if
@@ -973,7 +973,7 @@ The @kwd{test-not} @term{argument} is deprecated.
 
 
 @node length
-@heading length (Function)
+@subsection length (Function)
 @syindex length
 @cindex length
 
@@ -1019,7 +1019,7 @@ the active length as specified by the @term{fill pointer} is returned.
 
 
 @node reverse; nreverse
-@heading reverse, nreverse (Function)
+@subsection reverse, nreverse (Function)
 @syindex reverse
 @cindex reverse
 @syindex nreverse
@@ -1097,7 +1097,7 @@ modify the argument @param{sequence}, or both.
 
 
 @node sort; stable-sort
-@heading sort, stable-sort (Function)
+@subsection sort, stable-sort (Function)
 @syindex sort
 @cindex sort
 @syindex stable-sort
@@ -1246,7 +1246,7 @@ and might or might not be @term{identical} to @param{sequence}.
 
 
 @node find; find-if; find-if-not
-@heading find, find-if, find-if-not (Function)
+@subsection find, find-if, find-if-not (Function)
 @syindex find
 @cindex find
 @syindex find-if
@@ -1337,7 +1337,7 @@ The @kwd{test-not} @term{argument} is deprecated.
 
 
 @node position; position-if; position-if-not
-@heading position, position-if, position-if-not (Function)
+@subsection position, position-if, position-if-not (Function)
 @syindex position
 @cindex position
 @syindex position-if
@@ -1421,7 +1421,7 @@ The @kwd{test-not} @term{argument} is deprecated.
 
 
 @node search
-@heading search (Function)
+@subsection search (Function)
 @syindex search
 @cindex search
 
@@ -1495,7 +1495,7 @@ The @kwd{test-not} @term{argument} is deprecated.
 
 
 @node mismatch
-@heading mismatch (Function)
+@subsection mismatch (Function)
 @syindex mismatch
 @cindex mismatch
 
@@ -1577,7 +1577,7 @@ The @kwd{test-not} @term{argument} is deprecated.
 
 
 @node replace
-@heading replace (Function)
+@subsection replace (Function)
 @syindex replace
 @cindex replace
 
@@ -1656,7 +1656,7 @@ The @param{sequence-1} is modified.
 
 
 @node substitute; substitute-if; substitute-if-not; nsubstitute; nsubstitute-+
-@heading substitute, substitute-if, substitute-if-not, nsubstitute, nsubstitute-if, nsubstitute-if-not (Function)
+@subsection substitute, substitute-if, substitute-if-not, nsubstitute, nsubstitute-if, nsubstitute-if-not (Function)
 @syindex substitute
 @cindex substitute
 @syindex substitute-if
@@ -1849,7 +1849,7 @@ some implementations:
 
 
 @node concatenate
-@heading concatenate (Function)
+@subsection concatenate (Function)
 @syindex concatenate
 @cindex concatenate
 
@@ -1927,7 +1927,7 @@ is different from that number.
 
 
 @node merge
-@heading merge (Function)
+@subsection merge (Function)
 @syindex merge
 @cindex merge
 
@@ -2050,7 +2050,7 @@ is different from that number.
 
 
 @node remove; remove-if; remove-if-not; delete; delete-if; delete-if-not
-@heading remove, remove-if, remove-if-not, delete, delete-if, delete-if-not (Function)
+@subsection remove, remove-if, remove-if-not, delete, delete-if, delete-if-not (Function)
 @syindex remove
 @cindex remove
 @syindex remove-if
@@ -2255,7 +2255,7 @@ The functions @code{delete-if-not} and @code{remove-if-not} are deprecated.
 
 
 @node remove-duplicates; delete-duplicates
-@heading remove-duplicates, delete-duplicates (Function)
+@subsection remove-duplicates, delete-duplicates (Function)
 @syindex remove-duplicates
 @cindex remove-duplicates
 @syindex delete-duplicates

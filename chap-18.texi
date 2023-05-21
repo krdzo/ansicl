@@ -212,7 +212,7 @@ tests.
 
 
 @node hash-table
-@heading hash-table (System Class)
+@subsection hash-table (System Class)
 @syindex hash-table
 @cindex hash-table
 
@@ -240,7 +240,7 @@ is required to use any particular technique to implement the mapping.
 
 
 @node make-hash-table
-@heading make-hash-table (Function)
+@subsection make-hash-table (Function)
 @syindex make-hash-table
 @cindex make-hash-table
 
@@ -331,7 +331,7 @@ is permitted to ignore them.
 
 
 @node hash-table-p
-@heading hash-table-p (Function)
+@subsection hash-table-p (Function)
 @syindex hash-table-p
 @cindex hash-table-p
 
@@ -369,7 +369,7 @@ is permitted to ignore them.
 
 
 @node hash-table-count
-@heading hash-table-count (Function)
+@subsection hash-table-count (Function)
 @syindex hash-table-count
 @cindex hash-table-count
 
@@ -432,7 +432,7 @@ using @code{hash-table-count} is probably much faster:
 
 
 @node hash-table-rehash-size
-@heading hash-table-rehash-size (Function)
+@subsection hash-table-rehash-size (Function)
 @syindex hash-table-rehash-size
 @cindex hash-table-rehash-size
 
@@ -489,7 +489,7 @@ the actual amount by which the @param{hash-table} will grow upon rehash is
 
 
 @node hash-table-rehash-threshold
-@heading hash-table-rehash-threshold (Function)
+@subsection hash-table-rehash-threshold (Function)
 @syindex hash-table-rehash-threshold
 @cindex hash-table-rehash-threshold
 
@@ -533,7 +533,7 @@ state of the @param{hash-table}.
 
 
 @node hash-table-size
-@heading hash-table-size (Function)
+@subsection hash-table-size (Function)
 @syindex hash-table-size
 @cindex hash-table-size
 
@@ -567,7 +567,7 @@ with state corresponding to the current state of the @param{hash-table}.
 
 
 @node hash-table-test
-@heading hash-table-test (Function)
+@subsection hash-table-test (Function)
 @syindex hash-table-test
 @cindex hash-table-test
 
@@ -603,7 +603,7 @@ Returns the test used for comparing @term{keys} in @param{hash-table}.
 
 
 @node gethash
-@heading gethash (Accessor)
+@subsection gethash (Accessor)
 @syindex gethash
 @cindex gethash
 
@@ -677,7 +677,7 @@ from the presence of an entry that has a value of @param{default}.
 
 
 @node remhash
-@heading remhash (Function)
+@subsection remhash (Function)
 @syindex remhash
 @cindex remhash
 
@@ -716,7 +716,7 @@ The @param{hash-table} is modified.
 
 
 @node maphash
-@heading maphash (Function)
+@subsection maphash (Function)
 @syindex maphash
 @cindex maphash
 
@@ -784,7 +784,7 @@ None, other than any which might be done by the @param{function}.
 
 
 @node with-hash-table-iterator
-@heading with-hash-table-iterator (Macro)
+@subsection with-hash-table-iterator (Macro)
 @syindex with-hash-table-iterator
 @cindex with-hash-table-iterator
 
@@ -891,7 +891,7 @@ returned @term{false} as its @term{primary value}.
 
 
 @node clrhash
-@heading clrhash (Function)
+@subsection clrhash (Function)
 @syindex clrhash
 @cindex clrhash
 
@@ -928,7 +928,7 @@ The @param{hash-table} is modified.
 
 
 @node sxhash
-@heading sxhash (Function)
+@subsection sxhash (Function)
 @syindex sxhash
 @cindex sxhash
 

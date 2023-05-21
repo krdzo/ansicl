@@ -326,7 +326,7 @@ the possibility of fractional seconds.
 
 
 @node decode-universal-time
-@heading decode-universal-time (Function)
+@subsection decode-universal-time (Function)
 @syindex decode-universal-time
 @cindex decode-universal-time
 
@@ -384,7 +384,7 @@ savings time is in effect for any given session.
 
 
 @node encode-universal-time
-@heading encode-universal-time (function)
+@subsection encode-universal-time (function)
 @syindex encode-universal-time
 @cindex encode-universal-time
 
@@ -426,7 +426,7 @@ If @param{time-zone} is supplied, no adjustment for daylight savings time is per
 
 
 @node get-universal-time; get-decoded-time
-@heading get-universal-time, get-decoded-time (Function)
+@subsection get-universal-time, get-decoded-time (Function)
 @syindex get-universal-time
 @cindex get-universal-time
 @syindex get-decoded-time
@@ -503,7 +503,7 @@ to interactively set the correct time.
 
 
 @node sleep
-@heading sleep (Function)
+@subsection sleep (Function)
 @syindex sleep
 @cindex sleep
 
@@ -551,7 +551,7 @@ The granularity of the scheduler.
 
 
 @node apropos; apropos-list
-@heading apropos, apropos-list (Function)
+@subsection apropos, apropos-list (Function)
 @syindex apropos
 @cindex apropos
 @syindex apropos-list
@@ -608,7 +608,7 @@ in any @term{packages} being searched.
 
 
 @node describe
-@heading describe (Function)
+@subsection describe (Function)
 @syindex describe
 @cindex describe
 
@@ -667,7 +667,7 @@ for @term{objects} having user-defined @term{classes}.
 
 
 @node describe-object
-@heading describe-object (Standard Generic Function)
+@subsection describe-object (Standard Generic Function)
 @syindex describe-object
 @cindex describe-object
 
@@ -759,7 +759,7 @@ in all of their @term{methods}.  @code{describe} takes care of that.
 
 
 @node trace; untrace
-@heading trace, untrace (Macro)
+@subsection trace, untrace (Macro)
 @syindex trace
 @cindex trace
 @syindex untrace
@@ -863,7 +863,7 @@ other than the current @term{implementation}.
 
 
 @node step
-@heading step (Macro)
+@subsection step (Macro)
 @syindex step
 @cindex step
 
@@ -915,7 +915,7 @@ commands.
 
 
 @node time (Macro)
-@heading time (Macro)
+@subsection time (Macro)
 @syindex time
 @cindex time
 
@@ -979,7 +979,7 @@ interpreting timing results, see @GabrielBenchmarks{}.
 
 
 @node internal-time-units-per-second
-@heading internal-time-units-per-second (Constant Variable)
+@subsection internal-time-units-per-second (Constant Variable)
 @syindex internal-time-units-per-second
 @cindex internal-time-units-per-second
 
@@ -1002,7 +1002,7 @@ These units form the basis of the Internal Time format representation.
 
 
 @node get-internal-real-time
-@heading get-internal-real-time (Function)
+@subsection get-internal-real-time (Function)
 @syindex get-internal-real-time
 @cindex get-internal-real-time
 
@@ -1033,7 +1033,7 @@ The time base affects the result magnitude.
 
 
 @node get-internal-run-time
-@heading get-internal-run-time (Function)
+@subsection get-internal-run-time (Function)
 @syindex get-internal-run-time
 @cindex get-internal-run-time
 
@@ -1075,7 +1075,7 @@ this measurement as well.
 
 
 @node disassemble
-@heading disassemble (Function)
+@subsection disassemble (Function)
 @syindex disassemble
 @cindex disassemble
 
@@ -1125,7 +1125,7 @@ it is first compiled but the result of this implicit compilation is not installe
 
 
 @node documentation; setf documentation
-@heading documentation, (setf documentation) (Standard Generic Function)
+@subsection documentation, (setf documentation) (Standard Generic Function)
 @syindex documentation
 @cindex documentation
 @syindex (setf documentation)
@@ -1370,7 +1370,7 @@ Implementors wishing to provide such support are encouraged to consult the
 
 
 @node room
-@heading room (Function)
+@subsection room (Function)
 @syindex room
 @cindex room
 
@@ -1409,7 +1409,7 @@ Output to @term{standard output}.
 
 
 @node ed
-@heading ed (Function)
+@subsection ed (Function)
 @syindex ed
 @cindex ed
 
@@ -1463,7 +1463,7 @@ is a @term{designator} for a @term{wild} @term{pathname}.
 
 
 @node inspect
-@heading inspect (Function)
+@subsection inspect (Function)
 @syindex inspect
 @cindex inspect
 
@@ -1507,7 +1507,7 @@ of commands.
 
 
 @node dribble
-@heading dribble (Function)
+@subsection dribble (Function)
 @syindex dribble
 @cindex dribble
 
@@ -1572,7 +1572,7 @@ returning only when @f{(dribble)} is done.
 its effect cannot be relied upon when used in a program.
 
 @node - (Variable)
-@heading - (Variable)
+@subsection - (Variable)
 @syindex -
 @cindex -
 
@@ -1612,7 +1612,7 @@ the @term{Lisp read-eval-print loop}.
 
 
 @node +; ++; +++
-@heading +, ++, +++ (Variable)
+@subsection +, ++, +++ (Variable)
 @syindex +
 @cindex +
 @syindex ++
@@ -1666,7 +1666,7 @@ recently @term{evaluated}.
 
 
 @node *; **; ***
-@heading *, **, *** (Variable)
+@subsection *, **, *** (Variable)
 @syindex *
 @cindex *
 @syindex **
@@ -1738,7 +1738,7 @@ are not updated.
 
 
 @node /; //; ///
-@heading /, //, /// (Variable)
+@subsection /, //, /// (Variable)
 @syindex /
 @cindex /
 @syindex //
@@ -1791,7 +1791,7 @@ are not updated.
 
 
 @node lisp-implementation-type; lisp-implementation-version
-@heading lisp-implementation-type, lisp-implementation-version (Function)
+@subsection lisp-implementation-type, lisp-implementation-version (Function)
 @syindex lisp-implementation-type
 @cindex lisp-implementation-type
 @syindex lisp-implementation-version
@@ -1840,7 +1840,7 @@ of a @term{string}.
 
 
 @node short-site-name; long-site-name
-@heading short-site-name, long-site-name (Function)
+@subsection short-site-name, long-site-name (Function)
 @syindex short-site-name
 @cindex short-site-name
 @syindex long-site-name
@@ -1884,7 +1884,7 @@ and the installation/configuration process.
 
 
 @node machine-instance
-@heading machine-instance (Function)
+@subsection machine-instance (Function)
 @syindex machine-instance
 @cindex machine-instance
 
@@ -1925,7 +1925,7 @@ and the @term{implementation}.
 
 
 @node machine-type
-@heading machine-type (Function)
+@subsection machine-type (Function)
 @syindex machine-type
 @cindex machine-type
 
@@ -1963,7 +1963,7 @@ The implementation.
 
 
 @node machine-version
-@heading machine-version (Function)
+@subsection machine-version (Function)
 @syindex machine-version
 @cindex machine-version
 
@@ -1999,7 +1999,7 @@ and the @term{implementation}.
 
 
 @node software-type; software-version
-@heading software-type, software-version (Function)
+@subsection software-type, software-version (Function)
 @syindex software-type
 @cindex software-type
 @syindex software-version
@@ -2043,7 +2043,7 @@ This information should be of use to maintainers of the @term{implementation}.
 
 
 @node user-homedir-pathname
-@heading user-homedir-pathname (Function)
+@subsection user-homedir-pathname (Function)
 @syindex user-homedir-pathname
 @cindex user-homedir-pathname
 

@@ -3215,7 +3215,7 @@ all following clauses).
 
 
 @node copy-pprint-dispatch
-@heading copy-pprint-dispatch (Function)
+@subsection copy-pprint-dispatch (Function)
 @syindex copy-pprint-dispatch
 @cindex copy-pprint-dispatch
 
@@ -3245,7 +3245,7 @@ is not a @term{pprint dispatch table}.
 
 
 @node formatter
-@heading formatter (Macro)
+@subsection formatter (Macro)
 @syindex formatter
 @cindex formatter
 
@@ -3303,7 +3303,7 @@ is not a valid @term{format string}.
 
 
 @node pprint-dispatch
-@heading pprint-dispatch (Function)
+@subsection pprint-dispatch (Function)
 @syindex pprint-dispatch
 @cindex pprint-dispatch
 
@@ -3364,7 +3364,7 @@ Should signal an error @oftype{type-error} if @term{table} is neither a
 
 
 @node pprint-exit-if-list-exhausted
-@heading pprint-exit-if-list-exhausted (Local Macro)
+@subsection pprint-exit-if-list-exhausted (Local Macro)
 @syindex pprint-exit-if-list-exhausted
 @cindex pprint-exit-if-list-exhausted
 
@@ -3408,7 +3408,7 @@ contains it are undefined.
 
 
 @node pprint-fill; pprint-linear; pprint-tabular
-@heading pprint-fill, pprint-linear, pprint-tabular (Function)
+@subsection pprint-fill, pprint-linear, pprint-tabular (Function)
 @syindex pprint-fill
 @cindex pprint-fill
 @syindex pprint-linear
@@ -3530,7 +3530,7 @@ through to a @formatdirective{:T} nested within an iteration over a list.
 
 
 @node pprint-indent
-@heading pprint-indent (Function)
+@subsection pprint-indent (Function)
 @syindex pprint-indent
 @cindex pprint-indent
 
@@ -3590,7 +3590,7 @@ than @kwd{block} or @kwd{current}.
 
 
 @node pprint-logical-block
-@heading pprint-logical-block (Macro)
+@subsection pprint-logical-block (Macro)
 @syindex pprint-logical-block
 @cindex pprint-logical-block
 
@@ -3737,7 +3737,7 @@ the body @param{forms} of the @code{pprint-logical-block} @term{form}.)
 
 
 @node pprint-newline
-@heading pprint-newline (Function)
+@subsection pprint-newline (Function)
 @syindex pprint-newline
 @cindex pprint-newline
 
@@ -3878,7 +3878,7 @@ is not one of @kwd{linear}, @kwd{fill}, @kwd{miser}, or @kwd{mandatory}.
 
 
 @node pprint-pop
-@heading pprint-pop (Local Macro)
+@subsection pprint-pop (Local Macro)
 @syindex pprint-pop
 @cindex pprint-pop
 
@@ -3986,7 +3986,7 @@ before calling @code{pprint-pop}.
 
 
 @node pprint-tab
-@heading pprint-tab (Function)
+@subsection pprint-tab (Function)
 @syindex pprint-tab
 @cindex pprint-tab
 
@@ -4039,7 +4039,7 @@ An error is signaled if @param{kind} is not one of @kwd{line},
 
 
 @node print-object
-@heading print-object (Standard Generic Function)
+@subsection print-object (Standard Generic Function)
 @syindex print-object
 @cindex print-object
 
@@ -4194,7 +4194,7 @@ but is an intermediate @term{stream} that implements part of the printer.
 
 
 @node print-unreadable-object
-@heading print-unreadable-object (Macro)
+@subsection print-unreadable-object (Macro)
 @syindex print-unreadable-object
 @cindex print-unreadable-object
 
@@ -4260,7 +4260,7 @@ signals an error @oftype{print-not-readable} without printing anything.
 
 
 @node set-pprint-dispatch
-@heading set-pprint-dispatch (Function)
+@subsection set-pprint-dispatch (Function)
 @syindex set-pprint-dispatch
 @cindex set-pprint-dispatch
 
@@ -4333,7 +4333,7 @@ The @param{cdr-type} can be omitted in which case it defaults to @t{t}.
 
 
 @node write; prin1; print; pprint; princ
-@heading write, prin1, print, pprint, princ (Function)
+@subsection write, prin1, print, pprint, princ (Function)
 @syindex write
 @cindex write
 @syindex prin1
@@ -4502,7 +4502,7 @@ output is to be sent.
 
 
 @node write-to-string; prin1-to-string; princ-to-string
-@heading write-to-string, prin1-to-string, princ-to-string (Function)
+@subsection write-to-string, prin1-to-string, princ-to-string (Function)
 @syindex write-to-string
 @cindex write-to-string
 @syindex prin1-to-string
@@ -4600,7 +4600,7 @@ are the same as those for @code{write}.
 
 
 @node *print-array*
-@heading *print-array* (Variable)
+@subsection *print-array* (Variable)
 @syindex *print-array*
 @cindex *print-array*
 
@@ -4634,7 +4634,7 @@ The @term{implementation}.
 
 
 @node *print-base*; *print-radix*
-@heading *print-base*, *print-radix* (Variable)
+@subsection *print-base*, *print-radix* (Variable)
 @syindex *print-base*
 @cindex *print-base*
 @syindex *print-radix*
@@ -4714,7 +4714,7 @@ Might be @term{bound} by @code{format}, and @code{write}, @code{write-to-string}
 
 
 @node *print-case*
-@heading *print-case* (Variable)
+@subsection *print-case* (Variable)
 @syindex *print-case*
 @cindex *print-case*
 
@@ -4785,7 +4785,7 @@ so as to capitalize words, according to the value of
 a ``word'' is the same as for @code{string-capitalize}.
 
 @node *print-circle*
-@heading *print-circle* (Variable)
+@subsection *print-circle* (Variable)
 @syindex *print-circle*
 @cindex *print-circle*
 
@@ -4854,7 +4854,7 @@ set to @nil{}@spc{}may lead to looping behavior and failure to terminate.
 
 
 @node *print-escape*
-@heading *print-escape* (Variable)
+@subsection *print-escape* (Variable)
 @syindex *print-escape*
 @cindex *print-escape*
 
@@ -4907,7 +4907,7 @@ see @ref{Default Print-Object Methods, Section 22.1.3 (Default Print-Object Meth
 
 
 @node *print-gensym*
-@heading *print-gensym* (Variable)
+@subsection *print-gensym* (Variable)
 @syindex *print-gensym*
 @cindex *print-gensym*
 
@@ -4943,7 +4943,7 @@ if and only if @thevalueof{*print-gensym*} is @term{true}.
 
 
 @node *print-level*; *print-length*
-@heading *print-level*, *print-length* (Variable)
+@subsection *print-level*, *print-length* (Variable)
 @syindex *print-level*
 @cindex *print-level*
 @syindex *print-length*
@@ -5042,7 +5042,7 @@ the printing of @term{symbols}, @term{strings}, and @term{bit vectors}.
 
 
 @node *print-lines*
-@heading *print-lines* (Variable)
+@subsection *print-lines* (Variable)
 @syindex *print-lines*
 @cindex *print-lines*
 
@@ -5092,7 +5092,7 @@ detected later and no such error will be signaled.
 
 
 @node *print-miser-width*
-@heading *print-miser-width* (Variable)
+@subsection *print-miser-width* (Variable)
 @syindex *print-miser-width*
 @cindex *print-miser-width*
 
@@ -5115,7 +5115,7 @@ printing a substructure is less than or equal to this many @term{ems}.
 
 
 @node *print-pprint-dispatch*
-@heading *print-pprint-dispatch* (Variable)
+@subsection *print-pprint-dispatch* (Variable)
 @syindex *print-pprint-dispatch*
 @cindex *print-pprint-dispatch*
 
@@ -5155,7 +5155,7 @@ output.  For details, see @ref{PPrintDispatchTables, Section 22.2.1.4 (Pretty Pr
 
 
 @node *print-pretty*
-@heading *print-pretty* (Variable)
+@subsection *print-pretty* (Variable)
 @syindex *print-pretty*
 @cindex *print-pretty*
 
@@ -5228,7 +5228,7 @@ is @term{false}.
 
 
 @node *print-readably*
-@heading *print-readably* (Variable)
+@subsection *print-readably* (Variable)
 @syindex *print-readably*
 @cindex *print-readably*
 
@@ -5346,7 +5346,7 @@ or signal an error @oftype{print-not-readable}.
 
 
 @node *print-right-margin*
-@heading *print-right-margin* (Variable)
+@subsection *print-right-margin* (Variable)
 @syindex *print-right-margin*
 @cindex *print-right-margin*
 
@@ -5379,7 +5379,7 @@ requiring the language to provide support for fonts.
 
 
 @node print-not-readable
-@heading print-not-readable (Condition Type)
+@subsection print-not-readable (Condition Type)
 @syindex print-not-readable
 @cindex print-not-readable
 
@@ -5407,7 +5407,7 @@ The object which could not be printed is initialized by
 
 
 @node print-not-readable-object
-@heading print-not-readable-object (Function)
+@subsection print-not-readable-object (Function)
 @syindex print-not-readable-object
 @cindex print-not-readable-object
 
@@ -5433,7 +5433,7 @@ in the situation represented by @param{condition}.
 
 
 @node format
-@heading format (Function)
+@subsection format (Function)
 @syindex format
 @cindex format
 

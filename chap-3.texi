@@ -3857,7 +3857,7 @@ itself.
 
 
 @node lambda (Symbol)
-@heading lambda (Symbol)
+@subsection lambda (Symbol)
 @syindex lambda
 @cindex lambda
 
@@ -3914,7 +3914,7 @@ is semantically equivalent to the @term{function form}
 
 
 @node lambda (Macro)
-@heading lambda (Macro)
+@subsection lambda (Macro)
 @syindex lambda
 @cindex lambda
 
@@ -3971,7 +3971,7 @@ This macro could be implemented by:
 
 
 @node compile
-@heading compile (Function)
+@subsection compile (Function)
 @syindex compile
 @cindex compile
 
@@ -4077,7 +4077,7 @@ see @ref{Exceptional Situations in the Compiler, Section 3.2.5 (Exceptional Situ
 
 
 @node eval
-@heading eval (Function)
+@subsection eval (Function)
 @syindex eval
 @cindex eval
 
@@ -4153,7 +4153,7 @@ in any @term{function form},
 
 
 @node eval-when
-@heading eval-when (Special Operator)
+@subsection eval-when (Special Operator)
 @syindex eval-when
 @cindex eval-when
 
@@ -4382,7 +4382,7 @@ when the definition of @f{bar} is not a @term{top level form}.
 
 
 @node load-time-value
-@heading load-time-value (Special Operator)
+@subsection load-time-value (Special Operator)
 @syindex load-time-value
 @cindex load-time-value
 
@@ -4529,7 +4529,7 @@ to make that object read-only.
 
 
 @node quote
-@heading quote (Special Operator)
+@subsection quote (Special Operator)
 @syindex quote
 @cindex quote
 
@@ -4592,7 +4592,7 @@ they become data rather than program.
 
 
 @node compiler-macro-function
-@heading compiler-macro-function (Accessor)
+@subsection compiler-macro-function (Accessor)
 @syindex compiler-macro-function
 @cindex compiler-macro-function
 
@@ -4630,7 +4630,7 @@ in a use of @SETFof{compiler-macro-function}.
 
 
 @node define-compiler-macro
-@heading define-compiler-macro (Macro)
+@subsection define-compiler-macro (Macro)
 @syindex define-compiler-macro
 @cindex define-compiler-macro
 
@@ -4812,7 +4812,7 @@ and data abstraction.
 
 
 @node defmacro
-@heading defmacro (Macro)
+@subsection defmacro (Macro)
 @syindex defmacro
 @cindex defmacro
 
@@ -5009,7 +5009,7 @@ would be a valid call for the second definition but not for the first.
 
 
 @node macro-function
-@heading macro-function (Accessor)
+@subsection macro-function (Accessor)
 @syindex macro-function
 @cindex macro-function
 
@@ -5098,7 +5098,7 @@ definition, whether as a @term{macro} or as a
 
 
 @node macroexpand; macroexpand-1
-@heading macroexpand, macroexpand-1 (Function)
+@subsection macroexpand, macroexpand-1 (Function)
 @syindex macroexpand
 @cindex macroexpand
 @syindex macroexpand-1
@@ -5258,7 +5258,7 @@ due to the semantics or implementation of the @term{macro function}.
 
 
 @node define-symbol-macro
-@heading define-symbol-macro (Macro)
+@subsection define-symbol-macro (Macro)
 @syindex define-symbol-macro
 @cindex define-symbol-macro
 
@@ -5343,7 +5343,7 @@ an error @oftype{program-error} is signaled.
 
 
 @node symbol-macrolet
-@heading symbol-macrolet (Special Operator)
+@subsection symbol-macrolet (Special Operator)
 @syindex symbol-macrolet
 @cindex symbol-macrolet
 
@@ -5446,7 +5446,7 @@ See @ref{File Compilation, Section 3.2.3 (File Compilation)}.
 
 
 @node *macroexpand-hook*
-@heading *macroexpand-hook* (Variable)
+@subsection *macroexpand-hook* (Variable)
 @syindex *macroexpand-hook*
 @cindex *macroexpand-hook*
 
@@ -5517,7 +5517,7 @@ value from their own.
 
 
 @node proclaim
-@heading proclaim (Function)
+@subsection proclaim (Function)
 @syindex proclaim
 @cindex proclaim
 
@@ -5611,7 +5611,7 @@ Since @code{proclaim} @term{forms} are ordinary @term{function forms},
 
 
 @node declaim
-@heading declaim (Macro)
+@subsection declaim (Macro)
 @syindex declaim
 @cindex declaim
 
@@ -5645,7 +5645,7 @@ not the compile-time side-effects of a @code{declaim} persist after the
 
 
 @node declare
-@heading declare (Symbol)
+@subsection declare (Symbol)
 @syindex declare
 @cindex declare
 
@@ -5782,7 +5782,7 @@ declare expressions.}
 
 
 @node ignore; ignorable
-@heading ignore, ignorable (Declaration)
+@subsection ignore, ignorable (Declaration)
 @syindex ignore
 @cindex ignore
 @syindex ignorable
@@ -5873,7 +5873,7 @@ for such a @term{variable} @param{v} has unspecified consequences.
 
 
 @node dynamic-extent
-@heading dynamic-extent (Declaration)
+@subsection dynamic-extent (Declaration)
 @syindex dynamic-extent
 @cindex dynamic-extent
 
@@ -6096,7 +6096,7 @@ It is permissible for an implementation to simply ignore this declaration.
 
 
 @node type
-@heading type (Declaration)
+@subsection type (Declaration)
 @syindex type
 @cindex type
 
@@ -6336,7 +6336,7 @@ consider writing something like this instead:
 
 
 @node inline; notinline
-@heading inline, notinline (Declaration)
+@subsection inline, notinline (Declaration)
 @syindex inline
 @cindex inline
 @syindex notinline
@@ -6459,7 +6459,7 @@ Such declarations in other contexts are @term{free declarations}.
 
 
 @node ftype
-@heading ftype (Declaration)
+@subsection ftype (Declaration)
 @syindex ftype
 @cindex ftype
 
@@ -6522,7 +6522,7 @@ Such declarations in other contexts are @term{free declarations}.
 
 
 @node declaration
-@heading declaration (Declaration)
+@subsection declaration (Declaration)
 @syindex declaration
 @cindex declaration
 
@@ -6565,7 +6565,7 @@ compiler or other program processor.
 
 
 @node optimize
-@heading optimize (Declaration)
+@subsection optimize (Declaration)
 @syindex optimize
 @cindex optimize
 
@@ -6660,7 +6660,7 @@ be a @term{free declaration}.  For more information, see @ref{Declaration Scope,
 
 
 @node special
-@heading special (Declaration)
+@subsection special (Declaration)
 @syindex special
 @cindex special
 
@@ -6825,7 +6825,7 @@ always @code{special}.
 
 
 @node locally
-@heading locally (Special Operator)
+@subsection locally (Special Operator)
 @syindex locally
 @cindex locally
 
@@ -6902,7 +6902,7 @@ are also processed as @term{top level forms}.  See @ref{File Compilation, Sectio
 
 
 @node the
-@heading the (Special Operator)
+@subsection the (Special Operator)
 @syindex the
 @cindex the
 
@@ -6989,7 +6989,7 @@ is then analyzed.
 
 
 @node special-operator-p
-@heading special-operator-p (Function)
+@subsection special-operator-p (Function)
 @syindex special-operator-p
 @cindex special-operator-p
 
@@ -7031,7 +7031,7 @@ finally declared a misnomer and changed, since it returned true for
 
 
 @node constantp
-@heading constantp (Function)
+@subsection constantp (Function)
 @syindex constantp
 @cindex constantp
 

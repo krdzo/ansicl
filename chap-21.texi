@@ -416,7 +416,7 @@ until the time it is @term{closed}.
 
 
 @node stream
-@heading stream (System Class)
+@subsection stream (System Class)
 @syindex stream
 @cindex stream
 
@@ -442,7 +442,7 @@ For more complete information, see @ref{Stream Concepts, Section 21.1 (Stream Co
 @ref{Reader, Chapter 23 (Reader)}
 
 @node broadcast-stream
-@heading broadcast-stream (System Class)
+@subsection broadcast-stream (System Class)
 @syindex broadcast-stream
 @cindex broadcast-stream
 
@@ -541,7 +541,7 @@ the value is @term{implementation-dependent}.
 
 
 @node concatenated-stream
-@heading concatenated-stream (System Class)
+@subsection concatenated-stream (System Class)
 @syindex concatenated-stream
 @cindex concatenated-stream
 
@@ -579,7 +579,7 @@ remaining @term{input streams} from which to obtain such data.
 @ref{make-concatenated-stream}
 
 @node echo-stream
-@heading echo-stream (System Class)
+@subsection echo-stream (System Class)
 @syindex echo-stream
 @cindex echo-stream
 
@@ -611,7 +611,7 @@ is @term{implementation-dependent}.
 @ref{make-echo-stream}
 
 @node file-stream
-@heading file-stream (System Class)
+@subsection file-stream (System Class)
 @syindex file-stream
 @cindex file-stream
 
@@ -638,7 +638,7 @@ implicitly by @term{functions} such as @code{load} that process @term{files}.
 @ref{with-open-file}
 
 @node string-stream
-@heading string-stream (System Class)
+@subsection string-stream (System Class)
 @syindex string-stream
 @cindex string-stream
 
@@ -667,7 +667,7 @@ a @subtypeof{character}.
 
 
 @node synonym-stream
-@heading synonym-stream (System Class)
+@subsection synonym-stream (System Class)
 @syindex synonym-stream
 @cindex synonym-stream
 
@@ -699,7 +699,7 @@ then the @term{stream} will operate on the new @term{value} of the @term{variabl
 
 
 @node two-way-stream
-@heading two-way-stream (System Class)
+@subsection two-way-stream (System Class)
 @syindex two-way-stream
 @cindex two-way-stream
 
@@ -727,7 +727,7 @@ and sends    its output to   an associated @term{output} @term{stream}.
 
 
 @node input-stream-p; output-stream-p
-@heading input-stream-p, output-stream-p (Function)
+@subsection input-stream-p, output-stream-p (Function)
 @syindex input-stream-p
 @cindex input-stream-p
 @syindex output-stream-p
@@ -772,7 +772,7 @@ and sends    its output to   an associated @term{output} @term{stream}.
 
 
 @node interactive-stream-p
-@heading interactive-stream-p (Function)
+@subsection interactive-stream-p (Function)
 @syindex interactive-stream-p
 @cindex interactive-stream-p
 
@@ -817,7 +817,7 @@ and sends    its output to   an associated @term{output} @term{stream}.
 
 
 @node open-stream-p
-@heading open-stream-p (Function)
+@subsection open-stream-p (Function)
 @syindex open-stream-p
 @cindex open-stream-p
 
@@ -862,7 +862,7 @@ or until they are implicitly closed due to exit from a
 
 
 @node stream-element-type
-@heading stream-element-type (Function)
+@subsection stream-element-type (Function)
 @syindex stream-element-type
 @cindex stream-element-type
 
@@ -913,7 +913,7 @@ restricted to @code{integer} or a @subtypeof{character}.
 
 
 @node streamp
-@heading streamp (Function)
+@subsection streamp (Function)
 @syindex streamp
 @cindex streamp
 
@@ -952,7 +952,7 @@ if it is a @term{stream}, is @term{open} or closed.
 
 
 @node read-byte
-@heading read-byte (Function)
+@subsection read-byte (Function)
 @syindex read-byte
 @cindex read-byte
 
@@ -1016,7 +1016,7 @@ and @param{eof-error-p} is @term{true}, an error @oftype{end-of-file} is signale
 
 
 @node write-byte
-@heading write-byte (Function)
+@subsection write-byte (Function)
 @syindex write-byte
 @cindex write-byte
 
@@ -1071,7 +1071,7 @@ an @term{integer} of the @term{stream element type} of @term{stream}.
 
 
 @node peek-char
-@heading peek-char (Function)
+@subsection peek-char (Function)
 @syindex peek-char
 @cindex peek-char
 
@@ -1172,7 +1172,7 @@ an error @oftype{end-of-file} is signaled.
 
 
 @node read-char
-@heading read-char (Function)
+@subsection read-char (Function)
 @syindex read-char
 @cindex read-char
 
@@ -1249,7 +1249,7 @@ The corresponding output function is @code{write-char}.
 
 
 @node read-char-no-hang
-@heading read-char-no-hang (Function)
+@subsection read-char-no-hang (Function)
 @syindex read-char-no-hang
 @cindex read-char-no-hang
 
@@ -1333,7 +1333,7 @@ from a keyboard), @nil{}@spc{}is immediately returned without waiting.
 
 
 @node terpri; fresh-line
-@heading terpri, fresh-line (Function)
+@subsection terpri, fresh-line (Function)
 @syindex terpri
 @cindex terpri
 @syindex fresh-line
@@ -1408,7 +1408,7 @@ None.
 
 
 @node unread-char
-@heading unread-char (Function)
+@subsection unread-char (Function)
 @syindex unread-char
 @cindex unread-char
 
@@ -1486,7 +1486,7 @@ in @param{input-stream}.
 
 
 @node write-char
-@heading write-char (Function)
+@subsection write-char (Function)
 @syindex write-char
 @cindex write-char
 
@@ -1536,7 +1536,7 @@ The @param{output-stream} is modified.
 
 
 @node read-line
-@heading read-line (Function)
+@subsection read-line (Function)
 @syindex read-line
 @cindex read-line
 
@@ -1620,7 +1620,7 @@ The corresponding output function is @code{write-line}.
 
 
 @node write-string; write-line
-@heading write-string, write-line (Function)
+@subsection write-string, write-line (Function)
 @syindex write-string
 @cindex write-string
 @syindex write-line
@@ -1697,7 +1697,7 @@ not the substring @term{bounded} by @param{start} and @param{end}.
 
 
 @node read-sequence
-@heading read-sequence (Function)
+@subsection read-sequence (Function)
 @syindex read-sequence
 @cindex read-sequence
 
@@ -1772,7 +1772,7 @@ for the case where the @param{sequence} is a @term{vector} with the same
 
 
 @node write-sequence
-@heading write-sequence (Function)
+@subsection write-sequence (Function)
 @syindex write-sequence
 @cindex write-sequence
 
@@ -1835,7 +1835,7 @@ is more likely to exist for the case where the @param{sequence} is a
 
 
 @node file-length
-@heading file-length (Function)
+@subsection file-length (Function)
 @syindex file-length
 @cindex file-length
 
@@ -1882,7 +1882,7 @@ the @term{element type} of the @param{stream}.
 
 
 @node file-position
-@heading file-position (Function)
+@subsection file-position (Function)
 @syindex file-position
 @cindex file-position
 
@@ -2002,7 +2002,7 @@ supplied record was too short for the specified character number.
 
 
 @node file-string-length
-@heading file-string-length (Function)
+@subsection file-string-length (Function)
 @syindex file-string-length
 @cindex file-string-length
 
@@ -2034,7 +2034,7 @@ when the state of the @term{stream} has changed.
 
 
 @node open
-@heading open (Function)
+@subsection open (Function)
 @syindex open
 @cindex open
 
@@ -2365,7 +2365,7 @@ the @term{type} can be determined by using @code{stream-element-type}.
 
 
 @node stream-external-format
-@heading stream-external-format (Function)
+@subsection stream-external-format (Function)
 @syindex stream-external-format
 @cindex stream-external-format
 
@@ -2409,7 +2409,7 @@ to other @term{implementations}.
 
 
 @node with-open-file
-@heading with-open-file (macro)
+@subsection with-open-file (macro)
 @syindex with-open-file
 @cindex with-open-file
 
@@ -2526,7 +2526,7 @@ See the @term{function} @ref{open}.
 
 
 @node close
-@heading close (Function)
+@subsection close (Function)
 @syindex close
 @cindex close
 
@@ -2604,7 +2604,7 @@ might be deleted.
 
 
 @node with-open-stream
-@heading with-open-stream (Macro)
+@subsection with-open-stream (Macro)
 @syindex with-open-stream
 @cindex with-open-stream
 
@@ -2662,7 +2662,7 @@ The @param{stream} is closed (upon exit).
 
 
 @node listen
-@heading listen (Function)
+@subsection listen (Function)
 @syindex listen
 @cindex listen
 
@@ -2712,7 +2712,7 @@ from an interactive device such as a keyboard.
 
 
 @node clear-input
-@heading clear-input (Function)
+@subsection clear-input (Function)
 @syindex clear-input
 @cindex clear-input
 
@@ -2788,7 +2788,7 @@ The @param{input-stream} is modified.
 
 
 @node finish-output; force-output; clear-output
-@heading finish-output, force-output, clear-output (Function)
+@subsection finish-output, force-output, clear-output (Function)
 @syindex finish-output
 @cindex finish-output
 @syindex force-output
@@ -2857,7 +2857,7 @@ The precise actions of these @term{functions} are @term{implementation-dependent
 
 
 @node y-or-n-p; yes-or-no-p
-@heading y-or-n-p, yes-or-no-p (Function)
+@subsection y-or-n-p, yes-or-no-p (Function)
 @syindex y-or-n-p
 @cindex y-or-n-p
 @syindex yes-or-no-p
@@ -2948,7 +2948,7 @@ punctuation should be explicitly included in the text query.
 
 
 @node make-synonym-stream
-@heading make-synonym-stream (Function)
+@subsection make-synonym-stream (Function)
 @syindex make-synonym-stream
 @cindex make-synonym-stream
 
@@ -2994,7 +2994,7 @@ Should signal @code{type-error} if its argument is not a @term{symbol}.
 
 
 @node synonym-stream-symbol
-@heading synonym-stream-symbol (Function)
+@subsection synonym-stream-symbol (Function)
 @syindex synonym-stream-symbol
 @cindex synonym-stream-symbol
 
@@ -3021,7 +3021,7 @@ Returns the @term{symbol} whose @code{symbol-value} the @param{synonym-stream} i
 
 
 @node broadcast-stream-streams
-@heading broadcast-stream-streams (Function)
+@subsection broadcast-stream-streams (Function)
 @syindex broadcast-stream-streams
 @cindex broadcast-stream-streams
 
@@ -3045,7 +3045,7 @@ all the @term{streams} to which the @param{broadcast-stream} is broadcasting.
 
 
 @node make-broadcast-stream
-@heading make-broadcast-stream (Function)
+@subsection make-broadcast-stream (Function)
 @syindex make-broadcast-stream
 @cindex make-broadcast-stream
 
@@ -3087,7 +3087,7 @@ Returns a @term{broadcast stream}.
 
 
 @node make-two-way-stream
-@heading make-two-way-stream (Function)
+@subsection make-two-way-stream (Function)
 @syindex make-two-way-stream
 @cindex make-two-way-stream
 
@@ -3129,7 +3129,7 @@ and  sends its output to   @param{output-stream}.
 
 
 @node two-way-stream-input-stream; two-way-stream-output-stream
-@heading two-way-stream-input-stream, two-way-stream-output-stream (Function)
+@subsection two-way-stream-input-stream, two-way-stream-output-stream (Function)
 @syindex two-way-stream-input-stream
 @cindex two-way-stream-input-stream
 @syindex two-way-stream-output-stream
@@ -3163,7 +3163,7 @@ to which @param{two-way-stream} sends output.
 
 
 @node echo-stream-input-stream; echo-stream-output-stream
-@heading echo-stream-input-stream, echo-stream-output-stream (Function)
+@subsection echo-stream-input-stream, echo-stream-output-stream (Function)
 @syindex echo-stream-input-stream
 @cindex echo-stream-input-stream
 @syindex echo-stream-output-stream
@@ -3197,7 +3197,7 @@ to which @param{echo-stream} sends output.
 
 
 @node make-echo-stream
-@heading make-echo-stream (Function)
+@subsection make-echo-stream (Function)
 @syindex make-echo-stream
 @cindex make-echo-stream
 
@@ -3244,7 +3244,7 @@ and  sends output to   @param{output-stream}.
 
 
 @node concatenated-stream-streams
-@heading concatenated-stream-streams (Function)
+@subsection concatenated-stream-streams (Function)
 @syindex concatenated-stream-streams
 @cindex concatenated-stream-streams
 
@@ -3273,7 +3273,7 @@ is ever modified.
 
 
 @node make-concatenated-stream
-@heading make-concatenated-stream (Function)
+@subsection make-concatenated-stream (Function)
 @syindex make-concatenated-stream
 @cindex make-concatenated-stream
 
@@ -3313,7 +3313,7 @@ Should signal @code{type-error} if any argument is not an @term{input} @term{str
 
 
 @node get-output-stream-string
-@heading get-output-stream-string (Function)
+@subsection get-output-stream-string (Function)
 @syindex get-output-stream-string
 @cindex get-output-stream-string
 
@@ -3368,7 +3368,7 @@ created implicitly by @code{with-output-to-string} or @code{format}.
 
 
 @node make-string-input-stream
-@heading make-string-input-stream (Function)
+@subsection make-string-input-stream (Function)
 @syindex make-string-input-stream
 @cindex make-string-input-stream
 
@@ -3413,7 +3413,7 @@ the @term{string stream} will then be at @term{end of file}.
 
 
 @node make-string-output-stream
-@heading make-string-output-stream (Function)
+@subsection make-string-output-stream (Function)
 @syindex make-string-output-stream
 @cindex make-string-output-stream
 
@@ -3459,7 +3459,7 @@ of the @term{string}; a @term{string} is constructed of the most specialized
 
 
 @node with-input-from-string
-@heading with-input-from-string (Macro)
+@subsection with-input-from-string (Macro)
 @syindex with-input-from-string
 @cindex with-input-from-string
 
@@ -3548,7 +3548,7 @@ The @term{value} of the @term{place} named by @param{index}, if any, is modified
 
 
 @node with-output-to-string
-@heading with-output-to-string (Macro)
+@subsection with-output-to-string (Macro)
 @syindex with-output-to-string
 @cindex with-output-to-string
 
@@ -3641,7 +3641,7 @@ directly on the @param{string} during the @term{dynamic extent} of the call.
 
 
 @node *debug-io*; *error-output*; *query-io*; *standard-input*; *standard-out+
-@heading *debug-io*, *error-output*, *query-io*, *standard-input*, *standard-output*, *trace-output* (Variable)
+@subsection *debug-io*, *error-output*, *query-io*, *standard-input*, *standard-output*, *trace-output* (Variable)
 @syindex *debug-io*
 @cindex *debug-io*
 @syindex *error-output*
@@ -3800,7 +3800,7 @@ which is usually what is desired.
 
 
 @node *terminal-io*
-@heading *terminal-io* (Variable)
+@subsection *terminal-io* (Variable)
 @syindex *terminal-io*
 @cindex *terminal-io*
 
@@ -3860,7 +3860,7 @@ is @term{implementation-defined}.
 
 
 @node stream-error
-@heading stream-error (Condition Type)
+@subsection stream-error (Condition Type)
 @syindex stream-error
 @cindex stream-error
 
@@ -3887,7 +3887,7 @@ and is @term{accessed} by @thefunction{stream-error-stream}.
 
 
 @node stream-error-stream
-@heading stream-error-stream (Function)
+@subsection stream-error-stream (Function)
 @syindex stream-error-stream
 @cindex stream-error-stream
 
@@ -3923,7 +3923,7 @@ Returns the offending @term{stream} of a @term{condition} @oftype{stream-error}.
 
 
 @node end-of-file
-@heading end-of-file (Condition Type)
+@subsection end-of-file (Condition Type)
 @syindex end-of-file
 @cindex end-of-file
 

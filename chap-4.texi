@@ -1231,7 +1231,7 @@ class named @code{t}.
 
 
 @node nil (Type)
-@heading nil (Type)
+@subsection nil (Type)
 @syindex nil
 @cindex nil
 
@@ -1253,7 +1253,7 @@ not @thetype{nil}.
 
 
 @node boolean
-@heading boolean (Type)
+@subsection boolean (Type)
 @syindex boolean
 @cindex boolean
 
@@ -1291,7 +1291,7 @@ even for a @term{generalized boolean} when no better choice presents itself.
 
 
 @node function (System Class)
-@heading function (System Class)
+@subsection function (System Class)
 @syindex function
 @cindex function
 
@@ -1461,7 +1461,7 @@ they are both @tt{function} declarations, the declarations combine similarly.
 
 
 @node compiled-function
-@heading compiled-function (Type)
+@subsection compiled-function (Type)
 @syindex compiled-function
 @cindex compiled-function
 
@@ -1490,7 +1490,7 @@ Other @term{functions} might also be @oftype{compiled-function}.
 
 
 @node generic-function
-@heading generic-function (System Class)
+@subsection generic-function (System Class)
 @syindex generic-function
 @cindex generic-function
 
@@ -1520,7 +1520,7 @@ and can be given a global or a local name.
 
 
 @node standard-generic-function
-@heading standard-generic-function (System Class)
+@subsection standard-generic-function (System Class)
 @syindex standard-generic-function
 @cindex standard-generic-function
 
@@ -1543,7 +1543,7 @@ and
 
 
 @node class
-@heading class (System Class)
+@subsection class (System Class)
 @syindex class
 @cindex class
 
@@ -1562,7 +1562,7 @@ directed acyclic graph of @term{classes}, its @term{slots}, and its options.
 
 
 @node built-in-class
-@heading built-in-class (System Class)
+@subsection built-in-class (System Class)
 @syindex built-in-class
 @cindex built-in-class
 
@@ -1591,7 +1591,7 @@ in @term{methods}.
 
 
 @node structure-class
-@heading structure-class (System Class)
+@subsection structure-class (System Class)
 @syindex structure-class
 @cindex structure-class
 
@@ -1610,7 +1610,7 @@ are @instsofclass{structure-class}.
 
 
 @node standard-class
-@heading standard-class (System Class)
+@subsection standard-class (System Class)
 @syindex standard-class
 @cindex standard-class
 
@@ -1628,7 +1628,7 @@ defined by @code{defclass}.
 
 
 @node method
-@heading method (System Class)
+@subsection method (System Class)
 @syindex method
 @cindex method
 
@@ -1663,7 +1663,7 @@ method combination.
 
 
 @node standard-method
-@heading standard-method (System Class)
+@subsection standard-method (System Class)
 @syindex standard-method
 @cindex standard-method
 
@@ -1683,7 +1683,7 @@ method combination.
 
 
 @node structure-object
-@heading structure-object (Class)
+@subsection structure-object (Class)
 @syindex structure-object
 @cindex structure-object
 
@@ -1710,7 +1710,7 @@ that is defined by @code{defstruct}.
 
 
 @node standard-object
-@heading standard-object (Class)
+@subsection standard-object (Class)
 @syindex standard-object
 @cindex standard-object
 
@@ -1727,7 +1727,7 @@ and is a @term{superclass} of every @term{class} that is an @term{instance} of
 
 
 @node method-combination
-@heading method-combination (System Class)
+@subsection method-combination (System Class)
 @syindex method-combination
 @cindex method-combination
 
@@ -1748,7 +1748,7 @@ with that @term{type}.
 
 
 @node t (System Class)
-@heading t (System Class)
+@subsection t (System Class)
 @syindex t
 @cindex t
 
@@ -1764,7 +1764,7 @@ including itself. Every @term{object} is @oftype{t}.
 
 
 @node satisfies
-@heading satisfies (Type Specifier)
+@subsection satisfies (Type Specifier)
 @syindex satisfies
 @cindex satisfies
 
@@ -1802,7 +1802,7 @@ The symbol @code{satisfies} is not valid as a @term{type specifier}.
 
 
 @node member (Type Specifier)
-@heading member (Type Specifier)
+@subsection member (Type Specifier)
 @syindex member
 @cindex member
 
@@ -1838,7 +1838,7 @@ and, specifically, it is not an abbreviation for either @f{(member)} or @f{(memb
 
 
 @node not (Type Specifier)
-@heading not (Type Specifier)
+@subsection not (Type Specifier)
 @syindex not
 @cindex not
 
@@ -1865,7 +1865,7 @@ The symbol @code{not} is not valid as a @term{type specifier}.
 
 
 @node and (Type Specifier)
-@heading and (Type Specifier)
+@subsection and (Type Specifier)
 @syindex and
 @cindex and
 
@@ -1895,7 +1895,7 @@ and, specifically, it is not an abbreviation for @f{(and)}.
 
 
 @node or (Type Specifier)
-@heading or (Type Specifier)
+@subsection or (Type Specifier)
 @syindex or
 @cindex or
 
@@ -1928,7 +1928,7 @@ and, specifically, it is not an abbreviation for @f{(or)}.
 
 
 @node values (Type Specifier)
-@heading values (Type Specifier)
+@subsection values (Type Specifier)
 @syindex values
 @cindex values
 
@@ -1967,7 +1967,7 @@ and, specifically, it is not an abbreviation for @f{(values)}.
 
 
 @node eql (Type Specifier)
-@heading eql (Type Specifier)
+@subsection eql (Type Specifier)
 @syindex eql
 @cindex eql
 
@@ -1996,7 +1996,7 @@ The @term{symbol} @t{eql} is not valid as an @term{atomic type specifier}.
 
 
 @node coerce
-@heading coerce (Function)
+@subsection coerce (Function)
 @syindex coerce
 @cindex coerce
 
@@ -2172,7 +2172,7 @@ are not provided because of rounding problems.
 
 
 @node deftype
-@heading deftype (Macro)
+@subsection deftype (Macro)
 @syindex deftype
 @cindex deftype
 
@@ -2272,7 +2272,7 @@ this @term{type} in declarations and/or signal a warning.
 
 
 @node subtypep
-@heading subtypep (Function)
+@subsection subtypep (Function)
 @syindex subtypep
 @cindex subtypep
 
@@ -2525,7 +2525,7 @@ as well as @term{type} @code{float}.
 
 
 @node type-of
-@heading type-of (Function)
+@subsection type-of (Function)
 @syindex type-of
 @cindex type-of
 
@@ -2662,7 +2662,7 @@ a portable value.
 
 
 @node typep
-@heading typep (Function)
+@subsection typep (Function)
 @syindex typep
 @cindex typep
 
@@ -2795,7 +2795,7 @@ of @code{deftype} information at runtime.
 
 
 @node type-error
-@heading type-error (Condition Type)
+@subsection type-error (Condition Type)
 @syindex type-error
 @cindex type-error
 
@@ -2821,7 +2821,7 @@ and are @term{accessed} by the functions
 
 
 @node type-error-datum; type-error-expected-type
-@heading type-error-datum, type-error-expected-type (Function)
+@subsection type-error-datum, type-error-expected-type (Function)
 @syindex type-error-datum
 @cindex type-error-datum
 @syindex type-error-expected-type
@@ -2879,7 +2879,7 @@ offending datum in the @term{situation} represented by the @param{condition}.
 
 
 @node simple-type-error
-@heading simple-type-error (Condition Type)
+@subsection simple-type-error (Condition Type)
 @syindex simple-type-error
 @cindex simple-type-error
 

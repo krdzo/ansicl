@@ -50,7 +50,7 @@ for which the @term{element type} of the @term{string} does not include that @te
 
 
 @node string (System Class)
-@heading string (System Class)
+@subsection string (System Class)
 @syindex string
 @cindex string
 
@@ -97,7 +97,7 @@ that is, the set of @term{strings} of size @param{size}.
 @ref{PrintingStrings, Section 22.1.3.4 (Printing Strings)}
 
 @node base-string
-@heading base-string (Type)
+@subsection base-string (Type)
 @syindex base-string
 @cindex base-string
 
@@ -139,7 +139,7 @@ This is equivalent to the type @f{(vector base-char @param{size})};
 that is, the set of @term{base strings} of size @param{size}.
 
 @node simple-string
-@heading simple-string (Type)
+@subsection simple-string (Type)
 @syindex simple-string
 @cindex simple-string
 
@@ -181,7 +181,7 @@ This denotes the union of all @term{types}
 @code{character}; that is, the set of @term{simple strings} of size @param{size}.
 
 @node simple-base-string
-@heading simple-base-string (Type)
+@subsection simple-base-string (Type)
 @syindex simple-base-string
 @cindex simple-base-string
 
@@ -223,7 +223,7 @@ that is, the set of @term{simple base strings} of size @param{size}.
 
 
 @node simple-string-p
-@heading simple-string-p (Function)
+@subsection simple-string-p (Function)
 @syindex simple-string-p
 @cindex simple-string-p
 
@@ -259,7 +259,7 @@ that is, the set of @term{simple base strings} of size @param{size}.
 
 
 @node char; schar
-@heading char, schar (Accessor)
+@subsection char, schar (Accessor)
 @syindex char
 @cindex char
 @syindex schar
@@ -328,7 +328,7 @@ specified by @param{index}.
 
 
 @node string (Function)
-@heading string (Function)
+@subsection string (Function)
 @syindex string
 @cindex string
 
@@ -389,7 +389,7 @@ or @code{format} (with a first argument of @nil{}) can be used to get a
 
 
 @node string-upcase; string-downcase; string-capitalize; nstring-upcase; nstr+
-@heading string-upcase, string-downcase, string-capitalize, nstring-upcase, nstring-downcase, nstring-capitalize (Function)
+@subsection string-upcase, string-downcase, string-capitalize, nstring-upcase, nstring-downcase, nstring-capitalize (Function)
 @syindex string-upcase
 @cindex string-upcase
 @syindex string-downcase
@@ -524,7 +524,7 @@ as @param{string}.
 
 
 @node string-trim; string-left-trim; string-right-trim
-@heading string-trim, string-left-trim, string-right-trim (Function)
+@subsection string-trim, string-left-trim, string-right-trim (Function)
 @syindex string-trim
 @cindex string-trim
 @syindex string-left-trim
@@ -582,7 +582,7 @@ The @term{implementation}.
 
 
 @node string=; string/=; string<; string>; string<=; string>=; string-equal; +
-@heading string=, string/=, string<, string>, string<=, string>=, string-equal, string-not-equal, string-lessp, string-greaterp, string-not-greaterp, string-not-lessp (Function)
+@subsection string=, string/=, string<, string>, string<=, string>=, string-equal, string-not-equal, string-lessp, string-greaterp, string-not-greaterp, string-not-lessp (Function)
 @syindex string=
 @cindex string=
 @syindex string/=
@@ -775,7 +775,7 @@ for comparing characters.
 
 
 @node stringp
-@heading stringp (Function)
+@subsection stringp (Function)
 @syindex stringp
 @cindex stringp
 
@@ -816,7 +816,7 @@ for comparing characters.
 
 
 @node make-string
-@heading make-string (Function)
+@subsection make-string (Function)
 @syindex make-string
 @cindex make-string
 

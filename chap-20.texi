@@ -179,7 +179,7 @@ where all files have numeric versions.
 
 
 @node directory
-@heading directory (Function)
+@subsection directory (Function)
 @syindex directory
 @cindex directory
 
@@ -240,7 +240,7 @@ by the @term{implementation}.
 
 
 @node probe-file
-@heading probe-file (Function)
+@subsection probe-file (Function)
 @syindex probe-file
 @cindex probe-file
 
@@ -291,7 +291,7 @@ if the @term{file system} cannot perform the requested operation.
 
 
 @node ensure-directories-exist
-@heading ensure-directories-exist (Function)
+@subsection ensure-directories-exist (Function)
 @syindex ensure-directories-exist
 @cindex ensure-directories-exist
 
@@ -348,7 +348,7 @@ within the @term{file system}.
 
 
 @node truename
-@heading truename (Function)
+@subsection truename (Function)
 @syindex truename
 @cindex truename
 
@@ -430,7 +430,7 @@ performed by the @term{file system}.
 
 
 @node file-author
-@heading file-author (Function)
+@subsection file-author (Function)
 @syindex file-author
 @cindex file-author
 
@@ -479,7 +479,7 @@ if the @term{file system} cannot perform the requested operation.
 
 
 @node file-write-date
-@heading file-write-date (Function)
+@subsection file-write-date (Function)
 @syindex file-write-date
 @cindex file-write-date
 
@@ -534,7 +534,7 @@ if the @term{file system} cannot perform the requested operation.
 
 
 @node rename-file
-@heading rename-file (Function)
+@subsection rename-file (Function)
 @syindex rename-file
 @cindex rename-file
 
@@ -617,7 +617,7 @@ An error @oftype{file-error} might be signaled if @param{filespec} is @term{wild
 
 
 @node delete-file
-@heading delete-file (Function)
+@subsection delete-file (Function)
 @syindex delete-file
 @cindex delete-file
 
@@ -682,7 +682,7 @@ An error @oftype{file-error} might be signaled if @param{filespec} is @term{wild
 
 
 @node file-error
-@heading file-error (Condition Type)
+@subsection file-error (Condition Type)
 @syindex file-error
 @cindex file-error
 
@@ -712,7 +712,7 @@ by @thefunction{file-error-pathname}.
 
 
 @node file-error-pathname
-@heading file-error-pathname (Function)
+@subsection file-error-pathname (Function)
 @syindex file-error-pathname
 @cindex file-error-pathname
 

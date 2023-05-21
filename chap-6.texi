@@ -2107,7 +2107,7 @@ extensions to @code{loop}.
 
 
 @node do; do*
-@heading do, do* (Macro)
+@subsection do, do* (Macro)
 @syindex do
 @cindex do
 @syindex do*
@@ -2375,7 +2375,7 @@ the @code{let} and @code{psetq}, respectively.
 
 
 @node dotimes
-@heading dotimes (Macro)
+@subsection dotimes (Macro)
 @syindex dotimes
 @cindex dotimes
 
@@ -2497,7 +2497,7 @@ Here is an example of the use of @f{dotimes} in processing strings:
 
 
 @node dolist
-@heading dolist (Macro)
+@subsection dolist (Macro)
 @syindex dolist
 @cindex dolist
 
@@ -2590,7 +2590,7 @@ to transfer control to a statement labeled by a @param{tag}.
 
 
 @node loop
-@heading loop (Macro)
+@subsection loop (Macro)
 @syindex loop
 @cindex loop
 
@@ -2731,7 +2731,7 @@ in the following way:
 
 
 @node loop-finish
-@heading loop-finish (Local Macro)
+@subsection loop-finish (Local Macro)
 @syindex loop-finish
 @cindex loop-finish
 

@@ -547,7 +547,7 @@ and external encoding schemes supported are documented.
 
 
 @node character (System Class)
-@heading character (System Class)
+@subsection character (System Class)
 @syindex character
 @cindex character
 
@@ -572,7 +572,7 @@ form an @term{exhaustive partition} of @thetype{character}.
 @ref{PrintingCharacters, Section 22.1.3.2 (Printing Characters)}
 
 @node base-char
-@heading base-char (Type)
+@subsection base-char (Type)
 @syindex base-char
 @cindex base-char
 
@@ -631,7 +631,7 @@ having 8-bit encodings.  In such an implementation,
 
 
 @node standard-char
-@heading standard-char (Type)
+@subsection standard-char (Type)
 @syindex standard-char
 @cindex standard-char
 
@@ -658,7 +658,7 @@ Any @term{character} that is not @term{simple} is not a @term{standard character
 @ref{Standard Characters, Section 2.1.3 (Standard Characters)}
 
 @node extended-char
-@heading extended-char (Type)
+@subsection extended-char (Type)
 @syindex extended-char
 @cindex extended-char
 
@@ -683,7 +683,7 @@ in @term{implementations} in which all @term{characters} are @oftype{base-char}.
 
 
 @node char=; char/=; char<; char>; char<=; char>=; char-equal; char-not-equal+
-@heading char=, char/=, char<, char>, char<=, char>=, char-equal, char-not-equal, char-lessp, char-greaterp, char-not-greaterp, char-not-lessp (Function)
+@subsection char=, char/=, char<, char>, char<=, char>=, char-equal, char-not-equal, char-lessp, char-greaterp, char-not-greaterp, char-not-lessp (Function)
 @syindex char=
 @cindex char=
 @syindex char/=
@@ -889,7 +889,7 @@ implies an ordering for @term{standard characters} such that
 
 
 @node character (Function)
-@heading character (Function)
+@subsection character (Function)
 @syindex character
 @cindex character
 
@@ -937,7 +937,7 @@ Returns the @term{character} denoted by the @param{character} @term{designator}.
 
 
 @node characterp
-@heading characterp (Function)
+@subsection characterp (Function)
 @syindex characterp
 @cindex characterp
 
@@ -983,7 +983,7 @@ Returns the @term{character} denoted by the @param{character} @term{designator}.
 
 
 @node alpha-char-p
-@heading alpha-char-p (Function)
+@subsection alpha-char-p (Function)
 @syindex alpha-char-p
 @cindex alpha-char-p
 
@@ -1031,7 +1031,7 @@ of any special syntax which might have been enabled in the @term{current readtab
 
 
 @node alphanumericp
-@heading alphanumericp (Function)
+@subsection alphanumericp (Function)
 @syindex alphanumericp
 @cindex alphanumericp
 
@@ -1090,7 +1090,7 @@ and @f{0} through @f{9} are alphanumeric characters.
 
 
 @node digit-char
-@heading digit-char (Function)
+@subsection digit-char (Function)
 @syindex digit-char
 @cindex digit-char
 
@@ -1145,7 +1145,7 @@ If @param{weight} is greater than or equal to @param{radix},
 
 
 @node digit-char-p
-@heading digit-char-p (Function)
+@subsection digit-char-p (Function)
 @syindex digit-char-p
 @cindex digit-char-p
 
@@ -1209,7 +1209,7 @@ Digits are @term{graphic} @term{characters}.
 
 
 @node graphic-char-p
-@heading graphic-char-p (Function)
+@subsection graphic-char-p (Function)
 @syindex graphic-char-p
 @cindex graphic-char-p
 
@@ -1250,7 +1250,7 @@ Digits are @term{graphic} @term{characters}.
 
 
 @node standard-char-p
-@heading standard-char-p (Function)
+@subsection standard-char-p (Function)
 @syindex standard-char-p
 @cindex standard-char-p
 
@@ -1286,7 +1286,7 @@ Digits are @term{graphic} @term{characters}.
 
 
 @node char-upcase; char-downcase
-@heading char-upcase, char-downcase (Function)
+@subsection char-upcase, char-downcase (Function)
 @syindex char-upcase
 @cindex char-upcase
 @syindex char-downcase
@@ -1367,7 +1367,7 @@ under @code{char-equal}.
 
 
 @node upper-case-p; lower-case-p; both-case-p
-@heading upper-case-p, lower-case-p, both-case-p (Function)
+@subsection upper-case-p, lower-case-p, both-case-p (Function)
 @syindex upper-case-p
 @cindex upper-case-p
 @syindex lower-case-p
@@ -1428,7 +1428,7 @@ These functions test the case of a given @param{character}.
 
 
 @node char-code
-@heading char-code (Function)
+@subsection char-code (Function)
 @syindex char-code
 @cindex char-code
 
@@ -1467,7 +1467,7 @@ These functions test the case of a given @param{character}.
 
 
 @node char-int
-@heading char-int (Function)
+@subsection char-int (Function)
 @syindex char-int
 @cindex char-int
 
@@ -1513,7 +1513,7 @@ for characters @i{c1} and @i{c2}.
 
 
 @node code-char
-@heading code-char (Function)
+@subsection code-char (Function)
 @syindex code-char
 @cindex code-char
 
@@ -1555,7 +1555,7 @@ The @term{implementation}'s character encoding.
 
 
 @node char-code-limit
-@heading char-code-limit (Constant Variable)
+@subsection char-code-limit (Constant Variable)
 @syindex char-code-limit
 @cindex char-code-limit
 
@@ -1582,7 +1582,7 @@ number of @term{characters} supported by the @term{implementation}.
 
 
 @node char-name
-@heading char-name (Function)
+@subsection char-name (Function)
 @syindex char-name
 @cindex char-name
 
@@ -1659,7 +1659,7 @@ as ``@f{#@bsl{}}'' followed by the their @term{name}; see @ref{PrintingCharacter
 
 
 @node name-char
-@heading name-char (Function)
+@subsection name-char (Function)
 @syindex name-char
 @cindex name-char
 

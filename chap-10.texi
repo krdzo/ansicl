@@ -64,7 +64,7 @@ to the creation of and inquiry about @term{symbols}.
 
 
 @node symbol
-@heading symbol (System Class)
+@subsection symbol (System Class)
 @syindex symbol
 @cindex symbol
 
@@ -205,7 +205,7 @@ on a lexical @term{function} definition.
 
 
 @node keyword
-@heading keyword (Type)
+@subsection keyword (Type)
 @syindex keyword
 @cindex keyword
 
@@ -237,7 +237,7 @@ of the @code{KEYWORD} @term{package}.
 
 
 @node symbolp
-@heading symbolp (Function)
+@subsection symbolp (Function)
 @syindex symbolp
 @cindex symbolp
 
@@ -283,7 +283,7 @@ of the @code{KEYWORD} @term{package}.
 
 
 @node keywordp
-@heading keywordp (Function)
+@subsection keywordp (Function)
 @syindex keywordp
 @cindex keywordp
 
@@ -327,7 +327,7 @@ of the @code{KEYWORD} @term{package}.
 
 
 @node make-symbol
-@heading make-symbol (Function)
+@subsection make-symbol (Function)
 @syindex make-symbol
 @cindex make-symbol
 
@@ -386,7 +386,7 @@ and the program interface to interning symbols is case-sensitive.
 
 
 @node copy-symbol
-@heading copy-symbol (Function)
+@subsection copy-symbol (Function)
 @syindex copy-symbol
 @cindex copy-symbol
 
@@ -467,7 +467,7 @@ be @term{identical} to the given @param{symbol}'s @term{name}.
 
 
 @node gensym
-@heading gensym (Function)
+@subsection gensym (Function)
 @syindex gensym
 @cindex gensym
 
@@ -548,7 +548,7 @@ of the @param{new-symbol}'s @term{name}, consider using @code{make-symbol} inste
 
 
 @node *gensym-counter*
-@heading *gensym-counter* (Variable)
+@subsection *gensym-counter* (Variable)
 @syindex *gensym-counter*
 @cindex *gensym-counter*
 
@@ -583,7 +583,7 @@ The ability to pass a numeric argument to @code{gensym} has been deprecated;
 explicitly @term{binding} @code{*gensym-counter*} is now stylistically preferred.
 
 @node gentemp
-@heading gentemp (Function)
+@subsection gentemp (Function)
 @syindex gentemp
 @cindex gentemp
 
@@ -678,7 +678,7 @@ another day for some other purpose.
 
 
 @node symbol-function
-@heading symbol-function (Accessor)
+@subsection symbol-function (Accessor)
 @syindex symbol-function
 @cindex symbol-function
 
@@ -782,7 +782,7 @@ However, @code{fdefinition} accepts arguments other than just @term{symbols}.
 
 
 @node symbol-name
-@heading symbol-name (Function)
+@subsection symbol-name (Function)
 @syindex symbol-name
 @cindex symbol-name
 
@@ -817,7 +817,7 @@ The consequences are undefined if @param{name} is ever modified.
 
 
 @node symbol-package
-@heading symbol-package (Function)
+@subsection symbol-package (Function)
 @syindex symbol-package
 @cindex symbol-package
 
@@ -881,7 +881,7 @@ Returns the @term{home package} of @param{symbol}.
 
 
 @node symbol-plist
-@heading symbol-plist (Accessor)
+@subsection symbol-plist (Accessor)
 @syindex symbol-plist
 @cindex symbol-plist
 
@@ -932,7 +932,7 @@ established and depended upon by unrelated programs in the same @term{Lisp image
 
 
 @node symbol-value
-@heading symbol-value (Accessor)
+@subsection symbol-value (Accessor)
 @syindex symbol-value
 @cindex symbol-value
 
@@ -1012,7 +1012,7 @@ on an attempt to @term{write} its @term{value}.)
 
 
 @node get
-@heading get (Accessor)
+@subsection get (Accessor)
 @syindex get
 @cindex get
 
@@ -1121,7 +1121,7 @@ one whose value is @param{default}.  However, see @code{get-properties}.
 
 
 @node remprop
-@heading remprop (Function)
+@subsection remprop (Function)
 @syindex remprop
 @cindex remprop
 
@@ -1213,7 +1213,7 @@ establish the @term{property}.
 
 
 @node boundp
-@heading boundp (Function)
+@subsection boundp (Function)
 @syindex boundp
 @cindex boundp
 
@@ -1263,7 +1263,7 @@ are ignored.
 
 
 @node makunbound
-@heading makunbound (Function)
+@subsection makunbound (Function)
 @syindex makunbound
 @cindex makunbound
 
@@ -1306,7 +1306,7 @@ The @term{value cell} of @param{symbol} is modified.
 
 
 @node set
-@heading set (Function)
+@subsection set (Function)
 @syindex set
 @cindex set
 
@@ -1385,7 +1385,7 @@ The function @code{set} is deprecated.
 
 
 @node unbound-variable
-@heading unbound-variable (Condition Type)
+@subsection unbound-variable (Condition Type)
 @syindex unbound-variable
 @cindex unbound-variable
 

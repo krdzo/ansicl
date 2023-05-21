@@ -223,7 +223,7 @@ if that @term{list} is @term{circular}.
 
 
 @node list (System Class)
-@heading list (System Class)
+@subsection list (System Class)
 @syindex list
 @cindex list
 
@@ -266,7 +266,7 @@ of the @term{type} @code{list}.
 
 
 @node null (System Class)
-@heading null (System Class)
+@subsection null (System Class)
 @syindex null
 @cindex null
 
@@ -290,7 +290,7 @@ which represents the @term{empty list} and can also be notated @empty{}.
 @ref{PrintingSymbols, Section 22.1.3.3 (Printing Symbols)}
 
 @node cons (System Class)
-@heading cons (System Class)
+@subsection cons (System Class)
 @syindex cons
 @cindex cons
 
@@ -341,7 +341,7 @@ it is as if @thetype{t} had been denoted.)
 @ref{PrintingListsAndConses, Section 22.1.3.5 (Printing Lists and Conses)}
 
 @node atom (Type)
-@heading atom (Type)
+@subsection atom (Type)
 @syindex atom
 @cindex atom
 
@@ -357,7 +357,7 @@ It is equivalent to @tt{(not cons)}.
 
 
 @node cons (Function)
-@heading cons (Function)
+@subsection cons (Function)
 @syindex cons
 @cindex cons
 
@@ -402,7 +402,7 @@ If @param{object-2} is a @term{list}, @code{cons} can be thought of as
 producing a new @term{list} which is like it but has @param{object-1} prepended.
 
 @node consp
-@heading consp (Function)
+@subsection consp (Function)
 @syindex consp
 @cindex consp
 
@@ -448,7 +448,7 @@ The @term{empty list} is not a @term{cons}, so
 
 
 @node atom (Function)
-@heading atom (Function)
+@subsection atom (Function)
 @syindex atom
 @cindex atom
 
@@ -487,7 +487,7 @@ The @term{empty list} is not a @term{cons}, so
 
 
 @node rplaca; rplacd
-@heading rplaca, rplacd (Function)
+@subsection rplaca, rplacd (Function)
 @syindex rplaca
 @cindex rplaca
 @syindex rplacd
@@ -542,7 +542,7 @@ The @param{cons} is modified.
 
 
 @node car; cdr; caar; cadr; cdar; cddr; caaar; caadr; cadar; caddr; cdaar; cd+
-@heading car, cdr, caar, cadr, cdar, cddr, caaar, caadr, cadar, caddr, cdaar, cdadr, cddar, cdddr, caaaar, caaadr, caadar, caaddr, cadaar, cadadr, caddar, cadddr, cdaaar, cdaadr, cdadar, cdaddr, cddaar, cddadr, cdddar, cddddr (Accessor)
+@subsection car, cdr, caar, cadr, cdar, cddr, caaar, caadr, cadar, caddr, cdaar, cdadr, cddar, cdddr, caaaar, caaadr, caadar, caaddr, cadaar, cadadr, caddar, cadddr, cdaaar, cdaadr, cdadar, cdaddr, cddaar, cddadr, cdddar, cddddr (Accessor)
 @syindex car
 @cindex car
 @syindex cdr
@@ -772,7 +772,7 @@ and the @term{cdr} of a @term{cons} can be altered by using @code{rplacd}.
 
 
 @node copy-tree
-@heading copy-tree (Function)
+@subsection copy-tree (Function)
 @syindex copy-tree
 @cindex copy-tree
 
@@ -832,7 +832,7 @@ are copied recursively, stopping only when non-@term{conses} are encountered.
 
 
 @node sublis; nsublis
-@heading sublis, nsublis (Function)
+@subsection sublis, nsublis (Function)
 @syindex sublis
 @cindex sublis
 @syindex nsublis
@@ -953,7 +953,7 @@ some implementations:
 
 
 @node subst; subst-if; subst-if-not; nsubst; nsubst-if; nsubst-if-not
-@heading subst, subst-if, subst-if-not, nsubst, nsubst-if, nsubst-if-not (Function)
+@subsection subst, subst-if, subst-if-not, nsubst, nsubst-if, nsubst-if-not (Function)
 @syindex subst
 @cindex subst
 @syindex subst-if
@@ -1107,7 +1107,7 @@ One possible definition of @code{subst}:
 
 
 @node tree-equal
-@heading tree-equal (Function)
+@subsection tree-equal (Function)
 @syindex tree-equal
 @cindex tree-equal
 
@@ -1184,7 +1184,7 @@ The @kwd{test-not} parameter is deprecated.
 
 
 @node copy-list
-@heading copy-list (Function)
+@subsection copy-list (Function)
 @syindex copy-list
 @cindex copy-list
 
@@ -1244,7 +1244,7 @@ The copy created is @code{equal} to @param{list}, but not @code{eq}.
 
 
 @node list; list*
-@heading list, list* (Function)
+@subsection list, list* (Function)
 @syindex list
 @cindex list
 @syindex list*
@@ -1317,7 +1317,7 @@ that @param{object} is returned, regardless of whether or not it is a @term{list
 
 
 @node list-length
-@heading list-length (Function)
+@subsection list-length (Function)
 @syindex list-length
 @cindex list-length
 
@@ -1387,7 +1387,7 @@ Returns @nil{}@spc{}if @param{list} is a @term{circular list}.
 
 
 @node listp
-@heading listp (Function)
+@subsection listp (Function)
 @syindex listp
 @cindex listp
 
@@ -1432,7 +1432,7 @@ it returns @term{true} for any kind of @term{list}.
 
 
 @node make-list
-@heading make-list (Function)
+@subsection make-list (Function)
 @syindex make-list
 @cindex make-list
 
@@ -1476,7 +1476,7 @@ each of the @term{elements} of which is @param{initial-element}.
 
 
 @node push
-@heading push (Macro)
+@subsection push (Macro)
 @syindex push
 @cindex push
 
@@ -1539,7 +1539,7 @@ before @param{place}.
 
 
 @node pop
-@heading pop (Macro)
+@subsection pop (Macro)
 @syindex pop
 @cindex pop
 
@@ -1600,7 +1600,7 @@ three times, while @code{pop} evaluates them only once.
 
 
 @node first; second; third; fourth; fifth; sixth; seventh; eighth; ninth; ten+
-@heading first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth (Accessor)
+@subsection first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth (Accessor)
 @syindex first
 @cindex first
 @syindex second
@@ -1722,7 +1722,7 @@ as opposed to the zero-origin numbering used by @code{nth}:
 
 
 @node nth
-@heading nth (Accessor)
+@subsection nth (Accessor)
 @syindex nth
 @cindex nth
 
@@ -1782,7 +1782,7 @@ Specifically,
 
 
 @node endp
-@heading endp (Function)
+@subsection endp (Function)
 @syindex endp
 @cindex endp
 
@@ -1836,7 +1836,7 @@ when the argument is @term{atomic}.
 
 
 @node null (Function)
-@heading null (Function)
+@subsection null (Function)
 @syindex null
 @cindex null
 
@@ -1886,7 +1886,7 @@ which to use is a matter of style.
 
 
 @node nconc
-@heading nconc (Function)
+@subsection nconc (Function)
 @syindex nconc
 @cindex nconc
 
@@ -1968,7 +1968,7 @@ The @param{lists} are modified rather than copied.
 
 
 @node append
-@heading append (Function)
+@subsection append (Function)
 @syindex append
 @cindex append
 
@@ -2016,7 +2016,7 @@ or is returned directly if there are no preceding
 
 
 @node revappend; nreconc
-@heading revappend, nreconc (Function)
+@subsection revappend, nreconc (Function)
 @syindex revappend
 @cindex revappend
 @syindex nreconc
@@ -2115,7 +2115,7 @@ achieving the same effect:
 
 
 @node butlast; nbutlast
-@heading butlast, nbutlast (Function)
+@subsection butlast, nbutlast (Function)
 @syindex butlast
 @cindex butlast
 @syindex nbutlast
@@ -2192,7 +2192,7 @@ the @term{cons} @param{n}+1 from the end of the @param{list} to @nil{}.
 
 
 @node last
-@heading last (Function)
+@subsection last (Function)
 @syindex last
 @cindex last
 
@@ -2273,7 +2273,7 @@ The following code could be used to define @code{last}.
 
 
 @node ldiff; tailp
-@heading ldiff, tailp (Function)
+@subsection ldiff, tailp (Function)
 @syindex ldiff
 @cindex ldiff
 @syindex tailp
@@ -2395,7 +2395,7 @@ and @code{ldiff} could be defined by:
 
 
 @node nthcdr
-@heading nthcdr (Function)
+@subsection nthcdr (Function)
 @syindex nthcdr
 @cindex nthcdr
 
@@ -2451,7 +2451,7 @@ see the @term{function} @ref{cdr}.
 
 
 @node rest
-@heading rest (Accessor)
+@subsection rest (Accessor)
 @syindex rest
 @cindex rest
 
@@ -2505,7 +2505,7 @@ rather than as a @term{cons}.
 
 
 @node member; member-if; member-if-not
-@heading member, member-if, member-if-not (Function)
+@subsection member, member-if, member-if-not (Function)
 @syindex member
 @cindex member
 @syindex member-if
@@ -2605,7 +2605,7 @@ did not return @nil{}).
 
 
 @node mapc; mapcar; mapcan; mapl; maplist; mapcon
-@heading mapc, mapcar, mapcan, mapl, maplist, mapcon (Function)
+@subsection mapc, mapcar, mapcan, mapl, maplist, mapcon (Function)
 @syindex mapc
 @cindex mapc
 @syindex mapcar
@@ -2755,7 +2755,7 @@ this is a standard @Lisp{}@spc{}idiom using @code{mapcan}.
 
 
 @node acons
-@heading acons (Function)
+@subsection acons (Function)
 @syindex acons
 @cindex acons
 
@@ -2808,7 +2808,7 @@ the @term{cdr} of which is @param{datum}.
 
 
 @node assoc; assoc-if; assoc-if-not
-@heading assoc, assoc-if, assoc-if-not (Function)
+@subsection assoc, assoc-if, assoc-if-not (Function)
 @syindex assoc
 @cindex assoc
 @syindex assoc-if
@@ -2930,7 +2930,7 @@ to search for an actual @term{cons} whose @term{car} is @nil{}.
 
 
 @node copy-alist
-@heading copy-alist (Function)
+@subsection copy-alist (Function)
 @syindex copy-alist
 @cindex copy-alist
 
@@ -2980,7 +2980,7 @@ by the @param{alist} continue to be shared.
 
 
 @node pairlis
-@heading pairlis (Function)
+@subsection pairlis (Function)
 @syindex pairlis
 @cindex pairlis
 
@@ -3053,7 +3053,7 @@ or
 
 
 @node rassoc; rassoc-if; rassoc-if-not
-@heading rassoc, rassoc-if, rassoc-if-not (Function)
+@subsection rassoc, rassoc-if, rassoc-if-not (Function)
 @syindex rassoc
 @cindex rassoc
 @syindex rassoc-if
@@ -3153,7 +3153,7 @@ See the @term{function} @ref{assoc}.
 
 
 @node get-properties
-@heading get-properties (Function)
+@subsection get-properties (Function)
 @syindex get-properties
 @cindex get-properties
 
@@ -3207,7 +3207,7 @@ are all @nil{}.
 
 
 @node getf
-@heading getf (Accessor)
+@subsection getf (Accessor)
 @syindex getf
 @cindex getf
 
@@ -3313,7 +3313,7 @@ syntactically valid for the @term{write} situation as well. For example,
 
 
 @node remf
-@heading remf (Macro)
+@subsection remf (Macro)
 @syindex remf
 @cindex remf
 
@@ -3371,7 +3371,7 @@ The property list stored in @param{place} is modified.
 
 
 @node intersection; nintersection
-@heading intersection, nintersection (Function)
+@subsection intersection, nintersection (Function)
 @syindex intersection
 @cindex intersection
 @syindex nintersection
@@ -3494,7 +3494,7 @@ it should not be used in for-effect-only
 positions in portable code.
 
 @node adjoin
-@heading adjoin (Function)
+@subsection adjoin (Function)
 @syindex adjoin
 @cindex adjoin
 
@@ -3566,7 +3566,7 @@ The @kwd{test-not} parameter is deprecated.
 
 
 @node pushnew
-@heading pushnew (Macro)
+@subsection pushnew (Macro)
 @syindex pushnew
 @cindex pushnew
 
@@ -3670,7 +3670,7 @@ and @f{item} is evaluated before @f{place}.
 
 
 @node set-difference; nset-difference
-@heading set-difference, nset-difference (Function)
+@subsection set-difference, nset-difference (Function)
 @syindex set-difference
 @cindex set-difference
 @syindex nset-difference
@@ -3786,7 +3786,7 @@ The @kwd{test-not} parameter is deprecated.
 
 
 @node set-exclusive-or; nset-exclusive-or
-@heading set-exclusive-or, nset-exclusive-or (Function)
+@subsection set-exclusive-or, nset-exclusive-or (Function)
 @syindex set-exclusive-or
 @cindex set-exclusive-or
 @syindex nset-exclusive-or
@@ -3889,7 +3889,7 @@ positions in portable code.
 
 
 @node subsetp
-@heading subsetp (Function)
+@subsection subsetp (Function)
 @syindex subsetp
 @cindex subsetp
 
@@ -3967,7 +3967,7 @@ The @kwd{test-not} parameter is deprecated.
 
 
 @node union; nunion
-@heading union, nunion (Function)
+@subsection union, nunion (Function)
 @syindex union
 @cindex union
 @syindex nunion

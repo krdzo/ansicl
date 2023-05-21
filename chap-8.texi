@@ -9,7 +9,7 @@ Dictionary
 @end menu
 
 @node defstruct
-@heading defstruct (Macro)
+@subsection defstruct (Macro)
 @syindex defstruct
 @cindex defstruct
 
@@ -1144,7 +1144,7 @@ some other @term{implementation-dependent} mechanism known to that
 
 
 @node copy-structure
-@heading copy-structure (Function)
+@subsection copy-structure (Function)
 @syindex copy-structure
 @cindex copy-structure
 

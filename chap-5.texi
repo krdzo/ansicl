@@ -927,7 +927,7 @@ Event 4 occurs at the end of the transfer of control.
 
 
 @node apply
-@heading apply (Function)
+@subsection apply (Function)
 @syindex apply
 @cindex apply
 
@@ -1000,7 +1000,7 @@ see @ref{SETFofAPPLY, Section 5.1.2.5 (APPLY Forms as Places)}.
 
 
 @node defun
-@heading defun (Macro)
+@subsection defun (Macro)
 @syindex defun
 @cindex defun
 
@@ -1123,7 +1123,7 @@ about the function definition is recorded.
 
 
 @node fdefinition
-@heading fdefinition (Accessor)
+@subsection fdefinition (Accessor)
 @syindex fdefinition
 @cindex fdefinition
 
@@ -1188,7 +1188,7 @@ or @term{special form}.
 
 
 @node fboundp
-@heading fboundp (Function)
+@subsection fboundp (Function)
 @syindex fboundp
 @cindex fboundp
 
@@ -1260,7 +1260,7 @@ Defining a @term{setf expander} @param{F} does not cause the @term{setf function
 
 
 @node fmakunbound
-@heading fmakunbound (Function)
+@subsection fmakunbound (Function)
 @syindex fmakunbound
 @cindex fmakunbound
 
@@ -1307,7 +1307,7 @@ The consequences are undefined if @param{name} is a @term{special operator}.
 
 
 @node flet; labels; macrolet
-@heading flet, labels, macrolet (Special Operator)
+@subsection flet, labels, macrolet (Special Operator)
 @syindex flet
 @cindex flet
 @syindex labels
@@ -1569,7 +1569,7 @@ See @ref{File Compilation, Section 3.2.3 (File Compilation)}.
 
 
 @node funcall
-@heading funcall (Function)
+@subsection funcall (Function)
 @syindex funcall
 @cindex funcall
 
@@ -1635,7 +1635,7 @@ interpretation of the function position that normally occurs.
 
 
 @node function (Special Operator)
-@heading function (Special Operator)
+@subsection function (Special Operator)
 @syindex function
 @cindex function
 
@@ -1713,7 +1713,7 @@ for @tt{(function @param{name})}.
 
 
 @node function-lambda-expression
-@heading function-lambda-expression (Function)
+@subsection function-lambda-expression (Function)
 @syindex function-lambda-expression
 @cindex function-lambda-expression
 
@@ -1818,7 +1818,7 @@ or @code{eval} (as opposed to being created by @term{loading} a @term{compiled f
 
 
 @node functionp
-@heading functionp (Function)
+@subsection functionp (Function)
 @syindex functionp
 @cindex functionp
 
@@ -1863,7 +1863,7 @@ or @code{eval} (as opposed to being created by @term{loading} a @term{compiled f
 
 
 @node compiled-function-p
-@heading compiled-function-p (Function)
+@subsection compiled-function-p (Function)
 @syindex compiled-function-p
 @cindex compiled-function-p
 
@@ -1917,7 +1917,7 @@ or @code{eval} (as opposed to being created by @term{loading} a @term{compiled f
 
 
 @node call-arguments-limit
-@heading call-arguments-limit (Constant Variable)
+@subsection call-arguments-limit (Constant Variable)
 @syindex call-arguments-limit
 @cindex call-arguments-limit
 
@@ -1939,7 +1939,7 @@ may be passed to a @term{function}.
 
 
 @node lambda-list-keywords
-@heading lambda-list-keywords (Constant Variable)
+@subsection lambda-list-keywords (Constant Variable)
 @syindex lambda-list-keywords
 @cindex lambda-list-keywords
 
@@ -1974,7 +1974,7 @@ used only by @term{macro} definition @term{forms}.
 
 
 @node lambda-parameters-limit
-@heading lambda-parameters-limit (Constant Variable)
+@subsection lambda-parameters-limit (Constant Variable)
 @syindex lambda-parameters-limit
 @cindex lambda-parameters-limit
 
@@ -2000,7 +2000,7 @@ Implementors are encouraged to make the @term{value} of
 
 
 @node defconstant
-@heading defconstant (Macro)
+@subsection defconstant (Macro)
 @syindex defconstant
 @cindex defconstant
 
@@ -2097,7 +2097,7 @@ this-is-a-constant @EV{} NEVER-CHANGING
 
 
 @node defparameter; defvar
-@heading defparameter, defvar (Macro)
+@subsection defparameter, defvar (Macro)
 @syindex defparameter
 @cindex defparameter
 @syindex defvar
@@ -2288,7 +2288,7 @@ record the name of the source file in which the definition occurs.
 
 
 @node destructuring-bind
-@heading destructuring-bind (Macro)
+@subsection destructuring-bind (Macro)
 @syindex destructuring-bind
 @cindex destructuring-bind
 
@@ -2340,7 +2340,7 @@ destructuring pattern, an error @oftype{error} should be signaled.
 
 
 @node let; let*
-@heading let, let* (Special Operator)
+@subsection let, let* (Special Operator)
 @syindex let
 @cindex let
 @syindex let*
@@ -2481,7 +2481,7 @@ declaration.
 
 
 @node progv
-@heading progv (Special Operator)
+@subsection progv (Special Operator)
 @syindex progv
 @cindex progv
 
@@ -2544,7 +2544,7 @@ on the mechanism for @term{binding} @term{dynamic variables}.
 
 
 @node setq
-@heading setq (Special Form)
+@subsection setq (Special Form)
 @syindex setq
 @cindex setq
 
@@ -2621,7 +2621,7 @@ The @term{primary value} of each @param{form} is assigned to the corresponding @
 
 
 @node psetq
-@heading psetq (Macro)
+@subsection psetq (Macro)
 @syindex psetq
 @cindex psetq
 
@@ -2703,7 +2703,7 @@ The values of @param{forms} are assigned to @param{vars}.
 
 
 @node block
-@heading block (Special Operator)
+@subsection block (Special Operator)
 @syindex block
 @cindex block
 
@@ -2767,7 +2767,7 @@ whether by @term{normal return} or @term{explicit return}.
 
 
 @node catch
-@heading catch (Special Operator)
+@subsection catch (Special Operator)
 @syindex catch
 @cindex catch
 
@@ -2874,7 +2874,7 @@ tags have dynamic @term{scope} while
 
 
 @node go
-@heading go (Special Operator)
+@subsection go (Special Operator)
 @syindex go
 @cindex go
 
@@ -2945,7 +2945,7 @@ before the @code{go} @term{form} is executed.
 
 
 @node return-from
-@heading return-from (Special Operator)
+@subsection return-from (Special Operator)
 @syindex return-from
 @cindex return-from
 
@@ -3040,7 +3040,7 @@ exits normally before the @code{return-from} @term{form} is attempted.
 
 
 @node return
-@heading return (Macro)
+@subsection return (Macro)
 @syindex return
 @cindex return
 
@@ -3090,7 +3090,7 @@ such @term{forms}.
 
 
 @node tagbody
-@heading tagbody (Special Operator)
+@subsection tagbody (Special Operator)
 @syindex tagbody
 @cindex tagbody
 
@@ -3194,7 +3194,7 @@ The @term{macros} in @thenextfigure{}@spc{}have @term{implicit tagbodies}.
 
 
 @node throw
-@heading throw (Special Operator)
+@subsection throw (Special Operator)
 @syindex throw
 @cindex throw
 
@@ -3302,7 +3302,7 @@ when @term{lexical scope} is sufficient.
 
 
 @node unwind-protect
-@heading unwind-protect (Special Operator)
+@subsection unwind-protect (Special Operator)
 @syindex unwind-protect
 @cindex unwind-protect
 
@@ -3493,7 +3493,7 @@ The correct way to code this is as follows:
 
 
 @node nil (Constant Variable)
-@heading nil (Constant Variable)
+@subsection nil (Constant Variable)
 @syindex nil
 @cindex nil
 
@@ -3519,7 +3519,7 @@ and the @term{empty list}.
 
 
 @node not (Function)
-@heading not (Function)
+@subsection not (Function)
 @syindex not
 @cindex not
 
@@ -3566,7 +3566,7 @@ which to use is a matter of style.
 
 
 @node t (Constant Variable)
-@heading t (Constant Variable)
+@subsection t (Constant Variable)
 @syindex t
 @cindex t
 
@@ -3611,7 +3611,7 @@ or as a special symbol for some syntactic reason
 
 
 @node eq
-@heading eq (Function)
+@subsection eq (Function)
 @syindex eq
 @cindex eq
 
@@ -3716,7 +3716,7 @@ rather than @code{eql} in a way that cannot be overridden by the
 
 
 @node eql (Function)
-@heading eql (Function)
+@subsection eql (Function)
 @syindex eql
 @cindex eql
 
@@ -3829,7 +3829,7 @@ to the @term{integer} @f{5}.
 
 
 @node equal
-@heading equal (Function)
+@subsection equal (Function)
 @syindex equal
 @cindex equal
 
@@ -3976,7 +3976,7 @@ if and only if their printed representations are the same.
 
 
 @node equalp
-@heading equalp (Function)
+@subsection equalp (Function)
 @syindex equalp
 @cindex equalp
 
@@ -4128,7 +4128,7 @@ not appropriate for every application.
 
 
 @node identity
-@heading identity (Function)
+@subsection identity (Function)
 @syindex identity
 @cindex identity
 
@@ -4171,7 +4171,7 @@ or @term{character}.
 
 
 @node complement
-@heading complement (Function)
+@subsection complement (Function)
 @syindex complement
 @cindex complement
 
@@ -4247,7 +4247,7 @@ uses of ``@f{@i{xxx}-if}'' @term{functions} or
 
 
 @node constantly
-@heading constantly (Function)
+@subsection constantly (Function)
 @syindex constantly
 @cindex constantly
 
@@ -4297,7 +4297,7 @@ arguments, that has no side-effects, and that always returns @param{value}.
 
 
 @node every; some; notevery; notany
-@heading every, some, notevery, notany (Function)
+@subsection every, some, notevery, notany (Function)
 @syindex every
 @cindex every
 @syindex some
@@ -4403,7 +4403,7 @@ of the @param{predicate}.
 
 
 @node and (Macro)
-@heading and (Macro)
+@subsection and (Macro)
 @syindex and
 @cindex and
 
@@ -4476,7 +4476,7 @@ of its parts, @code{elt} is not called if @f{n} is out of range.
 
 
 @node cond
-@heading cond (Macro)
+@subsection cond (Macro)
 @syindex cond
 @cindex cond
 
@@ -4544,7 +4544,7 @@ If no @param{test-form} @term{yields} @term{true}, @nil{}@spc{}is returned.
 
 
 @node if
-@heading if (Special Operator)
+@subsection if (Special Operator)
 @syindex if
 @cindex if
 
@@ -4610,7 +4610,7 @@ Whichever form is selected is then evaluated.
 
 
 @node or (Macro)
-@heading or (Macro)
+@subsection or (Macro)
 @syindex or
 @cindex or
 
@@ -4667,7 +4667,7 @@ If no @param{forms} are supplied, @code{or} returns @nil{}.
 
 
 @node when; unless
-@heading when, unless (Macro)
+@subsection when, unless (Macro)
 @syindex when
 @cindex when
 @syindex unless
@@ -4768,7 +4768,7 @@ and the @code{unless} @term{form} returns @nil{}.
 
 
 @node case; ccase; ecase
-@heading case, ccase, ecase (Macro)
+@subsection case, ccase, ecase (Macro)
 @syindex case
 @cindex case
 @syindex ccase
@@ -4953,7 +4953,7 @@ message.
 
 
 @node typecase; ctypecase; etypecase
-@heading typecase, ctypecase, etypecase (Macro)
+@subsection typecase, ctypecase, etypecase (Macro)
 @syindex typecase
 @cindex typecase
 @syindex ctypecase
@@ -5145,7 +5145,7 @@ message.
 
 
 @node multiple-value-bind
-@heading multiple-value-bind (Macro)
+@subsection multiple-value-bind (Macro)
 @syindex multiple-value-bind
 @cindex multiple-value-bind
 
@@ -5218,7 +5218,7 @@ do not include the @param{values-form}.
 
 
 @node multiple-value-call
-@heading multiple-value-call (Special Operator)
+@subsection multiple-value-call (Special Operator)
 @syindex multiple-value-call
 @cindex multiple-value-call
 
@@ -5266,7 +5266,7 @@ and given as arguments to the @param{function}.
 
 
 @node multiple-value-list
-@heading multiple-value-list (Macro)
+@subsection multiple-value-list (Macro)
 @syindex multiple-value-list
 @cindex multiple-value-list
 
@@ -5310,7 +5310,7 @@ of each other.
 
 
 @node multiple-value-prog1
-@heading multiple-value-prog1 (Special Operator)
+@subsection multiple-value-prog1 (Special Operator)
 @syindex multiple-value-prog1
 @cindex multiple-value-prog1
 
@@ -5351,7 +5351,7 @@ all the values produced by that @term{form}. It then evaluates each
 
 
 @node multiple-value-setq
-@heading multiple-value-setq (Macro)
+@subsection multiple-value-setq (Macro)
 @syindex multiple-value-setq
 @cindex multiple-value-setq
 
@@ -5426,7 +5426,7 @@ See @ref{SETFofVALUES, Section 5.1.2.3 (VALUES Forms as Places)}.
 
 
 @node values (Accessor)
-@heading values (Accessor)
+@subsection values (Accessor)
 @syindex values
 @cindex values
 
@@ -5509,7 +5509,7 @@ its @term{argument} @term{forms}.
 
 
 @node values-list
-@heading values-list (Function)
+@subsection values-list (Function)
 @syindex values-list
 @cindex values-list
 
@@ -5561,7 +5561,7 @@ returns @term{true} for all @term{lists} @param{x}.
 
 
 @node multiple-values-limit
-@heading multiple-values-limit (Constant Variable)
+@subsection multiple-values-limit (Constant Variable)
 @syindex multiple-values-limit
 @cindex multiple-values-limit
 
@@ -5589,7 +5589,7 @@ Implementors are encouraged to make this limit as large as possible.
 
 
 @node nth-value
-@heading nth-value (Macro)
+@subsection nth-value (Macro)
 @syindex nth-value
 @cindex nth-value
 
@@ -5647,7 +5647,7 @@ because, for example, some @term{consing} might be avoided.
 
 
 @node prog; prog*
-@heading prog, prog* (Macro)
+@subsection prog, prog* (Macro)
 @syindex prog
 @cindex prog
 @syindex prog*
@@ -5793,7 +5793,7 @@ follows:
 
 
 @node prog1; prog2
-@heading prog1, prog2 (Macro)
+@subsection prog1, prog2 (Macro)
 @syindex prog1
 @cindex prog1
 @syindex prog2
@@ -5883,7 +5883,7 @@ must be computed before some or all of the side effects happen.
 
 
 @node progn
-@heading progn (Special Operator)
+@subsection progn (Special Operator)
 @syindex progn
 @cindex progn
 
@@ -5939,7 +5939,7 @@ the bodies of various control and conditional @term{forms}
 
 
 @node define-modify-macro
-@heading define-modify-macro (Macro)
+@subsection define-modify-macro (Macro)
 @syindex define-modify-macro
 @cindex define-modify-macro
 
@@ -6027,7 +6027,7 @@ A macro definition is assigned to @param{name}.
 
 
 @node defsetf
-@heading defsetf (Macro)
+@subsection defsetf (Macro)
 @syindex defsetf
 @cindex defsetf
 
@@ -6236,7 +6236,7 @@ and gives the user additional control.
 
 
 @node define-setf-expander
-@heading define-setf-expander (Macro)
+@subsection define-setf-expander (Macro)
 @syindex define-setf-expander
 @cindex define-setf-expander
 
@@ -6371,7 +6371,7 @@ pattern is permitted in @param{lambda-list}.
 
 
 @node get-setf-expansion
-@heading get-setf-expansion (Function)
+@subsection get-setf-expansion (Function)
 @syindex get-setf-expansion
 @cindex get-setf-expansion
 
@@ -6442,7 +6442,7 @@ are expanded into a call to @f{(setf @param{f})}.
 
 
 @node setf; psetf
-@heading setf, psetf (Macro)
+@subsection setf, psetf (Macro)
 @syindex setf
 @cindex setf
 @syindex psetf
@@ -6550,7 +6550,7 @@ see @ref{Kinds of Places, Section 5.1.2 (Kinds of Places)}.
 
 
 @node shiftf
-@heading shiftf (Macro)
+@subsection shiftf (Macro)
 @syindex shiftf
 @cindex shiftf
 
@@ -6655,7 +6655,7 @@ For example,
 
 
 @node rotatef
-@heading rotatef (Macro)
+@subsection rotatef (Macro)
 @syindex rotatef
 @cindex rotatef
 
@@ -6727,7 +6727,7 @@ of each @f{place} twice, whereas @code{rotatef} evaluates them once.
 
 
 @node control-error
-@heading control-error (Condition Type)
+@subsection control-error (Condition Type)
 @syindex control-error
 @cindex control-error
 
@@ -6749,7 +6749,7 @@ dynamically available are @oftype{control-error}.
 
 
 @node program-error
-@heading program-error (Condition Type)
+@subsection program-error (Condition Type)
 @syindex program-error
 @cindex program-error
 
@@ -6770,7 +6770,7 @@ that is not lexically apparent are @oftype{program-error}.
 
 
 @node undefined-function
-@heading undefined-function (Condition Type)
+@subsection undefined-function (Condition Type)
 @syindex undefined-function
 @cindex undefined-function
 

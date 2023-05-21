@@ -156,7 +156,7 @@ in @term{implementation} C, none of the features @f{spice}, @term{lispm}, or @f{
 
 
 @node compile-file
-@heading compile-file (Function)
+@subsection compile-file (Function)
 @syindex compile-file
 @cindex compile-file
 
@@ -302,7 +302,7 @@ an error @oftype{file-error} is signaled.
 
 
 @node compile-file-pathname
-@heading compile-file-pathname (Function)
+@subsection compile-file-pathname (Function)
 @syindex compile-file-pathname
 @cindex compile-file-pathname
 
@@ -374,7 +374,7 @@ An error @oftype{file-error} might be signaled if either @param{input-file} or
 
 
 @node load
-@heading load (Function)
+@subsection load (Function)
 @syindex load
 @cindex load
 
@@ -554,7 +554,7 @@ An error @oftype{file-error} might be signaled if
 
 
 @node with-compilation-unit
-@heading with-compilation-unit (Macro)
+@subsection with-compilation-unit (Macro)
 @syindex with-compilation-unit
 @cindex with-compilation-unit
 
@@ -631,7 +631,7 @@ use of @term{with-compilation-unit} might not have any effect.
 
 
 @node *features*
-@heading *features* (Variable)
+@subsection *features* (Variable)
 @syindex *features*
 @cindex *features*
 
@@ -779,7 +779,7 @@ and are hence less likely to be used unwittingly by another @term{implementation
 
 
 @node *compile-file-pathname*; *compile-file-truename*
-@heading *compile-file-pathname*, *compile-file-truename* (Variable)
+@subsection *compile-file-pathname*, *compile-file-truename* (Variable)
 @syindex *compile-file-pathname*
 @cindex *compile-file-pathname*
 @syindex *compile-file-truename*
@@ -828,7 +828,7 @@ The @term{file system}.
 
 
 @node *load-pathname*; *load-truename*
-@heading *load-pathname*, *load-truename* (Variable)
+@subsection *load-pathname*, *load-truename* (Variable)
 @syindex *load-pathname*
 @cindex *load-pathname*
 @syindex *load-truename*
@@ -876,7 +876,7 @@ The @term{file system}.
 
 
 @node *compile-print*; *compile-verbose*
-@heading *compile-print*, *compile-verbose* (Variable)
+@subsection *compile-print*, *compile-verbose* (Variable)
 @syindex *compile-print*
 @cindex *compile-print*
 @syindex *compile-verbose*
@@ -906,7 +906,7 @@ to @code{compile-file}.
 
 
 @node *load-print*; *load-verbose*
-@heading *load-print*, *load-verbose* (Variable)
+@subsection *load-print*, *load-verbose* (Variable)
 @syindex *load-print*
 @cindex *load-print*
 @syindex *load-verbose*
@@ -935,7 +935,7 @@ The initial @term{value} of @code{*load-verbose*} is @term{implementation-depend
 
 
 @node *modules*
-@heading *modules* (Variable)
+@subsection *modules* (Variable)
 @syindex *modules*
 @cindex *modules*
 
@@ -970,7 +970,7 @@ The variable @code{*modules*} is deprecated.
 
 
 @node provide; require
-@heading provide, require (Function)
+@subsection provide, require (Function)
 @syindex provide
 @cindex provide
 @syindex require

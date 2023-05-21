@@ -228,7 +228,7 @@ occurred between @term{objects} rather than within the middle of one.
 
 
 @node readtable
-@heading readtable (System Class)
+@subsection readtable (System Class)
 @syindex readtable
 @cindex readtable
 
@@ -258,7 +258,7 @@ can have syntax descriptions in the @term{readtable}.
 
 
 @node copy-readtable
-@heading copy-readtable (Function)
+@subsection copy-readtable (Function)
 @syindex copy-readtable
 @cindex copy-readtable
 
@@ -335,7 +335,7 @@ locally bind the readtable to a copy of itself, as in:
 
 
 @node make-dispatch-macro-character
-@heading make-dispatch-macro-character (Function)
+@subsection make-dispatch-macro-character (Function)
 @syindex make-dispatch-macro-character
 @cindex make-dispatch-macro-character
 
@@ -387,7 +387,7 @@ The @param{readtable} is altered.
 
 
 @node read; read-preserving-whitespace
-@heading read, read-preserving-whitespace (Function)
+@subsection read, read-preserving-whitespace (Function)
 @syindex read
 @cindex read
 @syindex read-preserving-whitespace
@@ -561,7 +561,7 @@ is signaled at the end of file.
 
 
 @node read-delimited-list
-@heading read-delimited-list (Function)
+@subsection read-delimited-list (Function)
 @syindex read-delimited-list
 @cindex read-delimited-list
 
@@ -694,7 +694,7 @@ explicitly.
 
 
 @node read-from-string
-@heading read-from-string (Function)
+@subsection read-from-string (Function)
 @syindex read-from-string
 @cindex read-from-string
 
@@ -781,7 +781,7 @@ the @param{position} might count the simulated delimiter.
 
 
 @node readtable-case
-@heading readtable-case (Accessor)
+@subsection readtable-case (Accessor)
 @syindex readtable-case
 @cindex readtable-case
 
@@ -827,7 +827,7 @@ See @ref{ReadtableCaseReadExamples, Section 23.1.2.1 (Examples of Effect of Read
 
 
 @node readtablep
-@heading readtablep (Function)
+@subsection readtablep (Function)
 @syindex readtablep
 @cindex readtablep
 
@@ -864,7 +864,7 @@ See @ref{ReadtableCaseReadExamples, Section 23.1.2.1 (Examples of Effect of Read
 
 
 @node set-dispatch-macro-character; get-dispatch-macro-character
-@heading set-dispatch-macro-character, get-dispatch-macro-character (Function)
+@subsection set-dispatch-macro-character, get-dispatch-macro-character (Function)
 @syindex set-dispatch-macro-character
 @cindex set-dispatch-macro-character
 @syindex get-dispatch-macro-character
@@ -972,7 +972,7 @@ to use @code{make-dispatch-macro-character} to set up the
 dispatch character before specifying its sub-characters.
 
 @node set-macro-character; get-macro-character
-@heading set-macro-character, get-macro-character (Function)
+@subsection set-macro-character, get-macro-character (Function)
 @syindex set-macro-character
 @cindex set-macro-character
 @syindex get-macro-character
@@ -1065,7 +1065,7 @@ The @param{readtable} is modified.
 
 
 @node set-syntax-from-char
-@heading set-syntax-from-char (Function)
+@subsection set-syntax-from-char (Function)
 @syindex set-syntax-from-char
 @cindex set-syntax-from-char
 
@@ -1141,7 +1141,7 @@ For further information, see @ref{ConstituentTraits, Section 2.1.4.2 (Constituen
 
 
 @node with-standard-io-syntax
-@heading with-standard-io-syntax (Macro)
+@subsection with-standard-io-syntax (Macro)
 @syindex with-standard-io-syntax
 @cindex with-standard-io-syntax
 
@@ -1215,7 +1215,7 @@ behavior.  The values for the variables specified by this standard are listed in
 
 
 @node *read-base*
-@heading *read-base* (Variable)
+@subsection *read-base* (Variable)
 @syindex *read-base*
 @cindex *read-base*
 
@@ -1267,7 +1267,7 @@ Altering the input radix can be useful when reading data files in special format
 
 
 @node *read-default-float-format*
-@heading *read-default-float-format* (Variable)
+@subsection *read-default-float-format* (Variable)
 @syindex *read-default-float-format*
 @cindex *read-default-float-format*
 
@@ -1312,7 +1312,7 @@ choice of @term{exponent markers} when printing floating-point numbers.
 
 
 @node *read-eval*
-@heading *read-eval* (Variable)
+@subsection *read-eval* (Variable)
 @syindex *read-eval*
 @cindex *read-eval*
 
@@ -1345,7 +1345,7 @@ or signals an error @oftype{print-not-readable}.
 
 
 @node *read-suppress*
-@heading *read-suppress* (Variable)
+@subsection *read-suppress* (Variable)
 @syindex *read-suppress*
 @cindex *read-suppress*
 
@@ -1468,7 +1468,7 @@ value would ordinarily be required.
 
 
 @node *readtable*
-@heading *readtable* (Variable)
+@subsection *readtable* (Variable)
 @syindex *readtable*
 @cindex *readtable*
 
@@ -1515,7 +1515,7 @@ and can also influence the @term{Lisp printer} (@eg{} see the @term{function} @r
 
 
 @node reader-error
-@heading reader-error (Condition Type)
+@subsection reader-error (Condition Type)
 @syindex reader-error
 @cindex reader-error
 
