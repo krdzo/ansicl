@@ -928,7 +928,7 @@ Instead, these phrases are just traditional alternative ways of saying that the
 @node Designators
 @subsubsection Designators
 
-nodeA @newterm{designator} is an @term{object} that denotes another @term{object}.
+A @newterm{designator} is an @term{object} that denotes another @term{object}.
 
 Where a @term{parameter} of an @term{operator} is described as a @term{designator},
 the description of the @term{operator} is written in a way that assumes that
