@@ -4,26 +4,7 @@
 * Overview of Filenames::
 * Pathnames::
 * Logical Pathnames::
-
-Dictionary
-
-* pathname (System Class)::
-* logical-pathname (System Class)::
-* pathname (Function)::
-* make-pathname::
-* pathnamep::
-* pathname-host; pathname-device; pathname-directory; pathname-name; path+::
-* load-logical-pathname-translations::
-* logical-pathname-translations::
-* logical-pathname (Function)::
-* *default-pathname-defaults*::
-* namestring; file-namestring; directory-namestring; host-namestring; eno+::
-* parse-namestring::
-* wild-pathname-p::
-* pathname-match-p::
-* translate-logical-pathname::
-* translate-pathname::
-* merge-pathnames::
+* Filenames Dictionary::
 @end menu
 
 @node Overview of Filenames
@@ -918,7 +899,29 @@ no other component of a @term logical pathname can be @kwd{unspecific}.
 
 The null string, @f{""}, is not a valid value for any component of a @term{logical pathname}.
 
+@node Filenames Dictionary
+@section Filenames Dictionary
 
+
+@menu
+* pathname (System Class)::
+* logical-pathname (System Class)::
+* pathname (Function)::
+* make-pathname::
+* pathnamep::
+* pathname-host; pathname-device; pathname-directory; pathname-name; path+::
+* load-logical-pathname-translations::
+* logical-pathname-translations::
+* logical-pathname (Function)::
+* *default-pathname-defaults*::
+* namestring; file-namestring; directory-namestring; host-namestring; eno+::
+* parse-namestring::
+* wild-pathname-p::
+* pathname-match-p::
+* translate-logical-pathname::
+* translate-pathname::
+* merge-pathnames::
+@end menu
 
 @node pathname (System Class)
 @subsection pathname (System Class)

@@ -2,58 +2,7 @@
 @chapter Conses
 @menu
 * Cons Concepts::
-
-Dictionary
-
-* list (System Class)::
-* null (System Class)::
-* cons (System Class)::
-* atom (Type)::
-* cons (Function)::
-* consp::
-* atom (Function)::
-* rplaca; rplacd::
-* car; cdr; caar; cadr; cdar; cddr; caaar; caadr; cadar; caddr; cdaar; cd+::
-* copy-tree::
-* sublis; nsublis::
-* subst; subst-if; subst-if-not; nsubst; nsubst-if; nsubst-if-not::
-* tree-equal::
-* copy-list::
-* list; list*::
-* list-length::
-* listp::
-* make-list::
-* push::
-* pop::
-* first; second; third; fourth; fifth; sixth; seventh; eighth; ninth; ten+::
-* nth::
-* endp::
-* null (Function)::
-* nconc::
-* append::
-* revappend; nreconc::
-* butlast; nbutlast::
-* last::
-* ldiff; tailp::
-* nthcdr::
-* rest::
-* member; member-if; member-if-not::
-* mapc; mapcar; mapcan; mapl; maplist; mapcon::
-* acons::
-* assoc; assoc-if; assoc-if-not::
-* copy-alist::
-* pairlis::
-* rassoc; rassoc-if; rassoc-if-not::
-* get-properties::
-* getf::
-* remf::
-* intersection; nintersection::
-* adjoin::
-* pushnew::
-* set-difference; nset-difference::
-* set-exclusive-or; nset-exclusive-or::
-* subsetp::
-* union; nunion::
+* Conses Dictionary::
 @end menu
 
 @node Cons Concepts
@@ -220,7 +169,60 @@ that is required to be a @term{list},
 the consequences are undefined
 if that @term{list} is @term{circular}.
 
+@node Conses Dictionary
+@section Conses Dictionary
 
+@menu
+* list (System Class)::
+* null (System Class)::
+* cons (System Class)::
+* atom (Type)::
+* cons (Function)::
+* consp::
+* atom (Function)::
+* rplaca; rplacd::
+* car; cdr; caar; cadr; cdar; cddr; caaar; caadr; cadar; caddr; cdaar; cd+::
+* copy-tree::
+* sublis; nsublis::
+* subst; subst-if; subst-if-not; nsubst; nsubst-if; nsubst-if-not::
+* tree-equal::
+* copy-list::
+* list; list*::
+* list-length::
+* listp::
+* make-list::
+* push::
+* pop::
+* first; second; third; fourth; fifth; sixth; seventh; eighth; ninth; ten+::
+* nth::
+* endp::
+* null (Function)::
+* nconc::
+* append::
+* revappend; nreconc::
+* butlast; nbutlast::
+* last::
+* ldiff; tailp::
+* nthcdr::
+* rest::
+* member; member-if; member-if-not::
+* mapc; mapcar; mapcan; mapl; maplist; mapcon::
+* acons::
+* assoc; assoc-if; assoc-if-not::
+* copy-alist::
+* pairlis::
+* rassoc; rassoc-if; rassoc-if-not::
+* get-properties::
+* getf::
+* remf::
+* intersection; nintersection::
+* adjoin::
+* pushnew::
+* set-difference; nset-difference::
+* set-exclusive-or; nset-exclusive-or::
+* subsetp::
+* union; nunion::
+@end menu
 
 @node list (System Class)
 @subsection list (System Class)

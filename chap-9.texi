@@ -2,55 +2,7 @@
 @chapter Conditions
 @menu
 * Condition System Concepts::
-
-Dictionary
-
-* condition::
-* warning::
-* style-warning::
-* serious-condition::
-* error (Condition Type)::
-* cell-error::
-* cell-error-name::
-* parse-error::
-* storage-condition::
-* assert::
-* error (Function)::
-* cerror::
-* check-type::
-* simple-error::
-* invalid-method-error::
-* method-combination-error::
-* signal::
-* simple-condition::
-* simple-condition-format-control; simple-condition-format-arguments::
-* warn::
-* simple-warning::
-* invoke-debugger::
-* break::
-* *debugger-hook*::
-* *break-on-signals*::
-* handler-bind::
-* handler-case::
-* ignore-errors::
-* define-condition::
-* make-condition::
-* restart::
-* compute-restarts::
-* find-restart::
-* invoke-restart::
-* invoke-restart-interactively::
-* restart-bind::
-* restart-case::
-* restart-name::
-* with-condition-restarts::
-* with-simple-restart::
-* abort (Restart)::
-* continue (Restart)::
-* muffle-warning (Restart)::
-* store-value (Restart)::
-* use-value (Restart)::
-* abort; continue; muffle-warning; store-value; use-value::
+* Conditions Dictionary::
 @end menu
 
 @node Condition System Concepts
@@ -775,6 +727,57 @@ section, see @CondSysPaper{}.  The details of that paper are not binding on
 this document, but may be helpful in establishing a conceptual basis for
 understanding this material.
 
+@node Conditions Dictionary
+@section Conditions Dictionary
+
+@menu
+* condition::
+* warning::
+* style-warning::
+* serious-condition::
+* error (Condition Type)::
+* cell-error::
+* cell-error-name::
+* parse-error::
+* storage-condition::
+* assert::
+* error (Function)::
+* cerror::
+* check-type::
+* simple-error::
+* invalid-method-error::
+* method-combination-error::
+* signal::
+* simple-condition::
+* simple-condition-format-control; simple-condition-format-arguments::
+* warn::
+* simple-warning::
+* invoke-debugger::
+* break::
+* *debugger-hook*::
+* *break-on-signals*::
+* handler-bind::
+* handler-case::
+* ignore-errors::
+* define-condition::
+* make-condition::
+* restart::
+* compute-restarts::
+* find-restart::
+* invoke-restart::
+* invoke-restart-interactively::
+* restart-bind::
+* restart-case::
+* restart-name::
+* with-condition-restarts::
+* with-simple-restart::
+* abort (Restart)::
+* continue (Restart)::
+* muffle-warning (Restart)::
+* store-value (Restart)::
+* use-value (Restart)::
+* abort; continue; muffle-warning; store-value; use-value::
+@end menu
 
 @node condition
 @subsection condition (Condition Type)

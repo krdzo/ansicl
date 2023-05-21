@@ -2,39 +2,7 @@
 @chapter Environment
 @menu
 * The External Environment::
-
-Dictionary
-
-* decode-universal-time::
-* encode-universal-time::
-* get-universal-time; get-decoded-time::
-* sleep::
-* apropos; apropos-list::
-* describe::
-* describe-object::
-* trace; untrace::
-* step::
-* time (Macro)::
-* internal-time-units-per-second::
-* get-internal-real-time::
-* get-internal-run-time::
-* disassemble::
-* documentation; setf documentation::
-* room::
-* ed::
-* inspect::
-* dribble::
-* - (Variable)::
-* +; ++; +++::
-* *; **; ***::
-* /; //; ///::
-* lisp-implementation-type; lisp-implementation-version::
-* short-site-name; long-site-name::
-* machine-instance::
-* machine-type::
-* machine-version::
-* software-type; software-version::
-* user-homedir-pathname::
+* Environment Dictionary::
 @end menu
 
 @node The External Environment
@@ -322,8 +290,42 @@ the possibility of fractional seconds.
 @end float
 
 
+@node Environment Dictionary
+@section Environment Dictionary
 
 
+@menu
+* decode-universal-time::
+* encode-universal-time::
+* get-universal-time; get-decoded-time::
+* sleep::
+* apropos; apropos-list::
+* describe::
+* describe-object::
+* trace; untrace::
+* step::
+* time (Macro)::
+* internal-time-units-per-second::
+* get-internal-real-time::
+* get-internal-run-time::
+* disassemble::
+* documentation; setf documentation::
+* room::
+* ed::
+* inspect::
+* dribble::
+* - (Variable)::
+* +; ++; +++::
+* *; **; ***::
+* /; //; ///::
+* lisp-implementation-type; lisp-implementation-version::
+* short-site-name; long-site-name::
+* machine-instance::
+* machine-type::
+* machine-version::
+* software-type; software-version::
+* user-homedir-pathname::
+@end menu
 
 @node decode-universal-time
 @subsection decode-universal-time (Function)

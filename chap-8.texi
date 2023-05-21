@@ -1,9 +1,15 @@
 @node Structures
 @chapter Structures
+
 @menu
+* Structures Dictionary::
+@end menu
 
-Dictionary
 
+@node Structures Dictionary
+@section Structures Dictionary
+
+@menu
 * defstruct::
 * copy-structure::
 @end menu

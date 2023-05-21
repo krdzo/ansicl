@@ -3,32 +3,7 @@
 @menu
 * Sequence Concepts::
 * Rules about Test Functions::
-
-Dictionary
-
-* sequence::
-* copy-seq::
-* elt::
-* fill::
-* make-sequence::
-* subseq::
-* map::
-* map-into::
-* reduce::
-* count; count-if; count-if-not::
-* length::
-* reverse; nreverse::
-* sort; stable-sort::
-* find; find-if; find-if-not::
-* position; position-if; position-if-not::
-* search::
-* mismatch::
-* replace::
-* substitute; substitute-if; substitute-if-not; nsubstitute; nsubstitute-+::
-* concatenate::
-* merge::
-* remove; remove-if; remove-if-not; delete; delete-if; delete-if-not::
-* remove-duplicates; delete-duplicates::
+* Sequences Dictionary::
 @end menu
 
 @node Sequence Concepts
@@ -259,8 +234,35 @@ returns a @term{generalized boolean} representing @term{false}.
 @EV{} 3
 @end lisp
 
+@node Sequences Dictionary
+@section Sequences Dictionary
 
 
+@menu
+* sequence::
+* copy-seq::
+* elt::
+* fill::
+* make-sequence::
+* subseq::
+* map::
+* map-into::
+* reduce::
+* count; count-if; count-if-not::
+* length::
+* reverse; nreverse::
+* sort; stable-sort::
+* find; find-if; find-if-not::
+* position; position-if; position-if-not::
+* search::
+* mismatch::
+* replace::
+* substitute; substitute-if; substitute-if-not; nsubstitute; nsubstitute-+::
+* concatenate::
+* merge::
+* remove; remove-if; remove-if-not; delete; delete-if; delete-if-not::
+* remove-duplicates; delete-duplicates::
+@end menu
 
 @node sequence
 @subsection sequence (System Class)

@@ -4,40 +4,7 @@
 * Introduction to Types and Classes::
 * Types::
 * Classes::
-
-Dictionary
-
-* nil (Type)::
-* boolean::
-* function (System Class)::
-* compiled-function::
-* generic-function::
-* standard-generic-function::
-* class::
-* built-in-class::
-* structure-class::
-* standard-class::
-* method::
-* standard-method::
-* structure-object::
-* standard-object::
-* method-combination::
-* t (System Class)::
-* satisfies::
-* member (Type Specifier)::
-* not (Type Specifier)::
-* and (Type Specifier)::
-* or (Type Specifier)::
-* values (Type Specifier)::
-* eql (Type Specifier)::
-* coerce::
-* deftype::
-* subtypep::
-* type-of::
-* typep::
-* type-error::
-* type-error-datum; type-error-expected-type::
-* simple-type-error::
+* Types and Classes Dictionary::
 @end menu
 
 @node Introduction to Types and Classes
@@ -1229,6 +1196,42 @@ A standard @term{class} defined with no direct @term{superclasses} is guaranteed
 be disjoint from all of the @term{classes} in the table, except for the
 class named @code{t}.
 
+@node Types and Classes Dictionary
+@section Types and Classes Dictionary
+
+@menu
+* nil (Type)::
+* boolean::
+* function (System Class)::
+* compiled-function::
+* generic-function::
+* standard-generic-function::
+* class::
+* built-in-class::
+* structure-class::
+* standard-class::
+* method::
+* standard-method::
+* structure-object::
+* standard-object::
+* method-combination::
+* t (System Class)::
+* satisfies::
+* member (Type Specifier)::
+* not (Type Specifier)::
+* and (Type Specifier)::
+* or (Type Specifier)::
+* values (Type Specifier)::
+* eql (Type Specifier)::
+* coerce::
+* deftype::
+* subtypep::
+* type-of::
+* typep::
+* type-error::
+* type-error-datum; type-error-expected-type::
+* simple-type-error::
+@end menu
 
 @node nil (Type)
 @subsection nil (Type)

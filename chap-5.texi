@@ -3,78 +3,7 @@
 @menu
 * Generalized Reference::
 * Transfer of Control to an Exit Point::
-
-Dictionary
-
-* apply::
-* defun::
-* fdefinition::
-* fboundp::
-* fmakunbound::
-* flet; labels; macrolet::
-* funcall::
-* function (Special Operator)::
-* function-lambda-expression::
-* functionp::
-* compiled-function-p::
-* call-arguments-limit::
-* lambda-list-keywords::
-* lambda-parameters-limit::
-* defconstant::
-* defparameter; defvar::
-* destructuring-bind::
-* let; let*::
-* progv::
-* setq::
-* psetq::
-* block::
-* catch::
-* go::
-* return-from::
-* return::
-* tagbody::
-* throw::
-* unwind-protect::
-* nil (Constant Variable)::
-* not (Function)::
-* t (Constant Variable)::
-* eq::
-* eql (Function)::
-* equal::
-* equalp::
-* identity::
-* complement::
-* constantly::
-* every; some; notevery; notany::
-* and (Macro)::
-* cond::
-* if::
-* or (Macro)::
-* when; unless::
-* case; ccase; ecase::
-* typecase; ctypecase; etypecase::
-* multiple-value-bind::
-* multiple-value-call::
-* multiple-value-list::
-* multiple-value-prog1::
-* multiple-value-setq::
-* values (Accessor)::
-* values-list::
-* multiple-values-limit::
-* nth-value::
-* prog; prog*::
-* prog1; prog2::
-* progn::
-* define-modify-macro::
-* defsetf::
-* define-setf-expander::
-* get-setf-expansion::
-* setf; psetf::
-* shiftf::
-* rotatef::
-* control-error::
-* program-error::
-* undefined-function::
+* Data and Control Flow Dictionary::
 @end menu
 
 @node Generalized Reference
@@ -925,6 +854,80 @@ visible when the @code{unwind-protect} was entered.
 
 Event 4 occurs at the end of the transfer of control.
 
+@node Data and Control Flow Dictionary
+@section Data and Control Flow Dictionary
+
+@menu
+* apply::
+* defun::
+* fdefinition::
+* fboundp::
+* fmakunbound::
+* flet; labels; macrolet::
+* funcall::
+* function (Special Operator)::
+* function-lambda-expression::
+* functionp::
+* compiled-function-p::
+* call-arguments-limit::
+* lambda-list-keywords::
+* lambda-parameters-limit::
+* defconstant::
+* defparameter; defvar::
+* destructuring-bind::
+* let; let*::
+* progv::
+* setq::
+* psetq::
+* block::
+* catch::
+* go::
+* return-from::
+* return::
+* tagbody::
+* throw::
+* unwind-protect::
+* nil (Constant Variable)::
+* not (Function)::
+* t (Constant Variable)::
+* eq::
+* eql (Function)::
+* equal::
+* equalp::
+* identity::
+* complement::
+* constantly::
+* every; some; notevery; notany::
+* and (Macro)::
+* cond::
+* if::
+* or (Macro)::
+* when; unless::
+* case; ccase; ecase::
+* typecase; ctypecase; etypecase::
+* multiple-value-bind::
+* multiple-value-call::
+* multiple-value-list::
+* multiple-value-prog1::
+* multiple-value-setq::
+* values (Accessor)::
+* values-list::
+* multiple-values-limit::
+* nth-value::
+* prog; prog*::
+* prog1; prog2::
+* progn::
+* define-modify-macro::
+* defsetf::
+* define-setf-expander::
+* get-setf-expansion::
+* setf; psetf::
+* shiftf::
+* rotatef::
+* control-error::
+* program-error::
+* undefined-function::
+@end menu
 
 @node apply
 @subsection apply (Function)

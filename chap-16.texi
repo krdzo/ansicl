@@ -2,21 +2,7 @@
 @chapter Strings
 @menu
 * String Concepts::
-
-Dictionary
-
-* string (System Class)::
-* base-string::
-* simple-string::
-* simple-base-string::
-* simple-string-p::
-* char; schar::
-* string (Function)::
-* string-upcase; string-downcase; string-capitalize; nstring-upcase; nstr+::
-* string-trim; string-left-trim; string-right-trim::
-* string=; string/=; string<; string>; string<=; string>=; string-equal; +::
-* stringp::
-* make-string::
+* Strings Dictionary::
 @end menu
 
 @node String Concepts
@@ -48,6 +34,23 @@ However,
 the consequences are undefined if a @term{character} is inserted into a @term{string}
 for which the @term{element type} of the @term{string} does not include that @term{character}.
 
+@node Strings Dictionary
+@section Strings Dictionary
+
+@menu
+* string (System Class)::
+* base-string::
+* simple-string::
+* simple-base-string::
+* simple-string-p::
+* char; schar::
+* string (Function)::
+* string-upcase; string-downcase; string-capitalize; nstring-upcase; nstr+::
+* string-trim; string-left-trim; string-right-trim::
+* string=; string/=; string<; string>; string<=; string>=; string-equal; +::
+* stringp::
+* make-string::
+@end menu
 
 @node string (System Class)
 @subsection string (System Class)

@@ -8,39 +8,7 @@
 * Error Checking in Function Calls::
 * Traversal Rules and Side Effects::
 * Destructive Operations::
-
-Dictionary
-
-* lambda (Symbol)::
-* lambda (Macro)::
-* compile::
-* eval::
-* eval-when::
-* load-time-value::
-* quote::
-* compiler-macro-function::
-* define-compiler-macro::
-* defmacro::
-* macro-function::
-* macroexpand; macroexpand-1::
-* define-symbol-macro::
-* symbol-macrolet::
-* *macroexpand-hook*::
-* proclaim::
-* declaim::
-* declare::
-* ignore; ignorable::
-* dynamic-extent::
-* type::
-* inline; notinline::
-* ftype::
-* declaration::
-* optimize::
-* special::
-* locally::
-* the::
-* special-operator-p::
-* constantp::
+* Evaluation and Compilation Dictionary::
 @end menu
 
 @node Evaluation
@@ -3853,8 +3821,42 @@ itself.
 @end lisp
 
 
+@node Evaluation and Compilation Dictionary
+@section Evaluation and Compilation Dictionary
 
 
+@menu
+* lambda (Symbol)::
+* lambda (Macro)::
+* compile::
+* eval::
+* eval-when::
+* load-time-value::
+* quote::
+* compiler-macro-function::
+* define-compiler-macro::
+* defmacro::
+* macro-function::
+* macroexpand; macroexpand-1::
+* define-symbol-macro::
+* symbol-macrolet::
+* *macroexpand-hook*::
+* proclaim::
+* declaim::
+* declare::
+* ignore; ignorable::
+* dynamic-extent::
+* type::
+* inline; notinline::
+* ftype::
+* declaration::
+* optimize::
+* special::
+* locally::
+* the::
+* special-operator-p::
+* constantp::
+@end menu
 
 @node lambda (Symbol)
 @subsection lambda (Symbol)

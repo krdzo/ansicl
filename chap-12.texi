@@ -2,93 +2,7 @@
 @chapter Numbers
 @menu
 * Number Concepts::
-
-Dictionary
-
-* number::
-* complex (System Class)::
-* real::
-* float (System Class)::
-* short-float; single-float; double-float; long-float::
-* rational (System Class)::
-* ratio::
-* integer::
-* signed-byte::
-* unsigned-byte::
-* mod (Type Specifier)::
-* bit (Type)::
-* fixnum::
-* bignum::
-* =; /=; <; >; <=; >=::
-* max; min::
-* minusp; plusp::
-* zerop::
-* floor; ffloor; ceiling; fceiling; truncate; ftruncate; round; fround::
-* sin; cos; tan::
-* asin; acos; atan::
-* pi::
-* sinh; cosh; tanh; asinh; acosh; atanh::
-* * (Function)::
-* + (Function)::
-* - (Function)::
-* / (Function)::
-* 1+; 1-::
-* abs::
-* evenp; oddp::
-* exp; expt::
-* gcd::
-* incf; decf::
-* lcm::
-* log::
-* mod; rem::
-* signum::
-* sqrt; isqrt::
-* random-state::
-* make-random-state::
-* random::
-* random-state-p::
-* *random-state*::
-* numberp::
-* cis::
-* complex (Function)::
-* complexp::
-* conjugate::
-* phase::
-* realpart; imagpart::
-* upgraded-complex-part-type::
-* realp::
-* numerator; denominator::
-* rational; rationalize::
-* rationalp::
-* ash::
-* integer-length::
-* integerp::
-* parse-integer::
-* boole::
-* boole-1; boole-2; boole-and; boole-andc1; boole-andc2; boole-c1; boole-+::
-* logand; logandc1; logandc2; logeqv; logior; lognand; lognor; lognot; lo+::
-* logbitp::
-* logcount::
-* logtest::
-* byte; byte-size; byte-position::
-* deposit-field::
-* dpb::
-* ldb::
-* ldb-test::
-* mask-field::
-* most-positive-fixnum; most-negative-fixnum::
-* decode-float; scale-float; float-radix; float-sign; float-digits; float+::
-* float (Function)::
-* floatp::
-* most-positive-short-float; least-positive-short-float; least-positive-n+::
-* short-float-epsilon; short-float-negative-epsilon; single-float-epsilon+::
-* arithmetic-error::
-* arithmetic-error-operands; arithmetic-error-operation::
-* division-by-zero::
-* floating-point-invalid-operation::
-* floating-point-inexact::
-* floating-point-overflow::
-* floating-point-underflow::
+* Numbers Dictionary::
 @end menu
 
 @node Number Concepts
@@ -731,7 +645,95 @@ This denotes the absence of an upper bound on the interval.
 @caption{Random-state defined names}
 @end float
 
+@node Numbers Dictionary
+@section Numbers Dictionary
 
+@menu
+* number::
+* complex (System Class)::
+* real::
+* float (System Class)::
+* short-float; single-float; double-float; long-float::
+* rational (System Class)::
+* ratio::
+* integer::
+* signed-byte::
+* unsigned-byte::
+* mod (Type Specifier)::
+* bit (Type)::
+* fixnum::
+* bignum::
+* =; /=; <; >; <=; >=::
+* max; min::
+* minusp; plusp::
+* zerop::
+* floor; ffloor; ceiling; fceiling; truncate; ftruncate; round; fround::
+* sin; cos; tan::
+* asin; acos; atan::
+* pi::
+* sinh; cosh; tanh; asinh; acosh; atanh::
+* * (Function)::
+* + (Function)::
+* - (Function)::
+* / (Function)::
+* 1+; 1-::
+* abs::
+* evenp; oddp::
+* exp; expt::
+* gcd::
+* incf; decf::
+* lcm::
+* log::
+* mod; rem::
+* signum::
+* sqrt; isqrt::
+* random-state::
+* make-random-state::
+* random::
+* random-state-p::
+* *random-state*::
+* numberp::
+* cis::
+* complex (Function)::
+* complexp::
+* conjugate::
+* phase::
+* realpart; imagpart::
+* upgraded-complex-part-type::
+* realp::
+* numerator; denominator::
+* rational; rationalize::
+* rationalp::
+* ash::
+* integer-length::
+* integerp::
+* parse-integer::
+* boole::
+* boole-1; boole-2; boole-and; boole-andc1; boole-andc2; boole-c1; boole-+::
+* logand; logandc1; logandc2; logeqv; logior; lognand; lognor; lognot; lo+::
+* logbitp::
+* logcount::
+* logtest::
+* byte; byte-size; byte-position::
+* deposit-field::
+* dpb::
+* ldb::
+* ldb-test::
+* mask-field::
+* most-positive-fixnum; most-negative-fixnum::
+* decode-float; scale-float; float-radix; float-sign; float-digits; float+::
+* float (Function)::
+* floatp::
+* most-positive-short-float; least-positive-short-float; least-positive-n+::
+* short-float-epsilon; short-float-negative-epsilon; single-float-epsilon+::
+* arithmetic-error::
+* arithmetic-error-operands; arithmetic-error-operation::
+* division-by-zero::
+* floating-point-invalid-operation::
+* floating-point-inexact::
+* floating-point-overflow::
+* floating-point-underflow::
+@end menu
 
 @node number
 @subsection number (System Class)

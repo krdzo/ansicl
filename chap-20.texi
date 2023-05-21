@@ -2,19 +2,7 @@
 @chapter Files
 @menu
 * File System Concepts::
-
-Dictionary
-
-* directory::
-* probe-file::
-* ensure-directories-exist::
-* truename::
-* file-author::
-* file-write-date::
-* rename-file::
-* delete-file::
-* file-error::
-* file-error-pathname::
+* Files Dictionary::
 @end menu
 
 @node File System Concepts
@@ -176,7 +164,21 @@ file is being written, it might have version @kwdref{newest} and might only take
 a specific numeric value later when the file is closed even in a @term{file system}
 where all files have numeric versions.
 
+@node Files Dictionary
+@section Files Dictionary
 
+@menu
+* directory::
+* probe-file::
+* ensure-directories-exist::
+* truename::
+* file-author::
+* file-write-date::
+* rename-file::
+* delete-file::
+* file-error::
+* file-error-pathname::
+@end menu
 
 @node directory
 @subsection directory (Function)

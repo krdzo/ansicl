@@ -2,23 +2,7 @@
 @chapter Hash Tables
 @menu
 * Hash Table Concepts::
-
-Dictionary
-
-* hash-table::
-* make-hash-table::
-* hash-table-p::
-* hash-table-count::
-* hash-table-rehash-size::
-* hash-table-rehash-threshold::
-* hash-table-size::
-* hash-table-test::
-* gethash::
-* remhash::
-* maphash::
-* with-hash-table-iterator::
-* clrhash::
-* sxhash::
+* Hash Tables Dictionary::
 @end menu
 
 @node Hash Table Concepts
@@ -208,8 +192,26 @@ equivalence tests for @term{hash tables} (allowing additional values for the @kw
 argument to @code{make-hash-table}) must document the visible components of these
 tests.
 
+@node Hash Tables Dictionary
+@section Hash Tables Dictionary
 
 
+@menu
+* hash-table::
+* make-hash-table::
+* hash-table-p::
+* hash-table-count::
+* hash-table-rehash-size::
+* hash-table-rehash-threshold::
+* hash-table-size::
+* hash-table-test::
+* gethash::
+* remhash::
+* maphash::
+* with-hash-table-iterator::
+* clrhash::
+* sxhash::
+@end menu
 
 @node hash-table
 @subsection hash-table (System Class)

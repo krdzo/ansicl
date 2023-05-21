@@ -4,40 +4,7 @@
 * The Lisp Printer::
 * The Lisp Pretty Printer::
 * Formatted Output::
-
-Dictionary
-
-* copy-pprint-dispatch::
-* formatter::
-* pprint-dispatch::
-* pprint-exit-if-list-exhausted::
-* pprint-fill; pprint-linear; pprint-tabular::
-* pprint-indent::
-* pprint-logical-block::
-* pprint-newline::
-* pprint-pop::
-* pprint-tab::
-* print-object::
-* print-unreadable-object::
-* set-pprint-dispatch::
-* write; prin1; print; pprint; princ::
-* write-to-string; prin1-to-string; princ-to-string::
-* *print-array*::
-* *print-base*; *print-radix*::
-* *print-case*::
-* *print-circle*::
-* *print-escape*::
-* *print-gensym*::
-* *print-level*; *print-length*::
-* *print-lines*::
-* *print-miser-width*::
-* *print-pprint-dispatch*::
-* *print-pretty*::
-* *print-readably*::
-* *print-right-margin*::
-* print-not-readable::
-* print-not-readable-object::
-* format::
+* Printer Dictionary::
 @end menu
 
 @node The Lisp Printer
@@ -3213,6 +3180,42 @@ The @f{@tild{}@hat{}} should appear only at the beginning of a @f{@tild{}<} clau
 because it aborts the entire clause in which it appears (as well as
 all following clauses).
 
+@node Printer Dictionary
+@section Printer Dictionary
+
+@menu
+* copy-pprint-dispatch::
+* formatter::
+* pprint-dispatch::
+* pprint-exit-if-list-exhausted::
+* pprint-fill; pprint-linear; pprint-tabular::
+* pprint-indent::
+* pprint-logical-block::
+* pprint-newline::
+* pprint-pop::
+* pprint-tab::
+* print-object::
+* print-unreadable-object::
+* set-pprint-dispatch::
+* write; prin1; print; pprint; princ::
+* write-to-string; prin1-to-string; princ-to-string::
+* *print-array*::
+* *print-base*; *print-radix*::
+* *print-case*::
+* *print-circle*::
+* *print-escape*::
+* *print-gensym*::
+* *print-level*; *print-length*::
+* *print-lines*::
+* *print-miser-width*::
+* *print-pprint-dispatch*::
+* *print-pretty*::
+* *print-readably*::
+* *print-right-margin*::
+* print-not-readable::
+* print-not-readable-object::
+* format::
+@end menu
 
 @node copy-pprint-dispatch
 @subsection copy-pprint-dispatch (Function)

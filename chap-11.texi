@@ -2,39 +2,7 @@
 @chapter Packages
 @menu
 * Package Concepts::
-
-Dictionary
-
-* package::
-* export::
-* find-symbol::
-* find-package::
-* find-all-symbols::
-* import::
-* list-all-packages::
-* rename-package::
-* shadow::
-* shadowing-import::
-* delete-package::
-* make-package::
-* with-package-iterator::
-* unexport::
-* unintern::
-* in-package::
-* unuse-package::
-* use-package::
-* defpackage::
-* do-symbols; do-external-symbols; do-all-symbols::
-* intern::
-* package-name::
-* package-nicknames::
-* package-shadowing-symbols::
-* package-use-list::
-* package-used-by-list::
-* packagep::
-* *package*::
-* package-error::
-* package-error-package::
+* Packages Dictionary::
 @end menu
 
 @node Package Concepts
@@ -584,7 +552,42 @@ initially present in that @term{implementation} but not specified in this specif
 (See also the @term{function} @code{list-all-packages}.)
 
 
+@node Packages Dictionary
+@section Packages Dictionary
 
+
+@menu
+* package::
+* export::
+* find-symbol::
+* find-package::
+* find-all-symbols::
+* import::
+* list-all-packages::
+* rename-package::
+* shadow::
+* shadowing-import::
+* delete-package::
+* make-package::
+* with-package-iterator::
+* unexport::
+* unintern::
+* in-package::
+* unuse-package::
+* use-package::
+* defpackage::
+* do-symbols; do-external-symbols; do-all-symbols::
+* intern::
+* package-name::
+* package-nicknames::
+* package-shadowing-symbols::
+* package-use-list::
+* package-used-by-list::
+* packagep::
+* *package*::
+* package-error::
+* package-error-package::
+@end menu
 
 @node package
 @subsection package (System Class)

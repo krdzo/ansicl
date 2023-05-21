@@ -2,14 +2,7 @@
 @chapter Iteration
 @menu
 * The LOOP Facility::
-
-Dictionary
-
-* do; do*::
-* dotimes::
-* dolist::
-* loop::
-* loop-finish::
+* Iteration Dictionary::
 @end menu
 
 @node The LOOP Facility
@@ -2105,6 +2098,16 @@ no
 mechanism for users to add
 extensions to @code{loop}.
 
+@node Iteration Dictionary
+@section Iteration Dictionary
+
+@menu
+* do; do*::
+* dotimes::
+* dolist::
+* loop::
+* loop-finish::
+@end menu
 
 @node do; do*
 @subsection do, do* (Macro)

@@ -2,27 +2,7 @@
 @chapter Reader
 @menu
 * Reader Concepts::
-
-Dictionary
-
-* readtable::
-* copy-readtable::
-* make-dispatch-macro-character::
-* read; read-preserving-whitespace::
-* read-delimited-list::
-* read-from-string::
-* readtable-case::
-* readtablep::
-* set-dispatch-macro-character; get-dispatch-macro-character::
-* set-macro-character; get-macro-character::
-* set-syntax-from-char::
-* with-standard-io-syntax::
-* *read-base*::
-* *read-default-float-format*::
-* *read-eval*::
-* *read-suppress*::
-* *readtable*::
-* reader-error::
+* Reader Dictionary::
 @end menu
 
 @node Reader Concepts
@@ -224,8 +204,30 @@ if @param{recursive-p} is @term{false}, then the end-of-file may be deemed to ha
 occurred between @term{objects} rather than within the middle of one.
 @end enumerate
 
+@node Reader Dictionary
+@section Reader Dictionary
 
 
+@menu
+* readtable::
+* copy-readtable::
+* make-dispatch-macro-character::
+* read; read-preserving-whitespace::
+* read-delimited-list::
+* read-from-string::
+* readtable-case::
+* readtablep::
+* set-dispatch-macro-character; get-dispatch-macro-character::
+* set-macro-character; get-macro-character::
+* set-syntax-from-char::
+* with-standard-io-syntax::
+* *read-base*::
+* *read-default-float-format*::
+* *read-eval*::
+* *read-suppress*::
+* *readtable*::
+* reader-error::
+@end menu
 
 @node readtable
 @subsection readtable (System Class)

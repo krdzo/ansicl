@@ -2,45 +2,7 @@
 @chapter Arrays
 @menu
 * Array Concepts::
-
-Dictionary
-
-* array::
-* simple-array::
-* vector (System Class)::
-* simple-vector::
-* bit-vector::
-* simple-bit-vector::
-* make-array::
-* adjust-array::
-* adjustable-array-p::
-* aref::
-* array-dimension::
-* array-dimensions::
-* array-element-type::
-* array-has-fill-pointer-p::
-* array-displacement::
-* array-in-bounds-p::
-* array-rank::
-* array-row-major-index::
-* array-total-size::
-* arrayp::
-* fill-pointer::
-* row-major-aref::
-* upgraded-array-element-type::
-* array-dimension-limit::
-* array-rank-limit::
-* array-total-size-limit::
-* simple-vector-p::
-* svref::
-* vector (Function)::
-* vector-pop::
-* vector-push; vector-push-extend::
-* vectorp::
-* bit; sbit::
-* bit-and; bit-andc1; bit-andc2; bit-eqv; bit-ior; bit-nand; bit-nor; bit+::
-* bit-vector-p::
-* simple-bit-vector-p::
+* Arrays Dictionary::
 @end menu
 
 @node Array Concepts
@@ -275,8 +237,47 @@ see instead @ref{Strings, Chapter 16 (Strings)}.
 @caption{Operators that Manipulate Bit Arrays}
 @end float
 
+@node Arrays Dictionary
+@section Arrays Dictionary
 
-
+@menu
+* array::
+* simple-array::
+* vector (System Class)::
+* simple-vector::
+* bit-vector::
+* simple-bit-vector::
+* make-array::
+* adjust-array::
+* adjustable-array-p::
+* aref::
+* array-dimension::
+* array-dimensions::
+* array-element-type::
+* array-has-fill-pointer-p::
+* array-displacement::
+* array-in-bounds-p::
+* array-rank::
+* array-row-major-index::
+* array-total-size::
+* arrayp::
+* fill-pointer::
+* row-major-aref::
+* upgraded-array-element-type::
+* array-dimension-limit::
+* array-rank-limit::
+* array-total-size-limit::
+* simple-vector-p::
+* svref::
+* vector (Function)::
+* vector-pop::
+* vector-push; vector-push-extend::
+* vectorp::
+* bit; sbit::
+* bit-and; bit-andc1; bit-andc2; bit-eqv; bit-ior; bit-nand; bit-nor; bit+::
+* bit-vector-p::
+* simple-bit-vector-p::
+@end menu
 
 @node array
 @subsection array (System Class)

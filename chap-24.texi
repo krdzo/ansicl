@@ -2,20 +2,7 @@
 @chapter System Construction
 @menu
 * System Construction Concepts::
-
-Dictionary
-
-* compile-file::
-* compile-file-pathname::
-* load::
-* with-compilation-unit::
-* *features*::
-* *compile-file-pathname*; *compile-file-truename*::
-* *load-pathname*; *load-truename*::
-* *compile-print*; *compile-verbose*::
-* *load-print*; *load-verbose*::
-* *modules*::
-* provide; require::
+* System Construction Dictionary::
 @end menu
 
 @node System Construction Concepts
@@ -153,7 +140,22 @@ in @term{implementation} C, none of the features @f{spice}, @term{lispm}, or @f{
 @end float
 
 
+@node System Construction Dictionary
+@section System Construction Dictionary
 
+@menu
+* compile-file::
+* compile-file-pathname::
+* load::
+* with-compilation-unit::
+* *features*::
+* *compile-file-pathname*; *compile-file-truename*::
+* *load-pathname*; *load-truename*::
+* *compile-print*; *compile-verbose*::
+* *load-print*; *load-verbose*::
+* *modules*::
+* provide; require::
+@end menu
 
 @node compile-file
 @subsection compile-file (Function)

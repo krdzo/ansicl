@@ -2,30 +2,7 @@
 @chapter Characters
 @menu
 * Character Concepts::
-
-Dictionary
-
-* character (System Class)::
-* base-char::
-* standard-char::
-* extended-char::
-* char=; char/=; char<; char>; char<=; char>=; char-equal; char-not-equal+::
-* character (Function)::
-* characterp::
-* alpha-char-p::
-* alphanumericp::
-* digit-char::
-* digit-char-p::
-* graphic-char-p::
-* standard-char-p::
-* char-upcase; char-downcase::
-* upper-case-p; lower-case-p; both-case-p::
-* char-code::
-* char-int::
-* code-char::
-* char-code-limit::
-* char-name::
-* name-char::
+* Characters Dictionary::
 @end menu
 
 @node Character Concepts
@@ -544,7 +521,32 @@ the supported coded character sets (for example, ISO8859/1-1987)
 and external encoding schemes supported are documented.
 @end itemize
 
+@node Characters Dictionary
+@section Characters Dictionary
 
+@menu
+* character (System Class)::
+* base-char::
+* standard-char::
+* extended-char::
+* char=; char/=; char<; char>; char<=; char>=; char-equal; char-not-equal+::
+* character (Function)::
+* characterp::
+* alpha-char-p::
+* alphanumericp::
+* digit-char::
+* digit-char-p::
+* graphic-char-p::
+* standard-char-p::
+* char-upcase; char-downcase::
+* upper-case-p; lower-case-p; both-case-p::
+* char-code::
+* char-int::
+* code-char::
+* char-code-limit::
+* char-name::
+* name-char::
+@end menu
 
 @node character (System Class)
 @subsection character (System Class)

@@ -2,29 +2,7 @@
 @chapter Symbols
 @menu
 * Symbol Concepts::
-
-Dictionary
-
-* symbol::
-* keyword::
-* symbolp::
-* keywordp::
-* make-symbol::
-* copy-symbol::
-* gensym::
-* *gensym-counter*::
-* gentemp::
-* symbol-function::
-* symbol-name::
-* symbol-package::
-* symbol-plist::
-* symbol-value::
-* get::
-* remprop::
-* boundp::
-* makunbound::
-* set::
-* unbound-variable::
+* Symbols Dictionary::
 @end menu
 
 @node Symbol Concepts
@@ -62,6 +40,31 @@ to the creation of and inquiry about @term{symbols}.
 @end float
 
 
+@node Symbols Dictionary
+@section Symbols Dictionary
+
+@menu
+* symbol::
+* keyword::
+* symbolp::
+* keywordp::
+* make-symbol::
+* copy-symbol::
+* gensym::
+* *gensym-counter*::
+* gentemp::
+* symbol-function::
+* symbol-name::
+* symbol-package::
+* symbol-plist::
+* symbol-value::
+* get::
+* remprop::
+* boundp::
+* makunbound::
+* set::
+* unbound-variable::
+@end menu
 
 @node symbol
 @subsection symbol (System Class)
