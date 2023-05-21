@@ -145,15 +145,14 @@ names to be provided by a @term{conforming implementation} as extensions.
 @node Index
 @unnumbered Index
 @printindex cp
+
 @node Symbol Index
 @unnumbered Symbol Index
 @printindex sy
+
 @node List of Figures
 @unnumbered List of Figures
 @listoffloats Figure
-@ifnotinfo
-@node Table of Contents
-@unnumbered
-@contents
-@end ifnotinfo
+
+
 @bye

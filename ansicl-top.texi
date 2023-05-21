@@ -7,11 +7,14 @@
 @documentencoding ISO-8859-1
 @defindex sy
 @c %**end of header
+
 @dircategory Programming
 @direntry
 * ANSI Common Lisp: (ansicl).    Draft ANSI Common Lisp standard (dpANS3R).
 @end direntry
 @include dp.texi
+
+
 @node Top
 @top ANSI Common Lisp
 
@@ -53,10 +56,9 @@ discrepancies with the hardcopy version to
 * Index::
 * Symbol Index::
 * List of Figures::
-@ifnotinfo
-* Table of Contents::
-@end ifnotinfo
 @end menu
+
+@contents
 
 @include chap-1.texi
 @include chap-2.texi
