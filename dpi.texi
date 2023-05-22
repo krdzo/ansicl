@@ -5,7 +5,7 @@
 @end macro
 
 @macro cubed {}
-³
+@sup{3}
 @end macro
 
 @macro result {}
@@ -33,7 +33,7 @@
 @end macro
 
 @macro prevplus {}
-⁺
+@sup{+}
 @end macro
 
 @macro begininterleave {}
@@ -149,14 +149,11 @@
 @end macro
 
 @macro one {arg}
-\arg\¹
+\arg\@sup{1}
 @end macro
 
 @rmacro subs {arg}
-@html
-_@{\arg\@}
-@end html
-
+@sub{@{\arg\@}}
 @end rmacro
 
 @rmacro subs1 {arg}
@@ -164,47 +161,47 @@ _\arg\
 @end rmacro
 
 @macro subOne {}
-₁
+@sub{1}
 @end macro
 
 @macro sub0 {}
-₀
+@sub{0}
 @end macro
 
 @macro sub1 {}
-₁
+@sub{1}
 @end macro
 
 @macro sub2 {}
-₂
+@sub{2}
 @end macro
 
 @macro sub3 {}
-₃
+@sub{3}
 @end macro
 
 @macro sub4 {}
-₄
+@sub{4}
 @end macro
 
 @macro sub5 {}
-₅
+@sub{5}
 @end macro
 
 @macro sub6 {}
-₆
+@sub{6}
 @end macro
 
 @macro sub7 {}
-₇
+@sub{7}
 @end macro
 
 @macro sub8 {}
-₈
+@sub{8}
 @end macro
 
 @macro sub9 {}
-₉
+@sub{9}
 @end macro
 
 @macro le {}

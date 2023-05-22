@@ -5,7 +5,7 @@
 @end macro
 
 @macro cubed {}
-³
+@sup{3}
 @end macro
 
 @macro result {}
