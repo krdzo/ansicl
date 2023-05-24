@@ -400,10 +400,10 @@ which contains or refers to non-portable @term{pathname} components.
 And certainly a @term{conforming program} should be prepared for the
 possibility that any components of a @term{pathname} could be @kwd{unspecific}.
 
-When @term{reading}@sub1{} the value of any @term{pathname} component,
+When @term{reading}@sub{1} the value of any @term{pathname} component,
 @term{conforming programs} should be prepared for the value to be @kwd{unspecific}.
 
-When @term{writing}@sub1{} the value of any @term{pathname} component,
+When @term{writing}@sub{1} the value of any @term{pathname} component,
 the consequences are undefined if @kwd{unspecific} is given
 for a @term{pathname} in a @term{file system} for which it does not make sense.
 
@@ -459,10 +459,10 @@ representing an @term{implementation-dependent} wildcard pattern.
 @subsubsection Restrictions on Examining Pathname Components
 
 The space of possible @term{objects} that a @term{conforming program}
-must be prepared to @term{read}@sub1{}
+must be prepared to @term{read}@sub{1}
 as the value of a @term{pathname} component
 is substantially larger than the space of possible @term{objects}
-that a @term{conforming program} is permitted to @term{write}@sub1{}
+that a @term{conforming program} is permitted to @term{write}@sub{1}
 into such a component.
 
 While the values discussed
@@ -491,9 +491,9 @@ It is @term{implementation-dependent} what @term{object} is used to represent th
 The device might be a @term{string},
 @kwd{wild}, @kwd{unspecific}, or @nil{}.
 
-Note that @kwd{wild} might result from an attempt to @term{read}@sub1{}
+Note that @kwd{wild} might result from an attempt to @term{read}@sub{1}
 the @term{pathname} component, even though portable programs are restricted
-from @term{writing}@sub1{} such a component value;
+from @term{writing}@sub{1} such a component value;
 see @ref{WildcardRestrictions, Section 19.2.2.3 (Restrictions on Wildcard Pathnames)}@spc{}and @ref{ConstructingPathnames, Section 19.2.2.5 (Restrictions on Constructing Pathnames)}.
 
 
@@ -1094,7 +1094,7 @@ a @term{logical pathname} is returned.
 
 @subsubheading Syntax:
 
-@DefunWithValuesNewline{make-pathname, @key{} host device directory name type version defaults case, pathname}
+@DefunWithValuesNewline{make-pathname, @keyparam{} host device directory name type version defaults case, pathname}
 
 @subsubheading Arguments and Values:
 
@@ -1290,15 +1290,15 @@ See @ref{UnspecificComponent, Section 19.2.2.2.3 (.UNSPECIFIC as a Component Val
 @subsubheading Syntax:
 
 
-@DefunWithValues{pathname-host, pathname @key{} case, host}
+@DefunWithValues{pathname-host, pathname @keyparam{} case, host}
 
-@DefunWithValues{pathname-device, pathname @key{} case, device}
+@DefunWithValues{pathname-device, pathname @keyparam{} case, device}
 
-@DefunWithValues{pathname-directory, pathname @key{} case, directory}
+@DefunWithValues{pathname-directory, pathname @keyparam{} case, directory}
 
-@DefunWithValues{pathname-name, pathname @key{} case, name}
+@DefunWithValues{pathname-name, pathname @keyparam{} case, name}
 
-@DefunWithValues{pathname-type, pathname @key{} case, type}
+@DefunWithValues{pathname-type, pathname @keyparam{} case, type}
 
 
 @DefunWithValues{pathname-version, pathname, version}
@@ -1901,7 +1901,7 @@ by concatenating some of the three shorter @term{namestrings} in some order.
 
 @subsubheading Syntax:
 
-@DefunWithValuesNewline{parse-namestring, thing @opt{} host default-pathname @key{} start end junk-allowed, pathname\, position}
+@DefunWithValuesNewline{parse-namestring, thing @opt{} host default-pathname @keyparam{} start end junk-allowed, pathname\, position}
 
 @subsubheading Arguments and Values:
 
@@ -2032,7 +2032,7 @@ of the resulting @term{pathname}.
 If @param{junk-allowed} is @term{false},
 an error @oftype{parse-error} is signaled if @param{thing}
 does not consist entirely of the representation of a @term{pathname},
-possibly surrounded on either side by @term{whitespace}@sub1{} characters if that is
+possibly surrounded on either side by @term{whitespace}@sub{1} characters if that is
 appropriate to the cultural conventions of the implementation.
 
 If @param{host} is supplied and not @nil{},
@@ -2181,7 +2181,7 @@ or @term{stream associated with a file} an error @oftype{type-error} is signaled
 
 @subsubheading Syntax:
 
-@DefunWithValues{translate-logical-pathname, pathname @key{}, physical-pathname}
+@DefunWithValues{translate-logical-pathname, pathname @keyparam{}, physical-pathname}
 
 @subsubheading Arguments and Values:
 
@@ -2268,7 +2268,7 @@ If no translation matches, an error @oftype{file-error} is signaled.
 
 @subsubheading Syntax:
 
-@DefunWithValuesNewline{translate-pathname, source from-wildcard to-wildcard @key{}, translated-pathname}
+@DefunWithValuesNewline{translate-pathname, source from-wildcard to-wildcard @keyparam{}, translated-pathname}
 
 @subsubheading Arguments and Values:
 

@@ -66,7 +66,7 @@ each which is in turn made up of @term{loop keywords} and @term{forms}.
 @node Loop Keywords
 @subsubsection Loop Keywords
 
-@term{Loop keywords} are not true @term{keywords}@sub1{};
+@term{Loop keywords} are not true @term{keywords}@sub{1};
 they are special @term{symbols}, recognized by @term{name} rather than @term{object} identity,
 that are meaningful only to the @code{loop} facility.
 A @term{loop keyword} is a @term{symbol} but is recognized by its @term{name}
@@ -168,7 +168,7 @@ in the order they appear in the source.
 
 The loop body contains those @term{forms} that are executed during iteration,
 including application-specific calculations, termination tests,
-and variable @term{stepping}@sub1{}.
+and variable @term{stepping}@sub{1}.
 
 @item @id{@b{Loop epilogue}}
 
@@ -206,8 +206,8 @@ Loop clauses fall into one of the following categories:
 The @loopref{for} and @loopref{as} constructs provide iteration control clauses
 that establish a variable to be initialized.
 @loopref{for} and @loopref{as} clauses can be combined with the loop
-keyword @loopref{and} to get @term{parallel} initialization and @term{stepping}@sub1{}.
-Otherwise, the initialization and @term{stepping}@sub1{} are @term{sequential}.
+keyword @loopref{and} to get @term{parallel} initialization and @term{stepping}@sub{1}.
+Otherwise, the initialization and @term{stepping}@sub{1} are @term{sequential}.
 
 The @loopref{with} construct is similar to a single @code{let} clause.
 @loopref{with} clauses can be combined using the @term{loop keyword} @loopref{and}
@@ -581,7 +581,7 @@ Iteration control clauses allow direction of @code{loop} iteration.
 The @term{loop keywords} @loopref{for} and @loopref{as}
 designate iteration control clauses.
 Iteration control clauses differ with respect to the specification of
-termination tests and to the initialization and @term{stepping}@sub1{}
+termination tests and to the initialization and @term{stepping}@sub{1}
 of loop variables.  Iteration clauses by themselves
 do not cause the Loop Facility to return values, but they
 can be used in conjunction with value-accumulation clauses to
@@ -612,22 +612,22 @@ before any other loop body code is executed.
 
 
 If multiple iteration clauses are used to control iteration, variable
-initialization and @term{stepping}@sub1{} occur @term{sequentially} by default.
+initialization and @term{stepping}@sub{1} occur @term{sequentially} by default.
 The @loopref{and} construct can be used to connect two or more
 iteration clauses when @term{sequential} @term{binding} and
-@term{stepping}@sub1{} are not necessary.
+@term{stepping}@sub{1} are not necessary.
 The iteration behavior of clauses joined by @loopref{and}
 is analogous to the behavior of the macro @code{do} with
 respect to @code{do*}.
 
 The @loopref{for} and @loopref{as} clauses iterate by using one or more local
 loop  variables that are initialized to some value and that
-can be modified or @term{stepped}@sub1{} after each iteration.
+can be modified or @term{stepped}@sub{1} after each iteration.
 For these clauses, iteration terminates when a local
 variable reaches some supplied value or when some other loop clause
 terminates iteration.
 At each iteration, variables can be
-@term{stepped}@sub1{} by an increment or a decrement
+@term{stepped}@sub{1} by an increment or a decrement
 or can be assigned a new value by the evaluation of a @term{form}).
 Destructuring can be used to assign
 values to variables during iteration.
@@ -652,7 +652,7 @@ or @loopref{as} construct iterates from the value supplied by
 decrements denoted by @param{form3}. Each
 expression is evaluated only once and must evaluate to a @term{number}.
 The variable @param{var} is bound to the value of
-@param{form1} in the first iteration and is @term{stepped}@sub1{}
+@param{form1} in the first iteration and is @term{stepped}@sub{1}
 by the value of @param{form3} in each succeeding iteration,
 or by 1 if @param{form3} is not provided.
 The following @term{loop keywords} serve as valid prepositions within this
@@ -698,12 +698,12 @@ The descriptions of the prepositions follow:
 
 
 The @term{loop keyword} @loopref{from} specifies the value from which
-@term{stepping}@sub1{} begins, as supplied by @param{form1}.
-@term{Stepping}@sub1{} is incremental by default.  If
-decremental @term{stepping}@sub1{} is desired,
+@term{stepping}@sub{1} begins, as supplied by @param{form1}.
+@term{Stepping}@sub{1} is incremental by default.  If
+decremental @term{stepping}@sub{1} is desired,
 the preposition @loopref{downto}
 or @loopref{above} must be used with @param{form2}.  For incremental
-@term{stepping}@sub1{}, the default @loopref{from} value is 0.
+@term{stepping}@sub{1}, the default @loopref{from} value is 0.
 
 @item @id{@tt{downfrom, upfrom}}
 
@@ -717,9 +717,9 @@ supplied by @param{form3}; the @term{loop keyword} @loopref{upfrom} indicates th
 
 
 The @term{loop keyword} @loopref{to} marks the end value
-for @term{stepping}@sub1{} supplied in @param{form2}.
-@term{Stepping}@sub1{} is incremental by default.
-If decremental @term{stepping}@sub1{} is desired,
+for @term{stepping}@sub{1} supplied in @param{form2}.
+@term{Stepping}@sub{1} is incremental by default.
+If decremental @term{stepping}@sub{1} is desired,
 the preposition @loopref{downfrom} must be used with @param{form1},
 or else the preposition @loopref{downto} or @loopref{above} should be used instead
 of @loopref{to} with @param{form2}.
@@ -732,7 +732,7 @@ the @term{loop keyword} @loopref{upto} specifies incremental @term{stepping}.
 In both cases, the amount of change on each step is specified by @param{form3},
 and the @code{loop} terminates when the variable @param{var} passes
 the value of @param{form2}.
-Since there is no default for @param{form1} in decremental @term{stepping}@sub1{},
+Since there is no default for @param{form1} in decremental @term{stepping}@sub{1},
 a @param{form1} value must be supplied (using @loopref{from} or @loopref{downfrom})
 when @loopref{downto} is supplied.
 
@@ -743,7 +743,7 @@ The @term{loop keywords} @loopref{below} and @loopref{above} are analogous to
 @loopref{upto} and @loopref{downto} respectively.  These keywords stop
 iteration just before the value of the variable @param{var} reaches the value
 supplied by @param{form2}; the end value of @param{form2} is not included.
-Since there is no default for @param{form1} in decremental @term{stepping}@sub1{},
+Since there is no default for @param{form1} in decremental @term{stepping}@sub{1},
 a @param{form1} value must be supplied (using @loopref{from} or @loopref{downfrom})
 when @loopref{above} is supplied.
 

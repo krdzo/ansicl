@@ -512,7 +512,7 @@ always return @term{true} for @term{broadcast streams}.
 
 @item
 The functions @code{open-stream-p} tests whether the @term{broadcast stream}
-is @term{open}@sub2{}, not whether its component streams are @term{open}.
+is @term{open}@sub{2}, not whether its component streams are @term{open}.
 
 @item
 The functions @code{input-stream-p} and @term{interactive-stream-p}
@@ -573,7 +573,7 @@ sequences of data which could be read from each of the
 constituent @term{streams}.
 
 Input from a @term{concatenated stream} is taken from the first
-of the associated @term{input streams} until it reaches @term{end of file}@sub1{};
+of the associated @term{input streams} until it reaches @term{end of file}@sub{1};
 then that @term{stream} is discarded, and subsequent input is taken
 from the next @term{input stream}, and so on.
 An @term{end of file} on the associated @term{input streams} is always managed
@@ -988,7 +988,7 @@ or the @param{eof-value}.
 
 @code{read-byte} reads and returns one byte from @param{stream}.
 
-If an @term{end of file}@sub2{} occurs and @param{eof-error-p} is @term{false},
+If an @term{end of file}@sub{2} occurs and @param{eof-error-p} is @term{false},
 the @param{eof-value} is returned.
 
 @subsubheading Examples:
@@ -1124,7 +1124,7 @@ If @param{peek-type} is not supplied or @nil{},
 The next time input is done from @param{input-stream}, the character will still
 be there.
 If @param{peek-type} is @code{t},
-then @code{peek-char} skips over @term{whitespace}@sub2{} @term{characters},
+then @code{peek-char} skips over @term{whitespace}@sub{2} @term{characters},
 but not comments,
 and then performs the peeking operation on the next
 character.
@@ -1136,7 +1136,7 @@ over input characters until a character that
 is @code{char=} to that @term{character} is found;
 that character is left in @param{input-stream}.
 
-If an @term{end of file}@sub2{} occurs and @param{eof-error-p} is @term{false},
+If an @term{end of file}@sub{2} occurs and @param{eof-error-p} is @term{false},
 @param{eof-value} is returned.
 
 @mat{ }@ExplainRecursiveP{}
@@ -1168,16 +1168,16 @@ and so are echoed unless they have been marked otherwise by @code{unread-char}.
 
 @subsubheading Exceptional Situations:
 
-If @param{eof-error-p} is @term{true} and an @term{end of file}@sub2{} occurs
+If @param{eof-error-p} is @term{true} and an @term{end of file}@sub{2} occurs
 an error @oftype{end-of-file} is signaled.
 
 If     @param{peek-type} is a @term{character},
-an @term{end of file}@sub2{} occurs,
+an @term{end of file}@sub{2} occurs,
 and @param{eof-error-p} is @term{true},
 an error @oftype{end-of-file} is signaled.
 
 If @param{recursive-p} is @term{true}
-and an @term{end of file}@sub2{} occurs,
+and an @term{end of file}@sub{2} occurs,
 an error @oftype{end-of-file} is signaled.
 
 
@@ -1222,7 +1222,7 @@ already by a previous call to @code{read-char}.
 
 @mat{ }@ExplainRecursiveP{}
 
-If an @term{end of file}@sub2{} occurs and @param{eof-error-p} is @term{false},
+If an @term{end of file}@sub{2} occurs and @param{eof-error-p} is @term{false},
 @param{eof-value} is returned.
 
 @subsubheading Examples:
@@ -1243,7 +1243,7 @@ If an @term{end of file}@sub2{} occurs and @param{eof-error-p} is @term{false},
 
 @subsubheading Exceptional Situations:
 
-If an @term{end of file}@sub2{} occurs before a character can be read, and
+If an @term{end of file}@sub{2} occurs before a character can be read, and
 @param{eof-error-p} is @term{true},
 an error @oftype{end-of-file} is signaled.
 
@@ -1292,7 +1292,7 @@ is available, @code{read-char-no-hang} returns @nil{}.
 
 @mat{ }@ExplainRecursiveP{}
 
-If an @term{end of file}@sub2{} occurs and @param{eof-error-p} is @term{false},
+If an @term{end of file}@sub{2} occurs and @param{eof-error-p} is @term{false},
 @param{eof-value} is returned.
 
 @subsubheading Examples:
@@ -1327,7 +1327,7 @@ If an @term{end of file}@sub2{} occurs and @param{eof-error-p} is @term{false},
 
 @subsubheading Exceptional Situations:
 
-If an @term{end of file}@sub2{} occurs
+If an @term{end of file}@sub{2} occurs
 when @param{eof-error-p} is @term{true},
 an error @oftype{end-of-file} is signaled .
 
@@ -1617,7 +1617,7 @@ the @term{end of file} for @param{input-stream}
 
 @subsubheading Exceptional Situations:
 
-If an @term{end of file}@sub2{} occurs before any characters are read in the line,
+If an @term{end of file}@sub{2} occurs before any characters are read in the line,
 an error is signaled if @param{eof-error-p} is @term{true}.
 
 @subsubheading See Also:
@@ -1641,8 +1641,8 @@ The corresponding output function is @code{write-line}.
 
 @subsubheading Syntax:
 
-@DefunWithValues{write-string, string @opt{} output-stream @key{} start end, string}
-@DefunWithValues{write-line, string @opt{} output-stream @key{} start end, string}
+@DefunWithValues{write-string, string @opt{} output-stream @keyparam{} start end, string}
+@DefunWithValues{write-line, string @opt{} output-stream @keyparam{} start end, string}
 
 @subsubheading Arguments and Values:
 
@@ -1714,7 +1714,7 @@ not the substring @term{bounded} by @param{start} and @param{end}.
 
 @subsubheading Syntax:
 
-@DefunWithValues{read-sequence, sequence stream @key{} start end, position}
+@DefunWithValues{read-sequence, sequence stream @keyparam{} start end, position}
 
 @param{sequence}---a @term{sequence}.
 
@@ -1789,7 +1789,7 @@ for the case where the @param{sequence} is a @term{vector} with the same
 
 @subsubheading Syntax:
 
-@DefunWithValues{write-sequence, sequence stream @key{} start end, sequence}
+@DefunWithValues{write-sequence, sequence stream @keyparam{} start end, sequence}
 
 @param{sequence}---a @term{sequence}.
 
@@ -2051,7 +2051,7 @@ when the state of the @term{stream} has changed.
 
 @subsubheading Syntax:
 
-@DefunWithValuesNewline{open, filespec @key{} @vtop{@hbox{direction element-type} @hbox{if-exists if-does-not-exist external-format}}, stream}
+@DefunWithValuesNewline{open, filespec @keyparam{} @vtop{@hbox{direction element-type} @hbox{if-exists if-does-not-exist external-format}}, stream}
 
 @subsubheading Arguments and Values:
 
@@ -2543,7 +2543,7 @@ See the @term{function} @ref{open}.
 
 @subsubheading Syntax:
 
-@DefunWithValues{close, stream @key{} abort, result}
+@DefunWithValues{close, stream @keyparam{} abort, result}
 
 @subsubheading Arguments and Values:
 
@@ -2694,7 +2694,7 @@ Returns @term{true} if
 there is a character immediately available from @param{input-stream};
 otherwise, returns @term{false}.
 On a non-interactive @param{input-stream},
-@code{listen} returns @term{true} except when at @term{end of file}@sub1{}.
+@code{listen} returns @term{true} except when at @term{end of file}@sub{1}.
 If an @term{end of file} is encountered, @code{listen} returns @term{false}.
 @code{listen} is intended to be used
 when @param{input-stream} obtains characters
@@ -3430,7 +3430,7 @@ the @term{string stream} will then be at @term{end of file}.
 
 @subsubheading Syntax:
 
-@DefunWithValues{make-string-output-stream, @key{} element-type, string-stream}
+@DefunWithValues{make-string-output-stream, @keyparam{} element-type, string-stream}
 
 @subsubheading Arguments and Values:
 
@@ -3477,7 +3477,7 @@ of the @term{string}; a @term{string} is constructed of the most specialized
 
 @subsubheading Syntax:
 
-@DefmacWithValuesNewline{with-input-from-string, @paren{var string @key{} index start end} @starparam{declaration} @starparam{form}, @starparam{result}}
+@DefmacWithValuesNewline{with-input-from-string, @paren{var string @keyparam{} index start end} @starparam{declaration} @starparam{form}, @starparam{result}}
 
 @subsubheading Arguments and Values:
 
@@ -3566,7 +3566,7 @@ The @term{value} of the @term{place} named by @param{index}, if any, is modified
 
 @subsubheading Syntax:
 
-@DefmacWithValuesNewline{with-output-to-string, @paren{var @opt{} string-form @key{} element-type} @starparam{declaration} @starparam{form}, @starparam{result}}
+@DefmacWithValuesNewline{with-output-to-string, @paren{var @opt{} string-form @keyparam{} element-type} @starparam{declaration} @starparam{form}, @starparam{result}}
 
 @subsubheading Arguments and Values:
 

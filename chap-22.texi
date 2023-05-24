@@ -270,13 +270,13 @@ When the printer types out the name of a @term{character},
 it uses the same table as the @f{#@bsl{}} @term{reader macro} would use;
 therefore any @term{character} name that is typed out
 is acceptable as input (in that @term{implementation}).
-If a @term{non-graphic} @term{character} has a @term{standardized} @term{name}@sub5{},
+If a @term{non-graphic} @term{character} has a @term{standardized} @term{name}@sub{5},
 that @term{name} is preferred over non-standard @term{names}
 for printing in @f{#@bsl{}} notation.
 For the @term{graphic} @term{standard characters},
 the @term{character} itself is always used
 for printing in @f{#@bsl{}} notation---even if
-the @term{character} also has a @term{name}@sub5{}.
+the @term{character} also has a @term{name}@sub{5}.
 
 For details about the @f{#@bsl{}} @term{reader macro}, see @ref{SharpsignBackslash, Section 2.4.8.1 (Sharpsign Backslash)}.
 
@@ -585,7 +585,7 @@ and the @term{cdr} of @mat{x} are printed.
 Actually, the above algorithm is only used when @code{*print-pretty*}
 is @term{false}.  When @code{*print-pretty*} is @term{true} (or
 when @code{pprint} is used),
-additional @term{whitespace}@sub1{}
+additional @term{whitespace}@sub{1}
 may replace the use of a single @term{space},
 and a more elaborate algorithm with similar goals but more presentational
 flexibility is used; see @ref{Printer Dispatching, Section 22.1.2 (Printer Dispatching)}.
@@ -663,7 +663,7 @@ Following that, the first element of the @term{vector} is printed.
 If there are any other elements, they are printed in turn, with
 each such additional element preceded by
 a @term{space} if @code{*print-pretty*} is @term{false},
-or @term{whitespace}@sub1{} if @code{*print-pretty*} is @term{true}.
+or @term{whitespace}@sub{1} if @code{*print-pretty*} is @term{true}.
 A @term{right-parenthesis} after the last element
 terminates the printed representation of the @term{vector}.
 The printing of @term{vectors}
@@ -697,7 +697,7 @@ Then @f{#} is printed, then @f{n} as a decimal integer,
 then @f{A}, then @f{n} open parentheses.
 Next the @term{elements} are scanned in row-major order,
 using @code{write} on each @term{element},
-and separating @term{elements} from each other with @term{whitespace}@sub1{}.
+and separating @term{elements} from each other with @term{whitespace}@sub{1}.
 The array's dimensions are numbered 0 to @f{n}-1 from left to right,
 and are enumerated with the rightmost index changing fastest.
 Every time the index for dimension @f{j} is incremented,
@@ -3026,13 +3026,13 @@ within a @f{@tild{}<} construct.
 @cindex Tilde Newline (format directive)
 
 @term{Tilde} immediately followed by a @term{newline} ignores the @term{newline}
-and any following non-newline @term{whitespace}@sub1{} characters.
+and any following non-newline @term{whitespace}@sub{1} characters.
 With a @f{:},
 the @term{newline} is ignored,
-but any following @term{whitespace}@sub1{} is left in place.
+but any following @term{whitespace}@sub{1} is left in place.
 With an @f{@@},
 the @term{newline} is left in place,
-but any following @term{whitespace}@sub1{} is ignored.
+but any following @term{whitespace}@sub{1} is ignored.
 For example:
 
 @lisp
@@ -3670,7 +3670,7 @@ than @kwd{block} or @kwd{current}.
 
 @subsubheading Syntax:
 
-@DefmacWithValuesNewline{pprint-logical-block, @vtop{@hbox{@paren{stream-symbol object  @key{} prefix per-line-prefix suffix}} @hbox{@starparam{declaration} @starparam{form}}}, @nil{}}
+@DefmacWithValuesNewline{pprint-logical-block, @vtop{@hbox{@paren{stream-symbol object  @keyparam{} prefix per-line-prefix suffix}} @hbox{@starparam{declaration} @starparam{form}}}, @nil{}}
 
 @subsubheading Arguments and Values:
 
@@ -4272,7 +4272,7 @@ but is an intermediate @term{stream} that implements part of the printer.
 
 @subsubheading Syntax:
 
-@DefmacWithValues{print-unreadable-object, @paren{object stream @key{} type identity} @starparam{form}, @nil{}}
+@DefmacWithValues{print-unreadable-object, @paren{object stream @keyparam{} type identity} @starparam{form}, @nil{}}
 
 @subsubheading Arguments and Values:
 
@@ -4420,7 +4420,7 @@ The @param{cdr-type} can be omitted in which case it defaults to @t{t}.
 
 @subsubheading Syntax:
 
-@DefunWithValuesNewline{write, @param{object} @key{} @writekeys{stream}, object}
+@DefunWithValuesNewline{write, @param{object} @keyparam{} @writekeys{stream}, object}
 
 @DefunWithValues{prin1, object @opt{} output-stream, object}
 @DefunWithValues{princ, object @opt{} output-stream, object}
@@ -4585,7 +4585,7 @@ output is to be sent.
 
 @subsubheading Syntax:
 
-@DefunWithValuesNewline{write-to-string, object @key{} @writekeys{}, string}
+@DefunWithValuesNewline{write-to-string, object @keyparam{} @writekeys{}, string}
 
 @DefunWithValues{prin1-to-string, object, string}
 
@@ -5246,12 +5246,12 @@ Controls whether the @term{Lisp printer} calls the @term{pretty printer}.
 If it is @term{false},
 the @term{pretty printer} is not used and
 a minimum
-of @term{whitespace}@sub1{}
+of @term{whitespace}@sub{1}
 is output when printing an expression.
 
 If it is @term{true},
 the @term{pretty printer} is used, and the @term{Lisp printer} will endeavor
-to insert extra @term{whitespace}@sub1{} where appropriate to make @term{expressions}
+to insert extra @term{whitespace}@sub{1} where appropriate to make @term{expressions}
 more readable.
 
 @code{*print-pretty*} has an effect even when @thevalueof{*print-escape*}
@@ -5316,11 +5316,11 @@ a @term{generalized boolean}.
 
 If @code{*print-readably*} is @term{true},
 some special rules for printing @term{objects} go into effect.
-Specifically, printing any @term{object} @mat{O@sub1{}} produces a printed
+Specifically, printing any @term{object} @mat{O@sub{1}} produces a printed
 representation that, when seen by the @term{Lisp reader}
 while the @term{standard readtable} is in effect,
 will produce
-an @term{object} @mat{O@sub2{}} that is @term{similar} to @mat{O@sub1{}}.
+an @term{object} @mat{O@sub{2}} that is @term{similar} to @mat{O@sub{1}}.
 The printed representation produced might or might not be the same as
 the printed representation produced when @code{*print-readably*} is @term{false}.
 If printing an @term{object} @term{readably} is not possible,

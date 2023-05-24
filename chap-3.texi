@@ -238,15 +238,15 @@ and
 @term{constant variables}.
 A @term{variable} can store one @term{object}.
 The main operations on a @term{variable} are
-to @term{read}@sub1{} and
-to @term{write}@sub1{}
+to @term{read}@sub{1} and
+to @term{write}@sub{1}
 its @term{value}.
 
 An error @oftype{unbound-variable} should be signaled if
 an @term{unbound variable} is referenced.
 
 @term{Non-constant variables} can be @term{assigned} by using @code{setq}
-or @term{bound}@sub3{} by using @code{let}.
+or @term{bound}@sub{3} by using @code{let}.
 @Thenextfigure{}@spc{}lists some @term{defined names} that
 are applicable to assigning, binding, and defining @term{variables}.
 
@@ -280,7 +280,7 @@ a @term{fresh} @term{binding} is @term{established}.
 
 Within the @term{scope} of a @term{binding} for a @term{lexical variable} @term{name},
 uses of that @term{name} as a @term{variable} are considered to be references
-to that @term{binding} except where the @term{variable} is @term{shadowed}@sub2{}
+to that @term{binding} except where the @term{variable} is @term{shadowed}@sub{2}
 by a @term{form} that @term{establishes} a @term{fresh} @term{binding} for that
 @term{variable} @term{name},
 or by a @term{form} that locally @term{declares} the @term{name} @code{special}.
@@ -307,7 +307,7 @@ conditions hold:
 
 @item It occurs textually within a @term{form} that
 creates a @term{dynamic binding} for a @term{variable} of the @term{same} @term{name},
-and the @term{binding} is not @term{shadowed}@sub2{} by a @term{form}
+and the @term{binding} is not @term{shadowed}@sub{2} by a @term{form}
 that creates a @term{lexical binding} of the same @term{variable} @term{name}.
 @end itemize
 
@@ -963,7 +963,7 @@ all others are discarded; if the @term{form} produces zero values,
 then the caller receives @nil{}@spc{}as a value.
 
 @Thenextfigure{}@spc{}lists
-some @term{operators} for receiving @term{multiple values}@sub2{}.
+some @term{operators} for receiving @term{multiple values}@sub{2}.
 These @term{operators} can be used to specify
 one or more @term{forms} to @term{evaluate}
 and where to put the @term{values} returned by those @term{forms}.
@@ -982,7 +982,7 @@ and where to put the @term{values} returned by those @term{forms}.
 @end float
 
 
-@Thefunction{values} can produce @term{multiple values}@sub2{}.
+@Thefunction{values} can produce @term{multiple values}@sub{2}.
 @f{(values)} returns zero values;
 @f{(values @param{form})} returns the @term{primary value} returned by @param{form};
 @f{(values @param{form1} @param{form2})} returns two values,
@@ -1142,7 +1142,7 @@ A @term{function name} names a @term{compiler macro} if @code{compiler-macro-fun
 is @term{true} of the @term{function name} in the @term{lexical environment} in which
 it appears.  Creating a @term{lexical binding} for the @term{function name}
 not only creates a new local @term{function} or
-@term{macro} definition, but also @term{shadows}@sub2{} the @term{compiler macro}.
+@term{macro} definition, but also @term{shadows}@sub{2} the @term{compiler macro}.
 
 The @term{function} returned by @code{compiler-macro-function}
 is a @term{function} of two arguments, called the
@@ -1830,7 +1830,7 @@ An error is signaled by the @term{loader} if no @term{package} exists at load ti
 
 Two @term{random states} @mat{S} and @mat{C} are @term{similar} if @mat{S}
 would always produce the same sequence of pseudo-random numbers
-as a @term{copy}@sub5{} of @mat{C}
+as a @term{copy}@sub{5} of @mat{C}
 when given as the @param{random-state} @term{argument} to @thefunction{random},
 assuming equivalent @param{limit} @term{arguments} in each case.
 
@@ -1842,8 +1842,8 @@ because @code{random} would perform a side effect.)
 
 
 Two @term{conses}, @mat{S} and @mat{C}, are @term{similar} if
-the @term{car}@sub2{} of @mat{S} is @term{similar} to the @term{car}@sub2{} of @mat{C},
-and the @term{cdr}@sub2{} of @mat{S} is @term{similar} to the @term{cdr}@sub2{} of @mat{C}.
+the @term{car}@sub{2} of @mat{S} is @term{similar} to the @term{car}@sub{2} of @mat{C},
+and the @term{cdr}@sub{2} of @mat{S} is @term{similar} to the @term{cdr}@sub{2} of @mat{C}.
 
 @item @id{@code{array}}
 
@@ -1857,8 +1857,8 @@ the corresponding @term{element} of @mat{C}.
 
 Two @term{arrays} of @term{rank} other than one, @mat{S} and @mat{C}, are @term{similar} if
 the @term{rank} of @mat{S} is @term{similar} to the @term{rank} of @mat{C},
-each @term{dimension}@sub1{} of @mat{S} is @term{similar} to
-the corresponding @term{dimension}@sub1{} of @mat{C},
+each @term{dimension}@sub{1} of @mat{S} is @term{similar} to
+the corresponding @term{dimension}@sub{1} of @mat{C},
 the @term{actual array element type} of @mat{S} is @term{similar} to
 the @term{actual array element type} of @mat{C},
 and each @term{element} of @mat{S} is @term{similar} to
@@ -2517,7 +2517,7 @@ on the fact that no other parameter variable has yet been bound
 (including its own parameter variable).
 
 A @param{keyword-name} can be any @term{symbol},
-but by convention is normally a @term{keyword}@sub1{};
+but by convention is normally a @term{keyword}@sub{1};
 all @term{standardized} @term{functions} follow that convention.
 
 An @term{ordinary lambda list} has five parts, any or all of which may be empty.
@@ -2678,15 +2678,15 @@ and its normal meaning (data flow into the function in question).
 @anchor{SuppressingKeyArgChecks}
 
 If @keyref{allow-other-keys} was specified in the @term{lambda list} of a @term{function},
-@term{keyword}@sub2{} @term{argument} checking is suppressed in calls
+@term{keyword}@sub{2} @term{argument} checking is suppressed in calls
 to that @term{function}.
 
 If @thekeyarg{allow-other-keys} is @term{true} in a call to a @term{function},
-@term{keyword}@sub2{} @term{argument} checking is suppressed
+@term{keyword}@sub{2} @term{argument} checking is suppressed
 in that call.
 
 @Thekeyarg{allow-other-keys} is permissible in all situations involving
-@term{keyword}@sub2{} @term{arguments}, even when its associated @term{value}
+@term{keyword}@sub{2} @term{arguments}, even when its associated @term{value}
 is @term{false}.
 
 @node Examples of Suppressing Keyword Argument Checking
@@ -2847,7 +2847,7 @@ A @term{generic function lambda list} is used by @code{defgeneric}.
 A @term{generic function lambda list} has the following syntax:
 
 
-@auxbnf{lambda-list, @lparen{}@starparam{var}@CR{} @spc{}@ttbrac{@opt{} @star{@JustVar{}}}@CR{} @spc{}@ttbrac{@rest{} @param{var}}@CR{} @spc{}@f{[}@Vtop{}@hbox{@key{} @star{@JustKey{}}}  @hbox{@brac{@allowotherkeys{}}@f{]}@rparen{}}@CR{}}
+@auxbnf{lambda-list, @lparen{}@starparam{var}@CR{} @spc{}@ttbrac{@opt{} @star{@JustVar{}}}@CR{} @spc{}@ttbrac{@rest{} @param{var}}@CR{} @spc{}@f{[}@Vtop{}@hbox{@keyparam{} @star{@JustKey{}}}  @hbox{@brac{@allowotherkeys{}}@f{]}@rparen{}}@CR{}}
 
 A @term{generic function lambda list} can contain the @term{lambda list keywords} shown
 in @thenextfigure{}.
@@ -3766,9 +3766,9 @@ Using it as an @term{argument} to @thefunction{random}.
 @item @id{@code{cons}}
 
 
-Changing the @term{car}@sub1{} or @term{cdr}@sub1{} of the @term{cons},
+Changing the @term{car}@sub{1} or @term{cdr}@sub{1} of the @term{cons},
 or performing a @term{destructive} operation on an @term{object} which is either
-the @term{car}@sub2{} or the @term{cdr}@sub2{} of the @term{cons}.
+the @term{car}@sub{2} or the @term{cdr}@sub{2} of the @term{cons}.
 
 @item @id{@code{array}}
 
@@ -3789,7 +3789,7 @@ with the @term{array}.
 
 Performing a @term{destructive} operation on any @term{key}.
 
-Storing a new @term{value}@sub4{} for any @term{key},
+Storing a new @term{value}@sub{4} for any @term{key},
 or performing a @term{destructive} operation
 on any @term{object} that is such a @term{value}.
 
@@ -5346,7 +5346,7 @@ the correct expansion.  (In particular, it is @term{implementation-dependent}
 whether the expansion is conceptually stored in the expansion function,
 the @term{environment}, or both.)
 
-Each global reference to @param{symbol} (@ie{} not @term{shadowed}@sub2{} by a
+Each global reference to @param{symbol} (@ie{} not @term{shadowed}@sub{2} by a
 @term{binding} for a @term{variable} or @term{symbol macro} named by
 the same @term{symbol}) is expanded by the normal macro expansion process;
 see @ref{SymbolsAsForms, Section 3.1.2.1.1 (Symbols as Forms)}.
@@ -5356,7 +5356,7 @@ exactly analogous to normal @term{macros}.
 
 The consequences are unspecified if a @code{special} declaration is made for
 @param{symbol} while in the scope of this definition (@ie{} when it is not
-@term{shadowed}@sub2{} by a @term{binding} for a @term{variable}
+@term{shadowed}@sub{2} by a @term{binding} for a @term{variable}
 or @term{symbol macro} named by the same @term{symbol}).
 
 Any use of @code{setq} to set the value of
@@ -5368,7 +5368,7 @@ is treated as if it were a @code{psetf}, and
 @code{multiple-value-setq}
 is treated as if it were a @code{setf} of @code{values}.
 
-A @term{binding} for a @term{symbol macro} can be @term{shadowed}@sub2{}
+A @term{binding} for a @term{symbol macro} can be @term{shadowed}@sub{2}
 by @code{let} or @code{symbol-macrolet}.
 
 @subsubheading Examples:

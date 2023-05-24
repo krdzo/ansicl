@@ -343,12 +343,12 @@ values of the remaining default value @term{forms} are ignored.
 
 Initialization arguments given explicitly in the arguments to
 @code{make-instance} appear to the left of defaulted initialization
-arguments. Suppose that the classes @mat{C@sub1{}} and @mat{C@sub2{}} supply the
+arguments. Suppose that the classes @mat{C@sub{1}} and @mat{C@sub{2}} supply the
 values of defaulted initialization arguments for different @term{slots},
-and suppose that @mat{C@sub1{}} is more specific than @mat{C@sub2{}}; then the
-defaulted initialization argument whose value is supplied by @mat{C@sub1{}}
+and suppose that @mat{C@sub{1}} is more specific than @mat{C@sub{2}}; then the
+defaulted initialization argument whose value is supplied by @mat{C@sub{1}}
 is to the left of the defaulted initialization argument whose value is
-supplied by @mat{C@sub2{}} in the @term{defaulted initialization argument
+supplied by @mat{C@sub{2}} in the @term{defaulted initialization argument
 list}.  If a single @kwd{default-initargs} class option supplies the
 values of initialization arguments for two different @term{slots}, the
 initialization argument whose value is specified farther to the left in
@@ -953,7 +953,7 @@ contains an @kwd{initform} slot option, the @term{slot}
 has no default initial value form.
 
 @item The contents of a @term{slot} will always be of type
-@f{(and @mat{T@sub1{}} @mat{@ldots{}} @mat{T@subs1{n}})} where @mat{T@sub1{}@ldots{} T@subs1{n}} are
+@f{(and @mat{T@sub{1}} @mat{@ldots{}} @mat{T@subs1{n}})} where @mat{T@sub{1}@ldots{} T@subs1{n}} are
 the values of the @kwd{type} slot options contained in all of the
 @term{slot specifiers}.  If no @term{slot specifier} contains the
 @kwd{type} slot option, the contents of the @term{slot} will always be
@@ -972,22 +972,22 @@ specifier that contains one.  If no @term{slot specifier} contains a
 
 
 A consequence of the allocation rule is that a @term{shared slot} can be
-@term{shadowed}.  For example, if a class @mat{C@sub1{}} defines
+@term{shadowed}.  For example, if a class @mat{C@sub{1}} defines
 a @term{slot} named @mat{S}
 whose value for the @kwd{allocation} slot option is @kwd{class},
 that @term{slot} is @term{accessible}
-in @term{instances} of @mat{C@sub1{}} and all of its
-@term{subclasses}.  However, if @mat{C@sub2{}} is a @term{subclass}
-of @mat{C@sub1{}} and also
-defines a @term{slot} named @mat{S}@negthinspace{}, @mat{C@sub1{}}'s
+in @term{instances} of @mat{C@sub{1}} and all of its
+@term{subclasses}.  However, if @mat{C@sub{2}} is a @term{subclass}
+of @mat{C@sub{1}} and also
+defines a @term{slot} named @mat{S}@negthinspace{}, @mat{C@sub{1}}'s
 @term{slot} is not shared
-by @term{instances} of @mat{C@sub2{}} and its @term{subclasses}. When a class
-@mat{C@sub1{}} defines a @term{shared slot}, any subclass @mat{C@sub2{}} of @mat{C@sub1{}} will share this single @term{slot}
+by @term{instances} of @mat{C@sub{2}} and its @term{subclasses}. When a class
+@mat{C@sub{1}} defines a @term{shared slot}, any subclass @mat{C@sub{2}} of @mat{C@sub{1}} will share this single @term{slot}
 unless the @code{defclass} form for
-@mat{C@sub2{}} specifies a @term{slot} of the same
+@mat{C@sub{2}} specifies a @term{slot} of the same
 @term{name} or there is a @term{superclass}
-of @mat{C@sub2{}} that precedes @mat{C@sub1{}} in the @term{class precedence list} of
-@mat{C@sub2{}} that defines a @term{slot} of the same name.
+of @mat{C@sub{2}} that precedes @mat{C@sub{1}} in the @term{class precedence list} of
+@mat{C@sub{2}} that defines a @term{slot} of the same name.
 
 A consequence of the type rule is that the value of a @term{slot}
 satisfies the type constraint of each @term{slot specifier} that
@@ -1032,7 +1032,7 @@ A @term{generic function} @term{object}
 is associated with
 a set of @term{methods},
 a @term{lambda list},
-a @term{method combination}@sub2{},
+a @term{method combination}@sub{2},
 and other information.
 
 Like an @term{ordinary function}, a @term{generic function} takes @term{arguments},
@@ -1231,8 +1231,8 @@ specializers are satisfied by their corresponding arguments.  The
 following definition specifies what it means for a method to be
 applicable and for an argument to satisfy a @term{parameter specializer}.
 
-Let @mat{@langle{} A@sub1{}, @ldots{}, A@subs1{n}@rangle{}} be the required
-arguments to a generic function in order. Let @mat{@langle{} P@sub1{},
+Let @mat{@langle{} A@sub{1}, @ldots{}, A@subs1{n}@rangle{}} be the required
+arguments to a generic function in order. Let @mat{@langle{} P@sub{1},
 @ldots{}, P@subs1{n}@rangle{}} be the @term{parameter specializers} corresponding to
 the required parameters of the method @mat{M} in order.  The method @mat{M} is
 applicable when each @mat{A@subs1{i}} is of the @term{type} specified by
@@ -1286,9 +1286,9 @@ Suppose the @term{parameter specializers} of the two methods are
 @item For each @mat{1@leq{} i@leq{} n}, @mat{P@subs{1,i}} agrees with @mat{P@subs{2,i}}.
 The @term{parameter specializer} @mat{P@subs{1,i}} agrees with @mat{P@subs{2,i}} if
 @mat{P@subs{1,i}} and @mat{P@subs{2,i}} are the same class or if
-@mat{P@subs{1,i}=@hbox{@tt{(@b{eql} }@hbox{@i{object}}@sub1{}@mat{)}}},
-@mat{P@subs{2,i}=@hbox{@tt{(@b{eql} }@hbox{@i{object}}@sub2{}@mat{)}}}, and
-@tt{(@b{eql} @mat{@hbox{@i{object}}@sub1{}} @mat{@hbox{@i{object}}@sub2{}})}.
+@mat{P@subs{1,i}=@hbox{@tt{(@b{eql} }@hbox{@i{object}}@sub{1}@mat{)}}},
+@mat{P@subs{2,i}=@hbox{@tt{(@b{eql} }@hbox{@i{object}}@sub{2}@mat{)}}}, and
+@tt{(@b{eql} @mat{@hbox{@i{object}}@sub{1}} @mat{@hbox{@i{object}}@sub{2}})}.
 Otherwise @mat{P@subs{1,i}} and @mat{P@subs{2,i}} do not agree.
 
 @item The two @term{lists} of @term{qualifiers} are the @term{same}
@@ -1650,14 +1650,14 @@ but no applicable primary method, an error is signaled.
 The @term{before methods} are run in most-specific-first order while
 the @term{after methods} are run in least-specific-first order.  The
 design rationale for this difference can be illustrated with an
-example.  Suppose class @mat{C@sub1{}} modifies the behavior of its
-superclass, @mat{C@sub2{}}, by adding @term{before methods} and @term{after methods}.
-Whether the behavior of the class @mat{C@sub2{}} is defined
-directly by methods on @mat{C@sub2{}} or is inherited from its superclasses
+example.  Suppose class @mat{C@sub{1}} modifies the behavior of its
+superclass, @mat{C@sub{2}}, by adding @term{before methods} and @term{after methods}.
+Whether the behavior of the class @mat{C@sub{2}} is defined
+directly by methods on @mat{C@sub{2}} or is inherited from its superclasses
 does not affect the relative order of invocation of methods on
-instances of the class @mat{C@sub1{}}.  Class @mat{C@sub1{}}'s
-@term{before method} runs before all of class @mat{C@sub2{}}'s methods.
-Class @mat{C@sub1{}}'s @term{after method} runs after all of class @mat{C@sub2{}}'s methods.
+instances of the class @mat{C@sub{1}}.  Class @mat{C@sub{1}}'s
+@term{before method} runs before all of class @mat{C@sub{2}}'s methods.
+Class @mat{C@sub{1}}'s @term{after method} runs after all of class @mat{C@sub{2}}'s methods.
 
 By contrast, all @term{around methods} run before any other methods
 run.  Thus a less specific @term{around method} runs before a more
@@ -1777,28 +1777,28 @@ and the call to the generic function is of the form
 
 
 @quotation
-@mat{(@hbox{@i{generic-function}}@spc{}a@sub1{}@ldots{} a@subs1{n})}
+@mat{(@hbox{@i{generic-function}}@spc{}a@sub{1}@ldots{} a@subs1{n})}
 @end quotation
 
 
-@item Let @mat{M@sub1{},@ldots{},M@subs1{k}} be the applicable primary methods
+@item Let @mat{M@sub{1},@ldots{},M@subs1{k}} be the applicable primary methods
 in order; then the derived Lisp form is
 
 
 @quotation
-@mat{(@hbox{@i{operator}}@spc{}@langle{} M@sub1{}
-@spc{}a@sub1{}@ldots{} a@subs1{n}@rangle{}@ldots{}@langle{}
-M@subs1{k}@spc{}a@sub1{}@ldots{} a@subs1{n}@rangle{})}
+@mat{(@hbox{@i{operator}}@spc{}@langle{} M@sub{1}
+@spc{}a@sub{1}@ldots{} a@subs1{n}@rangle{}@ldots{}@langle{}
+M@subs1{k}@spc{}a@sub{1}@ldots{} a@subs1{n}@rangle{})}
 @end quotation
 
 
-@item If the expression @mat{@langle{} M@subs1{i}@spc{}a@sub1{}@ldots{} a@subs1{n}@rangle{}} is
+@item If the expression @mat{@langle{} M@subs1{i}@spc{}a@sub{1}@ldots{} a@subs1{n}@rangle{}} is
 evaluated, the method @mat{M@subs1{i}} will be applied to the arguments
-@mat{a@sub1{}@ldots{} a@subs1{n}}.
+@mat{a@sub{1}@ldots{} a@subs1{n}}.
 For example,
 if @i{operator} is @tt{or},
-the expression @mat{@langle{} M@subs1{i}@spc{}a@sub1{}@ldots{} a@subs1{n}@rangle{}} is
-evaluated only if @mat{@langle{} M@subs1{j}@spc{}a@sub1{}@ldots{} a@subs1{n}@rangle{}},
+the expression @mat{@langle{} M@subs1{i}@spc{}a@sub{1}@ldots{} a@subs1{n}@rangle{}} is
+evaluated only if @mat{@langle{} M@subs1{j}@spc{}a@sub{1}@ldots{} a@subs1{n}@rangle{}},
 @mat{1@leq{} j<i}, returned @tt{nil}.
 
 @item The default order for the primary methods is
@@ -1948,7 +1948,7 @@ had been specified in the @param{method} definition.
 
 @subsubheading Syntax:
 
-@DefunWithValuesNewline{ensure-generic-function, function-name @key{} @vtop{@hbox{argument-precedence-order declare} @hbox{documentation environment} @hbox{generic-function-class lambda-list} @hbox{method-class method-combination}}, generic-function}
+@DefunWithValuesNewline{ensure-generic-function, function-name @keyparam{} @vtop{@hbox{argument-precedence-order declare} @hbox{documentation environment} @hbox{generic-function-class lambda-list} @hbox{method-class method-combination}}, generic-function}
 
 @subsubheading Arguments and Values:
 
@@ -2052,7 +2052,7 @@ an error @oftype{error} is signaled.
 
 @subsubheading Syntax:
 
-@DefgenWithValues{allocate-instance, class @rest{} initargs @key{} @allowotherkeys{}, new-instance}
+@DefgenWithValues{allocate-instance, class @rest{} initargs @keyparam{} @allowotherkeys{}, new-instance}
 
 @subsubheading Method Signatures:
 
@@ -2105,7 +2105,7 @@ This capability might be added by the @term{Metaobject Protocol}.
 
 @subsubheading Syntax:
 
-@DefgenWithValues{reinitialize-instance, instance @rest{} initargs @key{} @allowotherkeys{}, instance}
+@DefgenWithValues{reinitialize-instance, instance @rest{} initargs @keyparam{} @allowotherkeys{}, instance}
 
 @subsubheading Method Signatures:
 
@@ -2176,7 +2176,7 @@ which that @term{method} is applicable.
 
 @subsubheading Syntax:
 
-@DefgenWithValues{shared-initialize, instance slot-names @rest{} initargs @key{} @allowotherkeys{}, instance}
+@DefgenWithValues{shared-initialize, instance slot-names @rest{} initargs @keyparam{} @allowotherkeys{}, instance}
 
 @subsubheading Method Signatures:
 
@@ -2299,7 +2299,7 @@ effects other than a performance improvement.
 
 @subsubheading Syntax:
 
-@DefgenWithValues{update-instance-for-different-class, previous current  @rest{} initargs @key{} @allowotherkeys{}, @term{implementation-dependent}}
+@DefgenWithValues{update-instance-for-different-class, previous current  @rest{} initargs @keyparam{} @allowotherkeys{}, @term{implementation-dependent}}
 
 @subsubheading Method Signatures:
 
@@ -2405,7 +2405,7 @@ ignored by @code{change-class}.
 
 @subsubheading Syntax:
 
-@DefgenWithValuesNewline{update-instance-for-redefined-class, @vtop{@hbox{instance} @hbox{added-slots discarded-slots} @hbox{property-list} @hbox{@rest{} initargs @key{} @allowotherkeys{}}}, @starparam{result}}
+@DefgenWithValuesNewline{update-instance-for-redefined-class, @vtop{@hbox{instance} @hbox{added-slots discarded-slots} @hbox{property-list} @hbox{@rest{} initargs @keyparam{} @allowotherkeys{}}}, @starparam{result}}
 
 @subsubheading Method Signatures:
 
@@ -2557,7 +2557,7 @@ for all @term{classes} for which that @term{method} is applicable.
 
 @subsubheading Syntax:
 
-@DefgenWithValues{change-class, instance new-class @key{} @allowotherkeys{}, instance}
+@DefgenWithValues{change-class, instance new-class @keyparam{} @allowotherkeys{}, instance}
 
 @subsubheading Method Signatures:
 
@@ -3254,7 +3254,7 @@ is not one of the @term{methods} on the @param{generic-function}.
 
 @subsubheading Syntax:
 
-@DefgenWithValues{make-instance, class @rest{} initargs @key{} @allowotherkeys{}, instance}
+@DefgenWithValues{make-instance, class @rest{} initargs @keyparam{} @allowotherkeys{}, instance}
 
 @subsubheading Method Signatures:
 
@@ -3654,7 +3654,7 @@ for @code{make-load-form}.
 
 @subsubheading Syntax:
 
-@DefunWithValuesNewline{make-load-form-saving-slots, object @key{} slot-names environment, creation-form\, initialization-form}
+@DefunWithValuesNewline{make-load-form-saving-slots, object @keyparam{} slot-names environment, creation-form\, initialization-form}
 
 @subsubheading Arguments and Values:
 
@@ -4067,12 +4067,12 @@ If @param{allocation-type} is @kwd{class}, a shared
 name is allocated in the @term{class} @term{object} created by this @code{defclass}
 form.  The value of the @term{slot} is shared by all
 @term{instances} of the @term{class}.
-If a class @mat{C@sub1{}} defines such a @term{shared slot}, any
-subclass @mat{C@sub2{}} of
-@mat{C@sub1{}} will share this single @term{slot} unless the @code{defclass} form
-for @mat{C@sub2{}} specifies a @term{slot} of the same @term{name} or there is a
-superclass of @mat{C@sub2{}} that precedes @mat{C@sub1{}} in the class precedence
-list of @mat{C@sub2{}} and that defines a @term{slot} of the same @term{name}.
+If a class @mat{C@sub{1}} defines such a @term{shared slot}, any
+subclass @mat{C@sub{2}} of
+@mat{C@sub{1}} will share this single @term{slot} unless the @code{defclass} form
+for @mat{C@sub{2}} specifies a @term{slot} of the same @term{name} or there is a
+superclass of @mat{C@sub{2}} that precedes @mat{C@sub{1}} in the class precedence
+list of @mat{C@sub{2}} and that defines a @term{slot} of the same @term{name}.
 @end itemize
 
 @item The @kwd{initform} slot option is used to provide a default
@@ -4518,7 +4518,7 @@ it observes an option that is not implemented locally.
 
 @DefmacWithValuesNewline{defmethod, @vtop{@hbox{@i{function-name} @star{@curly{@i{method-qualifier}}} @i{specialized-lambda-list}} @hbox{@DeclsAndDoc{} @starparam{form}}}, new-method}
 
-@defmethod{}
+@defmtd{}
 @subsubheading Arguments and Values:
 
 @param{declaration}---a @t{declare} @term{expression}; @noeval{}.
@@ -4638,7 +4638,7 @@ functional bindings of @code{call-next-method} or @code{next-method-p}
 apply to references to those functions within the method body @param{forms}.
 Any outer @term{bindings} of the @term{function names} @code{call-next-method} and
 @code{next-method-p}, and declarations associated with such @term{bindings}
-are @term{shadowed}@sub2{} within the method body @param{forms}.
+are @term{shadowed}@sub{2} within the method body @param{forms}.
 
 The @term{scope} of @term{free declarations} at the head of the method body
 is the entire method body,
@@ -5742,7 +5742,7 @@ another @term{generic function}, an error @oftype{error} is signaled.
 
 @subsubheading Syntax:
 
-@DefgenWithValues{initialize-instance, instance @rest{} initargs @key{} @allowotherkeys{}, instance}
+@DefgenWithValues{initialize-instance, instance @rest{} initargs @keyparam{} @allowotherkeys{}, instance}
 
 @subsubheading Method Signatures:
 

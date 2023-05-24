@@ -21,7 +21,7 @@ The @term{file} may contain @newterm{source code} or @newterm{compiled code}.
 
 A @term{file} containing @term{source code} is called a @newterm{source file}.
 @term{Loading} a @term{source file} is accomplished essentially
-by sequentially @term{reading}@sub2{} the @term{forms} in the file,
+by sequentially @term{reading}@sub{2} the @term{forms} in the file,
 @term{evaluating} each immediately after it is @term{read}.
 
 A @term{file} containing @term{compiled code} is called a @newterm{compiled file}.
@@ -109,7 +109,7 @@ and
 in @term{implementation} C, none of the features @f{spice}, @term{lispm}, or @f{perq} are
 @term{present}.
 @Thenextfigure{}@spc{}shows some sample @term{expressions}, and how they would be
-@term{read}@sub2{} in these @term{implementations}.
+@term{read}@sub{2} in these @term{implementations}.
 
 
 @float Figure,fig24.1
@@ -167,7 +167,7 @@ in @term{implementation} C, none of the features @f{spice}, @term{lispm}, or @f{
 
 @subsubheading Syntax:
 
-@DefunWithValuesNewline{compile-file, input-file @key{} @vtop{@hbox{output-file verbose} @hbox{print external-format}}, output-truename\, warnings-p\, failure-p}
+@DefunWithValuesNewline{compile-file, input-file @keyparam{} @vtop{@hbox{output-file verbose} @hbox{print external-format}}, output-truename\, warnings-p\, failure-p}
 
 @subsubheading Arguments and Values:
 
@@ -314,7 +314,7 @@ an error @oftype{file-error} is signaled.
 
 @subsubheading Syntax:
 
-@DefunWithValues{compile-file-pathname, input-file @key{} output-file @allowotherkeys{}, pathname}
+@DefunWithValues{compile-file-pathname, input-file @keyparam{} output-file @allowotherkeys{}, pathname}
 
 @subsubheading Arguments and Values:
 
@@ -385,7 +385,7 @@ An error @oftype{file-error} might be signaled if either @param{input-file} or
 
 @subsubheading Syntax:
 
-@DefunWithValuesNewline{load, filespec @key{} @vtop{@hbox{verbose print} @hbox{if-does-not-exist external-format}}, generalized-boolean}
+@DefunWithValuesNewline{load, filespec @keyparam{} @vtop{@hbox{verbose print} @hbox{if-does-not-exist external-format}}, generalized-boolean}
 
 @subsubheading Arguments and Values:
 
@@ -761,13 +761,13 @@ rather than some specific dialect within that family.
 @term{Symbols} in the @term{features list} may be in any @term{package},
 but in practice they are generally in the @code{KEYWORD} @term{package}.
 This is because @code{KEYWORD} is the @term{package} used by default
-when @term{reading}@sub2{} @term{feature expressions}
+when @term{reading}@sub{2} @term{feature expressions}
 in the @f{#+} and @f{#-} @term{reader macros}.
-@term{Code} that needs to name a @term{feature}@sub2{} in a
+@term{Code} that needs to name a @term{feature}@sub{2} in a
 @term{package} @mat{P} (other than @code{KEYWORD}) can do so
 by making explicit use of a @term{package prefix} for @mat{P},
 but note that such @term{code} must also assure that the @term{package} @mat{P}
-exists in order for the @term{feature expression} to be @term{read}@sub2{}---even
+exists in order for the @term{feature expression} to be @term{read}@sub{2}---even
 in cases where the @term{feature expression} is expected to fail.
 
 It is generally considered wise for an @term{implementation} to include

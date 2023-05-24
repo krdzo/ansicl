@@ -189,7 +189,7 @@ where all files have numeric versions.
 
 @subsubheading Syntax:
 
-@DefunWithValues{directory, pathspec @key{}, pathnames}
+@DefunWithValues{directory, pathspec @keyparam{}, pathnames}
 
 @subsubheading Arguments and Values:
 
@@ -234,7 +234,7 @@ an error @oftype{file-error} is signaled.
 If the @param{pathspec} is not @term{wild},
 the resulting list will contain either zero or one elements.
 
-@clisp{}@spc{}specifies ``@key{}'' in the argument list to @code{directory}
+@clisp{}@spc{}specifies ``@keyparam{}'' in the argument list to @code{directory}
 even though no @term{standardized} keyword arguments to @code{directory} are defined.
 ``@f{:allow-other-keys t}''
 may be used in @term{conforming programs} in order to quietly ignore any
@@ -301,7 +301,7 @@ if the @term{file system} cannot perform the requested operation.
 
 @subsubheading Syntax:
 
-@DefunWithValues{ensure-directories-exist, pathspec @key{} verbose, pathspec\, created}
+@DefunWithValues{ensure-directories-exist, pathspec @keyparam{} verbose, pathspec\, created}
 
 @subsubheading Arguments and Values:
 

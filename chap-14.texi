@@ -847,8 +847,8 @@ are copied recursively, stopping only when non-@term{conses} are encountered.
 
 @subsubheading Syntax:
 
-@DefunWithValues{sublis, alist tree @key{} key test test-not, new-tree}
-@DefunWithValues{nsublis, alist tree @key{} key test test-not, new-tree}
+@DefunWithValues{sublis, alist tree @keyparam{} keyparam test test-not, new-tree}
+@DefunWithValues{nsublis, alist tree @keyparam{} keyparam test test-not, new-tree}
 
 @subsubheading Arguments and Values:
 
@@ -978,13 +978,13 @@ some implementations:
 
 @subsubheading Syntax:
 
-@DefunWithValues{subst, new old  tree @key{} key test test-not, new-tree}
-@DefunWithValues{subst-if, new predicate tree @key{} key, new-tree}
-@DefunWithValues{subst-if-not, new predicate tree @key{} key, new-tree}
+@DefunWithValues{subst, new old  tree @keyparam{} keyparam test test-not, new-tree}
+@DefunWithValues{subst-if, new predicate tree @keyparam{} keyparam, new-tree}
+@DefunWithValues{subst-if-not, new predicate tree @keyparam{} keyparam, new-tree}
 
-@DefunWithValues{nsubst, new old  tree @key{} key test test-not, new-tree}
-@DefunWithValues{nsubst-if, new predicate tree @key{} key, new-tree}
-@DefunWithValues{nsubst-if-not, new predicate tree @key{} key, new-tree}
+@DefunWithValues{nsubst, new old  tree @keyparam{} keyparam test test-not, new-tree}
+@DefunWithValues{nsubst-if, new predicate tree @keyparam{} keyparam, new-tree}
+@DefunWithValues{nsubst-if-not, new predicate tree @keyparam{} keyparam, new-tree}
 
 @subsubheading Arguments and Values:
 
@@ -1121,7 +1121,7 @@ One possible definition of @code{subst}:
 
 @subsubheading Syntax:
 
-@DefunWithValues{tree-equal, tree-1 tree-2 @key{} test test-not, generalized-boolean}
+@DefunWithValues{tree-equal, tree-1 tree-2 @keyparam{} test test-not, generalized-boolean}
 
 @subsubheading Arguments and Values:
 
@@ -1445,7 +1445,7 @@ it returns @term{true} for any kind of @term{list}.
 
 @subsubheading Syntax:
 
-@DefunWithValues{make-list, size @key{} initial-element, list}
+@DefunWithValues{make-list, size @keyparam{} initial-element, list}
 
 @subsubheading Arguments and Values:
 
@@ -2045,7 +2045,7 @@ or is returned directly if there are no preceding
 
 @subsubheading Description:
 
-@code{revappend} constructs a @term{copy}@sub2{} of @param{list},
+@code{revappend} constructs a @term{copy}@sub{2} of @param{list},
 but with the @term{elements} in reverse order.  It then appends (as if
 by @code{nconc}) the @param{tail} to that reversed list and returns the result.
 
@@ -2312,7 +2312,7 @@ If @param{object} is the @term{same} as some @term{tail} of @param{list},
 @code{ldiff} returns a @term{fresh} @term{list}
 of the @term{elements} of @term{list}
 that precede @code{object} in the @term{list structure} of @param{list};
-otherwise, it returns a @term{copy}@sub2{} of @param{list}.
+otherwise, it returns a @term{copy}@sub{2} of @param{list}.
 
 @subsubheading Examples:
 
@@ -2523,9 +2523,9 @@ rather than as a @term{cons}.
 
 @subsubheading Syntax:
 
-@DefunWithValues{member, item      list @key{} key test test-not, tail}
-@DefunWithValues{member-if, predicate list @key{} key, tail}
-@DefunWithValues{member-if-not, predicate list @key{} key, tail}
+@DefunWithValues{member, item      list @keyparam{} keyparam test test-not, tail}
+@DefunWithValues{member-if, predicate list @keyparam{} keyparam, tail}
+@DefunWithValues{member-if-not, predicate list @keyparam{} keyparam, tail}
 
 @subsubheading Arguments and Values:
 
@@ -2826,11 +2826,11 @@ the @term{cdr} of which is @param{datum}.
 
 @subsubheading Syntax:
 
-@DefunWithValues{assoc, item      alist @key{} key test test-not, entry}
+@DefunWithValues{assoc, item      alist @keyparam{} keyparam test test-not, entry}
 
 
-@DefunWithValues{assoc-if, predicate alist @key{} key, entry}
-@DefunWithValues{assoc-if-not, predicate alist @key{} key, entry}
+@DefunWithValues{assoc-if, predicate alist @keyparam{} keyparam, entry}
+@DefunWithValues{assoc-if-not, predicate alist @keyparam{} keyparam, entry}
 
 
 @subsubheading Arguments and Values:
@@ -3071,11 +3071,11 @@ or
 
 @subsubheading Syntax:
 
-@DefunWithValues{rassoc, item      alist  @key{} key test test-not, entry}
+@DefunWithValues{rassoc, item      alist  @keyparam{} keyparam test test-not, entry}
 
 
-@DefunWithValues{rassoc-if, predicate alist @key{} key, entry}
-@DefunWithValues{rassoc-if-not, predicate alist @key{} key, entry}
+@DefunWithValues{rassoc-if, predicate alist @keyparam{} keyparam, entry}
+@DefunWithValues{rassoc-if-not, predicate alist @keyparam{} keyparam, entry}
 
 
 @subsubheading Arguments and Values:
@@ -3243,7 +3243,7 @@ are all @nil{}.
 @code{getf} finds a @term{property} on the @param{plist}
 whose @term{property indicator} is @term{identical} to @param{indicator},
 and returns its corresponding @term{property value}.
-If there are multiple @term{properties}@sub1{} with that @term{property indicator},
+If there are multiple @term{properties}@sub{1} with that @term{property indicator},
 @code{getf} uses the first such @term{property}.
 If there is no @term{property} with that @term{property indicator},
 @param{default} is returned.
@@ -3251,7 +3251,7 @@ If there is no @term{property} with that @term{property indicator},
 @code{setf} of @code{getf} may be used to associate a new @term{object}
 with an existing indicator in the @term{property list} held by @param{place},
 or to create a new assocation if none exists.
-If there are multiple @term{properties}@sub1{} with that @term{property indicator},
+If there are multiple @term{properties}@sub{1} with that @term{property indicator},
 @code{setf} of @code{getf} associates the @param{new-value}
 with the first such @term{property}.
 When a @code{getf} @term{form} is used as a @code{setf} @param{place},
@@ -3339,9 +3339,9 @@ syntactically valid for the @term{write} situation as well. For example,
 @subsubheading Description:
 
 @code{remf} removes from the @term{property list} stored in @param{place}
-a @term{property}@sub1{} with a @term{property indicator}
+a @term{property}@sub{1} with a @term{property indicator}
 @term{identical} to @param{indicator}.
-If there are multiple @term{properties}@sub1{} with the @term{identical} key,
+If there are multiple @term{properties}@sub{1} with the @term{identical} key,
 @code{remf} only removes the first such @term{property}.
 @code{remf} returns @term{false} if no such @term{property} was found,
 or @term{true} if a property was found.
@@ -3387,8 +3387,8 @@ The property list stored in @param{place} is modified.
 
 @subsubheading Syntax:
 
-@DefunWithValues{intersection, list-1 list-2 @key{} key test test-not, result-list}
-@DefunWithValues{nintersection, list-1 list-2 @key{} key test test-not, result-list}
+@DefunWithValues{intersection, list-1 list-2 @keyparam{} keyparam test test-not, result-list}
+@DefunWithValues{nintersection, list-1 list-2 @keyparam{} keyparam test test-not, result-list}
 
 @subsubheading Arguments and Values:
 
@@ -3507,7 +3507,7 @@ positions in portable code.
 
 @subsubheading Syntax:
 
-@DefunWithValues{adjoin, item list @key{} key test test-not, new-list}
+@DefunWithValues{adjoin, item list @keyparam{} keyparam test test-not, new-list}
 
 @subsubheading Arguments and Values:
 
@@ -3579,7 +3579,7 @@ The @kwd{test-not} parameter is deprecated.
 
 @subsubheading Syntax:
 
-@DefmacWithValuesNewline{pushnew, item place @key{} key test test-not, new-place-value}
+@DefmacWithValuesNewline{pushnew, item place @keyparam{} keyparam test test-not, new-place-value}
 
 @subsubheading Arguments and Values:
 
@@ -3686,8 +3686,8 @@ and @f{item} is evaluated before @f{place}.
 
 @subsubheading Syntax:
 
-@DefunWithValues{set-difference, list-1 list-2 @key{} key test test-not, result-list}
-@DefunWithValues{nset-difference, list-1 list-2 @key{} key test test-not, result-list}
+@DefunWithValues{set-difference, list-1 list-2 @keyparam{} keyparam test test-not, result-list}
+@DefunWithValues{nset-difference, list-1 list-2 @keyparam{} keyparam test test-not, result-list}
 
 @subsubheading Arguments and Values:
 
@@ -3801,8 +3801,8 @@ The @kwd{test-not} parameter is deprecated.
 
 @subsubheading Syntax:
 
-@DefunWithValues{set-exclusive-or, list-1 list-2 @key{} key test test-not, result-list}
-@DefunWithValues{nset-exclusive-or, list-1 list-2 @key{} key test test-not, result-list}
+@DefunWithValues{set-exclusive-or, list-1 list-2 @keyparam{} keyparam test test-not, result-list}
+@DefunWithValues{nset-exclusive-or, list-1 list-2 @keyparam{} keyparam test test-not, result-list}
 
 @subsubheading Arguments and Values:
 
@@ -3902,7 +3902,7 @@ positions in portable code.
 
 @subsubheading Syntax:
 
-@DefunWithValues{subsetp, list-1 list-2 @key{} key test test-not, generalized-boolean}
+@DefunWithValues{subsetp, list-1 list-2 @keyparam{} keyparam test test-not, generalized-boolean}
 
 @subsubheading Arguments and Values:
 
@@ -3983,8 +3983,8 @@ The @kwd{test-not} parameter is deprecated.
 
 @subsubheading Syntax:
 
-@DefunWithValues{union, list-1 list-2 @key{} key test test-not, result-list}
-@DefunWithValues{nunion, list-1 list-2 @key{} key test test-not, result-list}
+@DefunWithValues{union, list-1 list-2 @keyparam{} keyparam test test-not, result-list}
+@DefunWithValues{nunion, list-1 list-2 @keyparam{} keyparam test test-not, result-list}
 
 @subsubheading Arguments and Values:
 

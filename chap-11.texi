@@ -150,7 +150,7 @@ Once @term{imported}, a @term{symbol} is @term{present} in the
 importing @term{package}
 and can be removed only by calling @code{unintern}.
 
-A @term{symbol} is @term{shadowed}@sub3{} by another @term{symbol}
+A @term{symbol} is @term{shadowed}@sub{3} by another @term{symbol}
 in some @term{package} if the first @term{symbol} would be @term{accessible}
 by inheritance if not for the presence of the second @term{symbol}.
 See @code{shadowing-import}.
@@ -511,9 +511,9 @@ it can @term{use} other @term{implementation-defined} @term{packages}.
 @subsubsection The KEYWORD Package
 @cindex KEYWORD
 
-The @code{KEYWORD} @term{package} contains @term{symbols}, called @term{keywords}@sub1{},
+The @code{KEYWORD} @term{package} contains @term{symbols}, called @term{keywords}@sub{1},
 that are typically used as special markers in @term{programs}
-and their associated data @term{expressions}@sub1{}.
+and their associated data @term{expressions}@sub{1}.
 
 @term{Symbol} @term{tokens} that start with a @term{package marker}
 are parsed by the @term{Lisp reader} as @term{symbols}
@@ -521,7 +521,7 @@ in the @code{KEYWORD} @term{package}; see @ref{Symbols as Tokens, Section 2.3.4 
 This makes it notationally convenient to use @term{keywords}
 when communicating between programs in different @term{packages}.
 For example, the mechanism for passing @term{keyword parameters} in a @term{call} uses
-@term{keywords}@sub1{} to name the corresponding @term{arguments};
+@term{keywords}@sub{1} to name the corresponding @term{arguments};
 see @ref{Ordinary Lambda Lists, Section 3.4.1 (Ordinary Lambda Lists)}.
 
 @term{Symbols} in the @code{KEYWORD} @term{package} are, by definition, @oftype{keyword}.
@@ -549,7 +549,7 @@ In situations where the set of names is not finitely enumerable
 (@ie{} where name conflicts might arise)
 it is frequently best to use @term{symbols} in some @term{package}
 other than @code{KEYWORD} so that conflicts will be naturally avoided.
-For example, it is generally not wise for a @term{program} to use a @term{keyword}@sub1{}
+For example, it is generally not wise for a @term{program} to use a @term{keyword}@sub{1}
 as a @term{property indicator}, since if there were ever another @term{program}
 that did the same thing, each would clobber the other's data.
 
@@ -1186,7 +1186,7 @@ Current state of the package system.
 
 If a @term{symbol} with a name in @param{symbol-names} already exists
 in @param{package}, but by inheritance, the inherited symbol becomes
-@term{shadowed}@sub3{} by a newly created @term{internal symbol}.
+@term{shadowed}@sub{3} by a newly created @term{internal symbol}.
 
 
 @node shadowing-import
@@ -1416,7 +1416,7 @@ there been no @term{packages} that used it.
 
 @subsubheading Syntax:
 
-@DefunWithValues{make-package, package-name @key{} nicknames use, package}
+@DefunWithValues{make-package, package-name @keyparam{} nicknames use, package}
 
 @subsubheading Arguments and Values:
 
@@ -1979,9 +1979,9 @@ The @term{use list} of @param{package} may be modified.
 
 @subsubheading Notes:
 
-It is permissible for a @term{package} @mat{P@sub1{}}
-to @term{use} a @term{package} @mat{P@sub2{}}
-even if @mat{P@sub2{}} already uses @mat{P@sub1{}}.
+It is permissible for a @term{package} @mat{P@sub{1}}
+to @term{use} a @term{package} @mat{P@sub{2}}
+even if @mat{P@sub{2}} already uses @mat{P@sub{1}}.
 The using of @term{packages} is not transitive,
 so no problem results from the apparent circularity.
 

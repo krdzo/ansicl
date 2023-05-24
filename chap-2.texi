@@ -61,7 +61,7 @@ and @term{syntax types}.
 
 Several @term{readtables} describing different syntaxes can exist,
 but at any given time only one, called the @newterm{current readtable},
-affects the way in which @term{expressions}@sub2{} are parsed
+affects the way in which @term{expressions}@sub{2} are parsed
 into @term{objects} by the @term{Lisp reader}.
 The @term{current readtable} in a given @term{dynamic environment}
 is @thevalueof{*readtable*} in that @term{environment}.
@@ -258,10 +258,10 @@ is of one of the @term{syntax types} shown in @ref{PossibleSyntaxTypes, Figure 2
 
 @float Figure,PossibleSyntaxTypes
 @cartouche
-@multitable{@term{constituent}}{@term{macro character}}{@term{whitespace}@sub2{}}
+@multitable{@term{constituent}}{@term{macro character}}{@term{whitespace}@sub{2}}
 
 @item @term{constituent} @tab @term{macro character} @tab @term{single escape}
-@item @term{invalid} @tab @term{multiple escape} @tab @term{whitespace}@sub2{}
+@item @term{invalid} @tab @term{multiple escape} @tab @term{whitespace}@sub{2}
 @end multitable
 @end cartouche
 @caption{Possible Character Syntax Types}
@@ -283,12 +283,12 @@ lists the @term{syntax type} of each @term{character} in @term{standard syntax}.
 @multitable{xxxxxxxxx}{xxxxxxxxxxxxxxxxxxxxxxxxxx}{xxxxxx}{xxxxxxxxxxxxxxxxxxxxxx}
 @headitem character @tab syntax type @tab character @tab syntax type
 @item Backspace @tab @term{constituent} @tab 0--9 @tab @term{constituent}
-@item Tab @tab @term{whitespace}@sub2{} @tab : @tab @term{constituent}
-@item Newline @tab @term{whitespace}@sub2{} @tab ; @tab @term{terminating} @term{macro char}
-@item Linefeed @tab @term{whitespace}@sub2{} @tab @tt{<} @tab @term{constituent}
-@item Page @tab @term{whitespace}@sub2{} @tab = @tab @term{constituent}
-@item Return @tab @term{whitespace}@sub2{} @tab @tt{>} @tab @term{constituent}
-@item Space @tab @term{whitespace}@sub2{} @tab ? @tab @term{constituent}
+@item Tab @tab @term{whitespace}@sub{2} @tab : @tab @term{constituent}
+@item Newline @tab @term{whitespace}@sub{2} @tab ; @tab @term{terminating} @term{macro char}
+@item Linefeed @tab @term{whitespace}@sub{2} @tab @tt{<} @tab @term{constituent}
+@item Page @tab @term{whitespace}@sub{2} @tab = @tab @term{constituent}
+@item Return @tab @term{whitespace}@sub{2} @tab @tt{>} @tab @term{constituent}
+@item Space @tab @term{whitespace}@sub{2} @tab ? @tab @term{constituent}
 @item ! @tab @term{constituent} @tab @tt{@@} @tab @term{constituent}
 @item @tt{"} @tab @term{terminating} @term{macro char} @tab A--Z @tab @term{constituent}
 @item # @tab @term{non-terminating} @term{macro char} @tab @f{[} @tab @term{constituent}
@@ -314,10 +314,10 @@ The characters marked with an asterisk (*) are initially @term{constituents},
 but they are not used in any standard @clisp{}@spc{}notations.
 These characters are explicitly reserved to the @term{programmer}.
 @f{@tild{}} is not used in @clisp{}, and reserved to implementors.
-@f{@dollar{}} and @f{@percent{}} are @term{alphabetic}@sub2{} @term{characters},
+@f{@dollar{}} and @f{@percent{}} are @term{alphabetic}@sub{2} @term{characters},
 but are not used in the names of any standard @clisp{}@spc{}@term{defined names}.
 
-@term{Whitespace}@sub2{} characters serve as separators but are otherwise
+@term{Whitespace}@sub{2} characters serve as separators but are otherwise
 ignored.  @term{Constituent} and @term{escape} @term{characters} are accumulated
 to make a @term{token}, which is then interpreted as a @term{number} or @term{symbol}.
 @term{Macro characters} trigger the invocation of @term{functions} (possibly
@@ -349,7 +349,7 @@ Every @term{character} has one or more @term{constituent traits}
 that define how the @term{character} is to be interpreted by the @term{Lisp reader}
 when the @term{character} is a @term{constituent} @term{character}.
 These @term{constituent traits} are
-@term{alphabetic}@sub2{},
+@term{alphabetic}@sub{2},
 digit,
 @term{package marker},
 plus sign,
@@ -366,52 +366,52 @@ no mechanism is provided for changing the @term{constituent trait} of a @term{ch
 Any @term{character} with the alphadigit @term{constituent trait}
 in that figure is a digit if the @term{current input base} is greater
 than that character's digit value,
-otherwise the @term{character} is @term{alphabetic}@sub2{}.
+otherwise the @term{character} is @term{alphabetic}@sub{2}.
 Any @term{character} quoted by a @term{single escape}
-is treated as an @term{alphabetic}@sub2{} constituent, regardless of its normal syntax.
+is treated as an @term{alphabetic}@sub{2} constituent, regardless of its normal syntax.
 
 
 
 @float Figure,ConstituentTraitsOfStdChars
 @cartouche
-@multitable{@b{constituent}}{@term{alphabetic}@sub2{}*}{@b{constituent}}{alphadigit, double-float @term{exponent marker}}
+@multitable{@b{constituent}}{@term{alphabetic}@sub{2}*}{@b{constituent}}{alphadigit, double-float @term{exponent marker}}
 
 @item @b{constituent} @tab @b{traits} @tab @b{constituent} @tab @b{traits}
 @item @b{characters} @tab  @tab @b{characters} @tab
-@item Backspace @tab @term{invalid} @tab @f{@lcurly{}} @tab @term{alphabetic}@sub2{}
-@item Tab @tab @term{invalid}* @tab @f{@rcurly{}} @tab @term{alphabetic}@sub2{}
-@item Newline @tab @term{invalid}* @tab + @tab @term{alphabetic}@sub2{}, plus sign
-@item Linefeed @tab @term{invalid}* @tab - @tab @term{alphabetic}@sub2{}, minus sign
-@item Page @tab @term{invalid}* @tab . @tab @term{alphabetic}@sub2{}, dot, decimal point
-@item Return @tab @term{invalid}* @tab / @tab @term{alphabetic}@sub2{}, @term{ratio marker}
+@item Backspace @tab @term{invalid} @tab @f{@lcurly{}} @tab @term{alphabetic}@sub{2}
+@item Tab @tab @term{invalid}* @tab @f{@rcurly{}} @tab @term{alphabetic}@sub{2}
+@item Newline @tab @term{invalid}* @tab + @tab @term{alphabetic}@sub{2}, plus sign
+@item Linefeed @tab @term{invalid}* @tab - @tab @term{alphabetic}@sub{2}, minus sign
+@item Page @tab @term{invalid}* @tab . @tab @term{alphabetic}@sub{2}, dot, decimal point
+@item Return @tab @term{invalid}* @tab / @tab @term{alphabetic}@sub{2}, @term{ratio marker}
 @item Space @tab @term{invalid}* @tab A, a @tab alphadigit
-@item ! @tab @term{alphabetic}@sub2{} @tab B, b @tab alphadigit
-@item @tt{"} @tab @term{alphabetic}@sub2{}* @tab C, c @tab alphadigit
-@item # @tab @term{alphabetic}@sub2{}* @tab D, d @tab alphadigit, double-float @term{exponent marker}
-@item @dollar{} @tab @term{alphabetic}@sub2{} @tab E, e @tab alphadigit, float @term{exponent marker}
-@item @percent{} @tab @term{alphabetic}@sub2{} @tab F, f @tab alphadigit, single-float @term{exponent marker}
-@item @ampers{} @tab @term{alphabetic}@sub2{} @tab G, g @tab alphadigit
-@item ' @tab @term{alphabetic}@sub2{}* @tab H, h @tab alphadigit
-@item ( @tab @term{alphabetic}@sub2{}* @tab I, i @tab alphadigit
-@item ) @tab @term{alphabetic}@sub2{}* @tab J, j @tab alphadigit
-@item @tt{*} @tab @term{alphabetic}@sub2{} @tab K, k @tab alphadigit
-@item , @tab @term{alphabetic}@sub2{}* @tab L, l @tab alphadigit, long-float @term{exponent marker}
+@item ! @tab @term{alphabetic}@sub{2} @tab B, b @tab alphadigit
+@item @tt{"} @tab @term{alphabetic}@sub{2}* @tab C, c @tab alphadigit
+@item # @tab @term{alphabetic}@sub{2}* @tab D, d @tab alphadigit, double-float @term{exponent marker}
+@item @dollar{} @tab @term{alphabetic}@sub{2} @tab E, e @tab alphadigit, float @term{exponent marker}
+@item @percent{} @tab @term{alphabetic}@sub{2} @tab F, f @tab alphadigit, single-float @term{exponent marker}
+@item @ampers{} @tab @term{alphabetic}@sub{2} @tab G, g @tab alphadigit
+@item ' @tab @term{alphabetic}@sub{2}* @tab H, h @tab alphadigit
+@item ( @tab @term{alphabetic}@sub{2}* @tab I, i @tab alphadigit
+@item ) @tab @term{alphabetic}@sub{2}* @tab J, j @tab alphadigit
+@item @tt{*} @tab @term{alphabetic}@sub{2} @tab K, k @tab alphadigit
+@item , @tab @term{alphabetic}@sub{2}* @tab L, l @tab alphadigit, long-float @term{exponent marker}
 @item 0-9 @tab alphadigit @tab M, m @tab alphadigit
 @item : @tab @term{package marker} @tab N, n @tab alphadigit
-@item ; @tab @term{alphabetic}@sub2{}* @tab O, o @tab alphadigit
-@item @tt{<} @tab @term{alphabetic}@sub2{} @tab P, p @tab alphadigit
-@item = @tab @term{alphabetic}@sub2{} @tab Q, q @tab alphadigit
-@item @tt{>} @tab @term{alphabetic}@sub2{} @tab R, r @tab alphadigit
-@item ? @tab @term{alphabetic}@sub2{} @tab S, s @tab alphadigit, short-float @term{exponent marker}
-@item @f{@@} @tab @term{alphabetic}@sub2{} @tab T, t @tab alphadigit
-@item @f{[} @tab @term{alphabetic}@sub2{} @tab U, u @tab alphadigit
-@item @f{@bsl{}} @tab @term{alphabetic}@sub2{}* @tab V, v @tab alphadigit
-@item @f{]} @tab @term{alphabetic}@sub2{} @tab W, w @tab alphadigit
-@item @hat{} @tab @term{alphabetic}@sub2{} @tab X, x @tab alphadigit
-@item @f{_} @tab @term{alphabetic}@sub2{} @tab Y, y @tab alphadigit
-@item ` @tab @term{alphabetic}@sub2{}* @tab Z, z @tab alphadigit
-@item @f{|} @tab @term{alphabetic}@sub2{}* @tab Rubout @tab @term{invalid}
-@item @f{@tild{}} @tab @term{alphabetic}@sub2{} @tab  @tab
+@item ; @tab @term{alphabetic}@sub{2}* @tab O, o @tab alphadigit
+@item @tt{<} @tab @term{alphabetic}@sub{2} @tab P, p @tab alphadigit
+@item = @tab @term{alphabetic}@sub{2} @tab Q, q @tab alphadigit
+@item @tt{>} @tab @term{alphabetic}@sub{2} @tab R, r @tab alphadigit
+@item ? @tab @term{alphabetic}@sub{2} @tab S, s @tab alphadigit, short-float @term{exponent marker}
+@item @f{@@} @tab @term{alphabetic}@sub{2} @tab T, t @tab alphadigit
+@item @f{[} @tab @term{alphabetic}@sub{2} @tab U, u @tab alphadigit
+@item @f{@bsl{}} @tab @term{alphabetic}@sub{2}* @tab V, v @tab alphadigit
+@item @f{]} @tab @term{alphabetic}@sub{2} @tab W, w @tab alphadigit
+@item @hat{} @tab @term{alphabetic}@sub{2} @tab X, x @tab alphadigit
+@item @f{_} @tab @term{alphabetic}@sub{2} @tab Y, y @tab alphadigit
+@item ` @tab @term{alphabetic}@sub{2}* @tab Z, z @tab alphadigit
+@item @f{|} @tab @term{alphabetic}@sub{2}* @tab Rubout @tab @term{invalid}
+@item @f{@tild{}} @tab @term{alphabetic}@sub{2} @tab  @tab
 @end multitable
 @end cartouche
 @caption{Constituent Traits of Standard Characters and Semi-Standard Characters}
@@ -419,9 +419,9 @@ is treated as an @term{alphabetic}@sub2{} constituent, regardless of its normal 
 
 The interpretations in this table apply only to @term{characters}
 whose @term{syntax type} is @term{constituent}.
-Entries marked with an asterisk (*) are normally @term{shadowed}@sub2{}
+Entries marked with an asterisk (*) are normally @term{shadowed}@sub{2}
 because the indicated @term{characters} are of @term{syntax type}
-@term{whitespace}@sub2{},
+@term{whitespace}@sub{2},
 @term{macro character},
 @term{single escape},
 or @term{multiple escape};
@@ -439,7 +439,7 @@ except under the control of a @term{single escape} @term{character}.
 If an @term{invalid} @term{character} is encountered while an @term{object} is
 being read, an error @oftype{reader-error} is signaled.
 If an @term{invalid} @term{character} is preceded by a @term{single escape} @term{character},
-it is treated as an @term{alphabetic}@sub2{} @term{constituent} instead.
+it is treated as an @term{alphabetic}@sub{2} @term{constituent} instead.
 
 
 @node Macro Characters
@@ -484,21 +484,21 @@ is called no matter where the @term{character} appears.
 The only @term{non-terminating} @term{macro character} in @term{standard syntax}
 is @term{sharpsign}.
 
-If a @term{character} is a @term{dispatching macro character} @mat{C@sub1{}},
+If a @term{character} is a @term{dispatching macro character} @mat{C@sub{1}},
 its @term{reader macro function} is a @term{function} supplied by the @term{implementation}.
 This @term{function} reads decimal @term{digit} @term{characters} until a non-@term{digit}
-@mat{C@sub2{}} is read.
+@mat{C@sub{2}} is read.
 If any @term{digits} were read,
 they are converted into a corresponding @term{integer} infix parameter @mat{P};
 otherwise, the infix parameter @mat{P} is @nil{}.
-The terminating non-@term{digit} @mat{C@sub2{}} is a @term{character}
+The terminating non-@term{digit} @mat{C@sub{2}} is a @term{character}
 (sometimes called a ``sub-character'' to emphasize its subordinate role in the dispatching)
 that is looked up in the dispatch table associated with
-the @term{dispatching macro character} @mat{C@sub1{}}.
-The @term{reader macro function} associated with the sub-character @mat{C@sub2{}}
+the @term{dispatching macro character} @mat{C@sub{1}}.
+The @term{reader macro function} associated with the sub-character @mat{C@sub{2}}
 is invoked with three arguments:
 the @term{stream},
-the sub-character @mat{C@sub2{}},
+the sub-character @mat{C@sub{2}},
 and the infix parameter @mat{P}.
 For more information about dispatch characters,
 see the @term{function} @ref{set-dispatch-macro-character}.
@@ -514,8 +514,8 @@ see @ref{Standard Macro Characters, Section 2.4 (Standard Macro Characters)}.
 
 A pair of @newterm{multiple escape} @term{characters}
 is used to indicate that an enclosed sequence of characters,
-including possible @term{macro characters} and @term{whitespace}@sub2{} @term{characters},
-are to be treated as @term{alphabetic}@sub2{} @term{characters}
+including possible @term{macro characters} and @term{whitespace}@sub{2} @term{characters},
+are to be treated as @term{alphabetic}@sub{2} @term{characters}
 with @term{case} preserved.
 Any @term{single escape} and @term{multiple escape} @term{characters}
 that are to appear in the sequence must be preceded by a @term{single escape}
@@ -546,7 +546,7 @@ in @term{standard syntax}.
 
 A @newterm{single escape} is used to indicate that
 the next @term{character} is to be treated as
-an @term{alphabetic}@sub2{} @term{character}
+an @term{alphabetic}@sub{2} @term{character}
 with its @term{case} preserved,
 no matter what the @term{character} is
 or which @term{constituent traits} it has.
@@ -573,9 +573,9 @@ or which @term{constituent traits} it has.
 @subsubsection Whitespace Characters
 @anchor{WhitespaceChars}
 
-@term{Whitespace}@sub2{} @term{characters} are used to separate @term{tokens}.
+@term{Whitespace}@sub{2} @term{characters} are used to separate @term{tokens}.
 
-@term{Space} and @term{newline} are @term{whitespace}@sub2{} @term{characters}
+@term{Space} and @term{newline} are @term{whitespace}@sub{2} @term{characters}
 in @term{standard syntax}.
 
 @node Examples of Whitespace Characters
@@ -630,7 +630,7 @@ If @param{x} is an @term{invalid} @term{character},
 an error @oftype{reader-error} is signaled.
 
 @item
-If @param{x} is a @term{whitespace}@sub2{} @term{character},
+If @param{x} is a @term{whitespace}@sub{2} @term{character},
 then it is discarded and step 1 is re-entered.
 
 @item
@@ -661,7 +661,7 @@ If @param{x} is a @term{single escape} @term{character}
 then the next @term{character}, @param{y}, is read, or an error @oftype{end-of-file}
 is signaled if at the end of file.
 @param{y} is treated as if it is a @term{constituent}
-whose only @term{constituent trait} is @term{alphabetic}@sub2{}.
+whose only @term{constituent trait} is @term{alphabetic}@sub{2}.
 @param{y} is used to begin a @term{token}, and step 8 is entered.
 
 @item
@@ -711,7 +711,7 @@ Step 8 is repeated.
 If @param{y} is a @term{single escape} @term{character}, then the next @term{character},
 @param{z}, is read, or an error @oftype{end-of-file} is signaled if at end of file.
 @param{Z} is treated as if it is a @term{constituent}
-whose only @term{constituent trait} is @term{alphabetic}@sub2{}.
+whose only @term{constituent trait} is @term{alphabetic}@sub{2}.
 @param{Z} is appended to the @term{token} being built,
 and step 8 is repeated.
 
@@ -730,7 +730,7 @@ First the @term{character} @param{y} is unread (see @code{unread-char}),
 and then step 10 is entered.
 
 @item
-If @param{y} is a @term{whitespace}@sub2{} @term{character}, then it terminates
+If @param{y} is a @term{whitespace}@sub{2} @term{character}, then it terminates
 the @term{token}.  First the @term{character} @param{y} is unread
 if appropriate (see @code{read-preserving-whitespace}),
 and then step 10 is entered.
@@ -747,16 +747,16 @@ one of the following actions is performed according to its @term{syntax type}:
 
 @itemize @bullet{}
 @item
-If @param{y} is a @term{constituent}, macro, or @term{whitespace}@sub2{} @term{character},
+If @param{y} is a @term{constituent}, macro, or @term{whitespace}@sub{2} @term{character},
 @param{y} is treated as a @term{constituent}
-whose only @term{constituent trait} is @term{alphabetic}@sub2{}.
+whose only @term{constituent trait} is @term{alphabetic}@sub{2}.
 @param{Y} is appended to the @term{token} being built, and step 9 is repeated.
 
 @item
 If @param{y} is a @term{single escape} @term{character}, then the next @term{character},
 @param{z}, is read, or an error @oftype{end-of-file} is signaled if at end of file.
 @param{Z} is treated as a @term{constituent}
-whose only @term{constituent trait} is @term{alphabetic}@sub2{}.
+whose only @term{constituent trait} is @term{alphabetic}@sub{2}.
 @param{Z} is appended to the @term{token} being built,
 and step 9 is repeated.
 
@@ -913,7 +913,7 @@ the letter is treated as a digit.
 A @term{potential number} cannot contain any @term{escape}
 @term{characters}.  An @term{escape} @term{character} robs the following
 @term{character} of all syntactic qualities, forcing it to be strictly
-@term{alphabetic}@sub2{} and therefore unsuitable for use in a
+@term{alphabetic}@sub{2} and therefore unsuitable for use in a
 @term{potential number}.  For example, all of the following
 representations are interpreted as @term{symbols}, not @term{numbers}:
 
@@ -1464,7 +1464,7 @@ A @term{list} of the @term{objects} read is returned.  Thus
 is read as a @term{list} of three @term{objects}
 (the @term{symbols} @f{a}, @f{b}, and @f{c}).
 The right parenthesis need not immediately follow the printed representation of
-the last @term{object}; @term{whitespace}@sub2{}
+the last @term{object}; @term{whitespace}@sub{2}
 characters and comments may precede it.
 
 If no @term{objects} precede the right parenthesis,
@@ -1477,7 +1477,7 @@ If a @term{token} that is just a dot
 not immediately preceded by an escape character
 is read after some @term{object}
 then exactly one more @term{object} must follow the dot,
-possibly preceded or followed by @term{whitespace}@sub2{} or a comment,
+possibly preceded or followed by @term{whitespace}@sub{2} or a comment,
 followed by the right parenthesis:
 
 @lisp
@@ -1818,10 +1818,10 @@ If the backquote syntax is nested, the innermost backquoted form
 should be expanded first.  This means that if several commas occur
 in a row, the leftmost one belongs to the innermost @term{backquote}.
 
-An @term{implementation} is free to interpret a backquoted @term{form} @mat{F@sub1{}}
-as any @term{form} @mat{F@sub2{}} that, when evaluated, will produce a result that is
+An @term{implementation} is free to interpret a backquoted @term{form} @mat{F@sub{1}}
+as any @term{form} @mat{F@sub{2}} that, when evaluated, will produce a result that is
 the @term{same} under @code{equal} as the result implied by the above definition,
-provided that the side-effect behavior of the substitute @term{form} @mat{F@sub2{}}
+provided that the side-effect behavior of the substitute @term{form} @mat{F@sub{2}}
 is also consistent with the description given above.
 The constructed
 copy of the template might or might not share @term{list} structure with the
@@ -2523,7 +2523,7 @@ If the @term{feature expression} @param{test} succeeds,
 then this textual notation represents an @term{object}
 whose printed representation is @param{expression}.
 If the @term{feature expression} @param{test} fails,
-then this textual notation is treated as @term{whitespace}@sub2{};
+then this textual notation is treated as @term{whitespace}@sub{2};
 that is, it is as if the ``@f{#+} @param{test} @param{expression}''
 did not appear and only a @term{space} appeared in its place.
 
@@ -2678,7 +2678,7 @@ of @term{objects} that cannot be read back in.
 @subsubsection Sharpsign Whitespace
 @cindex Sharpsign Whitespace
 
-@f{#} followed immediately by @term{whitespace}@sub1{} is not valid reader syntax.
+@f{#} followed immediately by @term{whitespace}@sub{1} is not valid reader syntax.
 The @term{Lisp reader} will signal an error @oftype{reader-error} if it
 encounters the reader macro notation @f{#@NewlineChar{}} or @f{#@SpaceChar{}}.
 
@@ -2707,10 +2707,10 @@ upon encountering @f{#)}.
 Note that the @term{Lisp reader} will
 generally
 signal an error @oftype{reader-error}
-when reading an @term{expression}@sub2{} that has been
+when reading an @term{expression}@sub{2} that has been
 abbreviated because of length or level limits
 (see @code{*print-level*},
 @code{*print-length*},
 and @code{*print-lines*})
-due to restrictions on ``@f{..}'', ``@f{...}'', ``@f{#}'' followed by @term{whitespace}@sub1{},
+due to restrictions on ``@f{..}'', ``@f{...}'', ``@f{#}'' followed by @term{whitespace}@sub{1},
 and ``@f{#)}''.

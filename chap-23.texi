@@ -128,7 +128,7 @@ act according to @param{eof-error-p}.
 Similarly, @thefunction{read-line}
 successfully reads the last line of a file even if that line
 is terminated by end-of-file rather than the newline character.
-Ignorable text, such as lines containing only @term{whitespace}@sub2{} or comments,
+Ignorable text, such as lines containing only @term{whitespace}@sub{2} or comments,
 are not considered to begin an @term{object};
 if @code{read} begins to read an @term{expression} but sees only such
 ignorable text, it does not consider the file to end in the middle of an @term{object}.
@@ -183,7 +183,7 @@ The correct way to define the @term{single-quote}
 
 @item
 A recursive call does not alter whether the reading process
-is to preserve @term{whitespace}@sub2{} or not (as determined by whether the
+is to preserve @term{whitespace}@sub{2} or not (as determined by whether the
 outermost call was to @code{read} or @code{read-preserving-whitespace}).
 Suppose again that @term{single-quote}
 were to be defined as shown above in the incorrect definition.
@@ -195,7 +195,7 @@ not @code{read-preserving-whitespace},
 to read the following expression (in this case @f{foo}).
 The correct definition, which passes the value @term{true} for @param{recursive-p}
 to @code{read}, allows the outermost call to determine
-whether @term{whitespace}@sub2{} is preserved.
+whether @term{whitespace}@sub{2} is preserved.
 
 @item
 When end-of-file is encountered and the @param{eof-error-p} argument
@@ -429,7 +429,7 @@ or the @param{eof-value}.
 from @param{input-stream} and builds such an @term{object}.
 
 @code{read-preserving-whitespace} is like @code{read} but preserves
-any @term{whitespace}@sub2{} @term{character}
+any @term{whitespace}@sub{2} @term{character}
 that delimits the printed representation of the @term{object}.
 @code{read-preserving-whitespace} is exactly like @code{read}
 when the @param{recursive-p} @term{argument} to @code{read-preserving-whitespace}
@@ -438,15 +438,15 @@ is @term{true}.
 When @code{*read-suppress*} is @term{false},
 @code{read} throws away the delimiting @term{character} required by
 certain printed representations if it is a
-@term{whitespace}@sub2{} @term{character};
+@term{whitespace}@sub{2} @term{character};
 but @code{read} preserves the character
 (using @code{unread-char}) if it is
 syntactically meaningful, because it could be the start of the next expression.
 
 If a file ends in a @term{symbol} or a @term{number}
-immediately followed by an @term{end of file}@sub1{},
+immediately followed by an @term{end of file}@sub{1},
 @code{read} reads the @term{symbol} or @term{number} successfully;
-when called again, it sees the @term{end of file}@sub1{} and
+when called again, it sees the @term{end of file}@sub{1} and
 only then acts according to @param{eof-error-p}.
 If a file contains ignorable text at the end, such
 as blank lines and comments, @code{read}
@@ -520,9 +520,9 @@ continue, producing this interpretation:
  (zyedh (path usr games zork usr games boggle))
 @end lisp
 
-There are times when @term{whitespace}@sub2{} should be discarded.
+There are times when @term{whitespace}@sub{2} should be discarded.
 If a command interpreter takes single-character commands,
-but occasionally reads an @term{object} then if the @term{whitespace}@sub2{}
+but occasionally reads an @term{object} then if the @term{whitespace}@sub{2}
 after a @term{symbol}
 is not discarded it might be interpreted as a command
 some time later after the @term{symbol} had been read.
@@ -591,10 +591,10 @@ is signaled at the end of file.
 
 @code{read-delimited-list} reads @term{objects} from @param{input-stream}
 until the next character after an @term{object}'s
-representation (ignoring @term{whitespace}@sub2{} characters and comments) is @param{char}.
+representation (ignoring @term{whitespace}@sub{2} characters and comments) is @param{char}.
 
 @code{read-delimited-list} looks ahead at each step
-for the next non-@term{whitespace}@sub2{} @term{character}
+for the next non-@term{whitespace}@sub{2} @term{character}
 and peeks at it as if with @code{peek-char}.
 If it is @param{char},
 then the @term{character} is consumed and the @term{list} of @term{objects} is returned.
@@ -615,7 +615,7 @@ It is an error to reach end-of-file during the operation of
 @code{read-delimited-list}.
 
 The consequences are undefined
-if @param{char} has a @term{syntax type} of @term{whitespace}@sub2{}
+if @param{char} has a @term{syntax type} of @term{whitespace}@sub{2}
 in the @term{current readtable}.
 
 @subsubheading Examples:
@@ -706,7 +706,7 @@ explicitly.
 
 @subsubheading Syntax:
 
-@DefunWithValuesNewline{read-from-string, string @vtop{@hbox{@opt{} eof-error-p eof-value} @hbox{@key{} start end preserve-whitespace}}, object\, position}
+@DefunWithValuesNewline{read-from-string, string @vtop{@hbox{@opt{} eof-error-p eof-value} @hbox{@keyparam{} start end preserve-whitespace}}, object\, position}
 
 @subsubheading Arguments and Values:
 
@@ -739,7 +739,7 @@ as if @code{read} had been called on an @term{input} @term{stream}
 containing those same @term{characters}.
 
 If @param{preserve-whitespace} is @term{true},
-the operation will preserve @term{whitespace}@sub2{}
+the operation will preserve @term{whitespace}@sub{2}
 as @code{read-preserving-whitespace} would do.
 
 If an @term{object} is successfully parsed, the @term{primary value}, @param{object},
@@ -1140,7 +1140,7 @@ The existing values in the @param{from-readtable}.
 The @term{constituent traits} of a @term{character} are ``hard wired''
 into the parser for extended @term{tokens}.  For example, if the definition
 of @f{S} is copied to @f{*}, then @f{*} will become a @term{constituent}
-that is @term{alphabetic}@sub2{} but that cannot be used as a
+that is @term{alphabetic}@sub{2} but that cannot be used as a
 @term{short float} @term{exponent marker}.
 For further information, see @ref{ConstituentTraits, Section 2.1.4.2 (Constituent Traits)}.
 
@@ -1388,8 +1388,8 @@ however, they continue to parse the representation of an @term{object}
 in the normal way, in order to skip over the @term{object},
 and continue to indicate @term{end of file} in the normal way.
 Except as noted below,
-any @term{standardized} @term{reader macro}@sub2{}
-that is defined to @term{read}@sub2{}
+any @term{standardized} @term{reader macro}@sub{2}
+that is defined to @term{read}@sub{2}
 a following @term{object} or @term{token}
 will do so,
 but not signal an error if the @term{object}
@@ -1425,7 +1425,7 @@ on either the presence of or the value of the numerical argument.
 
 The @f{#=} notation is totally ignored.  It does not read
 a following @term{object}. It produces no @term{object},
-but is treated as @term{whitespace}@sub2{}.
+but is treated as @term{whitespace}@sub{2}.
 
 @item @id{@tt{##}}
 

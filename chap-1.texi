@@ -400,7 +400,7 @@ When this font is used, the Glossary definition takes precedence
 over normal English usage.
 
 Sometimes a glossary term appears subscripted,
-as in ``@term{whitespace}@sub2{}.''
+as in ``@term{whitespace}@sub{2}.''
 Such a notation selects one particular Glossary definition out of several,
 in this case the second.
 The subscript notation for Glossary terms is generally used where the
@@ -429,7 +429,7 @@ might write in @clisp{}.
 
 This font is also used for certain @term{standardized} names that are not
 names of @term{external symbols} of the @code{COMMON-LISP} @term{package},
-such as @term{keywords}@sub1{},
+such as @term{keywords}@sub{1},
 @term{package} @term{names},
 and @term{loop keywords}.
 
@@ -474,7 +474,7 @@ be of the form
 
 
 @quotation
-@mat{O@sub1{}@spc{}@vert{}@spc{}@ldots{}@spc{}@vert{}@spc{}O@subs1{l}}
+@mat{O@sub{1}@spc{}@vert{}@spc{}@ldots{}@spc{}@vert{}@spc{}O@subs1{l}}
 @end quotation
 
 
@@ -485,7 +485,7 @@ The expression @interleave{@mat{O}} means that a list of the form
 
 
 @quotation
-@mat{(O@subs{i@sub1{}}@ldots{} O@subs{i@subs1{j}})@quad{} 1@leq{} j}
+@mat{(O@subs{i@sub{1}}@ldots{} O@subs{i@subs1{j}})@quad{} 1@leq{} j}
 @end quotation
 
 
@@ -529,7 +529,7 @@ It is a description of any of these:
 and in the second case @tt{C} appears too often.
 
 
-The notation @plus{@interleave{@mat{O@sub1{}} | @mat{O@sub2{}} | @mat{@ldots{}}}}
+The notation @plus{@interleave{@mat{O@sub{1}} | @mat{O@sub{2}} | @mat{@ldots{}}}}
 adds the additional restriction that at least one item from among the possible
 choices must be used.  For example:
 
@@ -1458,7 +1458,7 @@ by the @term{method} @term{signature}.
 
  F @paren{@param{x} @param{class}}
 @paren{@param{y} t}
-@opt{} @param{z} @key{} @param{k}
+@opt{} @param{z} @keyparam{} @param{k}
 
 @noindent
  This @term{signature} indicates that this method on the @term{generic function}
@@ -1661,7 +1661,7 @@ describes its @term{parameters}.
 
 For example, an @term{operator} description might say:
 
-@Defun{F, x y @opt{} z @key{} k}
+@Defun{F, x y @opt{} z @keyparam{} k}
 
 @noindent
  This description indicates that the function @b{F}

@@ -303,7 +303,7 @@ of the @code{KEYWORD} @term{package}.
 
 @subsubheading Description:
 
-@Predicate{object, a @term{keyword}@sub1{}}
+@Predicate{object, a @term{keyword}@sub{1}}
 
 @subsubheading Examples:
 
@@ -422,7 +422,7 @@ the @term{value} of @param{symbol},
 the initial @term{function} definition of @param{new-symbol} is
 the @term{functional value} of @param{symbol},
 and the @term{property list} of @param{new-symbol} is
-a @term{copy}@sub2{} of the @term{property list} of @param{symbol}.
+a @term{copy}@sub{2} of the @term{property list} of @param{symbol}.
 
 @subsubheading Examples:
 
@@ -1043,10 +1043,10 @@ otherwise, the specified @param{default}.
 @subsubheading Description:
 
 @code{get} finds a @term{property}
-on the @term{property list}@sub2{} of @param{symbol}
+on the @term{property list}@sub{2} of @param{symbol}
 whose @term{property indicator} is @term{identical} to @param{indicator},
 and returns its corresponding @term{property value}.
-If there are multiple @term{properties}@sub1{} with that @term{property indicator},
+If there are multiple @term{properties}@sub{1} with that @term{property indicator},
 @code{get} uses the first such @term{property}.
 If there is no @term{property} with that @term{property indicator},
 @param{default} is returned.
@@ -1054,7 +1054,7 @@ If there is no @term{property} with that @term{property indicator},
 @code{setf} of @code{get} may be used to associate a new @term{object}
 with an existing indicator already on the @param{symbol}'s @term{property list},
 or to create a new assocation if none exists.
-If there are multiple @term{properties}@sub1{} with that @term{property indicator},
+If there are multiple @term{properties}@sub{1} with that @term{property indicator},
 @code{setf} of @code{get} associates the @param{new-value}
 with the first such @term{property}.
 When a @code{get} @term{form} is used as a @code{setf} @param{place},
@@ -1143,10 +1143,10 @@ one whose value is @param{default}.  However, see @code{get-properties}.
 
 @subsubheading Description:
 
-@code{remprop} removes from the @term{property list}@sub2{} of @param{symbol}
-a @term{property}@sub1{} with a @term{property indicator}
+@code{remprop} removes from the @term{property list}@sub{2} of @param{symbol}
+a @term{property}@sub{1} with a @term{property indicator}
 @term{identical} to @param{indicator}.
-If there are multiple @term{properties}@sub1{} with the @term{identical} key,
+If there are multiple @term{properties}@sub{1} with the @term{identical} key,
 @code{remprop} only removes the first such @term{property}.
 @code{remprop} returns @term{false} if no such @term{property} was found,
 or @term{true} if a property was found.

@@ -221,7 +221,6 @@ or
 
 
 
-@indent{}
 If a @term{type specifier} is a @term{list}, the @term{car} of the @term{list}
 is a @term{symbol}, and the rest of the @term{list} is subsidiary
 @term{type} information.  Such a @term{type specifier} is called
@@ -460,23 +459,23 @@ and if the @term{name} of the @term{class} names that @term{class}.
 That is, a @term{class}@tie{}@mat{C} has the @term{proper name}@tie{}@mat{S} if @mat{S=}
 @f{(class-name @mat{C})} and @mat{C=} @f{(find-class @mat{S})}.
 Notice that it is possible for
-@f{(find-class @mat{S@sub1{}})} @mat{=} @f{(find-class @mat{S@sub2{}})}
-and @mat{S@sub1{}@neq{} S@sub2{}}.
+@f{(find-class @mat{S@sub{1}})} @mat{=} @f{(find-class @mat{S@sub{2}})}
+and @mat{S@sub{1}@neq{} S@sub{2}}.
 If @mat{C=} @f{(find-class @mat{S})}, we say that @mat{C} is the @term{class} @term{named} @mat{S}.
 
-A @term{class} @mat{C@sub1{}} is
-a @newterm{direct superclass} of a @term{class} @mat{C@sub2{}}
-if @mat{C@sub2{}} explicitly designates @mat{C@sub1{}}
+A @term{class} @mat{C@sub{1}} is
+a @newterm{direct superclass} of a @term{class} @mat{C@sub{2}}
+if @mat{C@sub{2}} explicitly designates @mat{C@sub{1}}
 as a @term{superclass} in its definition.
-In this case @mat{C@sub2{}} is a @newterm{direct subclass} of @mat{C@sub1{}}.
+In this case @mat{C@sub{2}} is a @newterm{direct subclass} of @mat{C@sub{1}}.
 A @term{class} @mat{C@subs1{n}} is a @newterm{superclass} of
-a @term{class} @mat{C@sub1{}} if there exists a series of
-@term{classes} @mat{C@sub2{},@ldots{},C@subs{n-1}} such that
+a @term{class} @mat{C@sub{1}} if there exists a series of
+@term{classes} @mat{C@sub{2},@ldots{},C@subs{n-1}} such that
 @mat{C@subs{i+1}} is a @term{direct superclass} of @mat{C@subs1{i}} for @mat{1 @leq{} i<n}.
-In this case, @mat{C@sub1{}} is a @newterm{subclass} of @mat{C@subs1{n}}.
+In this case, @mat{C@sub{1}} is a @newterm{subclass} of @mat{C@subs1{n}}.
 A @term{class} is considered neither a @term{superclass} nor a @term{subclass} of itself.
-That is, if @mat{C@sub1{}} is a @term{superclass} of @mat{C@sub2{}},
-then @mat{C@sub1{} @neq{} C@sub2{}}.
+That is, if @mat{C@sub{1}} is a @term{superclass} of @mat{C@sub{2}},
+then @mat{C@sub{1} @neq{} C@sub{2}}.
 The set of @term{classes} consisting of some given @term{class} @mat{C}
 along with all of its @term{superclasses} is called ``@mat{C} and its superclasses.''
 
@@ -484,7 +483,7 @@ Each @term{class} has a @newterm{class precedence list},
 which is a total ordering on the set of the given @term{class} and its @term{superclasses}.
 The total ordering is expressed as a list ordered from most specific to least specific.
 The @term{class precedence list} is used in several ways.  In general, more
-specific @term{classes} can @newterm{shadow}@sub1{} features that would
+specific @term{classes} can @newterm{shadow}@sub{1} features that would
 otherwise be inherited from less specific @term{classes}.
 The @term{method} selection and combination process uses
 the @term{class precedence list} to order @term{methods}
@@ -723,9 +722,9 @@ direct @term{superclasses} specified to its right
 in the @term{superclasses} list of the @code{defclass} form.
 For every class @mat{C}, define
 @quotation
-@mat{R@subs1{C}=@lcurly{}(C,C@sub1{}),(C@sub1{},C@sub2{}),@ldots{},(C@subs{n-1},C@subs1{n})@rcurly{}}
+@mat{R@subs1{C}=@lcurly{}(C,C@sub{1}),(C@sub{1},C@sub{2}),@ldots{},(C@subs{n-1},C@subs1{n})@rcurly{}}
 @end quotation
- where @mat{C@sub1{},@ldots{},C@subs1{n}} are
+ where @mat{C@sub{1},@ldots{},C@subs1{n}} are
 the direct @term{superclasses} of @mat{C} in the order in which
 they are mentioned in the @code{defclass} form. These ordered pairs
 generate the total ordering on the class @mat{C} and its direct
@@ -774,8 +773,8 @@ If @mat{S@subs1{C}} is not empty and the process has stopped, the set @mat{R} is
 inconsistent. If every @term{class} in the finite set of
 @term{classes} is preceded
 by another, then @mat{R} contains a loop. That is, there is a chain of
-classes @mat{C@sub1{},@ldots{},C@subs1{n}} such that @mat{C@subs1{i}} precedes
-@mat{C@subs{i+1}}, @mat{1@leq{} i<n}, and @mat{C@subs1{n}} precedes @mat{C@sub1{}}.
+classes @mat{C@sub{1},@ldots{},C@subs1{n}} such that @mat{C@subs1{i}} precedes
+@mat{C@subs{i+1}}, @mat{1@leq{} i<n}, and @mat{C@subs1{n}} precedes @mat{C@sub{1}}.
 
 Sometimes there are several @term{classes} from @mat{S@subs1{C}} with no
 predecessors.  In this case select the one that has a direct
@@ -783,9 +782,9 @@ predecessors.  In this case select the one that has a direct
 (If there is no such candidate @term{class}, @mat{R} does not generate
 a partial ordering---the @mat{R@subs1{c}}, @mat{c@in{} S@subs1{C}}, are inconsistent.)
 
-In more precise terms, let @mat{@lcurly{}N@sub1{},@ldots{},N@subs1{m}@rcurly{}}, @mat{m@geq{} 2}, be
-the @term{classes} from @mat{S@subs1{C}} with no predecessors.  Let @mat{(C@sub1{}@ldots{} C@subs1{n})}, @mat{n@geq{} 1}, be the @term{class precedence list}
-constructed so far.  @mat{C@sub1{}} is the most specific @term{class}, and @mat{C@subs1{n}} is the least specific.  Let @mat{1@leq{} j@leq{} n} be the largest number
+In more precise terms, let @mat{@lcurly{}N@sub{1},@ldots{},N@subs1{m}@rcurly{}}, @mat{m@geq{} 2}, be
+the @term{classes} from @mat{S@subs1{C}} with no predecessors.  Let @mat{(C@sub{1}@ldots{} C@subs1{n})}, @mat{n@geq{} 1}, be the @term{class precedence list}
+constructed so far.  @mat{C@sub{1}} is the most specific @term{class}, and @mat{C@subs1{n}} is the least specific.  Let @mat{1@leq{} j@leq{} n} be the largest number
 such that there exists an @mat{i} where @mat{1@leq{} i@leq{} m} and @mat{N@subs1{i}}
 is a direct @term{superclass} of @mat{C@subs1{j}}; @mat{N@subs1{i}} is placed next.
 
@@ -793,17 +792,17 @@ The effect of this rule for selecting from a set of @term{classes} with no
 predecessors is that the @term{classes} in a simple @term{superclass} chain are
 adjacent in the @term{class precedence list} and that @term{classes} in each
 relatively separated subgraph are adjacent in the @term{class precedence list}.
-For example, let @mat{T@sub1{}} and @mat{T@sub2{}} be subgraphs whose only
+For example, let @mat{T@sub{1}} and @mat{T@sub{2}} be subgraphs whose only
 element in common is the class @mat{J}@negthinspace{}.
-Suppose that no superclass of @mat{J} appears in either @mat{T@sub1{}} or @mat{T@sub2{}},
-and that @mat{J} is in the superclass chain of every class in both @mat{T@sub1{}} and @mat{T@sub2{}}.
-Let @mat{C@sub1{}} be the bottom of @mat{T@sub1{}};
-and let @mat{C@sub2{}} be the bottom of @mat{T@sub2{}}.
+Suppose that no superclass of @mat{J} appears in either @mat{T@sub{1}} or @mat{T@sub{2}},
+and that @mat{J} is in the superclass chain of every class in both @mat{T@sub{1}} and @mat{T@sub{2}}.
+Let @mat{C@sub{1}} be the bottom of @mat{T@sub{1}};
+and let @mat{C@sub{2}} be the bottom of @mat{T@sub{2}}.
 Suppose @mat{C} is a @term{class} whose direct @term{superclasses}
-are @mat{C@sub1{}} and @mat{C@sub2{}} in that order, then the @term{class precedence list}
+are @mat{C@sub{1}} and @mat{C@sub{2}} in that order, then the @term{class precedence list}
 for @mat{C} starts with @mat{C} and is followed by
-all @term{classes} in @mat{T@sub1{}} except @mat{J}.
-All the @term{classes} of @mat{T@sub2{}} are next.
+all @term{classes} in @mat{T@sub{1}} except @mat{J}.
+All the @term{classes} of @mat{T@sub{2}} are next.
 The @term{class} @mat{J} and its @term{superclasses} appear last.
 
 
@@ -1332,7 +1331,7 @@ Specializing.
 
 @Deftype{function, @ttbrac{arg-typespec @brac{value-typespec}}}
 
-@auxbnf{arg-typespec, @lparen{}@starparam{typespec} @CR{} @spc{}@ttbrac{@opt{} @starparam{typespec}} @CR{} @spc{}@ttbrac{@rest{} @param{typespec}} @CR{} @spc{}@ttbrac{@key{} @starparen{keyword typespec}}@rparen{}}
+@auxbnf{arg-typespec, @lparen{}@starparam{typespec} @CR{} @spc{}@ttbrac{@opt{} @starparam{typespec}} @CR{} @spc{}@ttbrac{@rest{} @param{typespec}} @CR{} @spc{}@ttbrac{@keyparam{} @starparen{keyword typespec}}@rparen{}}
 
 @subsubheading Compound Type Specifier Arguments:
 

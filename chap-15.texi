@@ -156,9 +156,9 @@ creation, @term{access}, and information operations.
 @anchor{ArrayUpgrading}
 
 
-The @newterm{upgraded array element type} of a @term{type} @mat{T@sub1{}}
-is a @term{type} @mat{T@sub2{}} that is a @term{supertype} of @mat{T@sub1{}}
-and that is used instead of @mat{T@sub1{}} whenever @mat{T@sub1{}}
+The @newterm{upgraded array element type} of a @term{type} @mat{T@sub{1}}
+is a @term{type} @mat{T@sub{2}} that is a @term{supertype} of @mat{T@sub{1}}
+and that is used instead of @mat{T@sub{1}} whenever @mat{T@sub{1}}
 is used as an @term{array element type}
 for object creation or type discrimination.
 
@@ -177,10 +177,10 @@ must be a @term{subtype} of
 the @term{upgraded array element type} of @mat{T@subs1{y}}.
 Two @term{disjoint} @term{types} can be @term{upgraded} to the same @term{type}.
 
-The @term{upgraded array element type} @mat{T@sub2{}} of a @term{type} @mat{T@sub1{}}
-is a function only of @mat{T@sub1{}} itself;
+The @term{upgraded array element type} @mat{T@sub{2}} of a @term{type} @mat{T@sub{1}}
+is a function only of @mat{T@sub{1}} itself;
 that is, it is independent of any other property of the @term{array}
-for which @mat{T@sub2{}} will be used,
+for which @mat{T@sub{2}} will be used,
 such as @term{rank}, @term{adjustability}, @term{fill pointers}, or displacement.
 @Thefunction{upgraded-array-element-type}
 can be used by @term{conforming programs} to predict how the @term{implementation}
@@ -306,7 +306,7 @@ An @term{array} contains @term{objects} arranged according to a
 Cartesian coordinate system.
 An @term{array} provides mappings from a set of
 @term{fixnums}
-@mat{@left{}@lcurly{}i@sub0{},i@sub1{},@dots{},i@subs{r-1}@right{}@rcurly{}} to corresponding @term{elements}
+@mat{@left{}@lcurly{}i@sub{0},i@sub{1},@dots{},i@subs{r-1}@right{}@rcurly{}} to corresponding @term{elements}
 of the @term{array},
 where @mat{0 @le{} i@subs1{j} < d@subs1{j}},
 @mat{r} is the rank of the array, and @mat{d@subs1{j}} is the size of @term{dimension} @mat{j} of
@@ -683,7 +683,7 @@ that is, the set of @term{simple bit vectors} of size @param{size}.
 
 @subsubheading Syntax:
 
-@DefunWithValuesNewline{make-array, dimensions @key{} @vtop{@hbox{element-type} @hbox{initial-element} @hbox{initial-contents} @hbox{adjustable} @hbox{fill-pointer} @hbox{displaced-to} @hbox{displaced-index-offset}}, new-array}
+@DefunWithValuesNewline{make-array, dimensions @keyparam{} @vtop{@hbox{element-type} @hbox{initial-element} @hbox{initial-contents} @hbox{adjustable} @hbox{fill-pointer} @hbox{displaced-to} @hbox{displaced-index-offset}}, new-array}
 
 @subsubheading Arguments and Values:
 
@@ -937,7 +937,7 @@ that is not a @term{simple array}.
 
 @subsubheading Syntax:
 
-@DefunWithValuesNewline{adjust-array, array new-dimensions @key{} @vtop{@hbox{element-type} @hbox{initial-element} @hbox{initial-contents} @hbox{fill-pointer} @hbox{displaced-to} @hbox{displaced-index-offset}}, adjusted-array}
+@DefunWithValuesNewline{adjust-array, array new-dimensions @keyparam{} @vtop{@hbox{element-type} @hbox{initial-element} @hbox{initial-contents} @hbox{fill-pointer} @hbox{displaced-to} @hbox{displaced-index-offset}}, adjusted-array}
 
 @subsubheading Arguments and Values:
 
@@ -1319,7 +1319,7 @@ and less than the @term{rank} of the @param{array}.
 @subsubheading Description:
 
 @code{array-dimension} returns the @param{axis-number}
-@term{dimension}@sub1{} of @param{array}.
+@term{dimension}@sub{1} of @param{array}.
 (Any @term{fill pointer} is ignored.)
 
 @subsubheading Examples:

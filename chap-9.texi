@@ -447,15 +447,15 @@ active @term{applicable handlers} is defined by the following two rules:
 
 @enumerate 1
 
-@item Each handler in a set of active handlers @mat{H@sub1{}} is
-more recent than every handler in a set @mat{H@sub2{}} if the
-handlers in @mat{H@sub2{}} were active when the handlers in @mat{H@sub1{}} were
+@item Each handler in a set of active handlers @mat{H@sub{1}} is
+more recent than every handler in a set @mat{H@sub{2}} if the
+handlers in @mat{H@sub{2}} were active when the handlers in @mat{H@sub{1}} were
 established.
 
-@item Let @mat{h@sub1{}} and @mat{h@sub2{}} be two applicable active
-handlers established by the same @term{form}. Then @mat{h@sub1{}} is
-more recent than @mat{h@sub2{}} if @mat{h@sub1{}} was defined to the left of
-@mat{h@sub2{}} in the @term{form} that established them.
+@item Let @mat{h@sub{1}} and @mat{h@sub{2}} be two applicable active
+handlers established by the same @term{form}. Then @mat{h@sub{1}} is
+more recent than @mat{h@sub{2}} if @mat{h@sub{1}} was defined to the left of
+@mat{h@sub{2}} in the @term{form} that established them.
 @end enumerate
 
 
@@ -592,15 +592,15 @@ most recent according to the following two rules:
 @enumerate 1
 
 @item Each @term{restart} in a set of active restarts
-@mat{R@sub1{}} is more recent than every @term{restart} in a
-set @mat{R@sub2{}} if the @term{restarts}
-in @mat{R@sub2{}} were active when the  @term{restarts} in @mat{R@sub1{}} were
+@mat{R@sub{1}} is more recent than every @term{restart} in a
+set @mat{R@sub{2}} if the @term{restarts}
+in @mat{R@sub{2}} were active when the  @term{restarts} in @mat{R@sub{1}} were
 established.
 
-@item Let @mat{r@sub1{}} and @mat{r@sub2{}} be two active @term{restarts} with
-the same name established by the same @term{form}. Then @mat{r@sub1{}} is
-more recent than @mat{r@sub2{}} if @mat{r@sub1{}} was defined to the
-left of @mat{r@sub2{}} in the @term{form} that established them.
+@item Let @mat{r@sub{1}} and @mat{r@sub{2}} be two active @term{restarts} with
+the same name established by the same @term{form}. Then @mat{r@sub{1}} is
+more recent than @mat{r@sub{2}} if @mat{r@sub{1}} was defined to the
+left of @mat{r@sub{2}} in the @term{form} that established them.
 @end enumerate
 
 

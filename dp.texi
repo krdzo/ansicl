@@ -14,7 +14,7 @@
 @end macro
 
 @macro subN {}
-@sub1{}
+@sub{1}
 @end macro
 
 @macro tild {}
@@ -115,9 +115,6 @@ X3J13/94-101R
 @end macro
 
 @macro break {}
-@end macro
-
-@macro indent {}
 @end macro
 
 @macro keyword {arg}
@@ -1033,7 +1030,7 @@ Principal Values and Branch Cuts in Complex APL
 @end macro
 
 @macro RevisedCubedScheme {}
-@uref{http://www.swiss.ai.mit.edu/~jaffer/r3rs_toc.html,,Revised@cubed{} Report on the Algorithmic Language Scheme}
+@uref{http://www.swiss.ai.mit.edu/~jaffer/r3rs_toc.html,,Revised@sup{3} Report on the Algorithmic Language Scheme}
 @end macro
 
 @macro StandardLispReport {}
@@ -1140,7 +1137,7 @@ Common Lisp Object System Specification
 @t{&environment}
 @end macro
 
-@macro key {}
+@macro keyparam {}
 @t{&key}
 @end macro
 
@@ -1414,15 +1411,15 @@ Protocol}.
 
 @macro withaccessors {}
 @lisp
-(with-accessors (@var{slot-entry}@sub1{}, @dots{} @var{slot-entry}@subs1{n})
-@var{instance-form} @var{form}@sub1{} @dots{} @var{form}@subs1{k})
+(with-accessors (@var{slot-entry}@sub{1}, @dots{} @var{slot-entry}@subs1{n})
+@var{instance-form} @var{form}@sub{1} @dots{} @var{form}@subs1{k})
 @end lisp
 
 expands into the equivalent of
 
 @lisp
 (let ((in @var{instance-form}))
-  (symbol-macrolet (@var{Q}@sub1{} @dots{} @var{Q}@subs1{n}) @var{form}@sub1{} @dots{} @var{form}@subs1{k}))
+  (symbol-macrolet (@var{Q}@sub{1} @dots{} @var{Q}@subs1{n}) @var{form}@sub{1} @dots{} @var{form}@subs1{k}))
 @end lisp
 
 where @var{Q}@subs1{i} is
@@ -1435,15 +1432,15 @@ where @var{Q}@subs1{i} is
 
 @macro withslots {}
 @lisp
-(with-accessors (@var{slot-entry}@sub1{}, @dots{} @var{slot-entry}@subs1{n})
-@var{instance-form} @var{form}@sub1{} @dots{} @var{form}@subs1{k})
+(with-accessors (@var{slot-entry}@sub{1}, @dots{} @var{slot-entry}@subs1{n})
+@var{instance-form} @var{form}@sub{1} @dots{} @var{form}@subs1{k})
 @end lisp
 
 expands into the equivalent of
 
 @lisp
 (let ((in @var{instance-form}))
-  (symbol-macrolet (@var{Q}@sub1{} @dots{} @var{Q}@subs1{n}) @var{form}@sub1{} @dots{} @var{form}@subs1{k}))
+  (symbol-macrolet (@var{Q}@sub{1} @dots{} @var{Q}@subs1{n}) @var{form}@sub{1} @dots{} @var{form}@subs1{k}))
 @end lisp
 
 where @var{Q}@subs1{i} is
@@ -1493,7 +1490,7 @@ if @var{slot-entry}@subs1{i} is of the form
 @end macro
 
 
-@macro defmethod {}
+@macro defmtd {}
 @table @i
 @item function-name::= @curly{@term{symbol} | @t{(setf @term{symbol})}}
 
@@ -1503,13 +1500,12 @@ if @var{slot-entry}@subs1{i} is of the form
 (@star{@curly{var | (var @i{parameter-specializer-name})}}@*
                                [@opt{} @{var | (var [initform [supplied-p-parameter]])@}*]
                                @ttbrac{@t{&rest} var}@*
-                               [@key{} @{ var | (var [initfom [supplied-p-parameter]])@}*@*
-                                      [@keyref{allow-other-keys}]]@*
-                               [@t{&aux} @{var |@*
-                               (var [initform])@}*])
+                               [@keyparam{} @{ var | (var [initfom [supplied-p-parameter]])@}*@*
+                               [@keyref{allow-other-keys}]]@*
+                               [@t{&aux} @{var | (var [initform])@}*])
 
-@item parameter-specializer-name::=
-@term{symbol} | (@t{eql} eql-specializer-form)
+@item parameter-specializer-name::= @term{symbol} | (@t{eql} eql-specializer-form)
+
 @end table
 @end macro
 
@@ -1521,7 +1517,7 @@ if @var{slot-entry}@subs1{i} is of the form
 
 @auxbnf{restvars, [@curly{@rest{} | @body{}} @curly{var | @down{pattern}}]}
 
-@auxbnf{keyvars, [@key{} @curly{var | (@curly{var | (keyword-name
+@auxbnf{keyvars, [@keyparam{} @curly{var | (@curly{var | (keyword-name
 @curly{var | @down{pattern}})} [init-form [supplied-p-parameter]])}*
 [@allowotherkeys{}]]}
 @auxbnf{auxvars, [@aux{} @curly{var | (var [init-form])}*]}
@@ -1535,7 +1531,7 @@ if @var{slot-entry}@subs1{i} is of the form
 
 @auxbnf{restvars, [@curly{@rest{} | @body{}} @curly{var | @down{lambda-list}}]}
 
-@auxbnf{keyvars, [@key{} @curly{var | (@curly{var | (keyword-name
+@auxbnf{keyvars, [@keyparam{} @curly{var | (@curly{var | (keyword-name
 @curly{var | @down{lambda-list}})} [init-form [supplied-p-parameter]])}*
 [@allowotherkeys{}]]}
 

@@ -95,13 +95,13 @@ if there exists some set of @term{objects} (or potential @term{objects})
 which are equivalent to the @term{object} before the modification but are
 no longer equivalent afterwards.
 
-If an @term{object} @mat{O@sub1{}} is used as a key in a @term{hash table} @mat{H}
+If an @term{object} @mat{O@sub{1}} is used as a key in a @term{hash table} @mat{H}
 and is then visibly modified with regard to the equivalence test of @mat{H},
-then the consequences are unspecified if @mat{O@sub1{}}, or any @term{object}
-@mat{O@sub2{}} equivalent to @mat{O@sub1{}} under the equivalence test (either before
+then the consequences are unspecified if @mat{O@sub{1}}, or any @term{object}
+@mat{O@sub{2}} equivalent to @mat{O@sub{1}} under the equivalence test (either before
 or after the modification), is used as a key in further operations on @mat{H}.
-The consequences of using @mat{O@sub1{}} as a key are unspecified
-even if @mat{O@sub1{}} is visibly modified
+The consequences of using @mat{O@sub{1}} as a key are unspecified
+even if @mat{O@sub{1}} is visibly modified
 and then later modified again in such a way as
 to undo the visible modification.
 
@@ -258,7 +258,7 @@ is required to use any particular technique to implement the mapping.
 
 @subsubheading Syntax:
 
-@DefunWithValues{make-hash-table, @key{} test size rehash-size rehash-threshold, hash-table}
+@DefunWithValues{make-hash-table, @keyparam{} test size rehash-size rehash-threshold, hash-table}
 
 @subsubheading Arguments and Values:
 

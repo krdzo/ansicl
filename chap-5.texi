@@ -622,7 +622,7 @@ left-to-right order.
 
 
 The storing form in the @term{setf expansion} of @code{values}
-returns as @term{multiple values}@sub2{} the values of the store
+returns as @term{multiple values}@sub{2} the values of the store
 variables in step 2.  That is, the number of values returned is the
 same as the number of @term{place} forms.  This may be more or fewer
 values than are produced by the @param{values-form}.
@@ -2979,7 +2979,7 @@ before the @code{go} @term{form} is executed.
 
 @subsubheading Description:
 
-Returns control and @term{multiple values}@sub2{} from a lexically enclosing @term{block}.
+Returns control and @term{multiple values}@sub{2} from a lexically enclosing @term{block}.
 
 A @code{block} @term{form} named @param{name} must lexically enclose
 the occurrence of @code{return-from};  any @term{values} @term{yielded}
@@ -4051,9 +4051,9 @@ of @term{strings} and ignores the @term{case} of @term{characters},
 @item @id{@term{Structures}}
 
 
-If two @term{structures} @mat{S@sub1{}} and @mat{S@sub2{}} have the same @term{class}
-and the value of each @term{slot} in @mat{S@sub1{}} is the @term{same} under @code{equalp}
-as the value of the corresponding @term{slot} in @mat{S@sub2{}}.
+If two @term{structures} @mat{S@sub{1}} and @mat{S@sub{2}} have the same @term{class}
+and the value of each @term{slot} in @mat{S@sub{1}} is the @term{same} under @code{equalp}
+as the value of the corresponding @term{slot} in @mat{S@sub{2}}.
 
 @item @id{@term{Hash Tables}}
 
@@ -5257,7 +5257,7 @@ resulting from the evaluation of @param{function-form}.
 @subsubheading Description:
 
 Applies @param{function} to a @term{list} of the @term{objects} collected from groups of
-@term{multiple values}@sub2{}.
+@term{multiple values}@sub{2}.
 
 @code{multiple-value-call} first evaluates the @param{function-form}
 to obtain @param{function}, and then evaluates each @param{form}.
@@ -5300,7 +5300,7 @@ and given as arguments to the @param{function}.
 @subsubheading Description:
 
 @code{multiple-value-list} evaluates @param{form}
-and creates a @term{list} of the @term{multiple values}@sub2{} it returns.
+and creates a @term{list} of the @term{multiple values}@sub{2} it returns.
 
 @subsubheading Examples:
 
@@ -5403,13 +5403,13 @@ then it is @term{assigned} as if by @code{setf}.  Specifically,
 
 @begingroup{}
 @lisp
- (multiple-value-setq (@i{symbol}@subOne{} ... @i{symbol}@subN{}) @i{value-producing-form})
+ (multiple-value-setq (@i{symbol}@sub{1} ... @i{symbol}@subN{}) @i{value-producing-form})
 @end lisp
 
 is defined to always behave in the same way as
 
 @lisp
- (values (setf (values @i{symbol}@subOne{} ... @i{symbol}@subN{}) @i{value-producing-form}))
+ (values (setf (values @i{symbol}@sub{1} ... @i{symbol}@subN{}) @i{value-producing-form}))
 @end lisp
 
 @endgroup{}
@@ -5463,10 +5463,10 @@ See @ref{SETFofVALUES, Section 5.1.2.3 (VALUES Forms as Places)}.
 @subsubheading Description:
 
 @code{values}
-returns the @param{objects} as @term{multiple values}@sub2{}.
+returns the @param{objects} as @term{multiple values}@sub{2}.
 
 @code{setf} of @code{values} is used to store the
-@term{multiple values}@sub2{} @param{new-values} into the @param{places}.
+@term{multiple values}@sub{2} @param{new-values} into the @param{places}.
 See @ref{SETFofVALUES, Section 5.1.2.3 (VALUES Forms as Places)}.
 
 @subsubheading Examples:
@@ -5542,7 +5542,7 @@ its @term{argument} @term{forms}.
 
 @subsubheading Description:
 
-Returns the @term{elements} of the @param{list} as @term{multiple values}@sub2{}.
+Returns the @term{elements} of the @param{list} as @term{multiple values}@sub{2}.
 
 @subsubheading Examples:
 
@@ -6480,7 +6480,7 @@ are expanded into a call to @f{(setf @param{f})}.
 
 @param{newvalue}---a @term{form}.
 
-@param{results}---the @term{multiple values}@sub2{}
+@param{results}---the @term{multiple values}@sub{2}
 returned by the storing form for the last @param{place},
 or @nil{}@spc{}if there are no @param{pairs}.
 

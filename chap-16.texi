@@ -409,14 +409,14 @@ or @code{format} (with a first argument of @nil{}) can be used to get a
 
 @subsubheading Syntax:
 
-@DefunWithValues{string-upcase, string @key{} start end, cased-string}
-@DefunWithValues{string-downcase, string @key{} start end, cased-string}
-@DefunWithValues{string-capitalize, string @key{} start end, cased-string}
+@DefunWithValues{string-upcase, string @keyparam{} start end, cased-string}
+@DefunWithValues{string-downcase, string @keyparam{} start end, cased-string}
+@DefunWithValues{string-capitalize, string @keyparam{} start end, cased-string}
 
 
-@DefunWithValues{nstring-upcase, string @key{} start end, string}
-@DefunWithValues{nstring-downcase, string @key{} start end, string}
-@DefunWithValues{nstring-capitalize, string @key{} start end, string}
+@DefunWithValues{nstring-upcase, string @keyparam{} start end, string}
+@DefunWithValues{nstring-downcase, string @keyparam{} start end, string}
+@DefunWithValues{nstring-capitalize, string @keyparam{} start end, string}
 
 
 @subsubheading Arguments and Values:
@@ -616,22 +616,22 @@ The @term{implementation}.
 
 @subsubheading Syntax:
 
-@DefunWithValues{string@mat{=}, string1 string2 @key{} start1 end1 start2 end2, generalized-boolean}
+@DefunWithValues{string@mat{=}, string1 string2 @keyparam{} start1 end1 start2 end2, generalized-boolean}
 
-@DefunWithValues{string/@mat{=}, string1 string2 @key{} start1 end1 start2 end2, mismatch-index}
-@DefunWithValues{string@mat{<}, string1 string2 @key{} start1 end1 start2 end2, mismatch-index}
-@DefunWithValues{string@mat{>}, string1 string2 @key{} start1 end1 start2 end2, mismatch-index}
-@DefunWithValues{string@mat{<=}, string1 string2 @key{} start1 end1 start2 end2, mismatch-index}
-@DefunWithValues{string@mat{>=}, string1 string2 @key{} start1 end1 start2 end2, mismatch-index}
+@DefunWithValues{string/@mat{=}, string1 string2 @keyparam{} start1 end1 start2 end2, mismatch-index}
+@DefunWithValues{string@mat{<}, string1 string2 @keyparam{} start1 end1 start2 end2, mismatch-index}
+@DefunWithValues{string@mat{>}, string1 string2 @keyparam{} start1 end1 start2 end2, mismatch-index}
+@DefunWithValues{string@mat{<=}, string1 string2 @keyparam{} start1 end1 start2 end2, mismatch-index}
+@DefunWithValues{string@mat{>=}, string1 string2 @keyparam{} start1 end1 start2 end2, mismatch-index}
 
 
-@DefunWithValues{string-equal, string1 string2 @key{} start1 end1 start2 end2, generalized-boolean}
+@DefunWithValues{string-equal, string1 string2 @keyparam{} start1 end1 start2 end2, generalized-boolean}
 
-@DefunWithValues{string-not-equal, string1 string2 @key{} start1 end1 start2 end2, mismatch-index}
-@DefunWithValues{string-lessp, string1 string2 @key{} start1 end1 start2 end2, mismatch-index}
-@DefunWithValues{string-greaterp, string1 string2 @key{} start1 end1 start2 end2, mismatch-index}
-@DefunWithValues{string-not-greaterp, string1 string2 @key{} start1 end1 start2 end2, mismatch-index}
-@DefunWithValues{string-not-lessp, string1 string2 @key{} start1 end1 start2 end2, mismatch-index}
+@DefunWithValues{string-not-equal, string1 string2 @keyparam{} start1 end1 start2 end2, mismatch-index}
+@DefunWithValues{string-lessp, string1 string2 @keyparam{} start1 end1 start2 end2, mismatch-index}
+@DefunWithValues{string-greaterp, string1 string2 @keyparam{} start1 end1 start2 end2, mismatch-index}
+@DefunWithValues{string-not-greaterp, string1 string2 @keyparam{} start1 end1 start2 end2, mismatch-index}
+@DefunWithValues{string-not-lessp, string1 string2 @keyparam{} start1 end1 start2 end2, mismatch-index}
 
 
 @subsubheading Arguments and Values:
@@ -826,7 +826,7 @@ for comparing characters.
 
 @subsubheading Syntax:
 
-@DefunWithValues{make-string, size @key{} initial-element element-type, string}
+@DefunWithValues{make-string, size @keyparam{} initial-element element-type, string}
 
 @subsubheading Arguments and Values:
 

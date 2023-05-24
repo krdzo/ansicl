@@ -1002,9 +1002,9 @@ intermediate between @thetype{short-float} and @thetype{long-float} are
 @thetype{single-float} and @thetype{double-float}.
 The precise definition of these categories is
 @term{implementation-defined}.
-The precision (measured in ``bits'', computed as @mat{p@log{}@sub2{}b})
+The precision (measured in ``bits'', computed as @mat{p@log{}@sub{2}b})
 and the exponent size (also measured in ``bits,'' computed as
-@mat{@log{}@sub2{}(n+1)}, where @mat{n} is the maximum exponent value) is recommended
+@mat{@log{}@sub{2}(n+1)}, where @mat{n} is the maximum exponent value) is recommended
 to be at least as great
 as the values in @thenextfigure{}.
 Each of the defined @subtypesof{float} might or might not have a minus zero.
@@ -3403,9 +3403,9 @@ Creates a @term{fresh} @term{object} @oftype{random-state} suitable
 for use as @thevalueof{*random-state*}.
 
 If @param{state} is a @term{random state} @term{object},
-the @param{new-state} is a @term{copy}@sub5{} of that @term{object}.
+the @param{new-state} is a @term{copy}@sub{5} of that @term{object}.
 If @param{state} is @nil{},
-the @param{new-state} is a @term{copy}@sub5{} of the @term{current random state}.
+the @param{new-state} is a @term{copy}@sub{5} of the @term{current random state}.
 If @param{state} is @code{t},
 the @param{new-state} is a @term{fresh} @term{random state} @term{object}
 that has been randomly initialized by some means.
@@ -4380,7 +4380,7 @@ whose width in bits is no smaller than @tt{(+ (integer-length @param{integer}) 1
 
 @subsubheading Syntax:
 
-@DefunWithValues{parse-integer, string @key{} start end radix junk-allowed, integer\, pos}
+@DefunWithValues{parse-integer, string @keyparam{} start end radix junk-allowed, integer\, pos}
 
 @subsubheading Arguments and Values:
 
@@ -4406,7 +4406,7 @@ from the substring of @param{string} delimited by @param{start} and @param{end}.
 
 @code{parse-integer} expects an optional sign (@f{+} or @f{-}) followed by
 a a non-empty sequence of digits to be interpreted in the specified @param{radix}.
-Optional leading and trailing @term{whitespace}@sub1{} is ignored.
+Optional leading and trailing @term{whitespace}@sub{1} is ignored.
 
 @code{parse-integer} does not recognize the syntactic radix-specifier
 prefixes @f{#O}, @f{#B}, @f{#X}, and @f{#@i{n}R},
@@ -4414,7 +4414,7 @@ nor does it recognize a trailing decimal point.
 
 If @param{junk-allowed} is @term{false}, an error @oftype{parse-error} is
 signaled if substring does not consist entirely of the representation of a
-signed @term{integer}, possibly surrounded on either side by @term{whitespace}@sub1{}
+signed @term{integer}, possibly surrounded on either side by @term{whitespace}@sub{1}
 @term{characters}.
 
 The first @term{value} returned is either
@@ -4442,7 +4442,7 @@ If @param{junk-allowed} is @term{false},
 an error is signaled if substring does not consist entirely of
 the representation of an @term{integer},
 possibly surrounded on either side by
-@term{whitespace}@sub1{} characters.
+@term{whitespace}@sub{1} characters.
 
 
 @node boole
