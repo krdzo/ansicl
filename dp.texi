@@ -628,7 +628,7 @@ Should signal an error @oftype{program-error} if at least one
 @macro SatisfyTest {arg1, arg2}
 The @param{test}, @param{test-not}, and @param{key}
 affect how it is determined whether @param{\arg1\} is the same as \arg2\.
-For details, @ref{SatisfyingTheTwoArgTest, Satisfying a Two-Argument Test}
+For details, @ref{Satisfying a Two-Argument Test}
 @end macro
 
 @macro Defun {arg1, arg2}

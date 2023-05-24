@@ -84,7 +84,6 @@ and @code{define-setf-expander}.
 
 @node Evaluation of Subforms to Places
 @subsubsection Evaluation of Subforms to Places
-@anchor{GenRefSubFormEval}
 
 The following rules apply to the @term{evaluation} of @term{subforms} in a
 @term{place}:
@@ -199,7 +198,6 @@ then modifies the @term{car} of this latest value to be @tt{((a) . b)}.
 
 @node Setf Expansions
 @subsubsection Setf Expansions
-@anchor{SetfExpansions}
 
 Sometimes it is possible to avoid evaluating @term{subforms} of a
 @term{place} multiple times or in the wrong order.  A
@@ -371,7 +369,6 @@ can be used as a @term{place}.
 
 @node Function Call Forms as Places
 @subsubsection Function Call Forms as Places
-@anchor{FnFormsAsGenRefs}
 
 A @term{function form} can be used as a @term{place} if it falls
 into one of the following categories:
@@ -595,7 +592,6 @@ For example:
 
 @node VALUES Forms as Places
 @subsubsection VALUES Forms as Places
-@anchor{SETFofVALUES}
 
 A @code{values} @term{form} can be used as a @term{place},
 provided that each of its @term{subforms} is also a @term{place} form.
@@ -649,7 +645,6 @@ is processed as if it were
 
 @node APPLY Forms as Places
 @subsubsection APPLY Forms as Places
-@anchor{SETFofAPPLY}
 
 The following situations involving @code{setf} of @code{apply} must be supported:
 

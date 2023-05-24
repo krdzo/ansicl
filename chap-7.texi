@@ -1440,8 +1440,6 @@ of the @term{generic function}.
 
 @node Determining the Effective Method
 @subsubsection Determining the Effective Method
-@anchor{DeterminingtheEffectiveMethod}
-
 The effective method is determined by the following three-step procedure:
 
 
@@ -1459,8 +1457,6 @@ applicable methods, producing the effective method.
 
 @node Selecting the Applicable Methods
 @subsubsection Selecting the Applicable Methods
-
-@anchor{SelApplMeth}
 
 This step is described in @ref{Introduction to Methods}.
 
@@ -1505,8 +1501,6 @@ The resulting list of @term{applicable methods} has the most specific
 @node Applying method combination to the sorted list of applicable methods
 @subsubsection Applying method combination to the sorted list of applicable methods
 
-@anchor{ApplyMethCombToSortedMethods}
-
 In the simple case---if standard method combination is used and all
 applicable methods are primary methods---the
 effective method is the most specific method.
@@ -1548,8 +1542,6 @@ New types of method combination can be defined by using
 
 @node Standard Method Combination
 @subsubsection Standard Method Combination
-@anchor{StdMethComb}
-@cindex standard
 
 Standard method combination is supported by @theclass{standard-generic-function}.
 It is used if no other type of method
@@ -1686,7 +1678,6 @@ arbitrary processing of method @term{qualifiers}.
 
 @node Built-in Method Combination Types
 @subsubsection Built-in Method Combination Types
-@anchor{BuiltInMethCombTypes}
 
 The @CLOS{}@spc{}provides a set of built-in method combination types.  To
 specify that a generic function is to use one of these method

@@ -160,7 +160,6 @@ This section describes the default behavior of
 @node Printing Integers
 @subsubsection Printing Integers
 
-@anchor{PrintingIntegers}
 
 @term{Integers} are printed in the radix specified by the @term{current output base}
 in positional notation, most significant digit first.
@@ -178,7 +177,6 @@ see @ref{Syntax of an Integer}.
 @node Printing Ratios
 @subsubsection Printing Ratios
 
-@anchor{PrintingRatios}
 @cindex ratio
 
 @term{Ratios} are printed as follows:
@@ -198,7 +196,6 @@ see @ref{Syntax of a Ratio}.
 @node Printing Floats
 @subsubsection Printing Floats
 
-@anchor{PrintingFloats}
 @cindex float
 
 If the magnitude of the @term{float} is either zero or between @mat{10^-3} (inclusive)
@@ -238,7 +235,6 @@ see @ref{Syntax of a Float}.
 @node Printing Complexes
 @subsubsection Printing Complexes
 
-@anchor{PrintingComplexes}
 @cindex complex
 
 A @term{complex} is printed as @f{#C}, an open parenthesis,
@@ -258,7 +254,6 @@ see @ref{Escape Characters and Potential Numbers}.
 
 @node Printing Characters
 @subsubsection Printing Characters
-@anchor{PrintingCharacters}
 
 When @term{printer escaping} is disabled,
 a @term{character} prints as itself;
@@ -282,7 +277,6 @@ For details about the @f{#@bsl{}} @term{reader macro}, see @ref{Sharpsign Backsl
 
 @node Printing Symbols
 @subsubsection Printing Symbols
-@anchor{PrintingSymbols}
 
 When @term{printer escaping} is disabled,
 only the characters of the @term{symbol}'s @term{name} are output
@@ -386,7 +380,6 @@ in the @term{current package}.
 @node Effect of Readtable Case on the Lisp Printer
 @subsubsection Effect of Readtable Case on the Lisp Printer
 
-@anchor{ReadtableCasePrintEffect}
 
 When
 @term{printer escaping} is disabled,
@@ -466,7 +459,6 @@ no @term{alphabetic} @term{characters} need be escaped.
 @node Examples of Effect of Readtable Case on the Lisp Printer
 @subsubsection Examples of Effect of Readtable Case on the Lisp Printer
 
-@anchor{ReadtableCasePrintExamples}
 
 @lisp
  (defun test-readtable-case-printing ()
@@ -535,7 +527,6 @@ The output from @f{(test-readtable-case-printing)} should be as follows:
 
 @node Printing Strings
 @subsubsection Printing Strings
-@anchor{PrintingStrings}
 
 The characters of the @term{string} are output in order.
 If @term{printer escaping} is enabled,
@@ -549,7 +540,6 @@ see @ref{Double-Quote}.
 
 @node Printing Lists and Conses
 @subsubsection Printing Lists and Conses
-@anchor{PrintingListsAndConses}
 
 Wherever possible, list notation is preferred over dot notation.
 Therefore the following algorithm is used to print a @term{cons} @mat{x}:
@@ -633,7 +623,6 @@ see @ref{Left-Parenthesis}.
 
 @node Printing Bit Vectors
 @subsubsection Printing Bit Vectors
-@anchor{PrintingBitVectors}
 
 A @term{bit vector} is printed as @f{#*} followed by the bits of the @term{bit vector}
 in order.  If @code{*print-array*} is @term{false}, then the @term{bit vector} is
@@ -648,7 +637,6 @@ see @ref{Sharpsign Asterisk}.
 
 @node Printing Other Vectors
 @subsubsection Printing Other Vectors
-@anchor{PrintingOtherVectors}
 
 If @code{*print-array*} is @term{true}
 and @code{*print-readably*} is @term{false},
@@ -685,7 +673,6 @@ see @ref{Sharpsign Left-Parenthesis}.
 
 @node Printing Other Arrays
 @subsubsection Printing Other Arrays
-@anchor{PrintingOtherArrays}
 
 If  @code{*print-array*} is @term{true}
 and @code{*print-readably*} is @term{false},
@@ -766,7 +753,6 @@ see @ref{Sharpsign A}.
 
 @node Printing Random States
 @subsubsection Printing Random States
-@anchor{PrintingRandomStates}
 
 A specific syntax for printing @term{objects} @oftype{random-state} is
 not specified. However, every @term{implementation}
@@ -790,7 +776,6 @@ where the components are @term{implementation-dependent}.
 
 @node Printing Pathnames
 @subsubsection Printing Pathnames
-@anchor{PrintingPathnames}
 
 
 When @term{printer escaping} is enabled,
@@ -809,7 +794,6 @@ see @ref{Sharpsign P}.
 
 @node Printing Structures
 @subsubsection Printing Structures
-@anchor{PrintingStructures}
 
 By default, a @term{structure} of type @mat{S} is printed using @f{#S} syntax.
 This behavior can be customized by specifying a @kwd{print-function}
@@ -836,7 +820,6 @@ see @ref{Sharpsign S}.
 
 @node Printing Other Objects
 @subsubsection Printing Other Objects
-@anchor{PrintingOtherObjects}
 
 Other @term{objects} are printed in an @term{implementation-dependent} manner.
 It is not required that an @term{implementation} print those @term{objects}
@@ -960,7 +943,6 @@ functions with a @term{type}.
 
 @node Dynamic Control of the Arrangement of Output
 @subsubsection Dynamic Control of the Arrangement of Output
-@anchor{DynamicControlofOutput}
 
 The actions of the @term{pretty printer} when a piece of output is too
 large to fit in the space available can be precisely controlled.
@@ -1070,7 +1052,6 @@ more textually compact form.
 
 @node Compiling Format Strings
 @subsubsection Compiling Format Strings
-@anchor{CompilingFormatStrings}
 
 A @term{format string} is essentially a program in a special-purpose language
 that performs printing, and that is interpreted by @thefunction{format}.
@@ -1083,7 +1064,6 @@ that was returned by the @themacro{formatter}.
 
 @node Pretty Print Dispatch Tables
 @subsubsection Pretty Print Dispatch Tables
-@anchor{PPrintDispatchTables}
 
 
 A @newterm{pprint dispatch table} is a mapping from keys to pairs of values.
@@ -2256,7 +2236,6 @@ The following constructs provide access to the @term{pretty printer}:
 
 @node Tilde Underscore Conditional Newline
 @subsubsection Tilde Underscore: Conditional Newline
-@anchor{TildeUnderscore}
 @cindex Underscore (format directive)
 @cindex Tilde Underscore (format directive)
 
@@ -2268,7 +2247,6 @@ Without any modifiers, @f{@tild{}_} is the same as @f{(pprint-newline :linear)}.
 
 @node Tilde Less-Than-Sign Logical Block
 @subsubsection Tilde Less-Than-Sign: Logical Block
-@anchor{TildeLessThanLogicalBlock}
 @cindex Less-Than-Sign (format directive)
 @cindex Tilde Less-Than-Sign (format directive)
 
@@ -2339,7 +2317,6 @@ See also @ref{Tilde Less-Than-Sign Justification}.
 
 @node Tilde I Indent
 @subsubsection Tilde I: Indent
-@anchor{TildeI}
 @cindex I (format directive)
 @cindex Tilde I (format directive)
 
@@ -2452,7 +2429,6 @@ both interpreted as being in units of @term{ems} and both default to @f{1}.
 
 @node Tilde Less-Than-Sign Justification
 @subsubsection Tilde Less-Than-Sign: Justification
-@anchor{TildeLessThanJustification}
 @cindex Less-Than-Sign (format directive)
 @cindex Tilde Less-Than-Sign (format directive)
 

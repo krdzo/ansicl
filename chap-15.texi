@@ -153,7 +153,6 @@ creation, @term{access}, and information operations.
 
 @node Array Upgrading
 @subsubsection Array Upgrading
-@anchor{ArrayUpgrading}
 
 
 The @newterm{upgraded array element type} of a @term{type} @mat{T@sub{1}}
@@ -190,7 +189,6 @@ will @term{upgrade} a given @term{type}.
 
 @node Required Kinds of Specialized Arrays
 @subsubsection Required Kinds of Specialized Arrays
-@anchor{RequiredSpecializedArrays}
 
 @term{Vectors} whose @term{elements} are restricted to @term{type}
 @code{character} or a @term{subtype} of @code{character}

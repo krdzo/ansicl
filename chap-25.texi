@@ -131,8 +131,6 @@ time intervals are represented as a non-negative @term{real} number of seconds.
 
 @node Decoded Time
 @subsubsection Decoded Time
-@anchor{DecodedTime}
-
 A @newterm{decoded time} is an ordered series of nine values that, taken together,
 represent a point in calendar time (ignoring @term{leap seconds}):
 
@@ -215,8 +213,6 @@ A @term{time zone}.
 
 @node Universal Time
 @subsubsection Universal Time
-@anchor{UniversalTime}
-
 @cindex universal time
 @dfn{Universal time} is an @term{absolute} @term{time} represented as a
 single non-negative @term{integer}---the number of seconds since
@@ -248,8 +244,6 @@ times before the base time of midnight, January 1, 1900 GMT cannot be processed 
 
 @node Internal Time
 @subsubsection Internal Time
-@anchor{InternalTime}
-
 @cindex internal time
 @dfn{Internal time} represents time as a single @term{integer},
 in terms of an @term{implementation-dependent} unit called an @term{internal time unit}.

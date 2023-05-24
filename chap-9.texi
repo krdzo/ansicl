@@ -207,7 +207,6 @@ implicitly.  Macros such as @code{ccase}, @code{ctypecase},
 
 @node Condition Designators
 @subsubsection Condition Designators
-@anchor{ConditionDesignators}
 
 A number of the functions in the condition system take arguments which
 are identified as
@@ -644,8 +643,6 @@ action of the debugger on those values is @term{implementation-defined}.
 @node Interfaces to Restarts
 @subsubsection Interfaces to Restarts
 
-@anchor{InterfacesToRestarts}
-
 Some @term{restarts} have functional interfaces,
 such as @code{abort}, @code{continue},
 @code{muffle-warning}, @code{store-value}, and
@@ -689,8 +686,6 @@ the @kwd{test} option to @code{restart-case}.
 
 @node Associating a Restart with a Condition
 @subsubsection Associating a Restart with a Condition
-
-@anchor{AssocRestartWithCond}
 
 A @term{restart} can be ``associated with'' a @term{condition} explicitly
 by @code{with-condition-restarts}, or implicitly by @code{restart-case}.

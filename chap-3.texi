@@ -154,7 +154,6 @@ associated with its name in the @term{global environment}.
 @node The Null Lexical Environment
 @subsubsection The Null Lexical Environment
 
-@anchor{NullLexicalEnv}
 
 The @newterm{null lexical environment} is equivalent to the @term{global environment}.
 
@@ -167,7 +166,6 @@ the @term{null lexical environment}.
 
 @node Environment Objects
 @subsubsection Environment Objects
-@anchor{EnvObjs}
 
 Some @term{operators} make use of an @term{object},
 called an @newterm{environment object},
@@ -206,7 +204,6 @@ The following sections explain these categories.
 @node Symbols as Forms
 @subsubsection Symbols as Forms
 
-@anchor{SymbolsAsForms}
 
 If a @term{form} is a @term{symbol},
 then it is either a @term{symbol macro} or a @term{variable}.
@@ -343,7 +340,6 @@ defined in this specification or by an @term{implementation}.
 @node Constant Variables
 @subsubsection Constant Variables
 
-@anchor{ConstantVars}
 
 Certain variables, called @term{constant variables}, are reserved as ``named constants.''
 The consequences are undefined if an attempt is made to
@@ -517,7 +513,6 @@ to @term{macros}.
 @node Function Forms
 @subsubsection Function Forms
 
-@anchor{FunctionForms}
 
 If the @term{operator} is a @term{symbol} naming a @term{function},
 the @term{form} represents a @term{function form},
@@ -597,7 +592,6 @@ or @code{labels}.
 @node Lambda Forms
 @subsubsection Lambda Forms
 
-@anchor{LambdaForms}
 
 A @term{lambda form} is similar to a @term{function form}, except that
 the @term{function name} is replaced by a @term{lambda expression}.
@@ -1131,7 +1125,6 @@ more efficient code.
 
 @node Compiler Macros
 @subsubsection Compiler Macros
-@anchor{CompilerMacros}
 
 A @term{compiler macro} can be defined for a @term{name}
 that also names a @term{function} or @term{macro}.
@@ -1299,7 +1292,6 @@ each @term{implementation}.
 
 @node Minimal Compilation
 @subsubsection Minimal Compilation
-@anchor{MinimalCompilation}
 
 @term{Minimal compilation} is defined as follows:
 
@@ -1348,7 +1340,6 @@ is remembered and used later as the value of the
 
 @node Semantic Constraints
 @subsubsection Semantic Constraints
-@anchor{SemanticConstraints}
 
 All @term{conforming programs} must obey the following constraints,
 which are designed to minimize the observable differences
@@ -1484,7 +1475,6 @@ load time.
 
 @node Processing of Top Level Forms
 @subsubsection Processing of Top Level Forms
-@anchor{TopLevelForms}
 
 Processing of @term{top level forms} in the file compiler is defined
 as follows:
@@ -1748,7 +1738,6 @@ existed at the time the @term{file compiler} was operating.
 
 @node Similarity of Literal Objects
 @subsubsection Similarity of Literal Objects
-@anchor{Similarity}
 
 @node Similarity of Aggregate Objects
 @subsubsection Similarity of Aggregate Objects
@@ -2007,7 +1996,6 @@ may appear in compiled constants if there is an
 appropriate @code{make-load-form} method defined for that
 @term{type}.
 
-@anchor{CallingMakeLoadForm}
 The @term{file compiler} calls @code{make-load-form} on any @term{object}
 that is referenced as a @term{literal object} if the @term{object} is a
 @term{generalized instance} of @code{standard-object},
@@ -2675,7 +2663,6 @@ and its normal meaning (data flow into the function in question).
 @node Suppressing Keyword Argument Checking
 @subsubsection Suppressing Keyword Argument Checking
 
-@anchor{SuppressingKeyArgChecks}
 
 If @keyref{allow-other-keys} was specified in the @term{lambda list} of a @term{function},
 @term{keyword}@sub{2} @term{argument} checking is suppressed in calls
@@ -3074,7 +3061,6 @@ raises an objection.}
 
 @node Destructuring by Lambda Lists
 @subsubsection Destructuring by Lambda Lists
-@anchor{DestructuringByLambdaLists}
 
 Anywhere in a @term{macro lambda list} where a parameter
 name can appear, and where @term{ordinary lambda list} syntax
@@ -3492,7 +3478,6 @@ is present.
 
 @node Safe and Unsafe Calls
 @subsubsection Safe and Unsafe Calls
-@anchor{SafeAndUnsafeCalls}
 
 A @term{call} is a @newterm{safe call} if each of the following is
 either @term{safe} @term{code} or @term{system code} (other than
@@ -3618,7 +3603,6 @@ and in an @term{unsafe call} the @term{situation} has undefined consequences.
 
 @node Unrecognized Keyword Arguments
 @subsubsection Unrecognized Keyword Arguments
-@anchor{UnrecognizedKeyArgs}
 
 It is not permitted to supply a keyword argument to a @term{function}
 using a name that is not recognized by that @term{function}
@@ -3632,7 +3616,6 @@ and in an @term{unsafe call} the @term{situation} has undefined consequences.
 
 @node Invalid Keyword Arguments
 @subsubsection Invalid Keyword Arguments
-@anchor{InvalidKeyArgs}
 
 It is not permitted to supply a keyword argument to a @term{function}
 using a name that is not a @term{symbol}.
@@ -3646,7 +3629,6 @@ and in an @term{unsafe call} the @term{situation} has undefined consequences.
 
 @node Odd Number of Keyword Arguments
 @subsubsection Odd Number of Keyword Arguments
-@anchor{OddNumberOfKeyArgs}
 
 
 An odd number of @term{arguments} must not be supplied for the @term{keyword parameters}.
@@ -3661,7 +3643,6 @@ and in an @term{unsafe call} the @term{situation} has undefined consequences.
 
 @node Destructuring Mismatch
 @subsubsection Destructuring Mismatch
-@anchor{DestructuringMismatch}
 
 
 When matching a @term{destructuring lambda list} against a @term{form},

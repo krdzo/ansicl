@@ -259,7 +259,6 @@ For example,
 @node Case in Pathname Components
 @subsubsection Case in Pathname Components
 
-@anchor{PathnameComponentCase}
 
 @term{Namestrings} always use local file system @term{case} conventions,
 but @clisp{}@spc{}@term{functions} that manipulate @term{pathname} components
@@ -331,7 +330,6 @@ from @kwd{local} to @kwd{common} and back to @kwd{local} is information-preservi
 
 @node Special Pathname Component Values
 @subsubsection Special Pathname Component Values
-@anchor{SpecialComponentValues}
 
 @node NIL as a Component Value
 @subsubsection NIL as a Component Value
@@ -351,7 +349,6 @@ rather than an actual @nil{}@spc{}in some @term{implementations}.
 @node WILD as a Component Value
 @subsubsection :WILD as a Component Value
 
-@anchor{WildComponents}
 
 If @kwd{wild}
 @cindex :wild
@@ -379,7 +376,6 @@ or the same as @f{(:absolute :wild)} in a @term{file system} that does not suppo
 @node UNSPECIFIC as a Component Value
 @subsubsection :UNSPECIFIC as a Component Value
 
-@anchor{UnspecificComponent}
 
 If @kwd{unspecific}
 @cindex :unspecific
@@ -431,7 +427,6 @@ see the @term{function} @ref{merge-pathnames} and @ref{Merging Pathnames}.
 
 @node Restrictions on Wildcard Pathnames
 @subsubsection Restrictions on Wildcard Pathnames
-@anchor{WildcardRestrictions}
 
 Wildcard @term{pathnames} can be used with @code{directory} but not with
 @code{open},
@@ -689,7 +684,6 @@ to designate the smallest existing version number.
 
 @node Restrictions on Constructing Pathnames
 @subsubsection Restrictions on Constructing Pathnames
-@anchor{ConstructingPathnames}
 
 When constructing a @term{pathname} from components, conforming programs
 must follow these rules:
@@ -927,7 +921,6 @@ The consequences of using any value not specified here as a
 
 @node Unspecific Components of a Logical Pathname
 @subsubsection Unspecific Components of a Logical Pathname
-@anchor{LogicalPathCompUnspecific}
 
 The device component of a @term{logical pathname} is always @kwd{unspecific};
 no other component of a @term logical pathname can be @kwd{unspecific}.

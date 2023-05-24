@@ -113,7 +113,6 @@ visible modifications of the @term{object}.
 
 @node Visible Modification of Objects with respect to EQ and EQL
 @subsubsection Visible Modification of Objects with respect to EQ and EQL
-@anchor{VisModEQL}
 
 No @term{standardized} @term{function} is provided that is capable of visibly
 modifying an @term{object} with regard to @code{eq} or @code{eql}.
@@ -121,7 +120,6 @@ modifying an @term{object} with regard to @code{eq} or @code{eql}.
 
 @node Visible Modification of Objects with respect to EQUAL
 @subsubsection Visible Modification of Objects with respect to EQUAL
-@anchor{VisModEQUAL}
 
 As a consequence of the behavior for @code{equal},
 the rules for visible modification of @term{objects} not explicitly mentioned in this

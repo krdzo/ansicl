@@ -58,8 +58,6 @@ those (unescaped) letters are converted to the opposite @term{case}.
 
 @node Examples of Effect of Readtable Case on the Lisp Reader
 @subsubsection Examples of Effect of Readtable Case on the Lisp Reader
-@anchor{ReadtableCaseReadExamples}
-
 @lisp
  (defun test-readtable-case-reading ()
    (let ((*readtable* (copy-readtable nil)))

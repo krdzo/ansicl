@@ -57,7 +57,6 @@ and @term{syntax types}.
 
 @node The Current Readtable
 @subsubsection The Current Readtable
-@anchor{CurrentReadtable}
 
 Several @term{readtables} describing different syntaxes can exist,
 but at any given time only one, called the @newterm{current readtable},
@@ -329,7 +328,6 @@ The following are descriptions of each kind of @term{syntax type}.
 
 @node Constituent Characters
 @subsubsection Constituent Characters
-@anchor{ConstituentChars}
 
 @term{Constituent} @term{characters} are used in @term{tokens}.
 A @newterm{token} is a representation of a @term{number} or a @term{symbol}.
@@ -343,7 +341,6 @@ of @term{single escape} or @term{multiple escape} characters.
 
 @node Constituent Traits
 @subsubsection Constituent Traits
-@anchor{ConstituentTraits}
 
 Every @term{character} has one or more @term{constituent traits}
 that define how the @term{character} is to be interpreted by the @term{Lisp reader}
@@ -444,7 +441,6 @@ it is treated as an @term{alphabetic}@sub{2} @term{constituent} instead.
 
 @node Macro Characters
 @subsubsection Macro Characters
-@anchor{MacroChars}
 
 When the @term{Lisp reader} encounters a @term{macro character}
 on an @term{input} @term{stream},
@@ -510,7 +506,6 @@ see @ref{Standard Macro Characters}.
 
 @node Multiple Escape Characters
 @subsubsection Multiple Escape Characters
-@anchor{MultipleEscapeChar}
 
 A pair of @newterm{multiple escape} @term{characters}
 is used to indicate that an enclosed sequence of characters,
@@ -542,7 +537,6 @@ in @term{standard syntax}.
 
 @node Single Escape Character
 @subsubsection Single Escape Character
-@anchor{SingleEscapeChar}
 
 A @newterm{single escape} is used to indicate that
 the next @term{character} is to be treated as
@@ -571,7 +565,6 @@ or which @term{constituent traits} it has.
 
 @node Whitespace Characters
 @subsubsection Whitespace Characters
-@anchor{WhitespaceChars}
 
 @term{Whitespace}@sub{2} @term{characters} are used to separate @term{tokens}.
 
@@ -839,7 +832,6 @@ the syntax for numbers specified in @thenextfigure{}.
 
 @node Potential Numbers as Tokens
 @subsubsection Potential Numbers as Tokens
-@anchor{PotentialNumbersAsTokens}
 
 To allow implementors and future @clisp{}@spc{}standards
 to extend the syntax of numbers, a
@@ -908,7 +900,6 @@ the letter is treated as a digit.
 @node Escape Characters and Potential Numbers
 @subsubsection Escape Characters and Potential Numbers
 
-@anchor{EscCharsAndPotentialNums}
 
 A @term{potential number} cannot contain any @term{escape}
 @term{characters}.  An @term{escape} @term{character} robs the following
@@ -1009,7 +1000,6 @@ This section summarizes the full syntax for @term{numbers}.
 @node Syntax of an Integer
 @subsubsection Syntax of an Integer
 
-@anchor{SyntaxOfIntegers}
 
 @term{Integers} can be written as a sequence of @term{digits},
 optionally preceded by a @term{sign} and optionally followed by a decimal point;
@@ -1025,7 +1015,6 @@ For information on how @term{integers} are printed, see @ref{Printing Integers}.
 @node Syntax of a Ratio
 @subsubsection Syntax of a Ratio
 
-@anchor{SyntaxOfRatios}
 
 @term{Ratios} can be written as an optional @term{sign} followed by two
 non-empty sequences of @term{digits} separated by a @term{slash};
@@ -1064,7 +1053,6 @@ see @ref{Printing Ratios}.
 
 @node Syntax of a Float
 @subsubsection Syntax of a Float
-@anchor{SyntaxOfFloats}
 
 @term{Floats} can be written in either decimal fraction or computerized
 scientific notation: an optional sign, then a non-empty sequence of digits
@@ -1129,7 +1117,6 @@ see @ref{Printing Floats}.
 
 @node Syntax of a Complex
 @subsubsection Syntax of a Complex
-@anchor{SyntaxOfComplexes}
 
 A @term{complex} has a Cartesian structure,
 with a real part and an imaginary part each of which is a
@@ -1970,7 +1957,6 @@ For example,
 
 @node Sharpsign Backslash
 @subsubsection Sharpsign Backslash
-@anchor{SharpsignBackslash}
 @cindex Sharpsign Backslash (reader macro)
 @cindex Backslash (sharpsign reader macro)
 @cindex character
@@ -2006,7 +1992,6 @@ see @ref{Printing Characters}.
 
 @node Sharpsign Single-Quote
 @subsubsection Sharpsign Single-Quote
-@anchor{SharpsignQuote}
 @cindex Sharpsign Single-Quote (reader macro)
 @cindex Single-Quote (sharpsign reader macro)
 @cindex function
@@ -2026,7 +2011,6 @@ See @code{function}.  For example,
 
 @node Sharpsign Left-Parenthesis
 @subsubsection Sharpsign Left-Parenthesis
-@anchor{SharpsignLeftParen}
 @cindex Sharpsign Left-Parenthesis (reader macro)
 @cindex Left-Parenthesis (sharpsign reader macro)
 @cindex vector
@@ -2080,7 +2064,6 @@ or @ref{Printing Other Vectors}.
 
 @node Sharpsign Asterisk
 @subsubsection Sharpsign Asterisk
-@anchor{SharpsignStar}
 @cindex Sharpsign Asterisk (reader macro)
 @cindex Asterisk (sharpsign reader macro)
 @cindex bit-vector
@@ -2141,7 +2124,6 @@ For example:
 
 @node Sharpsign Colon
 @subsubsection Sharpsign Colon
-@anchor{SharpsignColon}
 @cindex Sharpsign Colon (reader macro)
 @cindex Colon (sharpsign reader macro)
 @cindex symbol
@@ -2161,7 +2143,6 @@ see @ref{Printing Symbols}.
 
 @node Sharpsign Dot
 @subsubsection Sharpsign Dot
-@anchor{SharpsignDot}
 @cindex Sharpsign Dot (reader macro)
 @cindex Dot (sharpsign reader macro)
 @cindex eval
@@ -2185,7 +2166,6 @@ the @f{#.} notation.
 
 @node Sharpsign B
 @subsubsection Sharpsign B
-@anchor{SharpsignB}
 @cindex Sharpsign B (reader macro)
 @cindex B (sharpsign reader macro)
 @cindex *read-base*
@@ -2205,7 +2185,6 @@ the @f{#B} does not have the syntax of a binary (@ie{} radix 2) @term{rational}.
 
 @node Sharpsign O
 @subsubsection Sharpsign O
-@anchor{SharpsignO}
 @cindex Sharpsign O (reader macro)
 @cindex O (sharpsign reader macro)
 @cindex *read-base*
@@ -2226,7 +2205,6 @@ the @f{#O} does not have the syntax of an octal (@ie{} radix 8) @term{rational}.
 
 @node Sharpsign X
 @subsubsection Sharpsign X
-@anchor{SharpsignX}
 @cindex Sharpsign X (reader macro)
 @cindex X (sharpsign reader macro)
 @cindex *read-base*
@@ -2247,7 +2225,6 @@ the @f{#X} does not have the syntax of a hexadecimal (@ie{} radix 16) @term{rati
 
 @node Sharpsign R
 @subsubsection Sharpsign R
-@anchor{SharpsignR}
 @cindex Sharpsign R (reader macro)
 @cindex R (sharpsign reader macro)
 @cindex *read-base*
@@ -2299,7 +2276,6 @@ the @f{#@param{n}R} does not have the syntax of a @term{rational} in radix @para
 
 @node Sharpsign C
 @subsubsection Sharpsign C
-@anchor{SharpsignC}
 @cindex Sharpsign C (reader macro)
 @cindex C (sharpsign reader macro)
 @cindex complex
@@ -2341,7 +2317,6 @@ see @ref{Printing Complexes}@spc{}and @ref{Syntax of a Complex}.
 
 @node Sharpsign A
 @subsubsection Sharpsign A
-@anchor{SharpsignA}
 @cindex Sharpsign A (reader macro)
 @cindex A (sharpsign reader macro)
 @cindex array
@@ -2395,7 +2370,6 @@ or @ref{Printing Other Arrays}.
 
 @node Sharpsign S
 @subsubsection Sharpsign S
-@anchor{SharpsignS}
 @cindex Sharpsign S (reader macro)
 @cindex S (sharpsign reader macro)
 @cindex structure
@@ -2434,7 +2408,6 @@ see @ref{Printing Structures}.
 
 @node Sharpsign P
 @subsubsection Sharpsign P
-@anchor{SharpsignP}
 @cindex Sharpsign P (reader macro)
 @cindex P (sharpsign reader macro)
 @cindex pathname
@@ -2662,7 +2635,6 @@ Such code is equivalent to:
 
 @node Sharpsign Less-Than-Sign
 @subsubsection Sharpsign Less-Than-Sign
-@anchor{SharpsignLeftAngle}
 @cindex Sharpsign Less-Than-Sign (reader macro)
 @cindex Less-Than-Sign (sharpsign reader macro)
 

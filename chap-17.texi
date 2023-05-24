@@ -72,7 +72,6 @@ that are treated as @term{sequences} must be @term{proper lists}.
 @end menu
 @node Satisfying a Two-Argument Test
 @subsection Satisfying a Two-Argument Test
-@anchor{SatisfyingTheTwoArgTest}
 
 When an @term{object} @mat{O} is being considered iteratively
 against each @term{element} @mat{E@subs1{i}}

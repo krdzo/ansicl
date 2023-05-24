@@ -448,7 +448,6 @@ input or output.
 
 @node Modified BNF Syntax
 @subsubsection Modified BNF Syntax
-@anchor{ModifiedBNF}
 
 This specification uses an extended Backus Normal Form (BNF) to
 describe the syntax of @clisp{}@spc{}@term{macro forms} and @term{special forms}.
@@ -806,7 +805,6 @@ but conventions may exist which convey a ``point of view'' or ``sense of intent.
 @node Case in Symbols
 @subsubsection Case in Symbols
 @cindex case in symbol names
-@anchor{CaseInSymbols}
 
 While @term{case} is significant in the process of @term{interning} a @term{symbol},
 the @term{Lisp reader}, by default, attempts to canonicalize the case of a
@@ -1317,7 +1315,6 @@ the @term{type} denoted by the @term{class}.
 
 @node Dictionary Entries for Type Specifiers
 @subsubsection Dictionary Entries for Type Specifiers
-@anchor{TypeSpecEntries}
 
 The @term{atomic type specifiers} are those @term{defined names}
 listed in @ref{StandardizedAtomicTypeSpecs, Figure 4.2}.
@@ -1828,7 +1825,6 @@ in this section.
 
 @node Required Language Features
 @subsubsection Required Language Features
-@anchor{ReqLangFeatures}
 
 A @term{conforming implementation} shall accept all features
 (including deprecated features)
@@ -1992,7 +1988,6 @@ that might return different @term{values} in different implementations:
 @node Use of Read-Time Conditionals
 @subsubsection Use of Read-Time Conditionals
 
-@anchor{ReadTimeConditionals}
 
 Use of @f{#+} and @f{#-} does not automatically disqualify a program
 from being conforming.  A program which uses @f{#+} and @f{#-} is

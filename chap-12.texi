@@ -167,7 +167,6 @@ A @term{conforming program} could control the order by writing, for example,
 
 @node Contagion in Numeric Operations
 @subsubsection Contagion in Numeric Operations
-@anchor{NumericContagionRules}
 
 For information about the contagion rules for implicit coercions of @term{arguments}
 in numeric operations, see
@@ -314,7 +313,6 @@ see @thetype{float}.
 
 @node Rule of Float Substitutability
 @subsubsection Rule of Float Substitutability
-@anchor{FloatSubstitutability}
 
 When the arguments to an irrational mathematical @term{function}
 @reviewer{Barmar: There should be a table of these functions.}
@@ -406,7 +404,6 @@ The following rules apply to floating point computations.
 
 @node Rule of Float and Rational Contagion
 @subsubsection Rule of Float and Rational Contagion
-@anchor{RuleOfFloatAndRationalContagion}
 
 When @term{rationals} and @term{floats} are combined by a numerical function,
 the @term{rational} is first converted to a @term{float} of the same format.
@@ -480,7 +477,6 @@ floating-point computation causes exponent overflow or underflow, respectively.
 
 @node Rule of Float Precision Contagion
 @subsubsection Rule of Float Precision Contagion
-@anchor{RuleOfFloatPrecisionContagion}
 
 The result of a numerical function is a @term{float} of the
 largest format among all the floating-point arguments to the @term{function}.
@@ -502,7 +498,6 @@ one or more of its @term{arguments} is a @term{complex}.
 @node Rule of Complex Contagion
 @subsubsection Rule of Complex Contagion
 
-@anchor{RuleOfComplexContagion}
 When a
 @term{real}
 and
@@ -513,7 +508,6 @@ is first converted to a @term{complex} by providing an imaginary part of @f{0}.
 
 @node Rule of Canonical Representation for Complex Rationals
 @subsubsection Rule of Canonical Representation for Complex Rationals
-@anchor{RuleOfCanonRepForComplexRationals}
 
 If the result of any computation would be a @term{complex}
 number whose real part is @oftype{rational} and whose imaginary

@@ -149,7 +149,6 @@ and for that same @term{stream} once it has been @term{closed}.
 @node Interactive Streams
 @subsubsection Interactive Streams
 
-@anchor{InteractiveStreams}
 
 An @newterm{interactive stream} is one on which it makes sense to perform
 interactive querying.

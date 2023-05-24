@@ -34,7 +34,6 @@ and extended @code{loop} @term{forms}.
 @node Simple Loop
 @subsubsection Simple Loop
 
-@anchor{SimpleLoop}
 
 A simple @code{loop} @term{form} is one that has a body containing
 only @term{compound forms}.
@@ -423,7 +422,6 @@ loop body.
 
 @node Destructuring
 @subsubsection Destructuring
-@anchor{DestructuringLOOPVars}
 
 The @param{d-type-spec} argument is used for destructuring.
 If the

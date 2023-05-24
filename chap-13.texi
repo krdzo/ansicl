@@ -78,7 +78,6 @@ The following figures contain lists of @term{defined names} applicable to
 
 @node Character Scripts
 @subsubsection Character Scripts
-@anchor{CharScripts}
 
 A @term{script} is one of possibly several sets that form an @term{exhaustive partition}
 of the type @code{character}.
@@ -102,7 +101,6 @@ Whether and how the @term{script} or @term{scripts} used by any given
 
 @node Character Repertoires
 @subsubsection Character Repertoires
-@anchor{CharRepertoires}
 
 A @newterm{repertoire} is a @term{type specifier} for a @subtypeof{character}.
 This term is generally used when describing a collection of @term{characters}
@@ -175,7 +173,6 @@ which might have been enabled in the @term{current readtable}.
 
 @node Graphic Characters
 @subsubsection Graphic Characters
-@anchor{GraphicChars}
 
 @term{Characters} that are classified as @newterm{graphic}, or displayable, are each
 associated with a glyph, a visual representation of the @term{character}.
@@ -225,7 +222,6 @@ that @term{character} is @term{alphabetic}@sub{1}.
 
 @node Characters With Case
 @subsubsection Characters With Case
-@anchor{CharactersWithCase}
 
 The @term{characters} with @term{case} are
 a subset of the @term{alphabetic}@sub{1} @term{characters}.
@@ -306,7 +302,6 @@ and the set of @term{numeric} @term{characters}.
 
 @node Digits in a Radix
 @subsubsection Digits in a Radix
-@anchor{Digits}
 
 What qualifies as a @term{digit} depends on the @term{radix}
 (an @term{integer} between @f{2} and @f{36}, inclusive).

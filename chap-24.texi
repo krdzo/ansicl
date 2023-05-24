@@ -52,8 +52,6 @@ which is called the @newterm{features list}.
 
 @node Feature Expressions
 @subsubsection Feature Expressions
-@anchor{FeatureExpressions}
-
 Boolean combinations of @term{features}, called
 @cindex feature expression
 @dfn{feature expressions},
@@ -98,8 +96,6 @@ otherwise, it fails.
 @node Examples of Feature Expressions
 @subsubsection Examples of Feature Expressions
 
-@anchor{FeatureExpExamples}
-For example, suppose that
 in @term{implementation} A, the @term{features} @f{spice} and @f{perq} are @term{present},
 but the @term{feature} @f{lispm} is not @term{present};
 in @term{implementation} B, the feature @f{lispm} is @term{present},
