@@ -104,12 +104,12 @@ and are precise only to one second.
 @term{Internal time} is used primarily to represent measurements of computer
 time (such as run time) and is precise to some @term{implementation-dependent}
 fraction of a second called an @term{internal time unit},
-as specified by @code{internal-time-units-per-second}.
+as specified by @coderef{internal-time-units-per-second}.
 An @term{internal time} can be used
 for either @term{absolute} and @term{relative} @term{time} measurements.
 Both a @term{universal time} and a @term{decoded time} can be used
 only for @term{absolute} @term{time} measurements.
-In the case of one function, @code{sleep},
+In the case of one function, @coderef{sleep},
 time intervals are represented as a non-negative @term{real} number of seconds.
 
 @Thenextfigure{}@spc{}shows @term{defined names} relating to @term{time}.
@@ -269,11 +269,11 @@ Absolute time is relative to an arbitrary time base.
 @node Seconds
 @subsubsection Seconds
 
-One function, @code{sleep}, takes its argument as a non-negative @term{real} number
+One function, @coderef{sleep}, takes its argument as a non-negative @term{real} number
 of seconds.  Informally, it may be useful to think of this as
 a @term{relative} @term{universal time}, but it differs in one important way:
 @term{universal times} are always non-negative @term{integers}, whereas the argument to
-@code{sleep} can be any kind of non-negative @term{real}, in order to allow for
+@coderef{sleep} can be any kind of non-negative @term{real}, in order to allow for
 the possibility of fractional seconds.
 
 
@@ -405,7 +405,7 @@ and so are not used as inputs to this function.)
 
 @subsubheading Description:
 
-@code{encode-universal-time} converts a time from Decoded Time format
+@coderef{encode-universal-time} converts a time from Decoded Time format
 to a @term{universal time}.
 
 If @param{time-zone} is supplied, no adjustment for daylight savings time is performed.
@@ -451,9 +451,9 @@ If @param{time-zone} is supplied, no adjustment for daylight savings time is per
 
 @subsubheading Description:
 
-@code{get-universal-time} returns the current time, represented as a @term{universal time}.
+@coderef{get-universal-time} returns the current time, represented as a @term{universal time}.
 
-@code{get-decoded-time} returns the current time, represented as a @term{decoded time}.
+@coderef{get-decoded-time} returns the current time, represented as a @term{decoded time}.
 
 @subsubheading Examples:
 
@@ -578,13 +578,13 @@ The granularity of the scheduler.
 These functions search for @term{interned} @term{symbols}
 whose @term{names} contain the substring @param{string}.
 
-For @code{apropos}, as each such @term{symbol} is found,
+For @coderef{apropos}, as each such @term{symbol} is found,
 its name is printed on @term{standard output}.
 In addition,
 if such a @term{symbol} is defined as a @term{function} or @term{dynamic variable},
 information about those definitions might also be printed.
 
-For @code{apropos-list},
+For @coderef{apropos-list},
 no output occurs as the search proceeds;
 instead a list of the matching @term{symbols} is returned when the search is complete.
 
@@ -594,8 +594,8 @@ otherwise all @term{symbols} @term{accessible} in any @term{package} are searche
 
 Because a @term{symbol} might be available
 by way of more than one inheritance path,
-@code{apropos} might print information about the @term{same} @term{symbol} more than once,
-or @code{apropos-list} might return a @term{list} containing duplicate @term{symbols}.
+@coderef{apropos} might print information about the @term{same} @term{symbol} more than once,
+or @coderef{apropos-list} might return a @term{list} containing duplicate @term{symbols}.
 
 Whether or not the search is case-sensitive is @term{implementation-defined}.
 
@@ -604,7 +604,7 @@ Whether or not the search is case-sensitive is @term{implementation-defined}.
 The set of @term{symbols} which are currently @term{interned}
 in any @term{packages} being searched.
 
-@code{apropos} is also affected by @code{*standard-output*}.
+@coderef{apropos} is also affected by @coderef{*standard-output*}.
 
 
 @node describe
@@ -626,29 +626,29 @@ in any @term{packages} being searched.
 
 @subsubheading Description:
 
-@code{describe} displays information about @param{object}
+@coderef{describe} displays information about @param{object}
 to @param{stream}.
 
-For example, @code{describe} of a @term{symbol} might show the
+For example, @coderef{describe} of a @term{symbol} might show the
 @term{symbol}'s value, its definition, and each of its properties.
-@code{describe} of a @term{float} might show the number's
+@coderef{describe} of a @term{float} might show the number's
 internal representation in a way that is useful for tracking
 down round-off errors.  In all cases, however, the nature and format of the
-output of @code{describe} is @term{implementation-dependent}.
+output of @coderef{describe} is @term{implementation-dependent}.
 
-@code{describe} can describe something that it finds inside the @param{object};
+@coderef{describe} can describe something that it finds inside the @param{object};
 in such cases, a notational device such as increased indentation or positioning in a
 table is typically used in order to visually distinguish such recursive descriptions
 from descriptions of the argument @param{object}.
 
-The actual act of describing the object is implemented by @code{describe-object}.
-@code{describe} exists as an interface primarily to manage argument defaulting (including
-conversion of arguments @code{t}@spc{}and @nil{}@spc{}into @term{stream} @term{objects}) and to inhibit
-any return values from @code{describe-object}.
+The actual act of describing the object is implemented by @coderef{describe-object}.
+@coderef{describe} exists as an interface primarily to manage argument defaulting (including
+conversion of arguments @coderef{t}@spc{}and @nil{}@spc{}into @term{stream} @term{objects}) and to inhibit
+any return values from @coderef{describe-object}.
 
-@code{describe} is not intended to be an interactive function.  In a
-@term{conforming implementation}, @code{describe} must not, by default,
-prompt for user input.  User-defined methods for @code{describe-object}
+@coderef{describe} is not intended to be an interactive function.  In a
+@term{conforming implementation}, @coderef{describe} must not, by default,
+prompt for user input.  User-defined methods for @coderef{describe-object}
 are likewise restricted.
 
 @subsubheading Side Effects:
@@ -657,8 +657,8 @@ Output to @term{standard output} or @term{terminal I/O}.
 
 @subsubheading Affected By:
 
-@code{*standard-output*} and @code{*terminal-io*},
-methods on @code{describe-object} and @code{print-object}
+@coderef{*standard-output*} and @coderef{*terminal-io*},
+methods on @coderef{describe-object} and @coderef{print-object}
 for @term{objects} having user-defined @term{classes}.
 
 @subsubheading See Also:
@@ -689,28 +689,28 @@ for @term{objects} having user-defined @term{classes}.
 
 @subsubheading Description:
 
-The generic function @code{describe-object} prints a description of
-@param{object} to a @param{stream}.  @code{describe-object} is called
-by @code{describe}; it must not be called by the user.
+The generic function @coderef{describe-object} prints a description of
+@param{object} to a @param{stream}.  @coderef{describe-object} is called
+by @coderef{describe}; it must not be called by the user.
 
 Each implementation is required to provide a @term{method} on
 @theclass{standard-object} and @term{methods} on enough other
 @term{classes} so as to ensure that there is always an applicable @term{method}.
 Implementations are free to add @term{methods} for other @term{classes}.
-Users can write @term{methods} for @code{describe-object} for their
+Users can write @term{methods} for @coderef{describe-object} for their
 own @term{classes} if they do not wish to inherit an implementation-supplied
 @term{method}.
 
-@term{Methods} on @code{describe-object} can recursively call
-@code{describe}.  Indentation, depth limits, and circularity detection
+@term{Methods} on @coderef{describe-object} can recursively call
+@coderef{describe}.  Indentation, depth limits, and circularity detection
 are all taken care of automatically, provided that each @term{method}
-handles exactly one level of structure and calls @code{describe}
+handles exactly one level of structure and calls @coderef{describe}
 recursively if there are more structural levels.  The consequences are
 undefined if this rule is not obeyed.
 
 In some implementations the @param{stream} argument passed to a
-@code{describe-object} method is not the original @param{stream}, but is
-an intermediate @term{stream} that implements parts of @code{describe}.
+@coderef{describe-object} method is not the original @param{stream}, but is
+an intermediate @term{stream} that implements parts of @coderef{describe}.
 @term{Methods} should therefore not depend on the identity of this
 @term{stream}.
 
@@ -749,12 +749,12 @@ an intermediate @term{stream} that implements parts of @code{describe}.
 
 @subsubheading Notes:
 
-The same implementation techniques that are applicable to @code{print-object} are
-applicable to @code{describe-object}.
+The same implementation techniques that are applicable to @coderef{print-object} are
+applicable to @coderef{describe-object}.
 
-The reason for making the return values for @code{describe-object}
+The reason for making the return values for @coderef{describe-object}
 unspecified is to  avoid forcing users to include explicit @f{(values)}
-in all of their @term{methods}.  @code{describe} takes care of that.
+in all of their @term{methods}.  @coderef{describe} takes care of that.
 
 
 
@@ -784,26 +784,26 @@ in which case @param{trace-result} is a @term{list} of @term{function names}.
 
 @subsubheading Description:
 
-@code{trace} and @code{untrace} control the invocation of the trace facility.
+@coderef{trace} and @coderef{untrace} control the invocation of the trace facility.
 
-Invoking @code{trace} with one or more @param{function-names} causes
+Invoking @coderef{trace} with one or more @param{function-names} causes
 the denoted @term{functions} to be ``traced.''
 Whenever a traced @term{function} is invoked, information
 about the call,
 about the arguments passed,
 and about any eventually returned values
 is printed to @term{trace output}.
-If @code{trace} is used with no @param{function-names},
+If @coderef{trace} is used with no @param{function-names},
 no tracing action is performed;
 instead, a list of the @term{functions} currently being traced is returned.
 
-Invoking @code{untrace} with one or more function names causes those
+Invoking @coderef{untrace} with one or more function names causes those
 functions to be ``untraced'' (@ie{} no longer traced).
-If @code{untrace} is used with no @param{function-names},
+If @coderef{untrace} is used with no @param{function-names},
 all @term{functions} currently being traced are untraced.
 
 If a @term{function} to be traced has been open-coded
-(@eg{} because it was declared @code{inline}),
+(@eg{} because it was declared @coderef{inline}),
 a call to that @term{function} might not produce trace output.
 
 @subsubheading Examples:
@@ -848,11 +848,11 @@ should produce no harmful effects, but might signal a warning.
 
 @subsubheading Notes:
 
-@code{trace} and @code{untrace} may also accept additional
+@coderef{trace} and @coderef{untrace} may also accept additional
 @term{implementation-dependent} argument formats.  The format of the trace
 output is @term{implementation-dependent}.
 
-Although @code{trace} can be extended to permit non-standard options,
+Although @coderef{trace} can be extended to permit non-standard options,
 @term{implementations} are nevertheless encouraged (but not required)
 to warn about the use of syntax or options
 that are neither specified by this standard
@@ -880,15 +880,15 @@ other than the current @term{implementation}.
 
 @subsubheading Description:
 
-@code{step} implements a debugging paradigm wherein the programmer
+@coderef{step} implements a debugging paradigm wherein the programmer
 is allowed to @term{step} through the @term{evaluation} of a @term{form}.
 The specific nature of the interaction,
 including which I/O streams are used and
 whether the stepping has lexical or dynamic scope,
 is @term{implementation-defined}.
 
-@code{step} evaluates @param{form} in the current @term{environment}.
-A call to @code{step} can be compiled, but it is acceptable for an
+@coderef{step} evaluates @param{form} in the current @term{environment}.
+A call to @coderef{step} can be compiled, but it is acceptable for an
 implementation to interactively step through only those parts of the computation
 that are interpreted.
 
@@ -932,10 +932,10 @@ commands.
 
 @subsubheading Description:
 
-@code{time} evaluates @param{form} in the current @term{environment} (lexical and dynamic).
-A call to @code{time} can be compiled.
+@coderef{time} evaluates @param{form} in the current @term{environment} (lexical and dynamic).
+A call to @coderef{time} can be compiled.
 
-@code{time} prints various timing data and other information to @term{trace output}.
+@coderef{time} prints various timing data and other information to @term{trace output}.
 The nature and format of the printed information is @term{implementation-defined}.
 Implementations are encouraged to provide such information as
 elapsed real time,
@@ -1017,7 +1017,7 @@ These units form the basis of the Internal Time format representation.
 
 @subsubheading Description:
 
-@code{get-internal-real-time} returns as an @term{integer} the
+@coderef{get-internal-real-time} returns as an @term{integer} the
 current time in @term{internal time units}, relative to an arbitrary
 time base.  The difference between the values of two calls to this
 function is the amount of elapsed real time (@ie{} clock time) between the two calls.
@@ -1116,7 +1116,7 @@ it is first compiled but the result of this implicit compilation is not installe
 
 @subsubheading Affected By:
 
-@code{*standard-output*}.
+@coderef{*standard-output*}.
 
 @subsubheading Exceptional Situations:
 
@@ -1150,101 +1150,101 @@ it is first compiled but the result of this implicit compilation is not installe
 
 Functions, Macros, and Special Forms
 
-documentation (@var{x} @code{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
+documentation (@var{x} @coderef{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
-documentation (@var{x} @code{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
+documentation (@var{x} @coderef{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
-documentation (@var{x} @code{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
+documentation (@var{x} @coderef{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
-documentation (@var{x} @code{list}) (@var{doc-type} @f{(eql 'list)}) list
+documentation (@var{x} @coderef{list}) (@var{doc-type} @f{(eql 'list)}) list
 
-documentation (@var{x} @code{list}) (@var{doc-type} @f{(eql 'list)}) list
+documentation (@var{x} @coderef{list}) (@var{doc-type} @f{(eql 'list)}) list
 
-documentation (@var{x} @code{function}) (@var{doc-type} @f{(eql 'function)}) function
+documentation (@var{x} @coderef{function}) (@var{doc-type} @f{(eql 'function)}) function
 
-documentation (@var{x} @code{function}) (@var{doc-type} @f{(eql 'function)}) function
+documentation (@var{x} @coderef{function}) (@var{doc-type} @f{(eql 'function)}) function
 
-(setf documentation) @var{new-value} (@var{x} @code{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
+(setf documentation) @var{new-value} (@var{x} @coderef{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
-(setf documentation) @var{new-value} (@var{x} @code{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
+(setf documentation) @var{new-value} (@var{x} @coderef{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
-(setf documentation) @var{new-value} (@var{x} @code{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
+(setf documentation) @var{new-value} (@var{x} @coderef{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
-(setf documentation) @var{new-value} (@var{x} @code{list}) (@var{doc-type} @f{(eql 'list)}) list
+(setf documentation) @var{new-value} (@var{x} @coderef{list}) (@var{doc-type} @f{(eql 'list)}) list
 
-(setf documentation) @var{new-value} (@var{x} @code{list}) (@var{doc-type} @f{(eql 'list)}) list
+(setf documentation) @var{new-value} (@var{x} @coderef{list}) (@var{doc-type} @f{(eql 'list)}) list
 
-(setf documentation) @var{new-value} (@var{x} @code{function}) (@var{doc-type} @f{(eql 'function)}) function
+(setf documentation) @var{new-value} (@var{x} @coderef{function}) (@var{doc-type} @f{(eql 'function)}) function
 
-(setf documentation) @var{new-value} (@var{x} @code{function}) (@var{doc-type} @f{(eql 'function)}) function
+(setf documentation) @var{new-value} (@var{x} @coderef{function}) (@var{doc-type} @f{(eql 'function)}) function
 
 
 
 Method Combinations
 
-documentation (@var{x} @code{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
+documentation (@var{x} @coderef{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
-documentation (@var{x} @code{method-combination}) (@var{doc-type} @f{(eql 'method-combination)}) method-combination
+documentation (@var{x} @coderef{method-combination}) (@var{doc-type} @f{(eql 'method-combination)}) method-combination
 
-documentation (@var{x} @code{method-combination}) (@var{doc-type} @f{(eql 'method-combination)}) method-combination
+documentation (@var{x} @coderef{method-combination}) (@var{doc-type} @f{(eql 'method-combination)}) method-combination
 
-(setf documentation) @var{new-value} (@var{x} @code{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
+(setf documentation) @var{new-value} (@var{x} @coderef{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
-(setf documentation) @var{new-value} (@var{x} @code{method-combination}) (@var{doc-type} @f{(eql 'method-combination)}) method-combination
+(setf documentation) @var{new-value} (@var{x} @coderef{method-combination}) (@var{doc-type} @f{(eql 'method-combination)}) method-combination
 
-(setf documentation) @var{new-value} (@var{x} @code{method-combination}) (@var{doc-type} @f{(eql 'method-combination)}) method-combination
+(setf documentation) @var{new-value} (@var{x} @coderef{method-combination}) (@var{doc-type} @f{(eql 'method-combination)}) method-combination
 
 
 
 Methods
 
-documentation (@var{x} @code{standard-method}) (@var{doc-type} @f{(eql 'standard-method)}) standard-method
+documentation (@var{x} @coderef{standard-method}) (@var{doc-type} @f{(eql 'standard-method)}) standard-method
 
-(setf documentation) @var{new-value} (@var{x} @code{standard-method}) (@var{doc-type} @f{(eql 'standard-method)}) standard-method
+(setf documentation) @var{new-value} (@var{x} @coderef{standard-method}) (@var{doc-type} @f{(eql 'standard-method)}) standard-method
 
 
 
 Packages
 
-documentation (@var{x} @code{package}) (@var{doc-type} @f{(eql 'package)}) package
+documentation (@var{x} @coderef{package}) (@var{doc-type} @f{(eql 'package)}) package
 
-(setf documentation) @var{new-value} (@var{x} @code{package}) (@var{doc-type} @f{(eql 'package)}) package
+(setf documentation) @var{new-value} (@var{x} @coderef{package}) (@var{doc-type} @f{(eql 'package)}) package
 
 
 
 Types, Classes, and Structure Names
 
-documentation (@var{x} @code{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
+documentation (@var{x} @coderef{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
-documentation (@var{x} @code{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
+documentation (@var{x} @coderef{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
-documentation (@var{x} @code{structure-class}) (@var{doc-type} @f{(eql 'structure-class)}) structure-class
+documentation (@var{x} @coderef{structure-class}) (@var{doc-type} @f{(eql 'structure-class)}) structure-class
 
-documentation (@var{x} @code{structure-class}) (@var{doc-type} @f{(eql 'structure-class)}) structure-class
+documentation (@var{x} @coderef{structure-class}) (@var{doc-type} @f{(eql 'structure-class)}) structure-class
 
-documentation (@var{x} @code{standard-class}) (@var{doc-type} @f{(eql 'standard-class)}) standard-class
+documentation (@var{x} @coderef{standard-class}) (@var{doc-type} @f{(eql 'standard-class)}) standard-class
 
-documentation (@var{x} @code{standard-class}) (@var{doc-type} @f{(eql 'standard-class)}) standard-class
+documentation (@var{x} @coderef{standard-class}) (@var{doc-type} @f{(eql 'standard-class)}) standard-class
 
-(setf documentation) @var{new-value} (@var{x} @code{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
+(setf documentation) @var{new-value} (@var{x} @coderef{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
-(setf documentation) @var{new-value} (@var{x} @code{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
+(setf documentation) @var{new-value} (@var{x} @coderef{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
-(setf documentation) @var{new-value} (@var{x} @code{structure-class}) (@var{doc-type} @f{(eql 'structure-class)}) structure-class
+(setf documentation) @var{new-value} (@var{x} @coderef{structure-class}) (@var{doc-type} @f{(eql 'structure-class)}) structure-class
 
-(setf documentation) @var{new-value} (@var{x} @code{structure-class}) (@var{doc-type} @f{(eql 'structure-class)}) structure-class
+(setf documentation) @var{new-value} (@var{x} @coderef{structure-class}) (@var{doc-type} @f{(eql 'structure-class)}) structure-class
 
-(setf documentation) @var{new-value} (@var{x} @code{standard-class}) (@var{doc-type} @f{(eql 'standard-class)}) standard-class
+(setf documentation) @var{new-value} (@var{x} @coderef{standard-class}) (@var{doc-type} @f{(eql 'standard-class)}) standard-class
 
-(setf documentation) @var{new-value} (@var{x} @code{standard-class}) (@var{doc-type} @f{(eql 'standard-class)}) standard-class
+(setf documentation) @var{new-value} (@var{x} @coderef{standard-class}) (@var{doc-type} @f{(eql 'standard-class)}) standard-class
 
 
 
 Variables
 
-documentation (@var{x} @code{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
+documentation (@var{x} @coderef{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
-(setf documentation) @var{new-value} (@var{x} @code{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
+(setf documentation) @var{new-value} (@var{x} @coderef{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
 
 
@@ -1361,7 +1361,7 @@ may extend the set of @term{symbols} that are acceptable as the @param{doc-type}
 @subsubheading Notes:
 
 This standard prescribes no means to retrieve the @term{documentation strings}
-for individual slots specified in a @code{defclass} form, but
+for individual slots specified in a @coderef{defclass} form, but
 @term{implementations} might still provide debugging tools and/or
 programming language extensions which manipulate this information.
 Implementors wishing to provide such support are encouraged to consult the
@@ -1381,11 +1381,11 @@ Implementors wishing to provide such support are encouraged to consult the
 
 @subsubheading Arguments and Values:
 
-@param{x}---one of @code{t}, @nil{}, or @kwd{default}.
+@param{x}---one of @coderef{t}, @nil{}, or @kwd{default}.
 
 @subsubheading Description:
 
-@code{room} prints, to @term{standard output},
+@coderef{room} prints, to @term{standard output},
 information about the state of internal storage and its management.
 This might include descriptions of the amount of memory in use and
 the degree of memory compaction, possibly broken down by internal data type if that
@@ -1405,7 +1405,7 @@ Output to @term{standard output}.
 
 @subsubheading Affected By:
 
-@code{*standard-output*}.
+@coderef{*standard-output*}.
 
 
 @node ed
@@ -1425,7 +1425,7 @@ Output to @term{standard output}.
 
 @subsubheading Description:
 
-@code{ed} invokes the editor if the @term{implementation} provides a resident editor.
+@coderef{ed} invokes the editor if the @term{implementation} provides a resident editor.
 
 If @param{x} is @nil{}, the editor is entered.
 If the editor had been previously entered, its prior state is resumed, if possible.
@@ -1440,7 +1440,7 @@ The means by which the function text is obtained is @term{implementation-defined
 
 The consequences are undefined if the @term{implementation} does not provide a resident editor.
 
-Might signal @code{type-error} if its argument is supplied but is not
+Might signal @coderef{type-error} if its argument is supplied but is not
 a @term{symbol}, a @term{pathname}, or @nil{}.
 
 If a failure occurs when performing some operation on the @term{file system}
@@ -1478,9 +1478,9 @@ is a @term{designator} for a @term{wild} @term{pathname}.
 
 @subsubheading Description:
 
-@code{inspect} is an interactive version of @code{describe}.
+@coderef{inspect} is an interactive version of @coderef{describe}.
 The nature of the interaction is @term{implementation-dependent},
-but the purpose of @code{inspect} is to make it easy to wander
+but the purpose of @coderef{inspect} is to make it easy to wander
 through a data structure, examining and modifying parts of it.
 
 @subsubheading Side Effects:
@@ -1522,20 +1522,20 @@ of commands.
 
 @subsubheading Description:
 
-Either @term{binds} @code{*standard-input*} and @code{*standard-output*}
+Either @term{binds} @coderef{*standard-input*} and @coderef{*standard-output*}
 or takes other appropriate action,
 so as to send a record of the input/output interaction to a file
-named by @param{pathname}.  @code{dribble} is intended to create
+named by @param{pathname}.  @coderef{dribble} is intended to create
 a readable record of an interactive session.
 
 If @param{pathname} is a @term{logical pathname}, it is translated
-into a physical pathname as if by calling @code{translate-logical-pathname}.
+into a physical pathname as if by calling @coderef{translate-logical-pathname}.
 
 @f{(dribble)} terminates the recording of input and output
 and closes the dribble file.
 
-If @code{dribble} is @term{called} while a @term{stream} to a ``dribble file''
-is still open from a previous @term{call} to @code{dribble},
+If @coderef{dribble} is @term{called} while a @term{stream} to a ``dribble file''
+is still open from a previous @term{call} to @coderef{dribble},
 the effect is @term{implementation-defined}.  For example,
 the already-@term{open} @term{stream} might be @term{closed},
 or dribbling might occur both to the old @term{stream} and to a new one,
@@ -1563,12 +1563,12 @@ is a @term{designator} for a @term{wild} @term{pathname}.
 @subsubheading Notes:
 
 
-@code{dribble} can return before subsequent
+@coderef{dribble} can return before subsequent
 @term{forms} are executed. It also
 can enter a recursive interaction loop,
 returning only when @f{(dribble)} is done.
 
-@code{dribble} is intended primarily for interactive debugging;
+@coderef{dribble} is intended primarily for interactive debugging;
 its effect cannot be relied upon when used in a program.
 
 @node - (Variable)
@@ -1810,14 +1810,14 @@ are not updated.
 
 @subsubheading Description:
 
-@code{lisp-implementation-type} and @code{lisp-implementation-version}
+@coderef{lisp-implementation-type} and @coderef{lisp-implementation-version}
 identify the current implementation of @clisp{}.
 
-@code{lisp-implementation-type} returns a @term{string}
+@coderef{lisp-implementation-type} returns a @term{string}
 that identifies the generic name of
 the particular @clisp{}@spc{}implementation.
 
-@code{lisp-implementation-version}
+@coderef{lisp-implementation-version}
 returns a @term{string} that identifies the version of
 the particular @clisp{}@spc{}implementation.
 
@@ -1859,7 +1859,7 @@ of a @term{string}.
 
 @subsubheading Description:
 
-@code{short-site-name} and @code{long-site-name} return
+@coderef{short-site-name} and @coderef{long-site-name} return
 a @term{string} that identifies the physical location
 of the computer hardware,
 or @nil{}@spc{}if no appropriate @param{description} can be produced.
@@ -2017,11 +2017,11 @@ and the @term{implementation}.
 
 @subsubheading Description:
 
-@code{software-type} returns a @term{string} that identifies the
+@coderef{software-type} returns a @term{string} that identifies the
 generic name of any relevant supporting software, or @nil{}@spc{}if no
 appropriate or relevant result can be produced.
 
-@code{software-version} returns a @term{string} that identifies
+@coderef{software-version} returns a @term{string} that identifies
 the version of any relevant supporting software, or @nil{}@spc{}if no
 appropriate or relevant result can be produced.
 
@@ -2060,7 +2060,7 @@ This information should be of use to maintainers of the @term{implementation}.
 
 @subsubheading Description:
 
-@code{user-homedir-pathname} determines the @term{pathname} that corresponds
+@coderef{user-homedir-pathname} determines the @term{pathname} that corresponds
 to the user's home directory on @param{host}.
 If @param{host} is not supplied, its value is @term{implementation-dependent}.
 For a description of @kwd{unspecific}, see @ref{Pathname Components}.
@@ -2069,13 +2069,13 @@ The definition of home directory is @term{implementation-dependent},
 but defined in @clisp{}@spc{}to mean the directory where the user
 keeps personal files such as initialization files and mail.
 
-@code{user-homedir-pathname} returns a @term{pathname} without any name,
+@coderef{user-homedir-pathname} returns a @term{pathname} without any name,
 type, or version component (those components are all @nil{})
 for the user's home directory on @param{host}.
 
 If it is impossible to determine the user's home directory on @param{host},
 then @nil{}@spc{}is returned.
-@code{user-homedir-pathname} never returns @nil{}@spc{}if @param{host} is not supplied.
+@coderef{user-homedir-pathname} never returns @nil{}@spc{}if @param{host} is not supplied.
 
 @subsubheading Examples:
 

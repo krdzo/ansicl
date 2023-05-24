@@ -347,16 +347,16 @@ value will be @oftype{single-float}
 part of the true mathematical result is zero) or @f{(complex single-float)}.
 
 Float substitutability applies neither to the rational @term{functions}
-@code{+},
-@code{-},
-@code{*},
-and @code{/}
+@coderef{+},
+@coderef{-},
+@coderef{*},
+and @coderef{/}
 nor to the related @term{operators}
-@code{1+},
-@code{1-},
-@code{incf},
-@code{decf},
-and @code{conjugate}.
+@coderef{1+},
+@coderef{1-},
+@coderef{incf},
+@coderef{decf},
+and @coderef{conjugate}.
 For rational @term{functions},
 if all arguments are @term{rational},
 then the result is @term{rational};
@@ -366,30 +366,30 @@ then the result is of type @f{(or rational (complex rational))}.
 
 @float Figure,fig12.8
 @cartouche
-@multitable{@code{signum}}{@f{(signum #c(3 4)) @EV{}@spc{}#c(3/5 4/5) @i{or} #c(0.6 0.8)}}
+@multitable{@coderef{signum}}{@f{(signum #c(3 4)) @EV{}@spc{}#c(3/5 4/5) @i{or} #c(0.6 0.8)}}
 @headitem Function @tab Sample Results
-@item @code{abs} @tab @f{(abs #c(3 4)) @EV{}@spc{}5 @i{or} 5.0}
-@item @code{acos} @tab @f{(acos 1) @EV{}@spc{}0 @i{or} 0.0}
-@item @code{acosh} @tab @f{(acosh 1) @EV{}@spc{}0 @i{or} 0.0}
-@item @code{asin} @tab @f{(asin 0) @EV{}@spc{}0 @i{or} 0.0}
-@item @code{asinh} @tab @f{(asinh 0) @EV{}@spc{}0 @i{or} 0.0}
-@item @code{atan} @tab @f{(atan 0) @EV{}@spc{}0 @i{or} 0.0}
-@item @code{atanh} @tab @f{(atanh 0) @EV{}@spc{}0 @i{or} 0.0}
-@item @code{cis} @tab @f{(cis 0) @EV{}@spc{}1 @i{or} #c(1.0 0.0)}
-@item @code{cos} @tab @f{(cos 0) @EV{}@spc{}1 @i{or} 1.0}
-@item @code{cosh} @tab @f{(cosh 0) @EV{}@spc{}1 @i{or} 1.0}
-@item @code{exp} @tab @f{(exp 0) @EV{}@spc{}1 @i{or} 1.0}
-@item @code{expt} @tab @f{(expt 8 1/3) @EV{}@spc{}2 @i{or} 2.0}
-@item @code{log} @tab @f{(log 1) @EV{}@spc{}0 @i{or} 0.0}
+@item @coderef{abs} @tab @f{(abs #c(3 4)) @EV{}@spc{}5 @i{or} 5.0}
+@item @coderef{acos} @tab @f{(acos 1) @EV{}@spc{}0 @i{or} 0.0}
+@item @coderef{acosh} @tab @f{(acosh 1) @EV{}@spc{}0 @i{or} 0.0}
+@item @coderef{asin} @tab @f{(asin 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @coderef{asinh} @tab @f{(asinh 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @coderef{atan} @tab @f{(atan 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @coderef{atanh} @tab @f{(atanh 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @coderef{cis} @tab @f{(cis 0) @EV{}@spc{}1 @i{or} #c(1.0 0.0)}
+@item @coderef{cos} @tab @f{(cos 0) @EV{}@spc{}1 @i{or} 1.0}
+@item @coderef{cosh} @tab @f{(cosh 0) @EV{}@spc{}1 @i{or} 1.0}
+@item @coderef{exp} @tab @f{(exp 0) @EV{}@spc{}1 @i{or} 1.0}
+@item @coderef{expt} @tab @f{(expt 8 1/3) @EV{}@spc{}2 @i{or} 2.0}
+@item @coderef{log} @tab @f{(log 1) @EV{}@spc{}0 @i{or} 0.0}
 @item  @tab @f{(log 8 2) @EV{}@spc{}3 @i{or} 3.0}
-@item @code{phase} @tab @f{(phase 7) @EV{}@spc{}0 @i{or} 0.0}
-@item @code{signum} @tab @f{(signum #c(3 4)) @EV{}@spc{}#c(3/5 4/5) @i{or} #c(0.6 0.8)}
-@item @code{sin} @tab @f{(sin 0) @EV{}@spc{}0 @i{or} 0.0}
-@item @code{sinh} @tab @f{(sinh 0) @EV{}@spc{}0 @i{or} 0.0}
-@item @code{sqrt} @tab @f{(sqrt 4) @EV{}@spc{}2 @i{or} 2.0}
+@item @coderef{phase} @tab @f{(phase 7) @EV{}@spc{}0 @i{or} 0.0}
+@item @coderef{signum} @tab @f{(signum #c(3 4)) @EV{}@spc{}#c(3/5 4/5) @i{or} #c(0.6 0.8)}
+@item @coderef{sin} @tab @f{(sin 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @coderef{sinh} @tab @f{(sinh 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @coderef{sqrt} @tab @f{(sqrt 4) @EV{}@spc{}2 @i{or} 2.0}
 @item  @tab @f{(sqrt 9/16) @EV{}@spc{}3/4 @i{or} 0.75}
-@item @code{tan} @tab @f{(tan 0) @EV{}@spc{}0 @i{or} 0.0}
-@item @code{tanh} @tab @f{(tanh 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @coderef{tan} @tab @f{(tan 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @coderef{tanh} @tab @f{(tanh 0) @EV{}@spc{}0 @i{or} 0.0}
 @end multitable
 @end cartouche
 @caption{Functions Affected by Rule of Float Substitutability}
@@ -407,7 +407,7 @@ The following rules apply to floating point computations.
 
 When @term{rationals} and @term{floats} are combined by a numerical function,
 the @term{rational} is first converted to a @term{float} of the same format.
-For @term{functions} such as @code{+} that take more than two arguments,
+For @term{functions} such as @coderef{+} that take more than two arguments,
 it is permitted that part of the operation be carried out exactly using
 @term{rationals} and the rest be done using floating-point arithmetic.
 
@@ -470,8 +470,8 @@ never convert automatically from a larger size to a smaller one.
 @node Rule of Float Underflow and Overflow
 @subsubsection Rule of Float Underflow and Overflow
 
-An error of @term{type} @code{floating-point-overflow}
-or @code{floating-point-underflow} should be signaled if a
+An error of @term{type} @coderef{floating-point-overflow}
+or @coderef{floating-point-underflow} should be signaled if a
 floating-point computation causes exponent overflow or underflow, respectively.
 
 
@@ -516,10 +516,10 @@ which is the real part.
 This rule does not apply to @term{complex} numbers whose parts
 are @term{floats}.
 For example, @f{#C(5 0)} and @f{5} are not @term{different} @term{objects} in @clisp{}
-(they are always the @term{same} under @code{eql});
+(they are always the @term{same} under @coderef{eql});
 @f{#C(5.0 0.0)} and @f{5.0} are always @term{different} @term{objects} in @clisp{}
-(they are never the @term{same} under @code{eql},
-although they are the @term{same} under @code{equalp} and @code{=}).
+(they are never the @term{same} under @coderef{eql},
+although they are the @term{same} under @coderef{equalp} and @coderef{=}).
 
 @node Examples of Rule of Canonical Representation for Complex Rationals
 @subsubsection Examples of Rule of Canonical Representation for Complex Rationals
@@ -755,21 +755,21 @@ This denotes the absence of an upper bound on the interval.
 
 
 @subsubheading Class Precedence List:
-@code{number},
-@code{t}
+@coderef{number},
+@coderef{t}
 
 @subsubheading Description:
 
 @Thetype{number} contains @term{objects} which represent
 mathematical numbers.
-The @term{types} @code{real} and @code{complex} are @term{disjoint}
-@term{subtypes} of @code{number}.
+The @term{types} @coderef{real} and @coderef{complex} are @term{disjoint}
+@term{subtypes} of @coderef{number}.
 
 @Thefunction{=} tests for numerical equality.
 @Thefunction{eql}, when its arguments are both @term{numbers},
 tests that they have both the same @term{type} and numerical value.
-Two @term{numbers} that are the @term{same} under @code{eql} or @code{=}
-are not necessarily the @term{same} under @code{eq}.
+Two @term{numbers} that are the @term{same} under @coderef{eql} or @coderef{=}
+are not necessarily the @term{same} under @coderef{eq}.
 
 @subsubheading Notes:
 
@@ -777,7 +777,7 @@ are not necessarily the @term{same} under @code{eq}.
 the set of real numbers is traditionally described as a subset of the
 complex numbers, but in @clisp{}, @thetype{real} and @thetype{complex} are
 disjoint.  The @clisp{}@spc{}type which includes all mathematical complex
-numbers is called @code{number}.  The reasons for these differences
+numbers is called @coderef{number}.  The reasons for these differences
 include historical precedent, compatibility with most other popular
 computer languages, and various issues of time and space efficiency.
 
@@ -788,9 +788,9 @@ computer languages, and various issues of time and space efficiency.
 
 
 @subsubheading Class Precedence List:
-@code{complex},
-@code{number},
-@code{t}
+@coderef{complex},
+@coderef{number},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -829,7 +829,7 @@ real part and imaginary part are each of type
 @f{(upgraded-complex-part-type @param{typespec})}.
 This @term{type} encompasses those @term{complexes}
 that can result by giving numbers of @term{type} @param{typespec}
-to @code{complex}.
+to @coderef{complex}.
 
 @tt{(complex @param{type-specifier})}
 refers to all @term{complexes} that can result from giving
@@ -861,9 +861,9 @@ and which can be obtained by @tt{(COERCE @mat{n} 'COMPLEX)}.
 
 
 @subsubheading Class Precedence List:
-@code{real},
-@code{number},
-@code{t}
+@coderef{real},
+@coderef{number},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -871,9 +871,9 @@ and which can be obtained by @tt{(COERCE @mat{n} 'COMPLEX)}.
 represent mathematical real numbers, though there are mathematical real
 numbers (@eg{} irrational numbers) that do not have an exact representation
 in @clisp{}.  Only @term{reals} can be ordered using the
-@code{<}, @code{>}, @code{<=}, and @code{>=} functions.
+@coderef{<}, @coderef{>}, @coderef{<=}, and @coderef{>=} functions.
 
-The @term{types} @code{rational} and @code{float} are @term{disjoint}
+The @term{types} @coderef{rational} and @coderef{float} are @term{disjoint}
 @subtypesof{real}.
 
 @realtypespec{real}
@@ -886,10 +886,10 @@ The @term{types} @code{rational} and @code{float} are @term{disjoint}
 
 
 @subsubheading Class Precedence List:
-@code{float},
-@code{real},
-@code{number},
-@code{t}
+@coderef{float},
+@coderef{real},
+@coderef{number},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -922,8 +922,8 @@ otherwise it is @term{true}.
 Can there be additional subtypes of float or does ``others'' in the
 list of four?}
 
-The @term{types} @code{short-float}, @code{single-float}, @code{double-float},
-and @code{long-float} are @subtypesof{float}.  Any two of them must be
+The @term{types} @coderef{short-float}, @coderef{single-float}, @coderef{double-float},
+and @coderef{long-float} are @subtypesof{float}.  Any two of them must be
 either @term{disjoint} @term{types} or the @term{same} @term{type};
 if the @term{same} @term{type}, then any other @term{types} between them in the
 above ordering must also be the @term{same} @term{type}.  For example,
@@ -961,33 +961,33 @@ or the @term{complex} @f{#C(1.0 0.0)}.
 
 @subsubheading Supertypes:
 
-@code{short-float}:
-@code{short-float},
-@code{float},
-@code{real},
-@code{number},
-@code{t}
+@coderef{short-float}:
+@coderef{short-float},
+@coderef{float},
+@coderef{real},
+@coderef{number},
+@coderef{t}
 
-@code{single-float}:
-@code{single-float},
-@code{float},
-@code{real},
-@code{number},
-@code{t}
+@coderef{single-float}:
+@coderef{single-float},
+@coderef{float},
+@coderef{real},
+@coderef{number},
+@coderef{t}
 
-@code{double-float}:
-@code{double-float},
-@code{float},
-@code{real},
-@code{number},
-@code{t}
+@coderef{double-float}:
+@coderef{double-float},
+@coderef{float},
+@coderef{real},
+@coderef{number},
+@coderef{t}
 
-@code{long-float}:
-@code{long-float},
-@code{float},
-@code{real},
-@code{number},
-@code{t}
+@coderef{long-float}:
+@coderef{long-float},
+@coderef{float},
+@coderef{real},
+@coderef{number},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -1027,33 +1027,33 @@ If there are fewer distinct representations, the following rules apply:
 @item If there is only one, it is
 @thetype{single-float}.
 In this representation, an @term{object} is simultaneously of @term{types}
-@code{single-float}, @code{double-float}, @code{short-float},
-and @code{long-float}.
+@coderef{single-float}, @coderef{double-float}, @coderef{short-float},
+and @coderef{long-float}.
 @item Two internal representations can be arranged in either of the
 following ways:
 
 @itemize @bullet{}
-@item Two @term{types} are provided: @code{single-float} and
-@code{short-float}.  An @term{object} is simultaneously
-of @term{types} @code{single-float}, @code{double-float}, and @code{long-float}.
-@item Two @term{types} are provided: @code{single-float} and
-@code{double-float}. An @term{object} is simultaneously of @term{types}
-@code{single-float} and @code{short-float}, or
-@code{double-float} and @code{long-float}.
+@item Two @term{types} are provided: @coderef{single-float} and
+@coderef{short-float}.  An @term{object} is simultaneously
+of @term{types} @coderef{single-float}, @coderef{double-float}, and @coderef{long-float}.
+@item Two @term{types} are provided: @coderef{single-float} and
+@coderef{double-float}. An @term{object} is simultaneously of @term{types}
+@coderef{single-float} and @coderef{short-float}, or
+@coderef{double-float} and @coderef{long-float}.
 @end itemize
 
 @item Three internal representations can be arranged in either
 of the following ways:
 
 @itemize @bullet{}
-@item Three @term{types} are provided: @code{short-float},
-@code{single-float}, and @code{double-float}.
-An @term{object} can simultaneously be of @term{type} @code{double-float}
-and @code{long-float}.
+@item Three @term{types} are provided: @coderef{short-float},
+@coderef{single-float}, and @coderef{double-float}.
+An @term{object} can simultaneously be of @term{type} @coderef{double-float}
+and @coderef{long-float}.
 @item Three @term{types} are provided:
-@code{single-float}, @code{double-float},
-and @code{long-float}. An @term{object} can simultaneously
-be of @term{types} @code{single-float} and @code{short-float}.
+@coderef{single-float}, @coderef{double-float},
+and @coderef{long-float}. An @term{object} can simultaneously
+be of @term{types} @coderef{single-float} and @coderef{short-float}.
 @end itemize
 @end itemize
 
@@ -1072,19 +1072,19 @@ Abbreviating.
 @subsubheading Compound Type Specifier Arguments:
 
 @param{short-lower-limit}, @param{short-upper-limit}---@term{interval designators}
-for @term{type} @code{short-float}.
+for @term{type} @coderef{short-float}.
 @DefaultEach{@param{lower-limit} and @param{upper-limit}, the @term{symbol} @t{*}}
 
 @param{single-lower-limit}, @param{single-upper-limit}---@term{interval designators}
-for @term{type} @code{single-float}.
+for @term{type} @coderef{single-float}.
 @DefaultEach{@param{lower-limit} and @param{upper-limit}, the @term{symbol} @t{*}}
 
 @param{double-lower-limit}, @param{double-upper-limit}---@term{interval designators}
-for @term{type} @code{double-float}.
+for @term{type} @coderef{double-float}.
 @DefaultEach{@param{lower-limit} and @param{upper-limit}, the @term{symbol} @t{*}}
 
 @param{long-lower-limit}, @param{long-upper-limit}---@term{interval designators}
-for @term{type} @code{long-float}.
+for @term{type} @coderef{long-float}.
 @DefaultEach{@param{lower-limit} and @param{upper-limit}, the @term{symbol} @t{*}}
 
 @subsubheading Compound Type Specifier Description:
@@ -1099,10 +1099,10 @@ that are on the interval specified by the @term{interval designators}.
 
 
 @subsubheading Class Precedence List:
-@code{rational},
-@code{real},
-@code{number},
-@code{t}
+@coderef{rational},
+@coderef{real},
+@coderef{number},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -1110,7 +1110,7 @@ The canonical representation of a @term{rational}
 is as an @term{integer} if its value is integral,
 and otherwise as a @term{ratio}.
 
-The @term{types} @code{integer} and @code{ratio}
+The @term{types} @coderef{integer} and @coderef{ratio}
 are @term{disjoint} @subtypesof{rational}.
 
 @realtypespec{rational}
@@ -1122,11 +1122,11 @@ are @term{disjoint} @subtypesof{rational}.
 
 
 @subsubheading Class Precedence List:
-@code{ratio},
-@code{rational},
-@code{real},
-@code{number},
-@code{t}
+@coderef{ratio},
+@coderef{rational},
+@coderef{real},
+@coderef{number},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -1149,19 +1149,19 @@ and of which the denominator is positive and greater than one.
 
 
 @subsubheading Class Precedence List:
-@code{integer},
-@code{rational},
-@code{real},
-@code{number},
-@code{t}
+@coderef{integer},
+@coderef{rational},
+@coderef{real},
+@coderef{number},
+@coderef{t}
 
 @subsubheading Description:
 
 An @term{integer} is a mathematical integer. There is no limit on the
 magnitude of an @term{integer}.
 
-The @term{types} @code{fixnum} and @code{bignum}
-form an @term{exhaustive partition} of @term{type} @code{integer}.
+The @term{types} @coderef{fixnum} and @coderef{bignum}
+form an @term{exhaustive partition} of @term{type} @coderef{integer}.
 
 @realtypespec{integer}
 
@@ -1175,11 +1175,11 @@ form an @term{exhaustive partition} of @term{type} @code{integer}.
 
 The @term{type} @f{(integer @i{lower} @i{upper})},
 where @i{lower} and @i{upper}
-are @code{most-negative-fixnum} and @code{most-positive-fixnum}, respectively,
-is also called @code{fixnum}.
+are @coderef{most-negative-fixnum} and @coderef{most-positive-fixnum}, respectively,
+is also called @coderef{fixnum}.
 
-The @term{type} @f{(integer 0 1)} is also called @code{bit}.
-The @term{type} @f{(integer 0 *)} is also called @code{unsigned-byte}.
+The @term{type} @f{(integer 0 1)} is also called @coderef{bit}.
+The @term{type} @f{(integer 0 *)} is also called @coderef{unsigned-byte}.
 
 @node signed-byte
 @subsection signed-byte (Type)
@@ -1189,17 +1189,17 @@ The @term{type} @f{(integer 0 *)} is also called @code{unsigned-byte}.
 
 @subsubheading Supertypes:
 
-@code{signed-byte},
-@code{integer},
-@code{rational},
-@code{real},
-@code{number},
-@code{t}
+@coderef{signed-byte},
+@coderef{integer},
+@coderef{rational},
+@coderef{real},
+@coderef{number},
+@coderef{t}
 
 @subsubheading Description:
 
-The atomic @term{type specifier} @code{signed-byte} denotes the same
-type as is denoted by the @term{type specifier} @code{integer};
+The atomic @term{type specifier} @coderef{signed-byte} denotes the same
+type as is denoted by the @term{type specifier} @coderef{integer};
 however, the list forms of these two @term{type specifiers} have different semantics.
 
 @subsubheading Compound Type Specifier Kind:
@@ -1219,7 +1219,7 @@ Abbreviating.
 This denotes the set of @term{integers} that can be represented
 in two's-complement form in a @term{byte} of @param{s} bits.  This is
 equivalent to @f{(integer @mat{-2^s-1} @mat{2^s-1-1})}.  The type
-@code{signed-byte} or the type @f{(signed-byte *)} is the same
+@coderef{signed-byte} or the type @f{(signed-byte *)} is the same
 as @thetype{integer}.
 
 @node unsigned-byte
@@ -1230,17 +1230,17 @@ as @thetype{integer}.
 
 @subsubheading Supertypes:
 
-@code{unsigned-byte},
-@code{signed-byte},
-@code{integer},
-@code{rational},
-@code{real},
-@code{number},
-@code{t}
+@coderef{unsigned-byte},
+@coderef{signed-byte},
+@coderef{integer},
+@coderef{rational},
+@coderef{real},
+@coderef{number},
+@coderef{t}
 
 @subsubheading Description:
 
-The atomic @term{type specifier} @code{unsigned-byte} denotes the same
+The atomic @term{type specifier} @coderef{unsigned-byte} denotes the same
 type as is denoted by the @term{type specifier} @f{(integer 0 *)}.
 
 @subsubheading Compound Type Specifier Kind:
@@ -1268,7 +1268,7 @@ the type @f{(integer 0 *)}, the set of non-negative @term{integers}.
 
 @subsubheading Notes:
 
-The @term{type} @f{(unsigned-byte 1)} is also called @code{bit}.
+The @term{type} @f{(unsigned-byte 1)} is also called @coderef{bit}.
 
 
 @node mod (Type Specifier)
@@ -1300,7 +1300,7 @@ where @mat{@hbox{@param{m}}=@hbox{@param{n}}-1}.
 
 The argument is required, and cannot be @t{*}.
 
-The symbol @code{mod} is not valid as a @term{type specifier}.
+The symbol @coderef{mod} is not valid as a @term{type specifier}.
 
 
 @node bit (Type)
@@ -1311,14 +1311,14 @@ The symbol @code{mod} is not valid as a @term{type specifier}.
 
 @subsubheading Supertypes:
 
-@code{bit},
-@code{unsigned-byte},
-@code{signed-byte},
-@code{integer},
-@code{rational},
-@code{real},
-@code{number},
-@code{t}
+@coderef{bit},
+@coderef{unsigned-byte},
+@coderef{signed-byte},
+@coderef{integer},
+@coderef{rational},
+@coderef{real},
+@coderef{number},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -1334,20 +1334,20 @@ and @f{(unsigned-byte 1)}.
 
 @subsubheading Supertypes:
 
-@code{fixnum},
-@code{integer},
-@code{rational},
-@code{real},
-@code{number},
-@code{t}
+@coderef{fixnum},
+@coderef{integer},
+@coderef{rational},
+@coderef{real},
+@coderef{number},
+@coderef{t}
 
 @subsubheading Description:
 
 A @term{fixnum} is an @term{integer} whose value is between
-@code{most-negative-fixnum} and @code{most-positive-fixnum} inclusive.
+@coderef{most-negative-fixnum} and @coderef{most-positive-fixnum} inclusive.
 Exactly which @term{integers} are @term{fixnums} is
 @term{implementation-defined}.
-The @term{type} @code{fixnum} is required to be a supertype of
+The @term{type} @coderef{fixnum} is required to be a supertype of
 @f{(signed-byte 16)}.
 
 
@@ -1359,12 +1359,12 @@ The @term{type} @code{fixnum} is required to be a supertype of
 
 @subsubheading Supertypes:
 
-@code{bignum},
-@code{integer},
-@code{rational},
-@code{real},
-@code{number},
-@code{t}
+@coderef{bignum},
+@coderef{integer},
+@coderef{rational},
+@coderef{real},
+@coderef{number},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -1399,61 +1399,61 @@ The @term{type} @code{fixnum} is required to be a supertype of
 
 @subsubheading Arguments and Values:
 
-@param{number}---for @code{<}, @code{>}, @code{<=}, @code{>=}: a @term{real};
-for @code{=}, @code{/=}: a @term{number}.
+@param{number}---for @coderef{<}, @coderef{>}, @coderef{<=}, @coderef{>=}: a @term{real};
+for @coderef{=}, @coderef{/=}: a @term{number}.
 
 @param{generalized-boolean}---a @term{generalized boolean}.
 
 @subsubheading Description:
 
-@code{=}, @code{/=}, @code{<}, @code{>}, @code{<=}, and @code{>=}
+@coderef{=}, @coderef{/=}, @coderef{<}, @coderef{>}, @coderef{<=}, and @coderef{>=}
 perform arithmetic comparisons on their arguments as follows:
 
 
 @table @asis
-@item @id{@code{=}}
+@item @id{@coderef{=}}
 
 
-The value of @code{=} is @term{true} if all @param{numbers} are the same in value;
+The value of @coderef{=} is @term{true} if all @param{numbers} are the same in value;
 otherwise it is @term{false}.
-Two @term{complexes} are considered equal by @code{=}
-if their real and imaginary parts are equal according to @code{=}.
+Two @term{complexes} are considered equal by @coderef{=}
+if their real and imaginary parts are equal according to @coderef{=}.
 
-@item @id{@code{/=}}
-
-
-The value of @code{/=} is @term{true} if no two @param{numbers} are the same in value;
-otherwise it is @term{false}.
-
-@item @id{@code{<}}
+@item @id{@coderef{/=}}
 
 
-The value of @code{<} is @term{true} if the @param{numbers} are in monotonically increasing order;
+The value of @coderef{/=} is @term{true} if no two @param{numbers} are the same in value;
 otherwise it is @term{false}.
 
-@item @id{@code{>}}
+@item @id{@coderef{<}}
 
 
-The value of @code{>} is @term{true} if the @param{numbers} are in monotonically decreasing order;
+The value of @coderef{<} is @term{true} if the @param{numbers} are in monotonically increasing order;
 otherwise it is @term{false}.
 
-@item @id{@code{<=}}
+@item @id{@coderef{>}}
 
 
-The value of @code{<=} is @term{true} if the @param{numbers} are in monotonically
+The value of @coderef{>} is @term{true} if the @param{numbers} are in monotonically decreasing order;
+otherwise it is @term{false}.
+
+@item @id{@coderef{<=}}
+
+
+The value of @coderef{<=} is @term{true} if the @param{numbers} are in monotonically
 nondecreasing order;
 otherwise it is @term{false}.
 
-@item @id{@code{>=}}
+@item @id{@coderef{>=}}
 
 
-The value of @code{>=} is @term{true} if the @param{numbers} are in monotonically
+The value of @coderef{>=} is @term{true} if the @param{numbers} are in monotonically
 nonincreasing order;
 otherwise it is @term{false}.
 @end table
 
 
-@code{=}, @code{/=}, @code{<}, @code{>}, @code{<=}, and @code{>=}
+@coderef{=}, @coderef{/=}, @coderef{<}, @coderef{>}, @coderef{<=}, and @coderef{>=}
 perform necessary type conversions.
 
 @subsubheading Examples:
@@ -1494,15 +1494,15 @@ The uses of these functions are illustrated in @thenextfigure{}.
 
 @subsubheading Exceptional Situations:
 
-Might signal @code{type-error} if some @term{argument} is not a @term{real}.
-Might signal @code{arithmetic-error} if otherwise unable to fulfill its contract.
+Might signal @coderef{type-error} if some @term{argument} is not a @term{real}.
+Might signal @coderef{arithmetic-error} if otherwise unable to fulfill its contract.
 
 @subsubheading Notes:
 
-@code{=} differs from @code{eql} in that
+@coderef{=} differs from @coderef{eql} in that
 @f{(= 0.0 -0.0)} is always true,
-because @code{=} compares the mathematical values of its operands,
-whereas @code{eql} compares the representational values, so to speak.
+because @coderef{=} compares the mathematical values of its operands,
+whereas @coderef{eql} compares the representational values, so to speak.
 
 
 @node max; min
@@ -1526,14 +1526,14 @@ whereas @code{eql} compares the representational values, so to speak.
 
 @subsubheading Description:
 
-@code{max} returns the @param{real} that is greatest (closest to positive infinity).
-@code{min} returns the @param{real} that is least (closest to negative infinity).
+@coderef{max} returns the @param{real} that is greatest (closest to positive infinity).
+@coderef{min} returns the @param{real} that is least (closest to negative infinity).
 
-For @code{max},
+For @coderef{max},
 the implementation has the choice of returning the largest
 argument as is or applying the rules of floating-point @term{contagion},
 taking all the arguments into consideration for @term{contagion} purposes.
-Also, if one or more of the arguments are @code{=}, then any one
+Also, if one or more of the arguments are @coderef{=}, then any one
 of them may be chosen as the value to return.
 For example, if the @param{reals} are a mixture of @term{rationals} and @term{floats},
 and the largest argument is a @term{rational},
@@ -1545,7 +1545,7 @@ if the largest argument is a
 than the largest format of any @term{float} argument,
 then the implementation is free to
 return the argument in its given format or expanded to the larger format.
-Similar remarks apply to @code{min}
+Similar remarks apply to @coderef{min}
 (replacing ``largest argument'' by ``smallest argument'').
 
 @subsubheading Examples:
@@ -1727,10 +1727,10 @@ always returns @term{true}.
 @param{divisor}---a non-zero @term{real}.
 @Default{the @term{integer} @f{1}}
 
-@param{quotient}---for @code{floor}, @code{ceiling},
-@code{truncate}, and @code{round}: an @term{integer};
-for @code{ffloor}, @code{fceiling},
-@code{ftruncate}, and @code{fround}: a @term{float}.
+@param{quotient}---for @coderef{floor}, @coderef{ceiling},
+@coderef{truncate}, and @coderef{round}: an @term{integer};
+for @coderef{ffloor}, @coderef{fceiling},
+@coderef{ftruncate}, and @coderef{fround}: a @term{float}.
 
 @param{remainder}---a @term{real}.
 
@@ -1749,35 +1749,35 @@ the kind of rounding or truncation depends on the @term{operator}:
 
 @table @asis
 
-@item @id{@code{floor}, @code{ffloor}}
+@item @id{@coderef{floor}, @coderef{ffloor}}
 
 
-@code{floor} and @code{ffloor} produce a @param{quotient}
+@coderef{floor} and @coderef{ffloor} produce a @param{quotient}
 that has been truncated toward negative infinity;
 that is, the @param{quotient} represents the largest mathematical integer
 that is not larger than the mathematical quotient.
 
-@item @id{@code{ceiling}, @code{fceiling}}
+@item @id{@coderef{ceiling}, @coderef{fceiling}}
 
 
-@code{ceiling} and @code{fceiling} produce a @param{quotient}
+@coderef{ceiling} and @coderef{fceiling} produce a @param{quotient}
 that has been truncated toward positive infinity;
 that is, the @param{quotient} represents the smallest mathematical integer
 that is not smaller than the mathematical result.
 
-@item @id{@code{truncate}, @code{ftruncate}}
+@item @id{@coderef{truncate}, @coderef{ftruncate}}
 
 
-@code{truncate} and @code{ftruncate} produce a @param{quotient}
+@coderef{truncate} and @coderef{ftruncate} produce a @param{quotient}
 that has been truncated towards zero;
 that is, the @param{quotient} represents the mathematical integer
 of the same sign as the mathematical quotient, and
 that has the greatest integral magnitude not greater than that of the mathematical quotient.
 
-@item @id{@code{round}, @code{fround}}
+@item @id{@coderef{round}, @coderef{fround}}
 
 
-@code{round} and @code{fround} produce a @param{quotient}
+@coderef{round} and @coderef{fround} produce a @param{quotient}
 that has been rounded to the nearest mathematical integer;
 if the mathematical quotient is exactly halfway between two integers,
 (that is, it has the form @i{integer}+@mat{1@over2{}}),
@@ -1792,7 +1792,7 @@ is an @term{integer}  if both   @f{x} and @f{y} are @term{integers},
 is a  @term{rational} if both   @f{x} and @f{y} are @term{rationals}, and
 is a  @term{float}    if either @f{x} or  @f{y} is  a @term{float}.
 
-@code{ffloor}, @code{fceiling}, @code{ftruncate}, and @code{fround}
+@coderef{ffloor}, @coderef{fceiling}, @coderef{ftruncate}, and @coderef{fround}
 handle arguments of different @term{types} in the following way:
 If  @param{number}  is     a @term{float},
 and @param{divisor} is not a @term{float} of longer format,
@@ -1840,9 +1840,9 @@ mathematical value of @param{number}.
 @f{(@i{function} @param{number} @param{divisor})}
 and @f{(@i{function} (/ @param{number} @param{divisor}))}
 (where @i{function} is any of one
-of @code{floor}, @code{ceiling}, @code{ffloor},
-@code{fceiling}, @code{truncate},
-@code{round}, @code{ftruncate}, and @code{fround})
+of @coderef{floor}, @coderef{ceiling}, @coderef{ffloor},
+@coderef{fceiling}, @coderef{truncate},
+@coderef{round}, @coderef{ftruncate}, and @coderef{fround})
 return the same first value, but
 they return different remainders as the second value. For example:
 
@@ -1852,7 +1852,7 @@ they return different remainders as the second value. For example:
 @end lisp
 
 
-If an effect is desired that is similar to @code{round},
+If an effect is desired that is similar to @coderef{round},
 but that always rounds up or down (rather than toward the nearest even integer)
 if the mathematical quotient is exactly halfway between two integers,
 the programmer should consider a construction such as
@@ -1884,7 +1884,7 @@ or @f{(ceiling (- x 1/2))}.
 
 @subsubheading Description:
 
-@code{sin}, @code{cos}, and @code{tan}
+@coderef{sin}, @coderef{cos}, and @coderef{tan}
 return the sine, cosine, and tangent, respectively, of @param{radians}.
 
 @subsubheading Examples:
@@ -1899,7 +1899,7 @@ return the sine, cosine, and tangent, respectively, of @param{radians}.
 @subsubheading Exceptional Situations:
 
 @Shouldchecktype{radians, a @term{number}}
-Might signal @code{arithmetic-error}.
+Might signal @coderef{arithmetic-error}.
 
 @subsubheading See Also:
 
@@ -1941,7 +1941,7 @@ or a @term{real}   if @param{number2} is     supplied.
 
 @subsubheading Description:
 
-@code{asin}, @code{acos}, and @code{atan}
+@coderef{asin}, @coderef{acos}, and @coderef{atan}
 compute the arc sine, arc cosine, and arc tangent respectively.
 
 The arc sine, arc cosine, and arc tangent (with only @param{number1} supplied)
@@ -1967,9 +1967,9 @@ completely accurate computation. They are not necessarily
 the simplest ones for real-valued computations.
 
 If both @param{number1} and @param{number2} are supplied
-for @code{atan}, the result is the arc tangent
+for @coderef{atan}, the result is the arc tangent
 of @hbox{@param{number1}/@param{number2}}.
-The value of @code{atan} is always between
+The value of @coderef{atan} is always between
 @mat{-@pi{}} (exclusive) and@tie{}@mat{@pi{}} (inclusive)
 when minus zero is not supported.
 The range of the two-argument arc tangent when minus zero is supported
@@ -2066,7 +2066,7 @@ the range if and only if its imaginary part is strictly negative.  Thus the rang
 arc tangent is identical to that of arc sine with the points
 @mat{-@pi{}/2} and@tie{}@mat{@pi{}/2} excluded.
 
-For @code{atan},
+For @coderef{atan},
 the signs of @param{number1} (indicated as @i{x})
 and @param{number2} (indicated as @i{y}) are used to derive quadrant
 information. @Thenextfigure{}@spc{}details various special cases.
@@ -2113,12 +2113,12 @@ implementations that support minus zero.
 
 @subsubheading Exceptional Situations:
 
-@code{acos} and @code{asin} @shouldchecktype{number, a @term{number}}
-@code{atan} should signal @code{type-error} if
+@coderef{acos} and @coderef{asin} @shouldchecktype{number, a @term{number}}
+@coderef{atan} should signal @coderef{type-error} if
 one argument is supplied and that argument is not a @term{number},
 or if two arguments are supplied and both of those arguments are not @term{reals}.
 
-@code{acos}, @code{asin}, and @code{atan} might signal @code{arithmetic-error}.
+@coderef{acos}, @coderef{asin}, and @coderef{atan} might signal @coderef{arithmetic-error}.
 
 @subsubheading See Also:
 
@@ -2128,7 +2128,7 @@ or if two arguments are supplied and both of those arguments are not @term{reals
 
 @subsubheading Notes:
 
-The result of either @code{asin} or @code{acos} can be a @term{complex}
+The result of either @coderef{asin} or @coderef{acos} can be a @term{complex}
 even if @param{number} is not a @term{complex}; this occurs when the
 absolute value of @param{number} is greater than one.
 
@@ -2169,7 +2169,7 @@ The best @term{long float} approximation to the mathematical constant @mat{@pi{}
 An approximation to @mat{@pi{}} in some other precision can be obtained
 by writing @f{(float pi x)}, where @f{x} is a @term{float} of the
 desired precision, or by writing @f{(coerce pi @i{type})},
-where @i{type} is the desired type, such as @code{short-float}.
+where @i{type} is the desired type, such as @coderef{short-float}.
 
 
 @node sinh; cosh; tanh; asinh; acosh; atanh
@@ -2308,7 +2308,7 @@ that of the inverse hyperbolic sine function with the points
 @subsubheading Exceptional Situations:
 
 @Shouldchecktype{number, a @term{number}}
-Might signal @code{arithmetic-error}.
+Might signal @coderef{arithmetic-error}.
 
 @subsubheading See Also:
 
@@ -2318,9 +2318,9 @@ Might signal @code{arithmetic-error}.
 
 @subsubheading Notes:
 
-The result of @code{acosh} may be a @term{complex} even if @param{number}
+The result of @coderef{acosh} may be a @term{complex} even if @param{number}
 is not a @term{complex}; this occurs when @param{number} is less than one.
-Also, the result of @code{atanh} may be a @term{complex} even if @param{number}
+Also, the result of @coderef{atanh} may be a @term{complex} even if @param{number}
 is not a @term{complex}; this occurs when the absolute value of @param{number}
 is greater than one.
 
@@ -2365,8 +2365,8 @@ If no @param{numbers} are supplied, @f{1} is returned.
 
 @subsubheading Exceptional Situations:
 
-Might signal @code{type-error} if some @term{argument} is not a @term{number}.
-Might signal @code{arithmetic-error}.
+Might signal @coderef{type-error} if some @term{argument} is not a @term{number}.
+Might signal @coderef{arithmetic-error}.
 
 @subsubheading See Also:
 
@@ -2409,8 +2409,8 @@ If no @param{numbers} are supplied, @f{0} is returned.
 
 @subsubheading Exceptional Situations:
 
-Might signal @code{type-error} if some @term{argument} is not a @term{number}.
-Might signal @code{arithmetic-error}.
+Might signal @coderef{type-error} if some @term{argument} is not a @term{number}.
+Might signal @coderef{arithmetic-error}.
 
 @subsubheading See Also:
 
@@ -2465,8 +2465,8 @@ and returns the result.
 
 @subsubheading Exceptional Situations:
 
-Might signal @code{type-error} if some @term{argument} is not a @term{number}.
-Might signal @code{arithmetic-error}.
+Might signal @coderef{type-error} if some @term{argument} is not a @term{number}.
+Might signal @coderef{arithmetic-error}.
 
 @subsubheading See Also:
 
@@ -2533,9 +2533,9 @@ see @ref{Floating-point Computations}.
 The consequences are unspecified if any @term{argument} other than the first is zero.
 If there is only one @term{argument}, the consequences are unspecified if it is zero.
 
-Might signal @code{type-error} if some @term{argument} is not a @term{number}.
-Might signal @code{division-by-zero} if division by zero is attempted.
-Might signal @code{arithmetic-error}.
+Might signal @coderef{type-error} if some @term{argument} is not a @term{number}.
+Might signal @coderef{division-by-zero} if division by zero is attempted.
+Might signal @coderef{arithmetic-error}.
 
 @subsubheading See Also:
 
@@ -2565,8 +2565,8 @@ Might signal @code{arithmetic-error}.
 
 @subsubheading Description:
 
-@code{1+} returns a @term{number} that is one more than its argument @param{number}.
-@code{1-} returns a @term{number} that is one less than its argument @param{number}.
+@coderef{1+} returns a @term{number} that is one more than its argument @param{number}.
+@coderef{1-} returns a @term{number} that is one less than its argument @param{number}.
 
 @subsubheading Examples:
 
@@ -2580,8 +2580,8 @@ Might signal @code{arithmetic-error}.
 
 @subsubheading Exceptional Situations:
 
-Might signal @code{type-error} if its @term{argument} is not a @term{number}.
-Might signal @code{arithmetic-error}.
+Might signal @coderef{type-error} if its @term{argument} is not a @term{number}.
+Might signal @coderef{arithmetic-error}.
 
 @subsubheading See Also:
 
@@ -2616,7 +2616,7 @@ expressions be the same.
 
 @subsubheading Description:
 
-@code{abs} returns the absolute value of @param{number}.
+@coderef{abs} returns the absolute value of @param{number}.
 
 If @param{number} is
 a @term{real},
@@ -2739,24 +2739,24 @@ to avoid intermediate overflow or underflow.
 
 @subsubheading Description:
 
-@code{exp} and @code{expt} perform exponentiation.
+@coderef{exp} and @coderef{expt} perform exponentiation.
 
-@code{exp} returns @i{e} raised to the power @param{number},
+@coderef{exp} returns @i{e} raised to the power @param{number},
 where @i{e} is the base of the natural logarithms.
-@code{exp} has no branch cut.
+@coderef{exp} has no branch cut.
 
-@code{expt} returns @param{base-number}
+@coderef{expt} returns @param{base-number}
 raised to the power @param{power-number}.
 If the @param{base-number} is a @term{rational}
 and @param{power-number} is
 an @term{integer},
 the calculation is exact and the result will be @oftype{rational};
 otherwise a floating-point approximation might result.
-For @code{expt} of a @term{complex rational} to an @term{integer} power,
+For @coderef{expt} of a @term{complex rational} to an @term{integer} power,
 the calculation must be exact and the result is
 of type @f{(or rational (complex rational))}.
 
-The result of @code{expt} can be a @term{complex},
+The result of @coderef{expt} can be a @term{complex},
 even when neither argument is a @term{complex},
 if @param{base-number} is negative and @param{power-number}
 is not an @term{integer}.
@@ -2766,10 +2766,10 @@ even though @f{-2} is one of the cube roots of @f{-8}.
 The @term{principal} cube root is a @term{complex}
 approximately equal to @f{#C(1.0 1.73205)}, not @f{-2}.
 
-@code{expt} is defined
+@coderef{expt} is defined
 as @i{@mat{b^x} = @mat{e^x log b}}.
 This defines the @term{principal} @term{values} precisely.  The range of
-@code{expt} is the entire complex plane.  Regarded
+@coderef{expt} is the entire complex plane.  Regarded
 as a function of @i{x}, with @i{b} fixed, there is no branch cut.
 Regarded as a function of @i{b}, with @i{x} fixed, there is in general
 a branch cut along the negative real axis, continuous with quadrant II.
@@ -2816,7 +2816,7 @@ is zero and not @oftype{integer}.
 
 @subsubheading Notes:
 
-Implementations of @code{expt} are permitted to use different algorithms
+Implementations of @coderef{expt} are permitted to use different algorithms
 for the cases of a @param{power-number} @oftype{rational}
 and a @param{power-number} @oftype{float}.
 
@@ -2854,7 +2854,7 @@ Note that by the following logic,
 
 Returns the greatest common divisor of @param{integers}.
 If only one @param{integer} is supplied, its absolute value is returned.
-If no @param{integers} are given, @code{gcd} returns @f{0},
+If no @param{integers} are given, @coderef{gcd} returns @f{0},
 which is an identity for this operation.
 
 @subsubheading Examples:
@@ -2915,12 +2915,12 @@ For three or more arguments,
 
 @subsubheading Description:
 
-@code{incf} and @code{decf} are used for incrementing and
+@coderef{incf} and @coderef{decf} are used for incrementing and
 decrementing the @term{value} of @param{place}, respectively.
 
 The @param{delta} is
-added to        (in the case of @code{incf})
-or subtracted from (in the case of @code{decf})
+added to        (in the case of @coderef{incf})
+or subtracted from (in the case of @coderef{decf})
 the number in @param{place} and the result is stored in @param{place}.
 
 Any necessary type conversions are performed automatically.
@@ -2970,7 +2970,7 @@ see @ref{Evaluation of Subforms to Places}.
 
 @subsubheading Description:
 
-@code{lcm} returns the least common multiple of the @param{integers}.
+@coderef{lcm} returns the least common multiple of the @param{integers}.
 
 If no @param{integer} is supplied, the @term{integer} @f{1} is returned.
 
@@ -3011,7 +3011,7 @@ For three or more arguments,
 
 @subsubheading Exceptional Situations:
 
-Should signal @code{type-error} if any argument is not an @term{integer}.
+Should signal @coderef{type-error} if any argument is not an @term{integer}.
 
 @subsubheading See Also:
 
@@ -3038,11 +3038,11 @@ Should signal @code{type-error} if any argument is not an @term{integer}.
 
 @subsubheading Description:
 
-@code{log} returns the logarithm of @param{number} in base @param{base}.
+@coderef{log} returns the logarithm of @param{number} in base @param{base}.
 If @param{base} is not supplied its value is @i{e},
 the base of the natural logarithms.
 
-@code{log} may return a @term{complex} when given a
+@coderef{log} may return a @term{complex} when given a
 @term{real}
 negative @param{number}.
 
@@ -3052,7 +3052,7 @@ negative @param{number}.
 
 
 If @param{base} is zero,
-@code{log} returns zero.
+@coderef{log} returns zero.
 
 The result of @f{(log 8 2)} may be either @f{3} or @f{3.0}, depending on the
 implementation. An implementation can use floating-point calculations
@@ -3141,18 +3141,18 @@ The implementation.
 
 @subsubheading Description:
 
-@code{mod} and @code{rem} are generalizations of the modulus
+@coderef{mod} and @coderef{rem} are generalizations of the modulus
 and remainder functions respectively.
 
-@code{mod} performs the operation @code{floor}
+@coderef{mod} performs the operation @coderef{floor}
 on @param{number} and @param{divisor}
-and returns the remainder of the @code{floor} operation.
+and returns the remainder of the @coderef{floor} operation.
 
-@code{rem} performs the operation @code{truncate}
+@coderef{rem} performs the operation @coderef{truncate}
 on @param{number} and @param{divisor}
-and returns the remainder of the @code{truncate} operation.
+and returns the remainder of the @coderef{truncate} operation.
 
-@code{mod} and @code{rem} are
+@coderef{mod} and @coderef{rem} are
 the modulus and remainder functions
 when @param{number} and @param{divisor} are @term{integers}.
 
@@ -3181,7 +3181,7 @@ when @param{number} and @param{divisor} are @term{integers}.
 
 @subsubheading Notes:
 
-The result of @code{mod} is either zero or a
+The result of @coderef{mod} is either zero or a
 @term{real}
 with the same sign as @param{divisor}.
 
@@ -3203,11 +3203,11 @@ with the same sign as @param{divisor}.
 
 @subsubheading Description:
 
-@code{signum} determines a numerical value that indicates whether
+@coderef{signum} determines a numerical value that indicates whether
 @param{number} is negative, zero, or positive.
 
 For a @term{rational},
-@code{signum} returns one of @f{-1}, @f{0}, or @f{1}
+@coderef{signum} returns one of @f{-1}, @f{0}, or @f{1}
 according to whether @param{number} is negative, zero, or positive.
 For a @term{float},
 the result is a @term{float} of the same format
@@ -3216,7 +3216,7 @@ For a @term{complex} number @f{z},
 @f{(signum @i{z})} is a complex number of the same phase but with unit magnitude,
 unless @f{z} is a complex zero, in which case the result is @f{z}.
 
-For @term{rational} @term{arguments}, @code{signum} is a rational function,
+For @term{rational} @term{arguments}, @coderef{signum} is a rational function,
 but it may be irrational for @term{complex} @term{arguments}.
 
 If @param{number} is a @term{float}, the result is a @term{float}.
@@ -3274,13 +3274,13 @@ but it is @term{implementation-dependent} whether that result is a
 
 @subsubheading Description:
 
-@code{sqrt} and @code{isqrt} compute square roots.
+@coderef{sqrt} and @coderef{isqrt} compute square roots.
 
-@code{sqrt} returns the @term{principal} square root of @param{number}.
+@coderef{sqrt} returns the @term{principal} square root of @param{number}.
 If the @param{number} is not a @term{complex} but is negative,
 then the result is a @term{complex}.
 
-@code{isqrt} returns the greatest @term{integer}
+@coderef{isqrt} returns the greatest @term{integer}
 less than or equal to the exact positive square root of @param{natural}.
 
 If @param{number} is a positive @term{rational},
@@ -3322,13 +3322,13 @@ imaginary axis and excluding the negative imaginary axis.
 
 @subsubheading Exceptional Situations:
 
-@Thefunction{sqrt} should signal @code{type-error} if its argument
+@Thefunction{sqrt} should signal @coderef{type-error} if its argument
 is not a @term{number}.
 
-@Thefunction{isqrt} should signal @code{type-error} if its argument
+@Thefunction{isqrt} should signal @coderef{type-error} if its argument
 is not a non-negative @term{integer}.
 
-The functions @code{sqrt} and @code{isqrt} might signal @code{arithmetic-error}.
+The functions @coderef{sqrt} and @coderef{isqrt} might signal @coderef{arithmetic-error}.
 
 @subsubheading See Also:
 
@@ -3352,8 +3352,8 @@ but it is potentially more efficient.
 
 
 @subsubheading Class Precedence List:
-@code{random-state},
-@code{t}
+@coderef{random-state},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -3386,7 +3386,7 @@ is @term{implementation-dependent}.
 
 @subsubheading Arguments and Values:
 
-@param{state}---a @term{random state}, or @nil{}, or @code{t}.
+@param{state}---a @term{random state}, or @nil{}, or @coderef{t}.
 @Default{@nil{}}
 
 @param{new-state}---a @term{random state} @term{object}.
@@ -3400,7 +3400,7 @@ If @param{state} is a @term{random state} @term{object},
 the @param{new-state} is a @term{copy}@sub{5} of that @term{object}.
 If @param{state} is @nil{},
 the @param{new-state} is a @term{copy}@sub{5} of the @term{current random state}.
-If @param{state} is @code{t},
+If @param{state} is @coderef{t},
 the @param{new-state} is a @term{fresh} @term{random state} @term{object}
 that has been randomly initialized by some means.
 
@@ -3429,7 +3429,7 @@ that has been randomly initialized by some means.
 
 @subsubheading Exceptional Situations:
 
-@Shouldchecktype{state, a @term{random state}\, or @nil{}\, or @code{t}}
+@Shouldchecktype{state, a @term{random state}\, or @nil{}\, or @coderef{t}}
 
 @subsubheading See Also:
 
@@ -3437,7 +3437,7 @@ that has been randomly initialized by some means.
 
 @subsubheading Notes:
 
-One important use of @code{make-random-state} is to allow the same
+One important use of @coderef{make-random-state} is to allow the same
 series of pseudo-random @term{numbers} to be generated many times within a
 single program.
 
@@ -3587,7 +3587,7 @@ by @thefunction{random} when a @term{random state} is not explicitly supplied.
 
 The @term{implementation}.
 
-@code{random}.
+@coderef{random}.
 
 @subsubheading See Also:
 
@@ -3597,7 +3597,7 @@ The @term{implementation}.
 
 @subsubheading Notes:
 
-@term{Binding} @code{*random-state*} to a different
+@term{Binding} @coderef{*random-state*} to a different
 @term{random state} @term{object} correctly saves and
 restores the old @term{random state} @term{object}.
 
@@ -3659,7 +3659,7 @@ restores the old @term{random state} @term{object}.
 
 @subsubheading Description:
 
-@code{cis} returns the value of@tie{}@mat{@i{e}^i@cdot{}@spc{}@i{radians}},
+@coderef{cis} returns the value of@tie{}@mat{@i{e}^i@cdot{}@spc{}@i{radians}},
 which is a @term{complex} in which the
 real part is equal to the cosine of @param{radians}, and the
 imaginary part is equal to the sine of @param{radians}.
@@ -3695,13 +3695,13 @@ imaginary part is equal to the sine of @param{radians}.
 
 @subsubheading Description:
 
-@code{complex} returns a @term{number}
+@coderef{complex} returns a @term{number}
 whose real      part is @param{realpart}
 and whose imaginary part is @param{imagpart}.
 
 If @param{realpart} is a @term{rational}
 and @param{imagpart} is the @term{rational} number zero,
-the result of @code{complex} is @param{realpart}, a @term{rational}.
+the result of @coderef{complex} is @param{realpart}, a @term{rational}.
 Otherwise, the result is a @term{complex}.
 
 If either @param{realpart} or @param{imagpart} is a @term{float},
@@ -3847,7 +3847,7 @@ For a @term{complex} number @f{z},
 
 @subsubheading Description:
 
-@code{phase}
+@coderef{phase}
 returns the phase
 of @param{number} (the angle part of its polar representation)
 in radians, in the range
@@ -3869,11 +3869,11 @@ If @param{number} is a @term{float}, the result is a
 If @param{number} is a @term{rational} or a @term{complex rational},
 the result is a @term{single float}.
 
-The branch cut for @code{phase} lies along the negative real
+The branch cut for @coderef{phase} lies along the negative real
 axis, continuous with quadrant II.  The range consists of that portion of
 the real axis between @mat{-@pi{}} (exclusive) and@tie{}@mat{@pi{}} (inclusive).
 
-The mathematical definition of @code{phase} is as follows:
+The mathematical definition of @coderef{phase} is as follows:
 
 @f{(phase @i{x}) = (atan (imagpart @i{x}) (realpart @i{x}))}
 
@@ -3889,8 +3889,8 @@ The mathematical definition of @code{phase} is as follows:
 
 @subsubheading Exceptional Situations:
 
-Should signal @code{type-error} if its argument is not a @term{number}.
-Might signal @code{arithmetic-error}.
+Should signal @coderef{type-error} if its argument is not a @term{number}.
+Might signal @coderef{arithmetic-error}.
 
 @subsubheading See Also:
 
@@ -3920,11 +3920,11 @@ Might signal @code{arithmetic-error}.
 
 @subsubheading Description:
 
-@code{realpart} and @code{imagpart} return the real and
+@coderef{realpart} and @coderef{imagpart} return the real and
 imaginary parts of @param{number} respectively.
 If @param{number} is
 @term{real},
-then @code{realpart} returns @param{number} and @code{imagpart}
+then @coderef{realpart} returns @param{number} and @coderef{imagpart}
 returns @f{(* 0 @param{number})}, which has the effect that the
 imaginary part of a @term{rational} is @f{0} and that of
 a @term{float} is a floating-point zero of the same format.
@@ -3971,7 +3971,7 @@ and the and current @term{global environment}}
 
 @subsubheading Description:
 
-@code{upgraded-complex-part-type} returns the part type of the
+@coderef{upgraded-complex-part-type} returns the part type of the
 most specialized @term{complex} number representation that can
 hold parts of @term{type} @term{typespec}.
 
@@ -3979,7 +3979,7 @@ The @param{typespec} is a @term{subtype} of
 (and possibly @term{type equivalent} to)
 the @param{upgraded-typespec}.
 
-The purpose of @code{upgraded-complex-part-type}
+The purpose of @coderef{upgraded-complex-part-type}
 is to reveal how an implementation does its @term{upgrading}.
 
 @subsubheading See Also:
@@ -4051,15 +4051,15 @@ is to reveal how an implementation does its @term{upgrading}.
 
 @subsubheading Description:
 
-@code{numerator} and @code{denominator} reduce @param{rational}
+@coderef{numerator} and @coderef{denominator} reduce @param{rational}
 to canonical form and compute the numerator or denominator of that number.
 
-@code{numerator} and @code{denominator} return the numerator
+@coderef{numerator} and @coderef{denominator} return the numerator
 or denominator of the canonical form of @param{rational}.
 
 If @param{rational} is an @term{integer},
-@code{numerator} returns @param{rational}
-and @code{denominator} returns 1.
+@coderef{numerator} returns @param{rational}
+and @coderef{denominator} returns 1.
 
 @subsubheading Examples:
 @lisp
@@ -4105,22 +4105,22 @@ and @code{denominator} returns 1.
 
 @subsubheading Description:
 
-@code{rational} and @code{rationalize} convert
+@coderef{rational} and @coderef{rationalize} convert
 @term{reals}
 to @term{rationals}.
 
 If @param{number} is already @term{rational}, it is returned.
 
 If @param{number} is a @term{float},
-@code{rational} returns a @term{rational}
+@coderef{rational} returns a @term{rational}
 that is mathematically equal in value to the @term{float}.
-@code{rationalize} returns a @term{rational} that
+@coderef{rationalize} returns a @term{rational} that
 approximates the @term{float} to the accuracy of
 the underlying floating-point representation.
 
-@code{rational} assumes that the @term{float} is completely accurate.
+@coderef{rational} assumes that the @term{float} is completely accurate.
 
-@code{rationalize} assumes that the
+@coderef{rationalize} assumes that the
 @term{float} is accurate only to the precision of the
 floating-point representation.
 
@@ -4140,7 +4140,7 @@ The @term{implementation}.
 @subsubheading Exceptional Situations:
 
 @Shouldchecktype{number, a @term{real}}
-Might signal @code{arithmetic-error}.
+Might signal @coderef{arithmetic-error}.
 
 @subsubheading Notes:
 
@@ -4221,23 +4221,23 @@ of the same format produces the original @param{number}.
 
 @subsubheading Description:
 
-@code{ash} performs the arithmetic shift operation on the binary
+@coderef{ash} performs the arithmetic shift operation on the binary
 representation of @param{integer}, which is treated as if it were binary.
 
-@code{ash} shifts @param{integer} arithmetically left by @param{count} bit
+@coderef{ash} shifts @param{integer} arithmetically left by @param{count} bit
 positions if @param{count} is positive,
 or right @param{count} bit positions if @param{count} is negative.
 The shifted value of the same sign
 as @param{integer} is returned.
 
-Mathematically speaking, @code{ash} performs the computation
+Mathematically speaking, @coderef{ash} performs the computation
 @f{floor}(@param{integer}@centerdot{} @mat{2^@param{count}}).
-Logically, @code{ash}
+Logically, @coderef{ash}
 moves all of the bits in @param{integer} to the left,
 adding zero-bits at the right, or moves them to the right,
 discarding bits.
 
-@code{ash} is defined to behave as if @param{integer} were
+@coderef{ash} is defined to behave as if @param{integer} were
 represented in two's complement form, regardless of
 how @term{integers} are represented internally.
 @subsubheading Examples:
@@ -4253,7 +4253,7 @@ how @term{integers} are represented internally.
 
 @Shouldchecktype{integer, an @term{integer}}
 @Shouldchecktype{count, an @term{integer}}
-Might signal @code{arithmetic-error}.
+Might signal @coderef{arithmetic-error}.
 
 @subsubheading Notes:
 
@@ -4395,14 +4395,14 @@ whose width in bits is no smaller than @tt{(+ (integer-length @param{integer}) 1
 
 @subsubheading Description:
 
-@code{parse-integer} parses an @term{integer} in the specified @param{radix}
+@coderef{parse-integer} parses an @term{integer} in the specified @param{radix}
 from the substring of @param{string} delimited by @param{start} and @param{end}.
 
-@code{parse-integer} expects an optional sign (@f{+} or @f{-}) followed by
+@coderef{parse-integer} expects an optional sign (@f{+} or @f{-}) followed by
 a a non-empty sequence of digits to be interpreted in the specified @param{radix}.
 Optional leading and trailing @term{whitespace}@sub{1} is ignored.
 
-@code{parse-integer} does not recognize the syntactic radix-specifier
+@coderef{parse-integer} does not recognize the syntactic radix-specifier
 prefixes @f{#O}, @f{#B}, @f{#X}, and @f{#@i{n}R},
 nor does it recognize a trailing decimal point.
 
@@ -4461,37 +4461,37 @@ possibly surrounded on either side by
 
 @subsubheading Description:
 
-@code{boole} performs bit-wise logical operations on
+@coderef{boole} performs bit-wise logical operations on
 @param{integer-1} and @param{integer-2}, which are treated as if
 they were binary and in two's complement representation.
 
 The operation to be performed and the return value are determined by
 @param{op}.
 
-@code{boole} returns the values
+@coderef{boole} returns the values
 specified for any @param{op} in @thenextfigure{}.
 
 
 @float Figure,fig12.17
 @cartouche
-@multitable{@code{boole-andc1}}{and complement of @param{integer-1} with @param{integer-2}}
+@multitable{@coderef{boole-andc1}}{and complement of @param{integer-1} with @param{integer-2}}
 @headitem Op @tab Result
-@item @code{boole-1} @tab @param{integer-1}
-@item @code{boole-2} @tab @param{integer-2}
-@item @code{boole-andc1} @tab and complement of @param{integer-1} with @param{integer-2}
-@item @code{boole-andc2} @tab and @param{integer-1} with complement of @param{integer-2}
-@item @code{boole-and} @tab and
-@item @code{boole-c1} @tab complement of @param{integer-1}
-@item @code{boole-c2} @tab complement of @param{integer-2}
-@item @code{boole-clr} @tab always 0 (all zero bits)
-@item @code{boole-eqv} @tab equivalence (exclusive nor)
-@item @code{boole-ior} @tab inclusive or
-@item @code{boole-nand} @tab not-and
-@item @code{boole-nor} @tab not-or
-@item @code{boole-orc1} @tab or complement of @param{integer-1} with @param{integer-2}
-@item @code{boole-orc2} @tab or @param{integer-1} with complement of @param{integer-2}
-@item @code{boole-set} @tab always -1 (all one bits)
-@item @code{boole-xor} @tab exclusive or
+@item @coderef{boole-1} @tab @param{integer-1}
+@item @coderef{boole-2} @tab @param{integer-2}
+@item @coderef{boole-andc1} @tab and complement of @param{integer-1} with @param{integer-2}
+@item @coderef{boole-andc2} @tab and @param{integer-1} with complement of @param{integer-2}
+@item @coderef{boole-and} @tab and
+@item @coderef{boole-c1} @tab complement of @param{integer-1}
+@item @coderef{boole-c2} @tab complement of @param{integer-2}
+@item @coderef{boole-clr} @tab always 0 (all zero bits)
+@item @coderef{boole-eqv} @tab equivalence (exclusive nor)
+@item @coderef{boole-ior} @tab inclusive or
+@item @coderef{boole-nand} @tab not-and
+@item @coderef{boole-nor} @tab not-or
+@item @coderef{boole-orc1} @tab or complement of @param{integer-1} with @param{integer-2}
+@item @coderef{boole-orc2} @tab or @param{integer-1} with complement of @param{integer-2}
+@item @coderef{boole-set} @tab always -1 (all one bits)
+@item @coderef{boole-xor} @tab exclusive or
 @end multitable
 @end cartouche
 @caption{Bit-Wise Logical Operations}
@@ -4541,7 +4541,7 @@ specified for any @param{op} in @thenextfigure{}.
 
 @subsubheading Exceptional Situations:
 
-Should signal @code{type-error} if its first argument is not a
+Should signal @coderef{type-error} if its first argument is not a
 @term{bit-wise logical operation specifier} or if any subsequent argument is not
 an @term{integer}.
 
@@ -4703,17 +4703,17 @@ sixteen possible @term{bit-wise logical operation specifiers}.
 @subsubheading Description:
 
 The @term{functions}
-@code{logandc1},
-@code{logandc2},
-@code{logand},
-@code{logeqv},
-@code{logior},
-@code{lognand},
-@code{lognor},
-@code{lognot},
-@code{logorc1},
-@code{logorc2},
-and @code{logxor}
+@coderef{logandc1},
+@coderef{logandc2},
+@coderef{logand},
+@coderef{logeqv},
+@coderef{logior},
+@coderef{lognand},
+@coderef{lognor},
+@coderef{lognot},
+@coderef{logorc1},
+@coderef{logorc2},
+and @coderef{logxor}
 perform bit-wise logical operations on their @term{arguments},
 that are treated as if they were binary.
 
@@ -4724,19 +4724,19 @@ by the @term{function} when no @term{arguments} are supplied.
 
 @float Figure,fig12.18
 @cartouche
-@multitable{@code{logandc1}}{Identity}{and complement of @param{integer-1} with @param{integer-2}}
+@multitable{@coderef{logandc1}}{Identity}{and complement of @param{integer-1} with @param{integer-2}}
 @headitem Function @tab Identity @tab Operation performed
-@item @code{logandc1} @tab --- @tab and complement of @param{integer-1} with @param{integer-2}
-@item @code{logandc2} @tab --- @tab and @param{integer-1} with complement of @param{integer-2}
-@item @code{logand} @tab @f{-1} @tab and
-@item @code{logeqv} @tab @f{-1} @tab equivalence (exclusive nor)
-@item @code{logior} @tab @f{0} @tab inclusive or
-@item @code{lognand} @tab --- @tab complement of @param{integer-1} and @param{integer-2}
-@item @code{lognor} @tab --- @tab complement of @param{integer-1} or @param{integer-2}
-@item @code{lognot} @tab --- @tab complement
-@item @code{logorc1} @tab --- @tab or complement of @param{integer-1} with @param{integer-2}
-@item @code{logorc2} @tab --- @tab or @param{integer-1} with complement of @param{integer-2}
-@item @code{logxor} @tab @f{0} @tab exclusive or
+@item @coderef{logandc1} @tab --- @tab and complement of @param{integer-1} with @param{integer-2}
+@item @coderef{logandc2} @tab --- @tab and @param{integer-1} with complement of @param{integer-2}
+@item @coderef{logand} @tab @f{-1} @tab and
+@item @coderef{logeqv} @tab @f{-1} @tab equivalence (exclusive nor)
+@item @coderef{logior} @tab @f{0} @tab inclusive or
+@item @coderef{lognand} @tab --- @tab complement of @param{integer-1} and @param{integer-2}
+@item @coderef{lognor} @tab --- @tab complement of @param{integer-1} or @param{integer-2}
+@item @coderef{lognot} @tab --- @tab complement
+@item @coderef{logorc1} @tab --- @tab or complement of @param{integer-1} with @param{integer-2}
+@item @coderef{logorc2} @tab --- @tab or @param{integer-1} with complement of @param{integer-2}
+@item @coderef{logxor} @tab @f{0} @tab exclusive or
 @end multitable
 @end cartouche
 @caption{Bit-wise Logical Operations on Integers}
@@ -4785,7 +4785,7 @@ Negative @param{integers} are treated as if they were in two's-complement notati
 
 @subsubheading Exceptional Situations:
 
-Should signal @code{type-error} if any argument is not an @term{integer}.
+Should signal @coderef{type-error} if any argument is not an @term{integer}.
 
 @subsubheading See Also:
 
@@ -4831,9 +4831,9 @@ of arguments.
 
 @subsubheading Description:
 
-@code{logbitp} is used to test the value of a particular bit
+@coderef{logbitp} is used to test the value of a particular bit
 in @param{integer}, that is treated as if it were binary.
-The value of @code{logbitp} is @term{true} if the bit in @param{integer}
+The value of @coderef{logbitp} is @term{true} if the bit in @param{integer}
 whose index is @param{index} (that is, its weight is @mat{2^@i{index}})
 is a one-bit; otherwise it is @term{false}.
 
@@ -4906,12 +4906,12 @@ otherwise, the @f{1} bits are counted.
 
 @subsubheading Exceptional Situations:
 
-Should signal @code{type-error} if its argument is not an @term{integer}.
+Should signal @coderef{type-error} if its argument is not an @term{integer}.
 
 @subsubheading Notes:
 
 Even if the @term{implementation} does not represent @term{integers} internally
-in two's complement binary, @code{logcount} behaves as if it did.
+in two's complement binary, @coderef{logcount} behaves as if it did.
 
 The following identity always holds:
 
@@ -5002,15 +5002,15 @@ they were represented in two's-complement binary.
 
 @subsubheading Description:
 
-@code{byte} returns a @term{byte specifier} that indicates
+@coderef{byte} returns a @term{byte specifier} that indicates
 a @term{byte} of width @param{size} and whose bits have weights
 @mat{2^@param{position} + @param{size} - 1} through @mat{2^@param{position}},
 and whose representation is
 @term{implementation-dependent}.
 
-@code{byte-size} returns the number of bits specified by @param{bytespec}.
+@coderef{byte-size} returns the number of bits specified by @param{bytespec}.
 
-@code{byte-position} returns the position specified by @param{bytespec}.
+@coderef{byte-position} returns the position specified by @param{bytespec}.
 
 @subsubheading Examples:
 
@@ -5094,8 +5094,8 @@ and elsewhere contains the bits of @param{integer}.
 @end lisp
 
 
-@code{deposit-field} is to @code{mask-field}
-as @code{dpb}           is to @code{ldb}.
+@coderef{deposit-field} is to @coderef{mask-field}
+as @coderef{dpb}           is to @coderef{ldb}.
 
 
 @node dpb
@@ -5126,16 +5126,16 @@ or @pronounced{@Stress{d@harde{}}@Stress{p@harde{}}@Stress{b@harde{}}}
 
 @subsubheading Description:
 
-@code{dpb} (deposit byte) is used to
+@coderef{dpb} (deposit byte) is used to
 replace a field of bits within @param{integer}.
-@code{dpb} returns an @term{integer} that is
+@coderef{dpb} returns an @term{integer} that is
 the same as @param{integer} except in the bits specified by @param{bytespec}.
 
 Let @f{s} be the size specified
 by @param{bytespec}; then the low @f{s} bits of @param{newbyte} appear in
 the result in the byte specified by @param{bytespec}.
 @param{Newbyte} is interpreted as
-being right-justified, as if it were the result of @code{ldb}.
+being right-justified, as if it were the result of @coderef{ldb}.
 
 @subsubheading Examples:
 
@@ -5201,24 +5201,24 @@ or @pronounced{@Stress{el}@Stress{d@harde{}}@Stress{b@harde{}}}
 
 @subsubheading Description:
 
-@code{ldb} extracts and returns the @term{byte} of @param{integer}
+@coderef{ldb} extracts and returns the @term{byte} of @param{integer}
 specified by @param{bytespec}.
 
-@code{ldb} returns an @term{integer} in which the bits with weights
+@coderef{ldb} returns an @term{integer} in which the bits with weights
 @mat{2^(@i{s}-1)} through @mat{2^0} are the same as those in
 @param{integer} with weights @mat{2^(@i{p}+@i{s}-1)}
 through @mat{2^@i{p}}, and all other bits zero; @i{s} is
 @f{(byte-size @param{bytespec})}
 and @i{p} is @f{(byte-position @param{bytespec})}.
 
-@code{setf} may be used with @code{ldb} to modify
+@coderef{setf} may be used with @coderef{ldb} to modify
 a byte within the @param{integer} that is stored
 in a given @param{place}.
-The order of evaluation, when an @code{ldb} form is supplied
-to @code{setf}, is exactly left-to-right.
+The order of evaluation, when an @coderef{ldb} form is supplied
+to @coderef{setf}, is exactly left-to-right.
 @cindex order of evaluation
 @cindex evaluation order
-The effect is to perform a @code{dpb} operation
+The effect is to perform a @coderef{dpb} operation
 and then store the result back into the @param{place}.
 
 @subsubheading Examples:
@@ -5325,14 +5325,14 @@ specified by @param{bytespec} is non-zero; otherwise returns @term{false}.
 
 @subsubheading Description:
 
-@code{mask-field} performs a ``mask'' operation on @param{integer}.
+@coderef{mask-field} performs a ``mask'' operation on @param{integer}.
 It returns an @term{integer} that has the same bits as @param{integer} in
 the @term{byte} specified by @param{bytespec}, but that has zero-bits everywhere else.
 
-@code{setf} may be used with @code{mask-field}
+@coderef{setf} may be used with @coderef{mask-field}
 to modify a byte within the @term{integer} that is stored
 in a given @param{place}.
-The effect is to perform a @code{deposit-field} operation
+The effect is to perform a @coderef{deposit-field} operation
 and then store the result back into the @param{place}.
 
 @subsubheading Examples:
@@ -5377,12 +5377,12 @@ and then store the result back into the @param{place}.
 
 @subsubheading Description:
 
-@code{most-positive-fixnum} is that @term{fixnum} closest in value
+@coderef{most-positive-fixnum} is that @term{fixnum} closest in value
 to positive infinity provided by the implementation,
 and greater than or equal to both @mat{2^15} - 1 and
-@code{array-dimension-limit}.
+@coderef{array-dimension-limit}.
 
-@code{most-negative-fixnum} is that @term{fixnum} closest in value
+@coderef{most-negative-fixnum} is that @term{fixnum} closest in value
 to negative infinity provided by the implementation,
 and less than or equal to @mat{-2^15}.
 
@@ -5453,7 +5453,7 @@ but numerically equal to @f{1.0} or @f{-1.0}.
 
 @subsubheading Description:
 
-@code{decode-float} computes three values that characterize
+@coderef{decode-float} computes three values that characterize
 @param{float}.
 The first value is of the same @term{type}
 as @param{float} and
@@ -5463,13 +5463,13 @@ to which the radix (notated in this description by @i{b}) must
 be raised to obtain the value that, when multiplied with the first
 result, produces the absolute value of @param{float}.
 If @param{float} is zero, any @term{integer} value may be returned,
-provided that the identity shown for @code{scale-float} holds.
+provided that the identity shown for @coderef{scale-float} holds.
 The third value
 is of the same @term{type} as @param{float}
 and is 1.0 if @param{float} is greater
 than or equal to zero or -1.0 otherwise.
 
-@code{decode-float}
+@coderef{decode-float}
 divides @param{float} by an integral power of @i{b}
 so as to bring its value between @mat{1/@i{b}} (inclusive) and@tie{}@mat{1} (exclusive),
 and returns the quotient as the first value.
@@ -5477,16 +5477,16 @@ If @param{float} is zero, however, the result
 equals the absolute value of @param{float} (that is, if there is a negative
 zero, its significand is considered to be a positive zero).
 
-@code{scale-float} returns
+@coderef{scale-float} returns
 @tt{(* @param{float} (expt (float @i{b} @param{float})
 @param{integer}))}, where @i{b} is the radix of the floating-point
 representation. @param{float} is not necessarily between @mat{1/@i{b}} and@tie{}@mat{1}.
 
 
-@code{float-radix} returns
+@coderef{float-radix} returns
 the radix of @param{float}.
 
-@code{float-sign} returns a number @f{z} such
+@coderef{float-sign} returns a number @f{z} such
 that @f{z} and @param{float-1} have the same sign and also such that
 @f{z} and @param{float-2} have the same absolute value.
 If @param{float-2} is not supplied, its value is @f{(float 1 @param{float-1})}.
@@ -5494,31 +5494,31 @@ If an implementation
 has distinct representations for negative zero and positive zero,
 then @f{(float-sign -0.0)} @EV{}@spc{}@f{-1.0}.
 
-@code{float-digits} returns
+@coderef{float-digits} returns
 the number of radix @i{b} digits
 used in the representation of @param{float} (including any implicit
 digits, such as a ``hidden bit'').
 
-@code{float-precision}
+@coderef{float-precision}
 returns
 the number of significant radix @i{b} digits present in @param{float};
 if @param{float} is a @term{float}
 zero, then the result is an @term{integer} zero.
 
 For @term{normalized} @term{floats},
-the results of @code{float-digits} and @code{float-precision} are the same,
+the results of @coderef{float-digits} and @coderef{float-precision} are the same,
 but the precision is less than the number of representation digits
 for a @term{denormalized} or zero number.
 
-@code{integer-decode-float} computes three values that characterize
+@coderef{integer-decode-float} computes three values that characterize
 @param{float} -
 the significand scaled so as to be an @term{integer},
 and the same last two
-values that are returned by @code{decode-float}.
-If @param{float} is zero, @code{integer-decode-float} returns
+values that are returned by @coderef{decode-float}.
+If @param{float} is zero, @coderef{integer-decode-float} returns
 zero as the first value.
 The second value bears the same relationship to the first value
-as for @code{decode-float}:
+as for @coderef{decode-float}:
 
 @lisp
  (multiple-value-bind (signif expon sign)
@@ -5559,8 +5559,8 @@ The implementation's representation for @term{floats}.
 
 @subsubheading Exceptional Situations:
 
-The functions @code{decode-float}, @code{float-radix}, @code{float-digits},
-@code{float-precision}, and @code{integer-decode-float} should signal an error
+The functions @coderef{decode-float}, @coderef{float-radix}, @coderef{float-digits},
+@coderef{float-precision}, and @coderef{integer-decode-float} should signal an error
 if their only argument is not a @term{float}.
 
 @Thefunction{scale-float} should signal an error if its first argument
@@ -5572,7 +5572,7 @@ not a @term{float}.
 
 @subsubheading Notes:
 
-The product of the first result of @code{decode-float} or @code{integer-decode-float},
+The product of the first result of @coderef{decode-float} or @coderef{integer-decode-float},
 of the radix raised to the power of the second result, and of the third result
 is exactly equal to the value of @param{float}.
 
@@ -5613,7 +5613,7 @@ and
 
 @subsubheading Description:
 
-@code{float} converts a
+@coderef{float} converts a
 @term{real}
 number to a @term{float}.
 
@@ -5765,10 +5765,10 @@ must have a @term{value} which is a @term{long float}.
 @itemize @bullet{}
 
 @item
-@vtop{@hbox{@code{most-positive-short-float},
-@code{most-positive-single-float},}
-@hbox{@code{most-positive-double-float},
-@code{most-positive-long-float}}}
+@vtop{@hbox{@coderef{most-positive-short-float},
+@coderef{most-positive-single-float},}
+@hbox{@coderef{most-positive-double-float},
+@coderef{most-positive-long-float}}}
 
 
 Each of these @term{constant variables} has as its @term{value}
@@ -5777,14 +5777,14 @@ the positive @term{float} of the largest magnitude
 for the float format implied by its name.
 
 @item
-@vtop{@hbox{@code{least-positive-short-float},
-@code{least-positive-normalized-short-float},}
-@hbox{@code{least-positive-single-float},
-@code{least-positive-normalized-single-float},}
-@hbox{@code{least-positive-double-float},
-@code{least-positive-normalized-double-float},}
-@hbox{@code{least-positive-long-float},
-@code{least-positive-normalized-long-float}}}
+@vtop{@hbox{@coderef{least-positive-short-float},
+@coderef{least-positive-normalized-short-float},}
+@hbox{@coderef{least-positive-single-float},
+@coderef{least-positive-normalized-single-float},}
+@hbox{@coderef{least-positive-double-float},
+@coderef{least-positive-normalized-double-float},}
+@hbox{@coderef{least-positive-long-float},
+@coderef{least-positive-normalized-long-float}}}
 
 
 Each of these @term{constant variables} has as its @term{value}
@@ -5792,14 +5792,14 @@ the smallest positive (nonzero) @term{float}
 for the float format implied by its name.
 
 @item
-@vtop{@hbox{@code{least-negative-short-float},
-@code{least-negative-normalized-short-float},}
-@hbox{@code{least-negative-single-float},
-@code{least-negative-normalized-single-float},}
-@hbox{@code{least-negative-double-float},
-@code{least-negative-normalized-double-float},}
-@hbox{@code{least-negative-long-float},
-@code{least-negative-normalized-long-float}}}
+@vtop{@hbox{@coderef{least-negative-short-float},
+@coderef{least-negative-normalized-short-float},}
+@hbox{@coderef{least-negative-single-float},
+@coderef{least-negative-normalized-single-float},}
+@hbox{@coderef{least-negative-double-float},
+@coderef{least-negative-normalized-double-float},}
+@hbox{@coderef{least-negative-long-float},
+@coderef{least-negative-normalized-long-float}}}
 
 
 Each of these @term{constant variables} has as its @term{value}
@@ -5809,10 +5809,10 @@ for the float format implied by its name.
 @term{object} from positive zero, this value must not be minus zero.)
 
 @item
-@vtop{@hbox{@code{most-negative-short-float},
-@code{most-negative-single-float},}
-@hbox{@code{most-negative-double-float},
-@code{most-negative-long-float}}}
+@vtop{@hbox{@coderef{most-negative-short-float},
+@coderef{most-negative-single-float},}
+@hbox{@coderef{most-negative-double-float},
+@coderef{most-negative-long-float}}}
 
 
 Each of these @term{constant variables} has as its @term{value}
@@ -5852,18 +5852,18 @@ for the float format implied by its name.
 
 @subsubheading Description:
 
-The value of each of the constants @code{short-float-epsilon},
-@code{single-float-epsilon},
-@code{double-float-epsilon}, and @code{long-float-epsilon} is
+The value of each of the constants @coderef{short-float-epsilon},
+@coderef{single-float-epsilon},
+@coderef{double-float-epsilon}, and @coderef{long-float-epsilon} is
 the smallest positive @term{float} @mat{@epsilon{}} of the given format,
 such that the following expression is @term{true} when evaluated:
 
 @tt{(not (= (float 1 @mat{@epsilon{}}) (+ (float 1 @mat{@epsilon{}}) @mat{@epsilon{}})))}
 
-The value of each of the constants @code{short-float-negative-epsilon},
-@code{single-float-negative-epsilon},
-@code{double-float-negative-epsilon}, and
-@code{long-float-negative-epsilon} is the smallest positive
+The value of each of the constants @coderef{short-float-negative-epsilon},
+@coderef{single-float-negative-epsilon},
+@coderef{double-float-negative-epsilon}, and
+@coderef{long-float-negative-epsilon} is the smallest positive
 @term{float} @mat{@epsilon{}} of the given format, such that the following
 expression is @term{true} when evaluated:
 
@@ -5877,21 +5877,21 @@ expression is @term{true} when evaluated:
 
 
 @subsubheading Class Precedence List:
-@code{arithmetic-error},
-@code{error},
-@code{serious-condition},
-@code{condition},
-@code{t}
+@coderef{arithmetic-error},
+@coderef{error},
+@coderef{serious-condition},
+@coderef{condition},
+@coderef{t}
 
 @subsubheading Description:
 
 @Thetype{arithmetic-error} consists of error conditions
 that occur during arithmetic operations.
 The operation and operands are initialized with
-@theinitkeyargs{operation} and @kwd{operands} to @code{make-condition},
+@theinitkeyargs{operation} and @kwd{operands} to @coderef{make-condition},
 and are @term{accessed} by
-the functions @code{arithmetic-error-operation} and
-@code{arithmetic-error-operands}.
+the functions @coderef{arithmetic-error-operation} and
+@coderef{arithmetic-error-operands}.
 
 @subsubheading See Also:
 
@@ -5923,11 +5923,11 @@ the functions @code{arithmetic-error-operation} and
 
 @subsubheading Description:
 
-@code{arithmetic-error-operands} returns a @term{list} of the operands
+@coderef{arithmetic-error-operands} returns a @term{list} of the operands
 which were used in the offending call to the operation that signaled
 the @param{condition}.
 
-@code{arithmetic-error-operation} returns a @term{list} of
+@coderef{arithmetic-error-operation} returns a @term{list} of
 the offending operation in the offending call that signaled the @param{condition}.
 
 @subsubheading See Also:
@@ -5945,12 +5945,12 @@ the offending operation in the offending call that signaled the @param{condition
 
 
 @subsubheading Class Precedence List:
-@code{division-by-zero},
-@code{arithmetic-error},
-@code{error},
-@code{serious-condition},
-@code{condition},
-@code{t}
+@coderef{division-by-zero},
+@coderef{arithmetic-error},
+@coderef{error},
+@coderef{serious-condition},
+@coderef{condition},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -5966,12 +5966,12 @@ occur because of division by zero.
 
 
 @subsubheading Class Precedence List:
-@code{floating-point-invalid-operation},
-@code{arithmetic-error},
-@code{error},
-@code{serious-condition},
-@code{condition},
-@code{t}
+@coderef{floating-point-invalid-operation},
+@coderef{arithmetic-error},
+@coderef{error},
+@coderef{serious-condition},
+@coderef{condition},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -5994,12 +5994,12 @@ depend on its being @term{signaled}.
 
 
 @subsubheading Class Precedence List:
-@code{floating-point-inexact},
-@code{arithmetic-error},
-@code{error},
-@code{serious-condition},
-@code{condition},
-@code{t}
+@coderef{floating-point-inexact},
+@coderef{arithmetic-error},
+@coderef{error},
+@coderef{serious-condition},
+@coderef{condition},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -6021,12 +6021,12 @@ depend on its being @term{signaled}.
 
 
 @subsubheading Class Precedence List:
-@code{floating-point-overflow},
-@code{arithmetic-error},
-@code{error},
-@code{serious-condition},
-@code{condition},
-@code{t}
+@coderef{floating-point-overflow},
+@coderef{arithmetic-error},
+@coderef{error},
+@coderef{serious-condition},
+@coderef{condition},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -6041,12 +6041,12 @@ conditions that occur because of floating-point overflow.
 
 
 @subsubheading Class Precedence List:
-@code{floating-point-underflow},
-@code{arithmetic-error},
-@code{error},
-@code{serious-condition},
-@code{condition},
-@code{t}
+@coderef{floating-point-underflow},
+@coderef{arithmetic-error},
+@coderef{error},
+@coderef{serious-condition},
+@coderef{condition},
+@coderef{t}
 
 @subsubheading Description:
 

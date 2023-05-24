@@ -59,18 +59,18 @@ for which the @term{element type} of the @term{string} does not include that @te
 
 
 @subsubheading Class Precedence List:
-@code{string},
-@code{vector},
-@code{array},
-@code{sequence},
-@code{t}
+@coderef{string},
+@coderef{vector},
+@coderef{array},
+@coderef{sequence},
+@coderef{t}
 
 @subsubheading Description:
 
 A @term{string} is a @term{specialized} @term{vector}
 whose @term{elements} are @oftypes{character}.
 When used as a @term{type specifier} for object creation,
-@code{string} means @f{(vector character)}.
+@coderef{string} means @f{(vector character)}.
 
 
 @subsubheading Compound Type Specifier Kind:
@@ -90,7 +90,7 @@ or the @term{symbol} @t{*}.
 
 This denotes the union of all @term{types}
 @f{(array @i{c} (@param{size}))}
-for all @term{subtypes} @i{c} of @code{character};
+for all @term{subtypes} @i{c} of @coderef{character};
 that is, the set of @term{strings} of size @param{size}.
 
 @subsubheading See Also:
@@ -108,12 +108,12 @@ that is, the set of @term{strings} of size @param{size}.
 
 @subsubheading Supertypes:
 
-@code{base-string},
-@code{string},
-@code{vector},
-@code{array},
-@code{sequence},
-@code{t}
+@coderef{base-string},
+@coderef{string},
+@coderef{vector},
+@coderef{array},
+@coderef{sequence},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -149,20 +149,20 @@ that is, the set of @term{base strings} of size @param{size}.
 
 @subsubheading Supertypes:
 
-@code{simple-string},
-@code{string},
-@code{vector},
-@code{simple-array},
-@code{array},
-@code{sequence},
-@code{t}
+@coderef{simple-string},
+@coderef{string},
+@coderef{vector},
+@coderef{simple-array},
+@coderef{array},
+@coderef{sequence},
+@coderef{t}
 
 @subsubheading Description:
 
 A @term{simple string} is a specialized one-dimensional
 @term{simple array} whose @term{elements} are @oftypes{character}.
 When used as a @term{type specifier} for object creation,
-@code{simple-string} means @f{(simple-array character (@i{size}))}.
+@coderef{simple-string} means @f{(simple-array character (@i{size}))}.
 
 @subsubheading Compound Type Specifier Kind:
 
@@ -181,7 +181,7 @@ or the @term{symbol} @t{*}.
 
 This denotes the union of all @term{types}
 @tt{(simple-array @i{c} (@param{size}))} for all @term{subtypes} @i{c} of
-@code{character}; that is, the set of @term{simple strings} of size @param{size}.
+@coderef{character}; that is, the set of @term{simple strings} of size @param{size}.
 
 @node simple-base-string
 @subsection simple-base-string (Type)
@@ -191,15 +191,15 @@ This denotes the union of all @term{types}
 
 @subsubheading Supertypes:
 
-@code{simple-base-string},
-@code{base-string},
-@code{simple-string},
-@code{string},
-@code{vector},
-@code{simple-array},
-@code{array},
-@code{sequence},
-@code{t}
+@coderef{simple-base-string},
+@coderef{base-string},
+@coderef{simple-string},
+@coderef{string},
+@coderef{vector},
+@coderef{simple-array},
+@coderef{array},
+@coderef{sequence},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -281,8 +281,8 @@ that is, the set of @term{simple base strings} of size @param{size}.
 
 @subsubheading Arguments and Values:
 
-@param{string}---for @code{char},  a @term{string};
-for @code{schar}, a @term{simple string}.
+@param{string}---for @coderef{char},  a @term{string};
+for @coderef{schar}, a @term{simple string}.
 
 @param{index}---a @term{valid array index} for the @param{string}.
 
@@ -290,10 +290,10 @@ for @code{schar}, a @term{simple string}.
 
 @subsubheading Description:
 
-@code{char} and @code{schar} @term{access} the @term{element} of @param{string}
+@coderef{char} and @coderef{schar} @term{access} the @term{element} of @param{string}
 specified by @param{index}.
 
-@code{char} ignores @term{fill pointers} when @term{accessing} @term{elements}.
+@coderef{char} ignores @term{fill pointers} when @term{accessing} @term{elements}.
 
 @subsubheading Examples:
 
@@ -358,7 +358,7 @@ Returns a @term{string} described by @param{x}; specifically:
 If @param{x} is a @term{character},
 then a @term{string} containing that one @term{character} is returned.
 @item
-@code{string} might perform additional, @term{implementation-defined} conversions.
+@coderef{string} might perform additional, @term{implementation-defined} conversions.
 @end itemize
 
 
@@ -383,11 +383,11 @@ by the @term{implementation}, an error @oftype{type-error} is signaled.
 
 @subsubheading Notes:
 
-@code{coerce} can be used to convert a @term{sequence} of @term{characters}
+@coderef{coerce} can be used to convert a @term{sequence} of @term{characters}
 to a @term{string}.
 
-@code{prin1-to-string}, @code{princ-to-string}, @code{write-to-string},
-or @code{format} (with a first argument of @nil{}) can be used to get a
+@coderef{prin1-to-string}, @coderef{princ-to-string}, @coderef{write-to-string},
+or @coderef{format} (with a first argument of @nil{}) can be used to get a
 @term{string} representation of a @term{number} or any other @term{object}.
 
 
@@ -422,9 +422,9 @@ or @code{format} (with a first argument of @nil{}) can be used to get a
 @subsubheading Arguments and Values:
 
 @param{string}---a @term{string designator}.
-For @code{nstring-upcase},
-@code{nstring-downcase},
-and @code{nstring-capitalize},
+For @coderef{nstring-upcase},
+@coderef{nstring-downcase},
+and @coderef{nstring-capitalize},
 the @param{string} @term{designator} must be a @term{string}.
 
 @param{start}, @param{end}---@term{bounding index designators} of @param{string}.
@@ -434,8 +434,8 @@ the @param{string} @term{designator} must be a @term{string}.
 
 @subsubheading Description:
 
-@code{string-upcase},  @code{string-downcase},  @code{string-capitalize},
-@code{nstring-upcase}, @code{nstring-downcase}, @code{nstring-capitalize}
+@coderef{string-upcase},  @coderef{string-downcase},  @coderef{string-capitalize},
+@coderef{nstring-upcase}, @coderef{nstring-downcase}, @coderef{nstring-capitalize}
 change the case of the subsequence of @param{string}
 @term{bounded} by @param{start} and @param{end}
 as follows:
@@ -445,7 +445,7 @@ as follows:
 @item @id{@bf{string-upcase}}
 
 
-@code{string-upcase} returns a @term{string} just like @param{string}
+@coderef{string-upcase} returns a @term{string} just like @param{string}
 with all lowercase characters replaced by the corresponding uppercase
 characters.  More precisely, each character of the result @term{string}
 is produced by applying @thefunction{char-upcase} to the corresponding
@@ -454,18 +454,18 @@ character of @param{string}.
 @item @id{@bf{string-downcase}}
 
 
-@code{string-downcase} is like @code{string-upcase}
+@coderef{string-downcase} is like @coderef{string-upcase}
 except that all uppercase characters are replaced by the corresponding
-lowercase characters (using @code{char-downcase}).
+lowercase characters (using @coderef{char-downcase}).
 
 @item @id{@bf{string-capitalize}}
 
 
-@code{string-capitalize} produces a copy of @param{string} such that,
+@coderef{string-capitalize} produces a copy of @param{string} such that,
 for every word in the copy, the first @term{character} of the ``word,''
 if it has @term{case}, is @term{uppercase} and
 any other @term{characters} with @term{case} in the word are @term{lowercase}.
-For the purposes of @code{string-capitalize},
+For the purposes of @coderef{string-capitalize},
 a ``word'' is defined to be a
 consecutive subsequence consisting of @term{alphanumeric} @term{characters},
 delimited at each end either by a non-@term{alphanumeric} @term{character}
@@ -474,14 +474,14 @@ or by an end of the @term{string}.
 @item @id{@bf{nstring-upcase, nstring-downcase, nstring-capitalize }}
 
 
-@code{nstring-upcase}, @code{nstring-downcase},
-and @code{nstring-capitalize} are identical to @code{string-upcase},
-@code{string-downcase}, and @code{string-capitalize}
+@coderef{nstring-upcase}, @coderef{nstring-downcase},
+and @coderef{nstring-capitalize} are identical to @coderef{string-upcase},
+@coderef{string-downcase}, and @coderef{string-capitalize}
 respectively except that they  modify @param{string}.
 @end table
 
 
-For @code{string-upcase}, @code{string-downcase}, and @code{string-capitalize},
+For @coderef{string-upcase}, @coderef{string-downcase}, and @coderef{string-capitalize},
 @param{string} is not modified.  However, if no characters in @param{string}
 require conversion, the result may be either @param{string} or a copy of it,
 at the implementation's discretion.
@@ -512,9 +512,9 @@ at the implementation's discretion.
 
 @subsubheading Side Effects:
 
-@code{nstring-upcase},
-@code{nstring-downcase},
-and @code{nstring-capitalize} modify @param{string} as appropriate
+@coderef{nstring-upcase},
+@coderef{nstring-downcase},
+and @coderef{nstring-capitalize} modify @param{string} as appropriate
 rather than constructing a new @term{string}.
 
 @subsubheading See Also:
@@ -552,10 +552,10 @@ as @param{string}.
 
 @subsubheading Description:
 
-@code{string-trim} returns a substring of @param{string},
+@coderef{string-trim} returns a substring of @param{string},
 with all characters in @param{character-bag} stripped off the beginning and end.
-@code{string-left-trim} is similar but strips characters off only the beginning;
-@code{string-right-trim} strips off only the end.
+@coderef{string-left-trim} is similar but strips characters off only the beginning;
+@coderef{string-right-trim} strips off only the end.
 
 If no @term{characters} need to be trimmed from the @param{string},
 then either @param{string} itself or a copy of it may be returned,
@@ -653,7 +653,7 @@ The @term{implementation}.
 @subsubheading Description:
 
 These functions perform lexicographic comparisons on @param{string1} and @param{string2}.
-@code{string=} and @code{string-equal} are called equality functions;
+@coderef{string=} and @coderef{string-equal} are called equality functions;
 the others are called inequality functions.
 The comparison operations these @term{functions} perform are restricted
 to the subsequence of @param{string1} @term{bounded} by @term{start1} and @param{end1}
@@ -661,11 +661,11 @@ and to the subsequence of @param{string2} @term{bounded} by @term{start2} and @p
 
 A string @i{a} is equal to a string @i{b} if it contains the same number
 of characters, and the corresponding characters are the @term{same}
-under @code{char=} or @code{char-equal}, as appropriate.
+under @coderef{char=} or @coderef{char-equal}, as appropriate.
 
 A string @i{a} is less than a string @i{b} if in the first position in
 which they differ the character of @i{a} is less than the corresponding
-character of @i{b} according to @code{char<} or @code{char-lessp}
+character of @i{b} according to @coderef{char<} or @coderef{char-lessp}
 as appropriate, or if string @i{a} is a proper prefix of string @i{b}
 (of shorter length and matching in all the characters of @i{a}).
 
@@ -685,66 +685,66 @@ The comparison has one of the following results:
 
 @table @asis
 
-@item @id{@code{string=}}
+@item @id{@coderef{string=}}
 
 
-@code{string=} is @term{true} if the supplied substrings are of
+@coderef{string=} is @term{true} if the supplied substrings are of
 the same length and contain the @term{same} characters in corresponding
 positions; otherwise it is @term{false}.
 
-@item @id{@code{string/=}}
+@item @id{@coderef{string/=}}
 
 
-@code{string/=} is @term{true} if the supplied substrings are
+@coderef{string/=} is @term{true} if the supplied substrings are
 different; otherwise it is @term{false}.
 
-@item @id{@code{string-equal}}
+@item @id{@coderef{string-equal}}
 
 
-@code{string-equal} is just like @code{string=}
+@coderef{string-equal} is just like @coderef{string=}
 except that differences in case are ignored;
-two characters are considered to be the same if @code{char-equal} is @term{true} of them.
+two characters are considered to be the same if @coderef{char-equal} is @term{true} of them.
 
-@item @id{@code{string<}}
+@item @id{@coderef{string<}}
 
 
-@code{string<} is @term{true} if substring1 is less than substring2;
+@coderef{string<} is @term{true} if substring1 is less than substring2;
 otherwise it is @term{false}.
 
-@item @id{@code{string>}}
+@item @id{@coderef{string>}}
 
 
-@code{string>} is @term{true} if substring1 is greater than substring2;
+@coderef{string>} is @term{true} if substring1 is greater than substring2;
 otherwise it is @term{false}.
 
-@item @id{@code{string-lessp}, @code{string-greaterp}}
+@item @id{@coderef{string-lessp}, @coderef{string-greaterp}}
 
 
-@code{string-lessp} and @code{string-greaterp}
-are exactly like @code{string<} and @code{string>}, respectively,
+@coderef{string-lessp} and @coderef{string-greaterp}
+are exactly like @coderef{string<} and @coderef{string>}, respectively,
 except that distinctions between uppercase and lowercase letters are ignored.
-It is as if @code{char-lessp} were used instead of @code{char<}
+It is as if @coderef{char-lessp} were used instead of @coderef{char<}
 for comparing characters.
 
-@item @id{@code{string<=}}
+@item @id{@coderef{string<=}}
 
 
-@code{string<=} is @term{true} if substring1 is less than or equal to substring2;
+@coderef{string<=} is @term{true} if substring1 is less than or equal to substring2;
 otherwise it is @term{false}.
 
-@item @id{@code{string>=}}
+@item @id{@coderef{string>=}}
 
 
-@code{string>=} is @term{true} if substring1 is greater than or equal to substring2;
+@coderef{string>=} is @term{true} if substring1 is greater than or equal to substring2;
 otherwise it is @term{false}.
 
-@item @id{@code{string-not-greaterp}, @code{string-not-lessp}}
+@item @id{@coderef{string-not-greaterp}, @coderef{string-not-lessp}}
 
 
-@code{string-not-greaterp} and @code{string-not-lessp}
-are exactly like @code{string<=} and @code{string>=}, respectively,
+@coderef{string-not-greaterp} and @coderef{string-not-lessp}
+are exactly like @coderef{string<=} and @coderef{string>=}, respectively,
 except that distinctions between uppercase and lowercase letters are ignored.
-It is as if @code{char-lessp} were used instead of @code{char<}
+It is as if @coderef{char-lessp} were used instead of @coderef{char<}
 for comparing characters.
 @end table
 
@@ -774,7 +774,7 @@ for comparing characters.
 
 @subsubheading Notes:
 
-@code{equal} calls @code{string=} if applied to two @term{strings}.
+@coderef{equal} calls @coderef{string=} if applied to two @term{strings}.
 
 
 @node stringp
@@ -836,13 +836,13 @@ for comparing characters.
 @Default{@term{implementation-dependent}}
 
 @param{element-type}---a @term{type specifier}.
-@Default{@code{character}}
+@Default{@coderef{character}}
 
 @param{string}---a @term{simple string}.
 
 @subsubheading Description:
 
-@code{make-string} returns a @term{simple string} of length @param{size}
+@coderef{make-string} returns a @term{simple string} of length @param{size}
 whose elements have been initialized to @param{initial-element}.
 
 The @param{element-type} names the @term{type} of the @term{elements} of the @term{string};

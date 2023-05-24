@@ -80,7 +80,7 @@ The following figures contain lists of @term{defined names} applicable to
 @subsubsection Character Scripts
 
 A @term{script} is one of possibly several sets that form an @term{exhaustive partition}
-of the type @code{character}.
+of the type @coderef{character}.
 
 The number of such sets and boundaries between them is @term{implementation-defined}.
 @clisp{}@spc{}does not require these sets to be @term{types}, but an @term{implementation}
@@ -131,7 +131,7 @@ standards organization.
 @term{Characters} have only one @term{standardized} @term{attribute}:
 a @term{code}.  A @term{character}'s @term{code} is a non-negative @term{integer}.
 This @term{code} is composed from a character @term{script} and a character label
-in an @term{implementation-dependent} way.  See the @term{functions} @ref{char-code} and @code{code-char}.
+in an @term{implementation-dependent} way.  See the @term{functions} @ref{char-code} and @coderef{code-char}.
 
 
 Additional, @term{implementation-defined} @term{attributes} of @term{characters}
@@ -236,7 +236,7 @@ with some other @term{character} with the opposite @term{case}.
 
 An uppercase @term{character} is one that has a corresponding
 @term{lowercase} @term{character} that is @term{different}
-(and can be obtained using @code{char-downcase}).
+(and can be obtained using @coderef{char-downcase}).
 
 Of the @term{standard characters}, only these are @term{uppercase} @term{characters}:
 
@@ -249,7 +249,7 @@ Of the @term{standard characters}, only these are @term{uppercase} @term{charact
 
 A lowercase @term{character} is one that has a corresponding
 @term{uppercase} @term{character} that is @term{different}
-(and can be obtained using @code{char-upcase}).
+(and can be obtained using @coderef{char-upcase}).
 
 Of the @term{standard characters}, only these are @term{lowercase} @term{characters}:
 
@@ -326,8 +326,8 @@ are @term{digits} with weight @f{15}.
 @node Identity of Characters
 @subsection Identity of Characters
 
-Two @term{characters} that are @code{eql}, @code{char=}, or @code{char-equal}
-are not necessarily @code{eq}.
+Two @term{characters} that are @coderef{eql}, @coderef{char=}, or @coderef{char-equal}
+are not necessarily @coderef{eq}.
 
 
 @node Ordering of Characters
@@ -342,18 +342,18 @@ the following properties:
 
 @item
 If two @term{characters} have the same @term{implementation-defined} @term{attributes},
-then their ordering by @code{char<} is consistent with the numerical
-ordering by the predicate @code{<} on their code @term{attributes}.
+then their ordering by @coderef{char<} is consistent with the numerical
+ordering by the predicate @coderef{<} on their code @term{attributes}.
 
 @item If two @term{characters} differ in any @term{attribute}, then they
-are not @code{char=}.
+are not @coderef{char=}.
 
 @reviewer{Barmar: I wonder if we should say that the ordering may be dependent on the
 @term{implementation-defined} @term{attributes}.}
 
 @item
 The total ordering is not necessarily the same as the total ordering
-on the @term{integers} produced by applying @code{char-int} to the
+on the @term{integers} produced by applying @coderef{char-int} to the
 @term{characters}.
 
 @item
@@ -475,7 +475,7 @@ by another @term{integer} value which is composed from the @term{code} and all
 @term{implementation-defined} @term{attributes}
 (in an @term{implementation-defined} way
 that might vary between @term{Lisp images} even in the same @term{implementation}).
-This @term{integer}, returned by the function @code{char-int}, is called the
+This @term{integer}, returned by the function @coderef{char-int}, is called the
 character's ``encoding.''
 There is no corresponding function
 from a character's encoding back to the @term{character},
@@ -498,30 +498,30 @@ Character labels must be uniquely named using only Latin capital letters A--Z,
 hyphen (-), and digits 0--9.
 @item
 Reader canonicalization.
-Any mechanisms by which @code{read} treats
+Any mechanisms by which @coderef{read} treats
 @term{different} characters as equivalent must be documented.
 @item
-The impact on @code{char-upcase},
-@code{char-downcase},
+The impact on @coderef{char-upcase},
+@coderef{char-downcase},
 and the case-sensitive @term{format directives}.
 In particular, for each @term{character} with @term{case},
 whether it is @term{uppercase} or @term{lowercase},
 and which @term{character} is its equivalent in the opposite case.
 @item
 The behavior of the case-insensitive @term{functions}
-@code{char-equal}, @code{char-not-equal},
-@code{char-lessp}, @code{char-greaterp},
-@code{char-not-greaterp}, and @code{char-not-lessp}.
+@coderef{char-equal}, @coderef{char-not-equal},
+@coderef{char-lessp}, @coderef{char-greaterp},
+@coderef{char-not-greaterp}, and @coderef{char-not-lessp}.
 @item
 The behavior of any @term{character} @term{predicates};
 in particular, the effects of
-@code{alpha-char-p},
-@code{lower-case-p},
-@code{upper-case-p},
-@code{both-case-p},
-@code{graphic-char-p},
+@coderef{alpha-char-p},
+@coderef{lower-case-p},
+@coderef{upper-case-p},
+@coderef{both-case-p},
+@coderef{graphic-char-p},
 and
-@code{alphanumericp}.
+@coderef{alphanumericp}.
 @item
 The interaction with file I/O, in particular,
 the supported coded character sets (for example, ISO8859/1-1987)
@@ -562,8 +562,8 @@ and external encoding schemes supported are documented.
 
 
 @subsubheading Class Precedence List:
-@code{character},
-@code{t}
+@coderef{character},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -571,7 +571,7 @@ A @term{character} is an @term{object} that
 represents a unitary token in an aggregate quantity of text;
 see @ref{Character Concepts}.
 
-@Thetypes{base-char} and @code{extended-char}
+@Thetypes{base-char} and @coderef{extended-char}
 form an @term{exhaustive partition} of @thetype{character}.
 
 @subsubheading See Also:
@@ -589,19 +589,19 @@ form an @term{exhaustive partition} of @thetype{character}.
 
 @subsubheading Supertypes:
 
-@code{base-char},
-@code{character},
-@code{t}
+@coderef{base-char},
+@coderef{character},
+@coderef{t}
 
 @subsubheading Description:
 
 @Thetype{base-char} is defined as the @term{upgraded array element type}
-of @code{standard-char}.
+of @coderef{standard-char}.
 An @term{implementation} can support additional @subtypesof{character}
 (besides the ones listed in this standard)
 that might or might not be @supertypesof{base-char}.
-In addition, an @term{implementation} can define @code{base-char}
-to be the @term{same} @term{type} as @code{character}.
+In addition, an @term{implementation} can define @coderef{base-char}
+to be the @term{same} @term{type} as @coderef{character}.
 
 @term{Base characters} are distinguished in the following respects:
 
@@ -613,7 +613,7 @@ is implementation defined.
 @term{elements} of a @term{base string}.
 @item
 No upper bound is specified for the number of characters in the
-@code{base-char} @term{repertoire}; the size of that @term{repertoire}
+@coderef{base-char} @term{repertoire}; the size of that @term{repertoire}
 is
 @term{implementation-defined}.
 The lower bound is@tie{}96, the number of @term{standard characters}.
@@ -648,10 +648,10 @@ having 8-bit encodings.  In such an implementation,
 
 @subsubheading Supertypes:
 
-@code{standard-char},
-@code{base-char},
-@code{character},
-@code{t}
+@coderef{standard-char},
+@coderef{base-char},
+@coderef{character},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -675,9 +675,9 @@ Any @term{character} that is not @term{simple} is not a @term{standard character
 
 @subsubheading Supertypes:
 
-@code{extended-char},
-@code{character},
-@code{t}
+@coderef{extended-char},
+@coderef{character},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -747,64 +747,64 @@ in @term{implementations} in which all @term{characters} are @oftype{base-char}.
 
 These predicates compare @term{characters}.
 
-@code{char=} returns @term{true} if all @param{characters} are the @term{same};
+@coderef{char=} returns @term{true} if all @param{characters} are the @term{same};
 otherwise, it returns @term{false}.
 If two @param{characters} differ
 in any @term{implementation-defined} @term{attributes},
-then they are not @code{char=}.
+then they are not @coderef{char=}.
 
-@code{char/=} returns @term{true} if all @param{characters} are different;
+@coderef{char/=} returns @term{true} if all @param{characters} are different;
 otherwise, it returns @term{false}.
 
-@code{char<} returns @term{true} if the @param{characters} are monotonically increasing;
+@coderef{char<} returns @term{true} if the @param{characters} are monotonically increasing;
 otherwise, it returns @term{false}.
 If two @term{characters}
 have @term{identical} @term{implementation-defined} @term{attributes},
-then their ordering by @code{char<} is
+then their ordering by @coderef{char<} is
 consistent with the numerical ordering by the predicate @f{<} on their @term{codes}.
 
-@code{char>} returns @term{true} if the @param{characters} are monotonically decreasing;
+@coderef{char>} returns @term{true} if the @param{characters} are monotonically decreasing;
 otherwise, it returns @term{false}.
 If two @term{characters} have
 @term{identical} @term{implementation-defined} @term{attributes},
-then their ordering by @code{char>} is
+then their ordering by @coderef{char>} is
 consistent with the numerical ordering by the predicate @f{>} on their @term{codes}.
 
-@code{char<=} returns @term{true}
+@coderef{char<=} returns @term{true}
 if the @param{characters} are monotonically nondecreasing;
 otherwise, it returns @term{false}.
 If two @term{characters} have
 @term{identical} @term{implementation-defined} @term{attributes},
-then their ordering by @code{char<=} is
+then their ordering by @coderef{char<=} is
 consistent with the numerical ordering by the predicate @f{<=} on their @term{codes}.
 
-@code{char>=} returns @term{true}
+@coderef{char>=} returns @term{true}
 if the @param{characters} are monotonically nonincreasing;
 otherwise, it returns @term{false}.
 If two @term{characters} have
 @term{identical} @term{implementation-defined} @term{attributes},
-then their ordering by @code{char>=} is
+then their ordering by @coderef{char>=} is
 consistent with the numerical ordering by the predicate @f{>=} on their @term{codes}.
 
-@code{char-equal},
-@code{char-not-equal},
-@code{char-lessp},
-@code{char-greaterp},
-@code{char-not-greaterp},
-and @code{char-not-lessp}
+@coderef{char-equal},
+@coderef{char-not-equal},
+@coderef{char-lessp},
+@coderef{char-greaterp},
+@coderef{char-not-greaterp},
+and @coderef{char-not-lessp}
 are similar to
-@code{char=},
-@code{char/=},
-@code{char<},
-@code{char>},
-@code{char<=},
-@code{char>=},
+@coderef{char=},
+@coderef{char/=},
+@coderef{char<},
+@coderef{char>},
+@coderef{char<=},
+@coderef{char>=},
 respectively,
 except that they ignore differences in @term{case} and
 might have an @term{implementation-defined} behavior
 for @term{non-simple} @term{characters}.
 For example, an @term{implementation} might define that
-@code{char-equal}, @i{etc.} ignore certain
+@coderef{char-equal}, @i{etc.} ignore certain
 @term{implementation-defined} @term{attributes}.
 The effect, if any,
 of each @term{implementation-defined} @term{attribute}
@@ -871,27 +871,27 @@ upon these functions must be specified as part of the definition of that @term{a
 
 If characters differ in their @term{code} @term{attribute}
 or any @term{implementation-defined} @term{attribute},
-they are considered to be different by @code{char=}.
+they are considered to be different by @coderef{char=}.
 
 There is no requirement that @f{(eq c1 c2)} be true merely because
-@f{(char= c1 c2)} is @term{true}.  While @code{eq} can distinguish two
+@f{(char= c1 c2)} is @term{true}.  While @coderef{eq} can distinguish two
 @term{characters}
-that @code{char=} does not, it is distinguishing them not
+that @coderef{char=} does not, it is distinguishing them not
 as @term{characters}, but in some sense on the basis of a lower level
 implementation characteristic.
 If @f{(eq c1 c2)} is @term{true},
 then @f{(char= c1 c2)} is also true.
-@code{eql} and @code{equal}
+@coderef{eql} and @coderef{equal}
 compare @term{characters} in the same
-way that @code{char=} does.
+way that @coderef{char=} does.
 
 The manner in which @term{case} is used by
-@code{char-equal},
-@code{char-not-equal},
-@code{char-lessp},
-@code{char-greaterp},
-@code{char-not-greaterp},
-and @code{char-not-lessp}
+@coderef{char-equal},
+@coderef{char-not-equal},
+@coderef{char-lessp},
+@coderef{char-greaterp},
+@coderef{char-not-greaterp},
+and @coderef{char-not-lessp}
 implies an ordering for @term{standard characters} such that
 @f{A=a}, @f{B=b}, and so on, up to @f{Z=z}, and furthermore either
 @f{9<A} or @f{Z<0}.
@@ -1086,7 +1086,7 @@ of any special syntax which might have been enabled in the @term{current readtab
 @subsubheading Notes:
 
 Alphanumeric characters are graphic
-as defined by @code{graphic-char-p}.
+as defined by @coderef{graphic-char-p}.
 The alphanumeric characters are a subset of the graphic characters.
 The standard characters @f{A} through @f{Z},
 @f{a} through @f{z},
@@ -1121,13 +1121,13 @@ and @f{0} through @f{9} are alphanumeric characters.
 @subsubheading Description:
 
 If @param{weight} is less than @param{radix},
-@code{digit-char} returns a @term{character} which has that @param{weight}
+@coderef{digit-char} returns a @term{character} which has that @param{weight}
 when considered as a digit in the specified radix.
 If the resulting @term{character} is to be an @term{alphabetic}@sub{1} @term{character},
 it will be an uppercase @term{character}.
 
 If @param{weight} is greater than or equal to @param{radix},
-@code{digit-char} returns @term{false}.
+@coderef{digit-char} returns @term{false}.
 
 @subsubheading Examples:
 
@@ -1317,12 +1317,12 @@ Digits are @term{graphic} @term{characters}.
 @subsubheading Description:
 
 If @param{character} is a @term{lowercase} @term{character},
-@code{char-upcase} returns the corresponding @term{uppercase} @term{character}.
-Otherwise, @code{char-upcase} just returns the given @param{character}.
+@coderef{char-upcase} returns the corresponding @term{uppercase} @term{character}.
+Otherwise, @coderef{char-upcase} just returns the given @param{character}.
 
 If @param{character} is an @term{uppercase} @term{character},
-@code{char-downcase} returns the corresponding @term{lowercase} @term{character}.
-Otherwise, @code{char-downcase} just returns the given @param{character}.
+@coderef{char-downcase} returns the corresponding @term{lowercase} @term{character}.
+Otherwise, @coderef{char-downcase} just returns the given @param{character}.
 
 The result only ever differs from @param{character}
 in its @term{code} @term{attribute};
@@ -1370,9 +1370,9 @@ all @term{implementation-defined} @term{attributes} are preserved.
 If the @param{corresponding-char} is @term{different} than @param{character},
 then both the @param{character} and the @param{corresponding-char} have @term{case}.
 
-Since @code{char-equal} ignores the @term{case} of the @term{characters} it compares,
+Since @coderef{char-equal} ignores the @term{case} of the @term{characters} it compares,
 the @param{corresponding-character} is always the @term{same} as @param{character}
-under @code{char-equal}.
+under @coderef{char-equal}.
 
 
 @node upper-case-p; lower-case-p; both-case-p
@@ -1454,7 +1454,7 @@ These functions test the case of a given @param{character}.
 
 @subsubheading Description:
 
-@code{char-code} returns the @term{code} @term{attribute} of @param{character}.
+@coderef{char-code} returns the @term{code} @term{attribute} of @param{character}.
 
 @subsubheading Examples:
 
@@ -1495,11 +1495,11 @@ These functions test the case of a given @param{character}.
 
 Returns a non-negative @term{integer} encoding the @param{character} object.
 The manner in which the @term{integer} is computed is @term{implementation-dependent}.
-In contrast to @code{sxhash}, the result is not guaranteed to be independent
+In contrast to @coderef{sxhash}, the result is not guaranteed to be independent
 of the particular @term{Lisp image}.
 
 If @param{character} has no @term{implementation-defined} @term{attributes},
-the results of @code{char-int} and @code{char-code} are the same.
+the results of @coderef{char-int} and @coderef{char-code} are the same.
 
 @lisp
  (char= @i{c1} @i{c2}) @EQ{} (= (char-int @i{c1}) (char-int @i{c2}))
@@ -1578,7 +1578,7 @@ than @f{96} (the number of @term{standard characters}).
 @subsubheading Description:
 
 The upper exclusive bound on the @term{value} returned by
-the @term{function} @code{char-code}.
+the @term{function} @coderef{char-code}.
 
 @subsubheading See Also:
 
@@ -1686,7 +1686,7 @@ as ``@f{#@bsl{}}'' followed by the their @term{name}; see @ref{Printing Characte
 @subsubheading Description:
 
 Returns the @term{character} @term{object} whose @term{name} is
-@param{name} (as determined by @code{string-equal}---@ie{} lookup is not case sensitive).
+@param{name} (as determined by @coderef{string-equal}---@ie{} lookup is not case sensitive).
 If such a @term{character} does not exist, @nil{}@spc{}is returned.
 
 @subsubheading Examples:

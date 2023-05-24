@@ -24,15 +24,15 @@ to invocation of @term{compiled code} produced by a @term{compiler}.
 The mechanism of @term{evaluation} is manifested
 both implicitly through the effect of the @term{Lisp read-eval-print loop},
 and  explicitly through the presence of the @term{functions}
-@code{eval},
-@code{compile},
-@code{compile-file},
-and @code{load}.
+@coderef{eval},
+@coderef{compile},
+@coderef{compile-file},
+and @coderef{load}.
 Any of these facilities might share the same execution strategy,
 or each might use a different one.
 
-The behavior of a @term{conforming program} processed by @code{eval}
-and by @code{compile-file} might differ; see @ref{Semantic Constraints}.
+The behavior of a @term{conforming program} processed by @coderef{eval}
+and by @coderef{compile-file} might differ; see @ref{Semantic Constraints}.
 
 @term{Evaluation} can be understood in terms of a model in which an
 interpreter recursively traverses a @term{form} performing each
@@ -101,7 +101,7 @@ A @term{dynamic environment} contains, among other things, the following:
 @itemize @bullet{}
 @item @term{bindings} for @term{dynamic variables}.
 @item information about @term{active} @term{catch tags}.
-@item information about @term{exit points} established by @code{unwind-protect}.
+@item information about @term{exit points} established by @coderef{unwind-protect}.
 @item information about @term{active} @term{handlers} and @term{restarts}.
 @end itemize
 
@@ -211,7 +211,7 @@ then it is either a @term{symbol macro} or a @term{variable}.
 The @term{symbol} names a @term{symbol macro}
 if there is a @term{binding} of the @term{symbol} as a @term{symbol macro}
 in the current @term{lexical environment}
-(see @code{define-symbol-macro} and @code{symbol-macrolet}).
+(see @coderef{define-symbol-macro} and @coderef{symbol-macrolet}).
 If the @term{symbol} is a @term{symbol macro},
 its expansion function is obtained.
 The expansion function is a function of two arguments, and is invoked
@@ -242,8 +242,8 @@ its @term{value}.
 An error @oftype{unbound-variable} should be signaled if
 an @term{unbound variable} is referenced.
 
-@term{Non-constant variables} can be @term{assigned} by using @code{setq}
-or @term{bound}@sub{3} by using @code{let}.
+@term{Non-constant variables} can be @term{assigned} by using @coderef{setq}
+or @term{bound}@sub{3} by using @coderef{let}.
 @Thenextfigure{}@spc{}lists some @term{defined names} that
 are applicable to assigning, binding, and defining @term{variables}.
 
@@ -280,7 +280,7 @@ uses of that @term{name} as a @term{variable} are considered to be references
 to that @term{binding} except where the @term{variable} is @term{shadowed}@sub{2}
 by a @term{form} that @term{establishes} a @term{fresh} @term{binding} for that
 @term{variable} @term{name},
-or by a @term{form} that locally @term{declares} the @term{name} @code{special}.
+or by a @term{form} that locally @term{declares} the @term{name} @coderef{special}.
 
 A @term{lexical variable} always has a @term{value}.
 There is no @term{operator} that introduces a @term{binding} for a
@@ -300,7 +300,7 @@ conditions hold:
 
 @itemize @bullet{}
 
-@item It is locally declared or globally proclaimed @code{special}.
+@item It is locally declared or globally proclaimed @coderef{special}.
 
 @item It occurs textually within a @term{form} that
 creates a @term{dynamic binding} for a @term{variable} of the @term{same} @term{name},
@@ -318,7 +318,7 @@ or in the @term{global environment}.
 The @term{value} part of the @term{binding} for a @term{dynamic variable} might
 be empty; in this case, the @term{dynamic variable} is said to have no @term{value},
 or to be @term{unbound}.  A @term{dynamic variable} can be made @term{unbound}
-by using @code{makunbound}.
+by using @coderef{makunbound}.
 
 The effect of @term{binding} a @term{dynamic variable} is to create
 a new @term{binding} to which all references to that @term{dynamic variable}
@@ -347,12 +347,12 @@ assign a value to,
 or create
 a @term{binding} for a @term{constant variable},
 except that a `compatible' redefinition of a @term{constant variable}
-using @code{defconstant} is permitted; see the @term{macro} @ref{defconstant}.
+using @coderef{defconstant} is permitted; see the @term{macro} @ref{defconstant}.
 
 @term{Keywords},
 @term{symbols} defined by @clisp{}@spc{}or the @term{implementation}
-as constant (such as @nil{}, @code{t}, and @code{pi}),
-and @term{symbols} declared as constant using @code{defconstant}
+as constant (such as @nil{}, @coderef{t}, and @coderef{pi}),
+and @term{symbols} declared as constant using @coderef{defconstant}
 are @term{constant variables}.
 
 
@@ -422,11 +422,11 @@ are treated---which are @term{forms}, which are special syntax, @etc{}.
 Some @term{special operators} create new
 lexical or dynamic @term{environments} for use during the
 @term{evaluation} of @term{subforms}
-of the @term{special form}.  For example, @code{block} creates a
+of the @term{special form}.  For example, @coderef{block} creates a
 new @term{lexical environment} that is the same as the one in force
-at the point of evaluation of the @code{block} @term{form}
-with the addition of a @term{binding} of the @code{block} name
-to an @term{exit point} from the @code{block}.
+at the point of evaluation of the @coderef{block} @term{form}
+with the addition of a @term{binding} of the @coderef{block} name
+to an @term{exit point} from the @coderef{block}.
 
 The set of @term{special operator} @term{names} is fixed in @clisp{};
 no way is provided for the user to define a @term{special operator}.
@@ -465,9 +465,9 @@ to the entire @term{form} and the result of that application is
 used in place of the original @term{form}.
 
 Specifically, a @term{symbol} names a @term{macro} in a given @term{lexical environment} if
-@code{macro-function} is @term{true} of the
+@coderef{macro-function} is @term{true} of the
 @term{symbol} and that @term{environment}.
-The @term{function} returned by @code{macro-function}
+The @term{function} returned by @coderef{macro-function}
 is a @term{function} of two arguments, called the
 expansion function.
 The expansion function is invoked by calling the @term{macroexpand hook} with
@@ -486,7 +486,7 @@ any part of its @term{form} argument.
 
 A @term{macro name} is not a @term{function designator},
 and cannot be used as the @param{function} argument to @term{functions}
-such as @code{apply}, @code{funcall}, or @code{map}.
+such as @coderef{apply}, @coderef{funcall}, or @coderef{map}.
 
 An @term{implementation} is free to implement a @clisp{}@spc{}@term{special operator}
 as a @term{macro}.  An @term{implementation} is free to implement any
@@ -555,17 +555,17 @@ For example, the following might return 23 or@tie{}24.
 A @term{binding} for a @term{function name} can be @term{established} in
 one of several ways.  A @term{binding} for a @term{function name} in
 the @term{global environment} can be @term{established} by
-@code{defun},
+@coderef{defun},
 @SETFof{fdefinition},
 @SETFof{symbol-function},
-@code{ensure-generic-function},
-@code{defmethod} (implicitly, due to @code{ensure-generic-function}),
+@coderef{ensure-generic-function},
+@coderef{defmethod} (implicitly, due to @coderef{ensure-generic-function}),
 or
-@code{defgeneric}.
+@coderef{defgeneric}.
 A @term{binding} for a @term{function name} in the @term{lexical environment}
 can be @term{established} by
-@code{flet}
-or @code{labels}.
+@coderef{flet}
+or @coderef{labels}.
 
 @Thenextfigure{}@spc{}lists some @term{defined names} that are applicable to @term{functions}.
 
@@ -600,7 +600,7 @@ A @term{lambda form} is equivalent to using @term{funcall} of a
 @term{lexical closure} of the @term{lambda expression} on the given @term{arguments}.
 (In practice, some compilers are more likely to produce inline code
 for a @term{lambda form} than for an arbitrary named function
-that has been declared @code{inline}; however, such a difference
+that has been declared @coderef{inline}; however, such a difference
 is not semantic.)
 
 For further information, see @ref{Lambda Expressions}.
@@ -669,7 +669,7 @@ A @term{lexical closure} is a @term{function} that can refer to and alter
 the values of @term{lexical bindings} @term{established} by @term{binding} @term{forms}
 that textually include the function definition.
 
-Consider this code, where @f{x} is not declared @code{special}:
+Consider this code, where @f{x} is not declared @coderef{special}:
 
 @lisp
  (defun two-funs (x)
@@ -692,7 +692,7 @@ The function @f{two-funs} returns a @term{list} of two
 variable @f{x} created on entry to the function @f{two-funs} when it
 was called.
 This variable has the value @f{6}
-initially, but @code{setq} can alter this @term{binding}.
+initially, but @coderef{setq} can alter this @term{binding}.
 The @term{lexical closure} created for the first
 @term{lambda expression} does not ``snapshot'' the @term{value} @f{6} for @f{x}
 when the @term{closure} is created; rather it captures the @term{binding} of @f{x}.
@@ -739,7 +739,7 @@ is also a @term{list} of ten @term{closures}.
 However, in this case no two of the @term{closure} @term{objects} can
 be @term{identical} because each @term{closure} is closed over a distinct
 @term{binding} of @f{x}, and these @term{bindings} can be behaviorally
-distinguished because of the use of @code{setq}.
+distinguished because of the use of @coderef{setq}.
 
 The result of the @term{form}
 
@@ -757,7 +757,7 @@ might or might not be @term{identical}.
 A different @term{binding} of @f{x} is involved for
 each @term{closure}, but the @term{bindings} cannot be distinguished
 because their values are the @term{same} and immutable (there being no occurrence
-of @code{setq} on @f{x}).  A compiler could internally
+of @coderef{setq} on @f{x}).  A compiler could internally
 transform the @term{form} to
 
 @lisp
@@ -780,7 +780,7 @@ In the code fragment
 
 the function @f{(lambda (x) (+ x 2))} contains no references to any outside
 object. In this case, the same @term{closure} might be returned
-for all evaluations of the @code{function} @term{form}.
+for all evaluations of the @coderef{function} @term{form}.
 
 
 @node Shadowing
@@ -804,9 +804,9 @@ the inner @term{form}; the inner @term{binding} for @mat{N}
 @end lisp
 
 The @term{binding} of the variable @f{z} by
-@code{let} shadows
+@coderef{let} shadows
 the @term{parameter} binding for the function @f{test}.  The reference to the
-variable @f{z} in the @code{print} @term{form} refers to the @code{let} binding.
+variable @f{z} in the @coderef{print} @term{form} refers to the @coderef{let} binding.
 The reference to @f{z} at the end of the function @f{test}
 refers to the @term{parameter} named @f{z}.
 
@@ -843,24 +843,24 @@ blocks:
 @end lisp
 
 At the time the @f{funcall} is executed
-there are two @code{block} @term{exit points} outstanding, each apparently
+there are two @coderef{block} @term{exit points} outstanding, each apparently
 named @f{here}.
-The @code{return-from} @term{form} executed as a result of the @f{funcall}
+The @coderef{return-from} @term{form} executed as a result of the @f{funcall}
 operation
 refers to the outer outstanding @term{exit point}
 (here@ssso{}), not the
 inner one (here@ssst{}).
 It
 refers to that @term{exit point} textually visible at the point of
-execution of @code{function}
+execution of @coderef{function}
 (here abbreviated by the @f{#'} syntax) that resulted
 in creation of the @term{function} @term{object} actually invoked by
-@code{funcall}.
+@coderef{funcall}.
 
 If, in this example, one were to change the @f{(funcall f)} to
 @f{(funcall g)}, then the value of the call @f{(contorted-example nil nil 2)}
 would be @f{9}.  The value would change because
-@code{funcall} would cause the
+@coderef{funcall} would cause the
 execution of @f{(return-from here@ssst{}@spc{}4)}, thereby causing
 a return from the inner @term{exit point} (here@ssst{}).
 When that occurs, the value @f{4} is returned from the
@@ -872,7 +872,7 @@ returned from has nothing to do with its
 being innermost or outermost; rather,
 it depends on the lexical environment
 that is packaged up with a @term{lambda expression} when
-@code{function} is executed.
+@coderef{function} is executed.
 
 
 @node Extent
@@ -891,10 +891,10 @@ the @term{exit point} is @term{disestablished}.  For example:
 
 One might expect the call @f{(invalid-example)} to produce @f{5}
 by the following incorrect reasoning:
-@code{let} binds @f{y} to the
-value of @code{block}; this value is a @term{function} resulting
+@coderef{let} binds @f{y} to the
+value of @coderef{block}; this value is a @term{function} resulting
 from the @term{lambda expression}.  Because @f{y} is not a number, it is
-invoked on the value @f{5}.  The @code{return-from} should then
+invoked on the value @f{5}.  The @coderef{return-from} should then
 return this value from the
 @term{exit point} named @f{here}, thereby
 exiting from the block again and giving @f{y} the value @f{5}
@@ -903,7 +903,7 @@ to @f{invalid-example}.
 
 The argument fails only because @term{exit points} have
 @term{dynamic extent}.  The argument is correct up to the execution of
-@code{return-from}.  The execution of @code{return-from}
+@coderef{return-from}.  The execution of @coderef{return-from}
 should signal an error @oftype{control-error}, however, not
 because it cannot refer to the @term{exit point}, but because it
 does correctly refer to an @term{exit point} and that
@@ -924,11 +924,11 @@ a @term{catch tag} refers to the most recently
 @end lisp
 
 Consider the call @f{(fun1 7)}.  The result is @f{10}.  At the time
-the @code{throw} is executed, there are two outstanding catchers with the
+the @coderef{throw} is executed, there are two outstanding catchers with the
 name @f{trap}: one established within procedure @f{fun1}, and the other
 within procedure @f{fun2}.  The latter is the more recent, and so the
-value @f{7} is returned from @code{catch} in @f{fun2}.
-Viewed from within @f{fun3}, the @code{catch}
+value @f{7} is returned from @coderef{catch} in @f{fun2}.
+Viewed from within @f{fun3}, the @coderef{catch}
 in @f{fun2} shadows the one in @f{fun1}.
 Had @f{fun2} been defined as
 
@@ -984,7 +984,7 @@ the @term{primary value} of @param{form1}
 and the @term{primary value} of @param{form2};
 and so on.
 
-See @code{multiple-values-limit} and @code{values-list}.
+See @coderef{multiple-values-limit} and @coderef{values-list}.
 
 
 
@@ -1009,11 +1009,11 @@ The @newterm{compiler} is a utility that translates code into an
 @term{implementation-dependent} form that might be represented or
 executed efficiently.
 The term @newterm{compiler} refers to both of the @term{functions}
-@code{compile} and @code{compile-file}.
+@coderef{compile} and @coderef{compile-file}.
 
 The term @newterm{compiled code} refers to
 @term{objects} representing compiled programs, such as @term{objects} constructed
-by @code{compile} or by @code{load} when @term{loading} a @term{compiled file}.
+by @coderef{compile} or by @coderef{load} when @term{loading} a @term{compiled file}.
 
 The term @newterm{implicit compilation} refers to @term{compilation}
 performed during @term{evaluation}.
@@ -1027,8 +1027,8 @@ A @term{constant variable} is not itself a @term{literal object}.
 The term @newterm{coalesce} is defined as follows.
 Suppose @f{A} and @f{B} are two @term{literal constants} in the @term{source code},
 and that @f{A'} and @f{B'} are the corresponding @term{objects} in the @term{compiled code}.
-If @f{A'} and @f{B'} are @code{eql} but
-@f{A} and @f{B} are not @code{eql}, then it is said
+If @f{A'} and @f{B'} are @coderef{eql} but
+@f{A} and @f{B} are not @coderef{eql}, then it is said
 that @f{A} and @f{B} have been coalesced by the compiler.
 
 The term @newterm{minimal compilation} refers to actions the compiler
@@ -1067,7 +1067,7 @@ the compiler. It is unspecified whether a definition available in the
 initiated in the @term{startup environment} or @term{evaluation environment}.
 
 The @newterm{evaluation environment} is a @term{run-time environment}
-in which macro expanders and code specified by @code{eval-when}
+in which macro expanders and code specified by @coderef{eval-when}
 to be evaluated are evaluated.  All evaluations initiated by the
 @term{compiler} take place in the @term{evaluation environment}.
 
@@ -1094,7 +1094,7 @@ The term @newterm{compile-time definition} refers to a definition in
 the @term{compilation environment}.
 For example, when compiling a file,
 the definition of a function might be retained in the @term{compilation environment}
-if it is declared @code{inline}.
+if it is declared @coderef{inline}.
 This definition might not be available in the @term{evaluation environment}.
 
 The term @newterm{run time} refers to the duration of time that the
@@ -1131,13 +1131,13 @@ that also names a @term{function} or @term{macro}.
 That is, it is possible for a
 @term{function name} to name both a @term{function} and a @term{compiler macro}.
 
-A @term{function name} names a @term{compiler macro} if @code{compiler-macro-function}
+A @term{function name} names a @term{compiler macro} if @coderef{compiler-macro-function}
 is @term{true} of the @term{function name} in the @term{lexical environment} in which
 it appears.  Creating a @term{lexical binding} for the @term{function name}
 not only creates a new local @term{function} or
 @term{macro} definition, but also @term{shadows}@sub{2} the @term{compiler macro}.
 
-The @term{function} returned by @code{compiler-macro-function}
+The @term{function} returned by @coderef{compiler-macro-function}
 is a @term{function} of two arguments, called the
 expansion function.  To expand a @term{compiler macro},
 the expansion function is invoked by calling the @term{macroexpand hook} with
@@ -1146,7 +1146,7 @@ the entire compiler macro @term{form} as its second argument,
 and the current compilation @term{environment}
 (or with the current lexical @term{environment},
 if the @term{form} is being processed by something
-other than @code{compile-file})
+other than @coderef{compile-file})
 as its third argument.
 The @term{macroexpand hook}, in turn, calls the expansion function with the
 @term{form} as its first argument and the @term{environment} as its second argument.
@@ -1191,15 +1191,15 @@ destructively modifies any part of its @term{form} argument.
 
 The @term{form} passed to the compiler macro function can either be a @term{list}
 whose @term{car} is the function name, or a @term{list} whose @term{car} is
-@code{funcall} and whose @term{cadr} is a list @f{(function @param{name})};
+@coderef{funcall} and whose @term{cadr} is a list @f{(function @param{name})};
 note that this affects destructuring of the form argument by the
 @term{compiler macro function}.
-@code{define-compiler-macro} arranges for destructuring of arguments to be
+@coderef{define-compiler-macro} arranges for destructuring of arguments to be
 performed correctly for both possible formats.
 
-When @code{compile-file} chooses to expand a @term{top level form} that is
+When @coderef{compile-file} chooses to expand a @term{top level form} that is
 a @term{compiler macro} @term{form}, the expansion is also treated as a @term{top level form}
-for the purposes of @code{eval-when} processing; see @ref{Processing of Top Level Forms}.
+for the purposes of @coderef{eval-when} processing; see @ref{Processing of Top Level Forms}.
 
 
 @node Naming of Compiler Macros
@@ -1210,17 +1210,17 @@ for the purposes of @code{eval-when} processing; see @ref{Processing of Top Leve
 @term{macros} as well as @term{functions}.
 
 @term{Compiler macro} definitions are strictly global.  There is no provision
-for defining local @term{compiler macros} in the way that @code{macrolet}
+for defining local @term{compiler macros} in the way that @coderef{macrolet}
 defines local @term{macros}.  Lexical bindings of a function name shadow any
 compiler macro definition associated with the name as well as its
 global @term{function} or @term{macro} definition.
 
 Note that the presence of a compiler macro definition does not affect
 the values returned by
-functions that access @term{function} definitions (@eg{} @code{fboundp})
-or @term{macro} definitions (@eg{} @code{macroexpand}).
+functions that access @term{function} definitions (@eg{} @coderef{fboundp})
+or @term{macro} definitions (@eg{} @coderef{macroexpand}).
 Compiler macros are global, and the function
-@code{compiler-macro-function} is sufficient to resolve their interaction
+@coderef{compiler-macro-function} is sufficient to resolve their interaction
 with other lexical and global definitions.
 
 
@@ -1238,13 +1238,13 @@ make use of the resulting expansion if it does invoke
 a @term{compiler macro function}.
 
 When the @term{compiler} encounters a @term{form} during processing that represents
-a call to a @term{compiler macro} @term{name} (that is not declared @code{notinline}),
+a call to a @term{compiler macro} @term{name} (that is not declared @coderef{notinline}),
 the @term{compiler} might expand the @term{compiler macro},
 and might use the expansion in place of the original @term{form}.
 
-When @code{eval} encounters a @term{form} during processing that represents
-a call to a @term{compiler macro} @term{name} (that is not declared @code{notinline}),
-@code{eval} might expand the @term{compiler macro},
+When @coderef{eval} encounters a @term{form} during processing that represents
+a call to a @term{compiler macro} @term{name} (that is not declared @coderef{notinline}),
+@coderef{eval} might expand the @term{compiler macro},
 and might use the expansion in place of the original @term{form}.
 
 There are two situations in which a @term{compiler macro} definition must not be
@@ -1257,7 +1257,7 @@ The global function name binding associated with the compiler
 macro is shadowed by a lexical binding of the function name.
 
 @item
-The function name has been declared or proclaimed @code{notinline} and
+The function name has been declared or proclaimed @coderef{notinline} and
 the call form appears within the scope of the declaration.
 @end itemize
 
@@ -1270,7 +1270,7 @@ situations.
 
 
 Although it is technically permissible, as described above,
-for @code{eval} to treat @term{compiler macros} in the same situations
+for @coderef{eval} to treat @term{compiler macros} in the same situations
 as @term{compiler} might, this is not necessarily a good idea in
 @term{interpreted implementations}.
 
@@ -1278,7 +1278,7 @@ as @term{compiler} might, this is not necessarily a good idea in
 for run-time speed.  Programmers who write @term{compiler macros} tend to
 assume that the @term{compiler macros} can take more time than normal @term{functions}
 and @term{macros} in order to produce code which is especially optimal for use
-at run time.  Since @code{eval} in an @term{interpreted implementation}
+at run time.  Since @coderef{eval} in an @term{interpreted implementation}
 might perform semantic analysis of the same form multiple times, it might be
 inefficient in general for the @term{implementation} to choose to call
 @term{compiler macros} on every such @term{evaluation}.
@@ -1311,29 +1311,29 @@ and
 calls
 appearing in the source code being compiled are expanded at compile time
 in such a way that they will not be expanded again at run time.
-@code{macrolet}
+@coderef{macrolet}
 @cindex macrolet
 and
-@code{symbol-macrolet}
+@coderef{symbol-macrolet}
 @cindex symbol-macrolet
 are effectively replaced by
 @term{forms} corresponding to their bodies in which calls to
 @term{macros} are replaced by their expansions.
 
 @item
-The first @term{argument} in a @code{load-time-value}
+The first @term{argument} in a @coderef{load-time-value}
 @cindex load-time-value
 @term{form}
-in @term{source code} processed by @code{compile}
+in @term{source code} processed by @coderef{compile}
 @cindex compile
 is @term{evaluated} at @term{compile time};
-in @term{source code} processed by @code{compile-file}
+in @term{source code} processed by @coderef{compile-file}
 @cindex compile-file
 ,
 the compiler arranges for it to be @term{evaluated} at @term{load time}.
 In either case, the result of the @term{evaluation}
 is remembered and used later as the value of the
-@code{load-time-value} @term{form} at @term{execution time}.
+@coderef{load-time-value} @term{form} at @term{execution time}.
 @end itemize
 
 
@@ -1357,12 +1357,12 @@ function call.
 
 @item @code{Special} proclamations for @term{dynamic variables}
 must be made in the @term{compilation environment}.  Any @term{binding}
-for which there is no @code{special} declaration or proclamation in
+for which there is no @coderef{special} declaration or proclamation in
 the @term{compilation environment} is treated by the compiler as
 a @term{lexical binding}.
 
 @item The definition of a function that is defined and
-declared @code{inline} in the @term{compilation environment} must be
+declared @coderef{inline} in the @term{compilation environment} must be
 the same at run time.
 
 
@@ -1370,19 +1370,19 @@ the same at run time.
 (but is not required to)
 assume that an apparent recursive call to a @term{function} named @mat{F}
 refers to the same definition of @mat{F},
-unless that function has been declared @code{notinline}.
+unless that function has been declared @coderef{notinline}.
 The consequences of redefining such a recursively defined @term{function} @mat{F}
 while it is executing are undefined.
 
 @item A call within a file to a named function that is
 defined in the same file refers to that function, unless that function
-has been declared @code{notinline}.  The consequences are unspecified
+has been declared @coderef{notinline}.  The consequences are unspecified
 if functions are redefined individually at run time or multiply
 defined in the same file.
 
 
 @item The argument syntax and number of return values for
-all functions whose @code{ftype} is declared at compile time must
+all functions whose @coderef{ftype} is declared at compile time must
 remain the same at run time.
 
 @item @term{Constant variables} defined in
@@ -1392,9 +1392,9 @@ a @term{constant variable}
 in @term{source code} is equivalent to a reference to
 a @term{literal} @term{object} that is the @term{value} of the @term{constant variable}.
 
-@item Type definitions made with @code{deftype} or
-@code{defstruct} in the @term{compilation environment} must
-retain the same definition at run time.  Classes defined by @code{defclass}
+@item Type definitions made with @coderef{deftype} or
+@coderef{defstruct} in the @term{compilation environment} must
+retain the same definition at run time.  Classes defined by @coderef{defclass}
 in the @term{compilation environment} must be defined
 at run time to have the same @term{superclasses} and same
 @term{metaclass}.
@@ -1440,10 +1440,10 @@ is not defined at compile time, no error is signaled at compile time.
 
 @Thefunction{compile-file} performs compilation of
 @term{forms} in a file following the rules specified in @ref{Compilation Semantics},
-and produces an output file that can be loaded by using @code{load}.
+and produces an output file that can be loaded by using @coderef{load}.
 
 Normally, the @term{top level forms} appearing in a file compiled with
-@code{compile-file} are evaluated only when the resulting
+@coderef{compile-file} are evaluated only when the resulting
 compiled file is loaded, and not when the file is compiled.  However,
 it is typically the case that some forms in the file need to be evaluated
 at compile time so the
@@ -1452,24 +1452,24 @@ remainder of the file can be read and compiled correctly.
 @Thespecform{eval-when} can be used to control
 whether a @term{top level form} is evaluated at compile time, load
 time, or both.  It is possible to specify any of three situations with
-@code{eval-when}, denoted by the symbols @kwd{compile-toplevel},
+@coderef{eval-when}, denoted by the symbols @kwd{compile-toplevel},
 @kwd{load-toplevel}, and @kwd{execute}.  For top level
-@code{eval-when} forms, @kwd{compile-toplevel} specifies that the
+@coderef{eval-when} forms, @kwd{compile-toplevel} specifies that the
 compiler must evaluate the body at compile time, and @tt{
 :load-toplevel} specifies that the compiler must arrange to evaluate
-the body at load time. For non-top level @code{eval-when} forms,
+the body at load time. For non-top level @coderef{eval-when} forms,
 @kwd{execute} specifies that the body must be executed in the run-time
 @term{environment}.
 
 The behavior of this @term{form} can be more precisely understood in
-terms of a model of how @code{compile-file} processes forms in
+terms of a model of how @coderef{compile-file} processes forms in
 a file to be compiled. There are two processing modes, called
 ``not-compile-time'' and ``compile-time-too''.
 
-Successive forms are read from the file by @code{compile-file}
+Successive forms are read from the file by @coderef{compile-file}
 and processed in not-compile-time mode; in this mode,
-@code{compile-file} arranges for forms to be evaluated only at load time
-and not at compile time.  When @code{compile-file} is in
+@coderef{compile-file} arranges for forms to be evaluated only at load time
+and not at compile time.  When @coderef{compile-file} is in
 compile-time-too mode, forms are evaluated both at compile time and
 load time.
 
@@ -1482,7 +1482,7 @@ as follows:
 
 @enumerate 1
 @item If the @term{form} is a @term{compiler macro form}
-(not disabled by a @code{notinline} @term{declaration}),
+(not disabled by a @coderef{notinline} @term{declaration}),
 the @term{implementation} might or might not choose to compute
 the @term{compiler macro expansion} of the @term{form} and,
 having performed the expansion, might or might not choose to process the result
@@ -1495,19 +1495,19 @@ its @term{macro expansion} is computed and processed as a
 @term{top level form} in
 the same processing mode (compile-time-too or not-compile-time).
 
-@item If the form is a @code{progn} form, each of its
+@item If the form is a @coderef{progn} form, each of its
 body @term{forms} is sequentially processed as a
 @term{top level form} in the same processing mode.
 
-@item If the form is a @code{locally},
-@code{macrolet}, or @code{symbol-macrolet},
-@code{compile-file} establishes the appropriate bindings and processes the
+@item If the form is a @coderef{locally},
+@coderef{macrolet}, or @coderef{symbol-macrolet},
+@coderef{compile-file} establishes the appropriate bindings and processes the
 body forms as @term{top level forms} with those bindings in effect
 in the same processing mode.  (Note that this implies that the lexical
 @term{environment} in which @term{top level forms} are processed
 is not necessarily the @term{null lexical environment}.)
 
-@item If the form is an @code{eval-when}
+@item If the form is an @coderef{eval-when}
 @cindex eval-when
 form, it is
 handled according to @thenextfigure{}.
@@ -1549,7 +1549,7 @@ specified mode.
 @b{Evaluate:} evaluate the body in the dynamic execution
 context of the compiler, using the @term{evaluation environment} as
 the global environment and the @term{lexical environment} in which
-the @code{eval-when} appears.
+the @coderef{eval-when} appears.
 
 @item @id{@t{}}
 @b{Discard:} ignore the @term{form}.
@@ -1576,12 +1576,12 @@ are preserved.
 @end enumerate
 
 
-@code{eval-when} forms cause compile-time evaluation only at
+@coderef{eval-when} forms cause compile-time evaluation only at
 top level.  Both @kwd{compile-toplevel} and @kwd{load-toplevel} situation specifications
 are ignored for @term{non-top-level forms}. For @term{non-top-level forms},
-an @code{eval-when}
+an @coderef{eval-when}
 specifying the @kwd{execute} situation is treated as an @term{implicit progn}
-including the @term{forms} in the body of the @code{eval-when} @term{form};
+including the @term{forms} in the body of the @coderef{eval-when} @term{form};
 otherwise, the @term{forms} in the body are ignored.
 
 @node Processing of Defining Macros
@@ -1589,12 +1589,12 @@ otherwise, the @term{forms} in the body are ignored.
 
 
 
-Defining @term{macros} (such as @code{defmacro} or @code{defvar})
-appearing within a file being processed by @code{compile-file}
+Defining @term{macros} (such as @coderef{defmacro} or @coderef{defvar})
+appearing within a file being processed by @coderef{compile-file}
 normally have compile-time side effects which affect how subsequent @term{forms}
 in the same @term{file} are compiled.  A convenient model for explaining how these
 side effects happen is that the defining macro expands into one or
-more @code{eval-when} @term{forms}, and that the calls which cause the compile-time
+more @coderef{eval-when} @term{forms}, and that the calls which cause the compile-time
 side effects to happen appear
 in the body of an @f{(eval-when (:compile-toplevel) ...)} @term{form}.
 
@@ -1616,7 +1616,7 @@ stores the macro definition of @f{foo} where it is available to the interpreter:
 
 
 A portable way to do the same thing would be to include the macro
-definition inside the @code{eval-when} @term{form}, as in:
+definition inside the @coderef{eval-when} @term{form}, as in:
 
 @lisp
  (eval-when (:execute :compile-toplevel :load-toplevel)
@@ -1632,7 +1632,7 @@ It is not specified whether definitions made available in the
 @term{compilation environment} are available in the evaluation
 @term{environment}, nor is it specified whether they are available
 in subsequent compilation units or subsequent invocations of the
-compiler.  As with @code{eval-when}, these compile-time side
+compiler.  As with @coderef{eval-when}, these compile-time side
 effects happen only when the defining macros appear at
 top level.
 
@@ -1678,17 +1678,17 @@ This is of concern both to @term{conforming implementations} and to
 @node Literal Objects in Compiled Files
 @subsection Literal Objects in Compiled Files
 
-The functions @code{eval} and @code{compile} are
+The functions @coderef{eval} and @coderef{compile} are
 required to ensure that @term{literal objects} referenced within the resulting
 interpreted or compiled code objects are the @term{same} as the
 corresponding @term{objects} in the @term{source code}.
-@code{compile-file}, on the other hand,
+@coderef{compile-file}, on the other hand,
 must produce a @term{compiled file} that, when loaded with
-@code{load}, constructs the @term{objects} defined by the
+@coderef{load}, constructs the @term{objects} defined by the
 @term{source code} and produces references to them.
 
-In the case of @code{compile-file}, @term{objects}
-constructed by @code{load} of the @term{compiled file} cannot be spoken
+In the case of @coderef{compile-file}, @term{objects}
+constructed by @coderef{load} of the @term{compiled file} cannot be spoken
 of as being the @term{same} as the @term{objects} constructed at
 compile time, because the @term{compiled file} may be loaded into a different
 @term{Lisp image} than the one in which it was compiled.  This section
@@ -1697,8 +1697,8 @@ defines the concept of @term{similarity} which relates
 corresponding @term{objects} in the @term{run-time environment}.
 
 The constraints on @term{literal objects} described in this section
-apply only to @code{compile-file};
-@code{eval} and @code{compile} do not copy or coalesce constants.
+apply only to @coderef{compile-file};
+@coderef{eval} and @coderef{compile} do not copy or coalesce constants.
 
 @node Externalizable Objects
 @subsubsection Externalizable Objects
@@ -1765,13 +1765,13 @@ indicated for that @term{type}.
 
 @table @asis
 
-@item @id{@code{number}}
+@item @id{@coderef{number}}
 
 
 Two @term{numbers} @mat{S} and @mat{C} are @term{similar} if they are of the same @term{type}
 and represent the same mathematical value.
 
-@item @id{@code{character}}
+@item @id{@coderef{character}}
 
 
 
@@ -1782,7 +1782,7 @@ if they have @term{similar} @term{code} @term{attributes}.
 @term{attributes} must define whether and how @term{non-simple} @term{characters}
 can be regarded as @term{similar}.
 
-@item @id{@code{symbol}}
+@item @id{@coderef{symbol}}
 
 
 Two @term{apparently uninterned} @term{symbols} @mat{S} and @mat{C} are @term{similar}
@@ -1802,7 +1802,7 @@ the @term{home package} of @mat{S}.
 on neither the @term{current readtable} nor how @thefunction{read} would
 parse the @term{characters} in the @term{name} of the @term{symbol}.)
 
-@item @id{@code{package}}
+@item @id{@coderef{package}}
 
 
 Two @term{packages} @mat{S} and @mat{C} are @term{similar} if their @term{names} are @term{similar}.
@@ -1811,10 +1811,10 @@ Note that although a @term{package} @term{object} is an @term{externalizable obj
 the programmer is responsible for ensuring that the corresponding @term{package} is
 already in existence when code referencing it as a @term{literal} @term{object}
 is @term{loaded}.  The @term{loader} finds the corresponding @term{package} @term{object}
-as if by calling @code{find-package} with that @term{name} as an @term{argument}.
+as if by calling @coderef{find-package} with that @term{name} as an @term{argument}.
 An error is signaled by the @term{loader} if no @term{package} exists at load time.
 
-@item @id{@code{random-state}}
+@item @id{@coderef{random-state}}
 
 
 Two @term{random states} @mat{S} and @mat{C} are @term{similar} if @mat{S}
@@ -1824,17 +1824,17 @@ when given as the @param{random-state} @term{argument} to @thefunction{random},
 assuming equivalent @param{limit} @term{arguments} in each case.
 
 (Note that since @mat{C} has been processed by the @term{file compiler},
-it cannot be used directly as an @term{argument} to @code{random}
-because @code{random} would perform a side effect.)
+it cannot be used directly as an @term{argument} to @coderef{random}
+because @coderef{random} would perform a side effect.)
 
-@item @id{@code{cons}}
+@item @id{@coderef{cons}}
 
 
 Two @term{conses}, @mat{S} and @mat{C}, are @term{similar} if
 the @term{car}@sub{2} of @mat{S} is @term{similar} to the @term{car}@sub{2} of @mat{C},
 and the @term{cdr}@sub{2} of @mat{S} is @term{similar} to the @term{cdr}@sub{2} of @mat{C}.
 
-@item @id{@code{array}}
+@item @id{@coderef{array}}
 
 
 Two one-dimensional @term{arrays}, @mat{S} and @mat{C}, are @term{similar} if
@@ -1860,7 +1860,7 @@ has a @term{fill pointer},
 or is @term{actually adjustable},
 @mat{C} is permitted to lack any or all of these qualities.
 
-@item @id{@code{hash-table}}
+@item @id{@coderef{hash-table}}
 
 
 Two @term{hash tables} @mat{S} and @mat{C} are @term{similar} if they meet the following
@@ -1869,7 +1869,7 @@ three requirements:
 
 @enumerate 1
 @item  They both have the same test
-(@eg{} they are both @code{eql} @term{hash tables}).
+(@eg{} they are both @coderef{eql} @term{hash tables}).
 
 @item  There is a unique one-to-one correspondence between the keys of
 the two @term{hash tables}, such that the corresponding keys are
@@ -1885,29 +1885,29 @@ the keys of @mat{S} and @mat{C}, the consequences are unspecified.
 A @term{conforming program} cannot use a table such as @mat{S} as an
 @term{externalizable constant}.
 
-@item @id{@code{pathname}}
+@item @id{@coderef{pathname}}
 
 
 Two @term{pathnames} @mat{S} and @mat{C} are @term{similar} if all corresponding
 @term{pathname components} are @term{similar}.
 
-@item @id{@code{function}}
+@item @id{@coderef{function}}
 
 
 @term{Functions} are not @term{externalizable objects}.
 
-@item @id{@code{structure-object} and @code{standard-object}}
+@item @id{@coderef{structure-object} and @coderef{standard-object}}
 
 
 A general-purpose concept of @term{similarity} does not exist for @term{structures}
 and @term{standard objects}.
-However, a @term{conforming program} is permitted to define a @code{make-load-form}
+However, a @term{conforming program} is permitted to define a @coderef{make-load-form}
 @term{method} for any @term{class} @mat{K} defined by that @term{program} that is
-a @term{subclass} of either @code{structure-object} or @code{standard-object}.
+a @term{subclass} of either @coderef{structure-object} or @coderef{standard-object}.
 The effect of such a @term{method} is to define that an @term{object} @mat{S} of @term{type} @mat{K}
 in @term{source code} is @term{similar} to an @term{object} @mat{C} of @term{type} @mat{K}
 in @term{compiled code} if @mat{C} was constructed from @term{code} produced by
-calling @code{make-load-form} on @mat{S}.
+calling @coderef{make-load-form} on @mat{S}.
 @end table
 
 
@@ -1915,7 +1915,7 @@ calling @code{make-load-form} on @mat{S}.
 @node Extensions to Similarity Rules
 @subsubsection Extensions to Similarity Rules
 
-Some @term{objects}, such as @term{streams}, @code{readtables}, and @code{methods}
+Some @term{objects}, such as @term{streams}, @coderef{readtables}, and @coderef{methods}
 are not @term{externalizable objects} under the definition of similarity given above.
 That is, such @term{objects} may not portably appear as @term{literal} @term{objects}
 in @term{code} to be processed by the @term{file compiler}.
@@ -1951,9 +1951,9 @@ they may only be @term{coalesced} if and only if they are @term{identical}.
 
 @term{Objects} containing circular references can
 be @term{externalizable objects}.
-The @term{file compiler} is required to preserve @code{eql}ness of
+The @term{file compiler} is required to preserve @coderef{eql}ness of
 substructures within a @term{file}.
-Preserving @code{eql}ness means that subobjects that are
+Preserving @coderef{eql}ness means that subobjects that are
 the @term{same}
 in the @term{source code} must
 be
@@ -1980,28 +1980,28 @@ code might be only the size implied by the fill pointer.
 @item @id{@t{}}
 @b{packages:} The loader is required to find the
 corresponding @term{package} @term{object} as if by calling
-@code{find-package} with the package name as an argument.
+@coderef{find-package} with the package name as an argument.
 An error @oftype{package-error} is signaled if no
 @term{package} of that name exists at load time.
 
 @item @id{@t{}}
 @b{random-state:} A constant @term{random state}
 object cannot be used as the state argument
-to @thefunction{random} because @code{random} modifies this data structure.
+to @thefunction{random} because @coderef{random} modifies this data structure.
 
 @item @id{@t{}}
 @b{structure, standard-object:}
-@term{Objects} of @term{type} @code{structure-object} and @code{standard-object}
+@term{Objects} of @term{type} @coderef{structure-object} and @coderef{standard-object}
 may appear in compiled constants if there is an
-appropriate @code{make-load-form} method defined for that
+appropriate @coderef{make-load-form} method defined for that
 @term{type}.
 
-The @term{file compiler} calls @code{make-load-form} on any @term{object}
+The @term{file compiler} calls @coderef{make-load-form} on any @term{object}
 that is referenced as a @term{literal object} if the @term{object} is a
-@term{generalized instance} of @code{standard-object},
-@code{structure-object}, @code{condition}, or any of a
+@term{generalized instance} of @coderef{standard-object},
+@coderef{structure-object}, @coderef{condition}, or any of a
 (possibly empty) @term{implementation-dependent} set of other @term{classes}.
-The @term{file compiler} only calls @code{make-load-form} once for
+The @term{file compiler} only calls @coderef{make-load-form} once for
 any given @term{object} within a single @term{file}.
 
 @item @id{@t{}}
@@ -2013,9 +2013,9 @@ must satisfy the following requirements:
 
 @enumerate 1
 @item The @term{current package} when a @term{top level form} in the @term{file}
-is processed by @code{compile-file} must be the same as the @term{current package}
+is processed by @coderef{compile-file} must be the same as the @term{current package}
 when the @term{code} corresponding to that @term{top level form} in the
-@term{compiled file} is executed by @code{load}.  In particular:
+@term{compiled file} is executed by @coderef{load}.  In particular:
 
 
 @enumerate a
@@ -2025,10 +2025,10 @@ the @term{current package} must change it to a @term{package}
 of the same @term{name} both at compile time and at load time.
 
 @item If the first @term{non-atomic} @term{top level form} in the @term{file}
-is not an @code{in-package} @term{form}, then the @term{current package}
-at the time @code{load} is called must be a @term{package} with the
+is not an @coderef{in-package} @term{form}, then the @term{current package}
+at the time @coderef{load} is called must be a @term{package} with the
 same @term{name} as the package that was the @term{current package}
-at the time @code{compile-file} was called.
+at the time @coderef{compile-file} was called.
 @end enumerate
 
 
@@ -2063,7 +2063,7 @@ to signal an error or to define this behavior.
 
 
 
-@code{compile} and @code{compile-file} are permitted to
+@coderef{compile} and @coderef{compile-file} are permitted to
 signal errors and warnings, including errors due to compile-time
 processing of @f{(eval-when (:compile-toplevel) ...)} forms,
 macro expansion, and conditions signaled by the compiler itself.
@@ -2077,7 +2077,7 @@ warnings might be signaled in situations where the compiler can
 determine that the consequences are undefined or that a run-time
 error will be signaled.  Examples of this situation are as follows:
 violating type declarations,
-altering or assigning the value of a constant defined with @code{defconstant},
+altering or assigning the value of a constant defined with @coderef{defconstant},
 calling built-in Lisp functions with a wrong number of arguments or malformed keyword
 argument lists,
 and using unrecognized declaration specifiers.
@@ -2087,23 +2087,23 @@ programming style as conditions @oftype{style-warning}.
 Examples of this situation are as follows:
 redefining a function using a different argument list,
 calling a function with a wrong number of arguments,
-not declaring @code{ignore} of a local variable that is not referenced,
-and referencing a variable declared @code{ignore}.
+not declaring @coderef{ignore} of a local variable that is not referenced,
+and referencing a variable declared @coderef{ignore}.
 
-Both @code{compile} and @code{compile-file} are permitted
+Both @coderef{compile} and @coderef{compile-file} are permitted
 (but not required) to @term{establish} a @term{handler}
 for @term{conditions} @oftype{error}.  For example, they
 might signal a warning, and restart compilation from some
 @term{implementation-dependent} point in order to let the
 compilation proceed without manual intervention.
 
-Both @code{compile} and @code{compile-file} return three
+Both @coderef{compile} and @coderef{compile-file} return three
 values, the second two indicating whether the source code being compiled
 contained errors and whether style warnings were issued.
 
 
 Some warnings might be deferred until the end of compilation.
-See @code{with-compilation-unit}.
+See @coderef{with-compilation-unit}.
 
 
 
@@ -2123,7 +2123,7 @@ can be embedded in executable code using @t{declare}.
 or
 @cindex proclamation
 @dfn{proclamations},
-are established by @code{proclaim} or @code{declaim}.
+are established by @coderef{proclaim} or @coderef{declaim}.
 
 @Thespecform{the} provides a shorthand notation for
 making a @term{local declaration} about the @term{type} of the
@@ -2143,42 +2143,42 @@ or a @term{proclamation}.
 
 In general, an @term{implementation} is free to ignore
 @term{declaration specifiers} except for the
-@code{declaration}
+@coderef{declaration}
 @cindex declaration
 ,
-@code{notinline}
+@coderef{notinline}
 @cindex notinline
 ,
-@code{safety}
+@coderef{safety}
 @cindex safety
 ,
-and @code{special}
+and @coderef{special}
 @cindex special
 @term{declaration specifiers}.
 
-A @code{declaration} @term{declaration} must suppress warnings
+A @coderef{declaration} @term{declaration} must suppress warnings
 about unrecognized @term{declarations} of the kind that it declares.
 If an @term{implementation} does not produce warnings about
 unrecognized declarations, it may safely ignore this @term{declaration}.
 
-A @code{notinline} @term{declaration} must be recognized by any @term{implementation}
+A @coderef{notinline} @term{declaration} must be recognized by any @term{implementation}
 that supports inline functions or @term{compiler macros} in order to disable those facilities.
 An @term{implementation} that does not use inline functions or @term{compiler macros}
 may safely ignore this @term{declaration}.
 
-A @code{safety} @term{declaration} that increases the current safety level
+A @coderef{safety} @term{declaration} that increases the current safety level
 must always be recognized.  An @term{implementation} that always processes
 code as if safety were high may safely ignore this @term{declaration}.
 
-A @code{special} @term{declaration} must be processed by all @term{implementations}.
+A @coderef{special} @term{declaration} must be processed by all @term{implementations}.
 
 
 @node Declaration Specifiers
 @subsection Declaration Specifiers
 
 A @newterm{declaration specifier} is an @term{expression} that can appear at
-top level of a @t{declare} expression or a @code{declaim} form, or as
-the argument to @code{proclaim}.
+top level of a @t{declare} expression or a @coderef{declaim} form, or as
+the argument to @coderef{proclaim}.
 It is a @term{list} whose @term{car} is a @term{declaration identifier},
 and whose @term{cdr} is data interpreted according to rules specific to
 the @term{declaration identifier}.
@@ -2215,7 +2215,7 @@ if a @term{declaration identifier}
 is not among those defined above,
 is not defined by the @term{implementation},
 is not a @term{type} @term{name},
-and has not been declared in a @code{declaration} @term{proclamation}.
+and has not been declared in a @coderef{declaration} @term{proclamation}.
 
 @node Shorthand notation for Type Declarations
 @subsubsection Shorthand notation for Type Declarations
@@ -2275,11 +2275,11 @@ are:
 
 
 @itemize @bullet{}
-@item @code{do}, @code{do*}:
+@item @coderef{do}, @coderef{do*}:
 @param{step-forms}, @param{end-test-form}, and @param{result-forms}.
-@item @code{dolist}, @code{dotimes}:
+@item @coderef{dolist}, @coderef{dotimes}:
 @param{result-form}
-@item @code{do-all-symbols}, @code{do-external-symbols}, @code{do-symbols}:
+@item @coderef{do-all-symbols}, @coderef{do-external-symbols}, @coderef{do-symbols}:
 @param{result-form}
 @end itemize
 
@@ -2302,17 +2302,17 @@ Here is an example illustrating the @term{scope} of @term{bound declarations}.
 
 
 The first occurrence of @f{x} @term{establishes} a @term{dynamic binding}
-of @f{x} because of the @code{special} @term{declaration} for @f{x}
+of @f{x} because of the @coderef{special} @term{declaration} for @f{x}
 in the second line.  The third occurrence of @f{x} @term{establishes} a
-@term{lexical binding} of @f{x} (because there is no @code{special}
-@term{declaration} in the corresponding @code{let} @term{form}).
+@term{lexical binding} of @f{x} (because there is no @coderef{special}
+@term{declaration} in the corresponding @coderef{let} @term{form}).
 The fourth occurrence of @f{x} @term{x} is a reference to the
 @term{lexical binding} of @f{x} established in the third line.
 The fifth occurrence of @f{x} @term{establishes} a @term{dynamic binding}
-of @term{x} for the body of the @code{let} @term{form} that begins on
-that line because of the @code{special} @term{declaration} for @f{x}
+of @term{x} for the body of the @coderef{let} @term{form} that begins on
+that line because of the @coderef{special} @term{declaration} for @f{x}
 in the sixth line. The reference to @f{x} in the fourth line is not
-affected by the @code{special} @term{declaration} in the sixth line
+affected by the @coderef{special} @term{declaration} in the sixth line
 because that reference is not within the ``would-be @term{lexical scope}''
 of the @term{variable} @f{x} in the fifth line.  The reference to @f{x}
 in the seventh line is a reference to the @term{dynamic binding} of @term{x}
@@ -2331,7 +2331,7 @@ Here is another example, to illustrate the @term{scope} of a
 the @term{call} to @f{foo} in the first line might be
 compiled inline even though the @term{call} to @f{foo} in
 the third line must not be.  This is because
-the @code{notinline} @term{declaration}
+the @coderef{notinline} @term{declaration}
 for @f{foo} in the second line applies only to the body on the
 third line.  In order to suppress inlining for both @term{calls},
 one might write:
@@ -2371,7 +2371,7 @@ In this example, the first reference to @f{x} on the fourth line is to
 the @term{lexical binding} of @f{x} established on the third line.
 However, the second occurrence of @f{x} on the fourth line lies within
 the @term{scope} of the @term{free declaration} on the fifth line
-(because this is the @param{result-form} of the @code{dotimes})
+(because this is the @param{result-form} of the @coderef{dotimes})
 and therefore refers to the @term{dynamic binding} of @f{x}.
 
 
@@ -2388,28 +2388,28 @@ There are several kinds of @term{lambda lists}.
 
 @float Figure,fig3.10
 @cartouche
-@multitable{@code{define-method-combination} @kwd{arguments} option}{@term{define-method-combination arguments lambda list}}
+@multitable{@coderef{define-method-combination} @kwd{arguments} option}{@term{define-method-combination arguments lambda list}}
 @headitem Context @tab Kind of Lambda List
-@item @code{defun} @term{form} @tab @term{ordinary lambda list}
-@item @code{defmacro} @term{form} @tab @term{macro lambda list}
+@item @coderef{defun} @term{form} @tab @term{ordinary lambda list}
+@item @coderef{defmacro} @term{form} @tab @term{macro lambda list}
 @item @term{lambda expression} @tab @term{ordinary lambda list}
-@item @code{flet} local @term{function} definition @tab @term{ordinary lambda list}
-@item @code{labels} local @term{function} definition @tab @term{ordinary lambda list}
-@item @code{handler-case} @param{clause} specification @tab @term{ordinary lambda list}
-@item @code{restart-case} @param{clause} specification @tab @term{ordinary lambda list}
-@item @code{macrolet} local @term{macro} definition @tab @term{macro lambda list}
-@item @code{define-method-combination} @tab @term{ordinary lambda list}
-@item @code{define-method-combination} @kwd{arguments} option @tab @term{define-method-combination arguments lambda list}
-@item @code{defstruct} @kwd{constructor} option @tab @term{boa lambda list}
-@item @code{defgeneric} @term{form} @tab @term{generic function lambda list}
-@item @code{defgeneric} @term{method} clause @tab @term{specialized lambda list}
-@item @code{defmethod} @term{form} @tab @term{specialized lambda list}
-@item @code{defsetf} @term{form} @tab @term{defsetf lambda list}
-@item @code{define-setf-expander} @term{form} @tab @term{macro lambda list}
-@item @code{deftype} @term{form} @tab @term{deftype lambda list}
-@item @code{destructuring-bind} @term{form} @tab @term{destructuring lambda list}
-@item @code{define-compiler-macro} @term{form} @tab @term{macro lambda list}
-@item @code{define-modify-macro} @term{form} @tab @term{define-modify-macro lambda list}
+@item @coderef{flet} local @term{function} definition @tab @term{ordinary lambda list}
+@item @coderef{labels} local @term{function} definition @tab @term{ordinary lambda list}
+@item @coderef{handler-case} @param{clause} specification @tab @term{ordinary lambda list}
+@item @coderef{restart-case} @param{clause} specification @tab @term{ordinary lambda list}
+@item @coderef{macrolet} local @term{macro} definition @tab @term{macro lambda list}
+@item @coderef{define-method-combination} @tab @term{ordinary lambda list}
+@item @coderef{define-method-combination} @kwd{arguments} option @tab @term{define-method-combination arguments lambda list}
+@item @coderef{defstruct} @kwd{constructor} option @tab @term{boa lambda list}
+@item @coderef{defgeneric} @term{form} @tab @term{generic function lambda list}
+@item @coderef{defgeneric} @term{method} clause @tab @term{specialized lambda list}
+@item @coderef{defmethod} @term{form} @tab @term{specialized lambda list}
+@item @coderef{defsetf} @term{form} @tab @term{defsetf lambda list}
+@item @coderef{define-setf-expander} @term{form} @tab @term{macro lambda list}
+@item @coderef{deftype} @term{form} @tab @term{deftype lambda list}
+@item @coderef{destructuring-bind} @term{form} @tab @term{destructuring lambda list}
+@item @coderef{define-compiler-macro} @term{form} @tab @term{macro lambda list}
+@item @coderef{define-modify-macro} @term{form} @tab @term{define-modify-macro lambda list}
 @end multitable
 @end cartouche
 @caption{What Kind of Lambda Lists to Use}
@@ -2486,7 +2486,7 @@ Each @term{element} of a @term{lambda list} is either a parameter specifier
 or a @term{lambda list keyword}.
 Implementations are free to provide additional @term{lambda list keywords}.
 For a list of all @term{lambda list keywords}
-used by the implementation, see @code{lambda-list-keywords}.
+used by the implementation, see @coderef{lambda-list-keywords}.
 
 The syntax for @term{ordinary lambda lists} is as follows:
 
@@ -2520,7 +2520,7 @@ the first @term{lambda list keyword};
 if there are no @term{lambda list keywords},
 then all the specifiers are for required parameters.
 Each required parameter is specified by a parameter variable @param{var}.
-@param{var} is bound as a lexical variable unless it is declared @code{special}.
+@param{var} is bound as a lexical variable unless it is declared @coderef{special}.
 
 If there are @f{n} required parameters (@f{n} may be zero),
 there must be at least @f{n} passed arguments, and the
@@ -2571,7 +2571,7 @@ should be signaled if
 any unprocessed arguments remain; see @ref{Error Checking in Function Calls}.
 The value of a @term{rest parameter}
 is permitted, but not required, to share structure with the
-last argument to @code{apply}.
+last argument to @coderef{apply}.
 
 @cindex &key
 @cindex &allow-other-keys
@@ -2604,7 +2604,7 @@ the parameter variable.
 If the @param{var} appears alone or in a @f{(@param{var} @param{init-form})}
 combination, the keyword name used when matching @term{arguments} to @term{parameters}
 is a @term{symbol} in the @code{KEYWORD} @term{package} whose @term{name} is the
-@term{same} (under @code{string=}) as @param{var}'s.
+@term{same} (under @coderef{string=}) as @param{var}'s.
 If the notation @f{((@param{keyword-name} @param{var}) @param{init-form})} is used,
 then the keyword name used to match @term{arguments} to @term{parameters} is
 @param{keyword-name}, which may be a @term{symbol} in any @term{package}.
@@ -2627,7 +2627,7 @@ means exactly the same as
 The keyword parameter specifiers are, like all parameter specifiers,
 effectively processed from left to right.  For each keyword parameter
 specifier, if there is an argument pair whose name matches that
-specifier's name (that is, the names are @code{eq}), then the
+specifier's name (that is, the names are @coderef{eq}), then the
 parameter variable for that specifier is bound to the second item (the
 value) of that argument pair.  If more than one such argument pair
 matches, the leftmost argument pair is used.  If no such argument pair
@@ -2714,7 +2714,7 @@ auxiliary variable specifiers (those following @aux{}) are processed
 from left to right.  For each one, @param{init-form} is evaluated and
 @param{var} is bound to that value (or to @nil{}@spc{}if no @param{init-form}
 was specified).  @keyref{aux} variable processing is analogous to
-@code{let*} processing.
+@coderef{let*} processing.
 
 @lisp
  (lambda (x y &aux (a (car x)) (b 2) c) (list x y a b c))
@@ -2789,7 +2789,7 @@ and @term{keyword parameters} together:
 As an example of the use of @keyref{allow-other-keys} and
 @kwd{allow-other-keys}, consider a @term{function} that takes two named
 arguments of its own and also accepts additional named arguments to be
-passed to @code{make-array}:
+passed to @coderef{make-array}:
 
 @lisp
  (defun array-of-strings (str dims &rest named-pairs
@@ -2810,11 +2810,11 @@ arguments may be used to specify that a substring of the given
 @keyref{allow-other-keys} in the @term{lambda list} indicates that the
 caller may supply additional named arguments; the @term{rest parameter}
 provides access to them.  These additional named arguments are passed
-to @code{make-array}.  The @term{function} @code{make-array}
+to @coderef{make-array}.  The @term{function} @coderef{make-array}
 normally does not allow the named arguments @kwd{start}
 and @kwd{end} to be used, and an error should be
-signaled if such named arguments are supplied to @code{make-array}.
-However, the presence in the call to @code{make-array}
+signaled if such named arguments are supplied to @coderef{make-array}.
+However, the presence in the call to @coderef{make-array}
 of the named argument @kwd{allow-other-keys} with
 a @term{true} value causes any extraneous named arguments, including
 @kwd{start} and @kwd{end}, to be acceptable and ignored.
@@ -2829,7 +2829,7 @@ the argument list to be accepted by a @term{generic function}.
 Individual @term{method} @term{signatures} might contribute additional
 @term{keyword parameters} to the @term{lambda list} of the @term{effective method}.
 
-A @term{generic function lambda list} is used by @code{defgeneric}.
+A @term{generic function lambda list} is used by @coderef{defgeneric}.
 
 A @term{generic function lambda list} has the following syntax:
 
@@ -3009,11 +3009,11 @@ to an @term{environment} representing the @term{lexical environment} in which th
 macro call is to be interpreted.
 This @term{environment}
 should be used with
-@code{macro-function},
-@code{get-setf-expansion},
-@code{compiler-macro-function},
+@coderef{macro-function},
+@coderef{get-setf-expansion},
+@coderef{compiler-macro-function},
 and
-@code{macroexpand}
+@coderef{macroexpand}
 (for example) in computing the expansion of the macro, to ensure that any
 @term{lexical bindings} or definitions established in the
 @term{compilation environment} are taken into account.
@@ -3159,7 +3159,7 @@ If the list being destructured ends
 early, so that it does not have an element to match against this destructuring
 (sub)-pattern, the default form is evaluated and destructured instead.  The
 supplied-p variable receives the value
-@nil{}@spc{}if the default form is used, @code{t}@spc{}otherwise.
+@nil{}@spc{}if the default form is used, @coderef{t}@spc{}otherwise.
 
 @item @id{@keyref{rest}, @keyref{body}}
 
@@ -3221,7 +3221,7 @@ Stands by itself.
 @node Destructuring Lambda Lists
 @subsection Destructuring Lambda Lists
 
-A @newterm{destructuring lambda list} is used by @code{destructuring-bind}.
+A @newterm{destructuring lambda list} is used by @coderef{destructuring-bind}.
 
 @term{Destructuring lambda lists} are closely related to
 @term{macro lambda lists}; see @ref{Macro Lambda Lists}.
@@ -3246,7 +3246,7 @@ A @newterm{boa lambda list} is a @term{lambda list} that is syntactically
 like an @term{ordinary lambda list}, but that is processed in
 ``@b{b}y @b{o}rder of @b{a}rgument'' style.
 
-A @term{boa lambda list} is used only in a @code{defstruct} @term{form},
+A @term{boa lambda list} is used only in a @coderef{defstruct} @term{form},
 when explicitly specifying the @term{lambda list}
 of a constructor @term{function} (sometimes called a ``boa constructor'').
 
@@ -3256,7 +3256,7 @@ The @keyref{optional}, @keyref{rest}, @keyref{aux},
 The way these @term{lambda list keywords} differ from their
 use in an @term{ordinary lambda list} follows.
 
-Consider this example, which describes how @code{destruct} processes
+Consider this example, which describes how @coderef{destruct} processes
 its @kwd{constructor} option.
 
 @lisp
@@ -3269,7 +3269,7 @@ This defines @f{create-foo} to be a constructor of one or more arguments.
 The first argument is used to initialize the @f{a} slot.  The second
 argument is used to initialize the @f{b} slot.  If there isn't any
 second argument, then the default value given in the body of the
-@code{defstruct} (if given) is used instead.
+@coderef{defstruct} (if given) is used instead.
 The third argument is used to
 initialize the @f{c} slot.  If there isn't any third argument, then the
 symbol @f{sea} is used instead.  Any arguments following the third
@@ -3282,7 +3282,7 @@ Finally, the @f{f} slot is initialized to contain the symbol @f{eff}.
 @keyref{key} and @keyref{allow-other-keys} arguments default
 in a manner similar to that of @keyref{optional} arguments: if no default
 is supplied in the @term{lambda list} then the default value
-given in the body of the @code{defstruct} (if given) is used instead.
+given in the body of the @coderef{defstruct} (if given) is used instead.
 For example:
 
 @lisp
@@ -3352,7 +3352,7 @@ might also be used this way.
 @node Defsetf Lambda Lists
 @subsection Defsetf Lambda Lists
 
-A @newterm{defsetf lambda list} is used by @code{defsetf}.
+A @newterm{defsetf lambda list} is used by @coderef{defsetf}.
 
 A @term{defsetf lambda list} has the following syntax:
 
@@ -3384,7 +3384,7 @@ which introduces an @term{environment parameter}.
 @node Deftype Lambda Lists
 @subsection Deftype Lambda Lists
 
-A @newterm{deftype lambda list} is used by @code{deftype}.
+A @newterm{deftype lambda list} is used by @coderef{deftype}.
 
 A @term{deftype lambda list} has the same syntax as a @term{macro lambda list},
 and can therefore contain the @term{lambda list keywords} as a @term{macro lambda list}.
@@ -3399,7 +3399,7 @@ for that @term{parameter} is the @term{symbol} @t{*} (rather than @nil{}).
 @subsection Define-modify-macro Lambda Lists
 
 A @newterm{define-modify-macro lambda list} is used by
-@code{define-modify-macro}.
+@coderef{define-modify-macro}.
 
 A @term{define-modify-macro lambda list} can contain the
 @term{lambda list keywords} shown in @thenextfigure{}.
@@ -3418,9 +3418,9 @@ A @term{define-modify-macro lambda list} can contain the
 
 @term{Define-modify-macro lambda lists} are similar to
 @term{ordinary lambda lists}, but do not support keyword arguments.
-@code{define-modify-macro} has no need match keyword arguments, and
+@coderef{define-modify-macro} has no need match keyword arguments, and
 a @term{rest parameter} is sufficient.  @term{Aux variables} are also
-not supported, since @code{define-modify-macro} has no body @term{forms}
+not supported, since @coderef{define-modify-macro} has no body @term{forms}
 which could refer to such @term{bindings}.  See the @term{macro} @ref{define-modify-macro}.
 
 
@@ -3428,7 +3428,7 @@ which could refer to such @term{bindings}.  See the @term{macro} @ref{define-mod
 @subsection Define-method-combination Arguments Lambda Lists
 
 A @newterm{define-method-combination arguments lambda list} is used by
-the @kwd{arguments} option to @code{define-method-combination}.
+the @kwd{arguments} option to @coderef{define-method-combination}.
 
 A @term{define-method-combination arguments lambda list} can contain the
 @term{lambda list keywords} shown in @thenextfigure{}.
@@ -3511,31 +3511,31 @@ it is considered @term{safe} if all of the following are
 @item
 For the form @f{(coerce @param{x} 'function)},
 where @param{x} is a @term{lambda expression},
-the value of the @term{optimize quality} @code{safety}
-in the global environment at the time the @code{coerce}
+the value of the @term{optimize quality} @coderef{safety}
+in the global environment at the time the @coderef{coerce}
 is @term{executed} applies to the resulting @term{function}.
 
 
 
 @item
 For a call to @thefunction{ensure-generic-function}, the value of the
-@term{optimize quality} @code{safety} in the @term{environment}
+@term{optimize quality} @coderef{safety} in the @term{environment}
 @term{object} passed as the @kwd{environment} @term{argument} applies
 to the resulting @term{generic function}.
 
 @item
-For a call to @code{compile} with a @term{lambda expression} as the
-@term{argument}, the value of the @term{optimize quality} @code{safety}
-in the @term{global environment} at the time @code{compile} is @term{called}
+For a call to @coderef{compile} with a @term{lambda expression} as the
+@term{argument}, the value of the @term{optimize quality} @coderef{safety}
+in the @term{global environment} at the time @coderef{compile} is @term{called}
 applies to the resulting @term{compiled function}.
 
 @item
-For a call to @code{compile} with only one argument, if the original definition
+For a call to @coderef{compile} with only one argument, if the original definition
 of the @term{function} was @term{safe}, then the resulting @term{compiled function}
 must also be @term{safe}.
 
 @item
-A @term{call} to a @term{method} by @code{call-next-method} must be
+A @term{call} to a @term{method} by @coderef{call-next-method} must be
 considered @term{safe} if each of the following is
 @term{safe code} or @term{system code}:
 
@@ -3545,8 +3545,8 @@ considered @term{safe} if each of the following is
 @item the @term{method} definitions for all @term{applicable} @term{methods}.
 @item the definition of the @term{method combination}.
 @item the point of entry into the body of the @term{method defining form},
-where the @term{binding} of @code{call-next-method} is established.
-@item the point of @term{functional evaluation} of the name @code{call-next-method}.
+where the @term{binding} of @coderef{call-next-method} is established.
+@item the point of @term{functional evaluation} of the name @coderef{call-next-method}.
 @end itemize
 
 @end itemize
@@ -3557,10 +3557,10 @@ An @newterm{unsafe call} is a @term{call} that is not a @term{safe call}.
 The informal intent is that the @term{programmer} can rely on a @term{call}
 to be @term{safe}, even when @term{system code} is involved, if all reasonable
 steps have been taken to ensure that the @term{call} is @term{safe}.
-For example, if a @term{programmer} calls @code{mapcar} from @term{safe}
+For example, if a @term{programmer} calls @coderef{mapcar} from @term{safe}
 @term{code} and supplies a @term{function} that was @term{compiled}
 as @term{safe}, the @term{implementation} is required to ensure that
-@code{mapcar} makes a @term{safe call} as well.
+@coderef{mapcar} makes a @term{safe call} as well.
 
 @node Error Detection Time in Safe Calls
 @subsubsection Error Detection Time in Safe Calls
@@ -3658,9 +3658,9 @@ and in an @term{unsafe call} the @term{situation} has undefined consequences.
 @node Errors When Calling a Next Method
 @subsubsection Errors When Calling a Next Method
 
-If @code{call-next-method} is called with @term{arguments}, the ordered
+If @coderef{call-next-method} is called with @term{arguments}, the ordered
 set of @term{applicable} @term{methods} for the changed set of @term{arguments}
-for @code{call-next-method} must be the same as the ordered set of
+for @coderef{call-next-method} must be the same as the ordered set of
 @term{applicable} @term{methods} for the original @term{arguments} to the
 @term{generic function}, or else an error should be signaled.
 
@@ -3669,11 +3669,11 @@ new arguments and the set applicable to the original arguments is
 insensitive to order differences among methods with the same
 specializers.
 
-If @code{call-next-method} is called with @term{arguments} that specify
+If @coderef{call-next-method} is called with @term{arguments} that specify
 a different ordered set of @term{applicable} methods and there is no
 @term{next method} available, the test for different methods and the
 associated error signaling (when present) takes precedence over calling
-@code{no-next-method}.
+@coderef{no-next-method}.
 
 
 
@@ -3712,7 +3712,7 @@ may be changed or removed.
 @item @id{@b{Package traversal}}
 
 
-For @term{package} traversal operations (@eg{} @code{do-symbols}),
+For @term{package} traversal operations (@eg{} @coderef{do-symbols}),
 new @term{symbols} may not be @term{interned} in or @term{uninterned}
 from the @term{package} being traversed
 or any @term{package} that it uses except that the
@@ -3739,19 +3739,19 @@ are considered @term{destructive}:
 
 @table @asis
 
-@item @id{@code{random-state}}
+@item @id{@coderef{random-state}}
 
 
 Using it as an @term{argument} to @thefunction{random}.
 
-@item @id{@code{cons}}
+@item @id{@coderef{cons}}
 
 
 Changing the @term{car}@sub{1} or @term{cdr}@sub{1} of the @term{cons},
 or performing a @term{destructive} operation on an @term{object} which is either
 the @term{car}@sub{2} or the @term{cdr}@sub{2} of the @term{cons}.
 
-@item @id{@code{array}}
+@item @id{@coderef{array}}
 
 
 Storing a new value into some element of the @term{array},
@@ -3765,7 +3765,7 @@ Performing a @term{destructive} operation on another @term{array}
 that is displaced to the @term{array} or that otherwise shares its contents
 with the @term{array}.
 
-@item @id{@code{hash-table}}
+@item @id{@coderef{hash-table}}
 
 
 Performing a @term{destructive} operation on any @term{key}.
@@ -3776,14 +3776,14 @@ on any @term{object} that is such a @term{value}.
 
 Adding or removing entries from the @term{hash table}.
 
-@item @id{@code{structure-object}}
+@item @id{@coderef{structure-object}}
 
 
 Storing a new value into any slot,
 or performing a @term{destructive} operation on an @term{object}
 that is the value of some slot.
 
-@item @id{@code{standard-object}}
+@item @id{@coderef{standard-object}}
 
 
 Storing a new value into any slot,
@@ -3792,7 +3792,7 @@ that is the value of some slot.
 
 Changing the class of the @term{object} (@eg{} using @thefunction{change-class}).
 
-@item @id{@code{readtable}}
+@item @id{@coderef{readtable}}
 
 
 Altering the @term{readtable case}.
@@ -3804,7 +3804,7 @@ in the @term{readtable}, or altering the @term{reader macro functions}
 associated with @term{characters} defined as @term{dispatching macro characters}
 in the @term{readtable}.
 
-@item @id{@code{stream}}
+@item @id{@coderef{stream}}
 
 
 Performing I/O operations on the @term{stream},
@@ -3813,16 +3813,16 @@ or @term{closing} the @term{stream}.
 @item @id{All other standardized types}
 
 
-[This category includes, for example, @code{character},
-@code{condition},
-@code{function},
-@code{method-combination},
-@code{method},
-@code{number},
-@code{package},
-@code{pathname},
-@code{restart},
-and @code{symbol}.]
+[This category includes, for example, @coderef{character},
+@coderef{condition},
+@coderef{function},
+@coderef{method-combination},
+@coderef{method},
+@coderef{number},
+@coderef{package},
+@coderef{pathname},
+@coderef{restart},
+and @coderef{symbol}.]
 
 There are no @term{standardized} @term{destructive} operations
 defined on @term{objects} of these @term{types}.
@@ -3978,7 +3978,7 @@ is semantically equivalent to the @term{function form}
 
 @subsubheading Description:
 
-Provides a shorthand notation for a @code{function} @term{special form}
+Provides a shorthand notation for a @coderef{function} @term{special form}
 involving a @term{lambda expression} such that:
 
 @lisp
@@ -4043,11 +4043,11 @@ or a @term{compiled function}.
 
 Compiles an @term{interpreted function}.
 
-@code{compile} produces a @term{compiled function} from @param{definition}.
+@coderef{compile} produces a @term{compiled function} from @param{definition}.
 If the @param{definition} is a @term{lambda expression},
 it is coerced to a @term{function}.
 If the @param{definition} is already a @term{compiled function},
-@code{compile} either produces that function itself (@ie{} is an identity operation)
+@coderef{compile} either produces that function itself (@ie{} is an identity operation)
 or an equivalent function.
 
 @editornote{KMP: There are a number of ambiguities here that still need resolution.}
@@ -4062,24 +4062,24 @@ its @term{macro function} is updated
 and the @param{name} is returned as the @term{primary value}.
 
 @term{Literal objects} appearing in code processed by
-the @code{compile} function are neither copied nor @term{coalesced}.
-The code resulting from the execution of @code{compile}
-references @term{objects} that are @code{eql} to the corresponding
+the @coderef{compile} function are neither copied nor @term{coalesced}.
+The code resulting from the execution of @coderef{compile}
+references @term{objects} that are @coderef{eql} to the corresponding
 @term{objects} in the source code.
 
-@code{compile} is permitted, but not required, to @term{establish}
+@coderef{compile} is permitted, but not required, to @term{establish}
 a @term{handler} for @term{conditions} @oftype{error}.
 For example, the @term{handler} might issue a warning and
 restart compilation from some @term{implementation-dependent} point
 in order to let the compilation proceed without manual intervention.
 
 The @term{secondary value}, @param{warnings-p}, is @term{false}
-if no @term{conditions} @oftype{error} or @code{warning}
+if no @term{conditions} @oftype{error} or @coderef{warning}
 were detected by the compiler, and @term{true} otherwise.
 
 The @term{tertiary value}, @param{failure-p}, is @term{false}
-if no @term{conditions} @oftype{error} or @code{warning}
-(other than @code{style-warning})
+if no @term{conditions} @oftype{error} or @coderef{warning}
+(other than @coderef{style-warning})
 were detected by the compiler, and @term{true} otherwise.
 
 @subsubheading Examples:
@@ -4097,8 +4097,8 @@ were detected by the compiler, and @term{true} otherwise.
 
 @subsubheading Affected By:
 
-@code{*error-output*},
-@code{*macroexpand-hook*}.
+@coderef{*error-output*},
+@coderef{*macroexpand-hook*}.
 
 The presence of macro definitions and proclamations.
 
@@ -4138,16 +4138,16 @@ see @ref{Exceptional Situations in the Compiler}.
 Evaluates @param{form} in the current @term{dynamic environment}
 and the @term{null lexical environment}.
 
-@code{eval} is a user interface to the evaluator.
+@coderef{eval} is a user interface to the evaluator.
 
-The evaluator expands macro calls as if through the use of @code{macroexpand-1}.
+The evaluator expands macro calls as if through the use of @coderef{macroexpand-1}.
 
 Constants appearing in code
-processed by @code{eval} are
+processed by @coderef{eval} are
 not copied nor coalesced. The code resulting from the execution of
-@code{eval}
+@coderef{eval}
 references @term{objects}
-that are @code{eql} to the corresponding @term{objects} in
+that are @coderef{eql} to the corresponding @term{objects} in
 the source code.
 
 @subsubheading Examples:
@@ -4169,15 +4169,15 @@ the source code.
 @subsubheading Notes:
 
 To obtain the current dynamic value of a @term{symbol},
-use of @code{symbol-value} is equivalent (and usually preferable)
-to use of @code{eval}.
+use of @coderef{symbol-value} is equivalent (and usually preferable)
+to use of @coderef{eval}.
 
-Note that an @code{eval} @term{form} involves two levels of @term{evaluation}
+Note that an @coderef{eval} @term{form} involves two levels of @term{evaluation}
 for its @term{argument}.  First, @param{form} is @term{evaluated} by the
 normal argument evaluation mechanism as would occur with any @term{call}.
 The @term{object} that results from this normal @term{argument} @term{evaluation}
 becomes the @term{value} of the @param{form} @term{parameter}, and is then
-@term{evaluated} as part of the @code{eval} @term{form}.
+@term{evaluated} as part of the @coderef{eval} @term{form}.
 For example:
 
 @lisp
@@ -4186,10 +4186,10 @@ For example:
 
 The @term{argument} @term{form} @f{(list 'cdr (car '((quote (a . b)) c)))} is evaluated
 in the usual way to produce the @term{argument} @f{(cdr (quote (a . b)))};
-@code{eval} then evaluates its @term{argument}, @f{(cdr (quote (a . b)))}, to produce @f{b}.
+@coderef{eval} then evaluates its @term{argument}, @f{(cdr (quote (a . b)))}, to produce @f{b}.
 Since a single @term{evaluation} already occurs for any @term{argument} @term{form}
 in any @term{function form},
-@code{eval} is sometimes said to perform ``an extra level of evaluation.''
+@coderef{eval} is sometimes said to perform ``an extra level of evaluation.''
 
 
 
@@ -4234,38 +4234,38 @@ or @nil{}@spc{}if they are not.
 
 @subsubheading Description:
 
-The body of an @code{eval-when} form is processed as an @term{implicit progn},
+The body of an @coderef{eval-when} form is processed as an @term{implicit progn},
 but only in the @param{situations} listed.
 
 
 
 The use of the @param{situations} @kwd{compile-toplevel} (or @tt{compile}) and
 @kwd{load-toplevel} (or @tt{load}) controls whether and when @term{evaluation}
-occurs when @code{eval-when} appears as a @term{top level form} in
-code processed by @code{compile-file}.  See @ref{File Compilation}.
+occurs when @coderef{eval-when} appears as a @term{top level form} in
+code processed by @coderef{compile-file}.  See @ref{File Compilation}.
 
 The use of the @param{situation} @kwd{execute} (or @tt{eval}) controls whether
-evaluation occurs for other @code{eval-when} @term{forms}; that is,
+evaluation occurs for other @coderef{eval-when} @term{forms}; that is,
 those that are not @term{top level forms}, or those in code processed by
-@code{eval} or @code{compile}.  If the @kwd{execute} situation is
+@coderef{eval} or @coderef{compile}.  If the @kwd{execute} situation is
 specified in such a @term{form}, then the body @param{forms} are processed as
-an @term{implicit progn}; otherwise, the @code{eval-when} @term{form}
+an @term{implicit progn}; otherwise, the @coderef{eval-when} @term{form}
 returns @nil{}.
 
 
 
-@code{eval-when}
+@coderef{eval-when}
 normally appears as a @term{top level form}, but it is meaningful
 for it to appear as a @term{non-top-level form}.
 However, the compile-time side
 effects described in @ref{Compilation}
-only take place when @code{eval-when} appears as a
+only take place when @coderef{eval-when} appears as a
 @term{top level form}.
 
 
 @subsubheading Examples:
 
-One example of the use of @code{eval-when} is that for the
+One example of the use of @coderef{eval-when} is that for the
 compiler to be able to read a file properly when it uses user-defined
 @term{reader macros}, it is necessary to write
 
@@ -4276,7 +4276,7 @@ compiler to be able to read a file properly when it uses user-defined
                                 (list 'dollar (read stream))))) @EV{} T
 @end lisp
 
-This causes the call to @code{set-macro-character} to be executed
+This causes the call to @coderef{set-macro-character} to be executed
 in the compiler's execution environment, thereby modifying its
 reader syntax table.
 
@@ -4335,12 +4335,12 @@ reader syntax table.
 @subsubheading Notes:
 
 The following effects are logical consequences of the definition of
-@code{eval-when}:
+@coderef{eval-when}:
 
 
 @itemize @bullet{}
 @item
-Execution of a single @code{eval-when}
+Execution of a single @coderef{eval-when}
 expression executes the body code at most once.
 
 @item
@@ -4372,9 +4372,9 @@ Adherence to this convention means that such @term{macros} behave
 intuitively when appearing as @term{non-top-level forms}.
 
 @item
-Placing a variable binding around an @code{eval-when} reliably
+Placing a variable binding around an @coderef{eval-when} reliably
 captures the binding because the compile-time-too mode cannot occur
-(@ie{} introducing a variable binding means that the @code{eval-when}
+(@ie{} introducing a variable binding means that the @coderef{eval-when}
 is not a @term{top level form}).
 For example,
 
@@ -4387,9 +4387,9 @@ For example,
 prints @tt{3}
 at execution (@ie{} load) time, and does not print anything at
 compile time.  This is important so that expansions of
-@code{defun} and
-@code{defmacro}
-can be done in terms of @code{eval-when} and can correctly capture
+@coderef{defun} and
+@coderef{defmacro}
+can be done in terms of @coderef{eval-when} and can correctly capture
 the @term{lexical environment}.
 
 @lisp
@@ -4442,12 +4442,12 @@ when the definition of @f{bar} is not a @term{top level form}.
 
 @subsubheading Description:
 
-@code{load-time-value} provides a mechanism for delaying evaluation of @param{form}
+@coderef{load-time-value} provides a mechanism for delaying evaluation of @param{form}
 until the expression is in the run-time environment; see @ref{Compilation}.
 
 @param{Read-only-p} designates whether the result can be considered a
 @term{constant object}.
-If @code{t},
+If @coderef{t},
 the result is a read-only quantity that can,
 if appropriate to the @term{implementation},
 be copied into read-only space and/or @term{coalesced} with @term{similar}
@@ -4456,7 +4456,7 @@ If @nil{}@spc{}(the default),
 the result must be neither copied nor coalesced;
 it must be considered to be potentially modifiable data.
 
-If a @code{load-time-value} expression is processed by @code{compile-file},
+If a @coderef{load-time-value} expression is processed by @coderef{compile-file},
 the compiler performs its normal semantic processing (such as macro expansion
 and translation into machine code) on @param{form}, but arranges for the
 execution of @param{form} to occur at load time in a @term{null lexical environment},
@@ -4469,28 +4469,28 @@ the order of evaluation with respect to the evaluation of
 @cindex order of evaluation
 @cindex evaluation order
 
-If a @code{load-time-value} expression appears within a function compiled
-with @code{compile}, the @param{form} is evaluated at compile time in a
+If a @coderef{load-time-value} expression appears within a function compiled
+with @coderef{compile}, the @param{form} is evaluated at compile time in a
 @term{null lexical environment}.  The result of this compile-time evaluation
 is treated as
 a @term{literal object}
 in the compiled code.
 
-If a @code{load-time-value} expression is processed by @code{eval},
+If a @coderef{load-time-value} expression is processed by @coderef{eval},
 @param{form} is evaluated in a @term{null lexical environment},
 and one value is returned.  Implementations that implicitly compile
-(or partially compile) expressions processed by @code{eval}
+(or partially compile) expressions processed by @coderef{eval}
 might evaluate @param{form} only once, at the time this compilation is performed.
 
 If the @term{same} @term{list} @f{(load-time-value @param{form})} is
 evaluated or compiled more than once, it is @term{implementation-dependent}
 whether @param{form} is evaluated only once or is evaluated more than once.
 This can happen both when an expression being evaluated or compiled shares
-substructure, and when the @term{same} @term{form} is processed by @code{eval} or
-@code{compile} multiple times.
-Since a @code{load-time-value} expression can be
+substructure, and when the @term{same} @term{form} is processed by @coderef{eval} or
+@coderef{compile} multiple times.
+Since a @coderef{load-time-value} expression can be
 referenced in more than one place and can be evaluated multiple times
-by @code{eval}, it is
+by @coderef{eval}, it is
 @term{implementation-dependent} whether each execution returns
 a fresh @term{object}
 or returns the same @term{object} as some other execution.
@@ -4498,11 +4498,11 @@ Users must use caution when destructively modifying the resulting
 @term{object}.
 
 If two lists @f{(load-time-value @param{form})}
-that are the @term{same} under @code{equal} but are not @term{identical}
+that are the @term{same} under @coderef{equal} but are not @term{identical}
 are evaluated or compiled,
 their values always come from distinct evaluations of @param{form}.
 Their @term{values} may not be coalesced
-unless @param{read-only-p} is @code{t}.
+unless @param{read-only-p} is @coderef{t}.
 
 @subsubheading Examples:
 
@@ -4556,9 +4556,9 @@ unless @param{read-only-p} is @code{t}.
 
 @subsubheading Notes:
 
-@code{load-time-value} must appear outside of quoted structure in a
+@coderef{load-time-value} must appear outside of quoted structure in a
 ``for @term{evaluation}'' position.  In situations which would appear to call
-for use of @code{load-time-value} within a quoted structure,
+for use of @coderef{load-time-value} within a quoted structure,
 the @term{backquote} @term{reader macro} is probably called for;
 see @ref{Backquote}.
 
@@ -4625,10 +4625,10 @@ The textual notation @f{'@param{object}} is equivalent to @f{(quote @param{objec
 see @ref{Compiler Terminology}.
 
 Some @term{objects}, called @term{self-evaluating objects},
-do not require quotation by @code{quote}.
+do not require quotation by @coderef{quote}.
 However, @term{symbols} and @term{lists} are used to represent parts of programs,
-and so would not be useable as constant data in a program without @code{quote}.
-Since @code{quote} suppresses the @term{evaluation} of these @term{objects},
+and so would not be useable as constant data in a program without @coderef{quote}.
+Since @coderef{quote} suppresses the @term{evaluation} of these @term{objects},
 they become data rather than program.
 
 
@@ -4699,7 +4699,7 @@ in a use of @SETFof{compiler-macro-function}.
 refer through the definition of defmacro, but should suffice for now.}
 
 This is the normal mechanism for defining a @term{compiler macro function}.
-Its manner of definition is the same as for @code{defmacro}; the only
+Its manner of definition is the same as for @coderef{defmacro}; the only
 differences are:
 
 
@@ -4714,11 +4714,11 @@ for the @param{name}, rather than as a @term{macro function}.
 is passed to the @term{compiler macro function}.  The remaining lambda-list
 parameters are specified as if this form contained the function name in the
 @term{car} and the actual arguments in the @term{cdr}, but if the @term{car}
-of the actual form is the symbol @code{funcall}, then the destructuring of
+of the actual form is the symbol @coderef{funcall}, then the destructuring of
 the arguments is actually performed using its @term{cddr} instead.
 
 @param{Documentation} is attached as a @term{documentation string}
-to @param{name} (as kind @code{compiler-macro})
+to @param{name} (as kind @coderef{compiler-macro})
 and to the @term{compiler macro function}.
 
 @item Unlike an ordinary @term{macro}, a @term{compiler macro}
@@ -4881,7 +4881,7 @@ Defines @param{name} as a @term{macro}
 by associating a @term{macro function} with that @param{name}
 in the global environment.
 The @term{macro function} is defined in the same @term{lexical environment}
-in which the @code{defmacro} @term{form} appears.
+in which the @coderef{defmacro} @term{form} appears.
 
 
 The parameter variables in @param{lambda-list} are bound to
@@ -4900,10 +4900,10 @@ are implicitly enclosed in a @term{block} whose name is @param{name}.
 The @param{lambda-list} conforms to the requirements described in @ref{Macro Lambda Lists}.
 
 @param{Documentation} is attached as a @term{documentation string}
-to @param{name} (as kind @code{function})
+to @param{name} (as kind @coderef{function})
 and to the @term{macro function}.
 
-@code{defmacro} can be used to redefine a @term{macro} or to replace
+@coderef{defmacro} can be used to redefine a @term{macro} or to replace
 a @term{function} definition with a @term{macro} definition.
 
 
@@ -4915,7 +4915,7 @@ The consequences are undefined if the result of fully macroexpanding
 a @term{form}
 contains any @term{circular} @term{list structure} except in @term{literal objects}.
 
-If a @code{defmacro} @term{form} appears as a @term{top level form},
+If a @coderef{defmacro} @term{form} appears as a @term{top level form},
 the @term{compiler} must store the @term{macro} definition at compile time,
 so that occurrences of the macro later on in the file can be expanded correctly.
 Users must ensure that the body of the @term{macro} can be evaluated at
@@ -5078,13 +5078,13 @@ as a macro in the specified @param{environment}.
 If so, the macro expansion function, a function of two arguments,
 is returned.  If @param{symbol} has no function definition
 in the lexical environment @param{environment}, or its definition
-is not a @term{macro}, @code{macro-function} returns @nil{}.
+is not a @term{macro}, @coderef{macro-function} returns @nil{}.
 
 
 
 
-It is possible for both @code{macro-function} and
-@code{special-operator-p}
+It is possible for both @coderef{macro-function} and
+@coderef{special-operator-p}
 to return @term{true} of @param{symbol}.  The @term{macro} definition must
 be available for use by programs that understand only the standard
 @clisp{}@spc{}@term{special forms}.
@@ -5109,7 +5109,7 @@ be available for use by programs that understand only the standard
 
 
 @subsubheading Affected By:
-@f{(setf macro-function)}, @code{defmacro}, and @code{macrolet}.
+@f{(setf macro-function)}, @coderef{defmacro}, and @coderef{macrolet}.
 
 @subsubheading Exceptional Situations:
 
@@ -5122,7 +5122,7 @@ in a use of @SETFof{macro-function}.
 
 @subsubheading Notes:
 
-@code{setf} can be used with @code{macro-function} to install
+@coderef{setf} can be used with @coderef{macro-function} to install
 a @term{macro} as a symbol's global function definition:
 
 @lisp
@@ -5166,14 +5166,14 @@ definition, whether as a @term{macro} or as a
 
 @subsubheading Description:
 
-@code{macroexpand} and @code{macroexpand-1} expand @term{macros}.
+@coderef{macroexpand} and @coderef{macroexpand-1} expand @term{macros}.
 
 If @param{form} is a @term{macro form},
-then @code{macroexpand-1} expands the @term{macro form} call once.
+then @coderef{macroexpand-1} expands the @term{macro form} call once.
 
-@code{macroexpand}
+@coderef{macroexpand}
 repeatedly expands @param{form} until it is no longer a @term{macro form}.
-In effect, @code{macroexpand} calls @code{macroexpand-1} repeatedly
+In effect, @coderef{macroexpand} calls @coderef{macroexpand-1} repeatedly
 until the @term{secondary value} it returns is @nil{}.
 
 If @param{form} is a @term{macro form},
@@ -5184,12 +5184,12 @@ the @param{expansion} is the given @param{form}
 and @param{expanded-p} is @term{false}.
 
 Macro expansion is carried out as follows.
-Once @code{macroexpand-1} has
+Once @coderef{macroexpand-1} has
 determined that the @param{form} is a @term{macro form},
 it obtains an appropriate expansion @term{function} for the
 @term{macro} or @term{symbol macro}.
 The value of
-@code{*macroexpand-hook*} is
+@coderef{*macroexpand-hook*} is
 coerced to a @term{function} and
 then called as a @term{function} of three arguments:
 the expansion @term{function},
@@ -5199,11 +5199,11 @@ The @term{value} returned from this call is taken to be the expansion
 of the @param{form}.
 
 In addition to @term{macro} definitions in the global environment,
-any local macro definitions established within @param{env} by @code{macrolet}
-or @code{symbol-macrolet} are considered.
+any local macro definitions established within @param{env} by @coderef{macrolet}
+or @coderef{symbol-macrolet} are considered.
 If only @param{form} is supplied as an argument,
 then the environment is effectively null, and only global macro definitions
-as established by @code{defmacro} are considered.
+as established by @coderef{defmacro} are considered.
 @term{Macro} definitions are shadowed by local @term{function} definitions.
 
 @subsubheading Examples:
@@ -5274,10 +5274,10 @@ as established by @code{defmacro} are considered.
 
 @subsubheading Affected By:
 
-@code{defmacro},
-@code{setf} of @code{macro-function},
-@code{macrolet},
-@code{symbol-macrolet}
+@coderef{defmacro},
+@coderef{setf} of @coderef{macro-function},
+@coderef{macrolet},
+@coderef{symbol-macrolet}
 
 @subsubheading See Also:
 
@@ -5290,7 +5290,7 @@ as established by @code{defmacro} are considered.
 
 @subsubheading Notes:
 
-Neither @code{macroexpand} nor @code{macroexpand-1}
+Neither @coderef{macroexpand} nor @coderef{macroexpand-1}
 makes any explicit attempt to expand @term{macro forms} that are
 either @term{subforms} of the @param{form}
 or @term{subforms} of the @param{expansion}.
@@ -5335,22 +5335,22 @@ The expansion of a @term{symbol macro} is subject to further @term{macro expansi
 in the same @term{lexical environment} as the @term{symbol macro} reference,
 exactly analogous to normal @term{macros}.
 
-The consequences are unspecified if a @code{special} declaration is made for
+The consequences are unspecified if a @coderef{special} declaration is made for
 @param{symbol} while in the scope of this definition (@ie{} when it is not
 @term{shadowed}@sub{2} by a @term{binding} for a @term{variable}
 or @term{symbol macro} named by the same @term{symbol}).
 
-Any use of @code{setq} to set the value of
+Any use of @coderef{setq} to set the value of
 the @param{symbol}
 while in the scope of this definition
-is treated as if it were a @code{setf}.
-@code{psetq} of @param{symbol}
-is treated as if it were a @code{psetf}, and
-@code{multiple-value-setq}
-is treated as if it were a @code{setf} of @code{values}.
+is treated as if it were a @coderef{setf}.
+@coderef{psetq} of @param{symbol}
+is treated as if it were a @coderef{psetf}, and
+@coderef{multiple-value-setq}
+is treated as if it were a @coderef{setf} of @coderef{values}.
 
 A @term{binding} for a @term{symbol macro} can be @term{shadowed}@sub{2}
-by @code{let} or @code{symbol-macrolet}.
+by @coderef{let} or @coderef{symbol-macrolet}.
 
 @subsubheading Examples:
 
@@ -5409,10 +5409,10 @@ an error @oftype{program-error} is signaled.
 @subsubheading Description:
 
 
-@code{symbol-macrolet} provides a mechanism for
+@coderef{symbol-macrolet} provides a mechanism for
 affecting the @term{macro expansion} environment for @term{symbols}.
 
-@code{symbol-macrolet} lexically establishes expansion functions
+@coderef{symbol-macrolet} lexically establishes expansion functions
 for each of the @term{symbol macros} named by @param{symbols}.
 The only guaranteed property of an expansion @term{function} for a @term{symbol macro}
 is that when it is applied to the @term{form} and the @term{environment} it returns
@@ -5421,27 +5421,27 @@ whether the expansion is conceptually stored in the expansion function,
 the @term{environment}, or both.)
 
 Each reference to @param{symbol} as a variable within the lexical @term{scope}
-of @code{symbol-macrolet} is expanded by the normal macro expansion process;
+of @coderef{symbol-macrolet} is expanded by the normal macro expansion process;
 see @ref{Symbols as Forms}.
 The expansion of a symbol macro is subject to further macro expansion
 in the same lexical environment as the symbol macro invocation, exactly
 analogous to normal @term{macros}.
 
-Exactly the same @param{declarations} are allowed as for @code{let}
-with one exception: @code{symbol-macrolet} signals an error
-if a @code{special} declaration names one of the @term{symbols}
-being defined by @code{symbol-macrolet}.
+Exactly the same @param{declarations} are allowed as for @coderef{let}
+with one exception: @coderef{symbol-macrolet} signals an error
+if a @coderef{special} declaration names one of the @term{symbols}
+being defined by @coderef{symbol-macrolet}.
 
-When the @param{forms} of the @code{symbol-macrolet} form are expanded,
-any use of @code{setq} to set the value of one of the specified variables
-is treated as if it were a @code{setf}.
-@code{psetq} of a @term{symbol} defined as a symbol macro
-is treated as if it were a @code{psetf}, and
-@code{multiple-value-setq}
-is treated as if it were a @code{setf} of @code{values}.
+When the @param{forms} of the @coderef{symbol-macrolet} form are expanded,
+any use of @coderef{setq} to set the value of one of the specified variables
+is treated as if it were a @coderef{setf}.
+@coderef{psetq} of a @term{symbol} defined as a symbol macro
+is treated as if it were a @coderef{psetf}, and
+@coderef{multiple-value-setq}
+is treated as if it were a @coderef{setf} of @coderef{values}.
 
-The use of @code{symbol-macrolet} can be shadowed by @code{let}.
-In other words, @code{symbol-macrolet} only substitutes for occurrences
+The use of @coderef{symbol-macrolet} can be shadowed by @coderef{let}.
+In other words, @coderef{symbol-macrolet} only substitutes for occurrences
 of @param{symbol} that would be in the @term{scope} of a lexical binding of
 @param{symbol} surrounding the @param{forms}.
 
@@ -5467,8 +5467,8 @@ of @param{symbol} that would be in the @term{scope} of a lexical binding of
 If an attempt is made to bind a @term{symbol} that is defined as a @term{global variable},
 an error @oftype{program-error} is signaled.
 
-If @param{declaration} contains a @code{special} declaration
-that names one of the @term{symbols} being bound by @code{symbol-macrolet},
+If @param{declaration} contains a @coderef{special} declaration
+that names one of the @term{symbols} being bound by @coderef{symbol-macrolet},
 an error @oftype{program-error} is signaled.
 
 @subsubheading See Also:
@@ -5477,10 +5477,10 @@ an error @oftype{program-error} is signaled.
 
 @subsubheading Notes:
 
-The special form @code{symbol-macrolet} is the basic mechanism that is used to
-implement @code{with-slots}.
+The special form @coderef{symbol-macrolet} is the basic mechanism that is used to
+implement @coderef{with-slots}.
 
-If a @code{symbol-macrolet} @term{form} is a @term{top level form},
+If a @coderef{symbol-macrolet} @term{form} is a @term{top level form},
 the @param{forms} are also processed as @term{top level forms}.
 See @ref{File Compilation}.
 
@@ -5507,7 +5507,7 @@ but that might have additional @term{implementation-dependent} side-effects.
 
 @subsubheading Description:
 
-Used as the expansion interface hook by @code{macroexpand-1} to
+Used as the expansion interface hook by @coderef{macroexpand-1} to
 control the @term{macro expansion} process.
 When a @term{macro form} is to be expanded,
 this @term{function} is called with three arguments:
@@ -5551,7 +5551,7 @@ their correctness on the setting of this @term{variable}, those
 For this reason, it is frequently best to confine its uses to debugging
 situations.
 
-Users who put their own function into @code{*macroexpand-hook*}
+Users who put their own function into @coderef{*macroexpand-hook*}
 should consider saving the previous value of the hook, and calling that
 value from their own.
 
@@ -5584,7 +5584,7 @@ or a @term{proclamation}, is always in force unless locally @term{shadowed}.
 and global @term{function} definitions, respectively.
 
 @Thenextfigure{}@spc{}shows a list of @param{declaration identifiers}
-that can be used with @code{proclaim}.
+that can be used with @coderef{proclaim}.
 
 
 @float Figure,fig3.22
@@ -5624,9 +5624,9 @@ An implementation is free to support other (@term{implementation-defined})
 
 @subsubheading Notes:
 
-Although the @term{execution} of a @code{proclaim} @term{form}
+Although the @term{execution} of a @coderef{proclaim} @term{form}
 has effects that might affect compilation, the compiler does not make
-any attempt to recognize and specially process @code{proclaim} @term{forms}.
+any attempt to recognize and specially process @coderef{proclaim} @term{forms}.
 A @term{proclamation} such as the following, even if a @term{top level form},
 does not have any effect until it is executed:
 
@@ -5635,7 +5635,7 @@ does not have any effect until it is executed:
 @end lisp
 
 
-If compile time side effects are desired, @code{eval-when} may be useful.
+If compile time side effects are desired, @coderef{eval-when} may be useful.
 For example:
 
 @lisp
@@ -5644,10 +5644,10 @@ For example:
 @end lisp
 
 
-In most such cases, however, it is preferrable to use @code{declaim} for
+In most such cases, however, it is preferrable to use @coderef{declaim} for
 this purpose.
 
-Since @code{proclaim} @term{forms} are ordinary @term{function forms},
+Since @coderef{proclaim} @term{forms} are ordinary @term{function forms},
 @term{macro forms} can expand into them.
 
 
@@ -5673,7 +5673,7 @@ Establishes the @term{declarations} specified by the @param{declaration-specifie
 If a use of this macro appears as a @term{top level form} in a @term{file}
 being processed by the @term{file compiler}, the proclamations are also made
 at compile-time.  As with other defining macros, it is unspecified whether or
-not the compile-time side-effects of a @code{declaim} persist after the
+not the compile-time side-effects of a @coderef{declaim} persist after the
 @term{file} has been @term{compiled}.
 
 @subsubheading Examples:
@@ -5779,24 +5779,24 @@ An implementation is free to support other (@term{implementation-defined})
 
 
 In this example,
-the @code{inline} declaration applies
+the @coderef{inline} declaration applies
 only to the third call to @f{foo}, but not to the first or second ones.
-The @code{special} declaration of @f{x} causes @code{let}
+The @coderef{special} declaration of @f{x} causes @coderef{let}
 to make a dynamic @term{binding} for @f{x}, and causes the reference to
 @f{x}
-in the body of @code{let} to be a dynamic reference.
+in the body of @coderef{let} to be a dynamic reference.
 The reference to @f{x} in the second call to @f{foo} is a local reference
 to the second parameter of @tt{nonsense}.
 The reference to @f{x} in the first call to @f{foo} is a local
-reference, not a @code{special} one.  The @code{special} declaration of @f{z}
+reference, not a @coderef{special} one.  The @coderef{special} declaration of @f{z}
 causes the reference to @f{z} in the
 third
 call
 to @f{foo} to be a dynamic reference; it does not
 refer to the parameter to @f{nonsense} named @f{z}, because that
-parameter @term{binding} has not been declared to be @code{special}.
-(The @code{special} declaration of @f{z} does not appear in the body
-of @code{defun},  but in an inner @term{form}, and therefore does not
+parameter @term{binding} has not been declared to be @coderef{special}.
+(The @coderef{special} declaration of @f{z} does not appear in the body
+of @coderef{defun},  but in an inner @term{form}, and therefore does not
 affect the @term{binding} of the @term{parameter}.)
 
 @subsubheading Exceptional Situations:
@@ -5855,12 +5855,12 @@ declare expressions.}
 
 @subsubheading Description:
 
-The @code{ignore} and @code{ignorable} declarations
+The @coderef{ignore} and @coderef{ignorable} declarations
 refer to @term{for-value} @term{references}
 to @term{variable} @term{bindings} for the @param{vars}
 and to @term{function} @term{bindings} for the @param{fns}.
 
-An @code{ignore} @term{declaration} specifies that
+An @coderef{ignore} @term{declaration} specifies that
 @term{for-value} @term{references} to the indicated @term{bindings}
 will not
 occur within the scope of the @term{declaration}.
@@ -5869,9 +5869,9 @@ it is desirable
 for a compiler to issue a warning about
 the presence of
 either a @term{for-value} @term{reference} to any @param{var} or @param{fn},
-or a @code{special} @term{declaration} for any @param{var}.
+or a @coderef{special} @term{declaration} for any @param{var}.
 
-An @code{ignorable} @term{declaration} specifies that
+An @coderef{ignorable} @term{declaration} specifies that
 @term{for-value} @term{references} to the indicated @term{bindings}
 might or might not
 occur within the scope of the @term{declaration}.
@@ -5880,15 +5880,15 @@ it is not desirable
 for a compiler to issue a warning about
 the presence or absence of
 either a @term{for-value} @term{reference} to any @param{var} or @param{fn},
-or a @code{special} @term{declaration} for any @param{var}.
+or a @coderef{special} @term{declaration} for any @param{var}.
 
 When not within the @term{scope}
-of a @code{ignore} or @code{ignorable} @term{declaration},
+of a @coderef{ignore} or @coderef{ignorable} @term{declaration},
 it is desirable
 for a compiler to issue a warning about
 any @param{var} for which there is
 neither a @term{for-value} @term{reference}
-nor a @code{special} @term{declaration},
+nor a @coderef{special} @term{declaration},
 or about
 any @param{fn} for which there is
 no @term{for-value} @term{reference}.
@@ -5898,10 +5898,10 @@ and may not affect program semantics.
 
 
 The @term{stream variables} established by
-@code{with-open-file},
-@code{with-open-stream},
-@code{with-input-from-string},
-and @code{with-output-to-string},
+@coderef{with-open-file},
+@coderef{with-open-stream},
+@coderef{with-input-from-string},
+and @coderef{with-output-to-string},
 and all @term{iteration variables} are, by definition, always ``used''.
 Using @f{(declare (ignore @param{v}))},
 for such a @term{variable} @param{v} has unspecified consequences.
@@ -5962,10 +5962,10 @@ The compiler is permitted to use
 this information in any way that is appropriate to the @term{implementation}
 and that does not conflict with the semantics of @clisp{}.
 
-@code{dynamic-extent} declarations can be @term{free declarations}
+@coderef{dynamic-extent} declarations can be @term{free declarations}
 or @term{bound declarations}.
 
-The @param{vars} and @param{fns} named in a @code{dynamic-extent}
+The @param{vars} and @param{fns} named in a @coderef{dynamic-extent}
 declaration must not refer to @term{symbol macro} or @term{macro} bindings.
 
 @subsubheading Examples:
@@ -5973,7 +5973,7 @@ declaration must not refer to @term{symbol macro} or @term{macro} bindings.
 Since stack allocation of the initial value entails knowing at the
 @term{object}'s creation time that the @term{object} can be
 @term{stack-allocated},  it is not generally useful to make a
-@code{dynamic-extent} @term{declaration} for @term{variables}
+@coderef{dynamic-extent} @term{declaration} for @term{variables}
 which have no lexically apparent initial value.
 For example, it is probably useful to write:
 
@@ -6168,14 +6168,14 @@ Affects
 only variable @term{bindings} and specifies that the
 @param{vars} take on
 values only of the specified @param{typespec}.
-In particular, values assigned to the variables by @code{setq},
+In particular, values assigned to the variables by @coderef{setq},
 as well as the initial values of the @param{vars} must be of
 the specified @param{typespec}.
-@code{type} declarations never apply to function @term{bindings} (see @code{ftype}).
+@coderef{type} declarations never apply to function @term{bindings} (see @coderef{ftype}).
 
 A type declaration of a @term{symbol}
-defined by @code{symbol-macrolet} is equivalent
-to wrapping a @code{the}
+defined by @coderef{symbol-macrolet} is equivalent
+to wrapping a @coderef{the}
 expression around the expansion of that @term{symbol},
 although the @term{symbol}'s @term{macro expansion} is not actually affected.
 
@@ -6203,7 +6203,7 @@ if
 the value of the declared variable is not of the declared @term{type}.
 
 @item During the execution of any
-@code{setq} of the declared variable within the scope
+@coderef{setq} of the declared variable within the scope
 of the declaration, the consequences are
 undefined
 if the newly assigned value of the
@@ -6230,7 +6230,7 @@ variable, then the value of the variable within the scope of the local
 declaration must be a member of the intersection of the two declared
 @term{types}.
 
-@code{type} declarations can  be @term{free declarations}
+@coderef{type} declarations can  be @term{free declarations}
 or @term{bound declarations}.
 
 A @term{symbol} cannot be both the name of a @term{type} and the name of a
@@ -6238,13 +6238,13 @@ declaration.  Defining a @term{symbol} as the @term{name} of a @term{class},
 @term{structure}, @term{condition}, or @term{type}, when the @term{symbol}
 has been @term{declared} as a declaration name, or vice versa, signals an error.
 
-Within the @term{lexical scope} of an @code{array} type declaration,
+Within the @term{lexical scope} of an @coderef{array} type declaration,
 all references to @term{array} @term{elements} are assumed to satisfy the
 @term{expressed array element type} (as opposed to the @term{upgraded array element type}).
 A compiler can treat
-the code within the scope of the @code{array} type declaration as if each
+the code within the scope of the @coderef{array} type declaration as if each
 @term{access} of an @term{array} @term{element} were surrounded by an appropriate
-@code{the} form.
+@coderef{the} form.
 
 @subsubheading Examples:
 
@@ -6302,7 +6302,7 @@ The above definition of @f{frob} is equivalent to:
 
 
 Given an implementation in which
-@term{fixnums} are 29 bits but @code{fixnum} @term{arrays}
+@term{fixnums} are 29 bits but @coderef{fixnum} @term{arrays}
 are upgraded to signed 32-bit @term{arrays},
 the following
 could be compiled with all @term{fixnum} arithmetic:
@@ -6326,7 +6326,7 @@ could be compiled with all @term{fixnum} arithmetic:
 @f{(@param{typespec} @starparam{var})}
 is an abbreviation for @f{(type @param{typespec} @starparam{var})}.
 
-A @code{type} declaration for the arguments to a function does not
+A @coderef{type} declaration for the arguments to a function does not
 necessarily imply anything about the type of the result.  The following
 function is not permitted to be compiled using @term{implementation-dependent}
 @term{fixnum}-only arithmetic:
@@ -6406,24 +6406,24 @@ consider writing something like this instead:
 
 @subsubheading Description:
 
-@code{inline} specifies that
+@coderef{inline} specifies that
 it is desirable for the compiler to produce inline calls
 to the @term{functions} named by @param{function-names};
 that is, the code for a specified @param{function-name}
 should be integrated into the calling routine, appearing ``in line''
 in place of a procedure call.
 A compiler is free to ignore this declaration.
-@code{inline} declarations never apply to variable @term{bindings}.
+@coderef{inline} declarations never apply to variable @term{bindings}.
 
 If one of the @term{functions} mentioned has a lexically apparent local definition
-(as made by @code{flet} or @code{labels}), then the declaration
+(as made by @coderef{flet} or @coderef{labels}), then the declaration
 applies to that local definition and not to the global function definition.
 
 While no @term{conforming implementation} is required to perform inline expansion
 of user-defined functions, those @term{implementations} that do attempt
 to recognize the following paradigm:
 
-To define a @term{function} @f{f} that is not @code{inline} by default
+To define a @term{function} @f{f} that is not @coderef{inline} by default
 but for which @f{(declare (inline f))} will make @param{f} be locally inlined,
 the proper definition sequence is:
 
@@ -6434,13 +6434,13 @@ the proper definition sequence is:
 @end lisp
 
 
-The @code{inline} proclamation preceding the @code{defun} @term{form}
+The @coderef{inline} proclamation preceding the @coderef{defun} @term{form}
 ensures that the @term{compiler} has the opportunity save the information
-necessary for inline expansion, and the @code{notinline} proclamation
-following the @code{defun} @term{form} prevents @f{f} from being expanded
+necessary for inline expansion, and the @coderef{notinline} proclamation
+following the @coderef{defun} @term{form} prevents @f{f} from being expanded
 inline everywhere.
 
-@code{notinline} specifies that it is
+@coderef{notinline} specifies that it is
 undesirable to compile the @term{functions}
 named by @param{function-names} in-line.
 A compiler is not free to ignore this declaration;
@@ -6448,23 +6448,23 @@ calls to the specified functions must be implemented as out-of-line subroutine c
 
 If one of the @term{functions}
 mentioned has a lexically apparent local definition
-(as made by @code{flet} or @code{labels}), then the declaration
+(as made by @coderef{flet} or @coderef{labels}), then the declaration
 applies to that local definition and not to the global function definition.
 
 In the presence of a @term{compiler macro} definition for
-@param{function-name}, a @code{notinline} declaration prevents that
+@param{function-name}, a @coderef{notinline} declaration prevents that
 @term{compiler macro} from being used.
-An @code{inline} declaration may be used to encourage use of
-@term{compiler macro} definitions.  @code{inline} and @code{notinline}
+An @coderef{inline} declaration may be used to encourage use of
+@term{compiler macro} definitions.  @coderef{inline} and @coderef{notinline}
 declarations otherwise have no effect when the lexically visible definition
 of @param{function-name} is a @term{macro} definition.
 
-@code{inline} and @code{notinline} declarations can be @term{free declarations} or
+@coderef{inline} and @coderef{notinline} declarations can be @term{free declarations} or
 @term{bound declarations}.
-@code{inline} and @code{notinline} declarations of functions that
+@coderef{inline} and @coderef{notinline} declarations of functions that
 appear before the body of a
-@code{flet}
-or  @code{labels}
+@coderef{flet}
+or  @coderef{labels}
 @term{form} that defines that function are @term{bound declarations}.
 Such declarations in other contexts are @term{free declarations}.
 
@@ -6535,22 +6535,22 @@ For example:
 @end lisp
 
 If one of the @term{functions} mentioned has a lexically apparent local definition
-(as made by @code{flet} or @code{labels}), then the declaration
+(as made by @coderef{flet} or @coderef{labels}), then the declaration
 applies to that local definition and not to the global function definition.
-@code{ftype} declarations never apply to variable @term{bindings} (see @tt{type}).
+@coderef{ftype} declarations never apply to variable @term{bindings} (see @tt{type}).
 
 The lexically apparent bindings of @param{function-names} must not be
-@term{macro} definitions.  (This is because @code{ftype} declares the
+@term{macro} definitions.  (This is because @coderef{ftype} declares the
 functional definition of each @term{function name} to be of a particular
-subtype of @code{function}, and @term{macros} do not denote
+subtype of @coderef{function}, and @term{macros} do not denote
 @term{functions}.)
 
-@code{ftype}
+@coderef{ftype}
 declarations
 can be @term{free declarations} or @term{bound declarations}.
-@code{ftype} declarations of functions that appear before the body of a
-@code{flet}
-or @code{labels}
+@coderef{ftype} declarations of functions that appear before the body of a
+@coderef{flet}
+or @coderef{labels}
 @term{form} that defines that function are @term{bound declarations}.
 Such declarations in other contexts are @term{free declarations}.
 
@@ -6641,13 +6641,13 @@ the names and meanings of the standard @param{optimize qualities} are shown in
 
 @float Figure,fig3.25
 @cartouche
-@multitable{@code{compilation-speed}}{both code size and run-time space}
+@multitable{@coderef{compilation-speed}}{both code size and run-time space}
 @headitem Name @tab Meaning
-@item @code{compilation-speed} @tab speed of the compilation process
-@item @code{debug} @tab ease of debugging
-@item @code{safety} @tab run-time error checking
-@item @code{space} @tab both code size and run-time space
-@item @code{speed} @tab speed of the object code
+@item @coderef{compilation-speed} @tab speed of the compilation process
+@item @coderef{debug} @tab ease of debugging
+@item @coderef{safety} @tab run-time error checking
+@item @coderef{space} @tab both code size and run-time space
+@item @coderef{speed} @tab speed of the object code
 @end multitable
 @end cartouche
 @caption{Optimize qualities}
@@ -6663,7 +6663,7 @@ neutral value.
 @f{(@param{quality} 3)} can be abbreviated to @param{quality}.
 
 Note that @term{code} which has the optimization @f{(safety 3)},
-or just @code{safety},
+or just @coderef{safety},
 is called @term{safe} @term{code}.
 
 The consequences are unspecified if a @param{quality} appears more than once
@@ -6695,8 +6695,8 @@ with @term{different} @param{values}.
 
 @subsubheading Notes:
 
-An @code{optimize} declaration never applies to either a @term{variable} or
-a @term{function} @term{binding}.  An @code{optimize} declaration can only
+An @coderef{optimize} declaration never applies to either a @term{variable} or
+a @term{function} @term{binding}.  An @coderef{optimize} declaration can only
 be a @term{free declaration}.  For more information, see @ref{Declaration Scope}.
 
 
@@ -6745,18 +6745,18 @@ For example:
 @end lisp
 
 
-A @code{special} declaration does not affect inner @term{bindings}
+A @coderef{special} declaration does not affect inner @term{bindings}
 of a @param{var}; the inner @term{bindings} implicitly shadow
-a @code{special} declaration and must be explicitly re-declared to
-be @code{special}.
-@code{special} declarations never apply to function @term{bindings}.
+a @coderef{special} declaration and must be explicitly re-declared to
+be @coderef{special}.
+@coderef{special} declarations never apply to function @term{bindings}.
 
-@code{special} declarations can be either @term{bound declarations},
+@coderef{special} declarations can be either @term{bound declarations},
 affecting both a binding and references, or @term{free declarations},
 affecting only references, depending on whether the declaration is
 attached to a variable binding.
 
-When used in a @term{proclamation}, a @code{special}
+When used in a @term{proclamation}, a @coderef{special}
 @term{declaration specifier}
 applies to all @term{bindings} as well as to all references of the
 mentioned variables.  For example, after
@@ -6826,8 +6826,8 @@ rather than as a lexical variable.
 @end lisp
 
 The reference to @f{*foo*}
-in the first line of this example is not @code{special}
-even though there is a @code{special} declaration in the second line.
+in the first line of this example is not @coderef{special}
+even though there is a @coderef{special} declaration in the second line.
 
 @lisp
  (declaim (special prosp)) @EV{} @term{implementation-dependent}
@@ -6857,7 +6857,7 @@ of which happens, coincidentally, to lexically surround it at
 an outer level).  All the @term{bindings}
 of @f{x} and references to @f{x}
 are dynamic, however, because of the proclamation that @f{x} is
-always @code{special}.
+always @coderef{special}.
 
 @subsubheading See Also:
 
@@ -6934,10 +6934,10 @@ in a @term{lexical environment} where the given @param{declarations} have effect
 
 @subsubheading Notes:
 
-The @code{special} declaration may be used with @code{locally}
+The @coderef{special} declaration may be used with @coderef{locally}
 to affect references to, rather than @term{bindings} of, @term{variables}.
 
-If a @code{locally} @term{form} is a @term{top level form}, the body @param{forms}
+If a @coderef{locally} @term{form} is a @term{top level form}, the body @param{forms}
 are also processed as @term{top level forms}.  See @ref{File Compilation}.
 
 
@@ -6964,7 +6964,7 @@ see below.
 
 @subsubheading Description:
 
-@code{the} specifies that the @term{values}[1a] returned by @param{form}
+@coderef{the} specifies that the @term{values}[1a] returned by @param{form}
 are of the @term{types} specified by @param{value-type}.
 The consequences are undefined if any @param{result}
 is not of the declared type.
@@ -7013,7 +7013,7 @@ are not of the @term{type} specified by @param{value-type}.
 
 @subsubheading Notes:
 
-The @code{values} @term{type specifier} can be used to indicate the types
+The @coderef{values} @term{type specifier} can be used to indicate the types
 of @term{multiple values}:
 
 @lisp
@@ -7023,9 +7023,9 @@ of @term{multiple values}:
 @end lisp
 
 
-@code{setf} can be used with @code{the} type declarations.
+@coderef{setf} can be used with @coderef{the} type declarations.
 In this case the declaration is transferred to the form that
-specifies  the new value.  The resulting @code{setf} @term{form}
+specifies  the new value.  The resulting @coderef{setf} @term{form}
 is then analyzed.
 
 
@@ -7061,7 +7061,7 @@ is then analyzed.
 
 @subsubheading Exceptional Situations:
 
-Should signal @code{type-error} if its argument is not a @term{symbol}.
+Should signal @coderef{type-error} if its argument is not a @term{symbol}.
 
 @subsubheading Notes:
 
@@ -7109,25 +7109,25 @@ The following kinds of @term{forms} are considered @term{constant forms}:
 @term{characters},
 and the various kinds of @term{arrays})
 are always considered @term{constant forms}
-and must be recognized as such by @code{constantp}.
+and must be recognized as such by @coderef{constantp}.
 
 @item
 @term{Constant variables}, such as @term{keywords},
-symbols defined by @clisp{}@spc{}as constant (such as @nil{}, @code{t}, and @code{pi}),
+symbols defined by @clisp{}@spc{}as constant (such as @nil{}, @coderef{t}, and @coderef{pi}),
 and symbols declared as constant by the user in the indicated @param{environment}
-using @code{defconstant}
+using @coderef{defconstant}
 are always considered @term{constant forms}
-and must be recognized as such by @code{constantp}.
+and must be recognized as such by @coderef{constantp}.
 
 @item
-@code{quote} @term{forms} are always considered @term{constant forms}
-and must be recognized as such by @code{constantp}.
+@coderef{quote} @term{forms} are always considered @term{constant forms}
+and must be recognized as such by @coderef{constantp}.
 
 @item
 An @term{implementation} is permitted, but not required, to detect
 additional @term{constant forms}.  If it does, it is also permitted,
 but not required, to make use of information in the @param{environment}.
-Examples of @term{constant forms} for which @code{constantp} might
+Examples of @term{constant forms} for which @coderef{constantp} might
 or might not return @term{true} are:
 @f{(sqrt pi)},
 @f{(+ 3 2)},

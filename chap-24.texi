@@ -15,7 +15,7 @@
 @node Loading
 @subsection Loading
 
-To @code{load} a @term{file} is to treat its contents as @term{code}
+To @coderef{load} a @term{file} is to treat its contents as @term{code}
 and @term{execute} that @term{code}.
 The @term{file} may contain @newterm{source code} or @newterm{compiled code}.
 
@@ -169,7 +169,7 @@ in @term{implementation} C, none of the features @f{spice}, @term{lispm}, or @f{
 
 @param{input-file}---a @term{pathname designator}.
 (Default fillers for unspecified components are taken from
-@code{*default-pathname-defaults*}.)
+@coderef{*default-pathname-defaults*}.)
 
 @param{output-file}---a @term{pathname designator}.
 @Default{@term{implementation-defined}}
@@ -184,7 +184,7 @@ in @term{implementation} C, none of the features @f{spice}, @term{lispm}, or @f{
 @param{external-format}---an @term{external file format designator}.
 @Default{@kwd{default}}
 
-@param{output-truename}---a @term{pathname} (the @code{truename} of the output @term{file}),
+@param{output-truename}---a @term{pathname} (the @coderef{truename} of the output @term{file}),
 or @nil{}.
 
 @param{warnings-p}---a @term{generalized boolean}.
@@ -195,7 +195,7 @@ or @nil{}.
 
 @subsubheading Description:
 
-@code{compile-file} transforms the contents of the file specified
+@coderef{compile-file} transforms the contents of the file specified
 by @param{input-file} into @term{implementation-dependent} binary data
 which are placed in the file specified by @param{output-file}.
 
@@ -203,19 +203,19 @@ The @term{file} to which @param{input-file} refers should be a @term{source file
 @param{output-file} can be used to specify an output @term{pathname};
 the actual @term{pathname} of the @term{compiled file}
 to which @term{compiled code} will be output
-is computed as if by calling @code{compile-file-pathname}.
+is computed as if by calling @coderef{compile-file-pathname}.
 
 If @param{input-file} or @param{output-file} is a @term{logical pathname},
 it is translated into a @term{physical pathname} as if by calling
-@code{translate-logical-pathname}.
+@coderef{translate-logical-pathname}.
 
 If @param{verbose} is @term{true},
-@code{compile-file} prints a message in the form of a comment
+@coderef{compile-file} prints a message in the form of a comment
 (@ie{} with a leading @term{semicolon})
 to @term{standard output} indicating what @term{file} is being @term{compiled}
 and other useful information.
 If @param{verbose} is @term{false},
-@code{compile-file} does not print
+@coderef{compile-file} does not print
 this information.
 
 If @param{print} is @term{true},
@@ -227,18 +227,18 @@ If @param{print} is @nil{}, no information is printed.
 
 The @param{external-format} specifies the @term{external file format}
 to be used when opening the @term{file}; see the @term{function} @ref{open}.
-@code{compile-file} and @code{load} must cooperate in such a way that
+@coderef{compile-file} and @coderef{load} must cooperate in such a way that
 the resulting @term{compiled file} can be @term{loaded}
 without specifying an @term{external file format} anew; see the @term{function} @ref{load}.
 
-@code{compile-file} binds @code{*readtable*} and @code{*package*}
+@coderef{compile-file} binds @coderef{*readtable*} and @coderef{*package*}
 to the values they held before processing the file.
 
-@code{*compile-file-truename*} is bound by @code{compile-file}
+@coderef{*compile-file-truename*} is bound by @coderef{compile-file}
 to hold the @term{truename} of the @term{pathname} of the file being compiled.
 
-@code{*compile-file-pathname*} is bound by @code{compile-file}
-to hold a @term{pathname} denoted by the first argument to @code{compile-file},
+@coderef{*compile-file-pathname*} is bound by @coderef{compile-file}
+to hold a @term{pathname} denoted by the first argument to @coderef{compile-file},
 merged against the defaults;
 that is, @f{(pathname (merge-pathnames @param{input-file}))}.
 
@@ -246,19 +246,19 @@ The compiled @term{functions} contained in the @term{compiled file} become avail
 for use when the @term{compiled file} is @term{loaded} into Lisp.
 Any function definition that is processed by the
 compiler, including @f{#'(lambda ...)} forms and local function
-definitions made by @code{flet}, @code{labels} and @code{defun} forms,
+definitions made by @coderef{flet}, @coderef{labels} and @coderef{defun} forms,
 result in an @term{object} @oftype{compiled-function}.
 
-The @term{primary value} returned by @code{compile-file}, @param{output-truename},
-is the @code{truename} of the output file, or @nil{}@spc{}if the file could not be created.
+The @term{primary value} returned by @coderef{compile-file}, @param{output-truename},
+is the @coderef{truename} of the output file, or @nil{}@spc{}if the file could not be created.
 
 The @term{secondary value}, @param{warnings-p}, is @term{false}
-if no @term{conditions} @oftype{error} or @code{warning}
+if no @term{conditions} @oftype{error} or @coderef{warning}
 were detected by the compiler, and @term{true} otherwise.
 
 The @term{tertiary value}, @param{failure-p}, is @term{false}
-if no @term{conditions} @oftype{error} or @code{warning}
-(other than @code{style-warning})
+if no @term{conditions} @oftype{error} or @coderef{warning}
+(other than @coderef{style-warning})
 were detected by the compiler, and @term{true} otherwise.
 
 For general information about how @term{files} are processed by the @term{file compiler},
@@ -272,8 +272,8 @@ For information on how to extend the set of @term{externalizable objects},
 see the @term{function} @ref{Additional Constraints on Externalizable Objects}.
 
 @subsubheading Affected By:
-@code{*error-output*},
-@code{*standard-output*}, @code{*compile-verbose*}, @code{*compile-print*}
+@coderef{*error-output*},
+@coderef{*standard-output*}, @coderef{*compile-verbose*}, @coderef{*compile-print*}
 
 The computer's file system.
 @subsubheading Exceptional Situations:
@@ -316,7 +316,7 @@ an error @oftype{file-error} is signaled.
 
 @param{input-file}---a @term{pathname designator}.
 (Default fillers for unspecified components are taken from
-@code{*default-pathname-defaults*}.)
+@coderef{*default-pathname-defaults*}.)
 
 @param{output-file}---a @term{pathname designator}.
 @Default{@term{implementation-defined}}
@@ -325,7 +325,7 @@ an error @oftype{file-error} is signaled.
 
 @subsubheading Description:
 
-Returns the @term{pathname} that @code{compile-file} would write into,
+Returns the @term{pathname} that @coderef{compile-file} would write into,
 if given the same arguments.
 
 The defaults for the @param{output-file}
@@ -340,22 +340,22 @@ If @param{input-file} is a @term{logical pathname} and @param{output-file}
 is unsupplied, the result is a @term{logical pathname}.
 If @param{input-file} is a @term{logical pathname},
 it is translated into a physical pathname as if by calling
-@code{translate-logical-pathname}.
+@coderef{translate-logical-pathname}.
 If @param{input-file} is a @term{stream},
 the @term{stream} can be either open or closed.
-@code{compile-file-pathname} returns the same @term{pathname} after a
+@coderef{compile-file-pathname} returns the same @term{pathname} after a
 file is closed as it did when the file was open.
 It is an error if @param{input-file} is a @term{stream} that is
-created with @code{make-two-way-stream}, @code{make-echo-stream},
-@code{make-broadcast-stream}, @code{make-concatenated-stream},
-@code{make-string-input-stream}, @code{make-string-output-stream}.
+created with @coderef{make-two-way-stream}, @coderef{make-echo-stream},
+@coderef{make-broadcast-stream}, @coderef{make-concatenated-stream},
+@coderef{make-string-input-stream}, @coderef{make-string-output-stream}.
 
-If an implementation supports additional keyword arguments to @code{compile-file},
-@code{compile-file-pathname} must accept the same arguments.
+If an implementation supports additional keyword arguments to @coderef{compile-file},
+@coderef{compile-file-pathname} must accept the same arguments.
 
 @subsubheading Examples:
 
-See @code{logical-pathname-translations}.
+See @coderef{logical-pathname-translations}.
 
 @subsubheading Exceptional Situations:
 
@@ -386,7 +386,7 @@ An error @oftype{file-error} might be signaled if either @param{input-file} or
 @subsubheading Arguments and Values:
 
 @param{filespec}---a @term{stream}, or a @term{pathname designator}.
-@Default{taken from @code{*default-pathname-defaults*}}
+@Default{taken from @coderef{*default-pathname-defaults*}}
 
 @param{verbose}---a @term{generalized boolean}.
 @Default{@thevalueof{*load-verbose*}}
@@ -404,43 +404,43 @@ An error @oftype{file-error} might be signaled if either @param{input-file} or
 
 @subsubheading Description:
 
-@code{load} @term{loads} the @term{file} named by @param{filespec}
+@coderef{load} @term{loads} the @term{file} named by @param{filespec}
 into the @Lisp{}@spc{}environment.
 
 The manner in which a @term{source file}
 is distinguished from a @term{compiled file} is @term{implementation-dependent}.
 If the file specification is not complete and both a @term{source file} and a
 @term{compiled file} exist which might match,
-then which of those files @code{load} selects is @term{implementation-dependent}.
+then which of those files @coderef{load} selects is @term{implementation-dependent}.
 
 If @param{filespec} is a @term{stream},
-@code{load} determines what kind of @term{stream} it is
+@coderef{load} determines what kind of @term{stream} it is
 and loads directly from the @term{stream}.
 If @param{filespec} is a @term{logical pathname},
 it is translated into a @term{physical pathname}
-as if by calling @code{translate-logical-pathname}.
+as if by calling @coderef{translate-logical-pathname}.
 
-@code{load} sequentially executes each @term{form} it encounters
+@coderef{load} sequentially executes each @term{form} it encounters
 in the @term{file} named by @param{filespec}.
 If the @term{file} is a @term{source file}
 and the @term{implementation} chooses to perform @term{implicit compilation},
-@code{load} must recognize @term{top level forms}
+@coderef{load} must recognize @term{top level forms}
 as described in @ref{Processing of Top Level Forms}
 and arrange for each @term{top level form} to be executed
 before beginning @term{implicit compilation} of the next.
-(Note, however, that processing of @code{eval-when} @term{forms}
-by @code{load} is controlled by the @kwd{execute} situation.)
+(Note, however, that processing of @coderef{eval-when} @term{forms}
+by @coderef{load} is controlled by the @kwd{execute} situation.)
 
 If @param{verbose} is @term{true},
-@code{load} prints a message in the form of a comment
+@coderef{load} prints a message in the form of a comment
 (@ie{} with a leading @term{semicolon})
 to @term{standard output} indicating what @term{file} is being @term{loaded}
 and other useful information.
 If @param{verbose} is @term{false},
-@code{load} does not print this information.
+@coderef{load} does not print this information.
 
 If @param{print} is @term{true},
-@code{load} incrementally prints information to @term{standard output}
+@coderef{load} incrementally prints information to @term{standard output}
 showing the progress of the @term{loading} process.
 For a @term{source file},
 this information might mean printing the @term{values}
@@ -450,24 +450,24 @@ For a @term{compiled file},
 what is printed might not reflect precisely the contents of the @term{source file},
 but some information is generally printed.
 If @param{print} is @term{false},
-@code{load} does not print this information.
+@coderef{load} does not print this information.
 
 If the file named by @param{filespec} is successfully loaded,
-@code{load} returns @term{true}.
+@coderef{load} returns @term{true}.
 
 @reviewer{Loosemore: What happens if the file cannot be loaded for some reason other
 than that it doesn't exist?} @editornote{KMP: i.e., can it return NIL? must it?}
 
 If the file does not exist,
 the specific action taken depends on @param{if-does-not-exist}:
-if it is @nil{}, @code{load} returns @nil{};
-otherwise, @code{load} signals an error.
+if it is @nil{}, @coderef{load} returns @nil{};
+otherwise, @coderef{load} signals an error.
 
 The @param{external-format} specifies the @term{external file format}
 to be used when opening the @term{file} (see the @term{function} @ref{open}),
 except that when the @term{file} named by @param{filespec} is a @term{compiled file},
 the @param{external-format} is ignored.
-@code{compile-file} and @code{load} cooperate
+@coderef{compile-file} and @coderef{load} cooperate
 in an @term{implementation-dependent} way to assure
 the preservation of the @term{similarity} of @term{characters}
 referred to in the @term{source file}
@@ -476,13 +476,13 @@ under a given @term{external file format},
 regardless of the value of @param{external-format}
 at the time the @term{compiled file} is @term{loaded}.
 
-@code{load} binds @code{*readtable*} and @code{*package*}
+@coderef{load} binds @coderef{*readtable*} and @coderef{*package*}
 to the values they held before @term{loading} the file.
 
-@code{*load-truename*} is @term{bound} by @code{load} to hold
+@coderef{*load-truename*} is @term{bound} by @coderef{load} to hold
 the @term{truename} of the @term{pathname} of the file being @term{loaded}.
 
-@code{*load-pathname*} is @term{bound} by @code{load} to hold
+@coderef{*load-pathname*} is @term{bound} by @coderef{load} to hold
 a @term{pathname} that represents @param{filespec} merged against the defaults.
 That is, @tt{(pathname (merge-pathnames @param{filespec}))}.
 
@@ -533,7 +533,7 @@ The implementation, and the host computer's file system.
 @subsubheading Exceptional Situations:
 
 If @kwd{if-does-not-exist} is supplied and is @term{true}, or is not supplied,
-@code{load} signals an error @oftype{file-error} if the file named by
+@coderef{load} signals an error @oftype{file-error} if the file named by
 @param{filespec} does not exist,
 or if the @term{file system} cannot perform the requested operation.
 
@@ -578,19 +578,19 @@ An error @oftype{file-error} might be signaled if
 @subsubheading Description:
 
 Executes @param{forms} from left to right.
-Within the @term{dynamic environment} of @code{with-compilation-unit},
+Within the @term{dynamic environment} of @coderef{with-compilation-unit},
 actions deferred by the compiler until the end of compilation will be
-deferred until the end of the outermost call to @code{with-compilation-unit}.
+deferred until the end of the outermost call to @coderef{with-compilation-unit}.
 
 The set of @term{options} permitted may be extended by the implementation,
 but the only @term{standardized} keyword is @kwd{override}.
 
 If nested dynamically only the outer call to
-@code{with-compilation-unit} has any effect unless the value
+@coderef{with-compilation-unit} has any effect unless the value
 associated with @kwd{override} is @term{true}, in which case warnings are
 deferred only to the end of the innermost call for which @param{override} is @term{true}.
 
-The function @code{compile-file}
+The function @coderef{compile-file}
 provides the effect of
 
 @lisp
@@ -735,7 +735,7 @@ as an official standard, and that the @term{implementation}
 @item @id{@kwd{common-lisp}}
 
 
-This feature must appear in @code{*features*} for any implementation that
+This feature must appear in @coderef{*features*} for any implementation that
 has one or more of the features @kwd{x3j13}, @kwd{draft-ansi-cl},
 or @kwd{ansi-cl}.  It is intended that it should also appear in
 implementations which have the features @kwd{cltl1} or @kwd{cltl2},
@@ -798,18 +798,18 @@ and are hence less likely to be used unwittingly by another @term{implementation
 
 @subsubheading Description:
 
-During a call to @code{compile-file},
-@code{*compile-file-pathname*} is @term{bound} to
-the @term{pathname} denoted by the first argument to @code{compile-file},
+During a call to @coderef{compile-file},
+@coderef{*compile-file-pathname*} is @term{bound} to
+the @term{pathname} denoted by the first argument to @coderef{compile-file},
 merged against the defaults;
 that is, it is @term{bound} to @f{(pathname (merge-pathnames @param{input-file}))}.
 During the same time interval,
-@code{*compile-file-truename*} is @term{bound} to
+@coderef{*compile-file-truename*} is @term{bound} to
 the @term{truename} of the @term{file} being @term{compiled}.
 
 At other times, the @term{value} of these @term{variables} is @nil{}.
 
-If a @term{break loop} is entered while @code{compile-file} is ongoing,
+If a @term{break loop} is entered while @coderef{compile-file} is ongoing,
 it is @term{implementation-dependent} whether these @term{variables} retain
 the @term{values} they had just prior to entering the @term{break loop}
 or whether they are @term{bound} to @nil{}.
@@ -846,18 +846,18 @@ The @term{file system}.
 
 @subsubheading Description:
 
-During a call to @code{load},
-@code{*load-pathname*} is @term{bound} to
-the @term{pathname} denoted by the the first argument to @code{load},
+During a call to @coderef{load},
+@coderef{*load-pathname*} is @term{bound} to
+the @term{pathname} denoted by the the first argument to @coderef{load},
 merged against the defaults;
 that is, it is @term{bound} to @f{(pathname (merge-pathnames @param{filespec}))}.
 During the same time interval,
-@code{*load-truename*} is @term{bound} to
+@coderef{*load-truename*} is @term{bound} to
 the @term{truename} of the @term{file} being loaded.
 
 At other times, the @term{value} of these @term{variables} is @nil{}.
 
-If a @term{break loop} is entered while @code{load} is ongoing,
+If a @term{break loop} is entered while @coderef{load} is ongoing,
 it is @term{implementation-dependent} whether these @term{variables} retain
 the @term{values} they had just prior to entering the @term{break loop}
 or whether they are @term{bound} to @nil{}.
@@ -895,9 +895,9 @@ a @term{generalized boolean}.
 @subsubheading Description:
 
 @Thevalueof{*compile-print*}   is the default value of @thekeyarg{print}
-to @code{compile-file}.
+to @coderef{compile-file}.
 @Thevalueof{*compile-verbose*} is the default value of @thekeyarg{verbose}
-to @code{compile-file}.
+to @coderef{compile-file}.
 
 @subsubheading See Also:
 
@@ -920,13 +920,13 @@ a @term{generalized boolean}.
 
 @subsubheading Initial Value:
 
-The initial @term{value} of @code{*load-print*}   is @term{false}.
-The initial @term{value} of @code{*load-verbose*} is @term{implementation-dependent}.
+The initial @term{value} of @coderef{*load-print*}   is @term{false}.
+The initial @term{value} of @coderef{*load-verbose*} is @term{implementation-dependent}.
 
 @subsubheading Description:
 
-@Thevalueof{*load-print*}   is the default value of @thekeyarg{print}   to @code{load}.
-@Thevalueof{*load-verbose*} is the default value of @thekeyarg{verbose} to @code{load}.
+@Thevalueof{*load-print*}   is the default value of @thekeyarg{print}   to @coderef{load}.
+@Thevalueof{*load-verbose*} is the default value of @thekeyarg{verbose} to @coderef{load}.
 
 @subsubheading See Also:
 
@@ -956,7 +956,7 @@ that have been loaded into the current @term{Lisp image}.
 
 @subsubheading Affected By:
 
-@code{provide}
+@coderef{provide}
 
 @subsubheading See Also:
 
@@ -965,7 +965,7 @@ that have been loaded into the current @term{Lisp image}.
 
 @subsubheading Notes:
 
-The variable @code{*modules*} is deprecated.
+The variable @coderef{*modules*} is deprecated.
 
 
 
@@ -996,12 +996,12 @@ for a @term{non-empty} @term{list} of @term{pathname designators}.
 
 @subsubheading Description:
 
-@code{provide} adds the @param{module-name} to the @term{list} held by
-@code{*modules*}, if such a name is not already present.
+@coderef{provide} adds the @param{module-name} to the @term{list} held by
+@coderef{*modules*}, if such a name is not already present.
 
-@code{require} tests for the presence of the @param{module-name} in the
-@term{list} held by @code{*modules*}.
-If it is present, @code{require} immediately returns.
+@coderef{require} tests for the presence of the @param{module-name} in the
+@term{list} held by @coderef{*modules*}.
+If it is present, @coderef{require} immediately returns.
 Otherwise, an attempt is made to load an appropriate set of @term{files} as follows:
 The @param{pathname-list} argument, if @term{non-nil},
 specifies a list of @term{pathnames} to be loaded in order, from left to right.
@@ -1010,7 +1010,7 @@ an @term{implementation-dependent} mechanism will be invoked in an attempt
 to load the module named @param{module-name};
 if no such module can be loaded, an error @oftype{error} is signaled.
 
-Both functions use @code{string=} to test for the presence of a @param{module-name}.
+Both functions use @coderef{string=} to test for the presence of a @param{module-name}.
 
 @subsubheading Examples:
 
@@ -1041,18 +1041,18 @@ Both functions use @code{string=} to test for the presence of a @param{module-na
 
 @subsubheading Side Effects:
 
-@code{provide} modifies @code{*modules*}.
+@coderef{provide} modifies @coderef{*modules*}.
 
 @subsubheading Affected By:
 
-The specific action taken by @code{require} is affected by calls to @code{provide}
+The specific action taken by @coderef{require} is affected by calls to @coderef{provide}
 (or, in general, any changes to @thevalueof{*modules*}).
 
 @subsubheading Exceptional Situations:
 
 @Shouldchecktype{module-name, a @term{@symbolnamedesignator{}}}
 
-If @code{require} fails to perform the requested operation
+If @coderef{require} fails to perform the requested operation
 due to a problem while interacting with the @term{file system},
 an error @oftype{file-error} is signaled.
 
@@ -1066,7 +1066,7 @@ in @param{pathname-list} is a @term{designator} for a @term{wild} @term{pathname
 
 @subsubheading Notes:
 
-The functions @code{provide} and @code{require} are deprecated.
+The functions @coderef{provide} and @coderef{require} are deprecated.
 
 If a module consists of a single @term{package},
 it is customary for the package and module names to be the same.

@@ -48,7 +48,7 @@ successfully manipulate user-supplied data
 which contains or refers to non-portable @term{namestrings}.
 
 A @term{namestring} can be @term{coerced} to a @term{pathname} by @thefunctions{pathname}
-or @code{parse-namestring}.
+or @coderef{parse-namestring}.
 
 
 @node Pathnames as Filenames
@@ -428,9 +428,9 @@ see the @term{function} @ref{merge-pathnames} and @ref{Merging Pathnames}.
 @node Restrictions on Wildcard Pathnames
 @subsubsection Restrictions on Wildcard Pathnames
 
-Wildcard @term{pathnames} can be used with @code{directory} but not with
-@code{open},
-and return true from @code{wild-pathname-p}. When examining
+Wildcard @term{pathnames} can be used with @coderef{directory} but not with
+@coderef{open},
+and return true from @coderef{wild-pathname-p}. When examining
 wildcard components of a wildcard @term{pathname}, conforming programs
 must be prepared to encounter any of the following additional values
 in any component or any element of a @term{list} that is the directory component:
@@ -540,7 +540,7 @@ In place of a @term{string}, at any point in the @term{list}, @term{symbols}
 can occur to indicate special file notations.
 @Thenextfigure{}@spc{}lists the @term{symbols} that have standard meanings.
 Implementations are permitted to add additional @term{objects}
-of any @term{type} that is disjoint from @code{string}
+of any @term{type} that is disjoint from @coderef{string}
 if necessary to represent features of their file systems that cannot be
 represented with the standard @term{strings} and @term{symbols}.
 
@@ -745,8 +745,8 @@ including @kwd{unspecific}, that component is considered to be filled.
 Except as explicitly specified otherwise,
 for functions that manipulate or inquire about @term{files} in the @term{file system},
 the pathname argument to such a function
-is merged with @code{*default-pathname-defaults*} before accessing the @term{file system}
-(as if by @code{merge-pathnames}).
+is merged with @coderef{*default-pathname-defaults*} before accessing the @term{file system}
+(as if by @coderef{merge-pathnames}).
 
 @node Examples of Merging Pathnames
 @subsubsection Examples of Merging Pathnames
@@ -834,7 +834,7 @@ with no two @term{asterisks} adjacent.
 
 
 The @param{host} must have been defined as a @term{logical pathname} host;
-this can be done by using @code{setf} of @code{logical-pathname-translations}.
+this can be done by using @coderef{setf} of @coderef{logical-pathname-translations}.
 
 The @term{logical pathname} host name @f{"SYS"} is reserved for the implementation.
 The existence and meaning of @f{SYS:} @term{logical pathnames}
@@ -962,8 +962,8 @@ The null string, @f{""}, is not a valid value for any component of a @term{logic
 
 
 @subsubheading Class Precedence List:
-@code{pathname},
-@code{t}
+@coderef{pathname},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -981,9 +981,9 @@ There are two kinds of @term{pathnames}---@term{physical pathnames} and
 
 @subsubheading Class Precedence List:
 
-@code{logical-pathname},
-@code{pathname},
-@code{t}
+@coderef{logical-pathname},
+@coderef{pathname},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -1022,9 +1022,9 @@ Returns the @term{pathname} denoted by @param{pathspec}.
 
 If the @param{pathspec} @term{designator} is a @term{stream},
 the @term{stream} can be either open or closed;
-in both cases, the @code{pathname} returned
+in both cases, the @coderef{pathname} returned
 corresponds to the @term{filename} used to open the @term{file}.
-@code{pathname} returns the same @term{pathname} for a @term{file stream}
+@coderef{pathname} returns the same @term{pathname} for a @term{file stream}
 after it is closed as it did when it was open.
 
 If the @param{pathspec} @term{designator} is
@@ -1131,7 +1131,7 @@ After the components supplied explicitly by
 @param{type},
 and @param{version}
 are filled in,
-the merging rules used by @code{merge-pathnames}
+the merging rules used by @coderef{merge-pathnames}
 are used to fill in any
 unsupplied
 components
@@ -1512,7 +1512,7 @@ not been previously used as
 a @term{logical pathname} host, a new
 @term{logical pathname} host is defined;
 otherwise an existing host's translations are
-replaced.  @term{logical pathname} host names are compared with @code{string-equal}.
+replaced.  @term{logical pathname} host names are compared with @coderef{string-equal}.
 
 When setting the translations list, each @i{from-wildcard}
 can be a @term{logical pathname} whose
@@ -1520,20 +1520,20 @@ host is @param{host} or a @term{logical pathname} namestring
 parseable by @f{(parse-namestring @term{string} @i{host})},
 where @i{host}
 represents the appropriate @term{object} as defined
-by @code{parse-namestring}. Each
+by @coderef{parse-namestring}. Each
 @i{to-wildcard} can be anything coercible to a
 @term{pathname} by
 @f{(pathname @i{to-wildcard})}.
 If @i{to-wildcard} coerces to a @term{logical pathname},
-@code{translate-logical-pathname}
+@coderef{translate-logical-pathname}
 will perform repeated translation steps when
 it uses it.
 
 @param{host} is either the host component of a
 @term{logical pathname} or a
 @term{string} that has been defined
-as a @term{logical pathname} host name by @code{setf} of
-@code{logical-pathname-translations}.
+as a @term{logical pathname} host name by @coderef{setf} of
+@coderef{logical-pathname-translations}.
 
 @subsubheading Examples:
 
@@ -1691,25 +1691,25 @@ or a @term{stream}.
 
 @subsubheading Description:
 
-@code{logical-pathname} converts @param{pathspec} to a
+@coderef{logical-pathname} converts @param{pathspec} to a
 @term{logical pathname} and returns the new @term{logical pathname}.
 If @param{pathspec} is a @term{logical pathname} @term{namestring},
 it should contain a host component and its following @term{colon}.
 If @param{pathspec} is a @term{stream}, it should be one
-for which @code{pathname} returns a @term{logical pathname}.
+for which @coderef{pathname} returns a @term{logical pathname}.
 
 If @param{pathspec} is a @term{stream}, the @term{stream} can be either open or closed.
-@code{logical-pathname} returns the same @term{logical pathname} after a
+@coderef{logical-pathname} returns the same @term{logical pathname} after a
 file is closed as it did when the file was open.
 It is an error if @param{pathspec} is a @term{stream} that is
 created with
-@code{make-two-way-stream},
-@code{make-echo-stream},
-@code{make-broadcast-stream},
-@code{make-concatenated-stream},
-@code{make-string-input-stream},
+@coderef{make-two-way-stream},
+@coderef{make-echo-stream},
+@coderef{make-broadcast-stream},
+@coderef{make-concatenated-stream},
+@coderef{make-string-input-stream},
 or
-@code{make-string-output-stream}.
+@coderef{make-string-output-stream}.
 
 @subsubheading Exceptional Situations:
 
@@ -1805,16 +1805,16 @@ These functions convert @param{pathname} into a namestring.
 The name represented by @param{pathname} is returned as a @term{namestring}
 in an @term{implementation-dependent} canonical form.
 
-@code{namestring} returns the full form of @param{pathname}.
+@coderef{namestring} returns the full form of @param{pathname}.
 
-@code{file-namestring} returns just the name, type, and version
+@coderef{file-namestring} returns just the name, type, and version
 components of @param{pathname}.
 
-@code{directory-namestring} returns the directory name portion.
+@coderef{directory-namestring} returns the directory name portion.
 
-@code{host-namestring} returns the host name.
+@coderef{host-namestring} returns the host name.
 
-@code{enough-namestring} returns an abbreviated namestring
+@coderef{enough-namestring} returns an abbreviated namestring
 that is just sufficient to identify the file named by @param{pathname}
 when considered relative to the @param{defaults}.
 It is required that
@@ -1824,7 +1824,7 @@ It is required that
 @EQ{} (merge-pathnames (parse-namestring pathname nil defaults) defaults)
 @end lisp
 
-in all cases, and the result of @code{enough-namestring} is
+in all cases, and the result of @coderef{enough-namestring} is
 the shortest reasonable @term{string} that will satisfy this criterion.
 
 It is not necessarily possible to construct a valid @term{namestring}
@@ -1935,7 +1935,7 @@ otherwise (if they do not match), an error is signaled.
 
 
 Otherwise (if @param{thing} is a @term{string}),
-@code{parse-namestring} parses the name of a @term{file} within
+@coderef{parse-namestring} parses the name of a @term{file} within
 the substring of @param{thing} bounded by @param{start} and @param{end}.
 
 If @param{thing} is a @term{string} then
@@ -1995,7 +1995,7 @@ Parsing a @term{null} @term{string} always succeeds,
 producing a @term{pathname} with all components (except the host) equal to @nil{}.
 
 If @param{thing} contains an explicit host name and no explicit device name,
-then it is @term{implementation-defined} whether @code{parse-namestring}
+then it is @term{implementation-defined} whether @coderef{parse-namestring}
 will supply the standard default device for that host as the device component
 of the resulting @term{pathname}.
 
@@ -2073,16 +2073,16 @@ or @nil{}.
 
 @subsubheading Description:
 
-@code{wild-pathname-p} tests @param{pathname} for the presence of wildcard components.
+@coderef{wild-pathname-p} tests @param{pathname} for the presence of wildcard components.
 
-If @param{pathname} is a @term{pathname} (as returned by @code{pathname})
+If @param{pathname} is a @term{pathname} (as returned by @coderef{pathname})
 it represents the name used to open the file. This may be, but is
 not required to be, the actual name of the file.
 
-If @param{field-key} is not supplied or @nil{}, @code{wild-pathname-p}
+If @param{field-key} is not supplied or @nil{}, @coderef{wild-pathname-p}
 returns true if @param{pathname} has any wildcard components, @nil{}@spc{}
 if @param{pathname} has none.
-If @param{field-key} is @term{non-nil}, @code{wild-pathname-p}
+If @param{field-key} is @term{non-nil}, @coderef{wild-pathname-p}
 returns true if the indicated component of @param{pathname} is a wildcard,
 @nil{}@spc{}if the component is not a wildcard.
 
@@ -2140,15 +2140,15 @@ See @ref{WILD as a Component Value}@spc{}and @ref{Restrictions on Wildcard Pathn
 
 @subsubheading Description:
 
-@code{pathname-match-p} returns true if
+@coderef{pathname-match-p} returns true if
 @param{pathname} matches @param{wildcard}, otherwise @nil{}.  The
 matching rules are @term{implementation-defined} but should be consistent with
-@code{directory}. Missing components of @param{wildcard} default to @kwd{wild}.
+@coderef{directory}. Missing components of @param{wildcard} default to @kwd{wild}.
 
 It is valid for @param{pathname} to be a wild @term{pathname};
 a wildcard field in @param{pathname} only matches a
 wildcard field in @param{wildcard} (@ie{}
-@code{pathname-match-p} is not commutative).
+@coderef{pathname-match-p} is not commutative).
 It is valid for @param{wildcard} to be a non-wild @term{pathname}.
 
 @subsubheading Exceptional Situations:
@@ -2189,15 +2189,15 @@ Translates @param{pathname} to a @term{physical pathname}, which it returns.
 
 If @param{pathname} is a @term{stream}, the
 @term{stream} can be either open or closed.
-@code{translate-logical-pathname} returns the same
+@coderef{translate-logical-pathname} returns the same
 physical pathname after a
 file is closed as it did when the file was open.
 It is an error if @param{pathname} is a @term{stream} that is
-created with @code{make-two-way-stream},
-@code{make-echo-stream},
-@code{make-broadcast-stream},
-@code{make-concatenated-stream}, @code{make-string-input-stream},
-@code{make-string-output-stream}.
+created with @coderef{make-two-way-stream},
+@coderef{make-echo-stream},
+@coderef{make-broadcast-stream},
+@coderef{make-concatenated-stream}, @coderef{make-string-input-stream},
+@coderef{make-string-output-stream}.
 
 If @param{pathname} is a @term{logical pathname} namestring,
 the host portion of the
@@ -2207,16 +2207,16 @@ the host portion of the
 @param{Pathname} is first coerced to a @term{pathname}.
 If the coerced @param{pathname} is a physical pathname, it is returned.
 If the coerced @param{pathname} is a @term{logical pathname},
-the first matching translation (according to @code{pathname-match-p})
+the first matching translation (according to @coderef{pathname-match-p})
 of the @term{logical pathname} host is applied, as if by calling
-@code{translate-pathname}.  If the result is
+@coderef{translate-pathname}.  If the result is
 a @term{logical pathname}, this process is repeated.
 When the result is
 finally a physical pathname, it is returned.
 If no translation matches, an error
 is signaled.
 
-@code{translate-logical-pathname} might perform additional translations,
+@coderef{translate-logical-pathname} might perform additional translations,
 typically to provide translation of file types to local naming
 conventions, to accomodate physical file systems with limited length
 names, or to deal with special character requirements such as
@@ -2225,7 +2225,7 @@ Any such additional translations are @term{implementation-defined}.  Some
 implementations do no additional translations.
 
 There are no specified keyword arguments for
-@code{translate-logical-pathname},
+@coderef{translate-logical-pathname},
 but implementations are permitted to extend
 it by adding keyword arguments.
 
@@ -2233,7 +2233,7 @@ it by adding keyword arguments.
 
 @subsubheading Examples:
 
-See @code{logical-pathname-translations}.
+See @coderef{logical-pathname-translations}.
 
 @subsubheading Exceptional Situations:
 
@@ -2275,7 +2275,7 @@ If no translation matches, an error @oftype{file-error} is signaled.
 
 @subsubheading Description:
 
-@code{translate-pathname} translates @param{source}
+@coderef{translate-pathname} translates @param{source}
 (that matches @param{from-wildcard}) into a corresponding @term{pathname}
 that matches @param{to-wildcard}, and returns the corresponding @term{pathname}.
 
@@ -2286,7 +2286,7 @@ field replaced by a portion of @param{source}.  A ``wildcard field'' is a
 of a component, such as the @f{"*"} in the complex wildcard string
 @f{"foo*bar"} that some implementations support.  An implementation that
 adds other wildcard features, such as regular expressions, must define
-how @code{translate-pathname} extends to those features.
+how @coderef{translate-pathname} extends to those features.
 A ``missing field'' is a @term{pathname} component with a value of @nil{}.
 
 The portion of @param{source}
@@ -2321,10 +2321,10 @@ is valid for @param{from-wildcard} and/or @param{to-wildcard} to be
 non-wild @term{pathnames}.
 
 There are no specified keyword arguments for
-@code{translate-pathname}, but
+@coderef{translate-pathname}, but
 implementations are permitted to extend it by adding keyword arguments.
 
-@code{translate-pathname} maps customary case in
+@coderef{translate-pathname} maps customary case in
 @param{source} into customary case in the output @term{pathname}.
 
 
@@ -2394,7 +2394,7 @@ be true or an error @oftype{error} is signaled.
 
 @subsubheading Notes:
 
-The exact behavior of @code{translate-pathname} cannot be dictated
+The exact behavior of @coderef{translate-pathname} cannot be dictated
 by the @clisp{}@spc{}language and must be allowed to vary, depending on the
 user interface conventions of the file systems involved.
 
@@ -2481,14 +2481,14 @@ to input a version without a name or type, the user can let the name
 and type default but supply a version different from the one in @param{default-pathname}.
 
 If @param{pathname} is a @term{stream}, @param{pathname} effectively
-becomes @f{(pathname @param{pathname})}. @code{merge-pathnames}
+becomes @f{(pathname @param{pathname})}. @coderef{merge-pathnames}
 can be used on either an open or a closed @term{stream}.
 
 If @param{pathname} is a @term{pathname}
 it represents the name used to open the file. This may be, but is
 not required to be, the actual name of the file.
 
-@code{merge-pathnames} recognizes a @term{logical pathname} @term{namestring}
+@coderef{merge-pathnames} recognizes a @term{logical pathname} @term{namestring}
 when @param{default-pathname} is a @term{logical pathname},
 or when the @term{namestring} begins with
 the name of a defined @term{logical host} followed by a @term{colon}.
@@ -2496,7 +2496,7 @@ In the first of these two cases,
 the host portion of the @term{logical pathname} @term{namestring}
 and its following @term{colon} are optional.
 
-@code{merge-pathnames} returns a
+@coderef{merge-pathnames} returns a
 @term{logical pathname} if and only if
 its first argument is a @term{logical pathname},
 or its first argument is a @term{logical pathname} @term{namestring} with an explicit host,
@@ -2523,7 +2523,7 @@ If @f{(pathname-directory @param{default-pathname})} is not a @term{list} or
 whose @term{car} is @kwd{relative}, the merged directory is
 @f{(or (pathname-directory @param{pathname}) (pathname-directory @param{default-pathname}))}
 
-@code{merge-pathnames} maps customary case in @param{pathname}
+@coderef{merge-pathnames} maps customary case in @param{pathname}
 into customary case in the output @term{pathname}.
 
 @subsubheading Examples:

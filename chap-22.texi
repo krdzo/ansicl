@@ -21,13 +21,13 @@
 
 @clisp{}@spc{}provides a representation of most @term{objects} in the form
 of printed text called the printed representation.
-Functions such as @code{print} take an @term{object}
+Functions such as @coderef{print} take an @term{object}
 and send the characters of its printed representation to a @term{stream}.
 The collection of routines that does this is known as the (@clisp{}) printer.
 
 Reading a printed representation
 typically
-produces an @term{object} that is @code{equal} to the
+produces an @term{object} that is @coderef{equal} to the
 originally printed @term{object}.
 
 @node Multiple Possible Textual Representations
@@ -58,7 +58,7 @@ from the point of view of the @term{Lisp reader},
 wherever @term{whitespace} is permissible in a textual representation,
 any number of @term{spaces} and @term{newlines} can appear in @term{standard syntax}.
 
-When a function such as @code{print} produces a printed representation,
+When a function such as @coderef{print} produces a printed representation,
 it must choose
 from among many possible textual representations.
 In most cases, it chooses a
@@ -121,12 +121,12 @@ many of the individual aspects controlled by the other
 is especially important.
 
 One of the many effects of making @thevalueof{*print-readably*} be @term{true}
-is that the @term{Lisp printer} behaves as if @code{*print-escape*} were also @term{true}.
+is that the @term{Lisp printer} behaves as if @coderef{*print-escape*} were also @term{true}.
 For notational convenience, we say that
-if the value of either @code{*print-readably*} or @code{*print-escape*} is @term{true},
+if the value of either @coderef{*print-readably*} or @coderef{*print-escape*} is @term{true},
 then @newterm{printer escaping} is ``enabled'';
 and we say that
-if the values of both @code{*print-readably*} and @code{*print-escape*} are @term{false},
+if the values of both @coderef{*print-readably*} and @coderef{*print-escape*} are @term{false},
 then @term{printer escaping} is ``disabled''.
 
 
@@ -144,7 +144,7 @@ printing is controlled by the @term{current pprint dispatch table};
 see @ref{Pretty Print Dispatch Tables}.
 
 Otherwise (if @thevalueof{*print-pretty*} is @term{false}),
-the object's @code{print-object} method is used;
+the object's @coderef{print-object} method is used;
 see @ref{Default Print-Object Methods}.
 
 
@@ -152,7 +152,7 @@ see @ref{Default Print-Object Methods}.
 @subsection Default Print-Object Methods
 
 This section describes the default behavior of
-@code{print-object} methods for the @term{standardized} @term{types}.
+@coderef{print-object} methods for the @term{standardized} @term{types}.
 
 @node Printing Numbers
 @subsubsection Printing Numbers
@@ -163,7 +163,7 @@ This section describes the default behavior of
 
 @term{Integers} are printed in the radix specified by the @term{current output base}
 in positional notation, most significant digit first.
-If appropriate, a radix specifier can be printed; see @code{*print-radix*}.
+If appropriate, a radix specifier can be printed; see @coderef{*print-radix*}.
 If an @term{integer} is negative, a minus sign is printed and then the
 absolute value of the @term{integer} is printed.
 The @term{integer} zero is represented
@@ -184,10 +184,10 @@ the absolute value of the numerator is printed, as for an @term{integer};
 then a @f{/}; then the denominator.  The numerator and denominator are
 both printed in the radix specified by the @term{current output base};
 they are obtained as if by
-@code{numerator} and @code{denominator}, and so @term{ratios}
+@coderef{numerator} and @coderef{denominator}, and so @term{ratios}
 are printed in reduced form (lowest terms).
 If appropriate, a radix specifier can be printed; see
-@code{*print-radix*}.
+@coderef{*print-radix*}.
 If the ratio is negative, a minus sign is printed before the numerator.
 
 For related information about the syntax of a @term{ratio},
@@ -205,11 +205,11 @@ followed by the fractional part of the number;
 there is always at least one
 digit on each side of the decimal point.
 If the sign of the number
-(as determined by @code{float-sign})
+(as determined by @coderef{float-sign})
 is negative, then a minus sign is printed before the number.
 If the format of the number
 does not match that specified by
-@code{*read-default-float-format*}, then the @term{exponent marker} for
+@coderef{*read-default-float-format*}, then the @term{exponent marker} for
 that format and the digit @f{0} are also printed.
 For example, the base of the natural logarithms as a @term{short float}
 might be printed as @f{2.71828S0}.
@@ -222,7 +222,7 @@ before the decimal point and at least one digit after the decimal point.
 Next the @term{exponent marker} for the format is printed,
 except that
 if the format of the number matches that specified by
-@code{*read-default-float-format*}, then the @term{exponent marker} @f{E}
+@coderef{*read-default-float-format*}, then the @term{exponent marker} @f{E}
 is used.
 Finally, the power of ten by which the fraction must be multiplied
 to equal the original number is printed as a decimal integer.
@@ -281,7 +281,7 @@ For details about the @f{#@bsl{}} @term{reader macro}, see @ref{Sharpsign Backsl
 When @term{printer escaping} is disabled,
 only the characters of the @term{symbol}'s @term{name} are output
 (but the case in which to print characters in the @term{name} is
-controlled by @code{*print-case*};
+controlled by @coderef{*print-case*};
 see @ref{Effect of Readtable Case on the Lisp Printer}).
 
 The remainder of @thissection{}@spc{}applies only
@@ -290,8 +290,8 @@ when @term{printer escaping} is enabled.
 When printing a @term{symbol}, the printer inserts enough
 @term{single escape} and/or @term{multiple escape}
 characters (@term{backslashes} and/or @term{vertical-bars}) so that if
-@code{read} were called with the same @code{*readtable*} and
-with @code{*read-base*} bound to the @term{current output base}, it
+@coderef{read} were called with the same @coderef{*readtable*} and
+with @coderef{*read-base*} bound to the @term{current output base}, it
 would return the same @term{symbol} (if it is not
 @term{apparently uninterned}) or an @term{uninterned} @term{symbol}
 with the same @term{print name} (otherwise).
@@ -309,7 +309,7 @@ For information about how the @term{Lisp reader} parses @term{symbols},
 see @ref{Sharpsign Colon}.
 
 @nil{}@spc{}might be printed as @f{()}
-when @code{*print-pretty*} is @term{true}
+when @coderef{*print-pretty*} is @term{true}
 and @term{printer escaping} is enabled.
 
 @node Package Prefixes for Symbols
@@ -325,14 +325,14 @@ it is @term{accessible} in the @term{current package}, it is printed without any
 
 A @term{symbol} that is @term{apparently uninterned} is printed
 preceded by ``@f{#:}''
-if @code{*print-gensym*} is @term{true} and @term{printer escaping} is enabled;
-if @code{*print-gensym*} is @term{false} or @term{printer escaping} is disabled,
+if @coderef{*print-gensym*} is @term{true} and @term{printer escaping} is enabled;
+if @coderef{*print-gensym*} is @term{false} or @term{printer escaping} is disabled,
 then the @term{symbol} is printed without a prefix,
 as if it were in the @term{current package}.
 
 Because the @f{#:} syntax does not intern the
 following symbol, it is necessary to use circular-list syntax
-if @code{*print-circle*} is @term{true} and
+if @coderef{*print-circle*} is @term{true} and
 the same uninterned symbol appears several times in an expression
 to be printed.  For example, the result of
 
@@ -340,8 +340,8 @@ to be printed.  For example, the result of
  (let ((x (make-symbol "FOO"))) (list x x))
 @end lisp
 
-would be printed as @f{(#:foo #:foo)} if @code{*print-circle*}
-were @term{false}, but as @f{(#1=#:foo #1#)} if @code{*print-circle*}
+would be printed as @f{(#:foo #:foo)} if @coderef{*print-circle*}
+were @term{false}, but as @f{(#1=#:foo #1#)} if @coderef{*print-circle*}
 were @term{true}.
 
 A summary of the preceding package prefix rules follows:
@@ -397,7 +397,7 @@ in the following ways:
 
 When the @term{readtable case} is @kwd{upcase},
 @term{uppercase} @term{characters}
-are printed in the case specified by @code{*print-case*}, and
+are printed in the case specified by @coderef{*print-case*}, and
 @term{lowercase} @term{characters} are printed in their own case.
 
 @item @id{@kwd{downcase}}
@@ -406,7 +406,7 @@ are printed in the case specified by @code{*print-case*}, and
 When the @term{readtable case} is @kwd{downcase},
 @term{uppercase} @term{characters} are printed in their own case, and
 @term{lowercase} @term{characters}
-are printed in the case specified by @code{*print-case*}.
+are printed in the case specified by @coderef{*print-case*}.
 
 @item @id{@kwd{preserve}}
 
@@ -425,7 +425,7 @@ Mixed-case symbol names are printed as is.
 
 
 The rules for escaping @term{alphabetic} @term{characters} in symbol names are affected by
-the @code{readtable-case}
+the @coderef{readtable-case}
 if @term{printer escaping} is enabled.
 @term{Alphabetic} @term{characters} are escaped as follows:
 
@@ -532,7 +532,7 @@ The characters of the @term{string} are output in order.
 If @term{printer escaping} is enabled,
 a @term{double-quote} is output before and after, and all
 @term{double-quotes} and @term{single escapes} are preceded by @term{backslash}.
-The printing of @term{strings} is not affected by @code{*print-array*}.
+The printing of @term{strings} is not affected by @coderef{*print-array*}.
 Only the @term{active} @term{elements} of the @term{string} are printed.
 
 For information on how the @term{Lisp reader} parses @term{strings},
@@ -572,9 +572,9 @@ and the @term{cdr} of @mat{x} are printed.
 @end enumerate
 
 
-Actually, the above algorithm is only used when @code{*print-pretty*}
-is @term{false}.  When @code{*print-pretty*} is @term{true} (or
-when @code{pprint} is used),
+Actually, the above algorithm is only used when @coderef{*print-pretty*}
+is @term{false}.  When @coderef{*print-pretty*} is @term{true} (or
+when @coderef{pprint} is used),
 additional @term{whitespace}@sub{1}
 may replace the use of a single @term{space},
 and a more elaborate algorithm with similar goals but more presentational
@@ -592,8 +592,8 @@ always prints such a @term{cons} in the second form.
  (a b (c d) e)
 @end lisp
 
-The printing of @term{conses} is affected by @code{*print-level*},
-@code{*print-length*}, and @code{*print-circle*}.
+The printing of @term{conses} is affected by @coderef{*print-level*},
+@coderef{*print-length*}, and @coderef{*print-circle*}.
 
 @goodbreak{}
 Following are examples of printed representations of @term{lists}:
@@ -625,7 +625,7 @@ see @ref{Left-Parenthesis}.
 @subsubsection Printing Bit Vectors
 
 A @term{bit vector} is printed as @f{#*} followed by the bits of the @term{bit vector}
-in order.  If @code{*print-array*} is @term{false}, then the @term{bit vector} is
+in order.  If @coderef{*print-array*} is @term{false}, then the @term{bit vector} is
 printed in a format (using @f{#<}) that is concise but not readable.
 Only the @term{active} @term{elements} of the @term{bit vector} are printed.
 
@@ -638,8 +638,8 @@ see @ref{Sharpsign Asterisk}.
 @node Printing Other Vectors
 @subsubsection Printing Other Vectors
 
-If @code{*print-array*} is @term{true}
-and @code{*print-readably*} is @term{false},
+If @coderef{*print-array*} is @term{true}
+and @coderef{*print-readably*} is @term{false},
 any
 @term{vector}
 other than a @term{string} or @term{bit vector} is printed using
@@ -650,21 +650,21 @@ The printed representation of a non-zero-length @term{vector} begins with @f{#(}
 Following that, the first element of the @term{vector} is printed.
 If there are any other elements, they are printed in turn, with
 each such additional element preceded by
-a @term{space} if @code{*print-pretty*} is @term{false},
-or @term{whitespace}@sub{1} if @code{*print-pretty*} is @term{true}.
+a @term{space} if @coderef{*print-pretty*} is @term{false},
+or @term{whitespace}@sub{1} if @coderef{*print-pretty*} is @term{true}.
 A @term{right-parenthesis} after the last element
 terminates the printed representation of the @term{vector}.
 The printing of @term{vectors}
-is affected by @code{*print-level*} and @code{*print-length*}.
+is affected by @coderef{*print-level*} and @coderef{*print-length*}.
 If the @term{vector} has a @term{fill pointer},
 then only those elements below
 the @term{fill pointer} are printed.
 
-If both @code{*print-array*} and @code{*print-readably*} are @term{false},
+If both @coderef{*print-array*} and @coderef{*print-readably*} are @term{false},
 the @term{vector} is not printed as described above,
 but in a format (using @f{#<}) that is concise but not readable.
 
-If @code{*print-readably*} is @term{true},
+If @coderef{*print-readably*} is @term{true},
 the @term{vector} prints in an @term{implementation-defined} manner;
 see the @term{variable} @ref{*print-readably*}.
 
@@ -674,8 +674,8 @@ see @ref{Sharpsign Left-Parenthesis}.
 @node Printing Other Arrays
 @subsubsection Printing Other Arrays
 
-If  @code{*print-array*} is @term{true}
-and @code{*print-readably*} is @term{false},
+If  @coderef{*print-array*} is @term{true}
+and @coderef{*print-readably*} is @term{false},
 any
 @term{array} other than a @term{vector} is printed
 using @f{#}@f{n}@f{A} format.
@@ -683,7 +683,7 @@ Let @f{n} be the @term{rank} of the @term{array}.
 Then @f{#} is printed, then @f{n} as a decimal integer,
 then @f{A}, then @f{n} open parentheses.
 Next the @term{elements} are scanned in row-major order,
-using @code{write} on each @term{element},
+using @coderef{write} on each @term{element},
 and separating @term{elements} from each other with @term{whitespace}@sub{1}.
 The array's dimensions are numbered 0 to @f{n}-1 from left to right,
 and are enumerated with the rightmost index changing fastest.
@@ -709,21 +709,21 @@ If @f{j} < @f{n}-1, then an open parenthesis is printed.
 
 
 This causes the contents to be printed in a format suitable for
-@kwd{initial-contents} to @code{make-array}.
+@kwd{initial-contents} to @coderef{make-array}.
 The lists effectively printed by this procedure are subject to
-truncation by @code{*print-level*} and @code{*print-length*}.
+truncation by @coderef{*print-level*} and @coderef{*print-length*}.
 
 If the @term{array}
 is of a specialized @term{type}, containing bits or characters,
 then the innermost lists generated by the algorithm given above can instead
 be printed using bit-vector or string syntax, provided that these innermost
-lists would not be subject to truncation by @code{*print-length*}.
+lists would not be subject to truncation by @coderef{*print-length*}.
 
-If both @code{*print-array*} and @code{*print-readably*} are @term{false},
+If both @coderef{*print-array*} and @coderef{*print-readably*} are @term{false},
 then the @term{array} is printed
 in a format (using @f{#<}) that is concise but not readable.
 
-If @code{*print-readably*} is @term{true},
+If @coderef{*print-readably*} is @term{true},
 the @term{array} prints in an @term{implementation-defined} manner;
 see the @term{variable} @ref{*print-readably*}.
 In particular,
@@ -757,13 +757,13 @@ see @ref{Sharpsign A}.
 A specific syntax for printing @term{objects} @oftype{random-state} is
 not specified. However, every @term{implementation}
 must arrange to print a @term{random state} @term{object} in such a way that,
-within the same implementation, @code{read}
+within the same implementation, @coderef{read}
 can construct from the printed representation a copy of the
 @term{random state}
-object as if the copy had been made by @code{make-random-state}.
+object as if the copy had been made by @coderef{make-random-state}.
 
 If the type @term{random state} is effectively implemented
-by using the machinery for @code{defstruct},
+by using the machinery for @coderef{defstruct},
 the usual structure syntax can then be used for printing
 @term{random state}
 objects; one might look something like
@@ -780,12 +780,12 @@ where the components are @term{implementation-dependent}.
 
 When @term{printer escaping} is enabled,
 the syntax @f{#P"..."} is how a
-@term{pathname} is printed by @code{write} and the other functions herein described.
+@term{pathname} is printed by @coderef{write} and the other functions herein described.
 The @f{"..."} is the namestring representation of the pathname.
 
 
 When @term{printer escaping} is disabled,
-@code{write} writes a @term{pathname} @i{P}
+@coderef{write} writes a @term{pathname} @i{P}
 by writing @f{(namestring @i{P})} instead.
 
 For information on how the @term{Lisp reader} parses @term{pathnames},
@@ -797,8 +797,8 @@ see @ref{Sharpsign P}.
 
 By default, a @term{structure} of type @mat{S} is printed using @f{#S} syntax.
 This behavior can be customized by specifying a @kwd{print-function}
-or @kwd{print-object} option to the @code{defstruct} @term{form} that defines @mat{S},
-or by writing a @code{print-object} @term{method}
+or @kwd{print-object} option to the @coderef{defstruct} @term{form} that defines @mat{S},
+or by writing a @coderef{print-object} @term{method}
 that is @term{specialized} for @term{objects} of type @mat{S}.
 
 Different structures might print out in different ways;
@@ -928,8 +928,8 @@ to achieve an arbitrary degree of aesthetic control.
 
 By providing direct access to the mechanisms within the pretty printer
 that make dynamic decisions about layout, the macros and functions
-@code{pprint-logical-block}, @code{pprint-newline}, and
-@code{pprint-indent} make it possible to specify pretty printing
+@coderef{pprint-logical-block}, @coderef{pprint-newline}, and
+@coderef{pprint-indent} make it possible to specify pretty printing
 layout rules as a part of any function that produces output.  They also
 make it very easy for the detection of circularity and sharing, and
 abbreviation based on length and nesting depth to be supported by the
@@ -960,8 +960,8 @@ logical blocks are indicated by ``@f{<}'' and ``@f{>}'' respectively.
 The output as a whole is a logical block and the outermost section.  This
 section is indicated by the @f{0}'s on the second line of Figure 1.  Logical
 blocks nested within the output are specified by the macro
-@code{pprint-logical-block}.  Conditional newline positions are specified
-by calls to @code{pprint-newline}.  Each conditional newline defines
+@coderef{pprint-logical-block}.  Conditional newline positions are specified
+by calls to @coderef{pprint-newline}.  Each conditional newline defines
 two sections (one before it and one after it) and is associated with a
 third (the section immediately containing it).
 
@@ -1072,16 +1072,16 @@ The values associated with a key are
 a ``function'' (specifically, a @term{function designator} or @nil{})
 and a ``numerical priority'' (specifically, a @term{real}).
 Basic insertion and retrieval is done based on the keys with the equality
-of keys being tested by @code{equal}.
+of keys being tested by @coderef{equal}.
 
-When @code{*print-pretty*} is @term{true},
-the @newterm{current pprint dispatch table} (in @code{*print-pprint-dispatch*})
+When @coderef{*print-pretty*} is @term{true},
+the @newterm{current pprint dispatch table} (in @coderef{*print-pprint-dispatch*})
 controls how @term{objects} are printed.
 The information in this table takes precedence over
 all other mechanisms for specifying how to print @term{objects}.
 In particular, it
 has priority over
-user-defined @code{print-object} @term{methods}
+user-defined @coderef{print-object} @term{methods}
 because the @term{current pprint dispatch table} is consulted first.
 
 The function is chosen from the @term{current pprint dispatch table}
@@ -1093,10 +1093,10 @@ it is @term{implementation-dependent} which is used.
 However, if there is no
 information in the table
 about how to @term{pretty print} a particular kind of @term{object},
-a @term{function} is invoked which uses @code{print-object} to print the @term{object}.
-The value of @code{*print-pretty*} is still @term{true}
+a @term{function} is invoked which uses @coderef{print-object} to print the @term{object}.
+The value of @coderef{*print-pretty*} is still @term{true}
 when this function is @term{called},
-and individual methods for @code{print-object} might still elect to
+and individual methods for @coderef{print-object} might still elect to
 produce output in a special format conditional on @thevalueof{*print-pretty*}.
 
 
@@ -1108,7 +1108,7 @@ margins.
 The column where the output begins is taken as the left margin.
 If the current column cannot be determined at the time output begins,
 the left margin is assumed to be zero.
-The right margin is controlled by @code{*print-right-margin*}.
+The right margin is controlled by @coderef{*print-right-margin*}.
 
 
 
@@ -1117,7 +1117,7 @@ The right margin is controlled by @code{*print-right-margin*}.
 
 As an example of the interaction of logical blocks, conditional newlines,
 and indentation, consider the function @f{simple-pprint-defun} below.  This
-function prints out lists whose @term{cars} are @code{defun} in the
+function prints out lists whose @term{cars} are @coderef{defun} in the
 standard way assuming that the list has exactly length @f{4}.
 
 @lisp
@@ -1173,7 +1173,7 @@ function name.
 @end lisp
 
 
-If @code{*print-miser-width*} were greater than or equal to 14, the example
+If @coderef{*print-miser-width*} were greater than or equal to 14, the example
 output above would have been as follows, because all indentation changes
 are ignored in miser mode and line breaks are inserted at
 miser-style conditional newlines.
@@ -1189,7 +1189,7 @@ miser-style conditional newlines.
 
 As an example of a per-line prefix, consider that evaluating the following
 produces the output shown with a line width of @f{20} and
-@code{*print-miser-width*} of @nil{}.
+@coderef{*print-miser-width*} of @nil{}.
 
 @lisp
  (pprint-logical-block (*standard-output* nil :per-line-prefix ";;; ")
@@ -1202,15 +1202,15 @@ produces the output shown with a line width of @f{20} and
 
 
 As a more complex (and realistic) example, consider the function @f{pprint-let}
-below.  This specifies how to print a @code{let} @term{form} in the traditional
+below.  This specifies how to print a @coderef{let} @term{form} in the traditional
 style.  It is more complex than the example above, because it has to deal with
 nested structure.  Also, unlike the example above it contains complete code to
-readably print any possible list that begins with the @term{symbol} @code{let}.
-The outermost @code{pprint-logical-block} @term{form} handles the printing of
+readably print any possible list that begins with the @term{symbol} @coderef{let}.
+The outermost @coderef{pprint-logical-block} @term{form} handles the printing of
 the input list as a whole and specifies that parentheses should be printed in the
-output.  The second @code{pprint-logical-block} @term{form} handles the list
+output.  The second @coderef{pprint-logical-block} @term{form} handles the list
 of binding pairs.  Each pair in the list is itself printed by the innermost
-@code{pprint-logical-block}.  (A @code{loop} @term{form} is used instead of
+@coderef{pprint-logical-block}.  (A @coderef{loop} @term{form} is used instead of
 merely decomposing the pair into two @term{objects} so that readable output will
 be produced no matter whether the list corresponding to the pair has one element,
 two elements, or (being malformed) has more than two elements.)
@@ -1219,8 +1219,8 @@ fill-style conditional newline
 @cindex fill-style conditional newline
 are placed after
 each pair except the last.  The loop at the end of the topmost
-@code{pprint-logical-block} @term{form} prints out the forms in the body
-of the @code{let} @term{form} separated by spaces and
+@coderef{pprint-logical-block} @term{form} prints out the forms in the body
+of the @coderef{let} @term{form} separated by spaces and
 linear-style conditional newlines.
 
 @lisp
@@ -1248,8 +1248,8 @@ linear-style conditional newlines.
 @end lisp
 
 
-Suppose that one evaluates the following with @code{*print-level*} being 4,
-and @code{*print-circle*} being @term{true}.
+Suppose that one evaluates the following with @coderef{*print-level*} being 4,
+and @coderef{*print-circle*} being @term{true}.
 
 @lisp
  (pprint-let *standard-output*
@@ -1286,7 +1286,7 @@ fill-style conditional newlines separating the binding pairs.
 @end lisp
 
 
-Suppose that the line length is further reduced to @f{22} and @code{*print-length*} is
+Suppose that the line length is further reduced to @f{22} and @coderef{*print-length*} is
 set to @f{3}. In this situation, line breaks are inserted after both the first
 and second binding pairs.  In addition, the second binding pair is itself
 broken across two lines.  Clause (b) of the description of fill-style
@@ -1335,7 +1335,7 @@ Evaluating the following with a line length of 15 produces the output shown.
 As examples of the convenience of specifying pretty printing with
 @term{format strings}, consider that the functions @f{simple-pprint-defun}
 and @f{pprint-let} used as examples above can be compactly defined as follows.
-(The function @f{pprint-vector} cannot be defined using @code{format}
+(The function @f{pprint-vector} cannot be defined using @coderef{format}
 because the data structure it traverses is not a list.)
 
 @lisp
@@ -1348,7 +1348,7 @@ because the data structure it traverses is not a list.)
 
 
 In the following example, the first @term{form} restores
-@code{*print-pprint-dispatch*} to the equivalent of its initial value.
+@coderef{*print-pprint-dispatch*} to the equivalent of its initial value.
 The next two forms then set up a special way to pretty print ratios.
 Note that the more specific @term{type specifier} has to be associated
 with a higher priority.
@@ -1379,7 +1379,7 @@ for printing quoted objects using @term{single-quote}.  Note
 the care taken to ensure that data lists that happen to begin
 with @t{quote} will be printed readably.  The second form
 specifies that lists beginning with the symbol @f{my-let}
-should print the same way that lists beginning with @code{let}
+should print the same way that lists beginning with @coderef{let}
 print when the initial @term{pprint dispatch table} is in effect.
 
 @lisp
@@ -1395,10 +1395,10 @@ print when the initial @term{pprint dispatch table} is in effect.
 
 
 The next example specifies a default method for printing lists that do not
-correspond to function calls.  Note that the functions @code{pprint-linear},
-@code{pprint-fill}, and @code{pprint-tabular} are all defined with
+correspond to function calls.  Note that the functions @coderef{pprint-linear},
+@coderef{pprint-fill}, and @coderef{pprint-tabular} are all defined with
 optional @param{colon-p} and @param{at-sign-p} arguments so that they can
-be used as @code{pprint dispatch functions} as well as @formatOp{/.../}
+be used as @coderef{pprint dispatch functions} as well as @formatOp{/.../}
 functions.
 
 @lisp
@@ -1429,13 +1429,13 @@ user defined data structure.
 The pretty printing function for the structure @f{family} specifies how to
 adjust the layout of the output so that it can fit aesthetically into
 a variety of line widths.  In addition, it obeys
-the printer control variables @code{*print-level*},
-@code{*print-length*}, @code{*print-lines*},
-@code{*print-circle*}
-and @code{*print-escape*},
+the printer control variables @coderef{*print-level*},
+@coderef{*print-length*}, @coderef{*print-lines*},
+@coderef{*print-circle*}
+and @coderef{*print-escape*},
 and can tolerate several different kinds of malformity in the data structure.
 The output below shows what is printed out with a right margin of @f{25},
-@code{*print-pretty*} being @term{true}, @code{*print-escape*} being @term{false},
+@coderef{*print-pretty*} being @term{true}, @coderef{*print-escape*} being @term{false},
 and a malformed @f{kids} list.
 
 @lisp
@@ -1450,15 +1450,15 @@ and a malformed @f{kids} list.
 
 
 Note that a pretty printing function for a structure is different from
-the structure's @code{print-object} @term{method}.
+the structure's @coderef{print-object} @term{method}.
 While
-@code{print-object} @term{methods}
+@coderef{print-object} @term{methods}
 are permanently associated with a structure,
 pretty printing functions are stored in
 @term{pprint dispatch tables} and can be rapidly changed to reflect
 different printing needs.  If there is no pretty printing function for
 a structure in the current @term{pprint dispatch table},
-its @code{print-object} @term{method}
+its @coderef{print-object} @term{method}
 is used instead.
 
 
@@ -1478,22 +1478,22 @@ understanding this material.
 @editornote{KMP: This is transplanted from FORMAT and will need a bit of work before
 it looks good standing alone. Bear with me.}
 
-@code{format} is useful for producing nicely formatted text, producing
-good-looking messages, and so on.  @code{format} can generate and return
+@coderef{format} is useful for producing nicely formatted text, producing
+good-looking messages, and so on.  @coderef{format} can generate and return
 a @term{string} or output to @param{destination}.
 
-The @param{control-string} argument to @code{format} is actually a @term{format control}.
+The @param{control-string} argument to @coderef{format} is actually a @term{format control}.
 That is, it can be either a @term{format string} or a @term{function},
 for example a @term{function} returned
-by the @code{formatter} @term{macro}.
+by the @coderef{formatter} @term{macro}.
 
 If it is a @term{function}, the @term{function} is called with the appropriate
-output stream as its first argument and the data arguments to @code{format}
+output stream as its first argument and the data arguments to @coderef{format}
 as its remaining arguments.  The function should perform whatever output is
 necessary and return the unused tail of the arguments (if any).
 
-The compilation process performed by @code{formatter} produces a @term{function}
-that would do with its @term{arguments} as the @code{format} interpreter
+The compilation process performed by @coderef{formatter} produces a @term{function}
+that would do with its @term{arguments} as the @coderef{format} interpreter
 would do with those @term{arguments}.
 
 The remainder of this section describes what happens if the @param{control-string}
@@ -1502,7 +1502,7 @@ is a @term{format string}.
 @param{Control-string} is composed of simple text (@term{characters})
 and embedded directives.
 
-@code{format} writes the simple text as is;
+@coderef{format} writes the simple text as is;
 each embedded directive specifies further text output
 that is to appear at the corresponding point within the simple text.
 Most directives use one or more elements of @param{args} to
@@ -1522,7 +1522,7 @@ in decimal radix in five columns with leading zeros,
 or @f{@tild{}5,'*d} to get leading asterisks.
 
 In place of a prefix parameter to a directive, @f{V} (or @f{v}) can be used.
-In this case, @code{format} takes an argument from @param{args} as a parameter to
+In this case, @coderef{format} takes an argument from @param{args} as a parameter to
 the directive.  The argument should be an @term{integer} or @term{character}.
 If the @param{arg} used by a @f{V} parameter is @nil{},
 the effect is as if the parameter had been omitted.
@@ -1550,18 +1550,18 @@ Examples of @term{format strings}:
 @end float
 
 
-@code{format} sends the output to @param{destination}.
+@coderef{format} sends the output to @param{destination}.
 If @param{destination} is @nil{},
-@code{format} creates and returns a @term{string}
+@coderef{format} creates and returns a @term{string}
 containing the output from @param{control-string}.
 If @param{destination} is @term{non-nil},
 it must be a @term{string} with a @term{fill pointer},
-a @term{stream}, or the symbol @code{t}.
+a @term{stream}, or the symbol @coderef{t}.
 If @param{destination} is a @term{string} with a @term{fill pointer},
 the output is added to the end of the @term{string}.
 If @param{destination} is a @term{stream},
 the output is sent to that @term{stream}.
-If @param{destination} is @code{t},
+If @param{destination} is @coderef{t},
 the output is sent to @term{standard output}.
 
 In the description of the directives that follows,
@@ -1569,13 +1569,13 @@ the term @j{arg} in general
 refers to the next item of the set of @param{args} to be processed.
 The word or phrase at the beginning of each description is a mnemonic
 for the directive.
-@code{format} directives do not bind any of the printer control
-variables (@code{*print-...*}) except as specified in the following
+@coderef{format} directives do not bind any of the printer control
+variables (@coderef{*print-...*}) except as specified in the following
 descriptions.
 Implementations may specify the binding of new, implementation-specific
-printer control variables for each @code{format} directive, but they
+printer control variables for each @coderef{format} directive, but they
 may neither bind any standard printer control variables not
-specified in description of a @code{format}
+specified in description of a @coderef{format}
 directive nor fail to bind
 any standard printer control variables as specified in the
 description.
@@ -1608,9 +1608,9 @@ it is printed
 according to the modifier flags.
 
 @f{@tild{}C} prints the @term{character}
-as if by using @code{write-char} if it is a @term{simple character}.
+as if by using @coderef{write-char} if it is a @term{simple character}.
 @term{Characters} that are not @term{simple}
-are not necessarily printed as if by @code{write-char},
+are not necessarily printed as if by @coderef{write-char},
 but are displayed in an @term{implementation-defined}, abbreviated format.
 For example,
 
@@ -1624,7 +1624,7 @@ For example,
 but other @term{characters} are ``spelled out.''  The intent is that this
 is a ``pretty'' format for printing characters.
 For @term{simple} @term{characters} that are not @term{printing},
-what is spelled out is the @term{name} of the @term{character} (see @code{char-name}).
+what is spelled out is the @term{name} of the @term{character} (see @coderef{char-name}).
 For @term{characters} that are not @term{simple} and not @term{printing},
 what is spelled out is @term{implementation-defined}.
 For example,
@@ -1658,7 +1658,7 @@ on the implementation, but on the particular I/O devices in use.
 prints the @term{character} in a way that the @term{Lisp reader} can understand,
 using @f{#@bsl{}} syntax.
 
-@f{@tild{}@@C}  binds @code{*print-escape*} to @code{t}.
+@f{@tild{}@@C}  binds @coderef{*print-escape*} to @coderef{t}.
 
 
 @node Tilde Percent: Newline
@@ -1680,7 +1680,7 @@ No @j{arg} is used.
 Unless it can be determined that the output stream
 is already at the beginning of a line,
 this outputs a newline.
-@f{@tild{}@j{n}@ampers{}} calls @code{fresh-line}
+@f{@tild{}@j{n}@ampers{}} calls @coderef{fresh-line}
 and then outputs @j{n}@minussign{} 1 newlines.
 @f{@tild{}0@ampers{}} does nothing.
 
@@ -1751,13 +1751,13 @@ For example:
 
 If and only if the first parameter, @j{n}, is supplied,
 @f{@tild{}R} binds
-@code{*print-escape*} to @term{false},
-@code{*print-radix*} to @term{false},
-@code{*print-base*} to @j{n},
-and @code{*print-readably*} to @term{false}.
+@coderef{*print-escape*} to @term{false},
+@coderef{*print-radix*} to @term{false},
+@coderef{*print-base*} to @j{n},
+and @coderef{*print-readably*} to @term{false}.
 
 If and only if no parameters are supplied,
-@f{@tild{}R} binds @code{*print-base*} to @f{10}.
+@f{@tild{}R} binds @coderef{*print-base*} to @f{10}.
 
 
 @node Tilde D: Decimal
@@ -1795,10 +1795,10 @@ Thus the most general form of @f{@tild{}D} is
 @f{@tild{}@j{mincol},@j{padchar},@j{commachar},@j{comma-interval}D}.
 
 @f{@tild{}D} binds
-@code{*print-escape*} to @term{false},
-@code{*print-radix*} to @term{false},
-@code{*print-base*} to @f{10},
-and @code{*print-readably*} to @term{false}.
+@coderef{*print-escape*} to @term{false},
+@coderef{*print-radix*} to @term{false},
+@coderef{*print-base*} to @f{10},
+and @coderef{*print-readably*} to @term{false}.
 
 
 @node Tilde B: Binary
@@ -1811,10 +1811,10 @@ instead of decimal.  The full form is therefore
 @f{@tild{}@j{mincol},@j{padchar},@j{commachar},@j{comma-interval}B}.
 
 @f{@tild{}B} binds
-@code{*print-escape*} to @term{false},
-@code{*print-radix*} to @term{false},
-@code{*print-base*} to @f{2},
-and @code{*print-readably*} to @term{false}.
+@coderef{*print-escape*} to @term{false},
+@coderef{*print-radix*} to @term{false},
+@coderef{*print-base*} to @f{2},
+and @coderef{*print-readably*} to @term{false}.
 
 
 @node Tilde O: Octal
@@ -1827,10 +1827,10 @@ instead of decimal.  The full form is therefore
 @f{@tild{}@j{mincol},@j{padchar},@j{commachar},@j{comma-interval}O}.
 
 @f{@tild{}O} binds
-@code{*print-escape*} to @term{false},
-@code{*print-radix*} to @term{false},
-@code{*print-base*} to @f{8},
-and @code{*print-readably*} to @term{false}.
+@coderef{*print-escape*} to @term{false},
+@coderef{*print-radix*} to @term{false},
+@coderef{*print-base*} to @f{8},
+and @coderef{*print-readably*} to @term{false}.
 
 
 @node Tilde X: Hexadecimal
@@ -1843,10 +1843,10 @@ This is just like @f{@tild{}D} but prints in hexadecimal radix
 @f{@tild{}@j{mincol},@j{padchar},@j{commachar},@j{comma-interval}X}.
 
 @f{@tild{}X} binds
-@code{*print-escape*} to @term{false},
-@code{*print-radix*} to @term{false},
-@code{*print-base*} to @f{16},
-and @code{*print-readably*} to @term{false}.
+@coderef{*print-escape*} to @term{false},
+@coderef{*print-radix*} to @term{false},
+@coderef{*print-base*} to @f{16},
+and @coderef{*print-readably*} to @term{false}.
 
 
 
@@ -1913,7 +1913,7 @@ fraction to be printed is zero, then a single zero digit should
 appear after the decimal point if permitted by the width constraint.
 
 If both @j{w} and @j{d} are omitted, then the effect is to print
-the value using ordinary free-format output; @code{prin1} uses this format
+the value using ordinary free-format output; @coderef{prin1} uses this format
 for any number whose magnitude is either zero or between
 @mat{10^-3} (inclusive) and @mat{10^7} (exclusive).
 
@@ -1941,8 +1941,8 @@ then it is printed using the format directive @f{@tild{}@j{w}D},
 thereby printing it in decimal radix and a minimum field width of @j{w}.
 
 @f{@tild{}F} binds
-@code{*print-escape*} to @term{false}
-and @code{*print-readably*} to @term{false}.
+@coderef{*print-escape*} to @term{false}
+and @coderef{*print-readably*} to @term{false}.
 
 
 @node Tilde E: Exponential Floating-Point
@@ -1991,9 +1991,9 @@ either @f{6.37E+2} or @f{6.38E+2}.
 Following the digit sequence, the exponent is printed.
 First the character parameter @j{exponentchar} is printed; if this
 parameter is omitted, then the @term{exponent marker} that
-@code{prin1} would use is printed, as determined from the
+@coderef{prin1} would use is printed, as determined from the
 type of the @term{float} and the current value of
-@code{*read-default-float-format*}.
+@coderef{*read-default-float-format*}.
 Next, either a plus sign or a minus sign
 is printed, followed by @j{e} digits representing the power of
 ten by which the printed fraction must be multiplied
@@ -2030,13 +2030,13 @@ using the smallest number of digits necessary to represent its value.
 
 If all of @j{w}, @j{d}, and @j{e} are omitted, then the effect is to print
 the value using ordinary free-format exponential-notation output;
-@code{prin1} uses
+@coderef{prin1} uses
 a similar
 format for any non-zero number whose magnitude
 is less than @mat{10^-3} or greater than or equal to @mat{10^7}.
 The only difference is that the @f{@tild{}E}
 directive always prints a plus or minus sign in front of the
-exponent, while @code{prin1} omits the plus sign if the exponent is
+exponent, while @coderef{prin1} omits the plus sign if the exponent is
 non-negative.
 
 If @j{arg} is a @term{rational}
@@ -2056,8 +2056,8 @@ then it is printed using the format directive @f{@tild{}@j{w}D},
 thereby printing it in decimal radix and a minimum field width of @j{w}.
 
 @f{@tild{}E} binds
-@code{*print-escape*} to @term{false}
-and @code{*print-readably*} to @term{false}.
+@coderef{*print-escape*} to @term{false}
+and @coderef{*print-readably*} to @term{false}.
 
 
 @node Tilde G: General Floating-Point
@@ -2097,8 +2097,8 @@ or @f{@tild{}E} directive if and only if one was supplied to the
 @f{@tild{}G} directive.
 
 @f{@tild{}G} binds
-@code{*print-escape*} to @term{false}
-and @code{*print-readably*} to @term{false}.
+@coderef{*print-escape*} to @term{false}
+and @coderef{*print-readably*} to @term{false}.
 
 
 @node Tilde Dollarsign: Monetary Floating-Point
@@ -2153,8 +2153,8 @@ If @j{arg} is a @term{complex} number or some non-numeric
 then it is printed using the format directive @f{@tild{}@j{w}D},
 thereby printing it in decimal radix and a minimum field width of @j{w}.
 
-@f{@tild{}@dollar{}} binds @code{*print-escape*} to @term{false}
-and @code{*print-readably*} to @term{false}.
+@f{@tild{}@dollar{}} binds @coderef{*print-escape*} to @term{false}
+and @coderef{*print-readably*} to @term{false}.
 
 
 
@@ -2169,7 +2169,7 @@ and @code{*print-readably*} to @term{false}.
 
 An @j{arg}, any @term{object},
 is printed without escape characters
-(as by @code{princ}).  If @j{arg} is a @term{string},
+(as by @coderef{princ}).  If @j{arg} is a @term{string},
 its @term{characters}
 will be output verbatim.
 If @j{arg} is @nil{}@spc{}it will be printed as @nil{};
@@ -2192,8 +2192,8 @@ at a time until the total width is at least @j{mincol}.
 The defaults are @f{0} for @j{mincol} and @j{minpad}, @f{1} for @j{colinc},
 and the space character for @j{padchar}.
 
-@f{@tild{}A} binds @code{*print-escape*} to @term{false},
-and @code{*print-readably*} to @term{false}.
+@f{@tild{}A} binds @coderef{*print-escape*} to @term{false},
+and @coderef{*print-readably*} to @term{false}.
 
 
 @node Tilde S: Standard
@@ -2202,11 +2202,11 @@ and @code{*print-readably*} to @term{false}.
 @cindex Tilde S (format directive)
 
 This is just like @f{@tild{}A}, but @j{arg} is printed with escape
-characters (as by @code{prin1} rather than @f{princ}).  The output is
-therefore suitable for input to @code{read}.  @f{@tild{}S} accepts
+characters (as by @coderef{prin1} rather than @f{princ}).  The output is
+therefore suitable for input to @coderef{read}.  @f{@tild{}S} accepts
 all the arguments and modifiers that @f{@tild{}A} does.
 
-@f{@tild{}S} binds @code{*print-escape*} to @code{t}.
+@f{@tild{}S} binds @coderef{*print-escape*} to @coderef{t}.
 
 
 @node Tilde W: Write
@@ -2215,11 +2215,11 @@ all the arguments and modifiers that @f{@tild{}A} does.
 @cindex Tilde W (format directive)
 
 An argument, any @term{object}, is printed obeying every printer control
-variable (as by @code{write}).  In addition, @f{@tild{}W} interacts correctly with depth
+variable (as by @coderef{write}).  In addition, @f{@tild{}W} interacts correctly with depth
 abbreviation, by not resetting the depth counter to zero.  @f{@tild{}W} does not
-accept parameters.  If given the @term{colon} modifier, @f{@tild{}W} binds @code{*print-pretty*}
-to @term{true}.  If given the @term{at-sign} modifier, @f{@tild{}W} binds @code{*print-level*}
-and @code{*print-length*} to @nil{}.
+accept parameters.  If given the @term{colon} modifier, @f{@tild{}W} binds @coderef{*print-pretty*}
+to @term{true}.  If given the @term{at-sign} modifier, @f{@tild{}W} binds @coderef{*print-level*}
+and @coderef{*print-length*} to @nil{}.
 
 @f{@tild{}W} provides automatic support for the detection of circularity and
 sharing.  If @thevalueof{*print-circle*} is not @nil{}@spc{}and @f{@tild{}W} is applied
@@ -2253,14 +2253,14 @@ Without any modifiers, @f{@tild{}_} is the same as @f{(pprint-newline :linear)}.
 @f{@tild{}<...@tild{}:>}
 
 If @f{@tild{}:>} is used to terminate a @f{@tild{}<...@tild{}>},
-the directive is equivalent to a call to @code{pprint-logical-block}.
+the directive is equivalent to a call to @coderef{pprint-logical-block}.
 The argument corresponding to the @f{@tild{}<...@tild{}:>} directive is treated in
-the same way as the @term{list} argument to @code{pprint-logical-block},
+the same way as the @term{list} argument to @coderef{pprint-logical-block},
 thereby providing automatic support for non-@term{list} arguments and
 the detection of circularity, sharing, and depth abbreviation.
 The portion of the @param{control-string} nested within the @f{@tild{}<...@tild{}:>}
 specifies the @kwd{prefix} (or @kwd{per-line-prefix}), @kwd{suffix},
-and body of the @code{pprint-logical-block}.
+and body of the @coderef{pprint-logical-block}.
 
 The @param{control-string} portion enclosed by @f{@tild{}<...@tild{}:>} can be divided
 into segments @f{@tild{}<@param{prefix}@tild{};@param{body}@tild{};@param{suffix}@tild{}:>}
@@ -2280,12 +2280,12 @@ the @param{prefix} and @param{suffix} default to @f{"("} and @f{")"}
 The body segment can be any arbitrary @term{format string}.
 This @term{format string} is applied to the elements of the list
 corresponding to the @f{@tild{}<...@tild{}:>} directive as a whole.
-Elements are extracted from this list using @code{pprint-pop},
+Elements are extracted from this list using @coderef{pprint-pop},
 thereby providing automatic support for malformed lists, and the detection
 of circularity, sharing, and length abbreviation.
-Within the body segment, @f{@tild{}@hat{}} acts like @code{pprint-exit-if-list-exhausted}.
+Within the body segment, @f{@tild{}@hat{}} acts like @coderef{pprint-exit-if-list-exhausted}.
 
-@f{@tild{}<...@tild{}:>} supports a feature not supported by @code{pprint-logical-block}.
+@f{@tild{}<...@tild{}:>} supports a feature not supported by @coderef{pprint-logical-block}.
 If @f{@tild{}:@@>} is used to terminate the directive (@ie{} @f{@tild{}<...@tild{}:@@>}),
 then a fill-style conditional newline is automatically inserted after each
 group of blanks immediately contained in the body (except for blanks
@@ -2361,9 +2361,9 @@ The function should print the argument appropriately.
 Any values returned by the function are ignored.
 
 The three @term{functions}
-@code{pprint-linear},
-@code{pprint-fill},
-and @code{pprint-tabular}
+@coderef{pprint-linear},
+@coderef{pprint-fill},
+and @coderef{pprint-tabular}
 are specifically designed so that they can be called by @f{@tild{}/.../}
 (@ie{} @f{@tild{}/pprint-linear/}, @f{@tild{}/pprint-fill/}, and @f{@tild{}/pprint-tabular/}).
 In particular they take @term{colon} and @term{at-sign} arguments.
@@ -2390,16 +2390,16 @@ are output if the cursor is already at or beyond column @j{colnum}.
 
 If for some reason the current absolute column position cannot be determined
 by direct inquiry,
-@code{format}
+@coderef{format}
 may be able to deduce the current column position by noting
 that certain directives (such as @f{@tild{}@percent{}}, or @f{@tild{}@ampers{}},
 or @f{@tild{}A}
 with the argument being a string containing a newline) cause
 the column position to be reset to zero, and counting the number of characters
-emitted since that point.  If that fails, @code{format}
+emitted since that point.  If that fails, @coderef{format}
 may attempt a
 similar deduction on the riskier assumption that the destination was
-at column zero when @code{format}
+at column zero when @coderef{format}
 was invoked.  If even this heuristic fails
 or is implementationally inconvenient, at worst
 the @f{@tild{}T} operation will simply output two spaces.
@@ -2454,7 +2454,7 @@ than @j{mincol}, then the width used is @j{mincol}+@j{k}*@j{colinc}
 for the smallest possible non-negative integer value @j{k}.
 @j{colinc} defaults to @f{1}, and @j{mincol} defaults to @f{0}.
 
-Note that @j{str} may include @code{format} directives.
+Note that @j{str} may include @coderef{format} directives.
 All the clauses in @j{str} are processed in order;
 it is the resulting pieces of text that are justified.
 
@@ -2500,10 +2500,10 @@ the preceding example use a line width of 50, one would write
  "~%;; ~@lbr{}@spc{}~<~%;; ~1,50:; ~S~>~@hat{}@spc{},~@rbr{} @spc{}.~%"
 @end lisp
 
-If the second argument is not supplied, then @code{format} uses the
+If the second argument is not supplied, then @coderef{format} uses the
 line width of the @param{destination} output stream.
 If this cannot be determined (for example, when producing a
-@term{string} result), then @code{format} uses @f{72} as the line length.
+@term{string} result), then @coderef{format} uses @f{72} as the line length.
 
 See also @ref{Tilde Less-Than-Sign Logical Block}.
 
@@ -2643,7 +2643,7 @@ The consequences of using it elsewhere are undefined.
 
 This is an iteration construct.  The argument should be a @term{list},
 which is used as a set of arguments
-as if for a recursive call to @code{format}.
+as if for a recursive call to @coderef{format}.
 The @term{string} @j{str} is used repeatedly as the control string.
 Each iteration can absorb as many elements of the @term{list} as it likes
 as arguments;
@@ -2810,7 +2810,7 @@ is subject to case conversion.
 With no flags, every @term{uppercase} @term{character}
 is converted to the corresponding @term{lowercase} @term{character}.
 
-@f{@tild{}:(} capitalizes all words, as if by @code{string-capitalize}.
+@f{@tild{}:(} capitalizes all words, as if by @coderef{string-capitalize}.
 
 @f{@tild{}@@(}
 capitalizes just the first word and forces the rest to lower
@@ -2857,9 +2857,9 @@ The consequences of using it elsewhere are undefined.
 @cindex P (format directive)
 @cindex Tilde P (format directive)
 
-If @j{arg} is not @code{eql}
+If @j{arg} is not @coderef{eql}
 to the integer @f{1}, a lowercase @f{s} is
-printed; if @j{arg} is @code{eql} to @f{1}, nothing is printed.
+printed; if @j{arg} is @coderef{eql} to @f{1}, nothing is printed.
 If @j{arg} is a floating-point @f{1.0}, the @f{s} is
 printed.
 
@@ -2942,7 +2942,7 @@ may be used only if the command it would terminate is
 The entire iteration process is terminated if and only if the sublist that is
 supplying the arguments for the current iteration step is the last sublist in
 the case of @f{@tild{}:@lbr{} },
-or the last @code{format}
+or the last @coderef{format}
 argument in the case of @f{@tild{}:@@@lbr{}  }.
 @f{@tild{}:@hat{}} is not
 equivalent to @f{@tild{}#:@hat{}};
@@ -3212,13 +3212,13 @@ Scale factor  7: | 3141590.E-06|
 @node Notes about FORMAT
 @subsection Notes about FORMAT
 
-Formatted output is performed not only by @code{format},
+Formatted output is performed not only by @coderef{format},
 but by certain other functions that accept a @term{format control}
-the way @code{format} does.  For example, error-signaling functions
-such as @code{cerror} accept @term{format controls}.
+the way @coderef{format} does.  For example, error-signaling functions
+such as @coderef{cerror} accept @term{format controls}.
 
-Note that the meaning of @nil{}@spc{}and @code{t}@spc{}as destinations to @code{format}
-are different than those of @nil{}@spc{}and @code{t}@spc{}as @term{stream designators}.
+Note that the meaning of @nil{}@spc{}and @coderef{t}@spc{}as destinations to @coderef{format}
+are different than those of @nil{}@spc{}and @coderef{t}@spc{}as @term{stream designators}.
 
 The @f{@tild{}@hat{}} should appear only at the beginning of a @f{@tild{}<} clause,
 because it aborts the entire clause in which it appears (as well as
@@ -3282,7 +3282,7 @@ all following clauses).
 
 Creates and returns a copy of the specified @param{table},
 or of @thevalueof{*print-pprint-dispatch*} if no @param{table} is specified,
-or of the initial @term{value} of @code{*print-pprint-dispatch*} if @nil{}@spc{}is specified.
+or of the initial @term{value} of @coderef{*print-pprint-dispatch*} if @nil{}@spc{}is specified.
 
 @subsubheading Exceptional Situations:
 
@@ -3381,7 +3381,7 @@ selecting the highest priority function associated with any of these
 @term{type specifiers}.  If there is more than one highest priority function,
 an arbitrary choice is made.  If no @term{type specifiers} match the
 @param{object}, a function is returned that prints @param{object}
-using @code{print-object}.
+using @coderef{print-object}.
 
 The @term{secondary value}, @param{found-p}, is @term{true} if a matching
 @term{type specifier} was found in @param{table}, or @term{false} otherwise.
@@ -3427,25 +3427,25 @@ Tests whether or not the @param{list} passed to
 the @term{lexically current logical block}
 has been exhausted; see @ref{Dynamic Control of the Arrangement of Output}.
 If this @param{list} has been
-reduced to @nil{}, @code{pprint-exit-if-list-exhausted} terminates the execution
+reduced to @nil{}, @coderef{pprint-exit-if-list-exhausted} terminates the execution
 of the @term{lexically current logical block} except for the printing
-of the suffix.  Otherwise @code{pprint-exit-if-list-exhausted} returns @nil{}.
+of the suffix.  Otherwise @coderef{pprint-exit-if-list-exhausted} returns @nil{}.
 
-Whether or not @code{pprint-exit-if-list-exhausted} is @term{fbound} in the
+Whether or not @coderef{pprint-exit-if-list-exhausted} is @term{fbound} in the
 @term{global environment} is @term{implementation-dependent};
 however, the restrictions on redefinition and @term{shadowing} of
-@code{pprint-exit-if-list-exhausted} are the same as for @term{symbols} in the @code{COMMON-LISP} @term{package}
+@coderef{pprint-exit-if-list-exhausted} are the same as for @term{symbols} in the @coderef{COMMON-LISP} @term{package}
 which are @term{fbound} in the @term{global environment}.
-The consequences of attempting to use @code{pprint-exit-if-list-exhausted} outside
-of @code{pprint-logical-block} are undefined.
+The consequences of attempting to use @coderef{pprint-exit-if-list-exhausted} outside
+of @coderef{pprint-logical-block} are undefined.
 
 @subsubheading Exceptional Situations:
 
 An error is signaled (at macro expansion time or at run time) if
-@code{pprint-exit-if-list-exhausted} is used anywhere other than
-lexically within a call on @code{pprint-logical-block}.
-Also, the consequences of executing @code{pprint-if-list-exhausted} outside
-of the dynamic extent of the @code{pprint-logical-block} which lexically
+@coderef{pprint-exit-if-list-exhausted} is used anywhere other than
+lexically within a call on @coderef{pprint-logical-block}.
+Also, the consequences of executing @coderef{pprint-if-list-exhausted} outside
+of the dynamic extent of the @coderef{pprint-logical-block} which lexically
 contains it are undefined.
 
 @subsubheading See Also:
@@ -3489,17 +3489,17 @@ contains it are undefined.
 
 @subsubheading Description:
 
-The functions @code{pprint-fill}, @code{pprint-linear}, and
-@code{pprint-tabular} specify particular ways of @term{pretty printing}
+The functions @coderef{pprint-fill}, @coderef{pprint-linear}, and
+@coderef{pprint-tabular} specify particular ways of @term{pretty printing}
 a @term{list} to @param{stream}.
 Each function prints parentheses around the output if and only
 if @param{colon-p} is @term{true}.
 Each function ignores its @param{at-sign-p} argument.
 (Both arguments are included even though only one is needed
 so that these functions can be used via @formatOp{/.../}
-and as @code{set-pprint-dispatch} functions, as well as directly.)
+and as @coderef{set-pprint-dispatch} functions, as well as directly.)
 Each function handles abbreviation and the detection of circularity
-and sharing correctly, and uses @code{write} to print @param{object}
+and sharing correctly, and uses @coderef{write} to print @param{object}
 when it is a @term{non-list}.
 
 If @param{object} is a @term{list} and
@@ -3522,7 +3522,7 @@ or with each @term{element} on a separate line.
 as possible on each line.
 
 @item
-@Thefunction{pprint-tabular} is the same as @code{pprint-fill}
+@Thefunction{pprint-tabular} is the same as @coderef{pprint-fill}
 except that it prints the @term{elements} so that they line up in columns.
 The @param{tabsize} specifies the column spacing in @term{ems},
 which is the total spacing from the leading edge of one column to
@@ -3571,7 +3571,7 @@ The cursor position on the indicated @term{stream}, if it can be determined.
 
 
 Note that it would have been inconvenient to specify this function
-using @code{format}, because of the need to pass its @param{tabsize} argument
+using @coderef{format}, because of the need to pass its @param{tabsize} argument
 through to a @formatdirective{:T} nested within an iteration over a list.
 
 
@@ -3598,12 +3598,12 @@ through to a @formatdirective{:T} nested within an iteration over a list.
 
 @subsubheading Description:
 
-@code{pprint-indent} specifies the indentation to use in a logical block on @term{stream}.
+@coderef{pprint-indent} specifies the indentation to use in a logical block on @term{stream}.
 If @param{stream} is a @term{pretty printing stream}
 and @thevalueof{*print-pretty*} is @term{true},
-@code{pprint-indent} sets the indentation in the innermost
+@coderef{pprint-indent} sets the indentation in the innermost
 dynamically enclosing logical block;
-otherwise, @code{pprint-indent} has no effect.
+otherwise, @coderef{pprint-indent} has no effect.
 
 @param{N} specifies the indentation in
 @term{ems}.  If @param{relative-to} is @kwd{block}, the indentation is set
@@ -3621,7 +3621,7 @@ one of these limits is treated
 the same as an attempt to move to that limit.
 Changes in indentation caused by @param{pprint-indent}
 do not take effect until after the next line break.  In addition, in
-miser mode all calls to @code{pprint-indent} are ignored, forcing the lines
+miser mode all calls to @coderef{pprint-indent} are ignored, forcing the lines
 corresponding to the logical block to line up under the first character in
 the block.
 
@@ -3678,9 +3678,9 @@ that @term{variable} is @term{bound} to a @term{pretty printing stream}
 that supports decisions about the arrangement of output
 and then forwards the output to the destination stream.
 All the standard printing functions
-(@eg{} @code{write},
-@code{princ},
-and @code{terpri})
+(@eg{} @coderef{write},
+@coderef{princ},
+and @coderef{terpri})
 can be used to print output to the @term{pretty printing stream}.
 All and only the output sent to this @term{pretty printing stream}
 is treated as being in the logical block.
@@ -3699,16 +3699,16 @@ The @param{object} is
 normally
 a @term{list} that the body @param{forms} are responsible for printing.
 If @param{object} is not a @term{list},
-it is printed using @code{write}.
+it is printed using @coderef{write}.
 (This makes it easier to write printing functions that are robust
 in the face of malformed arguments.)
-If @code{*print-circle*}
+If @coderef{*print-circle*}
 is @term{non-nil} and @param{object} is a circular (or shared) reference to a @term{cons},
 then an appropriate ``@f{#@i{n}#}'' marker is printed.  (This
 makes it easy to write printing functions that provide full support
-for circularity and sharing abbreviation.)  If @code{*print-level*} is not
+for circularity and sharing abbreviation.)  If @coderef{*print-level*} is not
 @nil{}@spc{}and the logical block is at a dynamic nesting depth of greater
-than @code{*print-level*} in logical blocks, ``@f{#}'' is printed.
+than @coderef{*print-level*} in logical blocks, ``@f{#}'' is printed.
 (This makes easy to write printing functions that provide full support for depth
 abbreviation.)
 
@@ -3719,19 +3719,19 @@ along with the printing of the @kwd{prefix} and @kwd{suffix}.
 then the first two tests above can be turned off by supplying @nil{}@spc{}for
 the @param{object} argument.)
 
-In addition to the @param{object} argument of @code{pprint-logical-block},
-the arguments of the standard printing functions (such as @code{write},
-@code{print}, @code{prin1}, and @code{pprint}, as well as the arguments
+In addition to the @param{object} argument of @coderef{pprint-logical-block},
+the arguments of the standard printing functions (such as @coderef{write},
+@coderef{print}, @coderef{prin1}, and @coderef{pprint}, as well as the arguments
 of the standard @term{format directives} such as @formatOp{A}, @formatOp{S},
 (and @formatOp{W}) are all checked (when necessary) for circularity and sharing.
 However, such checking is not applied to the arguments of the
-functions @code{write-line}, @code{write-string}, and @code{write-char}
-or to the literal text output by @code{format}.  A consequence of this is
+functions @coderef{write-line}, @coderef{write-string}, and @coderef{write-char}
+or to the literal text output by @coderef{format}.  A consequence of this is
 that you must use one of the latter functions if you want to print some
 literal text in the output that is not supposed to be checked for circularity
 or sharing.
 
-The body @param{forms} of a @code{pprint-logical-block} @term{form}
+The body @param{forms} of a @coderef{pprint-logical-block} @term{form}
 must not perform any side-effects on the surrounding environment; for
 example, no @term{variables} must be assigned which have not been
 @term{bound} within its scope.
@@ -3740,7 +3740,7 @@ example, no @term{variables} must be assigned which have not been
 
 @subsubheading Affected By:
 
-@code{*print-circle*}, @code{*print-level*}.
+@coderef{*print-circle*}, @coderef{*print-level*}.
 
 @subsubheading Exceptional Situations:
 
@@ -3750,7 +3750,7 @@ to a @term{string}.
 
 An error is signaled if @kwd{prefix} and @kwd{pre-line-prefix} are both used.
 
-@code{pprint-logical-block} and the @term{pretty printing stream} it creates
+@coderef{pprint-logical-block} and the @term{pretty printing stream} it creates
 have @term{dynamic extent}.  The consequences are undefined if, outside
 of this extent, output is attempted to the @term{pretty printing stream} it creates.
 
@@ -3767,8 +3767,8 @@ sent directly to the underlying destination stream.
 
 One reason for using @themacro{pprint-logical-block} when @thevalueof{*print-pretty*}
 is @nil{}@spc{}would be to allow it to perform checking for @term{dotted lists},
-as well as (in conjunction with @code{pprint-pop})
-checking for @code{*print-level*} or @code{*print-length*} being exceeded.
+as well as (in conjunction with @coderef{pprint-pop})
+checking for @coderef{*print-level*} or @coderef{*print-length*} being exceeded.
 
 Detection of circularity and sharing is supported by the @term{pretty printer}
 by in essence performing requested output twice.  On the first pass,
@@ -3776,9 +3776,9 @@ circularities and sharing are detected and the actual outputting of characters
 is suppressed.  On the second pass, the appropriate ``@f{#@param{n}=}''
 and ``@f{#@param{n}#}'' markers are inserted and characters are output.
 This is why the restriction on side-effects is necessary.
-Obeying this restriction is facilitated by using @code{pprint-pop},
-instead of an ordinary @code{pop} when traversing a list being printed by
-the body @param{forms} of the @code{pprint-logical-block} @term{form}.)
+Obeying this restriction is facilitated by using @coderef{pprint-pop},
+instead of an ordinary @coderef{pop} when traversing a list being printed by
+the body @param{forms} of the @coderef{pprint-logical-block} @term{form}.)
 
 
 
@@ -3807,7 +3807,7 @@ If @param{stream} is a @term{pretty printing stream}
 and @thevalueof{*print-pretty*} is @term{true},
 a line break is inserted in the output
 when the appropriate condition below is satisfied;
-otherwise, @code{pprint-newline} has no effect.
+otherwise, @coderef{pprint-newline} has no effect.
 
 @param{Kind} specifies the style of conditional newline.
 This @term{parameter} is treated as follows:
@@ -3844,7 +3844,7 @@ but only when miser style is in effect.
 Miser style is in effect for a logical block if and only if
 the starting position of the logical block
 is less than or equal to
-@code{*print-miser-width*} @term{ems} from the right margin.
+@coderef{*print-miser-width*} @term{ems} from the right margin.
 
 @item @id{@kwd{fill}}
 
@@ -3886,16 +3886,16 @@ from the output and indentation is introduced at the beginning of the next line.
 By default, the indentation causes the following line to begin
 in the same horizontal position
 as the first character in the immediately containing logical block.
-(The indentation can be changed via @code{pprint-indent}.)
+(The indentation can be changed via @coderef{pprint-indent}.)
 
 There are a variety of ways unconditional newlines can be introduced into
-the output (@ie{} via @code{terpri} or by printing a string containing a newline
+the output (@ie{} via @coderef{terpri} or by printing a string containing a newline
 character).  As with mandatory conditional newlines, this prevents any of
 the containing @term{sections} from being printed on one line.  In general, when
 an unconditional newline is encountered, it is printed out without
 suppression of the preceding blanks and without any indentation following
 it.  However, if a per-line prefix has been specified (see
-@code{pprint-logical-block}), this prefix will always be printed no matter
+@coderef{pprint-logical-block}), this prefix will always be printed no matter
 how a newline originates.
 
 @subsubheading Examples:
@@ -3908,7 +3908,7 @@ Output to @param{stream}.
 
 @subsubheading Affected By:
 
-@code{*print-pretty*}, @code{*print-miser*}.
+@coderef{*print-pretty*}, @coderef{*print-miser*}.
 The presence of containing logical blocks.
 The placement of newlines and conditional newlines.
 
@@ -3944,10 +3944,10 @@ or @nil{}.
 @subsubheading Description:
 
 Pops one @term{element} from the @term{list} being printed
-in the @term{lexically current logical block}, obeying @code{*print-length*}
-and @code{*print-circle*} as described below.
+in the @term{lexically current logical block}, obeying @coderef{*print-length*}
+and @coderef{*print-circle*} as described below.
 
-Each time @code{pprint-pop} is called, it pops the next value off the
+Each time @coderef{pprint-pop} is called, it pops the next value off the
 @term{list} passed to the @term{lexically current logical block} and returns it.
 However, before doing this, it performs three tests:
 
@@ -3962,18 +3962,18 @@ is printed followed by the remaining `list.'
 are robust in the face of malformed arguments.)
 
 @item
-If @code{*print-length*} is @term{non-nil},
-and @code{pprint-pop} has already been called @code{*print-length*} times
+If @coderef{*print-length*} is @term{non-nil},
+and @coderef{pprint-pop} has already been called @coderef{*print-length*} times
 within the immediately containing logical block,
 ``@f{...}''
 @cindex Dot Dot Dot
 @cindex ...
 is printed.
 (This makes it easy to write printing functions that properly handle
-@code{*print-length*}.)
+@coderef{*print-length*}.)
 
 @item
-If @code{*print-circle*} is
+If @coderef{*print-circle*} is
 @term{non-nil}, and the remaining list is a circular (or shared) reference,
 then ``@f{. }'' is printed followed by an appropriate
 ``@f{#@i{n}#}''
@@ -3985,23 +3985,23 @@ marker.
 
 If either of the three conditions above occurs, the indicated output is
 printed on the @term{pretty printing stream} created by the immediately containing
-@code{pprint-logical-block} and the execution of the immediately containing
-@code{pprint-logical-block} is terminated except for the printing of the suffix.
+@coderef{pprint-logical-block} and the execution of the immediately containing
+@coderef{pprint-logical-block} is terminated except for the printing of the suffix.
 
-If @code{pprint-logical-block} is given a `list' argument of @nil{}---because
-it is not processing a list---@code{pprint-pop} can still be used to obtain
-support for @code{*print-length*}.
+If @coderef{pprint-logical-block} is given a `list' argument of @nil{}---because
+it is not processing a list---@coderef{pprint-pop} can still be used to obtain
+support for @coderef{*print-length*}.
 In this situation, the first and third tests above are disabled and
-@code{pprint-pop} always returns @nil{}.
-See @ref{Examples of using the Pretty Printer}---specifically, the @code{pprint-vector} example.
+@coderef{pprint-pop} always returns @nil{}.
+See @ref{Examples of using the Pretty Printer}---specifically, the @coderef{pprint-vector} example.
 
-Whether or not @code{pprint-pop} is @term{fbound} in the
+Whether or not @coderef{pprint-pop} is @term{fbound} in the
 @term{global environment} is @term{implementation-dependent};
 however, the restrictions on redefinition and @term{shadowing} of
-@code{pprint-pop} are the same as for @term{symbols} in the @code{COMMON-LISP} @term{package}
+@coderef{pprint-pop} are the same as for @term{symbols} in the @coderef{COMMON-LISP} @term{package}
 which are @term{fbound} in the @term{global environment}.
-The consequences of attempting to use @code{pprint-pop} outside
-of @code{pprint-logical-block} are undefined.
+The consequences of attempting to use @coderef{pprint-pop} outside
+of @coderef{pprint-logical-block} are undefined.
 
 @subsubheading Side Effects:
 
@@ -4010,16 +4010,16 @@ to the @term{pretty printing stream} associated with the lexically current logic
 
 @subsubheading Affected By:
 
-@code{*print-length*}, @code{*print-circle*}.
+@coderef{*print-length*}, @coderef{*print-circle*}.
 
 @subsubheading Exceptional Situations:
 
 An error is signaled (either at macro expansion time or at run time)
-if a usage of @code{pprint-pop} occurs where there is no lexically
-containing @code{pprint-logical-block} @term{form}.
+if a usage of @coderef{pprint-pop} occurs where there is no lexically
+containing @coderef{pprint-logical-block} @term{form}.
 
-The consequences are undefined if @code{pprint-pop} is executed outside
-of the @term{dynamic extent} of this @code{pprint-logical-block}.
+The consequences are undefined if @coderef{pprint-pop} is executed outside
+of the @term{dynamic extent} of this @coderef{pprint-logical-block}.
 
 @subsubheading See Also:
 
@@ -4027,8 +4027,8 @@ of the @term{dynamic extent} of this @code{pprint-logical-block}.
 
 @subsubheading Notes:
 
-It is frequently a good idea to call @code{pprint-exit-if-list-exhausted}
-before calling @code{pprint-pop}.
+It is frequently a good idea to call @coderef{pprint-exit-if-list-exhausted}
+before calling @coderef{pprint-pop}.
 
 
 
@@ -4060,7 +4060,7 @@ Specifies tabbing to @param{stream} as performed by the standard @formatdirectiv
 If @param{stream} is a @term{pretty printing stream} and
 @thevalueof{*print-pretty*} is @term{true},
 tabbing is performed;
-otherwise, @code{pprint-tab} has no effect.
+otherwise, @coderef{pprint-tab} has no effect.
 
 The arguments @param{colnum} and @param{colinc} correspond to the two
 @param{parameters} to @formatOp{T} and are in terms of @term{ems}.
@@ -4119,92 +4119,92 @@ In addition, each @term{implementation} must provide
 @term{methods} on enough other @term{classes}
 so as to ensure that there is always an applicable @term{method}.
 Implementations are free to add @term{methods} for other @term{classes}.
-Users may write @term{methods} for @code{print-object} for their own
+Users may write @term{methods} for @coderef{print-object} for their own
 @term{classes} if they do not wish to inherit an
 @term{implementation-dependent} @term{method}.
 
 The @term{method} on @theclass{structure-object} prints the object in the
 default @f{#S} notation; see @ref{Printing Structures}.
 
-@term{Methods} on @code{print-object} are responsible for implementing
+@term{Methods} on @coderef{print-object} are responsible for implementing
 their part of the semantics of the @term{printer control variables}, as follows:
 
 
 @table @asis
 
 
-@item @id{@code{*print-readably*}}
+@item @id{@coderef{*print-readably*}}
 
 
-All methods for @code{print-object} must obey @code{*print-readably*}.
+All methods for @coderef{print-object} must obey @coderef{*print-readably*}.
 This includes both user-defined methods and @term{implementation-defined} methods.
 Readable printing of @term{structures} and @term{standard objects}
-is controlled by their @code{print-object} method,
-not by their @code{make-load-form} @term{method}.
+is controlled by their @coderef{print-object} method,
+not by their @coderef{make-load-form} @term{method}.
 @term{Similarity} for these @term{objects} is application dependent
 and hence is defined to be whatever these @term{methods} do;
 see @ref{Similarity of Literal Objects}.
 
 
-@item @id{@code{*print-escape*}}
+@item @id{@coderef{*print-escape*}}
 
 
-Each @term{method} must implement @code{*print-escape*}.
+Each @term{method} must implement @coderef{*print-escape*}.
 
-@item @id{@code{*print-pretty*}}
+@item @id{@coderef{*print-pretty*}}
 
 
 The @term{method} may wish to perform specialized line breaking
 or other output conditional on @thevalueof{*print-pretty*}.
 For further information,
-see (for example) the @term{macro} @code{pprint-fill}.
+see (for example) the @term{macro} @coderef{pprint-fill}.
 See also @ref{Examples of using the Pretty Printer}.
 
-@item @id{@code{*print-length*}}
+@item @id{@coderef{*print-length*}}
 
 
 @term{Methods} that produce output of indefinite length must obey
-@code{*print-length*}.
+@coderef{*print-length*}.
 For further information,
-see (for example) the @term{macros} @code{pprint-logical-block}
-and @code{pprint-pop}.
+see (for example) the @term{macros} @coderef{pprint-logical-block}
+and @coderef{pprint-pop}.
 See also @ref{Examples of using the Pretty Printer}.
 
-@item @id{@code{*print-level*}}
+@item @id{@coderef{*print-level*}}
 
 
-The printer takes care of @code{*print-level*} automatically,
+The printer takes care of @coderef{*print-level*} automatically,
 provided that each @term{method} handles exactly one level of structure and
-calls @code{write} (or an equivalent @term{function}) recursively if
+calls @coderef{write} (or an equivalent @term{function}) recursively if
 there are more structural levels.  The printer's decision of whether an
 @term{object} has components (and therefore should not be printed when the
-printing depth is not less than @code{*print-level*}) is
+printing depth is not less than @coderef{*print-level*}) is
 @term{implementation-dependent}.  In some implementations its
-@code{print-object} @term{method} is not called;
+@coderef{print-object} @term{method} is not called;
 in others the @term{method} is called,
 and the determination that the @term{object} has components is based on what
 it tries to write to the @param{stream}.
 
-@item @id{@code{*print-circle*}}
+@item @id{@coderef{*print-circle*}}
 
 
 When @thevalueof{*print-circle*} is @term{true},
 a user-defined
-@code{print-object} @term{method}
+@coderef{print-object} @term{method}
 can print @term{objects} to the supplied @term{stream}
-using @code{write},
-@code{prin1},
-@code{princ},
-or @code{format}
+using @coderef{write},
+@coderef{prin1},
+@coderef{princ},
+or @coderef{format}
 and expect circularities to be detected
 and printed using the @f{#@i{n}#} syntax.
 If a user-defined
-@code{print-object} @term{method}
+@coderef{print-object} @term{method}
 prints to a @term{stream} other than the one
 that was supplied, then circularity detection starts over for that
-@term{stream}.  See @code{*print-circle*}.
+@term{stream}.  See @coderef{*print-circle*}.
 
-@item @id{@code{*print-base*}, @code{*print-radix*}, @code{*print-case*},  @code{*print-gensym*}, and @code{*print-array*}}
+@item @id{@coderef{*print-base*}, @coderef{*print-radix*}, @coderef{*print-case*},  @coderef{*print-gensym*}, and @coderef{*print-array*}}
 
 
 These @term{printer control variables} apply to specific types of @term{objects}
@@ -4214,12 +4214,12 @@ and are handled by the @term{methods} for those @term{objects}.
 
 If these rules are not obeyed, the results are undefined.
 
-In general, the printer and the @code{print-object} methods should not
+In general, the printer and the @coderef{print-object} methods should not
 rebind the print control variables as they operate recursively through the
 structure, but this is @term{implementation-dependent}.
 
 In some implementations the @param{stream} argument passed to a
-@code{print-object} @term{method} is not the original @term{stream},
+@coderef{print-object} @term{method} is not the original @term{stream},
 but is an intermediate @term{stream} that implements part of the printer.
 @term{methods} should therefore not depend on the identity of this @term{stream}.
 
@@ -4301,7 +4301,7 @@ and the identity.
 
 @subsubheading Exceptional Situations:
 
-If @code{*print-readably*} is @term{true}, @code{print-unreadable-object}
+If @coderef{*print-readably*} is @term{true}, @coderef{print-unreadable-object}
 signals an error @oftype{print-not-readable} without printing anything.
 
 
@@ -4335,11 +4335,11 @@ Installs an entry into the @term{pprint dispatch table} which is @param{table}.
 
 @param{Type-specifier}
 is the @term{key}
-of the entry.  The first action of @code{set-pprint-dispatch} is to remove any
+of the entry.  The first action of @coderef{set-pprint-dispatch} is to remove any
 pre-existing entry associated with @param{type-specifier}.  This guarantees that
 there will never be two entries associated with the same @term{type specifier}
 in a given @term{pprint dispatch table}.  Equality of @term{type specifiers} is
-tested by @code{equal}.
+tested by @coderef{equal}.
 
 Two values are associated with each @term{type specifier} in a
 @term{pprint dispatch table}: a @param{function} and a @param{priority}.
@@ -4347,7 +4347,7 @@ The @param{function} must accept two arguments: the @term{stream} to which outpu
 is sent and the @term{object} to be printed.  The @param{function} should
 @term{pretty print} the @term{object} to the @param{stream}.  The @param{function}
 can assume that object satisfies the @term{type} given by @term{type-specifier}.
-The @param{function} must obey @code{*print-readably*}.
+The @param{function} must obey @coderef{*print-readably*}.
 Any values returned by the @param{function} are ignored.
 
 @param{Priority} is a priority to resolve conflicts
@@ -4355,7 +4355,7 @@ when an object matches more than one entry.
 
 It is permissible for @param{function} to be @nil{}.  In this situation,
 there will be no @param{type-specifier} entry in @param{table} after
-@code{set-pprint-dispatch} returns.
+@coderef{set-pprint-dispatch} returns.
 
 @subsubheading Exceptional Situations:
 
@@ -4415,82 +4415,82 @@ The @param{cdr-type} can be omitted in which case it defaults to @t{t}.
 
 @subsubheading Description:
 
-@code{write}, @code{prin1}, @code{princ}, @code{print}, and @code{pprint}
+@coderef{write}, @coderef{prin1}, @coderef{princ}, @coderef{print}, and @coderef{pprint}
 write the printed representation of @param{object} to @param{output-stream}.
 
-@code{write} is the general entry point to the @term{Lisp printer}.
+@coderef{write} is the general entry point to the @term{Lisp printer}.
 For each explicitly supplied @term{keyword parameter} named in @thenextfigure{},
 the corresponding @term{printer control variable} is dynamically bound to its @term{value}
 while printing goes on;
 for each @term{keyword parameter} in @thenextfigure{}@spc{}that is not explicitly supplied,
 the value of the corresponding @term{printer control variable} is the same as it was
-at the time @code{write} was invoked.
+at the time @coderef{write} was invoked.
 Once the appropriate @term{bindings} are @term{established},
 the @term{object} is output by the @term{Lisp printer}.
 
 
 @float Figure,fig22.7
 @cartouche
-@multitable{@param{pprint-dispatch}}{@code{*print-pprint-dispatch*}}
+@multitable{@param{pprint-dispatch}}{@coderef{*print-pprint-dispatch*}}
 @headitem Parameter @tab Corresponding Dynamic Variable
-@item @param{array} @tab @code{*print-array*}
-@item @param{base} @tab @code{*print-base*}
-@item @param{case} @tab @code{*print-case*}
-@item @param{circle} @tab @code{*print-circle*}
-@item @param{escape} @tab @code{*print-escape*}
-@item @param{gensym} @tab @code{*print-gensym*}
-@item @param{length} @tab @code{*print-length*}
-@item @param{level} @tab @code{*print-level*}
-@item @param{lines} @tab @code{*print-lines*}
-@item @param{miser-width} @tab @code{*print-miser-width*}
-@item @param{pprint-dispatch} @tab @code{*print-pprint-dispatch*}
-@item @param{pretty} @tab @code{*print-pretty*}
-@item @param{radix} @tab @code{*print-radix*}
-@item @param{readably} @tab @code{*print-readably*}
-@item @param{right-margin} @tab @code{*print-right-margin*}
+@item @param{array} @tab @coderef{*print-array*}
+@item @param{base} @tab @coderef{*print-base*}
+@item @param{case} @tab @coderef{*print-case*}
+@item @param{circle} @tab @coderef{*print-circle*}
+@item @param{escape} @tab @coderef{*print-escape*}
+@item @param{gensym} @tab @coderef{*print-gensym*}
+@item @param{length} @tab @coderef{*print-length*}
+@item @param{level} @tab @coderef{*print-level*}
+@item @param{lines} @tab @coderef{*print-lines*}
+@item @param{miser-width} @tab @coderef{*print-miser-width*}
+@item @param{pprint-dispatch} @tab @coderef{*print-pprint-dispatch*}
+@item @param{pretty} @tab @coderef{*print-pretty*}
+@item @param{radix} @tab @coderef{*print-radix*}
+@item @param{readably} @tab @coderef{*print-readably*}
+@item @param{right-margin} @tab @coderef{*print-right-margin*}
 @end multitable
 @end cartouche
 @caption{Argument correspondences for the WRITE function.}
 @end float
 
 
-@code{prin1}, @code{princ}, @code{print}, and @code{pprint} implicitly
+@coderef{prin1}, @coderef{princ}, @coderef{print}, and @coderef{pprint} implicitly
 @term{bind} certain print parameters to particular values.  The remaining parameter
 values are taken from
-@code{*print-array*},
-@code{*print-base*},
-@code{*print-case*},
-@code{*print-circle*},
-@code{*print-escape*},
-@code{*print-gensym*},
-@code{*print-length*},
-@code{*print-level*},
-@code{*print-lines*},
-@code{*print-miser-width*},
-@code{*print-pprint-dispatch*},
-@code{*print-pretty*},
-@code{*print-radix*},
-and @code{*print-right-margin*}.
+@coderef{*print-array*},
+@coderef{*print-base*},
+@coderef{*print-case*},
+@coderef{*print-circle*},
+@coderef{*print-escape*},
+@coderef{*print-gensym*},
+@coderef{*print-length*},
+@coderef{*print-level*},
+@coderef{*print-lines*},
+@coderef{*print-miser-width*},
+@coderef{*print-pprint-dispatch*},
+@coderef{*print-pretty*},
+@coderef{*print-radix*},
+and @coderef{*print-right-margin*}.
 
-@code{prin1} produces output suitable for input to @code{read}.
-It binds @code{*print-escape*} to @term{true}.
+@coderef{prin1} produces output suitable for input to @coderef{read}.
+It binds @coderef{*print-escape*} to @term{true}.
 
-@code{princ} is just like @code{prin1} except that the
+@coderef{princ} is just like @coderef{prin1} except that the
 output has no @term{escape} @term{characters}.
-It binds @code{*print-escape*}   to @term{false}
-and @code{*print-readably*} to @term{false}.
-The general rule is that output from @code{princ} is intended to look
-good to people, while output from @code{prin1} is intended to
-be acceptable to @code{read}.
+It binds @coderef{*print-escape*}   to @term{false}
+and @coderef{*print-readably*} to @term{false}.
+The general rule is that output from @coderef{princ} is intended to look
+good to people, while output from @coderef{prin1} is intended to
+be acceptable to @coderef{read}.
 
-@code{print} is just like @code{prin1}
+@coderef{print} is just like @coderef{prin1}
 except that the printed representation
 of @param{object} is preceded by a newline
 and followed by a space.
 
-@code{pprint} is just like @code{print} except that the trailing
+@coderef{pprint} is just like @coderef{print} except that the trailing
 space is omitted and
-@param{object} is printed with the @code{*print-pretty*} flag @term{non-nil}
+@param{object} is printed with the @coderef{*print-pretty*} flag @term{non-nil}
 to produce pretty output.
 
 @param{Output-stream} specifies the @term{stream} to which
@@ -4498,19 +4498,19 @@ output is to be sent.
 
 @subsubheading Affected By:
 
-@code{*standard-output*},
-@code{*terminal-io*},
-@code{*print-escape*},
-@code{*print-radix*},
-@code{*print-base*},
-@code{*print-circle*},
-@code{*print-pretty*},
-@code{*print-level*},
-@code{*print-length*},
-@code{*print-case*},
-@code{*print-gensym*},
-@code{*print-array*},
-@code{*read-default-float-format*}.
+@coderef{*standard-output*},
+@coderef{*terminal-io*},
+@coderef{*print-escape*},
+@coderef{*print-radix*},
+@coderef{*print-base*},
+@coderef{*print-circle*},
+@coderef{*print-pretty*},
+@coderef{*print-level*},
+@coderef{*print-length*},
+@coderef{*print-case*},
+@coderef{*print-gensym*},
+@coderef{*print-array*},
+@coderef{*read-default-float-format*}.
 
 @subsubheading See Also:
 
@@ -4519,7 +4519,7 @@ output is to be sent.
 
 @subsubheading Notes:
 
-@Thefunctions{prin1} and @code{print} do not bind @code{*print-readably*}.
+@Thefunctions{prin1} and @coderef{print} do not bind @coderef{*print-readably*}.
 
 @lisp
  (prin1 object output-stream)
@@ -4577,31 +4577,31 @@ output is to be sent.
 
 @subsubheading Description:
 
-@code{write-to-string}, @code{prin1-to-string}, and @code{princ-to-string}
+@coderef{write-to-string}, @coderef{prin1-to-string}, and @coderef{princ-to-string}
 are used to create a @term{string} consisting of the printed representation
 of @param{object}.
-@param{Object} is effectively printed as if by @code{write},
-@code{prin1}, or @code{princ}, respectively,
+@param{Object} is effectively printed as if by @coderef{write},
+@coderef{prin1}, or @coderef{princ}, respectively,
 and the @term{characters} that would be output are made
 into a @term{string}.
 
-@code{write-to-string} is the general output function.
+@coderef{write-to-string} is the general output function.
 It has the ability to specify all the parameters applicable
 to the printing of @param{object}.
 
-@code{prin1-to-string} acts like @code{write-to-string} with
+@coderef{prin1-to-string} acts like @coderef{write-to-string} with
 @f{:escape t}, that is, escape characters are written where appropriate.
 
-@code{princ-to-string} acts like @code{write-to-string} with
+@coderef{princ-to-string} acts like @coderef{write-to-string} with
 @f{:escape nil :readably nil}.
 Thus no @term{escape} @term{characters} are written.
 
-All other keywords that would be specified to @code{write-to-string}
-are default values when @code{prin1-to-string}
-or @code{princ-to-string} is invoked.
+All other keywords that would be specified to @coderef{write-to-string}
+are default values when @coderef{prin1-to-string}
+or @coderef{princ-to-string} is invoked.
 
-The meanings and defaults for the keyword arguments to @code{write-to-string}
-are the same as those for @code{write}.
+The meanings and defaults for the keyword arguments to @coderef{write-to-string}
+are the same as those for @coderef{write}.
 
 @subsubheading Examples:
 
@@ -4613,17 +4613,17 @@ are the same as those for @code{write}.
 
 @subsubheading Affected By:
 
-@code{*print-escape*},
-@code{*print-radix*},
-@code{*print-base*},
-@code{*print-circle*},
-@code{*print-pretty*},
-@code{*print-level*},
-@code{*print-length*},
-@code{*print-case*},
-@code{*print-gensym*},
-@code{*print-array*},
-@code{*read-default-float-format*}.
+@coderef{*print-escape*},
+@coderef{*print-radix*},
+@coderef{*print-base*},
+@coderef{*print-circle*},
+@coderef{*print-pretty*},
+@coderef{*print-level*},
+@coderef{*print-length*},
+@coderef{*print-case*},
+@coderef{*print-gensym*},
+@coderef{*print-array*},
+@coderef{*read-default-float-format*}.
 
 @subsubheading See Also:
 
@@ -4690,17 +4690,17 @@ The @term{implementation}.
 
 @subsubheading Value Type:
 
-@code{*print-base*}---a @term{radix}.
-@code{*print-radix*}---a @term{generalized boolean}.
+@coderef{*print-base*}---a @term{radix}.
+@coderef{*print-radix*}---a @term{generalized boolean}.
 
 @subsubheading Initial Value:
 
-The initial @term{value} of @code{*print-base*} is @f{10}.
-The initial @term{value} of @code{*print-radix*} is @term{false}.
+The initial @term{value} of @coderef{*print-base*} is @f{10}.
+The initial @term{value} of @coderef{*print-radix*} is @term{false}.
 
 @subsubheading Description:
 
-@code{*print-base*} and @code{*print-radix*} control the printing
+@coderef{*print-base*} and @coderef{*print-radix*} control the printing
 of @term{rationals}.
 @Thevalueof{*print-base*} is called the @newterm{current output base}.
 
@@ -4711,7 +4711,7 @@ the alphabet are used to represent digits above @f{9}.
 If @thevalueof{*print-radix*} is @term{true},
 the printer will print a radix specifier to indicate the @term{radix}
 in which it is printing a @term{rational} number.  The radix specifier
-is always printed using lowercase letters.  If @code{*print-base*}
+is always printed using lowercase letters.  If @coderef{*print-base*}
 is @f{2}, @f{8}, or @f{16}, then the radix specifier used is @f{#b},
 @f{#o}, or @f{#x}, respectively.  For @term{integers}, base ten is
 indicated by a trailing decimal point instead of a leading radix
@@ -4751,7 +4751,7 @@ specifier; for @term{ratios}, @f{#10r} is used.
 
 @subsubheading Affected By:
 
-Might be @term{bound} by @code{format}, and @code{write}, @code{write-to-string}.
+Might be @term{bound} by @coderef{format}, and @coderef{write}, @coderef{write-to-string}.
 
 @subsubheading See Also:
 
@@ -4780,8 +4780,8 @@ The @term{symbol} @kwd{upcase}.
 which to print any uppercase characters in the names of @term{symbols}
 when vertical-bar syntax is not used.
 
-@code{*print-case*} has an effect at all times when @thevalueof{*print-escape*}
-is @term{false}. @code{*print-case*} also has an effect when
+@coderef{*print-case*} has an effect at all times when @thevalueof{*print-escape*}
+is @term{false}. @coderef{*print-case*} also has an effect when
 @thevalueof{*print-escape*} is @term{true} unless inside an escape context
 (@ie{} unless between @term{vertical-bars} or after a @term{slash}).
 
@@ -4816,11 +4816,11 @@ is @term{false}. @code{*print-case*} also has an effect when
 
 @subsubheading Notes:
 
-@code{read} normally converts lowercase characters appearing
+@coderef{read} normally converts lowercase characters appearing
 in @term{symbols} to corresponding uppercase characters,
 so that internally print names normally contain only uppercase characters.
 
-If @code{*print-escape*} is @term{true},
+If @coderef{*print-escape*} is @term{true},
 lowercase characters in the @term{name} of a @term{symbol}
 are always printed in lowercase, and
 are preceded by a single escape character
@@ -4828,8 +4828,8 @@ or enclosed by multiple escape characters;
 uppercase characters in the @term{name} of a @term{symbol}
 are printed in upper case, in lower case, or in mixed case
 so as to capitalize words, according to the value of
-@code{*print-case*}.  The convention for what constitutes
-a ``word'' is the same as for @code{string-capitalize}.
+@coderef{*print-case*}.  The convention for what constitutes
+a ``word'' is the same as for @coderef{string-capitalize}.
 
 @node *print-circle*
 @subsection *print-circle* (Variable)
@@ -4862,13 +4862,13 @@ and to use @f{#@i{n}=} and @f{#@i{n}#}
 syntax to indicate the circularities or shared components.
 
 If @term{true}, a user-defined
-@code{print-object} @term{method}
+@coderef{print-object} @term{method}
 can print
-@term{objects} to the supplied @term{stream} using @code{write}, @code{prin1},
-@code{princ}, or @code{format} and expect circularities and sharing
+@term{objects} to the supplied @term{stream} using @coderef{write}, @coderef{prin1},
+@coderef{princ}, or @coderef{format} and expect circularities and sharing
 to be detected and printed using the @f{#@i{n}#} syntax.
 If a user-defined
-@code{print-object} @term{method}
+@coderef{print-object} @term{method}
 prints to a @term{stream} other than the one
 that was supplied, then circularity detection starts over for that @term{stream}.
 
@@ -4895,7 +4895,7 @@ when the @term{Lisp reader} would automatically assure sharing without it
 
 @subsubheading Notes:
 
-An attempt to print a circular structure with @code{*print-circle*}
+An attempt to print a circular structure with @coderef{*print-circle*}
 set to @nil{}@spc{}may lead to looping behavior and failure to terminate.
 
 
@@ -4921,8 +4921,8 @@ escape characters and @term{package prefixes} are not output
 when an expression is printed.
 
 If @term{true}, an attempt is made to print an @term{expression}
-in such a way that it can be read again to produce an @code{equal} @term{expression}.
-(This is only a guideline; not a requirement.  See @code{*print-readably*}.)
+in such a way that it can be read again to produce an @coderef{equal} @term{expression}.
+(This is only a guideline; not a requirement.  See @coderef{*print-readably*}.)
 
 For more specific details of how @thevalueof{*print-escape*}
 affects the printing of certain @term{types},
@@ -4941,7 +4941,7 @@ see @ref{Default Print-Object Methods}.
 
 @subsubheading Affected By:
 
-@code{princ}, @code{prin1}, @code{format}
+@coderef{princ}, @coderef{prin1}, @coderef{format}
 
 @subsubheading See Also:
 
@@ -4949,8 +4949,8 @@ see @ref{Default Print-Object Methods}.
 
 @subsubheading Notes:
 
-@code{princ} effectively binds @code{*print-escape*} to @term{false}.
-@code{prin1} effectively binds @code{*print-escape*} to @term{true}.
+@coderef{princ} effectively binds @coderef{*print-escape*} to @term{false}.
+@coderef{prin1} effectively binds @coderef{*print-escape*} to @term{true}.
 
 
 @node *print-gensym*
@@ -5008,7 +5008,7 @@ a non-negative @term{integer}, or @nil{}.
 
 @subsubheading Description:
 
-@code{*print-level*} controls how many levels deep a nested @term{object} will print.
+@coderef{*print-level*} controls how many levels deep a nested @term{object} will print.
 If it is @term{false}, then no control is exercised.
 Otherwise, it is an @term{integer} indicating the maximum level to be printed.
 An @term{object} to be printed is at level @f{0};
@@ -5018,7 +5018,7 @@ If an @term{object} to be recursively printed has components
 and is at a level equal to or greater than @thevalueof{*print-level*},
 then the @term{object} is printed as ``@f{#}''.
 
-@code{*print-length*} controls how many elements at a given level are printed.
+@coderef{*print-length*} controls how many elements at a given level are printed.
 If it is @term{false}, there is no limit to the number of components printed.
 Otherwise, it is an @term{integer} indicating the maximum number of @term{elements}
 of an @term{object} to be printed.  If exceeded, the printer will print
@@ -5026,7 +5026,7 @@ of an @term{object} to be printed.  If exceeded, the printer will print
 if the @term{list} contains exactly as many @term{elements} as @thevalueof{*print-length*},
 the terminating @term{atom} is printed rather than printing ``@f{...}''
 
-@code{*print-level*} and @code{*print-length*} affect the printing
+@coderef{*print-level*} and @coderef{*print-length*} affect the printing
 of an any @term{object} printed with a list-like syntax.  They do not affect
 the printing of @term{symbols}, @term{strings}, and @term{bit vectors}.
 
@@ -5176,7 +5176,7 @@ a @term{pprint dispatch table}.
 
 @term{implementation-dependent}, but the initial entries all use a
 special class of priorities that have the property that they are less
-than every priority that can be specified using @code{set-pprint-dispatch},
+than every priority that can be specified using @coderef{set-pprint-dispatch},
 so that the initial contents of any entry can be overridden.
 
 @subsubheading Description:
@@ -5192,11 +5192,11 @@ The @term{pprint dispatch table} which currently controls the @term{pretty print
 
 The intent is that the initial @term{value} of this @term{variable} should
 cause `traditional' @term{pretty printing} of @term{code}.
-In general, however, you can put a value in @code{*print-pprint-dispatch*}
+In general, however, you can put a value in @coderef{*print-pprint-dispatch*}
 that makes pretty-printed output look exactly like non-pretty-printed output.
-Setting @code{*print-pretty*} to @term{true}
+Setting @coderef{*print-pretty*} to @term{true}
 just causes the functions contained in the @term{current pprint dispatch table}
-to have priority over normal @code{print-object} methods;
+to have priority over normal @coderef{print-object} methods;
 it has no magic way of enforcing that those functions actually produce pretty
 output.  For details, see @ref{Pretty Print Dispatch Tables}.
 
@@ -5230,7 +5230,7 @@ the @term{pretty printer} is used, and the @term{Lisp printer} will endeavor
 to insert extra @term{whitespace}@sub{1} where appropriate to make @term{expressions}
 more readable.
 
-@code{*print-pretty*} has an effect even when @thevalueof{*print-escape*}
+@coderef{*print-pretty*} has an effect even when @thevalueof{*print-escape*}
 is @term{false}.
 
 @subsubheading Examples:
@@ -5290,7 +5290,7 @@ a @term{generalized boolean}.
 
 @subsubheading Description:
 
-If @code{*print-readably*} is @term{true},
+If @coderef{*print-readably*} is @term{true},
 some special rules for printing @term{objects} go into effect.
 Specifically, printing any @term{object} @mat{O@sub{1}} produces a printed
 representation that, when seen by the @term{Lisp reader}
@@ -5298,7 +5298,7 @@ while the @term{standard readtable} is in effect,
 will produce
 an @term{object} @mat{O@sub{2}} that is @term{similar} to @mat{O@sub{1}}.
 The printed representation produced might or might not be the same as
-the printed representation produced when @code{*print-readably*} is @term{false}.
+the printed representation produced when @coderef{*print-readably*} is @term{false}.
 If printing an @term{object} @term{readably} is not possible,
 an error @oftype{print-not-readable} is signaled rather than
 using a syntax (@eg{} the ``@f{#<}'' syntax) that would not be readable by
@@ -5307,24 +5307,24 @@ If the @term{value} of some other @term{printer control variable} is such
 that these requirements would be violated, the @term{value} of that other
 @term{variable} is ignored.
 
-Specifically, if @code{*print-readably*} is @term{true},
+Specifically, if @coderef{*print-readably*} is @term{true},
 printing proceeds as if
-@code{*print-escape*},
-@code{*print-array*},
-and @code{*print-gensym*} were also @term{true},
+@coderef{*print-escape*},
+@coderef{*print-array*},
+and @coderef{*print-gensym*} were also @term{true},
 and as if
-@code{*print-length*},
-@code{*print-level*},
-and @code{*print-lines*} were @term{false}.
+@coderef{*print-length*},
+@coderef{*print-level*},
+and @coderef{*print-lines*} were @term{false}.
 
-If @code{*print-readably*} is @term{false},
+If @coderef{*print-readably*} is @term{false},
 the normal rules for printing and the normal interpretations
 of other @term{printer control variables} are in effect.
 
-Individual @term{methods} for @code{print-object}, including user-defined
+Individual @term{methods} for @coderef{print-object}, including user-defined
 @term{methods}, are responsible for implementing these requirements.
 
-If @code{*read-eval*} is @term{false} and @code{*print-readably*} is @term{true},
+If @coderef{*read-eval*} is @term{false} and @coderef{*print-readably*} is @term{true},
 any such method that would output a reference to the ``@f{#.}'' @term{reader macro}
 will either output something else or will signal an error (as described above).
 
@@ -5385,7 +5385,7 @@ will either output something else or will signal an error (as described above).
 The rules for ``@term{similarity}'' imply that
 @f{#A} or @f{#(}
 syntax cannot be used for @term{arrays} of @term{element type}
-other than @code{t}.
+other than @coderef{t}.
 An implementation will have to use another syntax
 or signal an error @oftype{print-not-readable}.
 
@@ -5432,20 +5432,20 @@ requiring the language to provide support for fonts.
 
 
 @subsubheading Class Precedence List:
-@code{print-not-readable},
-@code{error},
-@code{serious-condition},
-@code{condition},
-@code{t}
+@coderef{print-not-readable},
+@coderef{error},
+@coderef{serious-condition},
+@coderef{condition},
+@coderef{t}
 
 @subsubheading Description:
 
 @Thetype{print-not-readable} consists of error conditions that occur during
-output while @code{*print-readably*} is @term{true}, as a result of attempting
+output while @coderef{*print-readably*} is @term{true}, as a result of attempting
 to write a printed representation with the @term{Lisp printer}
 that would not be correctly read back with the @term{Lisp reader}.
 The object which could not be printed is initialized by
-@theinitkeyarg{object} to @code{make-condition}, and is @term{accessed} by
+@theinitkeyarg{object} to @coderef{make-condition}, and is @term{accessed} by
 @thefunction{print-not-readable-object}.
 
 @subsubheading See Also:
@@ -5492,7 +5492,7 @@ in the situation represented by @param{condition}.
 @subsubheading Arguments and Values:
 
 @param{destination}---@nil{},
-@code{t},
+@coderef{t},
 a @term{stream},
 or a @term{string} with a @term{fill pointer}.
 
@@ -5505,19 +5505,19 @@ otherwise, a @term{string}.
 
 @subsubheading Description:
 
-@code{format} produces formatted output by outputting the characters
+@coderef{format} produces formatted output by outputting the characters
 of @param{control-string} and observing that a @term{tilde}
 introduces a directive.  The character after the tilde, possibly preceded
 by prefix parameters and modifiers, specifies what kind of formatting
 is desired.  Most directives use one or more elements of @param{args} to
 create their output.
 
-If @param{destination} is a @term{string}, a @term{stream}, or @code{t},
+If @param{destination} is a @term{string}, a @term{stream}, or @coderef{t},
 then the @param{result} is @nil{}.  Otherwise, the @param{result} is
 a @term{string} containing the `output.'
 
-@code{format} is useful for producing nicely formatted text, producing
-good-looking messages, and so on.  @code{format} can generate and return
+@coderef{format} is useful for producing nicely formatted text, producing
+good-looking messages, and so on.  @coderef{format} can generate and return
 a @term{string} or output to @param{destination}.
 
 For details on how the @param{control-string} is interpreted,
@@ -5525,17 +5525,17 @@ see @ref{Formatted Output}.
 
 @subsubheading Affected By:
 
-@code{*standard-output*},
-@code{*print-escape*},
-@code{*print-radix*},
-@code{*print-base*},
-@code{*print-circle*},
-@code{*print-pretty*},
-@code{*print-level*},
-@code{*print-length*},
-@code{*print-case*},
-@code{*print-gensym*},
-@code{*print-array*}.
+@coderef{*standard-output*},
+@coderef{*print-escape*},
+@coderef{*print-radix*},
+@coderef{*print-base*},
+@coderef{*print-circle*},
+@coderef{*print-pretty*},
+@coderef{*print-level*},
+@coderef{*print-length*},
+@coderef{*print-case*},
+@coderef{*print-gensym*},
+@coderef{*print-array*}.
 
 @subsubheading Exceptional Situations:
 

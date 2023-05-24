@@ -29,16 +29,16 @@ the @term{hash table} is modified.
 
 @item
 There are four kinds of @term{hash tables}:
-those whose keys are compared with @code{eq},
-those whose keys are compared with @code{eql},
-those whose keys are compared with @code{equal}, and
-those whose keys are compared with @code{equalp}.
+those whose keys are compared with @coderef{eq},
+those whose keys are compared with @coderef{eql},
+those whose keys are compared with @coderef{equal}, and
+those whose keys are compared with @coderef{equalp}.
 
 @item
-@term{Hash tables} are created by @code{make-hash-table}.
-@code{gethash} is used to look up a key and find the associated value.
-New entries are added to @term{hash tables} using @code{setf} with @code{gethash}.
-@code{remhash} is used to remove an entry.
+@term{Hash tables} are created by @coderef{make-hash-table}.
+@coderef{gethash} is used to look up a key and find the associated value.
+New entries are added to @term{hash tables} using @coderef{setf} with @coderef{gethash}.
+@coderef{remhash} is used to remove an entry.
 For example:
 
 @lisp
@@ -64,7 +64,7 @@ A key or a value may be any @term{object}.
 
 @item
 The existence of an entry in the @term{hash table} can be determined
-from the @term{secondary value} returned by @code{gethash}.
+from the @term{secondary value} returned by @coderef{gethash}.
 @end itemize
 
 
@@ -87,7 +87,7 @@ from the @term{secondary value} returned by @code{gethash}.
 @subsection Modifying Hash Table Keys
 
 
-The function supplied as the @kwd{test} argument to @code{make-hash-table}
+The function supplied as the @kwd{test} argument to @coderef{make-hash-table}
 specifies the `equivalence test' for the @term{hash table} it creates.
 
 An @term{object} is `visibly modified' with regard to an equivalence test
@@ -115,13 +115,13 @@ visible modifications of the @term{object}.
 @subsubsection Visible Modification of Objects with respect to EQ and EQL
 
 No @term{standardized} @term{function} is provided that is capable of visibly
-modifying an @term{object} with regard to @code{eq} or @code{eql}.
+modifying an @term{object} with regard to @coderef{eq} or @coderef{eql}.
 
 
 @node Visible Modification of Objects with respect to EQUAL
 @subsubsection Visible Modification of Objects with respect to EQUAL
 
-As a consequence of the behavior for @code{equal},
+As a consequence of the behavior for @coderef{equal},
 the rules for visible modification of @term{objects} not explicitly mentioned in this
 section are inherited from those in @ref{Visible Modification of Objects with respect to EQ and EQL}.
 
@@ -130,7 +130,7 @@ section are inherited from those in @ref{Visible Modification of Objects with re
 
 
 Any visible change to the @term{car} or the @term{cdr} of a @term{cons}
-is considered a visible modification with regard to @code{equal}.
+is considered a visible modification with regard to @coderef{equal}.
 
 
 @node Visible Modification of Bit Vectors and Strings with respect to EQUAL
@@ -141,14 +141,14 @@ For a @term{vector} @oftype{bit-vector} or @oftype{string}, any visible change
 to an @term{active} @term{element} of the @term{vector},
 or to the @term{length} of the @term{vector} (if it is @term{actually adjustable}
 or has a @term{fill pointer})
-is considered a visible modification with regard to @code{equal}.
+is considered a visible modification with regard to @coderef{equal}.
 
 
 
 @node Visible Modification of Objects with respect to EQUALP
 @subsubsection Visible Modification of Objects with respect to EQUALP
 
-As a consequence of the behavior for @code{equalp},
+As a consequence of the behavior for @coderef{equalp},
 the rules for visible modification of @term{objects} not explicitly mentioned in this
 section are inherited from those in @ref{Visible Modification of Objects with respect to EQUAL}.
 
@@ -157,7 +157,7 @@ section are inherited from those in @ref{Visible Modification of Objects with re
 
 
 Any visible change to a @term{slot} of a @term{structure}
-is considered a visible modification with regard to @code{equalp}.
+is considered a visible modification with regard to @coderef{equalp}.
 
 
 @node Visible Modification of Arrays with respect to EQUALP
@@ -168,7 +168,7 @@ In an @term{array}, any visible change
 to an @term{active} @term{element},
 to the @term{fill pointer} (if the @term{array} can and does have one),
 or to the @term{dimensions} (if the @term{array} is @term{actually adjustable})
-is considered a visible modification with regard to @code{equalp}.
+is considered a visible modification with regard to @coderef{equalp}.
 
 
 @node Visible Modification of Hash Tables with respect to EQUALP
@@ -179,10 +179,10 @@ In a @term{hash table}, any visible change
 to the count of entries in the @term{hash table},
 to the keys,
 or to the values associated with the keys
-is considered a visible modification with regard to @code{equalp}.
+is considered a visible modification with regard to @coderef{equalp}.
 
 Note that the visibility of modifications to the keys depends on the equivalence test
-of the @term{hash table}, not on the specification of @code{equalp}.
+of the @term{hash table}, not on the specification of @coderef{equalp}.
 
 
 
@@ -196,7 +196,7 @@ document how the use of these extensions interacts with equivalence tests and
 
 @term{Implementations} that extend the language by defining additional acceptable
 equivalence tests for @term{hash tables} (allowing additional values for the @kwd{test}
-argument to @code{make-hash-table}) must document the visible components of these
+argument to @coderef{make-hash-table}) must document the visible components of these
 tests.
 
 @node Hash Tables Dictionary
@@ -227,8 +227,8 @@ tests.
 
 
 @subsubheading Class Precedence List:
-@code{hash-table},
-@code{t}
+@coderef{hash-table},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -261,11 +261,11 @@ is required to use any particular technique to implement the mapping.
 @subsubheading Arguments and Values:
 
 @param{test}---a @term{designator} for one of the @term{functions}
-@code{eq},
-@code{eql},
-@code{equal}, or
-@code{equalp}.
-@Default{@code{eql}}
+@coderef{eq},
+@coderef{eql},
+@coderef{equal}, or
+@coderef{equalp}.
+@Default{@coderef{eql}}
 
 @param{size}---a non-negative @term{integer}.
 @Default{@term{implementation-dependent}}
@@ -397,7 +397,7 @@ is permitted to ignore them.
 
 Returns the number of entries in the @param{hash-table}.
 If @param{hash-table} has just been created
-or newly cleared (see @code{clrhash})
+or newly cleared (see @coderef{clrhash})
 the entry count is @f{0}.
 
 @subsubheading Examples:
@@ -414,8 +414,8 @@ the entry count is @f{0}.
 
 @subsubheading Affected By:
 
-@code{clrhash},
-@code{remhash},
+@coderef{clrhash},
+@coderef{remhash},
 @SETFof{gethash}
 
 @subsubheading See Also:
@@ -425,7 +425,7 @@ the entry count is @f{0}.
 @subsubheading Notes:
 
 The following relationships are functionally correct, although in practice
-using @code{hash-table-count} is probably much faster:
+using @coderef{hash-table-count} is probably much faster:
 
 @lisp
  (hash-table-count @param{table}) @EQ{}
@@ -460,7 +460,7 @@ using @code{hash-table-count} is probably much faster:
 @subsubheading Description:
 
 Returns the current rehash size of @param{hash-table},
-suitable for use in a call to @code{make-hash-table}
+suitable for use in a call to @coderef{make-hash-table}
 in order to produce a @term{hash table}
 with state corresponding to the current state of the @param{hash-table}.
 
@@ -517,7 +517,7 @@ the actual amount by which the @param{hash-table} will grow upon rehash is
 @subsubheading Description:
 
 Returns the current rehash threshold of @param{hash-table}, which is
-suitable for use in a call to @code{make-hash-table} in order to
+suitable for use in a call to @coderef{make-hash-table} in order to
 produce a @term{hash table} with state corresponding to the current
 state of the @param{hash-table}.
 
@@ -561,7 +561,7 @@ state of the @param{hash-table}.
 @subsubheading Description:
 
 Returns the current size of @param{hash-table}, which is suitable for use in
-a call to @code{make-hash-table} in order to produce a @term{hash table}
+a call to @coderef{make-hash-table} in order to produce a @term{hash table}
 with state corresponding to the current state of the @param{hash-table}.
 
 @subsubheading Exceptional Situations:
@@ -592,7 +592,7 @@ with state corresponding to the current state of the @param{hash-table}.
 
 @param{test}---a @term{function designator}.
 For the four @term{standardized} @term{hash table} test @term{functions}
-(see @code{make-hash-table}), the @param{test} value returned
+(see @coderef{make-hash-table}), the @param{test} value returned
 is always a @term{symbol}.  If an @term{implementation} permits additional
 tests, it is @term{implementation-dependent} whether such tests are
 returned as @term{function} @term{objects} or @term{function names}.
@@ -643,9 +643,9 @@ If there is no such entry, @param{value} is the @param{default}.
 
 @param{Present-p} is @term{true} if an entry is found; otherwise, it is @term{false}.
 
-@code{setf} may be used with @code{gethash} to modify the @term{value}
+@coderef{setf} may be used with @coderef{gethash} to modify the @term{value}
 associated with a given @term{key}, or to add a new entry.
-When a @code{gethash} @term{form} is used as a @code{setf} @param{place},
+When a @coderef{gethash} @term{form} is used as a @coderef{setf} @param{place},
 any @param{default} which is supplied is evaluated according to normal
 left-to-right evaluation rules, but its @term{value} is ignored.
 
@@ -748,11 +748,11 @@ the @param{function} is called with two @term{arguments}---the @term{key}
 and the @term{value} of that entry.
 
 The consequences are unspecified if any attempt is made to add or remove
-an entry from the @param{hash-table} while a @code{maphash} is in progress,
+an entry from the @param{hash-table} while a @coderef{maphash} is in progress,
 with two exceptions:
-the @param{function} can use can use @code{setf} of @code{gethash}
+the @param{function} can use can use @coderef{setf} of @coderef{gethash}
 to change the @term{value} part of the entry currently being processed,
-or it can use @code{remhash} to remove that entry.
+or it can use @coderef{remhash} to remove that entry.
 
 @subsubheading Examples:
 
@@ -806,7 +806,7 @@ None, other than any which might be done by the @param{function}.
 
 @subsubheading Arguments and Values:
 
-@param{name}---a name suitable for the first argument to @code{macrolet}.
+@param{name}---a name suitable for the first argument to @coderef{macrolet}.
 
 @param{hash-table}---a @term{form}, evaluated once, that should produce a @term{hash table}.
 
@@ -818,7 +818,7 @@ None, other than any which might be done by the @param{function}.
 
 @subsubheading Description:
 
-Within the lexical scope of the body, @param{name} is defined via @code{macrolet}
+Within the lexical scope of the body, @param{name} is defined via @coderef{macrolet}
 such that successive invocations of @f{(@param{name})} return the items,
 one by one, from the @term{hash table} that is obtained by evaluating
 @param{hash-table} only once.
@@ -837,20 +837,20 @@ After all entries have been returned by successive invocations of
 
 It is unspecified what happens if any of the implicit interior state
 of an iteration is returned outside the dynamic extent of the
-@code{with-hash-table-iterator} @term{form}
+@coderef{with-hash-table-iterator} @term{form}
 such as by returning some @term{closure} over the invocation @term{form}.
 
-Any number of invocations of @code{with-hash-table-iterator}
+Any number of invocations of @coderef{with-hash-table-iterator}
 can be nested, and the body of the innermost one can invoke all of the
 locally @term{established} @term{macros}, provided all of those @term{macros}
 have @term{distinct} names.
 
 @subsubheading Examples:
 
-The following function should return @code{t}@spc{}on any
+The following function should return @coderef{t}@spc{}on any
 @term{hash table}, and signal
-an error if the usage of @code{with-hash-table-iterator} does not agree
-with the corresponding usage of @code{maphash}.
+an error if the usage of @coderef{with-hash-table-iterator} does not agree
+with the corresponding usage of @coderef{maphash}.
 
 @lisp
  (defun test-hash-table-iterator (hash-table)
@@ -876,7 +876,7 @@ with the corresponding usage of @code{maphash}.
 
 
 The following could be an acceptable definition of
-@code{maphash}, implemented by @code{with-hash-table-iterator}.
+@coderef{maphash}, implemented by @coderef{with-hash-table-iterator}.
 
 @lisp
  (defun maphash (function hash-table)
@@ -890,7 +890,7 @@ The following could be an acceptable definition of
 @subsubheading Exceptional Situations:
 
 The consequences are undefined if the local function named @param{name}
-@term{established} by @code{with-hash-table-iterator} is called after it has
+@term{established} by @coderef{with-hash-table-iterator} is called after it has
 returned @term{false} as its @term{primary value}.
 
 @subsubheading See Also:
@@ -955,7 +955,7 @@ The @param{hash-table} is modified.
 
 @subsubheading Description:
 
-@code{sxhash} returns a hash code for @param{object}.
+@coderef{sxhash} returns a hash code for @param{object}.
 
 The manner in which the hash code is computed is @term{implementation-dependent},
 but subject to certain constraints:
@@ -985,7 +985,7 @@ See @ref{Literal Objects in Compiled Files}.
 @item
 The @param{hash-code} for an @term{object} is always the @term{same}
 within a single @term{session} provided that the @term{object} is not
-visibly modified with regard to the equivalence test @code{equal}.
+visibly modified with regard to the equivalence test @coderef{equal}.
 See @ref{Modifying Hash Table Keys}.
 
 @item
@@ -1018,22 +1018,22 @@ The @term{implementation}.
 
 @subsubheading Notes:
 
-Many common hashing needs are satisfied by @code{make-hash-table} and the
-related functions on @term{hash tables}.  @code{sxhash} is intended for use
+Many common hashing needs are satisfied by @coderef{make-hash-table} and the
+related functions on @term{hash tables}.  @coderef{sxhash} is intended for use
 where the pre-defined abstractions are insufficient.  Its main intent is to
 allow the user a convenient means of implementing more complicated hashing
 paradigms than are provided through @term{hash tables}.
 
-The hash codes returned by @code{sxhash} are not necessarily related to
+The hash codes returned by @coderef{sxhash} are not necessarily related to
 any hashing strategy used by any other @term{function} in @clisp{}.
 
-For @term{objects} of @term{types} that @code{equal} compares
-with @code{eq}, item 3 requires that the @param{hash-code} be
+For @term{objects} of @term{types} that @coderef{equal} compares
+with @coderef{eq}, item 3 requires that the @param{hash-code} be
 based on some immutable quality of the identity of the object.
 Another legitimate implementation technique would be to have
-@code{sxhash} assign (and cache) a random hash code for these
+@coderef{sxhash} assign (and cache) a random hash code for these
 @term{objects}, since there is no requirement that @term{similar} but
-non-@code{eq} objects have the same hash code.
+non-@coderef{eq} objects have the same hash code.
 
 Although @term{similarity} is defined for @term{symbols} in terms
 of both the @term{symbol}'s @term{name} and the @term{packages} in which

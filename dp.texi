@@ -9,6 +9,10 @@
 @include dph.texi
 @end ifnotinfo
 
+@macro coderef {arg}
+@code{\arg\}
+@end macro
+
 @macro spc {}
 @w{ }
 @end macro

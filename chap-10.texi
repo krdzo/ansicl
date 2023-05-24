@@ -73,8 +73,8 @@ to the creation of and inquiry about @term{symbols}.
 
 
 @subsubheading Class Precedence List:
-@code{symbol},
-@code{t}
+@coderef{symbol},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -145,10 +145,10 @@ associating named attributes with that @term{symbol}.
 The operations for adding and removing entries are @term{destructive}
 to the @term{property list}.  @clisp{}@spc{}provides @term{operators} both for
 direct manipulation of @term{property list} @term{objects}
-(@eg{} see @code{getf}, @code{remf}, and @code{symbol-plist})
+(@eg{} see @coderef{getf}, @coderef{remf}, and @coderef{symbol-plist})
 and for implicit manipulation of a @term{symbol}'s @term{property list}
 by reference to the @term{symbol}
-(@eg{} see @code{get} and @code{remprop}).
+(@eg{} see @coderef{get} and @coderef{remprop}).
 The @term{property list} associated with a @term{fresh} @term{symbol} is
 initially @term{null}.
 
@@ -175,8 +175,8 @@ If the @term{symbol} is the @term{name} of a @term{function} in the @term{global
 the @term{function cell} contains the @term{function},
 and can be @term{accessed} by @thefunction{symbol-function}.
 If the @term{symbol} is the @term{name} of either
-a @term{macro} in the @term{global environment} (see @code{macro-function})
-or a @term{special operator} (see @code{special-operator-p}),
+a @term{macro} in the @term{global environment} (see @coderef{macro-function})
+or a @term{special operator} (see @coderef{special-operator-p}),
 the @term{symbol} is @term{fbound},
 and can be @term{accessed} by @thefunction{symbol-function},
 but the @term{object} which the @term{function cell}
@@ -215,9 +215,9 @@ on a lexical @term{function} definition.
 
 @subsubheading Supertypes:
 
-@code{keyword},
-@code{symbol},
-@code{t}
+@coderef{keyword},
+@coderef{symbol},
+@coderef{t}
 
 @subsubheading Description:
 
@@ -347,7 +347,7 @@ of the @code{KEYWORD} @term{package}.
 
 @subsubheading Description:
 
-@code{make-symbol} creates and returns a @term{fresh}, @term{uninterned}
+@coderef{make-symbol} creates and returns a @term{fresh}, @term{uninterned}
 @term{symbol} whose @term{name} is the given @param{name}.
 The @param{new-symbol} is neither @term{bound} nor @term{fbound}
 and has a @term{null} @term{property list}.
@@ -381,7 +381,7 @@ subsequent attempt is made to alter that @term{string}.
 
 @subsubheading Notes:
 
-No attempt is made by @code{make-symbol} to convert the case
+No attempt is made by @coderef{make-symbol} to convert the case
 of the @term{name} to uppercase.  The only case conversion which ever
 occurs for @term{symbols} is done by the @term{Lisp reader}.
 The program interface to @term{symbol} creation retains case,
@@ -409,8 +409,8 @@ and the program interface to interning symbols is case-sensitive.
 
 @subsubheading Description:
 
-@code{copy-symbol} returns a @term{fresh}, @term{uninterned} @term{symbol},
-the @term{name} of which is @code{string=} to and possibly the @term{same} as
+@coderef{copy-symbol} returns a @term{fresh}, @term{uninterned} @term{symbol},
+the @term{name} of which is @coderef{string=} to and possibly the @term{same} as
 the @term{name} of the given @param{symbol}.
 
 If @param{copy-properties} is @term{false},
@@ -489,8 +489,8 @@ be @term{identical} to the given @param{symbol}'s @term{name}.
 @subsubheading Description:
 
 Creates and returns a @term{fresh}, @term{uninterned} @term{symbol},
-as if by calling @code{make-symbol}.  (The only difference between
-@code{gensym} and @code{make-symbol} is in how the @param{new-symbol}'s
+as if by calling @coderef{make-symbol}.  (The only difference between
+@coderef{gensym} and @coderef{make-symbol} is in how the @param{new-symbol}'s
 @term{name} is determined.)
 
 The @term{name} of the @param{new-symbol} is the concatenation
@@ -499,14 +499,14 @@ a suffix, which is the decimal representation of a number that
 defaults to @thevalueof{*gensym-counter*}.
 
 If @param{x} is supplied, and is a @term{string}, then that @term{string}
-is used as a prefix instead of @f{"G"} for this call to @code{gensym} only.
+is used as a prefix instead of @f{"G"} for this call to @coderef{gensym} only.
 
 If @param{x} is supplied, and is an @term{integer}, then that @term{integer},
 instead of @thevalueof{*gensym-counter*}, is used as the suffix
-for this call to @code{gensym} only.
+for this call to @coderef{gensym} only.
 
 If and only if no explicit suffix is supplied,
-@code{*gensym-counter*} is incremented after it is used.
+@coderef{*gensym-counter*} is incremented after it is used.
 
 @subsubheading Examples:
 
@@ -524,11 +524,11 @@ If and only if no explicit suffix is supplied,
 
 @subsubheading Side Effects:
 
-Might increment @code{*gensym-counter*}.
+Might increment @coderef{*gensym-counter*}.
 
 @subsubheading Affected By:
 
-@code{*gensym-counter*}
+@coderef{*gensym-counter*}
 
 @subsubheading Exceptional Situations:
 
@@ -541,13 +541,13 @@ Might increment @code{*gensym-counter*}.
 
 @subsubheading Notes:
 
-The ability to pass a numeric argument to @code{gensym} has been deprecated;
-explicitly @term{binding} @code{*gensym-counter*} is now stylistically preferred.
+The ability to pass a numeric argument to @coderef{gensym} has been deprecated;
+explicitly @term{binding} @coderef{*gensym-counter*} is now stylistically preferred.
 (The somewhat baroque conventions for the optional argument are historical
 in nature, and supported primarily for compatibility with older dialects
 of @Lisp{}.   In modern code, it is recommended that the only kind of argument
 used be a string prefix.  In general, though, to obtain more flexible control
-of the @param{new-symbol}'s @term{name}, consider using @code{make-symbol} instead.)
+of the @param{new-symbol}'s @term{name}, consider using @coderef{make-symbol} instead.)
 
 
 @node *gensym-counter*
@@ -569,12 +569,12 @@ a non-negative @term{integer}.
 A number which will be used in constructing the @term{name} of
 the next @term{symbol} generated by @thefunction{gensym}.
 
-@code{*gensym-counter*} can be either @term{assigned} or @term{bound}
+@coderef{*gensym-counter*} can be either @term{assigned} or @term{bound}
 at any time, but its value must always be a non-negative @term{integer}.
 
 @subsubheading Affected By:
 
-@code{gensym}.
+@coderef{gensym}.
 
 @subsubheading See Also:
 
@@ -582,8 +582,8 @@ at any time, but its value must always be a non-negative @term{integer}.
 
 @subsubheading Notes:
 
-The ability to pass a numeric argument to @code{gensym} has been deprecated;
-explicitly @term{binding} @code{*gensym-counter*} is now stylistically preferred.
+The ability to pass a numeric argument to @coderef{gensym} has been deprecated;
+explicitly @term{binding} @coderef{*gensym-counter*} is now stylistically preferred.
 
 @node gentemp
 @subsection gentemp (Function)
@@ -607,7 +607,7 @@ explicitly @term{binding} @code{*gensym-counter*} is now stylistically preferred
 
 @subsubheading Description:
 
-@code{gentemp} creates and returns a @term{fresh} @term{symbol},
+@coderef{gentemp} creates and returns a @term{fresh} @term{symbol},
 @term{interned} in the indicated @param{package}.
 The @term{symbol} is guaranteed to be one that was not previously
 @term{accessible} in @param{package}.
@@ -616,7 +616,7 @@ It is neither @term{bound} nor @term{fbound}, and has a @term{null}
 
 The @term{name} of the @param{new-symbol} is the concatenation
 of the @param{prefix} and a suffix, which is taken from an internal
-counter used only by @code{gentemp}.  (If a @term{symbol} by that name
+counter used only by @coderef{gentemp}.  (If a @term{symbol} by that name
 is already @term{accessible} in @param{package}, the counter is incremented as
 many times as is necessary to produce a @term{name} that is not already the
 @term{name} of a @term{symbol} @term{accessible} in @param{package}.)
@@ -657,24 +657,24 @@ the current state of the @param{package}.
 
 @subsubheading Notes:
 
-The function @code{gentemp} is deprecated.
+The function @coderef{gentemp} is deprecated.
 
 If @param{package} is the @code{KEYWORD} @term{package},
 the result is an @term{external symbol} of @param{package}.
 Otherwise, the result is an @term{internal symbol} of @param{package}.
 
-The @code{gentemp} internal counter is independent of
-@code{*gensym-counter*}, the counter used by @code{gensym}.
-There is no provision for accessing the @code{gentemp} internal counter.
+The @coderef{gentemp} internal counter is independent of
+@coderef{*gensym-counter*}, the counter used by @coderef{gensym}.
+There is no provision for accessing the @coderef{gentemp} internal counter.
 
-Just because @code{gentemp} creates a @term{symbol} which did not
+Just because @coderef{gentemp} creates a @term{symbol} which did not
 previously exist does not mean that such a @term{symbol} might not be
 seen in the future (@eg{} in a data file---perhaps even created by the
 same program in another session).  As such, this symbol is not truly
 unique in the same sense as a @term{gensym} would be.  In particular,
 programs which do automatic code generation should be careful not to
 attach global attributes to such generated @term{symbols} (@eg{}
-@code{special} @term{declarations}) and then write them into a file
+@coderef{special} @term{declarations}) and then write them into a file
 because such global attributes might, in a different session, end up
 applying to other @term{symbols} that were automatically generated on
 another day for some other purpose.
@@ -750,13 +750,13 @@ a @term{function} @term{object} is returned.
 
 @subsubheading Affected By:
 
-@code{defun}
+@coderef{defun}
 
 @subsubheading Exceptional Situations:
 
 @Shouldchecktype{symbol, a @term{symbol}}
 
-Should signal @code{undefined-function} if @param{symbol} is not @term{fbound}
+Should signal @coderef{undefined-function} if @param{symbol} is not @term{fbound}
 and an attempt is made to @term{read} its definition.  (No such error is signaled
 on an attempt to @term{write} its definition.)
 
@@ -768,12 +768,12 @@ on an attempt to @term{write} its definition.)
 @ref{special-operator-p}
 
 @subsubheading Notes:
-@code{symbol-function} cannot @term{access} the value of a lexical function name
-produced by @code{flet} or @code{labels}; it can @term{access} only
+@coderef{symbol-function} cannot @term{access} the value of a lexical function name
+produced by @coderef{flet} or @coderef{labels}; it can @term{access} only
 the global function value.
 
-@code{setf} may be used with
-@code{symbol-function} to replace a global function
+@coderef{setf} may be used with
+@coderef{symbol-function} to replace a global function
 definition when the @term{symbol}'s function definition
 does not represent a @term{special operator}.
 
@@ -781,7 +781,7 @@ does not represent a @term{special operator}.
 (symbol-function @param{symbol}) @EQ{} (fdefinition @param{symbol})
 @end lisp
 
-However, @code{fdefinition} accepts arguments other than just @term{symbols}.
+However, @coderef{fdefinition} accepts arguments other than just @term{symbols}.
 
 
 @node symbol-name
@@ -802,7 +802,7 @@ However, @code{fdefinition} accepts arguments other than just @term{symbols}.
 
 @subsubheading Description:
 
-@code{symbol-name} returns the @term{name} of @param{symbol}.
+@coderef{symbol-name} returns the @term{name} of @param{symbol}.
 The consequences are undefined if @param{name} is ever modified.
 
 @subsubheading Examples:
@@ -870,9 +870,9 @@ Returns the @term{home package} of @param{symbol}.
 
 @subsubheading Affected By:
 
-@code{import},
-@code{intern},
-@code{unintern}
+@coderef{import},
+@coderef{intern},
+@coderef{unintern}
 
 @subsubheading Exceptional Situations:
 
@@ -929,7 +929,7 @@ Returns the @term{home package} of @param{symbol}.
 
 @subsubheading Notes:
 
-The use of @code{setf} should be avoided, since a @term{symbol}'s
+The use of @coderef{setf} should be avoided, since a @term{symbol}'s
 @term{property list} is a global resource that can contain information
 established and depended upon by unrelated programs in the same @term{Lisp image}.
 
@@ -992,15 +992,15 @@ established and depended upon by unrelated programs in the same @term{Lisp image
 
 @subsubheading Affected By:
 
-@code{makunbound},
-@code{set},
-@code{setq}
+@coderef{makunbound},
+@coderef{set},
+@coderef{setq}
 
 @subsubheading Exceptional Situations:
 
 @Shouldchecktype{symbol, a @term{symbol}}
 
-Should signal @code{unbound-variable} if @param{symbol} is @term{unbound}
+Should signal @coderef{unbound-variable} if @param{symbol} is @term{unbound}
 and an attempt is made to @term{read} its @term{value}.  (No such error is signaled
 on an attempt to @term{write} its @term{value}.)
 
@@ -1010,8 +1010,8 @@ on an attempt to @term{write} its @term{value}.)
 
 @subsubheading Notes:
 
-@code{symbol-value} can be used to get the value of a @term{constant variable}.
-@code{symbol-value} cannot @term{access} the value of a @term{lexical variable}.
+@coderef{symbol-value} can be used to get the value of a @term{constant variable}.
+@coderef{symbol-value} cannot @term{access} the value of a @term{lexical variable}.
 
 
 @node get
@@ -1042,22 +1042,22 @@ otherwise, the specified @param{default}.
 
 @subsubheading Description:
 
-@code{get} finds a @term{property}
+@coderef{get} finds a @term{property}
 on the @term{property list}@sub{2} of @param{symbol}
 whose @term{property indicator} is @term{identical} to @param{indicator},
 and returns its corresponding @term{property value}.
 If there are multiple @term{properties}@sub{1} with that @term{property indicator},
-@code{get} uses the first such @term{property}.
+@coderef{get} uses the first such @term{property}.
 If there is no @term{property} with that @term{property indicator},
 @param{default} is returned.
 
-@code{setf} of @code{get} may be used to associate a new @term{object}
+@coderef{setf} of @coderef{get} may be used to associate a new @term{object}
 with an existing indicator already on the @param{symbol}'s @term{property list},
 or to create a new assocation if none exists.
 If there are multiple @term{properties}@sub{1} with that @term{property indicator},
-@code{setf} of @code{get} associates the @param{new-value}
+@coderef{setf} of @coderef{get} associates the @param{new-value}
 with the first such @term{property}.
-When a @code{get} @term{form} is used as a @code{setf} @param{place},
+When a @coderef{get} @term{form} is used as a @coderef{setf} @param{place},
 any @param{default} which is supplied is evaluated according to normal
 left-to-right evaluation rules, but its @term{value} is ignored.
 
@@ -1113,13 +1113,13 @@ left-to-right evaluation rules, but its @term{value} is ignored.
 
 
 @term{Numbers} and @term{characters} are not recommended for use
-as @param{indicators} in portable code since @code{get} tests
-with @code{eq} rather than @code{eql}, and consequently
+as @param{indicators} in portable code since @coderef{get} tests
+with @coderef{eq} rather than @coderef{eql}, and consequently
 the effect of using such @param{indicators} is
 @term{implementation-dependent}.
 
-There is no way using @code{get} to distinguish an absent property from
-one whose value is @param{default}.  However, see @code{get-properties}.
+There is no way using @coderef{get} to distinguish an absent property from
+one whose value is @param{default}.  However, see @coderef{get-properties}.
 
 
 
@@ -1143,19 +1143,19 @@ one whose value is @param{default}.  However, see @code{get-properties}.
 
 @subsubheading Description:
 
-@code{remprop} removes from the @term{property list}@sub{2} of @param{symbol}
+@coderef{remprop} removes from the @term{property list}@sub{2} of @param{symbol}
 a @term{property}@sub{1} with a @term{property indicator}
 @term{identical} to @param{indicator}.
 If there are multiple @term{properties}@sub{1} with the @term{identical} key,
-@code{remprop} only removes the first such @term{property}.
-@code{remprop} returns @term{false} if no such @term{property} was found,
+@coderef{remprop} only removes the first such @term{property}.
+@coderef{remprop} returns @term{false} if no such @term{property} was found,
 or @term{true} if a property was found.
 
 The @term{property indicator}
 and the corresponding @term{property value}
 are removed in an undefined order
 by destructively splicing the property list.
-The permissible side-effects correspond to those permitted for @code{remf},
+The permissible side-effects correspond to those permitted for @coderef{remf},
 such that:
 
 @lisp
@@ -1206,12 +1206,12 @@ The @term{property list} of @param{symbol} is modified.
 @subsubheading Notes:
 
 @term{Numbers} and @term{characters} are not recommended for use as
-@param{indicators} in portable code since @code{remprop} tests with
-@code{eq} rather than @code{eql}, and consequently the effect of
+@param{indicators} in portable code since @coderef{remprop} tests with
+@coderef{eq} rather than @coderef{eql}, and consequently the effect of
 using such @param{indicators} is @term{implementation-dependent}.
 Of course, if you've gotten as far as needing to remove such a
 @term{property}, you don't have much choice---the time to have been
-thinking about this was when you used @code{setf} of @code{get} to
+thinking about this was when you used @coderef{setf} of @coderef{get} to
 establish the @term{property}.
 
 
@@ -1326,7 +1326,7 @@ The @term{value cell} of @param{symbol} is modified.
 
 @subsubheading Description:
 
-@code{set} changes the contents of the @term{value cell} of @term{symbol}
+@coderef{set} changes the contents of the @term{value cell} of @term{symbol}
 to the given @term{value}.
 
 @lisp
@@ -1382,9 +1382,9 @@ The @term{value} of @param{symbol} is changed.
 
 @subsubheading Notes:
 
-The function @code{set} is deprecated.
+The function @coderef{set} is deprecated.
 
-@code{set} cannot change the value of a @term{lexical variable}.
+@coderef{set} cannot change the value of a @term{lexical variable}.
 
 
 @node unbound-variable
@@ -1394,19 +1394,19 @@ The function @code{set} is deprecated.
 
 
 @subsubheading Class Precedence List:
-@code{unbound-variable},
-@code{cell-error},
-@code{error},
-@code{serious-condition},
-@code{condition},
-@code{t}
+@coderef{unbound-variable},
+@coderef{cell-error},
+@coderef{error},
+@coderef{serious-condition},
+@coderef{condition},
+@coderef{t}
 
 @subsubheading Description:
 
 @Thetype{unbound-variable} consists of @term{error} @term{conditions}
 that represent attempts to @term{read} the @term{value} of an @term{unbound variable}.
 
-The name of the cell (see @code{cell-error}) is the @term{name} of the
+The name of the cell (see @coderef{cell-error}) is the @term{name} of the
 @term{variable} that was @term{unbound}.
 
 @subsubheading See Also:
