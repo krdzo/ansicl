@@ -350,7 +350,7 @@ If @param{element-type} is the @term{symbol} @t{*},
 @term{arrays} are not excluded on the basis of their @term{element type}.
 Otherwise, only those @param{arrays} are included whose @term{actual array element type}
 is the result of @term{upgrading} @param{element-type};
-see @ref{ArrayUpgrading, Section 15.1.2.1 (Array Upgrading)}.
+see @ref{Array Upgrading}.
 
 If the @param{dimension-spec} is a @param{rank},
 the set includes only those @param{arrays} having that @term{rank}.
@@ -369,8 +369,8 @@ the set is not restricted on the basis of @term{rank} or @term{dimension}.
 @ref{aref},
 @ref{make-array},
 @ref{vector (System Class)},
-@ref{SharpsignA, Section 2.4.8.12 (Sharpsign A)},
-@ref{PrintingOtherArrays, Section 22.1.3.8 (Printing Other Arrays)}
+@ref{Sharpsign A},
+@ref{Printing Other Arrays}
 
 @subsubheading Notes:
 
@@ -509,7 +509,7 @@ If @param{element-type} is the @term{symbol} @t{*},
 @term{vectors} are not excluded on the basis of their @term{element type}.
 Otherwise, only those @param{vectors} are included whose @term{actual array element type}
 is the result of @term{upgrading} @param{element-type};
-see @ref{ArrayUpgrading, Section 15.1.2.1 (Array Upgrading)}.
+see @ref{Array Upgrading}.
 
 If a @param{size} is specified,
 the set includes only those @param{vectors} whose only @term{dimension}
@@ -519,10 +519,10 @@ the set is not restricted on the basis of @term{dimension}.
 
 @subsubheading See Also:
 
-@ref{RequiredSpecializedArrays, Section 15.1.2.2 (Required Kinds of Specialized Arrays)},
-@ref{SharpsignLeftParen, Section 2.4.8.3 (Sharpsign Left-Parenthesis)},
-@ref{PrintingOtherVectors, Section 22.1.3.7 (Printing Other Vectors)},
-@ref{SharpsignA, Section 2.4.8.12 (Sharpsign A)}
+@ref{Required Kinds of Specialized Arrays},
+@ref{Sharpsign Left-Parenthesis},
+@ref{Printing Other Vectors},
+@ref{Sharpsign A}
 
 @subsubheading Notes:
 
@@ -625,9 +625,9 @@ that is, the set of @term{bit vectors} of size @param{size}.
 
 @subsubheading See Also:
 
-@ref{SharpsignStar, Section 2.4.8.4 (Sharpsign Asterisk)},
-@ref{PrintingBitVectors, Section 22.1.3.6 (Printing Bit Vectors)},
-@ref{RequiredSpecializedArrays, Section 15.1.2.2 (Required Kinds of Specialized Arrays)}
+@ref{Sharpsign Asterisk},
+@ref{Printing Bit Vectors},
+@ref{Required Kinds of Specialized Arrays}
 
 @node simple-bit-vector
 @subsection simple-bit-vector (Type)
@@ -725,7 +725,7 @@ If @param{dimensions} is @nil{}@spc{}then a zero-dimensional @term{array} is cre
 @param{element-type} indicates the @term{type} of the elements intended to be stored
 in the @param{new-array}.  The @param{new-array} can actually store any @term{objects}
 of the @term{type} which results from @term{upgrading} @param{element-type};
-see @ref{ArrayUpgrading, Section 15.1.2.1 (Array Upgrading)}.
+see @ref{Array Upgrading}.
 
 If @param{initial-element} is supplied,
 it is used to initialize each @term{element} of @param{new-array}.
@@ -1294,7 +1294,7 @@ refers to element (2, 1) of the array.
 @ref{elt},
 @ref{row-major-aref},
 @ref{svref},
-@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)}
+@ref{Compiler Terminology}
 
 
 @node array-dimension
@@ -2113,7 +2113,7 @@ of the @term{array element type} of the @param{simple-vector}).
 @ref{sbit},
 @ref{schar},
 @ref{vector (Function)},
-@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)}
+@ref{Compiler Terminology}
 
 @subsubheading Notes:
 
@@ -2417,7 +2417,7 @@ These @term{functions} ignore the @term{fill pointer} when @term{accessing} @ter
 @subsubheading See Also:
 
 @ref{aref},
-@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)}
+@ref{Compiler Terminology}
 
 @subsubheading Notes:
 

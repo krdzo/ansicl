@@ -17,7 +17,7 @@
 @subsection Dynamic Control of the Lisp Reader
 
 Various aspects of the @term{Lisp reader} can be controlled dynamically.
-See @ref{Readtables, Section 2.1.1 (Readtables)}@spc{}and @ref{Variables that affect the Lisp Reader, Section 2.1.2 (Variables that affect the Lisp Reader)}.
+See @ref{Readtables}@spc{}and @ref{Variables that affect the Lisp Reader}.
 
 
 @node Effect of Readtable Case on the Lisp Reader
@@ -33,7 +33,7 @@ in the following ways:
 
 When the @term{readtable case} is @kwd{upcase},
 unescaped constituent @term{characters} are converted to @term{uppercase},
-as specified in @ref{Reader Algorithm, Section 2.2 (Reader Algorithm)}.
+as specified in @ref{Reader Algorithm}.
 
 @item @id{@kwd{downcase}}
 
@@ -258,8 +258,8 @@ can have syntax descriptions in the @term{readtable}.
 
 @subsubheading See Also:
 
-@ref{Readtables, Section 2.1.1 (Readtables)},
-@ref{PrintingOtherObjects, Section 22.1.3.13 (Printing Other Objects)}
+@ref{Readtables},
+@ref{Printing Other Objects}
 
 
 @node copy-readtable
@@ -562,7 +562,7 @@ is signaled at the end of file.
 @ref{read-delimited-list},
 @ref{parse-integer},
 @ref{Syntax, Chapter 2 (Syntax)},
-@ref{Reader Concepts, Section 23.1 (Reader Concepts)}
+@ref{Reader Concepts}
 
 
 @node read-delimited-list
@@ -811,7 +811,7 @@ and the way in which the @term{Lisp Printer} writes @term{symbols}.
 
 @subsubheading Examples:
 
-See @ref{ReadtableCaseReadExamples, Section 23.1.2.1 (Examples of Effect of Readtable Case on the Lisp Reader)}@spc{}and @ref{ReadtableCasePrintExamples, Section 22.1.3.3.2.1 (Examples of Effect of Readtable Case on the Lisp Printer)}.
+See @ref{Examples of Effect of Readtable Case on the Lisp Reader}@spc{}and @ref{Examples of Effect of Readtable Case on the Lisp Printer}.
 
 @subsubheading Exceptional Situations:
 
@@ -822,9 +822,9 @@ See @ref{ReadtableCaseReadExamples, Section 23.1.2.1 (Examples of Effect of Read
 
 @ref{*readtable*},
 @ref{*print-escape*},
-@ref{Reader Algorithm, Section 2.2 (Reader Algorithm)},
-@ref{Effect of Readtable Case on the Lisp Reader, Section 23.1.2 (Effect of Readtable Case on the Lisp Reader)},
-@ref{ReadtableCasePrintEffect, Section 22.1.3.3.2 (Effect of Readtable Case on the Lisp Printer)}
+@ref{Reader Algorithm},
+@ref{Effect of Readtable Case on the Lisp Reader},
+@ref{Effect of Readtable Case on the Lisp Printer}
 
 @subsubheading Notes:
 
@@ -911,7 +911,7 @@ called  when @param{readtable} is in use and when @param{disp-char} is followed 
 @param{sub-char}.
 
 For more information about how the @param{new-function} is invoked,
-see @ref{MacroChars, Section 2.1.4.4 (Macro Characters)}.
+see @ref{Macro Characters}.
 
 @code{get-dispatch-macro-character} retrieves
 the dispatch function associated with @param{disp-char} and @param{sub-char}
@@ -952,7 +952,7 @@ as if it were @f{(dollars @i{foo})}.
 
 @subsubheading See Also:
 
-@ref{MacroChars, Section 2.1.4.4 (Macro Characters)}
+@ref{Macro Characters}
 
 @subsubheading Side Effects:
 
@@ -1133,7 +1133,7 @@ The existing values in the @param{from-readtable}.
 
 @ref{set-macro-character},
 @ref{make-dispatch-macro-character},
-@ref{Character Syntax Types, Section 2.1.4 (Character Syntax Types)}
+@ref{Character Syntax Types}
 
 @subsubheading Notes:
 
@@ -1142,7 +1142,7 @@ into the parser for extended @term{tokens}.  For example, if the definition
 of @f{S} is copied to @f{*}, then @f{*} will become a @term{constituent}
 that is @term{alphabetic}@sub{2} but that cannot be used as a
 @term{short float} @term{exponent marker}.
-For further information, see @ref{ConstituentTraits, Section 2.1.4.2 (Constituent Traits)}.
+For further information, see @ref{Constituent Traits}.
 
 
 @node with-standard-io-syntax
@@ -1516,7 +1516,7 @@ and can also influence the @term{Lisp printer} (@eg{} see the @term{function} @r
 @ref{compile-file},
 @ref{load},
 @ref{readtable},
-@ref{CurrentReadtable, Section 2.1.1.1 (The Current Readtable)}
+@ref{The Current Readtable}
 
 
 @node reader-error
@@ -1545,4 +1545,4 @@ done by the @term{Lisp reader}.
 
 @ref{read},
 @ref{stream-error-stream},
-@ref{Reader Concepts, Section 23.1 (Reader Concepts)}
+@ref{Reader Concepts}

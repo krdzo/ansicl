@@ -180,7 +180,7 @@ When using one of the @term{functions} in @thenextfigure{},
 the elements @mat{E} of a @term{sequence} @mat{S} are filtered
 not on the basis of the presence or absence of an object @mat{O}
 under a two @term{argument} @term{predicate},
-as with the @term{functions} described in @ref{Satisfying a Two-Argument Test, Section 17.2.1 (Satisfying a Two-Argument Test)},
+as with the @term{functions} described in @ref{Satisfying a Two-Argument Test},
 but rather on the basis of a one @term{argument} @term{predicate}.
 
 
@@ -391,7 +391,7 @@ However, the programmer intent is typically very different in these two cases.
 
 @ref{aref},
 @ref{nth},
-@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)}
+@ref{Compiler Terminology}
 
 @subsubheading Notes:
 
@@ -704,7 +704,7 @@ is different from that number.
 
 @subsubheading See Also:
 
-@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+@ref{Traversal Rules and Side Effects}
 
 
 @node map-into
@@ -889,7 +889,7 @@ This is the only case where the
 
 @subsubheading See Also:
 
-@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+@ref{Traversal Rules and Side Effects}
 
 
 @node count; count-if; count-if-not
@@ -966,8 +966,8 @@ which may change the side-effects, if any, of those functions.
 
 @subsubheading See Also:
 
-@ref{Rules about Test Functions, Section 17.2 (Rules about Test Functions)},
-@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+@ref{Rules about Test Functions},
+@ref{Traversal Rules and Side Effects}
 
 @subsubheading Notes:
 
@@ -1238,9 +1238,9 @@ destructively reordered in the same manner as for
 @subsubheading See Also:
 
 @ref{merge},
-@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)},
-@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)},
-@ref{Destructive Operations, Section 3.7 (Destructive Operations)}
+@ref{Compiler Terminology},
+@ref{Traversal Rules and Side Effects},
+@ref{Destructive Operations}
 
 @subsubheading Notes:
 
@@ -1330,8 +1330,8 @@ otherwise @nil{}@spc{}is returned.
 @subsubheading See Also:
 
 @ref{position},
-@ref{Rules about Test Functions, Section 17.2 (Rules about Test Functions)},
-@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+@ref{Rules about Test Functions},
+@ref{Traversal Rules and Side Effects}
 
 @subsubheading Notes:
 
@@ -1415,7 +1415,7 @@ regardless of the value of @term{start}, @term{end}, or @term{from-end}.
 @subsubheading See Also:
 
 @ref{find},
-@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+@ref{Traversal Rules and Side Effects}
 
 @subsubheading Notes:
 
@@ -1491,7 +1491,7 @@ element of the rightmost matching subsequence is returned.
 
 @subsubheading See Also:
 
-@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+@ref{Traversal Rules and Side Effects}
 
 @subsubheading Notes:
 
@@ -1573,7 +1573,7 @@ an index relative to @param{sequence-1}.
 
 @subsubheading See Also:
 
-@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+@ref{Traversal Rules and Side Effects}
 
 @subsubheading Notes:
 
@@ -1818,8 +1818,8 @@ modify @param{sequence}.
 
 @ref{subst},
 @ref{nsubst},
-@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)},
-@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+@ref{Compiler Terminology},
+@ref{Traversal Rules and Side Effects}
 
 @subsubheading Notes:
 
@@ -2049,8 +2049,8 @@ is different from that number.
 
 @ref{sort},
 @ref{stable-sort},
-@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)},
-@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+@ref{Compiler Terminology},
+@ref{Traversal Rules and Side Effects}
 
 
 @node remove; remove-if; remove-if-not; delete; delete-if; delete-if-not
@@ -2244,8 +2244,8 @@ For @code{delete}, @code{delete-if}, and @code{delete-if-not},
 
 @subsubheading See Also:
 
-@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)},
-@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+@ref{Compiler Terminology},
+@ref{Traversal Rules and Side Effects}
 
 @subsubheading Notes:
 
@@ -2357,8 +2357,8 @@ permuting them to produce the resulting @term{vector}.
 
 @subsubheading See Also:
 
-@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)},
-@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+@ref{Compiler Terminology},
+@ref{Traversal Rules and Side Effects}
 
 @subsubheading Notes:
 

@@ -70,7 +70,7 @@ situations are always notated specifically and are not the default.
 
 Many @term{functions} that perform @term{file} operations accept either
 @term{open} or @term{closed} @term{streams} as @term{arguments};
-see @ref{Stream Arguments to Standardized Functions, Section 21.1.3 (Stream Arguments to Standardized Functions)}.
+see @ref{Stream Arguments to Standardized Functions}.
 
 Of these, the @term{functions} in @thenextfigure{}@spc{}treat @term{open} and
 @term{closed} @term{streams} differently.
@@ -225,9 +225,9 @@ an error @oftype{file-error} is signaled.
 @ref{pathname (System Class)},
 @ref{logical-pathname (System Class)},
 @ref{ensure-directories-exist},
-@ref{File System Concepts, Section 20.1 (File System Concepts)},
-@ref{File Operations on Open and Closed Streams, Section 21.1.1.1.2 (Open and Closed Streams)},
-@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+@ref{File System Concepts},
+@ref{Open and Closed Streams},
+@ref{Pathnames as Filenames}
 
 @subsubheading Notes:
 
@@ -288,9 +288,9 @@ if the @term{file system} cannot perform the requested operation.
 @ref{ensure-directories-exist},
 @ref{pathname (System Class)},
 @ref{logical-pathname (System Class)},
-@ref{File System Concepts, Section 20.1 (File System Concepts)},
-@ref{File Operations on Open and Closed Streams, Section 21.1.1.1.2 (Open and Closed Streams)},
-@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+@ref{File System Concepts},
+@ref{Open and Closed Streams},
+@ref{Pathnames as Filenames}
 
 
 @node ensure-directories-exist
@@ -347,7 +347,7 @@ within the @term{file system}.
 
 @ref{probe-file},
 @ref{open},
-@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+@ref{Pathnames as Filenames}
 
 
 @node truename
@@ -423,8 +423,8 @@ An error @oftype{file-error} is signaled if @param{pathname} is @term{wild}.
 
 @ref{pathname (System Class)},
 @ref{logical-pathname (System Class)},
-@ref{File System Concepts, Section 20.1 (File System Concepts)},
-@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+@ref{File System Concepts},
+@ref{Pathnames as Filenames}
 
 @subsubheading Notes:
 
@@ -477,8 +477,8 @@ if the @term{file system} cannot perform the requested operation.
 
 @ref{pathname (System Class)},
 @ref{logical-pathname (System Class)},
-@ref{File System Concepts, Section 20.1 (File System Concepts)},
-@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+@ref{File System Concepts},
+@ref{Pathnames as Filenames}
 
 
 @node file-write-date
@@ -532,8 +532,8 @@ if the @term{file system} cannot perform the requested operation.
 
 @subsubheading See Also:
 
-@ref{UniversalTime, Section 25.1.4.2 (Universal Time)},
-@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+@ref{Universal Time},
+@ref{Pathnames as Filenames}
 
 
 @node rename-file
@@ -615,8 +615,8 @@ An error @oftype{file-error} might be signaled if @param{filespec} is @term{wild
 @ref{truename},
 @ref{pathname (System Class)},
 @ref{logical-pathname (System Class)},
-@ref{File System Concepts, Section 20.1 (File System Concepts)},
-@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+@ref{File System Concepts},
+@ref{Pathnames as Filenames}
 
 
 @node delete-file
@@ -680,8 +680,8 @@ An error @oftype{file-error} might be signaled if @param{filespec} is @term{wild
 
 @ref{pathname (System Class)},
 @ref{logical-pathname (System Class)},
-@ref{File System Concepts, Section 20.1 (File System Concepts)},
-@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+@ref{File System Concepts},
+@ref{Pathnames as Filenames}
 
 
 @node file-error

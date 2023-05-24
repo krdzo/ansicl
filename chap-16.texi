@@ -17,7 +17,7 @@
 
 Since all @term{strings} are @term{arrays}, all rules which apply
 generally to @term{arrays} also apply to @term{strings}.
-See @ref{Array Concepts, Section 15.1 (Array Concepts)}.
+See @ref{Array Concepts}.
 
 For example,
 @term{strings} can have @term{fill pointers},
@@ -95,9 +95,9 @@ that is, the set of @term{strings} of size @param{size}.
 
 @subsubheading See Also:
 
-@ref{String Concepts, Section 16.1 (String Concepts)},
-@ref{Double-Quote, Section 2.4.5 (Double-Quote)},
-@ref{PrintingStrings, Section 22.1.3.4 (Printing Strings)}
+@ref{String Concepts},
+@ref{Double-Quote},
+@ref{Printing Strings}
 
 @node base-string
 @subsection base-string (Type)
@@ -320,7 +320,7 @@ specified by @param{index}.
 
 @ref{aref},
 @ref{elt},
-@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)}
+@ref{Compiler Terminology}
 
 @subsubheading Notes:
 

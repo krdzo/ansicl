@@ -30,7 +30,7 @@ except that the @term{file} does not contain text but rather an
 @term{implementation-dependent} representation of pre-digested @term{expressions}
 created by the @term{compiler}.  Often, a @term{compiled file} can be @term{loaded}
 more quickly than a @term{source file}.
-See @ref{Compilation, Section 3.2 (Compilation)}.
+See @ref{Compilation}.
 
 The way in which a @term{source file} is distinguished from a @term{compiled file}
 is @term{implementation-dependent}.
@@ -266,14 +266,14 @@ if no @term{conditions} @oftype{error} or @code{warning}
 were detected by the compiler, and @term{true} otherwise.
 
 For general information about how @term{files} are processed by the @term{file compiler},
-see @ref{File Compilation, Section 3.2.3 (File Compilation)}.
+see @ref{File Compilation}.
 
 
 @term{Programs} to be compiled by the @term{file compiler} must only contain
 @term{externalizable objects}; for details on such @term{objects},
-see @ref{Literal Objects in Compiled Files, Section 3.2.4 (Literal Objects in Compiled Files)}.
+see @ref{Literal Objects in Compiled Files}.
 For information on how to extend the set of @term{externalizable objects},
-see the @term{function} @ref{make-load-form} and @ref{CallingMakeLoadForm, Section 3.2.4.4 (Additional Constraints on Externalizable Objects)}.
+see the @term{function} @ref{Additional Constraints on Externalizable Objects}.
 
 @subsubheading Affected By:
 @code{*error-output*},
@@ -283,7 +283,7 @@ The computer's file system.
 @subsubheading Exceptional Situations:
 
 For information about errors detected during the compilation process,
-see @ref{Exceptional Situations in the Compiler, Section 3.2.5 (Exceptional Situations in the Compiler)}.
+see @ref{Exceptional Situations in the Compiler}.
 
 An error @oftype{file-error} might be signaled if
 @tt{(wild-pathname-p @param{input-file})} returns true.
@@ -300,8 +300,8 @@ an error @oftype{file-error} is signaled.
 @ref{eval-when},
 @ref{pathname (System Class)},
 @ref{logical-pathname (System Class)},
-@ref{File System Concepts, Section 20.1 (File System Concepts)},
-@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+@ref{File System Concepts},
+@ref{Pathnames as Filenames}
 
 
 
@@ -371,8 +371,8 @@ An error @oftype{file-error} might be signaled if either @param{input-file} or
 @ref{compile-file},
 @ref{pathname (System Class)},
 @ref{logical-pathname (System Class)},
-@ref{File System Concepts, Section 20.1 (File System Concepts)},
-@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+@ref{File System Concepts},
+@ref{Pathnames as Filenames}
 
 
 
@@ -429,7 +429,7 @@ in the @term{file} named by @param{filespec}.
 If the @term{file} is a @term{source file}
 and the @term{implementation} chooses to perform @term{implicit compilation},
 @code{load} must recognize @term{top level forms}
-as described in @ref{TopLevelForms, Section 3.2.3.1 (Processing of Top Level Forms)}
+as described in @ref{Processing of Top Level Forms}
 and arrange for each @term{top level form} to be executed
 before beginning @term{implicit compilation} of the next.
 (Note, however, that processing of @code{eval-when} @term{forms}
@@ -552,8 +552,8 @@ An error @oftype{file-error} might be signaled if
 @ref{*default-pathname-defaults*},
 @ref{pathname (System Class)},
 @ref{logical-pathname (System Class)},
-@ref{File System Concepts, Section 20.1 (File System Concepts)},
-@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+@ref{File System Concepts},
+@ref{Pathnames as Filenames}
 
 
 
@@ -751,8 +751,8 @@ rather than some specific dialect within that family.
 
 @subsubheading See Also:
 
-@ref{ReadTimeConditionals, Section 1.5.2.1.1 (Use of Read-Time Conditionals)},
-@ref{Standard Macro Characters, Section 2.4 (Standard Macro Characters)}
+@ref{Use of Read-Time Conditionals},
+@ref{Standard Macro Characters}
 
 @subsubheading Notes:
 
@@ -1066,7 +1066,7 @@ in @param{pathname-list} is a @term{designator} for a @term{wild} @term{pathname
 @subsubheading See Also:
 
 @ref{*modules*},
-@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+@ref{Pathnames as Filenames}
 
 @subsubheading Notes:
 

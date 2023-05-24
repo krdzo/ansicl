@@ -40,7 +40,7 @@ for the presence of equivalences.
 @term{Declarations} can be made about @term{types} using @t{declare},
 @code{proclaim}, @code{declaim}, or @code{the}.
 For more information about @term{declarations},
-see @ref{Declarations, Section 3.3 (Declarations)}.
+see @ref{Declarations}.
 
 Among the fundamental @term{objects} of the @CLOS{}@spc{}are @term{classes}.
 A @term{class} determines the structure and behavior of a set of
@@ -48,16 +48,16 @@ other @term{objects}, which are called its @term{instances}.
 Every @term{object} is a @term{direct instance} of a @term{class}.
 The @term{class} of an @term{object} determines the set of
 operations that can be performed on the @term{object}.
-For more information, see @ref{Classes, Section 4.3 (Classes)}.
+For more information, see @ref{Classes}.
 
 It is possible to write @term{functions} that have behavior @term{specialized}
 to the class of the @term{objects} which are their @term{arguments}.
-For more information, see @ref{Generic Functions and Methods, Section 7.6 (Generic Functions and Methods)}.
+For more information, see @ref{Generic Functions and Methods}.
 
 The @term{class} of the @term{class} of an @term{object}
 is called its @newterm{metaclass}.
 For more information about @term{metaclasses},
-see @ref{Meta-Objects, Section 7.4 (Meta-Objects)}.
+see @ref{Meta-Objects}.
 
 @node Types
 @section Types
@@ -81,18 +81,18 @@ that are particularly relevant to the @CLOS{}.
 
 @float Figure,TypeInfoXrefs
 @cartouche
-@multitable{@ref{Condition System Concepts, Section 9.1 (Condition System Concepts)}}{All types---read and print syntax}
+@multitable{@ref{Condition System Concepts}}{All types---read and print syntax}
 
 @item @hfil{}@b{Section} @tab Data Type
-@item @ref{Classes, Section 4.3 (Classes)} @tab Object System types
-@item @ref{Slots, Section 7.5 (Slots)} @tab Object System types
+@item @ref{Classes} @tab Object System types
+@item @ref{Slots} @tab Object System types
 @item @ref{Objects, Chapter 7 (Objects)} @tab Object System types
-@item @ref{Generic Functions and Methods, Section 7.6 (Generic Functions and Methods)} @tab Object System types
-@item @ref{Condition System Concepts, Section 9.1 (Condition System Concepts)} @tab Condition System types
+@item @ref{Generic Functions and Methods} @tab Object System types
+@item @ref{Condition System Concepts} @tab Condition System types
 @item @ref{Types and Classes, Chapter 4 (Types and Classes)} @tab Miscellaneous types
 @item @ref{Syntax, Chapter 2 (Syntax)} @tab All types---read and print syntax
-@item @ref{The Lisp Printer, Section 22.1 (The Lisp Printer)} @tab All types---print syntax
-@item @ref{Compilation, Section 3.2 (Compilation)} @tab All types---compilation issues
+@item @ref{The Lisp Printer} @tab All types---print syntax
+@item @ref{Compilation} @tab All types---compilation issues
 @end multitable
 @end cartouche
 @caption{Cross-References to Data Type Information}
@@ -502,7 +502,7 @@ within the @term{class precedence list} in the same order.
 If the @term{local precedence orders} are inconsistent with each other,
 no @term{class precedence list} can be constructed, and an error is signaled.
 The @term{class precedence list} and its computation is discussed
-in @ref{Determining the Class Precedence List, Section 4.3.5 (Determining the Class Precedence List)}.
+in @ref{Determining the Class Precedence List}.
 
 @term{classes} are organized into a directed acyclic graph.
 There are two distinguished @term{classes}, named @code{t} and @code{standard-object}.
@@ -518,7 +518,7 @@ the @term{type} space.  Many of the standard @term{types} specified
 in this document have a corresponding @term{class} that has the same
 @term{name} as the @term{type}. Some @term{types} do not have a
 corresponding @term{class}. The integration of the @term{type} and @term{class}
-systems is discussed in @ref{Integrating Types and Classes, Section 4.3.7 (Integrating Types and Classes)}.
+systems is discussed in @ref{Integrating Types and Classes}.
 
 @term{Classes} are represented by @term{objects} that are themselves
 @term{instances} of @term{classes}.
@@ -645,7 +645,7 @@ providing default initial values.  Further initialization activities
 can be performed by @term{methods} written for @term{generic functions}
 that are
 part of the initialization protocol.  The complete initialization
-protocol is described in @ref{Object Creation and Initialization, Section 7.1 (Object Creation and Initialization)}.
+protocol is described in @ref{Object Creation and Initialization}.
 
 
 @node Inheritance
@@ -1033,7 +1033,7 @@ There is a system-supplied primary @term{method} for
 for its @term{instance} argument is @theclass{standard-object}.
 First this @term{method} checks the validity of initialization arguments and signals an
 error if an initialization argument is supplied that is not declared
-as valid.  (For more information, see @ref{Declaring the Validity of Initialization Arguments, Section 7.1.2 (Declaring the Validity of Initialization Arguments)}.)
+as valid.  (For more information, see @ref{Declaring the Validity of Initialization Arguments}.)
 Then it calls the generic function
 @code{shared-initialize} with the following arguments: the
 @term{instance},
@@ -1060,7 +1060,7 @@ that are filled by @term{before methods} for @code{update-instance-for-redefined
 will not be evaluated by @code{shared-initialize}.
 
 @term{Methods} for @code{shared-initialize} may be defined to customize
-@term{class} redefinition.  For more information, see @ref{Shared-Initialize, Section 7.1.5 (Shared-Initialize)}.
+@term{class} redefinition.  For more information, see @ref{Shared-Initialize}.
 
 
 @node Integrating Types and Classes
@@ -1488,7 +1488,7 @@ they are both @tt{function} declarations, the declarations combine similarly.
 Any @term{function} may be considered by an @term{implementation} to be a
 a @term{compiled function} if it contains no references to @term{macros} that
 must be expanded at run time, and it contains no unresolved references
-to @term{load time values}.  See @ref{Compilation Semantics, Section 3.2.2 (Compilation Semantics)}.
+to @term{load time values}.  See @ref{Compilation Semantics}.
 
 @term{Functions} whose definitions appear lexically within a
 @term{file} that has been @term{compiled} with @code{compile-file} and then
@@ -1669,7 +1669,7 @@ method combination.
 
 @subsubheading See Also:
 
-@ref{Generic Functions and Methods, Section 7.6 (Generic Functions and Methods)}
+@ref{Generic Functions and Methods}
 
 
 @node standard-method
@@ -1715,8 +1715,8 @@ that is defined by @code{defstruct}.
 @subsubheading See Also:
 
 @ref{defstruct},
-@ref{SharpsignS, Section 2.4.8.13 (Sharpsign S)},
-@ref{PrintingStructures, Section 22.1.3.12 (Printing Structures)}
+@ref{Sharpsign S},
+@ref{Printing Structures}
 
 
 @node standard-object
@@ -2022,7 +2022,7 @@ The @term{symbol} @t{eql} is not valid as an @term{atomic type specifier}.
 @param{result-type}---a @term{type specifier}.
 
 @param{result}---an @term{object}, of @term{type} @param{result-type}
-except in situations described in @ref{RuleOfCanonRepForComplexRationals, Section 12.1.5.3 (Rule of Canonical Representation for Complex Rationals)}.
+except in situations described in @ref{Rule of Canonical Representation for Complex Rationals}.
 
 @subsubheading Description:
 
@@ -2078,7 +2078,7 @@ whose imaginary part is the result of @term{coercing} an @term{integer} zero
 to the @term{type} of the @term{object} (using @code{coerce}).
 (If the real part is a @term{rational}, however,
 then the result must be represented as a @term{rational} rather
-than a @term{complex}; see @ref{RuleOfCanonRepForComplexRationals, Section 12.1.5.3 (Rule of Canonical Representation for Complex Rationals)}.
+than a @term{complex}; see @ref{Rule of Canonical Representation for Complex Rationals}.
 So, for example, @f{(coerce 3 'complex)} is permissible,
 but will return @f{3}, which is not a @term{complex}.)
 
@@ -2276,8 +2276,8 @@ this @term{type} in declarations and/or signal a warning.
 @ref{declare},
 @ref{defmacro},
 @ref{documentation},
-@ref{Type Specifiers, Section 4.2.3 (Type Specifiers)},
-@ref{Syntactic Interaction of Documentation Strings and Declarations, Section 3.4.11 (Syntactic Interaction of Documentation Strings and Declarations)}
+@ref{Type Specifiers},
+@ref{Syntactic Interaction of Documentation Strings and Declarations}
 
 
 
@@ -2516,7 +2516,7 @@ That implies that the following set of tests are also true:
 
 @subsubheading See Also:
 
-@ref{Types, Section 4.2 (Types)}
+@ref{Types}
 
 @subsubheading Notes:
 
@@ -2663,7 +2663,7 @@ the @param{typespec} is a @term{recognizable subtype} of that @term{type}.
 @ref{defstruct},
 @ref{typecase},
 @ref{typep},
-@ref{Types, Section 4.2 (Types)}
+@ref{Types}
 
 @subsubheading Notes:
 
@@ -2716,7 +2716,7 @@ that can result from giving @param{type-specifier} as the
 @kwd{element-type} argument to @code{make-array}.
 A similar interpretation applies to @f{(simple-array @param{type-specifier})}
 and @f{(vector @param{type-specifier})}.
-See @ref{ArrayUpgrading, Section 15.1.2.1 (Array Upgrading)}.
+See @ref{Array Upgrading}.
 
 @f{(typep @param{object} '(complex @param{type-specifier}))}
 returns @term{true} for all @term{complex} numbers that can result from
@@ -2745,7 +2745,7 @@ See the @term{function} @ref{upgraded-complex-part-type}.
  (typep 1 '(mod 2)) @EV{} @term{true}
  (typep #c(1 1) '(complex (eql 1))) @EV{} @term{true}
 ;; To understand this next example, you might need to refer to
-;; @ref{RuleOfCanonRepForComplexRationals, Section 12.1.5.3 (Rule of Canonical Representation for Complex Rationals)}.
+;; @ref{Rule of Canonical Representation for Complex Rationals}.
  (typep #c(0 0) '(complex (eql 0))) @EV{} @term{false}
 @end lisp
 
@@ -2788,7 +2788,7 @@ the @param{type-specifier} is not a @term{type specifier}.
 @ref{type-of},
 @ref{upgraded-array-element-type},
 @ref{upgraded-complex-part-type},
-@ref{Type Specifiers, Section 4.2.3 (Type Specifiers)}
+@ref{Type Specifiers}
 
 @subsubheading Notes:
 

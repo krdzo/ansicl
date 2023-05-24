@@ -305,7 +305,7 @@ Because a constructor of this type operates ``By Order of Arguments,''
 it is sometimes known as a ``boa constructor.''
 
 For information on how the @param{arglist} for a ``boa constructor'' is
-processed, see @ref{Boa Lambda Lists, Section 3.4.6 (Boa Lambda Lists)}.
+processed, see @ref{Boa Lambda Lists}.
 
 It is permissible to use the
 @kwd{constructor} option more than once, so that you can define several
@@ -763,7 +763,7 @@ and if either a @kwd{print-function} or a @kwd{print-object} option is supplied,
 and if no @param{printer-name} is supplied,
 then a @code{print-object} @term{method} @term{specialized} for @param{structure-name}
 is generated that calls a function that implements the default printing behavior for
-structures using @f{#S} notation; see @ref{PrintingStructures, Section 22.1.3.12 (Printing Structures)}.
+structures using @f{#S} notation; see @ref{Printing Structures}.
 
 If neither a @kwd{print-function}
 nor a @kwd{print-object} option
@@ -772,7 +772,7 @@ then @code{defstruct} does not generate a @code{print-object} @term{method}
 @term{specialized} for @param{structure-name} and some default behavior is inherited
 either from a structure named in an @kwd{include} option
 or from the default behavior for printing structures;
-see the @term{function} @ref{print-object} and @ref{PrintingStructures, Section 22.1.3.12 (Printing Structures)}.
+see the @term{function} @ref{Printing Structures}.
 
 When @code{*print-circle*} is @term{true},
 a user-defined print function can print @term{objects}
@@ -1129,7 +1129,7 @@ does not name a @term{structure type}.
 @ref{subtypep},
 @ref{type-of},
 @ref{typep},
-@ref{Compilation, Section 3.2 (Compilation)}
+@ref{Compilation}
 
 @subsubheading Notes:
 

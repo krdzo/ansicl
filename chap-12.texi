@@ -113,10 +113,10 @@ For functions that are mathematically associative (and possibly commutative),
 a @term{conforming implementation} may process the @term{arguments} in any manner
 consistent with associative (and possibly commutative) rearrangement.  This does not
 affect the order in which the @term{argument} @term{forms} are @term{evaluated};
-for a discussion of evaluation order, see @ref{FunctionForms, Section 3.1.2.1.2.3 (Function Forms)}.
+for a discussion of evaluation order, see @ref{Function Forms}.
 What is unspecified is only the order in which the @term{parameter} @term{values}
 are processed.  This implies that @term{implementations} may differ in which
-automatic @term{coercions} are applied; see @ref{NumericContagionRules, Section 12.1.1.2 (Contagion in Numeric Operations)}.
+automatic @term{coercions} are applied; see @ref{Contagion in Numeric Operations}.
 
 A @term{conforming program} can control the order of processing explicitly by
 separating the operations into separate (possibly nested) @term{function forms},
@@ -171,9 +171,9 @@ A @term{conforming program} could control the order by writing, for example,
 
 For information about the contagion rules for implicit coercions of @term{arguments}
 in numeric operations, see
-@ref{RuleOfFloatPrecisionContagion, Section 12.1.4.4 (Rule of Float Precision Contagion)},
-@ref{RuleOfFloatAndRationalContagion, Section 12.1.4.1 (Rule of Float and Rational Contagion)},
-and @ref{RuleOfComplexContagion, Section 12.1.5.2 (Rule of Complex Contagion)}.
+@ref{Rule of Float Precision Contagion},
+@ref{Rule of Float and Rational Contagion},
+and @ref{Rule of Complex Contagion}.
 
 
 @node Viewing Integers as Bits and Bytes
@@ -845,15 +845,15 @@ plus all other @term{complexes} of the same specialized representation.
 
 @subsubheading See Also:
 
-@ref{RuleOfCanonRepForComplexRationals, Section 12.1.5.3 (Rule of Canonical Representation for Complex Rationals)},
-@ref{Constructing Numbers from Tokens, Section 2.3.2 (Constructing Numbers from Tokens)},
-@ref{PrintingComplexes, Section 22.1.3.1.4 (Printing Complexes)}
+@ref{Rule of Canonical Representation for Complex Rationals},
+@ref{Constructing Numbers from Tokens},
+@ref{Printing Complexes}
 
 @subsubheading Notes:
 
 The input syntax for a @term{complex} with real part @mat{r} and
 imaginary part @mat{i} is @f{#C(@mat{r} @mat{i})}.
-For further details, see @ref{Standard Macro Characters, Section 2.4 (Standard Macro Characters)}.
+For further details, see @ref{Standard Macro Characters}.
 
 For every @term{float}, @mat{n}, there is a @term{complex}
 which represents the same mathematical number
@@ -941,8 +941,8 @@ then @thetype{double-float} must be the @term{same} @term{type} also.
 @subsubheading See Also:
 
 @ref{SyntaxForNumericTokens, Figure 2.9},
-@ref{Constructing Numbers from Tokens, Section 2.3.2 (Constructing Numbers from Tokens)},
-@ref{PrintingFloats, Section 22.1.3.1.3 (Printing Floats)}
+@ref{Constructing Numbers from Tokens},
+@ref{Printing Floats}
 
 @subsubheading Notes:
 
@@ -1145,8 +1145,8 @@ and of which the denominator is positive and greater than one.
 @subsubheading See Also:
 
 @ref{SyntaxForNumericTokens, Figure 2.9},
-@ref{Constructing Numbers from Tokens, Section 2.3.2 (Constructing Numbers from Tokens)},
-@ref{PrintingRatios, Section 22.1.3.1.2 (Printing Ratios)}
+@ref{Constructing Numbers from Tokens},
+@ref{Printing Ratios}
 
 @node integer
 @subsection integer (System Class)
@@ -1174,8 +1174,8 @@ form an @term{exhaustive partition} of @term{type} @code{integer}.
 @subsubheading See Also:
 
 @ref{SyntaxForNumericTokens, Figure 2.9},
-@ref{Constructing Numbers from Tokens, Section 2.3.2 (Constructing Numbers from Tokens)},
-@ref{PrintingIntegers, Section 22.1.3.1.1 (Printing Integers)}
+@ref{Constructing Numbers from Tokens},
+@ref{Printing Integers}
 
 @subsubheading Notes:
 
@@ -1804,7 +1804,7 @@ If  @param{number}  is     a @term{float},
 and @param{divisor} is not a @term{float} of longer format,
 then the first result is a @term{float} of the same @term{type} as @param{number}.
 Otherwise, the first result is of the @term{type} determined by @term{contagion} rules;
-see @ref{NumericContagionRules, Section 12.1.1.2 (Contagion in Numeric Operations)}.
+see @ref{Contagion in Numeric Operations}.
 
 @subsubheading Examples:
 
@@ -1912,7 +1912,7 @@ Might signal @code{arithmetic-error}.
 @ref{asin},
 @ref{acos},
 @ref{atan},
-@ref{FloatSubstitutability, Section 12.1.3.3 (Rule of Float Substitutability)}
+@ref{Rule of Float Substitutability}
 
 
 @node asin; acos; atan
@@ -2130,7 +2130,7 @@ or if two arguments are supplied and both of those arguments are not @term{reals
 
 @ref{log},
 @ref{sqrt},
-@ref{FloatSubstitutability, Section 12.1.3.3 (Rule of Float Substitutability)}
+@ref{Rule of Float Substitutability}
 
 @subsubheading Notes:
 
@@ -2320,7 +2320,7 @@ Might signal @code{arithmetic-error}.
 
 @ref{log},
 @ref{sqrt},
-@ref{FloatSubstitutability, Section 12.1.3.3 (Rule of Float Substitutability)}
+@ref{Rule of Float Substitutability}
 
 @subsubheading Notes:
 
@@ -2376,10 +2376,10 @@ Might signal @code{arithmetic-error}.
 
 @subsubheading See Also:
 
-@ref{Numeric Operations, Section 12.1.1 (Numeric Operations)},
-@ref{Rational Computations, Section 12.1.3 (Rational Computations)},
-@ref{Floating-point Computations, Section 12.1.4 (Floating-point Computations)},
-@ref{Complex Computations, Section 12.1.5 (Complex Computations)}
+@ref{Numeric Operations},
+@ref{Rational Computations},
+@ref{Floating-point Computations},
+@ref{Complex Computations}
 
 
 @node + (Function)
@@ -2420,10 +2420,10 @@ Might signal @code{arithmetic-error}.
 
 @subsubheading See Also:
 
-@ref{Numeric Operations, Section 12.1.1 (Numeric Operations)},
-@ref{Rational Computations, Section 12.1.3 (Rational Computations)},
-@ref{Floating-point Computations, Section 12.1.4 (Floating-point Computations)},
-@ref{Complex Computations, Section 12.1.5 (Complex Computations)}
+@ref{Numeric Operations},
+@ref{Rational Computations},
+@ref{Floating-point Computations},
+@ref{Complex Computations}
 
 
 @node - (Function)
@@ -2476,10 +2476,10 @@ Might signal @code{arithmetic-error}.
 
 @subsubheading See Also:
 
-@ref{Numeric Operations, Section 12.1.1 (Numeric Operations)},
-@ref{Rational Computations, Section 12.1.3 (Rational Computations)},
-@ref{Floating-point Computations, Section 12.1.4 (Floating-point Computations)},
-@ref{Complex Computations, Section 12.1.5 (Complex Computations)}
+@ref{Numeric Operations},
+@ref{Rational Computations},
+@ref{Floating-point Computations},
+@ref{Complex Computations}
 
 
 @node / (Function)
@@ -2517,7 +2517,7 @@ and the result is not an @term{integer}, then it is a @term{ratio}.
 
 If any @param{argument} is a @term{float} then
 the rules of floating-point contagion apply;
-see @ref{Floating-point Computations, Section 12.1.4 (Floating-point Computations)}.
+see @ref{Floating-point Computations}.
 
 @subsubheading Examples:
 
@@ -2656,7 +2656,7 @@ depending on the implementation.
 
 @subsubheading See Also:
 
-@ref{FloatSubstitutability, Section 12.1.3.3 (Rule of Float Substitutability)}
+@ref{Rule of Float Substitutability}
 
 @subsubheading Notes:
 
@@ -2796,7 +2796,7 @@ even if the @param{base-number} is zero (of any @term{type}).  That is:
 
 If @param{power-number} is a zero of any other @term{type},
 then the result is also the value one, in the @term{type} of the arguments
-after the application of the contagion rules in @ref{NumericContagionRules, Section 12.1.1.2 (Contagion in Numeric Operations)},
+after the application of the contagion rules in @ref{Contagion in Numeric Operations},
 with one exception:
 the consequences are undefined if @param{base-number} is zero when @param{power-number}
 is zero and not @oftype{integer}.
@@ -2818,7 +2818,7 @@ is zero and not @oftype{integer}.
 @subsubheading See Also:
 
 @ref{log},
-@ref{FloatSubstitutability, Section 12.1.3.3 (Rule of Float Substitutability)}
+@ref{Rule of Float Substitutability}
 
 @subsubheading Notes:
 
@@ -2932,7 +2932,7 @@ the number in @param{place} and the result is stored in @param{place}.
 Any necessary type conversions are performed automatically.
 
 For information about the @term{evaluation} of @term{subforms} of @param{places},
-see @ref{GenRefSubFormEval, Section 5.1.1.1 (Evaluation of Subforms to Places)}.
+see @ref{Evaluation of Subforms to Places}.
 
 @subsubheading Examples:
 @lisp
@@ -3121,7 +3121,7 @@ The implementation.
 
 @ref{exp},
 @ref{expt},
-@ref{FloatSubstitutability, Section 12.1.3.3 (Rule of Float Substitutability)}
+@ref{Rule of Float Substitutability}
 
 
 @node mod; rem
@@ -3249,7 +3249,7 @@ but it is @term{implementation-dependent} whether that result is a
 
 @subsubheading See Also:
 
-@ref{FloatSubstitutability, Section 12.1.3.3 (Rule of Float Substitutability)}
+@ref{Rule of Float Substitutability}
 
 @subsubheading Notes:
 @lisp
@@ -3340,7 +3340,7 @@ The functions @code{sqrt} and @code{isqrt} might signal @code{arithmetic-error}.
 
 @ref{exp},
 @ref{log},
-@ref{FloatSubstitutability, Section 12.1.3.3 (Rule of Float Substitutability)}
+@ref{Rule of Float Substitutability}
 
 @subsubheading Notes:
 
@@ -3377,7 +3377,7 @@ is @term{implementation-dependent}.
 
 @ref{*random-state*},
 @ref{random},
-@ref{PrintingRandomStates, Section 22.1.3.10 (Printing Random States)}
+@ref{Printing Random States}
 
 
 @node make-random-state
@@ -3678,7 +3678,7 @@ imaginary part is equal to the sine of @param{radians}.
 
 @subsubheading See Also:
 
-@ref{FloatSubstitutability, Section 12.1.3.3 (Rule of Float Substitutability)}
+@ref{Rule of Float Substitutability}
 
 
 @node complex (Function)
@@ -3747,7 +3747,7 @@ the same thing.
 
 @ref{realpart},
 @ref{imagpart},
-@ref{SharpsignC, Section 2.4.8.11 (Sharpsign C)}
+@ref{Sharpsign C}
 
 
 @node complexp
@@ -3900,7 +3900,7 @@ Might signal @code{arithmetic-error}.
 
 @subsubheading See Also:
 
-@ref{FloatSubstitutability, Section 12.1.3.3 (Rule of Float Substitutability)}
+@ref{Rule of Float Substitutability}
 
 
 @node realpart; imagpart

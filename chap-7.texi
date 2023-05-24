@@ -438,7 +438,7 @@ the second argument specifies a @term{name} that does not correspond to any
 @term{slots} @term{accessible}
 in the @term{instance}, the results are unspecified.
 
-@item The rules mentioned in @ref{Rules for Initialization Arguments, Section 7.1.4 (Rules for Initialization Arguments)} are obeyed.
+@item The rules mentioned in @ref{Rules for Initialization Arguments} are obeyed.
 @end itemize
 
 
@@ -644,7 +644,7 @@ There is a system-supplied primary @term{method} for
 specializers, each of which is @theclass{standard-object}.  First
 this @term{method} checks the validity of initialization arguments and
 signals an error if an initialization argument is supplied that is not
-declared as valid.  (For more information, see @ref{Declaring the Validity of Initialization Arguments, Section 7.1.2 (Declaring the Validity of Initialization Arguments)}.)
+declared as valid.  (For more information, see @ref{Declaring the Validity of Initialization Arguments}.)
 Then it calls the
 generic function @code{shared-initialize} with the following arguments:
 the
@@ -666,7 +666,7 @@ initialization and will not interfere with the default behavior of
 
 @term{Methods}
 for @code{shared-initialize} may be defined to customize @term{class}
-redefinition.  For more information, see @ref{Shared-Initialize, Section 7.1.5 (Shared-Initialize)}.
+redefinition.  For more information, see @ref{Shared-Initialize}.
 
 
 
@@ -693,7 +693,7 @@ There is a system-supplied primary @term{method} for
 @theclass{standard-object}.  First this @term{method} checks the validity of
 initialization arguments and signals an error if an initialization
 argument is supplied that is not declared as valid.
-(For more information, see @ref{Declaring the Validity of Initialization Arguments, Section 7.1.2 (Declaring the Validity of Initialization Arguments)}.)
+(For more information, see @ref{Declaring the Validity of Initialization Arguments}.)
 Then it calls the generic function
 @code{shared-initialize} with the following arguments: the @term{instance},
 @nil{}, and the initialization arguments it received.
@@ -712,7 +712,7 @@ initialization and therefore will not interfere with the default behavior of
 @code{reinitialize-instance}.
 
 @term{Methods} for @code{shared-initialize} may be defined to customize
-@term{class} redefinition.  For more information, see @ref{Shared-Initialize, Section 7.1.5 (Shared-Initialize)}.
+@term{class} redefinition.  For more information, see @ref{Shared-Initialize}.
 
 
 
@@ -806,7 +806,7 @@ supply a value, it is evaluated in the lexical environment in which
 the @code{defclass} form was evaluated. The @kwd{initform} along with
 the lexical environment in which the @code{defclass} form was evaluated
 is called a @term{captured initialization form}.
-For more details, see @ref{Object Creation and Initialization, Section 7.1 (Object Creation and Initialization)}.
+For more details, see @ref{Object Creation and Initialization}.
 
 A @term{local slot} is defined to be a @term{slot} that is
 @term{accessible}
@@ -838,7 +838,7 @@ A @term{shared slot} defined by a @term{class} is
 @term{accessible} in all @term{instances}
 of that @term{class}.
 A detailed explanation of the inheritance of @term{slots} is given in
-@ref{Inheritance of Slots and Slot Options, Section 7.5.3 (Inheritance of Slots and Slot Options)}.
+@ref{Inheritance of Slots and Slot Options}.
 
 @node Accessing Slots
 @subsection Accessing Slots
@@ -999,7 +999,7 @@ might fail to satisfy its type constraint.
 The @kwd{reader}, @kwd{writer}, and @kwd{accessor} slot options
 create @term{methods} rather than define the characteristics of a @term{slot}.
 Reader and writer @term{methods} are inherited in the sense described in
-@ref{Inheritance of Methods, Section 7.6.7 (Inheritance of Methods)}.
+@ref{Inheritance of Methods}.
 
 @term{Methods} that @term{access} @term{slots} use only the name of the
 @term{slot} and the @term{type} of the @term{slot}'s value.  Suppose
@@ -1158,7 +1158,7 @@ and if a @term{method object} already exists that agrees with the new one on
 @term{parameter specializers} and @term{qualifiers}, the new @term{method object} replaces
 the old one.  For a definition of one method agreeing with another on
 @term{parameter specializers} and @term{qualifiers},
-see @ref{Agreement on Parameter Specializers and Qualifiers, Section 7.6.3 (Agreement on Parameter Specializers and Qualifiers)}.
+see @ref{Agreement on Parameter Specializers and Qualifiers}.
 
 @item If a @term{generic function} of the given name already exists
 and if there is no @term{method object} that agrees with the new one on
@@ -1180,7 +1180,7 @@ an error is signaled.  If a @term{method-defining operator} that cannot specify
 a @term{lambda list} for that @term{generic function} is derived from the
 @term{lambda list} of the @term{method} in the @term{method-defining form} in such a way
 as to be @term{congruent} with it.  For a discussion of @newterm{congruence},
-see @ref{Congruent Lambda-lists for all Methods of a Generic Function, Section 7.6.4 (Congruent Lambda-lists for all Methods of a Generic Function)}.
+see @ref{Congruent Lambda-lists for all Methods of a Generic Function}.
 
 Each method has a @term{specialized lambda list}, which determines
 when that method can be applied.  A @term{specialized lambda list} is like
@@ -1369,7 +1369,7 @@ of its own, in addition to the keyword arguments mentioned in the
 generic function definition.
 
 If a @term{generic function} is passed a keyword argument that no applicable
-method accepts, an error should be signaled; see @ref{Error Checking in Function Calls, Section 3.5 (Error Checking in Function Calls)}.
+method accepts, an error should be signaled; see @ref{Error Checking in Function Calls}.
 
 @node Examples of Keyword Arguments in Generic Functions and Methods
 @subsubsection Examples of Keyword Arguments in Generic Functions and Methods
@@ -1431,7 +1431,7 @@ If a @term{generic function} is called and no @term{methods} are
 is invoked, with the @term{results} from that call being used as the
 @term{results} of the call to the original @term{generic function}.  Calling
 @code{no-applicable-method} takes precedence over checking for acceptable
-keyword arguments; see @ref{Keyword Arguments in Generic Functions and Methods, Section 7.6.5 (Keyword Arguments in Generic Functions and Methods)}.
+keyword arguments; see @ref{Keyword Arguments in Generic Functions and Methods}.
 
 When the @term{effective method} has been determined,
 it is invoked with the same @term{arguments} as were passed to the @term{generic function}.
@@ -1462,7 +1462,7 @@ applicable methods, producing the effective method.
 
 @anchor{SelApplMeth}
 
-This step is described in @ref{Introduction to Methods, Section 7.6.2 (Introduction to Methods)}.
+This step is described in @ref{Introduction to Methods}.
 
 
 @node Sorting the Applicable Methods by Precedence Order
@@ -1480,7 +1480,7 @@ compared.  When a pair of @term{parameter specializers} agree, the next
 pair are compared for agreement.  If all corresponding parameter
 specializers agree, the two methods must have different
 @term{qualifiers}; in this case, either method can be selected to precede the
-other.  For information about agreement, see @ref{Agreement on Parameter Specializers and Qualifiers, Section 7.6.3 (Agreement on Parameter Specializers and Qualifiers)}.
+other.  For information about agreement, see @ref{Agreement on Parameter Specializers and Qualifiers}.
 
 If some corresponding @term{parameter specializers} do not agree, the first
 pair of @term{parameter specializers} that do not agree determines the
@@ -1534,7 +1534,7 @@ of the procedure.  If an applicable method has an unrecognized
 in the effective method.
 
 When standard method combination is used together with qualified methods,
-the effective method is produced as described in @ref{StdMethComb, Section 7.6.6.2 (Standard Method Combination)}.
+the effective method is produced as described in @ref{Standard Method Combination}.
 
 Another type of method combination can be specified by using the
 @kwd{method-combination} option of @code{defgeneric} or
@@ -1674,7 +1674,7 @@ methods shadow more general ones.
 The macro @code{define-method-combination} defines new forms of method
 combination.  It provides a mechanism for customizing the production
 of the effective method. The default procedure for producing an
-effective method is described in @ref{DeterminingtheEffectiveMethod, Section 7.6.6.1 (Determining the Effective Method)}.
+effective method is described in @ref{Determining the Effective Method}.
 There are two forms of
 @code{define-method-combination}.  The short form is a simple facility while
 the long form is more powerful and more verbose.  The long form
@@ -1721,7 +1721,7 @@ The names of the built-in  method combination types are listed in @thenextfigure
 
 
 The semantics of the @t{standard} built-in method combination type is
-described in @ref{StdMethComb, Section 7.6.6.2 (Standard Method Combination)}.  The other
+described in @ref{Standard Method Combination}.  The other
 built-in method combination types are called simple built-in method
 combination types.
 
@@ -1827,7 +1827,7 @@ The inheritance of methods acts the same way regardless of
 which of the @term{method-defining operators} created the methods.
 
 The inheritance of methods is described in detail in
-@ref{Method Selection and Combination, Section 7.6.6 (Method Selection and Combination)}.
+@ref{Method Selection and Combination}.
 
 @node Objects Dictionary
 @section Objects Dictionary
@@ -2083,12 +2083,12 @@ already checked the initialization arguments.
 
 The @term{generic function} @code{allocate-instance} is called by
 @code{make-instance}, as described in
-@ref{Object Creation and Initialization, Section 7.1 (Object Creation and Initialization)}.
+@ref{Object Creation and Initialization}.
 
 @subsubheading See Also:
 
 @ref{defclass}, @ref{make-instance}, @ref{class-of},
-@ref{Object Creation and Initialization, Section 7.1 (Object Creation and Initialization)}
+@ref{Object Creation and Initialization}
 
 @subsubheading Notes:
 
@@ -2150,9 +2150,9 @@ signals an error if an @param{initarg} is supplied that is not declared as valid
 @ref{update-instance-for-different-class},
 @ref{slot-boundp},
 @ref{slot-makunbound},
-@ref{Reinitializing an Instance, Section 7.3 (Reinitializing an Instance)},
-@ref{Rules for Initialization Arguments, Section 7.1.4 (Rules for Initialization Arguments)},
-@ref{Declaring the Validity of Initialization Arguments, Section 7.1.2 (Declaring the Validity of Initialization Arguments)}
+@ref{Reinitializing an Instance},
+@ref{Rules for Initialization Arguments},
+@ref{Declaring the Validity of Initialization Arguments}
 
 @subsubheading Notes:
 
@@ -2239,7 +2239,7 @@ For example, if a @term{before method} stores a value in the @term{slot},
 the @kwd{initform} form will not be used to supply a value for the @term{slot}.
 
 @item
-The rules mentioned in @ref{Rules for Initialization Arguments, Section 7.1.4 (Rules for Initialization Arguments)} are obeyed.
+The rules mentioned in @ref{Rules for Initialization Arguments} are obeyed.
 @end itemize
 
 
@@ -2258,9 +2258,9 @@ which specifies the set of all of the @term{slots}.
 @ref{update-instance-for-different-class},
 @ref{slot-boundp},
 @ref{slot-makunbound},
-@ref{Object Creation and Initialization, Section 7.1 (Object Creation and Initialization)},
-@ref{Rules for Initialization Arguments, Section 7.1.4 (Rules for Initialization Arguments)},
-@ref{Declaring the Validity of Initialization Arguments, Section 7.1.2 (Declaring the Validity of Initialization Arguments)}
+@ref{Object Creation and Initialization},
+@ref{Rules for Initialization Arguments},
+@ref{Declaring the Validity of Initialization Arguments}
 
 @subsubheading Notes:
 
@@ -2346,7 +2346,7 @@ behavior of @code{update-instance-for-different-class}.
 @term{Methods} on @code{update-instance-for-different-class} can be defined to
 initialize @term{slots} differently from @code{change-class}.  The default
 behavior of @code{change-class} is described in
-@ref{Changing the Class of an Instance, Section 7.2 (Changing the Class of an Instance)}.
+@ref{Changing the Class of an Instance}.
 
 The arguments to @code{update-instance-for-different-class} are
 computed by @code{change-class}.  When @code{change-class} is invoked on
@@ -2379,9 +2379,9 @@ initialization argument is supplied that is not declared as valid.
 
 @ref{change-class},
 @ref{shared-initialize (Standard Generic Function)},
-@ref{Changing the Class of an Instance, Section 7.2 (Changing the Class of an Instance)},
-@ref{Rules for Initialization Arguments, Section 7.1.4 (Rules for Initialization Arguments)},
-@ref{Declaring the Validity of Initialization Arguments, Section 7.1.2 (Declaring the Validity of Initialization Arguments)}
+@ref{Changing the Class of an Instance},
+@ref{Rules for Initialization Arguments},
+@ref{Declaring the Validity of Initialization Arguments}
 
 @subsubheading Notes:
 
@@ -2533,9 +2533,9 @@ The system-supplied primary @term{method} on
 
 @ref{make-instances-obsolete},
 @ref{shared-initialize (Standard Generic Function)},
-@ref{Redefining Classes, Section 4.3.6 (Redefining Classes)},
-@ref{Rules for Initialization Arguments, Section 7.1.4 (Rules for Initialization Arguments)},
-@ref{Declaring the Validity of Initialization Arguments, Section 7.1.2 (Declaring the Validity of Initialization Arguments)}
+@ref{Redefining Classes},
+@ref{Rules for Initialization Arguments},
+@ref{Declaring the Validity of Initialization Arguments}
 
 @subsubheading Notes:
 
@@ -2591,13 +2591,13 @@ after @code{change-class} is invoked is @code{eql} to the
 value returned by @code{slot-value} before @code{change-class} is
 invoked.  Similarly, if the @term{slot} was unbound, it remains
 unbound.  The other @term{slots} are initialized as described in
-@ref{Changing the Class of an Instance, Section 7.2 (Changing the Class of an Instance)}.
+@ref{Changing the Class of an Instance}.
 
 After completing all other actions, @code{change-class} invokes
 @code{update-instance-for-different-class}.  The
 generic function @code{update-instance-for-different-class} can be used
 to assign values to slots in the transformed instance.
-See @ref{Initializing Newly Added Local Slots, Section 7.2.2 (Initializing Newly Added Local Slots)}.
+See @ref{Initializing Newly Added Local Slots}.
 
 If the second of the above @term{methods} is selected,
 that @term{method} invokes @code{change-class}
@@ -2648,7 +2648,7 @@ and the @param{initargs}.
 @subsubheading See Also:
 
 @ref{update-instance-for-different-class},
-@ref{Changing the Class of an Instance, Section 7.2 (Changing the Class of an Instance)}
+@ref{Changing the Class of an Instance}
 
 @subsubheading Notes:
 
@@ -3283,7 +3283,7 @@ that @term{method} invokes @code{make-instance} on the arguments
 The initialization arguments are checked within @code{make-instance}.
 
 The @term{generic function} @code{make-instance}
-may be used as described in @ref{Object Creation and Initialization, Section 7.1 (Object Creation and Initialization)}.
+may be used as described in @ref{Object Creation and Initialization}.
 
 @subsubheading Exceptional Situations:
 
@@ -3296,7 +3296,7 @@ been declared as valid, an error @oftype{error} is signaled.
 @ref{class-of},
 @ref{allocate-instance},
 @ref{initialize-instance (Standard Generic Function)},
-@ref{Object Creation and Initialization, Section 7.1 (Object Creation and Initialization)}
+@ref{Object Creation and Initialization}
 
 
 @node make-instances-obsolete
@@ -3343,7 +3343,7 @@ If the second of the above @term{methods} is selected, that
 @subsubheading See Also:
 
 @ref{update-instance-for-redefined-class},
-@ref{Redefining Classes, Section 4.3.6 (Redefining Classes)}
+@ref{Redefining Classes}
 
 
 @node make-load-form
@@ -3386,7 +3386,7 @@ corresponding to the @term{lexical environment}
 in which the @term{forms} will be processed.
 
 The @term{file compiler} calls @code{make-load-form} to process certain
-@term{classes} of @term{literal objects}; see @ref{CallingMakeLoadForm, Section 3.2.4.4 (Additional Constraints on Externalizable Objects)}.
+@term{classes} of @term{literal objects}; see @ref{Additional Constraints on Externalizable Objects}.
 
 @term{Conforming programs} may call @code{make-load-form} directly,
 providing @param{object} is a @term{generalized instance} of
@@ -3399,7 +3399,7 @@ is equivalent to @param{object}.  The exact meaning of
 equivalent depends on the @term{type} of @term{object}
 and is up to the programmer who defines a @term{method} for
 @code{make-load-form};
-see @ref{Literal Objects in Compiled Files, Section 3.2.4 (Literal Objects in Compiled Files)}.
+see @ref{Literal Objects in Compiled Files}.
 
 The initialization form is a @term{form} that, when evaluated at @code{load} time,
 should perform further initialization of the @term{object}.
@@ -3625,15 +3625,15 @@ initialization @term{forms}.
 
 @ref{compile-file},
 @ref{make-load-form-saving-slots},
-@ref{CallingMakeLoadForm, Section 3.2.4.4 (Additional Constraints on Externalizable Objects)}
-@ref{Evaluation, Section 3.1 (Evaluation)},
-@ref{Compilation, Section 3.2 (Compilation)}
+@ref{Additional Constraints on Externalizable Objects}
+@ref{Evaluation},
+@ref{Compilation}
 
 @subsubheading Notes:
 
 The @term{file compiler}
 calls @code{make-load-form} in specific circumstances
-detailed in @ref{CallingMakeLoadForm, Section 3.2.4.4 (Additional Constraints on Externalizable Objects)}.
+detailed in @ref{Additional Constraints on Externalizable Objects}.
 
 Some @term{implementations} may provide facilities for defining new
 @term{subclasses} of @term{classes} which are specified as
@@ -4003,7 +4003,7 @@ specifies a @term{class} of @term{class} @code{standard-class},
 the existing @term{class} is redefined,
 and instances of it (and its @term{subclasses}) are updated
 to the new definition at the time that they are next @term{accessed}.
-For details, see @ref{Redefining Classes, Section 4.3.6 (Redefining Classes)}.
+For details, see @ref{Redefining Classes}.
 
 
 Each @param{superclass-name} argument
@@ -4018,7 +4018,7 @@ inherit @term{slots} and @term{methods}
 from each of its direct @term{superclasses}, from
 their direct @term{superclasses}, and so on.
 For a discussion of how @term{slots} and @term{methods} are inherited,
-see @ref{Inheritance, Section 4.3.4 (Inheritance)}.
+see @ref{Inheritance}.
 
 
 The following slot options are available:
@@ -4086,7 +4086,7 @@ functions.  For @term{local slots}, the dynamic environment is the dynamic
 environment in which @code{make-instance} is called; for shared
 @term{slots}, the dynamic environment is the dynamic environment in which the
 @code{defclass} form was evaluated.
-See @ref{Object Creation and Initialization, Section 7.1 (Object Creation and Initialization)}.
+See @ref{Object Creation and Initialization}.
 
 No implementation is permitted to extend the syntax of @code{defclass}
 to allow @f{(@param{slot-name} @param{form})} as an abbreviation for
@@ -4111,7 +4111,7 @@ declares the result type of the reader generic function when applied
 to an @term{object} of this @term{class}.  The consequences of attempting to store in a
 @term{slot} a value that does not satisfy the type of the @term{slot} are undefined.
 The @kwd{type} slot option is further discussed in
-@ref{Inheritance of Slots and Slot Options, Section 7.5.3 (Inheritance of Slots and Slot Options)}.
+@ref{Inheritance of Slots and Slot Options}.
 
 @item
 The @kwd{documentation} slot option provides a @term{documentation string}
@@ -4133,7 +4133,7 @@ the initialization argument list supplied to @code{make-instance}, the
 corresponding default initial value form is evaluated, and the
 initialization argument @term{name} and the @term{form}'s value are added to the end
 of the initialization argument list before the instance is created;
-see @ref{Object Creation and Initialization, Section 7.1 (Object Creation and Initialization)}.
+see @ref{Object Creation and Initialization}.
 The default initial value form is evaluated each time it is used.  The lexical
 environment in which this @term{form} is evaluated is the lexical environment
 in which the @code{defclass} form was evaluated.  The dynamic
@@ -4182,7 +4182,7 @@ Some slot options are inherited by a @term{class} from its
 some can be shadowed or altered by providing a local slot description.
 No class options except @kwd{default-initargs} are inherited.  For a
 detailed description of how @term{slots} and slot options are inherited,
-see @ref{Inheritance of Slots and Slot Options, Section 7.5.3 (Inheritance of Slots and Slot Options)}.
+see @ref{Inheritance of Slots and Slot Options}.
 
 The options to @code{defclass} can be extended.  It is required that
 all implementations signal an error if they observe a class option or
@@ -4239,11 +4239,11 @@ or a slot option that is not implemented locally.
 @ref{initialize-instance (Standard Generic Function)},
 @ref{make-instance},
 @ref{slot-value},
-@ref{Classes, Section 4.3 (Classes)},
-@ref{Inheritance, Section 4.3.4 (Inheritance)},
-@ref{Redefining Classes, Section 4.3.6 (Redefining Classes)},
-@ref{Determining the Class Precedence List, Section 4.3.5 (Determining the Class Precedence List)},
-@ref{Object Creation and Initialization, Section 7.1 (Object Creation and Initialization)}
+@ref{Classes},
+@ref{Inheritance},
+@ref{Redefining Classes},
+@ref{Determining the Class Precedence List},
+@ref{Object Creation and Initialization}
 
 
 @node defgeneric
@@ -4336,7 +4336,7 @@ form is evaluated and some
 @term{methods} for that @term{generic function}
 have @term{lambda lists} that are not congruent with that given in
 the @code{defgeneric} form, an error is signaled.  For further details
-on method congruence, see @ref{Congruent Lambda-lists for all Methods of a Generic Function, Section 7.6.4 (Congruent Lambda-lists for all Methods of a Generic Function)}.
+on method congruence, see @ref{Congruent Lambda-lists for all Methods of a Generic Function}.
 
 The @term{generic function} passes to the
 @term{method} all the argument values passed to
@@ -4502,7 +4502,7 @@ it observes an option that is not implemented locally.
 @ref{documentation},
 @ref{ensure-generic-function},
 @ref{generic-function},
-@ref{Congruent Lambda-lists for all Methods of a Generic Function, Section 7.6.4 (Congruent Lambda-lists for all Methods of a Generic Function)}
+@ref{Congruent Lambda-lists for all Methods of a Generic Function}
 
 
 
@@ -4566,7 +4566,7 @@ the @term{lambda list} of the
 @term{method} must be congruent with the @term{lambda list} of the
 @term{generic function}.
 If this condition does not hold, an error is signaled.
-For a definition of congruence in this context, see @ref{Congruent Lambda-lists for all Methods of a Generic Function, Section 7.6.4 (Congruent Lambda-lists for all Methods of a Generic Function)}.
+For a definition of congruence in this context, see @ref{Congruent Lambda-lists for all Methods of a Generic Function}.
 
 
 Each @i{method-qualifier} argument is an @term{object} that is used by
@@ -4594,7 +4594,7 @@ that the expansion of the @code{defmethod} macro is evaluated.
 If no @term{parameter specializer name} is specified for a given
 required parameter, the @term{parameter specializer} defaults to
 @theclass{t}.
-For further discussion, see @ref{Introduction to Methods, Section 7.6.2 (Introduction to Methods)}.
+For further discussion, see @ref{Introduction to Methods}.
 
 The @param{form} arguments specify the method body.
 The body of the @term{method} is enclosed in an @term{implicit block}.  If
@@ -4612,11 +4612,11 @@ If the @term{generic function} already has a @term{method} that agrees with the
 @code{defmethod} replaces the existing @term{method} with the one now being
 defined.
 For a definition of agreement in this context.
-see @ref{Agreement on Parameter Specializers and Qualifiers, Section 7.6.3 (Agreement on Parameter Specializers and Qualifiers)}.
+see @ref{Agreement on Parameter Specializers and Qualifiers}.
 
 The @term{parameter specializers} are derived from
 the @term{parameter specializer names} as described in
-@ref{Introduction to Methods, Section 7.6.2 (Introduction to Methods)}.
+@ref{Introduction to Methods}.
 
 The expansion of the @code{defmethod} macro ``refers to'' each
 specialized parameter (see the description of @code{ignore}
@@ -4676,10 +4676,10 @@ an error @oftype{error} is signaled.
 
 @ref{defgeneric},
 @ref{documentation},
-@ref{Introduction to Methods, Section 7.6.2 (Introduction to Methods)},
-@ref{Congruent Lambda-lists for all Methods of a Generic Function, Section 7.6.4 (Congruent Lambda-lists for all Methods of a Generic Function)},
-@ref{Agreement on Parameter Specializers and Qualifiers, Section 7.6.3 (Agreement on Parameter Specializers and Qualifiers)},
-@ref{Syntactic Interaction of Documentation Strings and Declarations, Section 3.4.11 (Syntactic Interaction of Documentation Strings and Declarations)}
+@ref{Introduction to Methods},
+@ref{Congruent Lambda-lists for all Methods of a Generic Function},
+@ref{Agreement on Parameter Specializers and Qualifiers},
+@ref{Syntactic Interaction of Documentation Strings and Declarations}
 
 
 
@@ -4728,7 +4728,7 @@ The results are undefined if the user attempts to change
 or remove
 the @term{class} associated with a
 @term{symbol} that is defined as a @term{type specifier} in this standard.
-See @ref{Integrating Types and Classes, Section 4.3.7 (Integrating Types and Classes)}.
+See @ref{Integrating Types and Classes}.
 
 When using @SETFof{find-class}, any @term{errorp} argument is @term{evaluated}
 for effect, but any @term{values} it returns are ignored; the @param{errorp}
@@ -4746,7 +4746,7 @@ If there is no such @term{class} and @param{errorp} is @term{true},
 @subsubheading See Also:
 
 @ref{defmacro},
-@ref{Integrating Types and Classes, Section 4.3.7 (Integrating Types and Classes)}
+@ref{Integrating Types and Classes}
 
 
 @node next-method-p
@@ -4972,9 +4972,9 @@ the semantics of @code{call-next-method}.
 @ref{next-method-p},
 @ref{no-next-method},
 @ref{call-method},
-@ref{Method Selection and Combination, Section 7.6.6 (Method Selection and Combination)},
-@ref{StdMethComb, Section 7.6.6.2 (Standard Method Combination)},
-@ref{BuiltInMethCombTypes, Section 7.6.6.4 (Built-in Method Combination Types)}
+@ref{Method Selection and Combination},
+@ref{Standard Method Combination},
+@ref{Built-in Method Combination Types}
 
 
 @node compute-applicable-methods
@@ -5008,7 +5008,7 @@ Given a @param{generic-function} and a set of
 @code{compute-applicable-methods} returns the set of @term{methods}
 that are applicable for those arguments
 sorted according to precedence order.
-See @ref{Method Selection and Combination, Section 7.6.6 (Method Selection and Combination)}.
+See @ref{Method Selection and Combination}.
 
 @subsubheading Affected By:
 
@@ -5016,7 +5016,7 @@ See @ref{Method Selection and Combination, Section 7.6.6 (Method Selection and C
 
 @subsubheading See Also:
 
-@ref{Method Selection and Combination, Section 7.6.6 (Method Selection and Combination)}
+@ref{Method Selection and Combination}
 
 
 @node define-method-combination
@@ -5159,7 +5159,7 @@ The short form automatically includes error checking and support for
 @term{around methods}.
 
 For a discussion of built-in method combination types,
-see @ref{BuiltInMethCombTypes, Section 7.6.6.4 (Built-in Method Combination Types)}.
+see @ref{Built-in Method Combination Types}.
 
 @item @id{@bf{Long Form}}
 
@@ -5384,7 +5384,7 @@ and to the @term{method combination} @term{object}.
 Note that two methods with identical specializers, but with different
 @term{qualifiers}, are not ordered by the algorithm described in Step 2 of
 the method selection and combination process described in
-@ref{Method Selection and Combination, Section 7.6.6 (Method Selection and Combination)}.  Normally the two methods play
+@ref{Method Selection and Combination}.  Normally the two methods play
 different roles in the effective method because they have different
 @term{qualifiers}, and no matter how they are ordered in the result of Step
 2, the effective method is the same.  If the two methods play the same
@@ -5580,9 +5580,9 @@ an error @oftype{error} is signaled.
 @ref{method-combination-error},
 @ref{invalid-method-error},
 @ref{defgeneric},
-@ref{Method Selection and Combination, Section 7.6.6 (Method Selection and Combination)},
-@ref{BuiltInMethCombTypes, Section 7.6.6.4 (Built-in Method Combination Types)},
-@ref{Syntactic Interaction of Documentation Strings and Declarations, Section 3.4.11 (Syntactic Interaction of Documentation Strings and Declarations)}
+@ref{Method Selection and Combination},
+@ref{Built-in Method Combination Types},
+@ref{Syntactic Interaction of Documentation Strings and Declarations}
 
 @subsubheading Notes:
 
@@ -5635,7 +5635,7 @@ method @term{qualifiers} for the @term{method}.
 The order of the method @term{qualifiers}
 is significant.
 For a definition of agreement in this context,
-see @ref{Agreement on Parameter Specializers and Qualifiers, Section 7.6.3 (Agreement on Parameter Specializers and Qualifiers)}.
+see @ref{Agreement on Parameter Specializers and Qualifiers}.
 
 The @param{specializers} argument contains the parameter
 specializers for the @term{method}. It must correspond in length to
@@ -5681,7 +5681,7 @@ If there is no such @term{method} and @param{errorp} is @term{true},
 
 @subsubheading See Also:
 
-@ref{Agreement on Parameter Specializers and Qualifiers, Section 7.6.3 (Agreement on Parameter Specializers and Qualifiers)}
+@ref{Agreement on Parameter Specializers and Qualifiers}
 
 
 @node add-method
@@ -5730,7 +5730,7 @@ another @term{generic function}, an error @oftype{error} is signaled.
 @ref{defgeneric},
 @ref{find-method},
 @ref{remove-method},
-@ref{Agreement on Parameter Specializers and Qualifiers, Section 7.6.3 (Agreement on Parameter Specializers and Qualifiers)}
+@ref{Agreement on Parameter Specializers and Qualifiers}
 
 
 
@@ -5781,9 +5781,9 @@ not interfere with the default behavior of @code{initialize-instance}.
 @ref{make-instance},
 @ref{slot-boundp},
 @ref{slot-makunbound},
-@ref{Object Creation and Initialization, Section 7.1 (Object Creation and Initialization)},
-@ref{Rules for Initialization Arguments, Section 7.1.4 (Rules for Initialization Arguments)},
-@ref{Declaring the Validity of Initialization Arguments, Section 7.1.2 (Declaring the Validity of Initialization Arguments)}
+@ref{Object Creation and Initialization},
+@ref{Rules for Initialization Arguments},
+@ref{Declaring the Validity of Initialization Arguments}
 
 
 @node class-name
@@ -5813,13 +5813,13 @@ Returns the @term{name} of the given @param{class}.
 @subsubheading See Also:
 
 @ref{find-class},
-@ref{Classes, Section 4.3 (Classes)}
+@ref{Classes}
 
 @subsubheading Notes:
 
 If @mat{S} is a @term{symbol} such that @mat{S =}@tt{(class-name @mat{C})}
 and @mat{C =}@tt{(find-class @mat{S})}, then @mat{S} is the proper name of @mat{C}.
-For further discussion, see @ref{Classes, Section 4.3 (Classes)}.
+For further discussion, see @ref{Classes}.
 
 The name of an anonymous @term{class} is @nil{}.
 
@@ -5855,7 +5855,7 @@ a @param{class} object.
 
 @ref{find-class},
 @term{proper name},
-@ref{Classes, Section 4.3 (Classes)}
+@ref{Classes}
 
 
 @node class-of
@@ -5929,7 +5929,7 @@ The name of the cell (see @code{cell-error}) is the name of the slot.
 
 @ref{cell-error-name},
 @ref{unbound-slot-instance},
-@ref{Condition System Concepts, Section 9.1 (Condition System Concepts)}
+@ref{Condition System Concepts}
 
 
 @node unbound-slot-instance
@@ -5958,4 +5958,4 @@ represented by the @param{condition}.
 
 @ref{cell-error-name},
 @ref{unbound-slot},
-@ref{Condition System Concepts, Section 9.1 (Condition System Concepts)}
+@ref{Condition System Concepts}

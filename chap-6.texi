@@ -79,7 +79,7 @@ there is a @term{symbol} in the @code{COMMON-LISP} @term{package} whose @term{na
 not one whose @term{name} is @f{"UNTIL"}.
 
 If no @term{loop keywords} are supplied in a @code{loop} @term{form},
-the Loop Facility executes the loop body repeatedly; see @ref{SimpleLoop, Section 6.1.1.1.1 (Simple Loop)}.
+the Loop Facility executes the loop body repeatedly; see @ref{Simple Loop}.
 
 
 @node Parsing Loop Clauses
@@ -213,7 +213,7 @@ The @loopref{with} construct is similar to a single @code{let} clause.
 @loopref{with} clauses can be combined using the @term{loop keyword} @loopref{and}
 to get @term{parallel} initialization.
 
-For more information, see @ref{Variable Initialization and Stepping Clauses, Section 6.1.2 (Variable Initialization and Stepping Clauses)}.
+For more information, see @ref{Variable Initialization and Stepping Clauses}.
 
 
 @node Summary of Value Accumulation Clauses
@@ -259,7 +259,7 @@ takes one @term{form} in its clause
 and determines the maximum value obtained by evaluating that @term{form}.
 By default, the maximum value is returned when the @code{loop} finishes.
 
-For more information, see @ref{Value Accumulation Clauses, Section 6.1.3 (Value Accumulation Clauses)}.
+For more information, see @ref{Value Accumulation Clauses}.
 
 
 @node Summary of Termination Test Clauses
@@ -304,7 +304,7 @@ If multiple termination test clauses are specified,
 the @code{loop} @term{form} terminates if any are satisfied.
 
 
-For more information, see @ref{Termination Test Clauses, Section 6.1.4 (Termination Test Clauses)}.
+For more information, see @ref{Termination Test Clauses}.
 
 
 @node Summary of Unconditional Execution Clauses
@@ -321,7 +321,7 @@ It is equivalent to the clause
 where @i{block-name} is the name specified in a @loopref{named}
 clause, or @nil{}@spc{}if there is no @loopref{named} clause.
 
-For more information, see @ref{Unconditional Execution Clauses, Section 6.1.5 (Unconditional Execution Clauses)}.
+For more information, see @ref{Unconditional Execution Clauses}.
 
 
 @node Summary of Conditional Execution Clauses
@@ -346,7 +346,7 @@ The component is one of the clauses described under @loopref{if}.
 @Theloopconstruct{end} provides an optional component to mark the
 end of a conditional clause.
 
-For more information, see @ref{Conditional Execution Clauses, Section 6.1.6 (Conditional Execution Clauses)}.
+For more information, see @ref{Conditional Execution Clauses}.
 
 
 @node Summary of Miscellaneous Clauses
@@ -363,7 +363,7 @@ except for initial settings supplied by the constructs @loopref{with},
 @Theloopconstruct{finally} causes its @term{forms} to
 be evaluated in the loop epilogue after normal iteration terminates.
 
-For more information, see @ref{Miscellaneous Clauses, Section 6.1.7 (Miscellaneous Clauses)}.
+For more information, see @ref{Miscellaneous Clauses}.
 
 
 
@@ -567,7 +567,7 @@ destructuring.
 @node Restrictions on Side-Effects
 @subsubsection Restrictions on Side-Effects
 
-See @ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}.
+See @ref{Traversal Rules and Side Effects}.
 
 
 
@@ -598,7 +598,7 @@ are evaluated in the body.
 The variable argument in iteration control clauses can be a
 destructuring list.  A destructuring list
 is a @term{tree} whose @term{non-nil} @term{atoms} are @term{variable} @term{names}.
-See @ref{DestructuringLOOPVars, Section 6.1.1.7 (Destructuring)}.
+See @ref{Destructuring}.
 
 The iteration control clauses @loopref{for}, @loopref{as},  and @loopref{repeat}
 must precede any other loop clauses, except
@@ -2629,7 +2629,7 @@ beginning and then @param{assigns} it on any subsequent iterations.
 @ref{do},
 @ref{dotimes},
 @ref{tagbody},
-@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+@ref{Traversal Rules and Side Effects}
 
 @subsubheading Notes:
 
@@ -2711,14 +2711,14 @@ The ``extended'' @code{loop} @term{form}:
 @param{type-specifier}---a @term{type specifier}.
 This might be either an @term{atomic type specifier} or a @term{compound type specifier},
 which introduces some additional complications to proper parsing in the face of
-destructuring; for further information, see @ref{DestructuringLOOPVars, Section 6.1.1.7 (Destructuring)}.
+destructuring; for further information, see @ref{Destructuring}.
 
 @param{result}---an @term{object}.
 
 
 @subsubheading Description:
 
-For details, see @ref{The LOOP Facility, Section 6.1 (The LOOP Facility)}.
+For details, see @ref{The LOOP Facility}.
 
 @subsubheading Examples:
 
@@ -2765,7 +2765,7 @@ For details, see @ref{The LOOP Facility, Section 6.1 (The LOOP Facility)}.
 
 @ref{do}, @ref{dolist}, @ref{dotimes},
 @ref{return}, @ref{go}, @ref{throw},
-@ref{DestructuringLOOPVars, Section 6.1.1.7 (Destructuring)}
+@ref{Destructuring}
 
 @subsubheading Notes:
 
@@ -2865,6 +2865,6 @@ of @code{loop} are undefined.
 @subsubheading See Also:
 
 @ref{loop},
-@ref{The LOOP Facility, Section 6.1 (The LOOP Facility)}
+@ref{The LOOP Facility}
 
 @subsubheading Notes:

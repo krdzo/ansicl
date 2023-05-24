@@ -4,9 +4,9 @@
 «\arg\»
 @end macro
 
-@macro result {}
-@r{→}
-@end macro
+@c @macro result {}
+@c @r{→}
+@c @end macro
 
 @macro CRLF {}
 ↩

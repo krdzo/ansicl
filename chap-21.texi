@@ -441,13 +441,13 @@ A @term{stream} is an @term{object} that can be used with an input or output
 function to identify an appropriate source or sink of @term{characters} or
 @term{bytes} for that operation.
 
-For more complete information, see @ref{Stream Concepts, Section 21.1 (Stream Concepts)}.
+For more complete information, see @ref{Stream Concepts}.
 
 
 @subsubheading See Also:
 
-@ref{Stream Concepts, Section 21.1 (Stream Concepts)},
-@ref{PrintingOtherObjects, Section 22.1.3.13 (Printing Other Objects)},
+@ref{Stream Concepts},
+@ref{Printing Other Objects},
 @ref{Printer, Chapter 22 (Printer)},
 @ref{Reader, Chapter 23 (Reader)}
 
@@ -822,7 +822,7 @@ and sends    its output to   an associated @term{output} @term{stream}.
 
 @subsubheading See Also:
 
-@ref{Stream Concepts, Section 21.1 (Stream Concepts)}
+@ref{Stream Concepts}
 
 
 
@@ -1486,7 +1486,7 @@ are unspecified.
 
 @ref{peek-char},
 @ref{read-char},
-@ref{Stream Concepts, Section 21.1 (Stream Concepts)}
+@ref{Stream Concepts}
 
 @subsubheading Notes:
 
@@ -1767,7 +1767,7 @@ the @param{stream} is not a member of the @term{element type} of the
 
 @subsubheading See Also:
 
-@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)},
+@ref{Compiler Terminology},
 @ref{write-sequence},
 @ref{read-line}
 
@@ -1829,7 +1829,7 @@ Might signal an error @oftype{type-error} if an @term{element} of the
 
 @subsubheading See Also:
 
-@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)},
+@ref{Compiler Terminology},
 @ref{read-sequence},
 @ref{write-string},
 @ref{write-line}
@@ -2288,7 +2288,7 @@ in the file system.
 A file can be deleted, renamed, or destructively modified by @code{open}.
 
 For information about opening relative pathnames,
-see @ref{Merging Pathnames, Section 19.2.3 (Merging Pathnames)}.
+see @ref{Merging Pathnames}.
 
 @subsubheading Examples:
 
@@ -2354,8 +2354,8 @@ should work compatibly.
 @ref{close},
 @ref{pathname (System Class)},
 @ref{logical-pathname (System Class)},
-@ref{Merging Pathnames, Section 19.2.3 (Merging Pathnames)},
-@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+@ref{Merging Pathnames},
+@ref{Pathnames as Filenames}
 
 @subsubheading Notes:
 
@@ -2530,7 +2530,7 @@ See the @term{function} @ref{open}.
 @ref{close},
 @ref{pathname (System Class)},
 @ref{logical-pathname (System Class)},
-@ref{Pathnames as Filenames, Section 19.1.2 (Pathnames as Filenames)}
+@ref{Pathnames as Filenames}
 
 
 
@@ -3000,7 +3000,7 @@ Should signal @code{type-error} if its argument is not a @term{symbol}.
 
 @subsubheading See Also:
 
-@ref{Stream Concepts, Section 21.1 (Stream Concepts)}
+@ref{Stream Concepts}
 
 
 @node synonym-stream-symbol
@@ -3553,7 +3553,7 @@ The @term{value} of the @term{place} named by @param{index}, if any, is modified
 @subsubheading See Also:
 
 @ref{make-string-input-stream},
-@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+@ref{Traversal Rules and Side Effects}
 
 
 
@@ -3646,7 +3646,7 @@ directly on the @param{string} during the @term{dynamic extent} of the call.
 
 @ref{make-string-output-stream},
 @ref{vector-push-extend},
-@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+@ref{Traversal Rules and Side Effects}
 
 
 

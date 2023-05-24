@@ -323,12 +323,12 @@ such as @code{car}, @code{cdr},  @code{*package*}, etc.
 The @code{COMMON-LISP} @term{package} has the @term{nickname} @code{CL}.
 
 The @code{COMMON-LISP} @term{package} has as @term{external} @term{symbols} those
-symbols enumerated in the figures in @ref{Symbols in the COMMON-LISP Package, Section 1.9 (Symbols in the COMMON-LISP Package)}, and no others.
+symbols enumerated in the figures in @ref{Symbols in the COMMON-LISP Package}, and no others.
 These @term{external} @term{symbols} are @term{present} in the @code{COMMON-LISP} @term{package}
 but their @term{home package} need not be the @code{COMMON-LISP} @term{package}.
 
 For example, the symbol @f{HELP} cannot be an @term{external symbol} of
-the @code{COMMON-LISP} @term{package} because it is not mentioned in @ref{Symbols in the COMMON-LISP Package, Section 1.9 (Symbols in the COMMON-LISP Package)}.
+the @code{COMMON-LISP} @term{package} because it is not mentioned in @ref{Symbols in the COMMON-LISP Package}.
 In contrast, the @term{symbol} @t{variable}
 must be an @term{external symbol} of the @code{COMMON-LISP} @term{package}
 even though it has no definition
@@ -517,12 +517,12 @@ and their associated data @term{expressions}@sub{1}.
 
 @term{Symbol} @term{tokens} that start with a @term{package marker}
 are parsed by the @term{Lisp reader} as @term{symbols}
-in the @code{KEYWORD} @term{package}; see @ref{Symbols as Tokens, Section 2.3.4 (Symbols as Tokens)}.
+in the @code{KEYWORD} @term{package}; see @ref{Symbols as Tokens}.
 This makes it notationally convenient to use @term{keywords}
 when communicating between programs in different @term{packages}.
 For example, the mechanism for passing @term{keyword parameters} in a @term{call} uses
 @term{keywords}@sub{1} to name the corresponding @term{arguments};
-see @ref{Ordinary Lambda Lists, Section 3.4.1 (Ordinary Lambda Lists)}.
+see @ref{Ordinary Lambda Lists}.
 
 @term{Symbols} in the @code{KEYWORD} @term{package} are, by definition, @oftype{keyword}.
 
@@ -617,13 +617,13 @@ initially present in that @term{implementation} but not specified in this specif
 @subsubheading Description:
 
 A @term{package} is a @term{namespace} that maps @term{symbol} @term{names}
-to @term{symbols}; see @ref{Package Concepts, Section 11.1 (Package Concepts)}.
+to @term{symbols}; see @ref{Package Concepts}.
 
 @subsubheading See Also:
 
-@ref{Package Concepts, Section 11.1 (Package Concepts)},
-@ref{PrintingOtherObjects, Section 22.1.3.13 (Printing Other Objects)},
-@ref{Symbols as Tokens, Section 2.3.4 (Symbols as Tokens)}
+@ref{Package Concepts},
+@ref{Printing Other Objects},
+@ref{Symbols as Tokens}
 
 
 @node export
@@ -732,7 +732,7 @@ to interactively specify whether that @term{symbol} should be @term{imported}.
 
 @ref{import},
 @ref{unexport},
-@ref{Package Concepts, Section 11.1 (Package Concepts)}
+@ref{Package Concepts}
 
 
 @node find-symbol
@@ -1180,7 +1180,7 @@ Current state of the package system.
 @subsubheading See Also:
 
 @ref{package-shadowing-symbols},
-@ref{Package Concepts, Section 11.1 (Package Concepts)}
+@ref{Package Concepts}
 
 @subsubheading Notes:
 
@@ -1672,7 +1672,7 @@ has returned @term{false} as its @term{primary value}.
 
 @subsubheading See Also:
 
-@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+@ref{Traversal Rules and Side Effects}
 
 
 
@@ -1737,7 +1737,7 @@ or the @code{COMMON-LISP} @term{package}.
 
 @subsubheading See Also:
 
-@ref{export}, @ref{Package Concepts, Section 11.1 (Package Concepts)}
+@ref{export}, @ref{Package Concepts}
 
 
 @node unintern
@@ -1811,7 +1811,7 @@ In this case @code{unintern} will signal an error.
 
 @subsubheading See Also:
 
-@ref{Package Concepts, Section 11.1 (Package Concepts)}
+@ref{Package Concepts}
 
 
 @node in-package
@@ -1975,7 +1975,7 @@ The @term{use list} of @param{package} may be modified.
 
 @ref{unuse-package},
 @ref{package-use-list},
-@ref{Package Concepts, Section 11.1 (Package Concepts)}
+@ref{Package Concepts}
 
 @subsubheading Notes:
 
@@ -2207,13 +2207,13 @@ is signaled if no @term{symbol} is
 
 Name conflict errors are handled by the underlying calls to
 @code{make-package}, @code{use-package}, @code{import}, and
-@code{export}. See @ref{Package Concepts, Section 11.1 (Package Concepts)}.
+@code{export}. See @ref{Package Concepts}.
 
 @subsubheading See Also:
 
 @ref{documentation},
-@ref{Package Concepts, Section 11.1 (Package Concepts)},
-@ref{Compilation, Section 3.2 (Compilation)}
+@ref{Package Concepts},
+@ref{Compilation}
 
 @subsubheading Notes:
 
@@ -2378,7 +2378,7 @@ Any @param{tag} in the body is treated as with @code{tagbody}.
 
 @ref{intern},
 @ref{export},
-@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+@ref{Traversal Rules and Side Effects}
 
 
 
@@ -2474,7 +2474,7 @@ subsequent attempt is made to alter that @term{string}.
 @ref{read},
 @ref{symbol},
 @ref{unintern},
-@ref{Symbols as Tokens, Section 2.3.4 (Symbols as Tokens)}
+@ref{Symbols as Tokens}
 
 @subsubheading Notes:
 

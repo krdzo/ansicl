@@ -337,7 +337,7 @@ Examples of @term{constituent} @term{characters} are letters and digits.
 
 Letters in symbol names are sometimes converted to
 letters in the opposite @term{case} when the name is read;
-see @ref{Effect of Readtable Case on the Lisp Reader, Section 23.1.2 (Effect of Readtable Case on the Lisp Reader)}.
+see @ref{Effect of Readtable Case on the Lisp Reader}.
 @term{Case} conversion can be suppressed by the use
 of @term{single escape} or @term{multiple escape} characters.
 
@@ -505,7 +505,7 @@ see the @term{function} @ref{set-dispatch-macro-character}.
 
 For information about the @term{macro characters}
 that are available in @term{standard syntax},
-see @ref{Standard Macro Characters, Section 2.4 (Standard Macro Characters)}.
+see @ref{Standard Macro Characters}.
 
 
 @node Multiple Escape Characters
@@ -679,7 +679,7 @@ If the @term{token} is of invalid syntax, an error is signaled.
 If @param{x} is a @term{character} with @term{case},
 it might be replaced with the corresponding @term{character} of the opposite @term{case},
 depending on the @term{readtable case} of the @term{current readtable},
-as outlined in @ref{Effect of Readtable Case on the Lisp Reader, Section 23.1.2 (Effect of Readtable Case on the Lisp Reader)}.
+as outlined in @ref{Effect of Readtable Case on the Lisp Reader}.
 @param{X} is used to begin a @term{token}, and step 8 is entered.
 
 @item
@@ -699,7 +699,7 @@ If @param{y} is a @term{constituent} or @term{non-terminating} @term{macro chara
 If @param{y} is a @term{character} with @term{case},
 it might be replaced with the corresponding @term{character} of the opposite @term{case},
 depending on the @term{readtable case} of the @term{current readtable},
-as outlined in @ref{Effect of Readtable Case on the Lisp Reader, Section 23.1.2 (Effect of Readtable Case on the Lisp Reader)}.
+as outlined in @ref{Effect of Readtable Case on the Lisp Reader}.
 @item
 @param{Y} is appended to the @term{token} being built.
 @item
@@ -992,14 +992,14 @@ A @term{real} is constructed directly from a corresponding numeric @term{token};
 see @ref{SyntaxForNumericTokens, Figure 2.9}.
 
 A @term{complex} is notated as a @f{#C} (or @f{#c}) followed by a @term{list}
-of two @term{reals}; see @ref{SharpsignC, Section 2.4.8.11 (Sharpsign C)}.
+of two @term{reals}; see @ref{Sharpsign C}.
 
 The @term{reader macros} @f{#B}, @f{#O}, @f{#X}, and @f{#R} may also be useful
 in controlling the input @term{radix} in which @term{rationals} are parsed;
-see @ref{SharpsignB, Section 2.4.8.7 (Sharpsign B)},
-@ref{SharpsignO, Section 2.4.8.8 (Sharpsign O)},
-@ref{SharpsignX, Section 2.4.8.9 (Sharpsign X)},
-and @ref{SharpsignR, Section 2.4.8.10 (Sharpsign R)}.
+see @ref{Sharpsign B},
+@ref{Sharpsign O},
+@ref{Sharpsign X},
+and @ref{Sharpsign R}.
 
 This section summarizes the full syntax for @term{numbers}.
 
@@ -1019,7 +1019,7 @@ the @term{digits} are taken to be in @term{radix} @f{10};
 when no decimal point is used,
 the @term{digits} are taken to be in radix given by the @term{current input base}.
 
-For information on how @term{integers} are printed, see @ref{PrintingIntegers, Section 22.1.3.1.1 (Printing Integers)}.
+For information on how @term{integers} are printed, see @ref{Printing Integers}.
 
 
 @node Syntax of a Ratio
@@ -1058,7 +1058,7 @@ Examples of @term{ratios} are in @thenextfigure{}.
 are not in the syntax rules defined just above that.}
 
 For information on how @term{ratios} are printed,
-see @ref{PrintingRatios, Section 22.1.3.1.2 (Printing Ratios)}.
+see @ref{Printing Ratios}.
 
 
 
@@ -1124,7 +1124,7 @@ in the external representation.
 
 
 For information on how @term{floats} are printed,
-see @ref{PrintingFloats, Section 22.1.3.1.3 (Printing Floats)}.
+see @ref{Printing Floats}.
 
 
 @node Syntax of a Complex
@@ -1147,7 +1147,7 @@ An @term{object} of type @f{(complex rational)} is converted internally
 and represented thereafter as a @term{rational} if its imaginary part is an
 @term{integer} whose value is 0.
 
-For further information, see @ref{SharpsignC, Section 2.4.8.11 (Sharpsign C)}@spc{}and @ref{PrintingComplexes, Section 22.1.3.1.4 (Printing Complexes)}.
+For further information, see @ref{Sharpsign C}@spc{}and @ref{Printing Complexes}.
 
 
 
@@ -1160,7 +1160,7 @@ except in one circumstance:
 if the @term{token} is a single @term{dot}
 and appears in a situation where @term{dotted pair} notation permits a @term{dot},
 then it is accepted as part of such syntax and no error is signaled.
-See @ref{Left-Parenthesis, Section 2.4.1 (Left-Parenthesis)}.
+See @ref{Left-Parenthesis}.
 
 
 @node Symbols as Tokens
@@ -1383,7 +1383,7 @@ An @term{interned symbol} always prints as a sequence of characters that,
 when read back in, yields the @term{same} @term{symbol}.
 
 For information about how the @term{Lisp printer} treats @term{symbols},
-see @ref{PrintingSymbols, Section 22.1.3.3 (Printing Symbols)}.
+see @ref{Printing Symbols}.
 
 @item @id{@b{Print-print consistency}}
 
@@ -1508,7 +1508,7 @@ following the dot to be a @term{list}:
 
 
 For information on how the @term{Lisp printer} prints @term{lists} and @term{conses},
-see @ref{PrintingListsAndConses, Section 22.1.3.5 (Printing Lists and Conses)}.
+see @ref{Printing Lists and Conses}.
 
 
 @node Right-Parenthesis
@@ -1518,7 +1518,7 @@ see @ref{PrintingListsAndConses, Section 22.1.3.5 (Printing Lists and Conses)}.
 
 The @term{right-parenthesis} is invalid
 except when used in conjunction with the left parenthesis character.
-For more information, see @ref{Reader Algorithm, Section 2.2 (Reader Algorithm)}.
+For more information, see @ref{Reader Algorithm}.
 
 
 @node Single-Quote
@@ -1696,7 +1696,7 @@ Note, too, that a multiple escape character need not be quoted by a
 single escape character within a string.
 
 For information on how the @term{Lisp printer} prints @term{strings},
-see @ref{PrintingStrings, Section 22.1.3.4 (Printing Strings)}.
+see @ref{Printing Strings}.
 
 
 @node Backquote
@@ -1881,7 +1881,7 @@ This information is provided merely for cross-reference purposes.
 @cindex cons
 
 
-The @term{comma} is part of the backquote syntax; see @ref{Backquote, Section 2.4.6 (Backquote)}.
+The @term{comma} is part of the backquote syntax; see @ref{Backquote}.
 @term{Comma} is invalid if used other than inside the body of a
 backquote @term{expression} as described above.
 
@@ -1997,11 +1997,11 @@ the @param{x} must have the syntax of a @term{symbol}
 with no embedded @term{package markers}.
 In this case, the @term{sharpsign} @term{backslash} notation
 parses as the @term{character} whose @term{name} is @f{(string-upcase @param{x})};
-see @ref{Character Names, Section 13.1.7 (Character Names)}.
+see @ref{Character Names}.
 
 
 For information about how the @term{Lisp printer} prints @term{character} @term{objects},
-see @ref{PrintingCharacters, Section 22.1.3.2 (Printing Characters)}.
+see @ref{Printing Characters}.
 
 
 @node Sharpsign Single-Quote
@@ -2073,9 +2073,9 @@ Other examples follow:
 The notation @f{#()} denotes an empty @term{vector}, as does @f{#0()}.
 
 For information on how the @term{Lisp printer} prints @term{vectors},
-see @ref{PrintingStrings, Section 22.1.3.4 (Printing Strings)},
-@ref{PrintingBitVectors, Section 22.1.3.6 (Printing Bit Vectors)},
-or @ref{PrintingOtherVectors, Section 22.1.3.7 (Printing Other Vectors)}.
+see @ref{Printing Strings},
+@ref{Printing Bit Vectors},
+or @ref{Printing Other Vectors}.
 
 
 @node Sharpsign Asterisk
@@ -2113,7 +2113,7 @@ or if @param{n} is greater than one, but no @param{bits} were specified.
 Neither a @term{single escape} nor a @term{multiple escape} is permitted in this @term{token}.
 
 For information on how the @term{Lisp printer} prints @term{bit vectors},
-see @ref{PrintingBitVectors, Section 22.1.3.6 (Printing Bit Vectors)}.
+see @ref{Printing Bit Vectors}.
 
 @node Examples of Sharpsign Asterisk
 @subsubsection Examples of Sharpsign Asterisk
@@ -2156,7 +2156,7 @@ with no @term{package prefix}.
 
 For information on how the @term{Lisp reader}
 prints @term{uninterned} @term{symbols},
-see @ref{PrintingSymbols, Section 22.1.3.3 (Printing Symbols)}.
+see @ref{Printing Symbols}.
 
 
 @node Sharpsign Dot
@@ -2311,7 +2311,7 @@ the real and imaginary parts of a @term{complex} number.
 If the two parts as notated are not of the same data type,
 then they are converted
 according to the rules of floating-point @term{contagion}
-described in @ref{NumericContagionRules, Section 12.1.1.2 (Contagion in Numeric Operations)}.
+described in @ref{Contagion in Numeric Operations}.
 
 @f{#C(@param{real} @param{imag})} is equivalent to
 @f{#.(complex (quote @param{real}) (quote @param{imag}))},
@@ -2336,7 +2336,7 @@ See the @term{function} @ref{complex (Function)}.
 
 
 For further information,
-see @ref{PrintingComplexes, Section 22.1.3.1.4 (Printing Complexes)}@spc{}and @ref{SyntaxOfComplexes, Section 2.3.2.3 (Syntax of a Complex)}.
+see @ref{Printing Complexes}@spc{}and @ref{Syntax of a Complex}.
 
 
 @node Sharpsign A
@@ -2387,10 +2387,10 @@ all @term{dimensions} to the right
 are also considered to be @f{0}.
 
 For information on how the @term{Lisp printer} prints @term{arrays},
-see @ref{PrintingStrings, Section 22.1.3.4 (Printing Strings)},
-@ref{PrintingBitVectors, Section 22.1.3.6 (Printing Bit Vectors)},
-@ref{PrintingOtherVectors, Section 22.1.3.7 (Printing Other Vectors)},
-or @ref{PrintingOtherArrays, Section 22.1.3.8 (Printing Other Arrays)}.
+see @ref{Printing Strings},
+@ref{Printing Bit Vectors},
+@ref{Printing Other Vectors},
+or @ref{Printing Other Arrays}.
 
 
 @node Sharpsign S
@@ -2429,7 +2429,7 @@ Whatever @term{object} the constructor function returns
 is returned by the @f{#S} syntax.
 
 For information on how the @term{Lisp printer} prints @term{structures},
-see @ref{PrintingStructures, Section 22.1.3.12 (Printing Structures)}.
+see @ref{Printing Structures}.
 
 
 @node Sharpsign P
@@ -2447,7 +2447,7 @@ see @ref{PrintingStructures, Section 22.1.3.12 (Printing Structures)}.
 except that @f{#P} is not affected by @code{*read-eval*}.
 
 For information on how the @term{Lisp printer} prints @term{pathnames},
-see @ref{PrintingPathnames, Section 22.1.3.11 (Printing Pathnames)}.
+see @ref{Printing Pathnames}.
 
 
 
@@ -2528,7 +2528,7 @@ that is, it is as if the ``@f{#+} @param{test} @param{expression}''
 did not appear and only a @term{space} appeared in its place.
 
 For a detailed description of success and failure in @term{feature expressions},
-see @ref{FeatureExpressions, Section 24.1.2.1 (Feature Expressions)}.
+see @ref{Feature Expressions}.
 
 @f{#+} operates by first reading the @term{feature expression}
 and then skipping over the @param{form} if the @term{feature expression} fails.
@@ -2536,7 +2536,7 @@ While reading the @param{test}, the @term{current package} is the @code{KEYWORD}
 Skipping over the @param{form} is accomplished by @term{binding}
 @code{*read-suppress*} to @term{true} and then calling @code{read}.
 
-For examples, see @ref{FeatureExpExamples, Section 24.1.2.1.1 (Examples of Feature Expressions)}.
+For examples, see @ref{Examples of Feature Expressions}.
 
 
 @node Sharpsign Minus
@@ -2554,7 +2554,7 @@ that is,
 @end lisp
 
 
-For examples, see @ref{FeatureExpExamples, Section 24.1.2.1.1 (Examples of Feature Expressions)}.
+For examples, see @ref{Examples of Feature Expressions}.
 
 
 @node Sharpsign Vertical-Bar

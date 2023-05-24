@@ -32,13 +32,13 @@ Any of these facilities might share the same execution strategy,
 or each might use a different one.
 
 The behavior of a @term{conforming program} processed by @code{eval}
-and by @code{compile-file} might differ; see @ref{SemanticConstraints, Section 3.2.2.3 (Semantic Constraints)}.
+and by @code{compile-file} might differ; see @ref{Semantic Constraints}.
 
 @term{Evaluation} can be understood in terms of a model in which an
 interpreter recursively traverses a @term{form} performing each
 step of the computation as it goes.
 This model, which describes the semantics of @clisp{}@spc{}@term{programs},
-is described in @ref{The Evaluation Model, Section 3.1.2 (The Evaluation Model)}.
+is described in @ref{The Evaluation Model}.
 
 @menu
 * Introduction to Environments::
@@ -185,7 +185,7 @@ are examples of @term{environment objects}.
 
 The @term{object} @nil{}@spc{}when used as an @term{environment object}
 denotes the @term{null lexical environment};
-see @ref{NullLexicalEnv, Section 3.1.1.3.1 (The Null Lexical Environment)}.
+see @ref{The Null Lexical Environment}.
 
 
 
@@ -526,7 +526,7 @@ which when evaluated will supply the arguments passed to the @term{function}.
 
 When a @term{function name} is not defined,
 an error @oftype{undefined-function} should be signaled at run time;
-see @ref{SemanticConstraints, Section 3.2.2.3 (Semantic Constraints)}.
+see @ref{Semantic Constraints}.
 
 A @term{function form} is evaluated as follows:
 
@@ -609,7 +609,7 @@ for a @term{lambda form} than for an arbitrary named function
 that has been declared @code{inline}; however, such a difference
 is not semantic.)
 
-For further information, see @ref{Lambda Expressions, Section 3.1.3 (Lambda Expressions)}.
+For further information, see @ref{Lambda Expressions}.
 
 
 
@@ -662,7 +662,7 @@ with the corresponding @term{value} from the @term{arguments}
 to the current lexical @term{environment}.
 
 For further discussion of how @term{bindings} are @term{established}
-based on the @term{lambda list}, see @ref{Lambda Lists, Section 3.4 (Lambda Lists)}.
+based on the @term{lambda list}, see @ref{Lambda Lists}.
 
 The body of a @term{lambda expression} is an @term{implicit progn};
 the @term{values} it returns are returned by the @term{lambda expression}.
@@ -1039,7 +1039,7 @@ that @f{A} and @f{B} have been coalesced by the compiler.
 
 The term @newterm{minimal compilation} refers to actions the compiler
 must take at @term{compile time}. These actions are specified in
-@ref{Compilation Semantics, Section 3.2.2 (Compilation Semantics)}.
+@ref{Compilation Semantics}.
 
 The verb @newterm{process} refers to performing @term{minimal compilation},
 determining the time of evaluation for a @term{form},
@@ -1206,7 +1206,7 @@ performed correctly for both possible formats.
 
 When @code{compile-file} chooses to expand a @term{top level form} that is
 a @term{compiler macro} @term{form}, the expansion is also treated as a @term{top level form}
-for the purposes of @code{eval-when} processing; see @ref{TopLevelForms, Section 3.2.3.1 (Processing of Top Level Forms)}.
+for the purposes of @code{eval-when} processing; see @ref{Processing of Top Level Forms}.
 
 
 @node Naming of Compiler Macros
@@ -1448,7 +1448,7 @@ is not defined at compile time, no error is signaled at compile time.
 @subsection File Compilation
 
 @Thefunction{compile-file} performs compilation of
-@term{forms} in a file following the rules specified in @ref{Compilation Semantics, Section 3.2.2 (Compilation Semantics)},
+@term{forms} in a file following the rules specified in @ref{Compilation Semantics},
 and produces an output file that can be loaded by using @code{load}.
 
 Normally, the @term{top level forms} appearing in a file compiled with
@@ -2522,7 +2522,7 @@ all @term{standardized} @term{functions} follow that convention.
 
 An @term{ordinary lambda list} has five parts, any or all of which may be empty.
 For information about the treatment of argument mismatches,
-see @ref{Error Checking in Function Calls, Section 3.5 (Error Checking in Function Calls)}.
+see @ref{Error Checking in Function Calls}.
 
 @node Specifiers for the required parameters
 @subsubsection Specifiers for the required parameters
@@ -2537,7 +2537,7 @@ Each required parameter is specified by a parameter variable @param{var}.
 If there are @f{n} required parameters (@f{n} may be zero),
 there must be at least @f{n} passed arguments, and the
 required parameters are bound to the first @f{n} passed arguments;
-see @ref{Error Checking in Function Calls, Section 3.5 (Error Checking in Function Calls)}.
+see @ref{Error Checking in Function Calls}.
 The other parameters are then processed using any remaining arguments.
 
 
@@ -2580,7 +2580,7 @@ no unprocessed arguments remain, the @term{rest parameter} is bound to the
 @term{empty list}.  If there is no @term{rest parameter} and there are no
 @term{keyword parameters}, then an error
 should be signaled if
-any unprocessed arguments remain; see @ref{Error Checking in Function Calls, Section 3.5 (Error Checking in Function Calls)}.
+any unprocessed arguments remain; see @ref{Error Checking in Function Calls}.
 The value of a @term{rest parameter}
 is permitted, but not required, to share structure with the
 last argument to @code{apply}.
@@ -2602,12 +2602,12 @@ In this case the remaining arguments are used for both purposes;
 that is, all remaining arguments are made into a @term{list} for the
 @term{rest parameter}, and are also processed for the @keyref{key} parameters.
 If @keyref{key} is specified, there must remain
-an even number of arguments; see @ref{OddNumberOfKeyArgs, Section 3.5.1.6 (Odd Number of Keyword Arguments)}.
+an even number of arguments; see @ref{Odd Number of Keyword Arguments}.
 These arguments are considered as pairs,
 the first argument in each pair being interpreted as a name
 and the second as the corresponding value.
 The first @term{object} of each pair must be a @term{symbol};
-see @ref{InvalidKeyArgs, Section 3.5.1.5 (Invalid Keyword Arguments)}.
+see @ref{Invalid Keyword Arguments}.
 The keyword parameter specifiers may optionally be followed by the
 @term{lambda list keyword} @keyref{allow-other-keys}.
 
@@ -2651,7 +2651,7 @@ was a matching argument pair, and to @term{false} otherwise.
 
 Unless keyword argument checking is suppressed,
 an argument pair must a name matched by a parameter specifier;
-see @ref{UnrecognizedKeyArgs, Section 3.5.1.4 (Unrecognized Keyword Arguments)}.
+see @ref{Unrecognized Keyword Arguments}.
 
 If keyword argument checking is suppressed,
 then it is permitted for an argument pair
@@ -2995,10 +2995,10 @@ but it can be used to inform certain output-formatting
 and editing functions that the remainder of the @term{form} is
 treated as a body, and should be indented accordingly.
 Only one of @keyref{body} or @keyref{rest} can be used at any particular level;
-see @ref{DestructuringByLambdaLists, Section 3.4.4.1 (Destructuring by Lambda Lists)}.
+see @ref{Destructuring by Lambda Lists}.
 @keyref{body} can appear at any level of a
 @term{macro lambda list};
-for details, see @ref{DestructuringByLambdaLists, Section 3.4.4.1 (Destructuring by Lambda Lists)}.
+for details, see @ref{Destructuring by Lambda Lists}.
 
 @keyref{whole}
 @cindex &whole
@@ -3049,7 +3049,7 @@ that is, their @term{tree structure} must be equivalent,
 or it must differ only in that some @term{leaves} of the pattern
 match @term{non-atomic} @term{objects} of the @term{macro form}.
 For information about error detection in this @term{situation},
-see @ref{DestructuringMismatch, Section 3.5.1.7 (Destructuring Mismatch)}.
+see @ref{Destructuring Mismatch}.
 
 A destructuring @term{lambda list}
 (whether at top level or embedded)
@@ -3078,7 +3078,7 @@ raises an objection.}
 
 Anywhere in a @term{macro lambda list} where a parameter
 name can appear, and where @term{ordinary lambda list} syntax
-(as described in @ref{Ordinary Lambda Lists, Section 3.4.1 (Ordinary Lambda Lists)}) does not
+(as described in @ref{Ordinary Lambda Lists}) does not
 otherwise allow a @term{list}, a @term{destructuring lambda list}
 can appear in place
 of the parameter name.  When this is done, then the argument
@@ -3238,7 +3238,7 @@ Stands by itself.
 A @newterm{destructuring lambda list} is used by @code{destructuring-bind}.
 
 @term{Destructuring lambda lists} are closely related to
-@term{macro lambda lists}; see @ref{Macro Lambda Lists, Section 3.4.4 (Macro Lambda Lists)}.
+@term{macro lambda lists}; see @ref{Macro Lambda Lists}.
 A @term{destructuring lambda list} can contain all of the
 @term{lambda list keywords} listed for @term{macro lambda lists}
 except for @keyref{environment}, and supports destructuring in the
@@ -3623,7 +3623,7 @@ and in an @term{unsafe call} the @term{situation} has undefined consequences.
 It is not permitted to supply a keyword argument to a @term{function}
 using a name that is not recognized by that @term{function}
 unless keyword argument checking is suppressed as described
-in @ref{SuppressingKeyArgChecks, Section 3.4.1.4.1 (Suppressing Keyword Argument Checking)}.
+in @ref{Suppressing Keyword Argument Checking}.
 
 If this @term{situation} occurs in a @term{safe call},
 an error @oftype{program-error} must be signaled;
@@ -3640,7 +3640,7 @@ using a name that is not a @term{symbol}.
 If this @term{situation} occurs in a @term{safe call},
 an error @oftype{program-error} must be signaled
 unless keyword argument checking is suppressed as described
-in @ref{SuppressingKeyArgChecks, Section 3.4.1.4.1 (Suppressing Keyword Argument Checking)};
+in @ref{Suppressing Keyword Argument Checking};
 and in an @term{unsafe call} the @term{situation} has undefined consequences.
 
 
@@ -3654,7 +3654,7 @@ An odd number of @term{arguments} must not be supplied for the @term{keyword par
 If this @term{situation} occurs in a @term{safe call},
 an error @oftype{program-error} must be signaled
 unless keyword argument checking is suppressed as described
-in @ref{SuppressingKeyArgChecks, Section 3.4.1.4.1 (Suppressing Keyword Argument Checking)};
+in @ref{Suppressing Keyword Argument Checking};
 and in an @term{unsafe call} the @term{situation} has undefined consequences.
 
 
@@ -3666,7 +3666,7 @@ and in an @term{unsafe call} the @term{situation} has undefined consequences.
 
 When matching a @term{destructuring lambda list} against a @term{form},
 the pattern and the @term{form} must have compatible @term{tree structure},
-as described in @ref{Macro Lambda Lists, Section 3.4.4 (Macro Lambda Lists)}.
+as described in @ref{Macro Lambda Lists}.
 
 Otherwise, in a @term{safe call},
 an error @oftype{program-error} must be signaled;
@@ -3951,9 +3951,9 @@ is actually created) as a @term{documentation string}.
 
 @ref{function (Special Operator)},
 @ref{documentation},
-@ref{Lambda Expressions, Section 3.1.3 (Lambda Expressions)},
-@ref{LambdaForms, Section 3.1.2.1.2.4 (Lambda Forms)},
-@ref{Syntactic Interaction of Documentation Strings and Declarations, Section 3.4.11 (Syntactic Interaction of Documentation Strings and Declarations)}
+@ref{Lambda Expressions},
+@ref{Lambda Forms},
+@ref{Syntactic Interaction of Documentation Strings and Declarations}
 
 @subsubheading Notes:
 
@@ -4129,7 +4129,7 @@ The consequences are undefined if the @term{lexical environment} surrounding the
 
 
 For information about errors detected during the compilation process,
-see @ref{Exceptional Situations in the Compiler, Section 3.2.5 (Exceptional Situations in the Compiler)}.
+see @ref{Exceptional Situations in the Compiler}.
 
 @subsubheading See Also:
 
@@ -4183,7 +4183,7 @@ the source code.
 @subsubheading See Also:
 
 @ref{macroexpand-1},
-@ref{The Evaluation Model, Section 3.1.2 (The Evaluation Model)}
+@ref{The Evaluation Model}
 
 @subsubheading Notes:
 
@@ -4261,7 +4261,7 @@ but only in the @param{situations} listed.
 The use of the @param{situations} @kwd{compile-toplevel} (or @tt{compile}) and
 @kwd{load-toplevel} (or @tt{load}) controls whether and when @term{evaluation}
 occurs when @code{eval-when} appears as a @term{top level form} in
-code processed by @code{compile-file}.  See @ref{File Compilation, Section 3.2.3 (File Compilation)}.
+code processed by @code{compile-file}.  See @ref{File Compilation}.
 
 The use of the @param{situation} @kwd{execute} (or @tt{eval}) controls whether
 evaluation occurs for other @code{eval-when} @term{forms}; that is,
@@ -4277,7 +4277,7 @@ returns @nil{}.
 normally appears as a @term{top level form}, but it is meaningful
 for it to appear as a @term{non-top-level form}.
 However, the compile-time side
-effects described in @ref{Compilation, Section 3.2 (Compilation)}
+effects described in @ref{Compilation}
 only take place when @code{eval-when} appears as a
 @term{top level form}.
 
@@ -4349,7 +4349,7 @@ reader syntax table.
 
 @subsubheading See Also:
 
-@ref{compile-file}, @ref{Compilation, Section 3.2 (Compilation)}
+@ref{compile-file}, @ref{Compilation}
 
 @subsubheading Notes:
 
@@ -4462,7 +4462,7 @@ when the definition of @f{bar} is not a @term{top level form}.
 @subsubheading Description:
 
 @code{load-time-value} provides a mechanism for delaying evaluation of @param{form}
-until the expression is in the run-time environment; see @ref{Compilation, Section 3.2 (Compilation)}.
+until the expression is in the run-time environment; see @ref{Compilation}.
 
 @param{Read-only-p} designates whether the result can be considered a
 @term{constant object}.
@@ -4570,8 +4570,8 @@ unless @param{read-only-p} is @code{t}.
 @ref{compile-file},
 @ref{compile},
 @ref{eval},
-@ref{MinimalCompilation, Section 3.2.2.2 (Minimal Compilation)},
-@ref{Compilation, Section 3.2 (Compilation)}
+@ref{Minimal Compilation},
+@ref{Compilation}
 
 @subsubheading Notes:
 
@@ -4579,7 +4579,7 @@ unless @param{read-only-p} is @code{t}.
 ``for @term{evaluation}'' position.  In situations which would appear to call
 for use of @code{load-time-value} within a quoted structure,
 the @term{backquote} @term{reader macro} is probably called for;
-see @ref{Backquote, Section 2.4.6 (Backquote)}.
+see @ref{Backquote}.
 
 Specifying @nil{}@spc{}for @param{read-only-p} is not a way to force an object
 to become modifiable if it has already been made read-only.  It is only a way
@@ -4634,14 +4634,14 @@ The consequences are undefined if @term{literal objects} (including
 
 @subsubheading See Also:
 
-@ref{Evaluation, Section 3.1 (Evaluation)},
-@ref{Single-Quote, Section 2.4.3 (Single-Quote)},
-@ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)}
+@ref{Evaluation},
+@ref{Single-Quote},
+@ref{Compiler Terminology}
 
 @subsubheading Notes:
 
 The textual notation @f{'@param{object}} is equivalent to @f{(quote @param{object})};
-see @ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)}.
+see @ref{Compiler Terminology}.
 
 Some @term{objects}, called @term{self-evaluating objects},
 do not require quotation by @code{quote}.
@@ -4685,7 +4685,7 @@ in a use of @SETFof{compiler-macro-function}.
 
 @subsubheading See Also:
 
-@ref{define-compiler-macro}, @ref{CompilerMacros, Section 3.2.2.1 (Compiler Macros)}
+@ref{define-compiler-macro}, @ref{Compiler Macros}
 
 
 
@@ -4856,7 +4856,7 @@ the @term{same} as the original (which can be obtained by using
 @ref{compiler-macro-function},
 @ref{defmacro},
 @ref{documentation},
-@ref{Syntactic Interaction of Documentation Strings and Declarations, Section 3.4.11 (Syntactic Interaction of Documentation Strings and Declarations)}
+@ref{Syntactic Interaction of Documentation Strings and Declarations}
 
 @subsubheading Notes:
 
@@ -4916,7 +4916,7 @@ last @param{form} executed is returned as the expansion of the
 The body @param{forms} of the expansion function (but not the @param{lambda-list})
 are implicitly enclosed in a @term{block} whose name is @param{name}.
 
-The @param{lambda-list} conforms to the requirements described in @ref{Macro Lambda Lists, Section 3.4.4 (Macro Lambda Lists)}.
+The @param{lambda-list} conforms to the requirements described in @ref{Macro Lambda Lists}.
 
 @param{Documentation} is attached as a @term{documentation string}
 to @param{name} (as kind @code{function})
@@ -5062,9 +5062,9 @@ would be a valid call for the second definition but not for the first.
 @ref{*macroexpand-hook*},
 @ref{macrolet},
 @ref{macro-function},
-@ref{Evaluation, Section 3.1 (Evaluation)},
-@ref{Compilation, Section 3.2 (Compilation)},
-@ref{Syntactic Interaction of Documentation Strings and Declarations, Section 3.4.11 (Syntactic Interaction of Documentation Strings and Declarations)}
+@ref{Evaluation},
+@ref{Compilation},
+@ref{Syntactic Interaction of Documentation Strings and Declarations}
 
 
 
@@ -5137,7 +5137,7 @@ in a use of @SETFof{macro-function}.
 
 @subsubheading See Also:
 
-@ref{defmacro}, @ref{Evaluation, Section 3.1 (Evaluation)}
+@ref{Evaluation}
 
 @subsubheading Notes:
 
@@ -5305,7 +5305,7 @@ as established by @code{defmacro} are considered.
 @ref{setf} of @ref{macro-function},
 @ref{macrolet},
 @ref{symbol-macrolet},
-@ref{Evaluation, Section 3.1 (Evaluation)}
+@ref{Evaluation}
 
 @subsubheading Notes:
 
@@ -5349,7 +5349,7 @@ the @term{environment}, or both.)
 Each global reference to @param{symbol} (@ie{} not @term{shadowed}@sub{2} by a
 @term{binding} for a @term{variable} or @term{symbol macro} named by
 the same @term{symbol}) is expanded by the normal macro expansion process;
-see @ref{SymbolsAsForms, Section 3.1.2.1.1 (Symbols as Forms)}.
+see @ref{Symbols as Forms}.
 The expansion of a @term{symbol macro} is subject to further @term{macro expansion}
 in the same @term{lexical environment} as the @term{symbol macro} reference,
 exactly analogous to normal @term{macros}.
@@ -5441,7 +5441,7 @@ the @term{environment}, or both.)
 
 Each reference to @param{symbol} as a variable within the lexical @term{scope}
 of @code{symbol-macrolet} is expanded by the normal macro expansion process;
-see @ref{SymbolsAsForms, Section 3.1.2.1.1 (Symbols as Forms)}.
+see @ref{Symbols as Forms}.
 The expansion of a symbol macro is subject to further macro expansion
 in the same lexical environment as the symbol macro invocation, exactly
 analogous to normal @term{macros}.
@@ -5501,7 +5501,7 @@ implement @code{with-slots}.
 
 If a @code{symbol-macrolet} @term{form} is a @term{top level form},
 the @param{forms} are also processed as @term{top level forms}.
-See @ref{File Compilation, Section 3.2.3 (File Compilation)}.
+See @ref{File Compilation}.
 
 
 
@@ -5553,7 +5553,7 @@ referred to outside the @term{dynamic extent} of the macro expansion function.
 
 @subsubheading See Also:
 
-@ref{macroexpand}, @ref{macroexpand-1}, @ref{funcall}, @ref{Evaluation, Section 3.1 (Evaluation)}
+@ref{macroexpand}, @ref{Evaluation}
 
 @subsubheading Notes:
 
@@ -5639,7 +5639,7 @@ An implementation is free to support other (@term{implementation-defined})
 
 @ref{declaim},
 @ref{declare},
-@ref{Compilation, Section 3.2 (Compilation)}
+@ref{Compilation}
 
 @subsubheading Notes:
 
@@ -5829,7 +5829,7 @@ declare expressions.}
 @subsubheading See Also:
 
 @ref{proclaim},
-@ref{Type Specifiers, Section 4.2.3 (Type Specifiers)},
+@ref{Type Specifiers},
 @ref{declaration},
 @ref{dynamic-extent},
 @ref{ftype},
@@ -6710,13 +6710,13 @@ with @term{different} @param{values}.
 @ref{declare},
 @ref{declaim},
 @ref{proclaim},
-@ref{Declaration Scope, Section 3.3.4 (Declaration Scope)}
+@ref{Declaration Scope}
 
 @subsubheading Notes:
 
 An @code{optimize} declaration never applies to either a @term{variable} or
 a @term{function} @term{binding}.  An @code{optimize} declaration can only
-be a @term{free declaration}.  For more information, see @ref{Declaration Scope, Section 3.3.4 (Declaration Scope)}.
+be a @term{free declaration}.  For more information, see @ref{Declaration Scope}.
 
 
 @node special
@@ -6957,7 +6957,7 @@ The @code{special} declaration may be used with @code{locally}
 to affect references to, rather than @term{bindings} of, @term{variables}.
 
 If a @code{locally} @term{form} is a @term{top level form}, the body @param{forms}
-are also processed as @term{top level forms}.  See @ref{File Compilation, Section 3.2.3 (File Compilation)}.
+are also processed as @term{top level forms}.  See @ref{File Compilation}.
 
 
 

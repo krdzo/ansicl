@@ -187,7 +187,7 @@ to be a @term{graphic}.
 
 Of the @term{standard characters},
 @term{newline} is @term{non-graphic}
-and all others are @term{graphic}; see @ref{Standard Characters, Section 2.1.3 (Standard Characters)}.
+and all others are @term{graphic}; see @ref{Standard Characters}.
 
 @term{Characters} that are not @term{graphic} are called @newterm{non-graphic}.
 @term{Non-graphic} @term{characters} are sometimes informally called
@@ -574,16 +574,16 @@ and external encoding schemes supported are documented.
 
 A @term{character} is an @term{object} that
 represents a unitary token in an aggregate quantity of text;
-see @ref{Character Concepts, Section 13.1 (Character Concepts)}.
+see @ref{Character Concepts}.
 
 @Thetypes{base-char} and @code{extended-char}
 form an @term{exhaustive partition} of @thetype{character}.
 
 @subsubheading See Also:
 
-@ref{Character Concepts, Section 13.1 (Character Concepts)},
-@ref{SharpsignBackslash, Section 2.4.8.1 (Sharpsign Backslash)},
-@ref{PrintingCharacters, Section 22.1.3.2 (Printing Characters)}
+@ref{Character Concepts},
+@ref{Sharpsign Backslash},
+@ref{Printing Characters}
 
 @node base-char
 @subsection base-char (Type)
@@ -662,14 +662,14 @@ having 8-bit encodings.  In such an implementation,
 
 A fixed set of 96 @term{characters} required to be present in all
 @term{conforming implementations}.  @term{Standard characters} are
-defined in @ref{Standard Characters, Section 2.1.3 (Standard Characters)}.
+defined in @ref{Standard Characters}.
 
 Any @term{character} that is not @term{simple} is not a @term{standard character}.
 
 
 @subsubheading See Also:
 
-@ref{Standard Characters, Section 2.1.3 (Standard Characters)}
+@ref{Standard Characters}
 
 @node extended-char
 @subsection extended-char (Type)
@@ -869,8 +869,8 @@ upon these functions must be specified as part of the definition of that @term{a
 
 @subsubheading See Also:
 
-@ref{Character Syntax, Section 2.1 (Character Syntax)},
-@ref{Documentation of Implementation-Defined Scripts, Section 13.1.10 (Documentation of Implementation-Defined Scripts)}
+@ref{Character Syntax},
+@ref{Documentation of Implementation-Defined Scripts}
 
 @subsubheading Notes:
 
@@ -1041,7 +1041,7 @@ of any special syntax which might have been enabled in the @term{current readtab
 @subsubheading See Also:
 
 @ref{alphanumericp},
-@ref{Documentation of Implementation-Defined Scripts, Section 13.1.10 (Documentation of Implementation-Defined Scripts)}
+@ref{Documentation of Implementation-Defined Scripts}
 
 
 @node alphanumericp
@@ -1152,7 +1152,7 @@ If @param{weight} is greater than or equal to @param{radix},
 
 @ref{digit-char-p},
 @ref{graphic-char-p},
-@ref{Character Syntax, Section 2.1 (Character Syntax)}
+@ref{Character Syntax}
 
 @subsubheading Notes:
 
@@ -1259,8 +1259,8 @@ Digits are @term{graphic} @term{characters}.
 @subsubheading See Also:
 
 @ref{read},
-@ref{Character Syntax, Section 2.1 (Character Syntax)},
-@ref{Documentation of Implementation-Defined Scripts, Section 13.1.10 (Documentation of Implementation-Defined Scripts)}
+@ref{Character Syntax},
+@ref{Documentation of Implementation-Defined Scripts}
 
 
 @node standard-char-p
@@ -1367,8 +1367,8 @@ all @term{implementation-defined} @term{attributes} are preserved.
 
 @ref{upper-case-p},
 @ref{alpha-char-p},
-@ref{CharactersWithCase, Section 13.1.4.3 (Characters With Case)},
-@ref{Documentation of Implementation-Defined Scripts, Section 13.1.10 (Documentation of Implementation-Defined Scripts)}
+@ref{Characters With Case},
+@ref{Documentation of Implementation-Defined Scripts}
 
 @subsubheading Notes:
 
@@ -1437,8 +1437,8 @@ These functions test the case of a given @param{character}.
 
 @ref{char-upcase},
 @ref{char-downcase},
-@ref{CharactersWithCase, Section 13.1.4.3 (Characters With Case)},
-@ref{Documentation of Implementation-Defined Scripts, Section 13.1.10 (Documentation of Implementation-Defined Scripts)}
+@ref{Characters With Case},
+@ref{Documentation of Implementation-Defined Scripts}
 
 
 @node char-code
@@ -1663,13 +1663,13 @@ and by @thefunction{name-char} is not case sensitive).
 @subsubheading See Also:
 
 @ref{name-char},
-@ref{PrintingCharacters, Section 22.1.3.2 (Printing Characters)}
+@ref{Printing Characters}
 
 @subsubheading Notes:
 
 @term{Non-graphic}
 @term{characters} having @term{names} are written by the @term{Lisp printer}
-as ``@f{#@bsl{}}'' followed by the their @term{name}; see @ref{PrintingCharacters, Section 22.1.3.2 (Printing Characters)}.
+as ``@f{#@bsl{}}'' followed by the their @term{name}; see @ref{Printing Characters}.
 
 
 @node name-char

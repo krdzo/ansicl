@@ -974,7 +974,7 @@ nor whether (if so) the last argument to @code{apply} was a @term{constant},
 of a @term{rest list} to be freshly consed, nor modify that @term{list} structure.
 
 @code{setf} can be used with @code{apply} in certain circumstances;
-see @ref{SETFofAPPLY, Section 5.1.2.5 (APPLY Forms as Places)}.
+see @ref{APPLY Forms as Places}.
 
 @subsubheading Examples:
 
@@ -1011,8 +1011,8 @@ see @ref{SETFofAPPLY, Section 5.1.2.5 (APPLY Forms as Places)}.
 @ref{funcall},
 @ref{fdefinition},
 @ref{function (Special Operator)},
-@ref{Evaluation, Section 3.1 (Evaluation)},
-@ref{SETFofAPPLY, Section 5.1.2.5 (APPLY Forms as Places)}
+@ref{Evaluation},
+@ref{APPLY Forms as Places}
 
 
 @node defun
@@ -1124,9 +1124,9 @@ or to enable the @term{function} to be expanded inline.
 @ref{return-from},
 @ref{declare},
 @ref{documentation},
-@ref{Evaluation, Section 3.1 (Evaluation)},
-@ref{Ordinary Lambda Lists, Section 3.4.1 (Ordinary Lambda Lists)},
-@ref{Syntactic Interaction of Documentation Strings and Declarations, Section 3.4.11 (Syntactic Interaction of Documentation Strings and Declarations)}
+@ref{Evaluation},
+@ref{Ordinary Lambda Lists},
+@ref{Syntactic Interaction of Documentation Strings and Declarations}
 
 @subsubheading Notes:
 @code{return-from} can be used to return
@@ -1570,8 +1570,8 @@ visible at the site of the macro call which produced the expansion.
 @ref{defun},
 @ref{documentation},
 @ref{let},
-@ref{Evaluation, Section 3.1 (Evaluation)},
-@ref{Syntactic Interaction of Documentation Strings and Declarations, Section 3.4.11 (Syntactic Interaction of Documentation Strings and Declarations)}
+@ref{Evaluation},
+@ref{Syntactic Interaction of Documentation Strings and Declarations}
 
 @subsubheading Notes:
 
@@ -1580,7 +1580,7 @@ It is not possible to define recursive @term{functions} with @code{flet}.
 
 If a @code{macrolet} @term{form} is a @term{top level form},
 the body @param{forms} are also processed as @term{top level forms}.
-See @ref{File Compilation, Section 3.2.3 (File Compilation)}.
+See @ref{File Compilation}.
 
 
 
@@ -1633,7 +1633,7 @@ or that has a global definition as a @term{macro} or a @term{special operator}.
 
 @subsubheading See Also:
 
-@ref{apply}, @ref{function (Special Operator)}, @ref{Evaluation, Section 3.1 (Evaluation)}
+@ref{Evaluation}
 
 @subsubheading Notes:
 
@@ -1718,9 +1718,9 @@ of the variable @f{x} even after control has returned from the function @f{adder
 @ref{flet},
 @ref{labels},
 @ref{symbol-function},
-@ref{SymbolsAsForms, Section 3.1.2.1.1 (Symbols as Forms)},
-@ref{SharpsignQuote, Section 2.4.8.2 (Sharpsign Single-Quote)},
-@ref{PrintingOtherObjects, Section 22.1.3.13 (Printing Other Objects)}
+@ref{Symbols as Forms},
+@ref{Sharpsign Single-Quote},
+@ref{Printing Other Objects}
 
 @subsubheading Notes:
 
@@ -1986,7 +1986,7 @@ used only by @term{macro} definition @term{forms}.
 @ref{flet},
 @ref{defmacro},
 @ref{macrolet},
-@ref{The Evaluation Model, Section 3.1.2 (The Evaluation Model)}
+@ref{The Evaluation Model}
 
 
 @node lambda-parameters-limit
@@ -2108,8 +2108,8 @@ this-is-a-constant @EV{} NEVER-CHANGING
 @ref{defvar},
 @ref{documentation},
 @ref{proclaim},
-@ref{ConstantVars, Section 3.1.2.1.1.3 (Constant Variables)},
-@ref{Compilation, Section 3.2 (Compilation)}
+@ref{Constant Variables},
+@ref{Compilation}
 
 
 @node defparameter; defvar
@@ -2260,7 +2260,7 @@ correct operation of @term{conforming programs}.
 @ref{declaim},
 @ref{defconstant},
 @ref{documentation},
-@ref{Compilation, Section 3.2 (Compilation)}
+@ref{Compilation}
 
 @subsubheading Notes:
 
@@ -2333,7 +2333,7 @@ to the corresponding values in the tree structure resulting from the evaluation
 of @param{expression}; then @code{destructuring-bind} evaluates @param{forms}.
 
 The @param{lambda-list} supports destructuring as described in
-@ref{Destructuring Lambda Lists, Section 3.4.5 (Destructuring Lambda Lists)}.
+@ref{Destructuring Lambda Lists}.
 
 @subsubheading Examples:
 @lisp
@@ -2550,7 +2550,7 @@ Assuming *x* is not globally special,
 
 @subsubheading See Also:
 
-@ref{let}, @ref{Evaluation, Section 3.1 (Evaluation)}
+@ref{Evaluation}
 
 @subsubheading Notes:
 
@@ -2777,7 +2777,7 @@ whether by @term{normal return} or @term{explicit return}.
 
 @subsubheading See Also:
 
-@ref{return}, @ref{return-from}, @ref{Evaluation, Section 3.1 (Evaluation)}
+@ref{return}, @ref{Evaluation}
 
 @subsubheading Notes:
 
@@ -2874,7 +2874,7 @@ if @code{throw} is done
 when there is no suitable @code{catch} @param{tag}.
 @subsubheading See Also:
 
-@ref{throw}, @ref{Evaluation, Section 3.1 (Evaluation)}
+@ref{throw}, @ref{Evaluation}
 
 @subsubheading Notes:
 
@@ -2921,7 +2921,7 @@ if there is no matching @param{tag} lexically visible
 to the point of the @code{go}.
 
 The transfer of control initiated by @code{go} is performed
-as described in @ref{Transfer of Control to an Exit Point, Section 5.2 (Transfer of Control to an Exit Point)}.
+as described in @ref{Transfer of Control to an Exit Point}.
 
 @subsubheading Examples:
 @lisp
@@ -2987,7 +2987,7 @@ by the @term{evaluation} of @param{result} are immediately returned from
 the innermost such lexically enclosing @term{block}.
 
 The transfer of control initiated by @code{return-from} is performed
-as described in @ref{Transfer of Control to an Exit Point, Section 5.2 (Transfer of Control to an Exit Point)}.
+as described in @ref{Transfer of Control to an Exit Point}.
 
 @subsubheading Examples:
 
@@ -3052,7 +3052,7 @@ exits normally before the @code{return-from} @term{form} is attempted.
 
 @ref{block},
 @ref{return},
-@ref{Evaluation, Section 3.1 (Evaluation)}
+@ref{Evaluation}
 
 
 @node return
@@ -3090,7 +3090,7 @@ Returns, as if by @code{return-from}, from the @term{block} named @nil{}.
 
 @ref{block},
 @ref{return-from},
-@ref{Evaluation, Section 3.1 (Evaluation)}
+@ref{Evaluation}
 
 @subsubheading Notes:
 
@@ -3240,7 +3240,7 @@ is exited; the saved results are returned as the value or
 values of @code{catch}.
 
 The transfer of control initiated by @code{throw} is performed
-as described in @ref{Transfer of Control to an Exit Point, Section 5.2 (Transfer of Control to an Exit Point)}.
+as described in @ref{Transfer of Control to an Exit Point}.
 
 @subsubheading Examples:
 
@@ -3307,7 +3307,7 @@ in force at the point of the @code{throw}.
 @ref{catch},
 @ref{return-from},
 @ref{unwind-protect},
-@ref{Evaluation, Section 3.1 (Evaluation)}
+@ref{Evaluation}
 
 @subsubheading Notes:
 
@@ -3505,7 +3505,7 @@ The correct way to code this is as follows:
 @ref{return},
 @ref{return-from},
 @ref{throw},
-@ref{Evaluation, Section 3.1 (Evaluation)}
+@ref{Evaluation}
 
 
 @node nil (Constant Variable)
@@ -3693,7 +3693,7 @@ otherwise, returns @term{false}.
 @ref{equal},
 @ref{equalp},
 @ref{=},
-@ref{Compilation, Section 3.2 (Compilation)}
+@ref{Compilation}
 
 @subsubheading Notes:
 @term{Objects} that appear the same when printed are not necessarily
@@ -4407,7 +4407,7 @@ of the @param{predicate}.
 
 @ref{and (Macro)},
 @ref{or (Macro)},
-@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+@ref{Traversal Rules and Side Effects}
 
 @subsubheading Notes:
 
@@ -4948,7 +4948,7 @@ if no @param{normal-clause} matches.
 @ref{cond},
 @ref{typecase},
 @ref{setf},
-@ref{Generalized Reference, Section 5.1 (Generalized Reference)}
+@ref{Generalized Reference}
 
 @subsubheading Notes:
 
@@ -5140,7 +5140,7 @@ shadowed by earlier clauses.
 @ref{case},
 @ref{cond},
 @ref{setf},
-@ref{Generalized Reference, Section 5.1 (Generalized Reference)}
+@ref{Generalized Reference}
 
 @subsubheading Notes:
 
@@ -5417,7 +5417,7 @@ in order that the rules for order of evaluation and side-effects be consistent
 with those used by @code{setf}.
 @cindex order of evaluation
 @cindex evaluation order
-See @ref{SETFofVALUES, Section 5.1.2.3 (VALUES Forms as Places)}.
+See @ref{VALUES Forms as Places}.
 
 @subsubheading Examples:
 
@@ -5467,7 +5467,7 @@ returns the @param{objects} as @term{multiple values}@sub{2}.
 
 @code{setf} of @code{values} is used to store the
 @term{multiple values}@sub{2} @param{new-values} into the @param{places}.
-See @ref{SETFofVALUES, Section 5.1.2.3 (VALUES Forms as Places)}.
+See @ref{VALUES Forms as Places}.
 
 @subsubheading Examples:
 
@@ -5515,7 +5515,7 @@ first are discarded.
 @ref{values-list},
 @ref{multiple-value-bind},
 @ref{multiple-values-limit},
-@ref{Evaluation, Section 3.1 (Evaluation)}
+@ref{Evaluation}
 
 @subsubheading Notes:
 
@@ -5793,7 +5793,7 @@ This can be accomplished more perspicuously as follows:
 @subsubheading See Also:
 
 @ref{block}, @ref{let}, @ref{tagbody}, @ref{go},
-@ref{return}, @ref{Evaluation, Section 3.1 (Evaluation)}
+@ref{return}, @ref{Evaluation}
 
 @subsubheading Notes:
 @code{prog} can be explained in terms of
@@ -5940,7 +5940,7 @@ within that @code{progn} are considered by the compiler to be
 
 @subsubheading See Also:
 
-@ref{prog1}, @ref{prog2}, @ref{Evaluation, Section 3.1 (Evaluation)}
+@ref{prog1}, @ref{Evaluation}
 
 @subsubheading Notes:
 
@@ -6007,7 +6007,7 @@ are the parameters appearing in @param{lambda-list};
 appropriate provision is made for a @term{rest parameter}.
 
 The @term{subforms} of the macro calls defined by @code{define-modify-macro}
-are evaluated as specified in @ref{GenRefSubFormEval, Section 5.1.1.1 (Evaluation of Subforms to Places)}.
+are evaluated as specified in @ref{Evaluation of Subforms to Places}.
 
 @param{Documentation} is attached as a @term{documentation string}
 to @param{name} (as kind @code{function})
@@ -6039,7 +6039,7 @@ A macro definition is assigned to @param{name}.
 @ref{defsetf},
 @ref{define-setf-expander},
 @ref{documentation},
-@ref{Syntactic Interaction of Documentation Strings and Declarations, Section 3.4.11 (Syntactic Interaction of Documentation Strings and Declarations)}
+@ref{Syntactic Interaction of Documentation Strings and Declarations}
 
 
 @node defsetf
@@ -6224,8 +6224,8 @@ An example of the use of the long form of @code{defsetf}:
 @ref{setf},
 @ref{define-setf-expander},
 @ref{get-setf-expansion},
-@ref{Generalized Reference, Section 5.1 (Generalized Reference)},
-@ref{Syntactic Interaction of Documentation Strings and Declarations, Section 3.4.11 (Syntactic Interaction of Documentation Strings and Declarations)}
+@ref{Generalized Reference},
+@ref{Syntactic Interaction of Documentation Strings and Declarations}
 
 @subsubheading Notes:
 
@@ -6285,7 +6285,7 @@ specified in terms of @param{access-fn} and a new value for the
 the appropriate update.
 
 The @param{lambda-list} supports destructuring.
-See @ref{Macro Lambda Lists, Section 3.4.4 (Macro Lambda Lists)}.
+See @ref{Macro Lambda Lists}.
 
 @param{Documentation} is attached to @param{access-fn} as a @term{documentation string}
 of kind @t{setf}.
@@ -6305,7 +6305,7 @@ in a @code{define-setf-expander} @term{form} are implicitly enclosed in a
 @param{access-fn}.
 
 The evaluation of @param{forms} must result in the five values
-described in @ref{SetfExpansions, Section 5.1.1.2 (Setf Expansions)}.
+described in @ref{Setf Expansions}.
 
 If a @code{define-setf-expander} @term{form} appears as a @term{top level form},
 the @term{compiler} must make the @term{setf expander} available so that
@@ -6371,7 +6371,7 @@ argument is a value received as the @term{environment parameter} of a @term{macr
 @ref{defsetf},
 @ref{documentation},
 @ref{get-setf-expansion},
-@ref{Syntactic Interaction of Documentation Strings and Declarations, Section 3.4.11 (Syntactic Interaction of Documentation Strings and Declarations)}
+@ref{Syntactic Interaction of Documentation Strings and Declarations}
 
 @subsubheading Notes:
 
@@ -6409,7 +6409,7 @@ pattern is permitted in @param{lambda-list}.
 
 Determines
 five values constituting the @term{setf expansion} for @param{place}
-in @param{environment}; see @ref{SetfExpansions, Section 5.1.1.2 (Setf Expansions)}.
+in @param{environment}; see @ref{Setf Expansions}.
 
 If @param{environment} is not supplied or @nil{},
 the environment is the @term{null lexical environment}.
@@ -6533,7 +6533,7 @@ are evaluated from left to right; after all evaluations have been performed,
 all of the assignments are performed in an unpredictable order.
 
 For detailed treatment of the expansion of @code{setf} and @code{psetf},
-see @ref{Kinds of Places, Section 5.1.2 (Kinds of Places)}.
+see @ref{Kinds of Places}.
 
 @subsubheading Examples:
 
@@ -6562,7 +6562,7 @@ see @ref{Kinds of Places, Section 5.1.2 (Kinds of Places)}.
 @ref{macroexpand-1},
 @ref{rotatef},
 @ref{shiftf},
-@ref{Generalized Reference, Section 5.1 (Generalized Reference)}
+@ref{Generalized Reference}
 
 
 @node shiftf
@@ -6605,7 +6605,7 @@ is shifted in from the right, all values shift over to the left one place,
 and the value shifted out of @i{place1} is returned.
 
 For information about the @term{evaluation} of @term{subforms} of @param{places},
-see @ref{GenRefSubFormEval, Section 5.1.1.1 (Evaluation of Subforms to Places)}.
+see @ref{Evaluation of Subforms to Places}.
 
 @subsubheading Examples:
 
@@ -6635,7 +6635,7 @@ see @ref{GenRefSubFormEval, Section 5.1.1.1 (Evaluation of Subforms to Places)}.
 
 @subsubheading See Also:
 
-@ref{setf}, @ref{rotatef}, @ref{Generalized Reference, Section 5.1 (Generalized Reference)}
+@ref{Generalized Reference}
 
 @subsubheading Notes:
 
@@ -6703,7 +6703,7 @@ that is rotated one place to the left, with the value of @i{place1}
 being shifted around the end to @i{placen}.
 
 For information about the @term{evaluation} of @term{subforms} of @param{places},
-see @ref{GenRefSubFormEval, Section 5.1.1.1 (Evaluation of Subforms to Places)}.
+see @ref{Evaluation of Subforms to Places}.
 
 @subsubheading Examples:
 @lisp
@@ -6723,7 +6723,7 @@ see @ref{GenRefSubFormEval, Section 5.1.1.1 (Evaluation of Subforms to Places)}.
 @ref{setf},
 @ref{shiftf},
 @ref{*macroexpand-hook*},
-@ref{Generalized Reference, Section 5.1 (Generalized Reference)}
+@ref{Generalized Reference}
 
 @subsubheading Notes:
 

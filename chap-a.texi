@@ -36,7 +36,7 @@ may not appear in the the @code{COMMON-LISP} @term{package}.
 that there can be a package named @f{LISP} which can contain such symbols.)
 
 @term{Conforming implementations} must implement all deprecated features.
-For a list of deprecated features, see @ref{Deprecated Language Features, Section 1.8 (Deprecated Language Features)}.
+For a list of deprecated features, see @ref{Deprecated Language Features}.
 
 
 @node Removed Types

@@ -27,7 +27,7 @@ continue correctly without some form of intervention (either
 interactively by the user or under program control).  Not all errors
 are detected.  When an error goes undetected, the effects can be
 @term{implementation-dependent}, @term{implementation-defined}, unspecified, or
-undefined. See @ref{Definitions, Section 1.4 (Definitions)}.  All detected errors can
+undefined. See @ref{Definitions}.  All detected errors can
 be represented by @term{conditions}, but not all
 @term{conditions} represent errors.
 
@@ -1026,7 +1026,7 @@ the @term{name} of the @term{slot} which was being @term{accessed}.
 @ref{unbound-slot},
 @ref{unbound-variable},
 @ref{undefined-function},
-@ref{Condition System Concepts, Section 9.1 (Condition System Concepts)}
+@ref{Condition System Concepts}
 
 
 
@@ -1150,7 +1150,7 @@ whose values can be changed by the user in attempting to correct the error.
 and might be re-evaluated if the error is re-signaled (after continuing without
 actually fixing the problem).
 The order of evaluation of the @param{places} is not specified;
-see @ref{GenRefSubFormEval, Section 5.1.1.1 (Evaluation of Subforms to Places)}.
+see @ref{Evaluation of Subforms to Places}.
 @cindex order of evaluation
 @cindex evaluation order
 If a @param{place} @term{form} is supplied that produces more values than there
@@ -1212,7 +1212,7 @@ The set of active @term{condition handlers}.
 
 @subsubheading See Also:
 
-@ref{check-type}, @ref{error (Function)}, @ref{Generalized Reference, Section 5.1 (Generalized Reference)}
+@ref{Generalized Reference}
 
 @subsubheading Notes:
 
@@ -1310,7 +1310,7 @@ Existing handler bindings.
 
 @ref{cerror}, @ref{signal}, @ref{format},
 @ref{ignore-errors}, @ref{*break-on-signals*},
-@ref{handler-bind}, @ref{Condition System Concepts, Section 9.1 (Condition System Concepts)}
+@ref{Condition System Concepts}
 
 @subsubheading Notes:
 
@@ -1548,7 +1548,7 @@ The first time @param{place} is @term{evaluated},
 it is @term{evaluated} by normal evaluation rules.
 It is later @term{evaluated} as a @term{place}
 if the type check fails and @therestart{store-value} is used;
-see @ref{GenRefSubFormEval, Section 5.1.1.1 (Evaluation of Subforms to Places)}.
+see @ref{Evaluation of Subforms to Places}.
 
 @term{string} should be an English description of the type,
 starting with an indefinite article (``a'' or ``an'').
@@ -1640,7 +1640,7 @@ The implementation.
 
 @subsubheading See Also:
 
-@ref{Condition System Concepts, Section 9.1 (Condition System Concepts)}
+@ref{Condition System Concepts}
 
 @subsubheading Notes:
 
@@ -1840,7 +1840,7 @@ Existing handler bindings.
 @ref{*break-on-signals*},
 @ref{error (Function)},
 @ref{simple-condition},
-@ref{Signaling and Handling Conditions, Section 9.1.4 (Signaling and Handling Conditions)}
+@ref{Signaling and Handling Conditions}
 
 @subsubheading Notes:
 
@@ -1930,7 +1930,7 @@ needed to process the @param{condition}'s @term{format control}.
 @subsubheading See Also:
 
 @ref{simple-condition},
-@ref{Condition System Concepts, Section 9.1 (Condition System Concepts)}
+@ref{Condition System Concepts}
 
 
 
@@ -2355,7 +2355,7 @@ that implicitly call @code{signal}, enter the debugger prior to
 @ref{break},
 @ref{signal}, @ref{warn}, @ref{error (Function)},
 @ref{typep},
-@ref{Condition System Concepts, Section 9.1 (Condition System Concepts)}
+@ref{Condition System Concepts}
 
 @subsubheading Notes:
 
@@ -2589,7 +2589,7 @@ The handlers which were established around the @param{expression} are no longer 
 
 @ref{handler-bind},
 @ref{ignore-errors},
-@ref{Condition System Concepts, Section 9.1 (Condition System Concepts)}
+@ref{Condition System Concepts}
 
 @subsubheading Notes:
 
@@ -2693,7 +2693,7 @@ NIL
 
 @subsubheading See Also:
 
-@ref{handler-case}, @ref{Condition System Concepts, Section 9.1 (Condition System Concepts)}
+@ref{handler-case}, @ref{Condition System Concepts}
 
 @subsubheading Notes:
 
@@ -3077,7 +3077,7 @@ report this type of condition.
 
 @subsubheading See Also:
 
-@ref{make-condition}, @ref{defclass}, @ref{Condition System Concepts, Section 9.1 (Condition System Concepts)}
+@ref{make-condition}, @ref{Condition System Concepts}
 
 
 
@@ -3132,7 +3132,7 @@ The set of defined @term{condition} @term{types}.
 
 @subsubheading See Also:
 
-@ref{define-condition}, @ref{Condition System Concepts, Section 9.1 (Condition System Concepts)}
+@ref{define-condition}, @ref{Condition System Concepts}
 
 
 @node restart
@@ -3977,7 +3977,7 @@ and the @param{restart-list}.
 
 Next, the @param{forms} are @term{evaluated} in a @term{dynamic environment}
 in which each @term{restart} in @param{restart-list} is associated with
-the @param{condition}.  See @ref{AssocRestartWithCond, Section 9.1.4.2.4 (Associating a Restart with a Condition)}.
+the @param{condition}.  See @ref{Associating a Restart with a Condition}.
 
 @subsubheading See Also:
 
@@ -4132,8 +4132,8 @@ process is more appropriate.
 
 @subsubheading See Also:
 
-@ref{Restarts, Section 9.1.4.2 (Restarts)},
-@ref{InterfacesToRestarts, Section 9.1.4.2.2 (Interfaces to Restarts)},
+@ref{Restarts},
+@ref{Interfaces to Restarts},
 @ref{invoke-restart},
 @ref{abort} (@term{function})
 
@@ -4173,8 +4173,8 @@ with a name that more directly suits the particular application.
 
 @subsubheading See Also:
 
-@ref{Restarts, Section 9.1.4.2 (Restarts)},
-@ref{InterfacesToRestarts, Section 9.1.4.2.2 (Interfaces to Restarts)},
+@ref{Restarts},
+@ref{Interfaces to Restarts},
 @ref{invoke-restart},
 @ref{continue} (@term{function}),
 @ref{assert},
@@ -4233,8 +4233,8 @@ that a warning has already been dealt with and that no further action is warrant
 
 @subsubheading See Also:
 
-@ref{Restarts, Section 9.1.4.2 (Restarts)},
-@ref{InterfacesToRestarts, Section 9.1.4.2.2 (Interfaces to Restarts)},
+@ref{Restarts},
+@ref{Interfaces to Restarts},
 @ref{invoke-restart},
 @ref{muffle-warning} (@term{function}),
 @ref{warn}
@@ -4276,8 +4276,8 @@ be stored permanently.
 
 @subsubheading See Also:
 
-@ref{Restarts, Section 9.1.4.2 (Restarts)},
-@ref{InterfacesToRestarts, Section 9.1.4.2.2 (Interfaces to Restarts)},
+@ref{Restarts},
+@ref{Interfaces to Restarts},
 @ref{invoke-restart},
 @ref{store-value} (@term{function}),
 @ref{ccase},
@@ -4304,8 +4304,8 @@ where the handler may wish to supply a replacement datum for one-time use.
 
 @subsubheading See Also:
 
-@ref{Restarts, Section 9.1.4.2 (Restarts)},
-@ref{InterfacesToRestarts, Section 9.1.4.2.2 (Interfaces to Restarts)},
+@ref{Restarts},
+@ref{Interfaces to Restarts},
 @ref{invoke-restart},
 @ref{use-value} (@term{function}),
 @ref{store-value} (@term{function} and @term{restart})
@@ -4514,8 +4514,8 @@ an error @oftype{control-error} is signaled.
 @subsubheading See Also:
 
 @ref{invoke-restart},
-@ref{Restarts, Section 9.1.4.2 (Restarts)},
-@ref{InterfacesToRestarts, Section 9.1.4.2.2 (Interfaces to Restarts)},
+@ref{Restarts},
+@ref{Interfaces to Restarts},
 @ref{assert},
 @ref{ccase},
 @ref{cerror},

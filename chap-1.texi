@@ -226,7 +226,7 @@ grouped in a way that brings related topics into physical proximity.
 Many such groupings were possible,
 and no deep significance should be inferred from the particular grouping that was chosen.
 To see @term{defined names} grouped alphabetically, consult the index.
-For a complete list of @term{defined names}, see @ref{Symbols in the COMMON-LISP Package, Section 1.9 (Symbols in the COMMON-LISP Package)}.
+For a complete list of @term{defined names}, see @ref{Symbols in the COMMON-LISP Package}.
 
 In order to compensate for the sometimes-unordered portions of this document,
 a glossary has been provided; see @ref{Glossary, Chapter 26 (Glossary)}.
@@ -235,12 +235,12 @@ definitions of terms, and in some cases by providing examples or
 cross references to additional conceptual material.
 
 For information about notational conventions used in this document,
-see @ref{Definitions, Section 1.4 (Definitions)}.
+see @ref{Definitions}.
 
-For information about conformance, see @ref{Conformance, Section 1.5 (Conformance)}.
+For information about conformance, see @ref{Conformance}.
 
-For information about extensions and subsets, see @ref{Language Extensions, Section 1.6 (Language Extensions)}
-and @ref{Language Subsets, Section 1.7 (Language Subsets)}.
+For information about extensions and subsets, see @ref{Language Extensions}
+and @ref{Language Subsets}.
 
 For information about how @term{programs} in the language are parsed by the
 @term{Lisp reader}, see @ref{Syntax, Chapter 2 (Syntax)}.
@@ -419,7 +419,7 @@ conspicuous will save the reader a trip to the glossary in some cases.
 
 Denotes a symbol in the @code{COMMON-LISP} @term{package}.
 For information about @term{case} conventions,
-see @ref{CaseInSymbols, Section 1.4.1.4.1 (Case in Symbols)}.
+see @ref{Case in Symbols}.
 
 @item @id{@f{name}}
 
@@ -810,7 +810,7 @@ but conventions may exist which convey a ``point of view'' or ``sense of intent.
 
 While @term{case} is significant in the process of @term{interning} a @term{symbol},
 the @term{Lisp reader}, by default, attempts to canonicalize the case of a
-@term{symbol} prior to interning; see @ref{Effect of Readtable Case on the Lisp Reader, Section 23.1.2 (Effect of Readtable Case on the Lisp Reader)}.
+@term{symbol} prior to interning; see @ref{Effect of Readtable Case on the Lisp Reader}.
 As such, case in @term{symbols} is not, by default, significant.
 Throughout this document, except as explicitly noted otherwise,
 the case in which a @term{symbol} appears is not significant;
@@ -1304,7 +1304,7 @@ It is permissible for
 either @code{standard-object}
 or @code{structure-object}
 to appear in the @term{implementation}'s @term{class precedence list};
-for details, see @ref{Type Relationships, Section 4.2.2 (Type Relationships)}.
+for details, see @ref{Type Relationships}.
 
 Except as explicitly indicated otherwise somewhere in this specification,
 no additional @term{standardized} @term{classes} may appear in
@@ -1369,7 +1369,7 @@ This information about a @term{type} describes the syntax of a
 @term{compound type specifier} for that @term{type}.
 
 Whether or not the @term{type} is acceptable as an @term{atomic type specifier}
-is not represented here; see @ref{TypeSpecEntries, Section 1.4.4.6 (Dictionary Entries for Type Specifiers)}.
+is not represented here; see @ref{Dictionary Entries for Type Specifiers}.
 
 
 @node The ``Compound Type Specifier Arguments'' Section of a Dictionary Entry
@@ -1409,7 +1409,7 @@ but does not necessarily include all the fields referenced below it
 
 Examples of use of the @term{operator}.
 These examples are not considered part of the standard;
-see @ref{Sections Not Formally Part Of This Standard, Section 1.4.3 (Sections Not Formally Part Of This Standard)}.
+see @ref{Sections Not Formally Part Of This Standard}.
 
 
 @node The ``Exceptional Situations'' Section of a Dictionary Entry
@@ -1669,7 +1669,7 @@ has two required parameters, @param{x} and @param{y}.  In addition,
 there is an optional parameter @param{z} and a keyword parameter @param{k}.
 
 For @term{macros} and @term{special operators}, syntax is given
-in modified BNF notation; see @ref{ModifiedBNF, Section 1.4.1.2 (Modified BNF Syntax)}.
+in modified BNF notation; see @ref{Modified BNF Syntax}.
 For @term{functions} a @term{lambda list} is given.
 In both cases, however, the outermost parentheses are omitted,
 and default value information is omitted.
@@ -2117,7 +2117,7 @@ as being a ``subset of @clisp{}@spc{}as specified by ANSI @metavar{standard numb
 
 Deprecated language features are not expected to appear in future @clisp{}
 standards, but are required to be implemented for conformance with this
-standard; see @ref{ReqLangFeatures, Section 1.5.1.1 (Required Language Features)}.
+standard; see @ref{Required Language Features}.
 
 @term{Conforming programs} can use deprecated features;
 however, it is considered good programming style to avoid them.
@@ -2195,7 +2195,7 @@ The @term{variable} @code{*modules*} is deprecated.
 @subsection Deprecated Reader Syntax
 
 The @f{#S} @term{reader macro} forces keyword names into the @code{KEYWORD} @term{package};
-see @ref{SharpsignS, Section 2.4.8.13 (Sharpsign S)}.
+see @ref{Sharpsign S}.
 This feature is deprecated;
 in the future, keyword names will be taken in the package they are read in,
 so @term{symbols} that are actually in the @code{KEYWORD} @term{package}

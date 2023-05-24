@@ -125,7 +125,7 @@ modifying an @term{object} with regard to @code{eq} or @code{eql}.
 
 As a consequence of the behavior for @code{equal},
 the rules for visible modification of @term{objects} not explicitly mentioned in this
-section are inherited from those in @ref{VisModEQL, Section 18.1.2.1 (Visible Modification of Objects with respect to EQ and EQL)}.
+section are inherited from those in @ref{Visible Modification of Objects with respect to EQ and EQL}.
 
 @node Visible Modification of Conses with respect to EQUAL
 @subsubsection Visible Modification of Conses with respect to EQUAL
@@ -152,7 +152,7 @@ is considered a visible modification with regard to @code{equal}.
 
 As a consequence of the behavior for @code{equalp},
 the rules for visible modification of @term{objects} not explicitly mentioned in this
-section are inherited from those in @ref{VisModEQUAL, Section 18.1.2.2 (Visible Modification of Objects with respect to EQUAL)}.
+section are inherited from those in @ref{Visible Modification of Objects with respect to EQUAL}.
 
 @node Visible Modification of Structures with respect to EQUALP
 @subsubsection Visible Modification of Structures with respect to EQUALP
@@ -239,8 +239,8 @@ to an associated @term{object} (a @term{value}).
 
 @subsubheading See Also:
 
-@ref{Hash Table Concepts, Section 18.1 (Hash Table Concepts)},
-@ref{PrintingOtherObjects, Section 22.1.3.13 (Printing Other Objects)}
+@ref{Hash Table Concepts},
+@ref{Printing Other Objects}
 
 @subsubheading Notes:
 
@@ -791,7 +791,7 @@ None, other than any which might be done by the @param{function}.
 
 @ref{loop},
 @ref{with-hash-table-iterator},
-@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+@ref{Traversal Rules and Side Effects}
 
 
 @node with-hash-table-iterator
@@ -897,7 +897,7 @@ returned @term{false} as its @term{primary value}.
 
 @subsubheading See Also:
 
-@ref{Traversal Rules and Side Effects, Section 3.6 (Traversal Rules and Side Effects)}
+@ref{Traversal Rules and Side Effects}
 
 
 
@@ -982,13 +982,13 @@ and which are @term{similar},
 @term{yield} the same mathematical value
 even if @param{x} and @param{y} exist in different @term{Lisp images} of
 the same @term{implementation}.
-See @ref{Literal Objects in Compiled Files, Section 3.2.4 (Literal Objects in Compiled Files)}.
+See @ref{Literal Objects in Compiled Files}.
 
 @item
 The @param{hash-code} for an @term{object} is always the @term{same}
 within a single @term{session} provided that the @term{object} is not
 visibly modified with regard to the equivalence test @code{equal}.
-See @ref{Modifying Hash Table Keys, Section 18.1.2 (Modifying Hash Table Keys)}.
+See @ref{Modifying Hash Table Keys}.
 
 @item
 The @param{hash-code} is intended for hashing.  This places no verifiable

@@ -230,7 +230,7 @@ or being some other @term{graphic} @term{character}
 defined by the @term{implementation} to be @term{alphabetic}@sub{1}.
 2. a. @Noun{}
 one of several possible @term{constituent traits} of a @term{character}.
-For details, see @ref{ConstituentChars, Section 2.1.4.1 (Constituent Characters)}@spc{}and @ref{Reader Algorithm, Section 2.2 (Reader Algorithm)}.
+For details, see @ref{Constituent Characters}@spc{}and @ref{Reader Algorithm}.
 b. @Adjective{}@spc{}(of a @term{character})
 being a @term{character}
 that has @term{syntax type} @term{constituent} in the @term{current readtable}
@@ -270,7 +270,7 @@ called with @term{arguments})
 a @term{method} of the @term{generic function} for which the
 @term{arguments} satisfy the @term{parameter specializers}
 of that @term{method}.
-See @ref{SelApplMeth, Section 7.6.6.1.1 (Selecting the Applicable Methods)}.
+See @ref{Selecting the Applicable Methods}.
 
 @item @b{applicable restart}  @Noun{}
 1. (for a @term{condition})
@@ -294,7 +294,7 @@ to the @term{function} when it is @term{called}.
 @item @b{argument evaluation order}  @Noun{}@spc{}
 the order in which @term{arguments} are evaluated in a function call.
 @gexample{The argument evaluation order for Common Lisp is left to right.}
-See @ref{Evaluation, Section 3.1 (Evaluation)}.
+See @ref{Evaluation}.
 
 @item @b{argument precedence order}  @Noun{}
 the order in which the @term{arguments} to a @term{generic function} are
@@ -361,7 +361,7 @@ a program-visible aspect of the @term{character}.
 The only @term{standardized} @term{attribute} of a @term{character}
 is its @term{code}@sub{2}, but @term{implementations} are permitted to have
 additional @term{implementation-defined} @term{attributes}.
-See @ref{Character Attributes, Section 13.1.3 (Character Attributes)}.
+See @ref{Character Attributes}.
 @gexample{An implementation that support fonts
 might make font information an attribute of a character,
 while others might represent font information separately from characters.}
@@ -378,7 +378,7 @@ a member of one of two sets of @term{methods}
 that form an exhaustive partition of the set of @term{methods}
 on the @term{method}'s @term{generic function}.
 How these sets are determined is dependent on the @term{method combination} type;
-see @ref{Introduction to Methods, Section 7.6.2 (Introduction to Methods)}.
+see @ref{Introduction to Methods}.
 
 
 @end table
@@ -483,7 +483,7 @@ See @code{return} or @code{return-from}.
 @item @b{boa lambda list}  @Noun{}
 a @term{lambda list} that is syntactically like an @term{ordinary lambda list},
 but that is processed in ``@b{b}y @b{o}rder of @b{a}rgument'' style.
-See @ref{Boa Lambda Lists, Section 3.4.6 (Boa Lambda Lists)}.
+See @ref{Boa Lambda Lists}.
 
 @item @b{body parameter}  @Noun{}
 a @term{parameter} available in certain @term{lambda lists}
@@ -630,7 +630,7 @@ the property of being either @term{uppercase} or @term{lowercase}.
 Not all @term{characters} have @term{case}.
 @gexample{The characters @f{#@bsl{}A} and @f{#@bsl{}a} have case,
 but the character @f{#@bsl{}@dollar{}} has no case.}
-See @ref{CharactersWithCase, Section 13.1.4.3 (Characters With Case)}@spc{}and @thefunction{both-case-p}.
+See @ref{Characters With Case}@spc{}and @thefunction{both-case-p}.
 
 @item @b{case sensitivity mode}  @Noun{}
 one of the @term{symbols}
@@ -676,7 +676,7 @@ and @term{function cell}, respectively.
  @Noun{}, @Adjective{}
 1. @Noun{}@spc{}an @term{object} @oftype{character}; that is,
 an @term{object} that represents a unitary token in an aggregate quantity of text;
-see @ref{Character Concepts, Section 13.1 (Character Concepts)}.
+see @ref{Character Concepts}.
 2. @Adjective{}@spc{}
 a. (of a @term{stream})
 having an @term{element type} that is a @subtypeof{character}.
@@ -748,7 +748,7 @@ a unique total ordering on a @term{class}
 and its @term{superclasses} that is consistent with the
 @term{local precedence orders} for the @term{class} and its
 @term{superclasses}.
-For detailed information, see @ref{Determining the Class Precedence List, Section 4.3.5 (Determining the Class Precedence List)}.
+For detailed information, see @ref{Determining the Class Precedence List}.
 
 @item @b{close} @anchor{glos-close}
  @TransitiveVerb{}@spc{}(a @term{stream})
@@ -761,7 +761,7 @@ and to free any external resources which might have been locked by the
 having been @term{closed} (see @ref{glos-close, close}).
 Some (but not all) operations that are valid on @term{open} @term{streams}
 are not valid on @term{closed} @term{streams}.
-See @ref{File Operations on Open and Closed Streams, Section 21.1.1.1.2 (Open and Closed Streams)}.
+See @ref{Open and Closed Streams}.
 
 @item @b{closure}  @Noun{}
 a @term{lexical closure}.
@@ -770,7 +770,7 @@ a @term{lexical closure}.
 to consolidate the identity of those @term{objects},
 such that they become the @term{same}
 @term{object}.
-See @ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)}.
+See @ref{Compiler Terminology}.
 
 @item @b{code}  @Noun{}
 1. @Traditional{}@spc{}
@@ -795,7 +795,7 @@ The resulting @term{object} is necessarily of the indicated @term{type},
 except when that type is a @subtypeof{complex}; in that case,
 if a @term{complex rational} with an imaginary part of zero would result,
 the result is a @term{rational}
-rather than a @term{complex}---see @ref{RuleOfCanonRepForComplexRationals, Section 12.1.5.3 (Rule of Canonical Representation for Complex Rationals)}.
+rather than a @term{complex}---see @ref{Rule of Canonical Representation for Complex Rationals}.
 
 @item @b{colon}  @Noun{}
 the @term{standard character} that is called ``colon'' (@f{:}).
@@ -811,7 +811,7 @@ the process of @term{compiling} @term{code} by the @term{compiler}.
 @item @b{compilation environment}  @Noun{}@spc{}
 1. An @term{environment} that represents information known by the
 @term{compiler} about a @term{form} that is being @term{compiled}.
-See @ref{Compiler Terminology, Section 3.2.1 (Compiler Terminology)}.
+See @ref{Compiler Terminology}.
 2. An @term{object} that represents the
 @term{compilation environment}@sub{1}
 and that is used as a second argument to a @term{macro function}
@@ -893,7 +893,7 @@ a @term{function} of two arguments, a @term{form} and an
 @term{environment}, that implements @term{compiler macro expansion} by
 producing either a @term{form} to be used in place of the original
 argument @term{form} or else @nil{}, indicating that the original @term{form}
-should not be replaced.  See @ref{CompilerMacros, Section 3.2.2.1 (Compiler Macros)}.
+should not be replaced.  See @ref{Compiler Macros}.
 
 @item @b{complex}  @Noun{}
 an @term{object} @oftype{complex}.
@@ -916,7 +916,7 @@ that is a @term{subtype} of @code{rational}.
 A @term{complex rational} is a @term{complex}, but it is not a @term{rational}.
 No @term{complex rational} has an imaginary part of zero because such a
 number is always represented by @clisp{}@spc{}as an @term{object} @oftype{rational};
-see @ref{RuleOfCanonRepForComplexRationals, Section 12.1.5.3 (Rule of Canonical Representation for Complex Rationals)}.
+see @ref{Rule of Canonical Representation for Complex Rationals}.
 
 @item @b{complex single float}  @Noun{}
 an @term{object} @oftype{complex} which has a @term{complex part type}
@@ -952,18 +952,18 @@ but not necessarily, during @term{signaling}.
 one or more @term{objects} that, taken together,
 denote either an existing @term{condition} @term{object}
 or a @term{condition} @term{object} to be implicitly created.
-For details, see @ref{ConditionDesignators, Section 9.1.2.1 (Condition Designators)}.
+For details, see @ref{Condition Designators}.
 
 @item @b{condition handler}  @Noun{}
 a @term{function} that might be invoked by the act of @term{signaling},
 that receives the @term{condition} being signaled as its only argument,
 and that is permitted to @term{handle} the @term{condition}
-or to @term{decline}.  See @ref{Signaling, Section 9.1.4.1 (Signaling)}.
+or to @term{decline}.  See @ref{Signaling}.
 
 @item @b{condition reporter}  @Noun{}
 a @term{function} that describes how a @term{condition} is to be printed
 when the @term{Lisp printer} is invoked while @code{*print-escape*}
-is @term{false}.  See @ref{Printing Conditions, Section 9.1.3 (Printing Conditions)}.
+is @term{false}.  See @ref{Printing Conditions}.
 
 @item @b{conditional newline}  @Noun{}
 a point in output where a @term{newline} might be inserted at the
@@ -973,11 +973,11 @@ called ``linear-style,''
 ``fill-style,''
 ``miser-style,''
 and ``mandatory-style.''
-See the @term{function} @ref{pprint-newline} and @ref{DynamicControlofOutput, Section 22.2.1.1 (Dynamic Control of the Arrangement of Output)}.
+See the @term{function} @ref{pprint-newline} and @ref{Dynamic Control of the Arrangement of Output}.
 
 @item @b{conformance}  @Noun{}
 a state achieved by proper and complete adherence to the requirements
-of this specification.  See @ref{Conformance, Section 1.5 (Conformance)}.
+of this specification.  See @ref{Conformance}.
 
 @item @b{conforming code}  @Noun{}
 @term{code} that is all of part of a @term{conforming program}.
@@ -1004,7 +1004,7 @@ can therefore be expected to run correctly in any @term{conforming implementatio
 
 @item @b{congruent}  @Noun{}@spc{}
 conforming to the rules of @term{lambda list} congruency, as detailed in
-@ref{Congruent Lambda-lists for all Methods of a Generic Function, Section 7.6.4 (Congruent Lambda-lists for all Methods of a Generic Function)}.
+@ref{Congruent Lambda-lists for all Methods of a Generic Function}.
 
 @item @b{cons}  @Noun{}@Verb{}@spc{}
 1. @Noun{}@spc{}a compound data @term{object} having two components called the
@@ -1046,7 +1046,7 @@ that is, a @term{keyword}@sub{1} or a @term{named constant}.
 
 @item @b{constituent}  @Noun{}, @Adjective{}
 1. a. @Noun{}@spc{}the @term{syntax type} of a @term{character} that is part of a @term{token}.
-For details, see @ref{ConstituentChars, Section 2.1.4.1 (Constituent Characters)}.
+For details, see @ref{Constituent Characters}.
 b. @Adjective{}@spc{}(of a @term{character})
 having the @term{constituent}[1a] @term{syntax type}@sub{2}.
 c. @Noun{}@spc{}a @term{constituent}[1b] @term{character}.
@@ -1056,7 +1056,7 @@ the source or sink of that @term{stream}.
 
 @item @b{constituent trait}  @Noun{}@spc{}(of a @term{character})
 one of several classifications of a @term{constituent} @term{character}
-in a @term{readtable}.  See @ref{ConstituentChars, Section 2.1.4.1 (Constituent Characters)}.
+in a @term{readtable}.  See @ref{Constituent Characters}.
 
 @item @b{constructed stream}  @Noun{}@spc{}
 a @term{stream} whose source or sink is a Lisp @term{object}.
@@ -1069,7 +1069,7 @@ a process whereby operations on @term{objects} of differing @term{types}
 (@eg{} arithmetic on mixed @term{types} of @term{numbers}) produce a result
 whose @term{type} is controlled by the dominance of one @term{argument}'s
 @term{type} over the @term{types} of the other @term{arguments}.
-See @ref{NumericContagionRules, Section 12.1.1.2 (Contagion in Numeric Operations)}.
+See @ref{Contagion in Numeric Operations}.
 
 @item @b{continuable}  @Noun{}@spc{}(of an @term{error})
 an @term{error} that is @term{correctable} by the @f{continue} restart.
@@ -1123,7 +1123,7 @@ that is correctable by the @t{continue} @term{restart}.}
 @term{error} is @term{signaled}.
 Specifically, the @term{restart} is ``associated with''
 the @term{error} @term{condition} @term{object}.
-See @ref{AssocRestartWithCond, Section 9.1.4.2.4 (Associating a Restart with a Condition)}.)
+See @ref{Associating a Restart with a Condition}.)
 2. (when no specific @term{restart} is mentioned)
 @term{correctable}@sub{1} by at least one @term{restart}.
 @gexample{@code{import} signals a correctable error @oftype{package-error}
@@ -1224,7 +1224,7 @@ as if the @term{handler} had not been present.
 nine @term{objects} which, taken together, form a description of
 a point in calendar time, accurate to the nearest second (except
 that @term{leap seconds} are ignored).
-See @ref{DecodedTime, Section 25.1.4.1 (Decoded Time)}.
+See @ref{Decoded Time}.
 
 @item @b{default method}  @Noun{}
 a @term{method} having no @term{parameter specializers} other than
@@ -1240,11 +1240,11 @@ defaulted, used in the protocol for initializing and reinitializing
 @item @b{define-method-combination arguments lambda list}  @Noun{}
 a @term{lambda list} used by the @kwd{arguments} option
 to @code{define-method-combination}.
-See @ref{Define-method-combination Arguments Lambda Lists, Section 3.4.10 (Define-method-combination Arguments Lambda Lists)}.
+See @ref{Define-method-combination Arguments Lambda Lists}.
 
 @item @b{define-modify-macro lambda list}  @Noun{}
 a @term{lambda list} used by @code{define-modify-macro}.
-See @ref{Define-modify-macro Lambda Lists, Section 3.4.9 (Define-modify-macro Lambda Lists)}.
+See @ref{Define-modify-macro Lambda Lists}.
 
 @item @b{defined name}  @Noun{}
 a @term{symbol} the meaning of which is defined by @clisp{}.
@@ -1257,13 +1257,13 @@ a @term{form} that has the side-effect of @term{establishing} a definition.
 a @term{lambda list} that is like an @term{ordinary lambda list}
 except that it does not permit @keyref{aux}
 and that it permits use of @keyref{environment}.
-See @ref{Defsetf Lambda Lists, Section 3.4.7 (Defsetf Lambda Lists)}.
+See @ref{Defsetf Lambda Lists}.
 
 @item @b{deftype lambda list}  @Noun{}
 a @term{lambda list} that is like a @term{macro lambda list}
 except that the default @term{value} for unsupplied @term{optional parameters}
 and @term{keyword parameters} is the @term{symbol} @t{*} (rather than @nil{}).
-See @ref{Deftype Lambda Lists, Section 3.4.8 (Deftype Lambda Lists)}.
+See @ref{Deftype Lambda Lists}.
 
 @item @b{denormalized} @anchor{glos-denormalized}
  @Adjective{}, @ANSI{}, @IEEE{}@spc{}(of a @term{float})
@@ -1292,7 +1292,7 @@ if a @term{parameter} is described as a @term{designator} for a @term{type},
 the description of the @term{operator} is written in a way
 that assumes that appropriate coercion to that @term{type} has already occurred;
 that is, that the @term{parameter} is already of the denoted @term{type}.
-For more detailed information, see @ref{Designators, Section 1.4.1.5 (Designators)}.
+For more detailed information, see @ref{Designators}.
 
 @item @b{destructive}  @Adjective{}@spc{}(of an @term{operator})
 capable of modifying some program-visible aspect of one or more
@@ -1303,7 +1303,7 @@ from the @term{global environment} by the @term{operator}.
 @item @b{destructuring lambda list}  @Noun{}
 an @term{extended lambda list} used in @code{destructuring-bind} and
 nested within @term{macro lambda lists}.
-See @ref{Destructuring Lambda Lists, Section 3.4.5 (Destructuring Lambda Lists)}.
+See @ref{Destructuring Lambda Lists}.
 
 @item @b{different}  @Adjective{}@spc{}
 not the @term{same}
@@ -1314,7 +1314,7 @@ not the @term{same}
 a @term{character} that is among the possible digits (@f{0} to @f{9},
 @f{A} to @f{Z}, and @f{a} to @f{z}) and that is defined to have an
 associated numeric weight as a digit in that @term{radix}.
-See @ref{Digits, Section 13.1.4.6 (Digits in a Radix)}.
+See @ref{Digits in a Radix}.
 
 @item @b{dimension}  @Noun{}
 1. a non-negative @term{integer} indicating the number of
@@ -1509,7 +1509,7 @@ is @term{implementation-defined}.
 @term{input stream} that is at the @term{end of file}@sub{1}.
 
 @item @b{environment}  @Noun{}
-1. a set of @term{bindings}. See @ref{Introduction to Environments, Section 3.1.1 (Introduction to Environments)}.
+1. a set of @term{bindings}. See @ref{Introduction to Environments}.
 2. an @term{environment object}.
 @gexample{@code{macroexpand} takes an optional environment argument.}
 
@@ -1525,7 +1525,7 @@ to @term{macro functions} are @term{objects}
 of @term{implementation-dependent} nature which represent the
 @term{environment}@sub{1} in which the corresponding @term{macro form}
 is to be expanded.)
-See @ref{EnvObjs, Section 3.1.1.4 (Environment Objects)}.
+See @ref{Environment Objects}.
 
 @item @b{environment parameter}  @Noun{}
 A @term{parameter} in a @term{defining form} @mat{f} for which there is no corresponding
@@ -1538,7 +1538,7 @@ A @term{parameter} in a @term{defining form} @mat{f} for which there is no corre
 a @term{situation} in which the semantics of a program are not specified,
 and in which the consequences are undefined.
 2. a @term{condition} which represents an @term{error} @term{situation}.
-See @ref{Error Terminology, Section 1.4.2 (Error Terminology)}.
+See @ref{Error Terminology}.
 3. an @term{object} @oftype{error}.
 
 @item @b{error output}  @Noun{}@spc{}
@@ -1575,7 +1575,7 @@ dependent both on context and the nature of the @term{implementation},
 but in any case is not in general detectable by any program.  The evaluation
 model is designed in such a way that a @term{conforming implementation}
 might legitimately have only a compiler and no interpreter, or vice versa.
-See @ref{The Evaluation Model, Section 3.1.2 (The Evaluation Model)}.
+See @ref{The Evaluation Model}.
 
 @item @b{evaluation environment}  @Noun{}
 a @term{run-time environment} in which macro expanders
@@ -1631,7 +1631,7 @@ a character that is used in the textual notation for a @term{float}
 to separate the mantissa from the exponent.
 The characters defined as @term{exponent markers} in the @term{standard readtable}
 are shown in @thenextfigure{}.
-For more information, see @ref{Character Syntax, Section 2.1 (Character Syntax)}.
+For more information, see @ref{Character Syntax}.
 @gexample{The exponent marker `d' in `3.0d7' indicates
 that this number is to be represented as a double float.}
 
@@ -1780,7 +1780,7 @@ from the @term{package} @term{name} by a single @term{package marker}
 while
 the @term{name} of an @term{internal symbol} is separated
 from the @term{package} @term{name} by a double @term{package marker};
-see @ref{Symbols as Tokens, Section 2.3.4 (Symbols as Tokens)}.
+see @ref{Symbols as Tokens}.
 
 @item @b{externalizable object}  @Noun{}
 an @term{object} that can be used as a @term{literal} @term{object}
@@ -1815,14 +1815,14 @@ of @clisp{},
 of the @term{implementation},
 or of the @term{environment}.
 2. a @term{symbol} that names a @term{feature}@sub{1}.
-See @ref{Features, Section 24.1.2 (Features)}.
+See @ref{Features}.
 @gexample{The @kwd{ansi-cl} feature is present in all conforming implementations.}
 
 @item @b{feature expression}  @Noun{}
 A boolean combination of @term{features} used by the @f{#+} and @f{#-}
 @term{reader macros} in order to direct conditional @term{reading} of
 @term{expressions} by the @term{Lisp reader}.
-See @ref{FeatureExpressions, Section 24.1.2.1 (Feature Expressions)}.
+See @ref{Feature Expressions}.
 
 @item @b{features list}  @Noun{}
 the @term{list} that is @thevalueof{*features*}.
@@ -1922,7 +1922,7 @@ which interpret @term{format controls}.
 a @term{format string},
 or a @term{function} that obeys the @term{argument} conventions
 for a @term{function} returned by @themacro{formatter}.
-See @ref{CompilingFormatStrings, Section 22.2.1.3 (Compiling Format Strings)}.
+See @ref{Compiling Format Strings}.
 
 @item @b{format directive}  @Noun{}
 1. a sequence of @term{characters} in a @term{format string}
@@ -2079,7 +2079,7 @@ while the latter emphasizes the view of @mat{X} as a @term{type specifier}.)
 @item @b{generalized reference}  @Noun{}
 a reference to a location storing an @term{object} as if to a @term{variable}.
 (Such a reference can be either to @term{read} or @term{write} the location.)
-See @ref{Generalized Reference, Section 5.1 (Generalized Reference)}.  See also @term{place}.
+See @ref{Generalized Reference}.  See also @term{place}.
 
 @item @b{generalized synonym stream}  @Noun{}@spc{}(with a @term{synonym stream symbol})
 1. (to a @term{stream})
@@ -2099,7 +2099,7 @@ other things, a set of @term{methods}, a @term{lambda list}, and a
 
 @item @b{generic function lambda list}  @Noun{}
 A @term{lambda list} that is used to describe data flow into a @term{generic function}.
-See @ref{Generic Function Lambda Lists, Section 3.4.2 (Generic Function Lambda Lists)}.
+See @ref{Generic Function Lambda Lists}.
 
 @item @b{gensym}  @Noun{}@spc{}@Traditional{}@spc{}
 an @term{uninterned} @term{symbol}.
@@ -2296,7 +2296,7 @@ by a @term{superclass}.
 @item @b{initialization argument list}  @Noun{}@spc{}
 a @term{property list} of initialization argument @term{names} and @term{values}
 used in the protocol for initializing and reinitializing @term{instances} of @term{classes}.
-See @ref{Object Creation and Initialization, Section 7.1 (Object Creation and Initialization)}.
+See @ref{Object Creation and Initialization}.
 
 @item @b{initialization form}  @Noun{}@spc{}
 a @term{form} used to supply the initial @term{value} for a @term{slot}
@@ -2320,7 +2320,7 @@ an @term{object} @oftype{integer}, which represents a mathematical integer.
 
 @item @b{interactive stream}  @Noun{}@spc{}
 a @term{stream} on which it makes sense to perform interactive querying.
-See @ref{InteractiveStreams, Section 21.1.1.1.3 (Interactive Streams)}.
+See @ref{Interactive Streams}.
 
 @item @b{intern}  @TransitiveVerb{}@spc{}
 1. (a @term{string} in a @term{package})
@@ -2341,7 +2341,7 @@ but which is not an @term{external symbol} of the @term{package}.
 @term{time}, represented as an @term{integer} number of @term{internal time units}.
 @term{Absolute} @term{internal time} is measured as an offset
 from an arbitrarily chosen, @term{implementation-dependent} base.
-See @ref{InternalTime, Section 25.1.4.3 (Internal Time)}.
+See @ref{Internal Time}.
 
 @item @b{internal time unit}  @Noun{}@spc{}
 a unit of time equal to @mat{1/n} of a second,
@@ -2369,7 +2369,7 @@ semantic analysis of @term{forms} as they are encountered during execution.
 @item @b{interval designator}  @Noun{}@spc{}(of @term{type} @mat{T})
 an ordered pair of @term{objects} that describe a @term{subtype} of @mat{T}
 by delimiting an interval on the real number line.
-See @ref{Interval Designators, Section 12.1.6 (Interval Designators)}.
+See @ref{Interval Designators}.
 
 @item @b{invalid}  @Noun{}, @Adjective{}
 1. @Noun{}
@@ -2377,7 +2377,7 @@ a possible @term{constituent trait} of a @term{character}
 which if present signifies that the @term{character}
 cannot ever appear in a @term{token}
 except under the control of a @term{single escape} @term{character}.
-For details, see @ref{ConstituentChars, Section 2.1.4.1 (Constituent Characters)}.
+For details, see @ref{Constituent Characters}.
 2. @Adjective{}@spc{}(of a @term{character})
 being a @term{character} that has @term{syntax type} @term{constituent}
 in the @term{current readtable} and that has the
@@ -2416,7 +2416,7 @@ a @term{variable} @mat{V}, the @term{binding} for which was created by an
 @item @b{key}  @Noun{}@spc{}
 an @term{object} used for selection during retrieval.
 See @ref{glos-association list, association list}, @term{property list}, and @term{hash table}.
-Also, see @ref{Sequence Concepts, Section 17.1 (Sequence Concepts)}.
+Also, see @ref{Sequence Concepts}.
 
 @item @b{keyword}  @Noun{}@spc{}
 1. a @term{symbol} the @term{home package} of which is the @code{KEYWORD} @term{package}.
@@ -2656,14 +2656,14 @@ namely the @term{instance} in which the @term{slot} is allocated.
 
 @item @b{logical block}  @Noun{}
 a conceptual grouping of related output used by the @term{pretty printer}.
-See the @term{macro} @ref{pprint-logical-block} and @ref{DynamicControlofOutput, Section 22.2.1.1 (Dynamic Control of the Arrangement of Output)}.
+See the @term{macro} @ref{Dynamic Control of the Arrangement of Output}.
 
 @item @b{logical host}  @Noun{}
 an @term{object} of @term{implementation-dependent} nature
 that is used as the representation of a ``host'' in a @term{logical pathname},
 and that has an associated set of translation rules for converting
 @term{logical pathnames} belonging to that host into @term{physical pathnames}.
-See @ref{Logical Pathnames, Section 19.3 (Logical Pathnames)}.
+See @ref{Logical Pathnames}.
 
 @item @b{logical host designator}  @Noun{}
 a @term{designator} for a @term{logical host}; that is,
@@ -2693,7 +2693,7 @@ being among @term{standard characters} corresponding to
 the small letters @f{a} through @f{z},
 or being some other @term{implementation-defined} @term{character}
 that is defined by the @term{implementation} to be @term{lowercase}.
-See @ref{CharactersWithCase, Section 13.1.4.3 (Characters With Case)}.
+See @ref{Characters With Case}.
 
 
 @end table
@@ -2734,7 +2734,7 @@ argument @term{form}.
 @item @b{macro lambda list}  @Noun{}
 an @term{extended lambda list} used in @term{forms} that @term{establish}
 @term{macro} definitions, such as @code{defmacro} and @code{macrolet}.
-See @ref{Macro Lambda Lists, Section 3.4.4 (Macro Lambda Lists)}.
+See @ref{Macro Lambda Lists}.
 
 @item @b{macro name}  @Noun{}@spc{}
 a @term{name} for which @code{macro-function} returns @term{true}
@@ -2782,7 +2782,7 @@ specific @term{generic functions} is to be performed.
 @item @b{method-defining form}  @Noun{}@spc{}
 a @term{form} that defines a @term{method} for a @term{generic function},
 whether explicitly or implicitly.
-See @ref{Introduction to Generic Functions, Section 7.6.1 (Introduction to Generic Functions)}.
+See @ref{Introduction to Generic Functions}.
 
 @item @b{method-defining operator}  @Noun{}
 an @term{operator} corresponding to a @term{method-defining} @term{form}.
@@ -2790,7 +2790,7 @@ See @ref{StdMethDefOps, Figure 7.1}.
 
 @item @b{minimal compilation}  @Noun{}
 actions the @term{compiler} must take at compile time.
-See @ref{Compilation Semantics, Section 3.2.2 (Compilation Semantics)}.
+See @ref{Compilation Semantics}.
 
 @item @b{modified lambda list} @anchor{glos-modified lambda list}
  @Noun{}@spc{}
@@ -2810,7 +2810,7 @@ more recently than any other of its kind.
 that is used in pairs  to indicate that the enclosed @term{characters}
 are to be treated as @term{alphabetic}@sub{2} @term{characters}
 with their @term{case} preserved.
-For details, see @ref{MultipleEscapeChar, Section 2.1.4.5 (Multiple Escape Characters)}.
+For details, see @ref{Multiple Escape Characters}.
 2. @Adjective{}@spc{}(of a @term{character})
 having the @term{multiple escape} @term{syntax type}.
 3. @Noun{}@spc{}a @term{multiple escape}@sub{2} @term{character}.
@@ -2870,7 +2870,7 @@ by assignment or by binding.}
 @item @b{namestring}  @Noun{}@spc{}
 a @term{string} that represents a @term{filename}
 using either the @term{standardized} notation for naming @term{logical pathnames}
-described in @ref{Syntax of Logical Pathname Namestrings, Section 19.3.1 (Syntax of Logical Pathname Namestrings)},
+described in @ref{Syntax of Logical Pathname Namestrings},
 or some @term{implementation-defined} notation for naming a @term{physical pathname}.
 
 @item @b{newline}  @Noun{}
@@ -2881,7 +2881,7 @@ notated for the @term{Lisp reader} as @f{#@bsl{}Newline}.
 the next @term{method} to be invoked with respect to a given
 @term{method} for a particular set of arguments or argument
 @term{classes}.
-See @ref{ApplyMethCombToSortedMethods, Section 7.6.6.1.3 (Applying method combination to the sorted list of applicable methods)}.
+See @ref{Applying method combination to the sorted list of applicable methods}.
 
 @item @b{nickname}  @Noun{}@spc{}(of a @term{package})
 one of possibly several @term{names} that can be used to refer to
@@ -2922,7 +2922,7 @@ a @term{function} that is not a @term{generic function}.
 @item @b{non-graphic} @anchor{glos-non-graphic}
  @Adjective{}@spc{}(of a @term{character})
 not @term{graphic}.
-See @ref{GraphicChars, Section 13.1.4.1 (Graphic Characters)}.
+See @ref{Graphic Characters}.
 
 @item @b{non-list}  @Noun{}, @Adjective{}@spc{}
 other than a @term{list}; @ie{} a @term{non-nil} @term{atom}.
@@ -2949,12 +2949,12 @@ not @term{simple}.
 @item @b{non-terminating}  @Adjective{}@spc{}(of a @term{macro character})
 being such that it is treated as a constituent @term{character}
 when it appears in the middle of an extended token.
-See @ref{Reader Algorithm, Section 2.2 (Reader Algorithm)}.
+See @ref{Reader Algorithm}.
 
 @item @b{non-top-level form}  @Noun{}@spc{}
 a @term{form} that, by virtue of its position as a @term{subform}
 of another @term{form}, is not a @term{top level form}.
-See @ref{TopLevelForms, Section 3.2.3.1 (Processing of Top Level Forms)}.
+See @ref{Processing of Top Level Forms}.
 
 @item @b{normal return}  @Noun{}@spc{}
 the natural transfer of control and @term{values} which occurs after
@@ -3104,7 +3104,7 @@ or a @term{package} (denoting itself).
 a character which is used in the textual notation for a symbol
 to separate the package name from the symbol name, and which
 is @term{colon} in the @term{standard readtable}.
-See @ref{Character Syntax, Section 2.1 (Character Syntax)}.
+See @ref{Character Syntax}.
 
 @item @b{package prefix}  @Noun{}@spc{}
 a notation preceding the @term{name} of a @term{symbol} in text that is
@@ -3151,7 +3151,7 @@ is no corresponding @term{argument}.
 an @term{object} received as data flow by a @term{format directive}
 due to a prefix notation within the @term{format string} at the
 @term{format directive}'s point of use.
-See @ref{Formatted Output, Section 22.3 (Formatted Output)}.
+See @ref{Formatted Output}.
 @gexample{In @f{"@tild{}3,'0D"}, the number @f{3} and the character
 @f{#@bsl{}0} are parameters to the @f{@tild{}D} format directive.}
 
@@ -3166,7 +3166,7 @@ or a @term{list} @f{(eql @term{object})}.
 @item @b{parameter specializer name}  @Noun{}@spc{}
 1. (of a @term{method} definition) an expression used in code to
 name a @term{parameter specializer}.
-See @ref{Introduction to Methods, Section 7.6.2 (Introduction to Methods)}.
+See @ref{Introduction to Methods}.
 2. a @term{class},
 a @term{symbol} naming a @term{class},
 or a @term{list} @f{(eql @term{form})}.
@@ -3191,7 +3191,7 @@ a @term{stream associated with a file}
 (denoting the @term{pathname} used to open the @term{file};
 this may be, but is not required to be, the actual name of the @term{file}),
 or a @term{pathname} (denoting itself).
-See @ref{File Operations on Open and Closed Streams, Section 21.1.1.1.2 (Open and Closed Streams)}.
+See @ref{Open and Closed Streams}.
 
 @item @b{physical pathname}  @Noun{}
 a @term{pathname} that is not a @term{logical pathname}.
@@ -3225,13 +3225,13 @@ in some @term{conforming implementation} as a @term{number}
 but is not required to be parsed as a @term{number}.
 No @term{object} is a @term{potential number}---either an @term{object} is
 a @term{number} or it is not.
-See @ref{PotentialNumbersAsTokens, Section 2.3.1.1 (Potential Numbers as Tokens)}.
+See @ref{Potential Numbers as Tokens}.
 
 @item @b{pprint dispatch table}  @Noun{}@spc{}
 an @term{object} that can be @thevalueof{*print-pprint-dispatch*}
 and hence can control how @term{objects} are printed when
 @code{*print-pretty*} is @term{true}.
-See @ref{PPrintDispatchTables, Section 22.2.1.4 (Pretty Print Dispatch Tables)}.
+See @ref{Pretty Print Dispatch Tables}.
 
 @item @b{predicate}  @Noun{}@spc{}
 a @term{function} that returns a @term{generalized boolean}
@@ -3255,7 +3255,7 @@ the procedure that prints the character representation of an
 and that uses layout techniques (@eg{} indentation) that
 tend to highlight the structure of the @term{object} in a way that
 makes it easier for human readers to parse visually.
-See the @term{variable} @ref{*print-pprint-dispatch*} and @ref{The Lisp Pretty Printer, Section 22.2 (The Lisp Pretty Printer)}.
+See the @term{variable} @ref{The Lisp Pretty Printer}.
 
 @item @b{pretty printing stream}  @Noun{}@spc{}
 a @term{stream} that does pretty printing.  Such streams are created by
@@ -3268,7 +3268,7 @@ a member of one of two sets of @term{methods}
 that form an exhaustive partition of the set of @term{methods}
 on the @term{method}'s @term{generic function}.
 How these sets are determined is dependent on the @term{method combination} type;
-see @ref{Introduction to Methods, Section 7.6.2 (Introduction to Methods)}.
+see @ref{Introduction to Methods}.
 
 @item @b{primary value}  @Noun{}@spc{}(of @term{values} resulting from the
 @term{evaluation} of a @term{form})
@@ -3448,7 +3448,7 @@ an @term{object} @oftype{ratio}.
 a character which is used in the textual notation for a @term{ratio}
 to separate the numerator from the denominator, and which
 is @term{slash} in the @term{standard readtable}.
-See @ref{Character Syntax, Section 2.1 (Character Syntax)}.
+See @ref{Character Syntax}.
 
 @item @b{rational}  @Noun{}@spc{}
 an @term{object} @oftype{rational}.
@@ -3472,7 +3472,7 @@ the printed output into an @term{object} @mat{O@sub{2}} that is @term{similar} t
 1. a textual notation introduced by dispatch on one or two @term{characters}
 that defines special-purpose syntax for use by the @term{Lisp reader},
 and that is implemented by a @term{reader macro function}.
-See @ref{Reader Algorithm, Section 2.2 (Reader Algorithm)}.
+See @ref{Reader Algorithm}.
 2. the @term{character} or @term{characters} that introduce
 a @term{reader macro}@sub{1}; that is,
 a @term{macro character}
@@ -3495,7 +3495,7 @@ and that selects the manner in which @term{characters}
 in a @term{symbol}'s @term{name} are to be treated by
 the @term{Lisp reader}
 and the @term{Lisp printer}.
-See @ref{Effect of Readtable Case on the Lisp Reader, Section 23.1.2 (Effect of Readtable Case on the Lisp Reader)}@spc{}and @ref{ReadtableCasePrintEffect, Section 22.1.3.3.2 (Effect of Readtable Case on the Lisp Printer)}.
+See @ref{Effect of Readtable Case on the Lisp Printer}.
 
 @item @b{readtable designator}  @Noun{}
 a @term{designator} for a @term{readtable}; that is,
@@ -3543,7 +3543,7 @@ pathname if the host file system is Unix.}
 See @ref{glos-absolute, absolute}.
 
 @item @b{repertoire}  @Noun{}, @ISO{}
-a @term{subtype} of @code{character}.  See @ref{CharRepertoires, Section 13.1.2.2 (Character Repertoires)}.
+a @term{subtype} of @code{character}.  See @ref{Character Repertoires}.
 
 @item @b{report}  @Noun{}@spc{}(of a @term{condition})
 to @term{call} @thefunction{print-object} on the @term{condition}
@@ -3645,7 +3645,7 @@ the @term{call},
 the @term{function} being @term{called},
 and the point of @term{functional evaluation}
 are all @term{safe}@sub{1} @term{code}.
-For more detailed information, see @ref{SafeAndUnsafeCalls, Section 3.5.1.1 (Safe and Unsafe Calls)}.
+For more detailed information, see @ref{Safe and Unsafe Calls}.
 
 @item @b{same}  @Adjective{}@spc{}
 1. (of @term{objects} under a specified @term{predicate})
@@ -3676,7 +3676,7 @@ to be in a state such that the @term{function} which is the
 returns @term{true} when given a single @term{argument} that is the
 result of calling the @term{sequence function}'s @param{key} @term{argument}
 on the @term{object} being considered.
-See @ref{Satisfying a One-Argument Test, Section 17.2.2 (Satisfying a One-Argument Test)}.
+See @ref{Satisfying a One-Argument Test}.
 2. (for a two @term{argument} test)
 to be in a state such that the two-place @term{predicate}
 which is the @term{sequence function}'s
@@ -3691,7 +3691,7 @@ that is the result of calling the @term{sequence function}'s
 which is being tested for equality;
 or to be in a state such that the @param{test-not} @term{function}
 returns @term{false} given the same @term{arguments}.
-See @ref{Satisfying a Two-Argument Test, Section 17.2.1 (Satisfying a Two-Argument Test)}.
+See @ref{Satisfying a Two-Argument Test}.
 
 @item @b{scope}  @Noun{}@spc{}
 the structural or textual region of code in which @term{references}
@@ -3701,7 +3701,7 @@ can occur.
 
 @item @b{script}  @Noun{}@spc{}@ISO{}
 one of possibly several sets that form an @term{exhaustive partition}
-of the type @code{character}.  See @ref{CharScripts, Section 13.1.2.1 (Character Scripts)}.
+of the type @code{character}.  See @ref{Character Scripts}.
 
 @item @b{secondary value}  @Noun{}@spc{}(of @term{values} resulting from the
 @term{evaluation} of a @term{form})
@@ -3711,7 +3711,7 @@ or else @nil{}@spc{}if there are fewer than two @term{values}.
 
 @item @b{section}  @Noun{}
 a partitioning of output by a @term{conditional newline} on a @term{pretty printing stream}.
-See @ref{DynamicControlofOutput, Section 22.2.1.1 (Dynamic Control of the Arrangement of Output)}.
+See @ref{Dynamic Control of the Arrangement of Output}.
 
 @item @b{self-evaluating object}  @Noun{}
 an @term{object} that is neither a @term{symbol} nor a
@@ -3777,7 +3777,7 @@ a set of five @term{expressions}@sub{1} that, taken together, describe
 how to store into a @term{place}
 and which @term{subforms} of the macro call associated with the
 @term{place} are evaluated.
-See @ref{SetfExpansions, Section 5.1.1.2 (Setf Expansions)}.
+See @ref{Setf Expansions}.
 
 @item @b{setf function}  @Noun{}
 a @term{function} whose @term{name} is @f{(setf @term{symbol})}.
@@ -3825,7 +3825,7 @@ one of the @term{standard characters} ``@f{+}'' or ``@f{-}''.
 @item @b{signal}  @Verb{}@spc{}
 to announce, using a standard protocol, that a particular situation,
 represented by a @term{condition}, has been detected.
-See @ref{Condition System Concepts, Section 9.1 (Condition System Concepts)}.
+See @ref{Condition System Concepts}.
 
 @item @b{signature}  @Noun{}@spc{}(of a @term{method})
 a description of the @term{parameters} and
@@ -3843,7 +3843,7 @@ a two-place conceptual equivalence predicate,
 which is independent of the @term{Lisp image}
 so that two @term{objects} in different @term{Lisp images}
 can be understood to be equivalent under this predicate.
-See @ref{Literal Objects in Compiled Files, Section 3.2.4 (Literal Objects in Compiled Files)}.
+See @ref{Literal Objects in Compiled Files}.
 
 @item @b{simple}  @Adjective{}
 1. (of an @term{array}) being @oftype{simple-array}.
@@ -3882,7 +3882,7 @@ those that have @term{element type} @code{t}.
 that indicates that the next @term{character} is
 to be treated as an @term{alphabetic}@sub{2} @term{character}
 with its @term{case} preserved.
-For details, see @ref{SingleEscapeChar, Section 2.1.4.6 (Single Escape Character)}.
+For details, see @ref{Single Escape Character}.
 2. @Adjective{}@spc{}(of a @term{character})
 having the @term{single escape} @term{syntax type}.
 3. @Noun{}@spc{}a @term{single escape}@sub{2} @term{character}.
@@ -3962,14 +3962,14 @@ having @term{methods} which @term{specialize} the @term{generic function}.
 2. (of an @term{array})
 having an @term{actual array element type}
 that is a @term{proper subtype} of @thetype{t};
-see @ref{Array Elements, Section 15.1.1 (Array Elements)}.
+see @ref{Array Elements}.
 @gexample{@f{(make-array 5 :element-type 'bit)} makes an array of length
 five that is specialized for bits.}
 
 @item @b{specialized lambda list}  @Noun{}
 an @term{extended lambda list} used in @term{forms} that @term{establish}
 @term{method} definitions, such as @code{defmethod}.
-See @ref{Specialized Lambda Lists, Section 3.4.3 (Specialized Lambda Lists)}.
+See @ref{Specialized Lambda Lists}.
 
 @item @b{spreadable argument list designator}  @Noun{}
 a @term{designator} for a @term{list} of @term{objects}; that is,
@@ -3998,7 +3998,7 @@ having been @term{stack allocated}.
 @item @b{standard character}  @Noun{}@spc{}
 a @term{character} @oftype{standard-char}, which is one of a fixed set of 96
 such @term{characters} required to be present in all @term{conforming implementations}.
-See @ref{Standard Characters, Section 2.1.3 (Standard Characters)}.
+See @ref{Standard Characters}.
 
 @item @b{standard class}  @Noun{}@spc{}
 a @term{class} that is a @term{generalized instance} @ofclass{standard-class}.
@@ -4052,7 +4052,7 @@ in all cases except for anaphoric references.)
 @item @b{standard syntax}  @Noun{}
 the syntax represented by the @term{standard readtable}
 and used as a reference syntax throughout this document.
-See @ref{Character Syntax, Section 2.1 (Character Syntax)}.
+See @ref{Character Syntax}.
 
 @item @b{standardized}  @Adjective{}@spc{}(of a @term{name}, @term{object}, or definition)
 having been defined by @clisp{}.
@@ -4199,7 +4199,7 @@ a @term{parameter} which recieves its @term{generalized boolean} value
 implicitly due to the presence or absence of an @term{argument}
 corresponding to another @term{parameter}
 (such as an @term{optional parameter} or a @term{rest parameter}).
-See @ref{Ordinary Lambda Lists, Section 3.4.1 (Ordinary Lambda Lists)}.
+See @ref{Ordinary Lambda Lists}.
 
 @item @b{symbol}  @Noun{}@spc{}
 an @term{object} @oftype{symbol}.
@@ -4229,7 +4229,7 @@ is an alias.
 @item @b{syntax type}  @Noun{}@spc{}(of a @term{character})
 one of several classifications, enumerated in @ref{PossibleSyntaxTypes, Figure 2.6},
 that are used for dispatch during parsing by the @term{Lisp reader}.
-See @ref{Character Syntax Types, Section 2.1.4 (Character Syntax Types)}.
+See @ref{Character Syntax Types}.
 
 @item @b{system class}  @Noun{}@spc{}
 a @term{class} that may be @oftype{built-in-class} in a @term{conforming implementation}
@@ -4288,7 +4288,7 @@ that is the @term{value} of @thevariable{*terminal-io*}.
 
 @item @b{terminating}  @Noun{}@spc{}(of a @term{macro character})
 being such that, if it appears while parsing a token, it terminates that token.
-See @ref{Reader Algorithm, Section 2.2 (Reader Algorithm)}.
+See @ref{Reader Algorithm}.
 
 @item @b{tertiary value}  @Noun{}@spc{}(of @term{values} resulting from the
 @term{evaluation} of a @term{form})
@@ -4323,7 +4323,7 @@ is in effect.)
 
 @item @b{token}  @Noun{}
 a textual representation for a @term{number} or a @term{symbol}.
-See @ref{Interpretation of Tokens, Section 2.3 (Interpretation of Tokens)}.
+See @ref{Interpretation of Tokens}.
 
 @item @b{top level form}  @Noun{}@spc{}
 a @term{form} which is processed specially by @code{compile-file} for
@@ -4331,7 +4331,7 @@ the purposes of enabling @term{compile time} @term{evaluation} of that
 @term{form}.
 @term{Top level forms} include those @term{forms} which
 are not @term{subforms} of any other @term{form},
-and certain other cases.  See @ref{TopLevelForms, Section 3.2.3.1 (Processing of Top Level Forms)}.
+and certain other cases.  See @ref{Processing of Top Level Forms}.
 
 @item @b{trace output}  @Noun{}@spc{}
 the @term{output} @term{stream} which is the @term{value} of the @term{dynamic variable}
@@ -4364,7 +4364,7 @@ See @ref{glos-t, t}@sub{1}.
 
 @item @b{truename}  @Noun{}@spc{}
 1. the canonical @term{filename} of a @term{file} in the @term{file system}.
-See @ref{Truenames, Section 20.1.3 (Truenames)}.
+See @ref{Truenames}.
 2. a @term{pathname} representing a @term{truename}@sub{1}.
 
 @item @b{two-way stream}  @Noun{}@spc{}
@@ -4438,7 +4438,7 @@ not @term{accessible} in any @term{package}; @ie{} not @term{interned}@sub{1}.
 @term{time}, represented as a non-negative @term{integer} number of seconds.
 @term{Absolute} @term{universal time} is measured as an offset
 from the beginning of the year 1900 (ignoring @term{leap seconds}).
-See @ref{UniversalTime, Section 25.1.4.2 (Universal Time)}.
+See @ref{Universal Time}.
 
 @item @b{unqualified method}  @Noun{}@spc{}
 a @term{method} with no @term{qualifiers}.
@@ -4458,7 +4458,7 @@ but does not guarantee that error checking is definitely disabled.)
 
 @item @b{unsafe call}  @Noun{}
 a @term{call} that is not a @term{safe call}.
-For more detailed information, see @ref{SafeAndUnsafeCalls, Section 3.5.1.1 (Safe and Unsafe Calls)}.
+For more detailed information, see @ref{Safe and Unsafe Calls}.
 
 @item @b{upgrade}  @TransitiveVerb{}@spc{}(a declared @term{type} to an actual @term{type})
 1. (when creating an @term{array})
@@ -4477,7 +4477,7 @@ a @term{type} that is a @term{supertype} of the @term{type}
 and that is used instead of the @term{type} whenever the
 @term{type} is used as an @term{array element type}
 for object creation or type discrimination.
-See @ref{ArrayUpgrading, Section 15.1.2.1 (Array Upgrading)}.
+See @ref{Array Upgrading}.
 
 @item @b{upgraded complex part type}  @Noun{}@spc{}(of a @term{type})
 a @term{type} that is a @term{supertype} of the @term{type}
@@ -4491,7 +4491,7 @@ being among @term{standard characters} corresponding to
 the capital letters @f{A} through @f{Z},
 or being some other @term{implementation-defined} @term{character}
 that is defined by the @term{implementation} to be @term{uppercase}.
-See @ref{CharactersWithCase, Section 13.1.4.3 (Characters With Case)}.
+See @ref{Characters With Case}.
 
 @item @b{use}  @TransitiveVerb{}@spc{}(a @term{package} @mat{P@sub{1}})
 to @term{inherit} the @term{external symbols} of @mat{P@sub{1}}.
@@ -4647,7 +4647,7 @@ See @ref{glos-cell, cell}.
 
 @item @b{variable}  @Noun{}@spc{}
 a @term{binding} in the ``variable'' @term{namespace}.
-See @ref{SymbolsAsForms, Section 3.1.2.1.1 (Symbols as Forms)}.
+See @ref{Symbols as Forms}.
 
 @item @b{vector}  @Noun{}@spc{}
 a one-dimensional @term{array}.
@@ -4669,7 +4669,7 @@ or else @term{non-graphic} characters such as @f{#@bsl{}Newline}
 that only move the print position.
 2. a. @Noun{}@spc{}the @term{syntax type} of a @term{character}
 that is a @term{token} separator.
-For details, see @ref{WhitespaceChars, Section 2.1.4.7 (Whitespace Characters)}.
+For details, see @ref{Whitespace Characters}.
 b. @Adjective{}@spc{}(of a @term{character})
 having the @term{whitespace}[2a] @term{syntax type}@sub{2}.
 c. @Noun{}@spc{}a @term{whitespace}[2b] @term{character}.
