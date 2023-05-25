@@ -114,9 +114,9 @@ a @term{conforming implementation} may process the @term{arguments} in any manne
 consistent with associative (and possibly commutative) rearrangement.  This does not
 affect the order in which the @term{argument} @term{forms} are @term{evaluated};
 for a discussion of evaluation order, see @ref{Function Forms}.
-What is unspecified is only the order in which the @term{parameter} @term{values}
+What is unspecified is only the order in which the @i{parameter} @term{values}
 are processed.  This implies that @term{implementations} may differ in which
-automatic @term{coercions} are applied; see @ref{Contagion in Numeric Operations}.
+automatic @i{coercions} are applied; see @ref{Contagion in Numeric Operations}.
 
 A @term{conforming program} can control the order of processing explicitly by
 separating the operations into separate (possibly nested) @term{function forms},
@@ -462,8 +462,8 @@ When an operation combines a @term{short float} with a
 the result will be a @term{long float}.
 @clisp{}@spc{}functions assume that the accuracy of
 arguments to them does not exceed their precision.  Therefore
-when two @term{small floats}
-are combined, the result is a @term{small float}.
+when two @i{small floats}
+are combined, the result is a @i{small float}.
 @clisp{}@spc{}functions
 never convert automatically from a larger size to a smaller one.
 
@@ -499,11 +499,11 @@ one or more of its @term{arguments} is a @term{complex}.
 @subsubsection Rule of Complex Contagion
 
 When a
-@term{real}
+@symbolref{real}
 and
 a @term{complex} are both part of a computation,
 the
-@term{real}
+@symbolref{real}
 is first converted to a @term{complex} by providing an imaginary part of @f{0}.
 
 @node Rule of Canonical Representation for Complex Rationals
@@ -799,7 +799,7 @@ other than those included in @thetype{rational}.
 @term{Complexes} are
 expressed
 in Cartesian form with a
-real part and an imaginary part, each of which is a @term{real}.
+real part and an imaginary part, each of which is a @symbolref{real}.
 The real part and imaginary part are either both
 @term{rational} or both of the same @term{float} @term{type}.
 The imaginary part can be a @term{float} zero, but can never
@@ -870,7 +870,7 @@ and which can be obtained by @tt{(COERCE @mat{n} 'COMPLEX)}.
 @Thetype{real} includes all @term{numbers} that
 represent mathematical real numbers, though there are mathematical real
 numbers (@eg{} irrational numbers) that do not have an exact representation
-in @clisp{}.  Only @term{reals} can be ordered using the
+in @clisp{}.  Only @i{reals} can be ordered using the
 @symbolref{<}, @symbolref{>}, @symbolref{<=}, and @symbolref{>=} functions.
 
 The @term{types} @code{rational} and @code{float} are @term{disjoint}
@@ -941,7 +941,7 @@ then @thetype{double-float} must be the @term{same} @term{type} also.
 @subsubheading Notes:
 
 Note that all mathematical integers are representable not only as
-@clisp{}@spc{}@term{reals}, but also as @term{complex floats}.  For example,
+@clisp{}@spc{}@i{reals}, but also as @term{complex floats}.  For example,
 possible representations of the mathematical number @mat{1}
 include the @term{integer} @f{1},
 the @term{float} @f{1.0},
@@ -1399,7 +1399,7 @@ The @term{type} @symbolref{fixnum} is required to be a supertype of
 
 @subsubheading Arguments and Values:
 
-@param{number}---for @symbolref{<}, @symbolref{>}, @symbolref{<=}, @symbolref{>=}: a @term{real};
+@param{number}---for @symbolref{<}, @symbolref{>}, @symbolref{<=}, @symbolref{>=}: a @symbolref{real};
 for @symbolref{=}, @symbolref{/=}: a @term{number}.
 
 @param{generalized-boolean}---a @term{generalized boolean}.
@@ -1494,7 +1494,7 @@ The uses of these functions are illustrated in @thenextfigure{}.
 
 @subsubheading Exceptional Situations:
 
-Might signal @symbolref{type-error} if some @term{argument} is not a @term{real}.
+Might signal @symbolref{type-error} if some @term{argument} is not a @symbolref{real}.
 Might signal @symbolref{arithmetic-error} if otherwise unable to fulfill its contract.
 
 @subsubheading Notes:
@@ -1520,9 +1520,9 @@ whereas @code{eql} compares the representational values, so to speak.
 
 @subsubheading Arguments and Values:
 
-@param{real}---a @term{real}.
+@param{real}---a @symbolref{real}.
 
-@param{max-real}, @param{min-real}---a @term{real}.
+@param{max-real}, @param{min-real}---a @symbolref{real}.
 
 @subsubheading Description:
 
@@ -1587,7 +1587,7 @@ Similar remarks apply to @symbolref{min}
 
 @subsubheading Exceptional Situations:
 
-@Shouldcheckanytype{number, a @term{real}}
+@Shouldcheckanytype{number, a @symbolref{real}}
 
 
 @node minusp; plusp
@@ -1606,7 +1606,7 @@ Similar remarks apply to @symbolref{min}
 
 @subsubheading Arguments and Values:
 
-@param{real}---a @term{real}.
+@param{real}---a @symbolref{real}.
 
 @param{generalized-boolean}---a @term{generalized boolean}.
 
@@ -1630,7 +1630,7 @@ representations for positive and negative @term{float} zeros,
 
 @subsubheading Exceptional Situations:
 
-@Shouldchecktype{real, a @term{real}}
+@Shouldchecktype{real, a @symbolref{real}}
 
 
 @node zerop
@@ -1722,9 +1722,9 @@ always returns @term{true}.
 
 @subsubheading Arguments and Values:
 
-@param{number}---a @term{real}.
+@param{number}---a @symbolref{real}.
 
-@param{divisor}---a non-zero @term{real}.
+@param{divisor}---a non-zero @symbolref{real}.
 @Default{the @term{integer} @f{1}}
 
 @param{quotient}---for @symbolref{floor}, @symbolref{ceiling},
@@ -1732,7 +1732,7 @@ always returns @term{true}.
 for @symbolref{ffloor}, @symbolref{fceiling},
 @symbolref{ftruncate}, and @symbolref{fround}: a @term{float}.
 
-@param{remainder}---a @term{real}.
+@param{remainder}---a @symbolref{real}.
 
 @subsubheading Description:
 
@@ -1933,9 +1933,9 @@ Might signal @symbolref{arithmetic-error}.
 @param{number}---a @term{number}.
 
 @param{number1}---a @term{number} if @param{number2} is not supplied,
-or a @term{real}   if @param{number2} is     supplied.
+or a @symbolref{real}   if @param{number2} is     supplied.
 
-@param{number2}---a @term{real}.
+@param{number2}---a @symbolref{real}.
 
 @param{radians}---a @term{number} (of radians).
 
@@ -1976,10 +1976,10 @@ The range of the two-argument arc tangent when minus zero is supported
 includes @mat{-@pi{}}.
 
 For a
-@term{real}
+@symbolref{real}
 @param{number1},
 the result is
-a @term{real}
+a @symbolref{real}
 and lies between
 @mat{-@pi{}/2} and@tie{}@mat{@pi{}/2} (both exclusive).
 @param{number1} can be a @term{complex} if @param{number2}
@@ -2116,7 +2116,7 @@ implementations that support minus zero.
 @symbolref{acos} and @symbolref{asin} @shouldchecktype{number, a @term{number}}
 @symbolref{atan} should signal @symbolref{type-error} if
 one argument is supplied and that argument is not a @term{number},
-or if two arguments are supplied and both of those arguments are not @term{reals}.
+or if two arguments are supplied and both of those arguments are not @i{reals}.
 
 @symbolref{acos}, @symbolref{asin}, and @symbolref{atan} might signal @symbolref{arithmetic-error}.
 
@@ -2612,19 +2612,19 @@ expressions be the same.
 
 @param{number}---a @term{number}.
 
-@param{absolute-value}---a non-negative @term{real}.
+@param{absolute-value}---a non-negative @symbolref{real}.
 
 @subsubheading Description:
 
 @symbolref{abs} returns the absolute value of @param{number}.
 
 If @param{number} is
-a @term{real},
+a @symbolref{real},
 the result is  of the same @term{type} as @param{number}.
 
 If @param{number} is a @term{complex},
 the result is a positive
-@term{real}
+@symbolref{real}
 with
 the same magnitude as @param{number}.
 The result can be a @term{float}
@@ -3043,7 +3043,7 @@ If @param{base} is not supplied its value is @i{e},
 the base of the natural logarithms.
 
 @symbolref{log} may return a @term{complex} when given a
-@term{real}
+@symbolref{real}
 negative @param{number}.
 
 @lisp
@@ -3133,11 +3133,11 @@ The implementation.
 
 @subsubheading Arguments and Values:
 
-@param{number}---a @term{real}.
+@param{number}---a @symbolref{real}.
 
-@param{divisor}---a @term{real}.
+@param{divisor}---a @symbolref{real}.
 
-@param{modulus}, @param{remainder}---a @term{real}.
+@param{modulus}, @param{remainder}---a @symbolref{real}.
 
 @subsubheading Description:
 
@@ -3182,7 +3182,7 @@ when @param{number} and @param{divisor} are @term{integers}.
 @subsubheading Notes:
 
 The result of @code{mod} is either zero or a
-@term{real}
+@symbolref{real}
 with the same sign as @param{divisor}.
 
 @node signum
@@ -3492,7 +3492,7 @@ The @param{random-state} is modified.
 
 @subsubheading Exceptional Situations:
 
-@Shouldchecktype{limit, a positive @term{integer} or a positive @term{real}}
+@Shouldchecktype{limit, a positive @term{integer} or a positive @symbolref{real}}
 
 @subsubheading See Also:
 
@@ -3653,7 +3653,7 @@ restores the old @term{random state} @term{object}.
 
 @subsubheading Arguments and Values:
 
-@param{radians}---a @term{real}.
+@param{radians}---a @symbolref{real}.
 
 @param{number}---a @term{complex}.
 
@@ -3687,9 +3687,9 @@ imaginary part is equal to the sine of @param{radians}.
 
 @subsubheading Arguments and Values:
 
-@param{realpart}---a @term{real}.
+@param{realpart}---a @symbolref{real}.
 
-@param{imagpart}---a @term{real}.
+@param{imagpart}---a @symbolref{real}.
 
 @param{complex}---a @term{rational} or a @term{complex}.
 
@@ -3804,7 +3804,7 @@ the same thing.
 
 Returns the complex conjugate of @param{number}.
 The conjugate of a
-@term{real}
+@symbolref{real}
 number is itself.
 
 @subsubheading Examples:
@@ -3854,10 +3854,10 @@ in radians, in the range
 @mat{-@pi{}} (exclusive) if minus zero is not supported, or
 @mat{-@pi{}} (inclusive) if minus zero is supported,
 to @mat{@pi{}} (inclusive).  The phase of a positive
-@term{real}
+@symbolref{real}
 number
 is zero; that of a negative
-@term{real}
+@symbolref{real}
 number is @mat{@pi{}}.
 The phase of zero is defined to be zero.
 
@@ -3916,14 +3916,14 @@ Might signal @symbolref{arithmetic-error}.
 
 @param{number}---a @term{number}.
 
-@param{real}---a @term{real}.
+@param{real}---a @symbolref{real}.
 
 @subsubheading Description:
 
 @symbolref{realpart} and @symbolref{imagpart} return the real and
 imaginary parts of @param{number} respectively.
 If @param{number} is
-@term{real},
+@symbolref{real},
 then @symbolref{realpart} returns @param{number} and @symbolref{imagpart}
 returns @f{(* 0 @param{number})}, which has the effect that the
 imaginary part of a @term{rational} is @f{0} and that of
@@ -3973,7 +3973,7 @@ and the and current @term{global environment}}
 
 @symbolref{upgraded-complex-part-type} returns the part type of the
 most specialized @term{complex} number representation that can
-hold parts of @term{type} @term{typespec}.
+hold parts of @term{type} @i{typespec}.
 
 The @param{typespec} is a @term{subtype} of
 (and possibly @term{type equivalent} to)
@@ -4099,14 +4099,14 @@ and @symbolref{denominator} returns 1.
 
 @subsubheading Arguments and Values:
 
-@param{number}---a @term{real}.
+@param{number}---a @symbolref{real}.
 
 @param{rational}---a @term{rational}.
 
 @subsubheading Description:
 
 @code{rational} and @symbolref{rationalize} convert
-@term{reals}
+@i{reals}
 to @term{rationals}.
 
 If @param{number} is already @term{rational}, it is returned.
@@ -4139,7 +4139,7 @@ The @term{implementation}.
 
 @subsubheading Exceptional Situations:
 
-@Shouldchecktype{number, a @term{real}}
+@Shouldchecktype{number, a @symbolref{real}}
 Might signal @symbolref{arithmetic-error}.
 
 @subsubheading Notes:
@@ -5033,7 +5033,7 @@ and whose representation is
 @end lisp
 
 
-A @term{byte} of @term{size} of @f{0} is permissible;
+A @term{byte} of @i{size} of @f{0} is permissible;
 it refers to a @term{byte} of width zero.  For example,
 
 @lisp
@@ -5605,7 +5605,7 @@ and
 
 @subsubheading Arguments and Values:
 
-@param{number}---a @term{real}.
+@param{number}---a @symbolref{real}.
 
 @param{prototype}---a @term{float}.
 
@@ -5614,7 +5614,7 @@ and
 @subsubheading Description:
 
 @code{float} converts a
-@term{real}
+@symbolref{real}
 number to a @term{float}.
 
 If a @param{prototype} is supplied,

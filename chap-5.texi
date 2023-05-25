@@ -473,7 +473,7 @@ In a form such as:
 @tt{(setf (ldb @param{byte-spec} @param{place-form}) @param{value-form})}
 
 the place referred to by the @param{place-form} must always be both @term{read}
-and @term{written};  note that the update is to the generalized variable
+and @i{written};  note that the update is to the generalized variable
 specified by @param{place-form}, not to any object @oftype{integer}.
 
 Thus this @symbolref{setf} should generate code to do the following:
@@ -528,7 +528,7 @@ In a form such as:
 @f{(setf (getf @param{place-form} @param{ind-form}) @param{value-form})}
 
 the place referred to by @param{place-form} must always be both @term{read}
-and @term{written};  note that the update is to the generalized variable
+and @i{written};  note that the update is to the generalized variable
 specified by @param{place-form}, not necessarily to the particular
 @term{list}
 that is the property list in question.
@@ -768,7 +768,7 @@ Evaluation of @term{argument} @term{forms} occurs in left-to-right order,
 with the exception that for the @param{place} @term{argument}, the actual
 @term{read} of the ``old value'' from that @param{place} happens
 after all of the @term{argument} @term{form} @term{evaluations},
-and just before a ``new value'' is computed and @term{written} back into the @param{place}.
+and just before a ``new value'' is computed and @i{written} back into the @param{place}.
 
 Specifically, each of these @term{operators} can be viewed as involving a
 @term{form} with the following general syntax:
@@ -3118,7 +3118,7 @@ such @term{forms}.
 
 @subsubheading Description:
 
-Executes zero or more @term{statements} in a
+Executes zero or more @i{statements} in a
 @term{lexical environment}
 that provides for control transfers to labels indicated by the @param{tags}.
 
@@ -3187,7 +3187,7 @@ as a @param{statement}, not a @param{tag}.
 
 @subsubheading Notes:
 
-The @term{macros} in @thenextfigure{}@spc{}have @term{implicit tagbodies}.
+The @term{macros} in @thenextfigure{}@spc{}have @i{implicit tagbodies}.
 
 
 @float Figure,fig5.10
@@ -3328,7 +3328,7 @@ when @term{lexical scope} is sufficient.
 
 @param{cleanup-form}---a @term{form}.
 
-@param{results}---the @term{values} of the @term{protected-form}.
+@param{results}---the @term{values} of the @i{protected-form}.
 
 @subsubheading Description:
 @symbolref{unwind-protect} evaluates @param{protected-form}
@@ -4034,7 +4034,7 @@ and the two @term{cdrs} in the @term{conses} are @symbolref{equalp}.
 If two @term{arrays} have the same
 number of dimensions, the dimensions match,
 and the corresponding
-@term{active elements}
+@term{active} @term{elements}
 are @symbolref{equalp}.
 The @term{types} for which the @term{arrays} are @term{specialized} need not match;
 for example, a @term{string} and a general @term{array} that happens to contain the same
@@ -4053,7 +4053,7 @@ as the value of the corresponding @term{slot} in @mat{S@sub{2}}.
 @item @id{@term{Hash Tables}}
 
 
-@symbolref{equalp} descends @term{hash-tables} by first comparing the count of entries
+@symbolref{equalp} descends @i{hash-tables} by first comparing the count of entries
 and the @kwd{test} function; if those are the same, it compares the
 keys of the tables using the @kwd{test} function and then the values
 of the matching keys using @symbolref{equalp} recursively.
@@ -4838,7 +4838,7 @@ that @param{clause}, the @param{forms} in that @param{clause} are
 it returns are returned as the value of the @symbolref{case},
 @symbolref{ccase}, or @symbolref{ecase} @term{form}.
 
-These @term{macros} differ only in their @term{behavior} when
+These @term{macros} differ only in their @i{behavior} when
 no @param{normal-clause} matches; specifically:
 
 
@@ -5020,7 +5020,7 @@ the @param{forms} in that @param{clause} are
 it returns are returned as the value of the @symbolref{typecase},
 @symbolref{ctypecase}, or @symbolref{etypecase} @term{form}.
 
-These @term{macros} differ only in their @term{behavior} when
+These @term{macros} differ only in their @i{behavior} when
 no @param{normal-clause} matches; specifically:
 
 
@@ -6690,7 +6690,7 @@ produces fewer values than there are store variables, the missing values
 are set to @nil{}.
 
 In the form @f{(rotatef @i{place1} @i{place2} ... @i{placen})},
-the values in @i{place1} through @i{placen} are @term{read} and @term{written}.
+the values in @i{place1} through @i{placen} are @term{read} and @i{written}.
 Values 2 through @i{n}
 and value 1 are then stored into @i{place1} through @i{placen}.
 It is as if all the places form an end-around shift register

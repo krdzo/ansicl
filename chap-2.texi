@@ -283,23 +283,23 @@ lists the @term{syntax type} of each @term{character} in @term{standard syntax}.
 @headitem character @tab syntax type @tab character @tab syntax type
 @item Backspace @tab @term{constituent} @tab 0--9 @tab @term{constituent}
 @item Tab @tab @term{whitespace}@sub{2} @tab : @tab @term{constituent}
-@item Newline @tab @term{whitespace}@sub{2} @tab ; @tab @term{terminating} @term{macro char}
+@item Newline @tab @term{whitespace}@sub{2} @tab ; @tab @term{terminating} @term{macro} @symbolref{char}
 @item Linefeed @tab @term{whitespace}@sub{2} @tab @tt{<} @tab @term{constituent}
 @item Page @tab @term{whitespace}@sub{2} @tab = @tab @term{constituent}
 @item Return @tab @term{whitespace}@sub{2} @tab @tt{>} @tab @term{constituent}
 @item Space @tab @term{whitespace}@sub{2} @tab ? @tab @term{constituent}
 @item ! @tab @term{constituent} @tab @tt{@@} @tab @term{constituent}
-@item @tt{"} @tab @term{terminating} @term{macro char} @tab A--Z @tab @term{constituent}
-@item # @tab @term{non-terminating} @term{macro char} @tab @f{[} @tab @term{constituent}
+@item @tt{"} @tab @term{terminating} @term{macro} @symbolref{char} @tab A--Z @tab @term{constituent}
+@item # @tab @term{non-terminating} @term{macro} @symbolref{char} @tab @f{[} @tab @term{constituent}
 @item @dollar{} @tab @term{constituent} @tab @f{@bsl{}} @tab @term{single escape}
 @item @percent{} @tab @term{constituent} @tab @f{]} @tab @term{constituent}
 @item @ampers{} @tab @term{constituent} @tab @hat{} @tab @term{constituent}
-@item ' @tab @term{terminating} @term{macro char} @tab @f{_} @tab @term{constituent}
-@item ( @tab @term{terminating} @term{macro char} @tab ` @tab @term{terminating} @term{macro char}
-@item ) @tab @term{terminating} @term{macro char} @tab a--z @tab @term{constituent}
+@item ' @tab @term{terminating} @term{macro} @symbolref{char} @tab @f{_} @tab @term{constituent}
+@item ( @tab @term{terminating} @term{macro} @symbolref{char} @tab ` @tab @term{terminating} @term{macro} @symbolref{char}
+@item ) @tab @term{terminating} @term{macro} @symbolref{char} @tab a--z @tab @term{constituent}
 @item @tt{*} @tab @term{constituent} @tab @f{@lcurly{}} @tab @term{constituent}
 @item + @tab @term{constituent} @tab @f{|} @tab @term{multiple escape}
-@item , @tab @term{terminating} @term{macro char} @tab @f{@rcurly{}} @tab @term{constituent}
+@item , @tab @term{terminating} @term{macro} @symbolref{char} @tab @f{@rcurly{}} @tab @term{constituent}
 @item - @tab @term{constituent} @tab @f{@tild{}} @tab @term{constituent}
 @item . @tab @term{constituent} @tab Rubout @tab @term{constituent}
 @item / @tab @term{constituent} @tab  @tab
@@ -828,7 +828,7 @@ the syntax for numbers specified in @thenextfigure{}.
 @param{decimal-point}---a @term{dot}.@span{}@span{}@cr{}
 @param{exponent-marker}---an @term{exponent marker}.@span{}@span{}@cr{}
 @param{decimal-digit}---a @term{digit} in @term{radix} @f{10}.@span{}@span{}@cr{}
-@param{digit}---a @term{digit} in the @term{current input radix}.@span{}@span{}@cr{}
+@param{digit}---a @term{digit} in the current input radix.@span{}@span{}@cr{}
 
 @node Potential Numbers as Tokens
 @subsubsection Potential Numbers as Tokens
@@ -979,11 +979,11 @@ but they are always treated as @term{symbols} if the @term{current input base} i
 @node Constructing Numbers from Tokens
 @subsection Constructing Numbers from Tokens
 
-A @term{real} is constructed directly from a corresponding numeric @term{token};
+A @symbolref{real} is constructed directly from a corresponding numeric @term{token};
 see @ref{SyntaxForNumericTokens, Figure 2.9}.
 
 A @term{complex} is notated as a @f{#C} (or @f{#c}) followed by a @term{list}
-of two @term{reals}; see @ref{Sharpsign C}.
+of two @i{reals}; see @ref{Sharpsign C}.
 
 The @term{reader macros} @f{#B}, @f{#O}, @f{#X}, and @f{#R} may also be useful
 in controlling the input @term{radix} in which @term{rationals} are parsed;
@@ -1120,7 +1120,7 @@ see @ref{Printing Floats}.
 
 A @term{complex} has a Cartesian structure,
 with a real part and an imaginary part each of which is a
-@term{real}.
+@symbolref{real}.
 The parts of a @term{complex} are not necessarily @term{floats}
 but both parts must be of the same @term{type}:
 @editornote{KMP: This is not the same as saying they must be the same type.
@@ -1366,7 +1366,7 @@ always results in the @term{same} @term{symbol}.
 @item @id{@b{Print-read consistency}}
 
 
-An @term{interned symbol} always prints as a sequence of characters that,
+An @term{interned} @term{symbol} always prints as a sequence of characters that,
 when read back in, yields the @term{same} @term{symbol}.
 
 For information about how the @term{Lisp printer} treats @term{symbols},
@@ -1797,7 +1797,7 @@ where the brackets indicate a transformation of an @tt{xj} as described above.
 
 
 Anywhere ``@f{,@@}'' may be used, the syntax ``@f{,.}'' may be used instead
-to indicate that it is permissible to operate @term{destructively} on
+to indicate that it is permissible to operate @i{destructively} on
 the @term{list structure}  produced by the form following the ``@f{,.}''
 (in effect, to use @symbolref{nconc} instead of @symbolref{append}).
 
@@ -2281,8 +2281,8 @@ the @f{#@param{n}R} does not have the syntax of a @term{rational} in radix @para
 @cindex complex
 
 @f{#C} reads a following @term{object}, which must be a @term{list} of
-length two whose @term{elements} are both @term{reals}.
-These @term{reals} denote, respectively,
+length two whose @term{elements} are both @i{reals}.
+These @i{reals} denote, respectively,
 the real and imaginary parts of a @term{complex} number.
 If the two parts as notated are not of the same data type,
 then they are converted
@@ -2301,7 +2301,7 @@ See the @term{function} @ref{complex (Function)}.
 @cartouche
 @multitable{@f{#C(3.0s1 2.0s-1)}}{;Will be converted internally to @f{#C(1.66666 7.0)}}
 
-@item @f{#C(3.0s1 2.0s-1)} @tab ;A @term{complex} with @term{small float} parts.
+@item @f{#C(3.0s1 2.0s-1)} @tab ;A @term{complex} with small float parts.
 @item @f{#C(5 -3)      } @tab ;A ``Gaussian integer''
 @item @f{#C(5/3 7.0) } @tab ;Will be converted internally to @f{#C(1.66666 7.0)}
 @item @f{#C(0 1)} @tab ;The imaginary unit; that is, i.

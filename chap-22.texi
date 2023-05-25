@@ -284,7 +284,7 @@ only the characters of the @term{symbol}'s @term{name} are output
 controlled by @symbolref{*print-case*};
 see @ref{Effect of Readtable Case on the Lisp Printer}).
 
-The remainder of @thissection{}@spc{}applies only
+The remainder of this section @spc{}applies only
 when @term{printer escaping} is enabled.
 
 When printing a @term{symbol}, the printer inserts enough
@@ -1070,7 +1070,7 @@ A @newterm{pprint dispatch table} is a mapping from keys to pairs of values.
 Each key is a @term{type specifier}.
 The values associated with a key are
 a ``function'' (specifically, a @term{function designator} or @nil{})
-and a ``numerical priority'' (specifically, a @term{real}).
+and a ``numerical priority'' (specifically, a @symbolref{real}).
 Basic insertion and retrieval is done based on the keys with the equality
 of keys being tested by @symbolref{equal}.
 
@@ -1608,7 +1608,7 @@ it is printed
 according to the modifier flags.
 
 @f{@tild{}C} prints the @term{character}
-as if by using @symbolref{write-char} if it is a @term{simple character}.
+as if by using @symbolref{write-char} if it is a @term{simple} @term{character}.
 @term{Characters} that are not @term{simple}
 are not necessarily printed as if by @symbolref{write-char},
 but are displayed in an @term{implementation-defined}, abbreviated format.
@@ -3396,8 +3396,8 @@ The state of the @param{table}.
 
 @subsubheading Exceptional Situations:
 
-Should signal an error @oftype{type-error} if @term{table} is neither a
-@term{pprint-dispatch-table} nor @nil{}.
+Should signal an error @oftype{type-error} if @param{table} is neither a
+@i{pprint-dispatch-table} nor @nil{}.
 
 @subsubheading Notes:
 
@@ -3424,11 +3424,11 @@ Should signal an error @oftype{type-error} if @term{table} is neither a
 @subsubheading Description:
 
 Tests whether or not the @param{list} passed to
-the @term{lexically current logical block}
+the @i{lexically current logical block}
 has been exhausted; see @ref{Dynamic Control of the Arrangement of Output}.
 If this @param{list} has been
 reduced to @nil{}, @symbolref{pprint-exit-if-list-exhausted} terminates the execution
-of the @term{lexically current logical block} except for the printing
+of the @i{lexically current logical block} except for the printing
 of the suffix.  Otherwise @symbolref{pprint-exit-if-list-exhausted} returns @nil{}.
 
 Whether or not @symbolref{pprint-exit-if-list-exhausted} is @term{fbound} in the
@@ -3591,7 +3591,7 @@ through to a @formatdirective{:T} nested within an iteration over a list.
 
 @param{relative-to}---either @kwd{block} or @kwd{current}.
 
-@param{n}---a @term{real}.
+@param{n}---a @symbolref{real}.
 
 @param{stream}---an @term{output} @term{stream designator}.
 @Default{@term{standard output}}
@@ -3607,7 +3607,7 @@ otherwise, @symbolref{pprint-indent} has no effect.
 
 @param{N} specifies the indentation in
 @term{ems}.  If @param{relative-to} is @kwd{block}, the indentation is set
-to the horizontal position of the first character in the @term{dynamically current logical block} plus @param{n}
+to the horizontal position of the first character in the @i{dynamically current logical block} plus @param{n}
 @term{ems}. If @param{relative-to} is @kwd{current}, the indentation is set
 to the current output position plus @param{n} @term{ems}. (For robustness
 in the face of variable-width fonts, it is advisable to use @kwd{current}
@@ -3938,17 +3938,17 @@ is not one of @kwd{linear}, @kwd{fill}, @kwd{miser}, or @kwd{mandatory}.
 @subsubheading Arguments and Values:
 
 @param{object}---an @term{element} of the @term{list}
-being printed in the @term{lexically current logical block},
+being printed in the @i{lexically current logical block},
 or @nil{}.
 
 @subsubheading Description:
 
 Pops one @term{element} from the @term{list} being printed
-in the @term{lexically current logical block}, obeying @symbolref{*print-length*}
+in the @i{lexically current logical block}, obeying @symbolref{*print-length*}
 and @symbolref{*print-circle*} as described below.
 
 Each time @symbolref{pprint-pop} is called, it pops the next value off the
-@term{list} passed to the @term{lexically current logical block} and returns it.
+@term{list} passed to the @i{lexically current logical block} and returns it.
 However, before doing this, it performs three tests:
 
 
@@ -4323,7 +4323,7 @@ signals an error @oftype{print-not-readable} without printing anything.
 
 @param{function}---a @term{function}, a @term{function name}, or @nil{}.
 
-@param{priority}---a @term{real}.
+@param{priority}---a @symbolref{real}.
 @Default{@f{0}}
 
 @param{table}---a @term{pprint dispatch table}.
@@ -4346,7 +4346,7 @@ Two values are associated with each @term{type specifier} in a
 The @param{function} must accept two arguments: the @term{stream} to which output
 is sent and the @term{object} to be printed.  The @param{function} should
 @term{pretty print} the @term{object} to the @param{stream}.  The @param{function}
-can assume that object satisfies the @term{type} given by @term{type-specifier}.
+can assume that object satisfies the @term{type} given by @term{type specifier}.
 The @param{function} must obey @symbolref{*print-readably*}.
 Any values returned by the @param{function} are ignored.
 
@@ -4359,7 +4359,7 @@ there will be no @param{type-specifier} entry in @param{table} after
 
 @subsubheading Exceptional Situations:
 
-An error is signaled if @param{priority} is not a @term{real}.
+An error is signaled if @param{priority} is not a @symbolref{real}.
 
 @subsubheading Notes:
 

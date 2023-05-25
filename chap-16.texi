@@ -222,7 +222,7 @@ or the @term{symbol} @t{*}.
 @subsubheading Compound Type Specifier Description:
 
 This is equivalent to the type @f{(simple-array base-char (@param{size}))};
-that is, the set of @term{simple base strings} of size @param{size}.
+that is, the set of @term{simple} @term{base strings} of size @param{size}.
 
 
 @node simple-string-p
@@ -656,8 +656,8 @@ These functions perform lexicographic comparisons on @param{string1} and @param{
 @symbolref{string=} and @symbolref{string-equal} are called equality functions;
 the others are called inequality functions.
 The comparison operations these @term{functions} perform are restricted
-to the subsequence of @param{string1} @term{bounded} by @term{start1} and @param{end1}
-and to the subsequence of @param{string2} @term{bounded} by @term{start2} and @param{end2}.
+to the subsequence of @param{string1} @term{bounded} by @param{start1} and @param{end1}
+and to the subsequence of @param{string2} @term{bounded} by @param{start2} and @param{end2}.
 
 A string @i{a} is equal to a string @i{b} if it contains the same number
 of characters, and the corresponding characters are the @term{same}

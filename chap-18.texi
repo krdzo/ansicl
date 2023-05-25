@@ -270,10 +270,10 @@ is required to use any particular technique to implement the mapping.
 @param{size}---a non-negative @term{integer}.
 @Default{@term{implementation-dependent}}
 
-@param{rehash-size}---a @term{real} of @term{type} @f{(or (integer 1 *) (float (1.0) *))}.
+@param{rehash-size}---a @symbolref{real} of @term{type} @f{(or (integer 1 *) (float (1.0) *))}.
 @Default{@term{implementation-dependent}}
 
-@param{rehash-threshold}---a @term{real} of @term{type} @f{(real 0 1)}.
+@param{rehash-threshold}---a @symbolref{real} of @term{type} @f{(real 0 1)}.
 @Default{@term{implementation-dependent}}
 
 @param{hash-table}---a @term{hash table}.
@@ -284,7 +284,7 @@ Creates and returns a new @term{hash table}.
 
 @param{test} determines how @term{keys} are compared.
 An @term{object} is said to be present in the @param{hash-table}
-if that @term{object} is the @term{same} under the @term{test}
+if that @term{object} is the @term{same} under the @param{test}
 as the @term{key} for some entry in the @param{hash-table}.
 
 @param{size} is a hint to the @term{implementation} about how much initial space
@@ -455,7 +455,7 @@ using @symbolref{hash-table-count} is probably much faster:
 
 @param{hash-table}---a @term{hash table}.
 
-@param{rehash-size}---a @term{real} of @term{type} @f{(or (integer 1 *) (float (1.0) *))}.
+@param{rehash-size}---a @symbolref{real} of @term{type} @f{(or (integer 1 *) (float (1.0) *))}.
 
 @subsubheading Description:
 
@@ -512,7 +512,7 @@ the actual amount by which the @param{hash-table} will grow upon rehash is
 
 @param{hash-table}---a @term{hash table}.
 
-@param{rehash-threshold}---a @term{real} of @term{type} @f{(real 0 1)}.
+@param{rehash-threshold}---a @symbolref{real} of @term{type} @f{(real 0 1)}.
 
 @subsubheading Description:
 

@@ -1016,7 +1016,7 @@ or @nil{}.
 substitution operations on @param{tree}.
 Each function searches @param{tree} for occurrences of a
 particular @param{old} item of an element or subexpression that
-@term{satisfies the test}.
+@i{satisfies the test}.
 
 @symbolref{nsubst}, @symbolref{nsubst-if}, and @symbolref{nsubst-if-not} are
 like @symbolref{subst},
@@ -1458,7 +1458,7 @@ it returns @term{true} for any kind of @term{list}.
 
 @subsubheading Description:
 
-Returns a @term{list} of @param{length} given by @term{size},
+Returns a @term{list} of @param{length} given by @i{size},
 each of the @term{elements} of which is @param{initial-element}.
 
 @subsubheading Examples:
@@ -2553,10 +2553,10 @@ or @nil{}.
 
 @code{member}, @symbolref{member-if}, and @symbolref{member-if-not} each
 search @param{list} for @param{item} or for a top-level element that
-@term{satisfies the test}.  The argument to the @param{predicate} function
+@i{satisfies the test}.  The argument to the @param{predicate} function
 is an element of @param{list}.
 
-If some element @term{satisfies the test},
+If some element @i{satisfies the test},
 the tail of @param{list} beginning
 with this element is returned; otherwise @nil{}@spc{}is returned.
 
@@ -2859,7 +2859,7 @@ or @nil{}.
 @subsubheading Description:
 
 @symbolref{assoc}, @symbolref{assoc-if}, and @symbolref{assoc-if-not}
-return the first @term{cons} in @param{alist} whose @term{car} @term{satisfies the test},
+return the first @term{cons} in @param{alist} whose @term{car} @i{satisfies the test},
 or @nil{}@spc{}if no such @term{cons} is found.
 
 For @symbolref{assoc}, @symbolref{assoc-if}, and @symbolref{assoc-if-not}, if @nil{}@spc{}appears
@@ -3105,7 +3105,7 @@ or @nil{}.
 
 @symbolref{rassoc}, @symbolref{rassoc-if}, and @symbolref{rassoc-if-not}
 return the first @term{cons} whose @term{cdr}
-@term{satisfies the test}.
+@i{satisfies the test}.
 If no such @term{cons} is found, @nil{}
 is returned.
 
@@ -3302,11 +3302,11 @@ of the @term{list structure} held by @param{place}.
 There is no way (using @symbolref{getf}) to distinguish an absent property
 from one whose value is @param{default}; but see @symbolref{get-properties}.
 
-Note that while supplying a @term{default} argument to @symbolref{getf}
+Note that while supplying a @i{default} argument to @symbolref{getf}
 in a @symbolref{setf} situation is sometimes not very interesting,
 it is still important because some macros, such as @symbolref{push} and
 @symbolref{incf}, require a @param{place} argument which data is both @term{read}
-from and @term{written} to.  In such a context, if a @term{default}
+from and @i{written} to.  In such a context, if a @i{default}
 argument is to be supplied for the @term{read} situation, it must be
 syntactically valid for the @term{write} situation as well. For example,
 
@@ -3440,7 +3440,7 @@ the @kwd{key} function typically returns part of the supplied element.
 If @kwd{key} is not supplied or @nil{}, the @param{list-1} and
 @param{list-2} elements are used.
 
-For every pair that @term{satifies the test},
+For every pair that @i{satifies the test},
 exactly one of the two elements of the pair will be put in the result.
 No element from either @term{list} appears in the result that does not
 @term{satisfy the test} for

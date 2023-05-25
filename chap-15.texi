@@ -1107,7 +1107,7 @@ then none of the original contents of @param{array} appears in the new @term{arr
 
 The consequences are unspecified if @param{array} is adjusted
 to a size smaller than its @term{fill pointer} without supplying
-the @param{fill-pointer} argument so that its @term{fill-pointer}
+the @param{fill-pointer} argument so that its @term{fill pointer}
 is properly adjusted in the process.
 
 If @tt{A} is displaced to @tt{B}, the consequences are unspecified
@@ -1246,7 +1246,7 @@ Should signal an error @oftype{type-error} if its argument is not an @term{array
 
 @param{array}---an @term{array}.
 
-@param{subscripts}---a @term{list} of @term{valid array indices} for the @param{array}.
+@param{subscripts}---a @term{list} of @i{valid array indices} for the @param{array}.
 
 @param{element}, @param{new-element}---an @term{object}.
 
@@ -1651,7 +1651,7 @@ Should signal an error @oftype{type-error} if its argument is not an @term{array
 
 @param{array}---an @term{array}.
 
-@param{subscripts}---a @term{list} of @term{valid array indices} for the @param{array}.
+@param{subscripts}---a @term{list} of @i{valid array indices} for the @param{array}.
 
 @param{index}---a @term{valid array row-major index} for the @param{array}.
 
@@ -2385,7 +2385,7 @@ have a @term{fill pointer}.
 @param{bit-array}---for @code{bit},  a @term{bit array};
 for @symbolref{sbit}, a @term{simple bit array}.
 
-@param{subscripts}---a @term{list} of @term{valid array indices}
+@param{subscripts}---a @term{list} of @i{valid array indices}
 for the @param{bit-array}.
 
 @param{bit}---a @term{bit}.

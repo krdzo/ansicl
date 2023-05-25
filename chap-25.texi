@@ -110,7 +110,7 @@ for either @term{absolute} and @term{relative} @term{time} measurements.
 Both a @term{universal time} and a @term{decoded time} can be used
 only for @term{absolute} @term{time} measurements.
 In the case of one function, @symbolref{sleep},
-time intervals are represented as a non-negative @term{real} number of seconds.
+time intervals are represented as a non-negative @symbolref{real} number of seconds.
 
 @Thenextfigure{}@spc{}shows @term{defined names} relating to @term{time}.
 
@@ -269,11 +269,11 @@ Absolute time is relative to an arbitrary time base.
 @node Seconds
 @subsubsection Seconds
 
-One function, @symbolref{sleep}, takes its argument as a non-negative @term{real} number
+One function, @symbolref{sleep}, takes its argument as a non-negative @symbolref{real} number
 of seconds.  Informally, it may be useful to think of this as
 a @term{relative} @term{universal time}, but it differs in one important way:
 @term{universal times} are always non-negative @term{integers}, whereas the argument to
-@symbolref{sleep} can be any kind of non-negative @term{real}, in order to allow for
+@symbolref{sleep} can be any kind of non-negative @symbolref{real}, in order to allow for
 the possibility of fractional seconds.
 
 
@@ -514,7 +514,7 @@ to interactively set the correct time.
 
 @subsubheading Arguments and Values:
 
-@param{seconds}---a non-negative @term{real}.
+@param{seconds}---a non-negative @symbolref{real}.
 
 @subsubheading Description:
 
@@ -547,7 +547,7 @@ The granularity of the scheduler.
 
 @subsubheading Exceptional Situations:
 
-@Shouldchecktype{seconds, a non-negative @term{real}}
+@Shouldchecktype{seconds, a non-negative @symbolref{real}}
 
 
 @node apropos; apropos-list
@@ -777,7 +777,7 @@ in all of their @term{methods}.  @symbolref{describe} takes care of that.
 @param{function-name}---a @term{function name}.
 
 @param{trace-result}---@term{implementation-dependent},
-unless no @term{function-names} are supplied,
+unless no @param{function-names} are supplied,
 in which case @param{trace-result} is a @term{list} of @term{function names}.
 
 @param{untrace-result}---@term{implementation-dependent}.
@@ -893,7 +893,7 @@ implementation to interactively step through only those parts of the computation
 that are interpreted.
 
 It is technically permissible for a @term{conforming implementation}
-to take no action at all other than normal @term{execution} of the @param{form}.
+to take no action at all other than normal @i{execution} of the @param{form}.
 In such a situation,
 @f{(step @i{form})}
 is equivalent to, for example,

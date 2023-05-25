@@ -1348,7 +1348,7 @@ Specializing.
 @editornote{Sandra: Still need clarification about what happens if the
 number of arguments doesn't match the FUNCTION type declaration.}
 
-The list form of the @code{function} @term{type-specifier}
+The list form of the @code{function} @term{type specifier}
 can be used only for declaration and not for discrimination.
 Every element of this @term{type} is
 a @term{function} that accepts arguments of the
@@ -2054,7 +2054,7 @@ then the @param{result} is a @term{vector}
 that has the @term{same} @term{elements} as @param{object}.
 If @param{result-type} is a specialized @term{type},
 the @param{result} has an @term{actual array element type} that is the result of
-@term{upgrading} the element type part of that @term{specialized} @term{type}.
+@i{upgrading} the element type part of that @term{specialized} @term{type}.
 If no element type is specified, the element type defaults to @code{t}.
 If the @term{implementation} cannot determine the element type, an error is signaled.
 
@@ -2071,10 +2071,10 @@ the @param{result} is the @term{character} it denotes.
 
 
 If the @param{result-type} is @code{complex}
-and the @term{object} is a @term{real},
+and the @term{object} is a @symbolref{real},
 then the @param{result} is obtained by constructing a @term{complex}
 whose real part is the @term{object} and
-whose imaginary part is the result of @term{coercing} an @term{integer} zero
+whose imaginary part is the result of @i{coercing} an @term{integer} zero
 to the @term{type} of the @term{object} (using @symbolref{coerce}).
 (If the real part is a @term{rational}, however,
 then the result must be represented as a @term{rational} rather
@@ -2091,7 +2091,7 @@ If the @param{result-type} is any of @code{float},
 @symbolref{double-float},
 @symbolref{long-float},
 and the @term{object} is a
-@term{real},
+@symbolref{real},
 then the @param{result} is a @term{float} of @term{type} @param{result-type}
 which is equal in sign and magnitude to the @term{object} to whatever degree of
 representational precision is permitted by that @term{float} representation.
@@ -2222,7 +2222,7 @@ the @term{type specifier} may be used as an @term{atomic type specifier}.
 
 The @term{argument} @term{expressions} to the @term{type specifier},
 @param{arg_1} @mat{@ldots{}} @param{arg_n}, are not @term{evaluated}.
-Instead, these @term{literal objects} become the @term{objects} to which
+Instead, these @term{literal} @term{objects} become the @term{objects} to which
 corresponding @term{parameters} become @term{bound}.
 
 The body of the @symbolref{deftype} @term{form}

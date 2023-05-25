@@ -157,10 +157,6 @@ X3J13/94-101R
 @r{|}
 @end macro
 
-@macro thissection {}
-this section
-@end macro
-
 @macro minussign {}
 @minus{}
 @end macro
@@ -546,7 +542,7 @@ evaluated
 @end macro
 
 @macro term {arg}
-@i{\arg\}
+@i{@ref{glos-\arg\, \arg\}}
 @end macro
 
 @macro bogusterm {arg}
@@ -749,7 +745,7 @@ of @term{class} @code{\type\}
 @end macro
 
 @macro oftypes {arg}
-of @term{type} @code{\arg\} or a @term{suptype} of @term{type} @code{\arg\}
+of @term{type} @code{\arg\} or a @term{subtype} of @term{type} @code{\arg\}
 @end macro
 
 @macro ofmetaclass {arg}
@@ -1390,7 +1386,7 @@ for @term{type} @code{\arg1\}.
 
 @subsubheading Compound Type Specifier Description:
 
-This denotes the @term{\arg1\s} on the interval described by
+This denotes the @i{\arg1\s} on the interval described by
 @param{lower-limit} and @param{upper-limit}.
 @end macro
 

@@ -509,7 +509,7 @@ therefore will not interfere with the default behavior of
 
 The @OS{}@spc{}provides two @term{functions} that are useful in the bodies of
 @symbolref{initialize-instance} methods.  @Thefunction{slot-boundp}
-returns a @term{generic boolean} value that indicates whether a specified @term{slot} has a
+returns a @i{generic boolean} value that indicates whether a specified @term{slot} has a
 value; this provides a mechanism for writing @term{after methods} for
 @symbolref{initialize-instance} that initialize @term{slots} only if they have
 not already been initialized.  @Thefunction{slot-makunbound}
@@ -536,7 +536,7 @@ follows, except that certain optimizations are permitted:
 
 
 The elided code in the definition of @symbolref{make-instance}
-augments the @f{initargs} with any @term{defaulted initialization arguments} and
+augments the @f{initargs} with any @i{defaulted initialization arguments} and
 checks the
 resulting
 initialization arguments to determine whether an initialization
@@ -1039,7 +1039,7 @@ Like an @term{ordinary function}, a @term{generic function} takes @term{argument
 performs a series of operations, and perhaps returns useful @term{values}.
 An @term{ordinary function} has a single body of @term{code} that is always @term{executed}
 when the @term{function} is called.  A @term{generic function} has a set of bodies
-of @term{code} of which a subset is selected for @term{execution}. The selected
+of @term{code} of which a subset is selected for @i{execution}. The selected
 bodies of @term{code} and the manner of their combination are determined by
 the @term{classes} or identities of one or more of the @term{arguments} to the
 @term{generic function} and by its @term{method combination}.
@@ -1154,14 +1154,14 @@ is created and one of four actions is taken:
 @itemize @bullet{}
 
 @item If a @term{generic function} of the given name already exists
-and if a @term{method object} already exists that agrees with the new one on
-@term{parameter specializers} and @term{qualifiers}, the new @term{method object} replaces
+and if a @term{method} @term{object} already exists that agrees with the new one on
+@term{parameter specializers} and @term{qualifiers}, the new @term{method} @term{object} replaces
 the old one.  For a definition of one method agreeing with another on
 @term{parameter specializers} and @term{qualifiers},
 see @ref{Agreement on Parameter Specializers and Qualifiers}.
 
 @item If a @term{generic function} of the given name already exists
-and if there is no @term{method object} that agrees with the new one on
+and if there is no @term{method} @term{object} that agrees with the new one on
 @term{parameter specializers} and @term{qualifiers}, the existing @term{generic function}
 @term{object} is modified to contain the new @term{method} @term{object}.
 
@@ -1428,8 +1428,8 @@ that @term{calls} some or all of the @term{methods}.
 
 If a @term{generic function} is called and no @term{methods} are
 @term{applicable}, the @term{generic function} @symbolref{no-applicable-method}
-is invoked, with the @term{results} from that call being used as the
-@term{results} of the call to the original @term{generic function}.  Calling
+is invoked, with the @i{results} from that call being used as the
+@i{results} of the call to the original @term{generic function}.  Calling
 @symbolref{no-applicable-method} takes precedence over checking for acceptable
 keyword arguments; see @ref{Keyword Arguments in Generic Functions and Methods}.
 
@@ -3377,7 +3377,7 @@ corresponding to the @term{lexical environment}
 in which the @term{forms} will be processed.
 
 The @term{file compiler} calls @symbolref{make-load-form} to process certain
-@term{classes} of @term{literal objects}; see @ref{Additional Constraints on Externalizable Objects}.
+@term{classes} of @term{literal} @term{objects}; see @ref{Additional Constraints on Externalizable Objects}.
 
 @term{Conforming programs} may call @symbolref{make-load-form} directly,
 providing @param{object} is a @term{generalized instance} of
@@ -3418,10 +3418,10 @@ The creation form for an @term{object} is always @term{evaluated} before the
 initialization form for that @term{object}.  When either the creation form or
 the initialization form references other @term{objects} that have not been
 referenced earlier in the @term{file} being @term{compiled}, the @term{compiler} ensures
-that all of the referenced @term{objects} have been created before @term{evaluating}
+that all of the referenced @term{objects} have been created before @i{evaluating}
 the referencing @term{form}.  When the referenced @term{object} is of a @term{type} which
 the @term{file compiler} processes using @symbolref{make-load-form},
-this involves @term{evaluating}
+this involves @i{evaluating}
 the creation form returned for it.  (This is the reason for the
 prohibition against circular references among creation forms).
 
@@ -3473,7 +3473,7 @@ if it does not have a @term{proper name}.  @term{Evaluation} of the creation
 @term{name}, as if by @term{calling} @symbolref{find-class}.  If a @term{class}
 with that @term{name} has not been defined, then a @term{class} may be
 computed in an @term{implementation-defined} manner.  If a @term{class}
-cannot be returned as the result of @term{evaluating} the creation
+cannot be returned as the result of @i{evaluating} the creation
 @term{form}, then an error @oftype{error} is signaled.
 
 Both @term{conforming implementations} and @term{conforming programs} may
@@ -3632,7 +3632,7 @@ Some @term{implementations} may provide facilities for defining new
 @symbolref{generic-function}, @symbolref{method}, and @symbolref{stream}).  Such
 @term{implementations} should document how the @term{file compiler} processes
 @term{instances} of such @term{classes} when encountered as
-@term{literal objects}, and should document any relevant @term{methods}
+@term{literal} @term{objects}, and should document any relevant @term{methods}
 for @symbolref{make-load-form}.
 
 
@@ -3662,7 +3662,7 @@ for @symbolref{make-load-form}.
 @subsubheading Description:
 
 Returns @term{forms} that, when @term{evaluated}, will construct an
-@term{object} equivalent to @param{object}, without @term{executing}
+@term{object} equivalent to @param{object}, without @i{executing}
 @term{initialization forms}.  The @term{slots} in the new @term{object}
 that correspond to initialized @term{slots} in @param{object} are
 initialized using the values from @param{object}.  Uninitialized @term{slots}
@@ -3719,9 +3719,9 @@ might actually be used.
 
 @subsubheading Arguments and Values:
 
-@param{variable-name}---a @term{variable name}; @noeval{}.
+@param{variable-name}---a @term{variable} @term{name}; @noeval{}.
 
-@param{accessor-name}---a @term{function name}; @noeval{}.
+@param{accessor-name}---a @term{function} @term{name}; @noeval{}.
 
 @param{instance-form}---a @term{form}; @eval{}.
 
@@ -3813,7 +3813,7 @@ A @symbolref{with-accessors} expression of the form:
 
 @param{slot-name}---a @term{slot} @term{name}; @noeval{}.
 
-@param{variable-name}---a @term{variable name}; @noeval{}.
+@param{variable-name}---a @term{variable} @term{name}; @noeval{}.
 
 @param{instance-form}---a @term{form}; evaluted to produce @param{instance}.
 
@@ -4266,7 +4266,7 @@ other @term{declaration specifiers} are not permitted.
 
 @param{method-class}---a @term{non-nil} @term{symbol} naming a @term{class}.
 
-@param{method-combination-argument}---an @term{object.}
+@param{method-combination-argument}---an @term{object}.
 
 @param{method-combination-name}---a @term{symbol}
 naming a @term{method combination} @term{type}.
@@ -4721,7 +4721,7 @@ the @term{class} associated with a
 @term{symbol} that is defined as a @term{type specifier} in this standard.
 See @ref{Integrating Types and Classes}.
 
-When using @SETFof{find-class}, any @term{errorp} argument is @term{evaluated}
+When using @SETFof{find-class}, any @param{errorp} argument is @term{evaluated}
 for effect, but any @term{values} it returns are ignored; the @param{errorp}
 @term{parameter} is permitted primarily so that the @param{environment} @term{parameter}
 can be used.

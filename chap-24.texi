@@ -22,7 +22,7 @@ The @term{file} may contain @newterm{source code} or @newterm{compiled code}.
 A @term{file} containing @term{source code} is called a @newterm{source file}.
 @term{Loading} a @term{source file} is accomplished essentially
 by sequentially @term{reading}@sub{2} the @term{forms} in the file,
-@term{evaluating} each immediately after it is @term{read}.
+@i{evaluating} each immediately after it is @term{read}.
 
 A @term{file} containing @term{compiled code} is called a @newterm{compiled file}.
 @term{Loading} a @term{compiled file} is similar to @term{loading} a @term{source file},
@@ -102,7 +102,7 @@ in @term{implementation} B, the feature @f{lispm} is @term{present},
 but the @term{features} @f{spice} and @f{perq} are
 not @term{present};
 and
-in @term{implementation} C, none of the features @f{spice}, @term{lispm}, or @f{perq} are
+in @term{implementation} C, none of the features @f{spice}, @tt{lispm}, or @f{perq} are
 @term{present}.
 @Thenextfigure{}@spc{}shows some sample @term{expressions}, and how they would be
 @term{read}@sub{2} in these @term{implementations}.
@@ -582,7 +582,7 @@ Within the @term{dynamic environment} of @symbolref{with-compilation-unit},
 actions deferred by the compiler until the end of compilation will be
 deferred until the end of the outermost call to @symbolref{with-compilation-unit}.
 
-The set of @term{options} permitted may be extended by the implementation,
+The set of @i{options} permitted may be extended by the implementation,
 but the only @term{standardized} keyword is @kwd{override}.
 
 If nested dynamically only the outer call to
@@ -622,7 +622,7 @@ warnings to be deferred to the end of the compilation of several files.
 
 
 Note however that if the implementation does not normally defer any warnings,
-use of @term{with-compilation-unit} might not have any effect.
+use of @symbolref{with-compilation-unit} might not have any effect.
 
 @subsubheading See Also:
 

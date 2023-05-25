@@ -891,7 +891,7 @@ it parses into @kwd{wild}.
 
 Each @term{asterisk} in a @param{wildcard-word} matches a sequence of
 zero or more characters.  The @param{wildcard-word} ``@f{*}''
-parses into @kwd{wild}; other @term{wildcard-words} parse into @term{strings}.
+parses into @kwd{wild}; other @param{wildcard-words} parse into @term{strings}.
 
 
 @node Lowercase Letters in a Logical Pathname Namestring
@@ -923,7 +923,7 @@ The consequences of using any value not specified here as a
 @subsubsection Unspecific Components of a Logical Pathname
 
 The device component of a @term{logical pathname} is always @kwd{unspecific};
-no other component of a @term logical pathname can be @kwd{unspecific}.
+no other component of a @term{logical pathname} can be @kwd{unspecific}.
 
 
 @node Null Strings as Components of a Logical Pathname
@@ -1424,7 +1424,7 @@ Should signal an error @oftype{type-error} if its first argument is not a @term{
 
 @param{host}---a @term{string}.
 
-@term{just-loaded}---a @term{generalized boolean}.
+@param{just-loaded}---a @term{generalized boolean}.
 
 @subsubheading Description:
 
@@ -1467,7 +1467,7 @@ If no definition is found, an error @oftype{error} is signaled.
 @subsubheading Notes:
 
 @term{Logical pathname} definitions will be created not just by
-@term{implementors} but also by @term{programmers}.  As such,
+@i{implementors} but also by @term{programmers}.  As such,
 it is important that the search strategy be documented.
 For example, an @term{implementation} might define that the
 definition of a @param{host} is to be found in a file called

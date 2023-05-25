@@ -1119,7 +1119,7 @@ are the @term{same} under @symbolref{string=},
 @symbolref{defstruct} should signal an error @oftype{program-error}.
 
 The consequences are undefined if the @param{included-structure-name}
-does not name a @term{structure type}.
+does not name a @term{structure} @term{type}.
 
 @subsubheading See Also:
 

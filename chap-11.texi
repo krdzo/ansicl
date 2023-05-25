@@ -316,15 +316,15 @@ is given in @thenextfigure{}.
 
 
 The @code{COMMON-LISP} @term{package} contains the primitives of the @clisp{}@spc{}system as
-defined by this specification.  Its @term{external} @term{symbols} include
+defined by this specification.  Its @i{external} @term{symbols} include
 all of the @term{defined names} (except for @term{defined names} in
 the @code{KEYWORD} @term{package}) that are present in the @clisp{}@spc{}system,
 such as @symbolref{car}, @symbolref{cdr},  @symbolref{*package*}, etc.
 The @code{COMMON-LISP} @term{package} has the @term{nickname} @code{CL}.
 
-The @code{COMMON-LISP} @term{package} has as @term{external} @term{symbols} those
+The @code{COMMON-LISP} @term{package} has as @i{external} @term{symbols} those
 symbols enumerated in the figures in @ref{Symbols in the COMMON-LISP Package}, and no others.
-These @term{external} @term{symbols} are @term{present} in the @code{COMMON-LISP} @term{package}
+These @i{external} @term{symbols} are @term{present} in the @code{COMMON-LISP} @term{package}
 but their @term{home package} need not be the @code{COMMON-LISP} @term{package}.
 
 For example, the symbol @f{HELP} cannot be an @term{external symbol} of
@@ -342,7 +342,7 @@ The @code{COMMON-LISP} @term{package} can have additional @term{internal symbols
 
 
 In a @term{conforming implementation},
-an @term{external} @term{symbol} of the @code{COMMON-LISP} @term{package} can have
+an @i{external} @term{symbol} of the @code{COMMON-LISP} @term{package} can have
 a @term{function}, @term{macro}, or @term{special operator} definition,
 a @term{global variable} definition
 (or other status as a @term{dynamic variable}

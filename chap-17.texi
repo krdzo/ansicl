@@ -1296,15 +1296,15 @@ or @nil{}.
 
 @symbolref{find}, @symbolref{find-if}, and @symbolref{find-if-not}
 each search for an @term{element} of the @param{sequence}
-@term{bounded} by @param{start} and @term{end}
-that @term{satisfies the predicate} @param{predicate}
-or that @term{satisfies the test} @param{test} or @param{test-not},
+@term{bounded} by @param{start} and @param{end}
+that @i{satisfies the predicate} @param{predicate}
+or that @i{satisfies the test} @param{test} or @param{test-not},
 as appropriate.
 
 If @param{from-end} is @term{true},
-then the result is the rightmost @term{element} that @term{satisfies the test}.
+then the result is the rightmost @term{element} that @i{satisfies the test}.
 
-If the @param{sequence} contains an @term{element} that @term{satisfies the test},
+If the @param{sequence} contains an @term{element} that @i{satisfies the test},
 then the leftmost or rightmost @param{sequence} element,
 depending on @param{from-end},
 is returned;
@@ -1387,15 +1387,15 @@ or @nil{}.
 @subsubheading Description:
 
 @symbolref{position}, @symbolref{position-if}, and @symbolref{position-if-not}
-each search @param{sequence} for an @term{element} that @term{satisfies the test}.
+each search @param{sequence} for an @term{element} that @i{satisfies the test}.
 
 The @param{position} returned is the index within @param{sequence}
 of the leftmost  (if @param{from-end} is @term{true})
 or of the rightmost (if @param{from-end} is @term{false})
-@term{element} that @term{satisfies the test};
+@term{element} that @i{satisfies the test};
 otherwise @nil{}@spc{}is returned.
 The index returned is relative to the left-hand end of the entire @param{sequence},
-regardless of the value of @term{start}, @term{end}, or @term{from-end}.
+regardless of the value of @param{start}, @param{end}, or @param{from-end}.
 
 @subsubheading Examples:
 
@@ -1727,7 +1727,7 @@ or @nil{}.
 @symbolref{substitute}, @symbolref{substitute-if}, and @symbolref{substitute-if-not}
 return a
 copy of @param{sequence} in which each @term{element}
-that @term{satisfies the test} has been replaced with @param{newitem}.
+that @i{satisfies the test} has been replaced with @param{newitem}.
 
 @symbolref{nsubstitute}, @symbolref{nsubstitute-if}, and @symbolref{nsubstitute-if-not}
 are like @symbolref{substitute}, @symbolref{substitute-if}, and
@@ -1753,7 +1753,7 @@ If @param{count} is @nil{}, all matching items are affected.
 Supplying a @param{from-end} of @term{true} matters only when the
 @param{count} is provided (and @term{non-nil});
 in that case,
-only the rightmost @param{count} @term{elements} @term{satisfying the test} are removed
+only the rightmost @param{count} @term{elements} @i{satisfying the test} are removed
 (instead of the leftmost).
 
 @param{predicate}, @param{test}, and @param{test-not}
@@ -1763,7 +1763,7 @@ and their side effects can happen in any order.
 The result of all these functions is a @term{sequence}
 of the same @term{type} as @param{sequence}
 that has the same elements except that those in the subsequence
-@term{bounded} by @param{start} and @param{end} and @term{satisfying the test}
+@term{bounded} by @param{start} and @param{end} and @i{satisfying the test}
 have been replaced by @param{newitem}.
 
 @symbolref{substitute}, @symbolref{substitute-if}, and @symbolref{substitute-if-not}
@@ -2131,7 +2131,7 @@ If @param{sequence} is a @term{list}, the result is a @term{list}.
 
 Supplying a @param{from-end} of @term{true} matters only when the
 @param{count} is provided; in that case only the rightmost @param{count} elements
-@term{satisfying the test} are deleted.
+@i{satisfying the test} are deleted.
 
 @param{Count}, if supplied, limits the number of elements
 removed or deleted; if more than @param{count} elements @term{satisfy the test},
@@ -2152,7 +2152,7 @@ as they did in @param{sequence}.
 a @term{sequence}
 of the same @term{type} as @param{sequence}
 that has the same elements except that those in the subsequence
-@term{bounded} by @param{start} and @param{end} and @term{satisfying the test}
+@term{bounded} by @param{start} and @param{end} and @i{satisfying the test}
 have been removed.
 This is a non-destructive operation. If any
 elements need to be removed, the result will be a copy.
@@ -2165,7 +2165,7 @@ if no elements need to be removed.
 return a @term{sequence}
 of the same @term{type} as @param{sequence}
 that has the same elements except that those in the subsequence
-@term{bounded} by @param{start} and @param{end} and @term{satisfying the test}
+@term{bounded} by @param{start} and @param{end} and @i{satisfying the test}
 have been deleted.
 @param{Sequence} may be destroyed and used to construct
 the result; however, the result might or might not be @term{identical}

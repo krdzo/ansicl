@@ -1096,7 +1096,7 @@ Also,
 @end lisp
 
 
-in @term{safe code}
+in @term{safe} @term{code}
 might return @nil{}@spc{}(as an @term{implementation-defined} extension),
 might never return,
 or might signal an error @oftype{type-error}.
@@ -2018,7 +2018,7 @@ assumptions on the basis of input data.
 @node Character Set for Portable Code
 @subsubsection Character Set for Portable Code
 
-@term{Portable code} is written using only @term{standard characters}.
+@term{Portable} @term{code} is written using only @term{standard characters}.
 
 
 
@@ -2202,7 +2202,7 @@ should be used if that is what is desired.
 @section Symbols in the COMMON-LISP Package
 
 The figures on the next twelve pages contain a complete enumeration
-of the 978 @term{external} @term{symbols} in the @code{COMMON-LISP} @term{package}.
+of the 978 @i{external} @term{symbols} in the @code{COMMON-LISP} @term{package}.
 @cindex COMMON-LISP
 
 

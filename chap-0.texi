@@ -9,12 +9,21 @@
 @defindex sy
 @c %**end of header
 
+@c healper macros defining document semantics
+@include dp.texi
+
 @dircategory Programming
 @direntry
 * ANSI Common Lisp: (ansicl).    Draft ANSI Common Lisp standard (dpANS3R).
 @end direntry
-@include dp.texi
 
+@titlepage
+@sp 10
+@comment The title is printed in a large font.
+@center @titlefont{ANSI Common Lisp}
+@end titlepage
+
+@contents
 
 @node Top
 @top ANSI Common Lisp
@@ -59,7 +68,6 @@ discrepancies with the hardcopy version to
 * List of Figures::
 @end menu
 
-@contents
 
 @include chap-1.texi
 @include chap-2.texi

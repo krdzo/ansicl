@@ -322,7 +322,7 @@ to perform output to @term{standard output} saying what directories were created
 If the containing directories exist, or if @param{verbose} is @term{false},
 this function performs no output.
 
-The @term{primary value} is the given @term{pathspec} so that this operation can
+The @term{primary value} is the given @i{pathspec} so that this operation can
 be straightforwardly composed with other file manipulation expressions.
 The @term{secondary value}, @param{created}, is @term{true} if any directories were
 created.

@@ -15,7 +15,7 @@
 @section Evaluation
 
 
-@term{Execution} of @term{code} can be accomplished by a variety of means ranging
+@i{Execution} of @term{code} can be accomplished by a variety of means ranging
 from direct interpretation of a @term{form} representing a @term{program}
 to invocation of @term{compiled code} produced by a @term{compiler}.
 
@@ -92,7 +92,7 @@ The @term{global environment} contains, among other things, the following:
 
 A @newterm{dynamic environment} for @term{evaluation} is that part of an
 @term{environment} that contains @term{bindings} whose duration
-is bounded by points of @term{establishment} and @term{disestablishment}
+is bounded by points of @i{establishment} and @i{disestablishment}
 within the execution of the @term{form} that
 established the @term{binding}.
 A @term{dynamic environment} contains, among other things, the following:
@@ -107,7 +107,7 @@ A @term{dynamic environment} contains, among other things, the following:
 
 
 The @term{dynamic environment} that is active at any given point
-in the @term{execution} of a @term{program} is referred to by
+in the @i{execution} of a @term{program} is referred to by
 definite reference as ``the current @term{dynamic environment},''
 or sometimes as just ``the @term{dynamic environment}.''
 
@@ -596,7 +596,7 @@ or @symbolref{labels}.
 A @term{lambda form} is similar to a @term{function form}, except that
 the @term{function name} is replaced by a @term{lambda expression}.
 
-A @term{lambda form} is equivalent to using @term{funcall} of a
+A @term{lambda form} is equivalent to using @symbolref{funcall} of a
 @term{lexical closure} of the @term{lambda expression} on the given @term{arguments}.
 (In practice, some compilers are more likely to produce inline code
 for a @term{lambda form} than for an arbitrary named function
@@ -612,7 +612,7 @@ For further information, see @ref{Lambda Expressions}.
 
 
 A @term{form} that is neither a @term{symbol} nor a @term{cons} is
-defined to be a @term{self-evaluating object}.  @term{Evaluating}
+defined to be a @term{self-evaluating object}.  @i{Evaluating}
 such an @term{object} @term{yields} the @term{same} @term{object}
 as a result.
 
@@ -622,7 +622,7 @@ general set of rules for the @term{evaluation} of @term{symbols} and
 @term{conses}; such @term{objects} are not considered to be
 @term{self-evaluating objects}.
 
-The consequences are undefined if @term{literal objects} (including
+The consequences are undefined if @term{literal} @term{objects} (including
 @term{self-evaluating objects}) are destructively modified.
 
 @node Examples of Self-Evaluating Objects
@@ -1018,14 +1018,14 @@ by @symbolref{compile} or by @symbolref{load} when @term{loading} a @term{compil
 The term @newterm{implicit compilation} refers to @term{compilation}
 performed during @term{evaluation}.
 
-The term @newterm{literal object} refers to
+The term @term{literal} @term{object} refers to
 a quoted @term{object}
 or a @term{self-evaluating object}
 or an @term{object} that is a substructure of such an @term{object}.
-A @term{constant variable} is not itself a @term{literal object}.
+A @term{constant variable} is not itself a @term{literal} @term{object}.
 
 The term @newterm{coalesce} is defined as follows.
-Suppose @f{A} and @f{B} are two @term{literal constants} in the @term{source code},
+Suppose @f{A} and @f{B} are two @term{literal} @term{constants} in the @term{source code},
 and that @f{A'} and @f{B'} are the corresponding @term{objects} in the @term{compiled code}.
 If @f{A'} and @f{B'} are @code{eql} but
 @f{A} and @f{B} are not @code{eql}, then it is said
@@ -1037,7 +1037,7 @@ must take at @term{compile time}. These actions are specified in
 
 The verb @newterm{process} refers to performing @term{minimal compilation},
 determining the time of evaluation for a @term{form},
-and possibly @term{evaluating} that @term{form} (if required).
+and possibly @i{evaluating} that @term{form} (if required).
 
 The term @newterm{further compilation} refers to
 @term{implementation-dependent} compilation beyond @term{minimal compilation}.
@@ -1679,7 +1679,7 @@ This is of concern both to @term{conforming implementations} and to
 @subsection Literal Objects in Compiled Files
 
 The functions @symbolref{eval} and @symbolref{compile} are
-required to ensure that @term{literal objects} referenced within the resulting
+required to ensure that @term{literal} @term{objects} referenced within the resulting
 interpreted or compiled code objects are the @term{same} as the
 corresponding @term{objects} in the @term{source code}.
 @symbolref{compile-file}, on the other hand,
@@ -1696,7 +1696,7 @@ defines the concept of @term{similarity} which relates
 @term{objects} in the @term{evaluation environment} to the
 corresponding @term{objects} in the @term{run-time environment}.
 
-The constraints on @term{literal objects} described in this section
+The constraints on @term{literal} @term{objects} described in this section
 apply only to @symbolref{compile-file};
 @symbolref{eval} and @symbolref{compile} do not copy or coalesce constants.
 
@@ -1720,11 +1720,11 @@ independent of the @term{Lisp image} so that the two @term{objects} in
 different @term{Lisp images} can be understood to be equivalent under
 this predicate.  Further, by inspecting the definition of this conceptual
 predicate, the programmer can anticipate what aspects of an @term{object}
-are reliably preserved by @term{file compilation}.
+are reliably preserved by @term{file} @term{compilation}.
 
 The @term{file compiler} must cooperate with the @term{loader} in order to
 assure that in each case where an @term{externalizable object} is processed
-as a @term{literal object}, the @term{loader} will construct a @term{similar}
+as a @term{literal} @term{object}, the @term{loader} will construct a @term{similar}
 @term{object}.
 
 The set of @term{objects} that are
@@ -1883,13 +1883,13 @@ are @term{similar}.
 If there is more than one possible one-to-one correspondence between
 the keys of @mat{S} and @mat{C}, the consequences are unspecified.
 A @term{conforming program} cannot use a table such as @mat{S} as an
-@term{externalizable constant}.
+@i{externalizable constant}.
 
 @item @id{@code{pathname}}
 
 
 Two @term{pathnames} @mat{S} and @mat{C} are @term{similar} if all corresponding
-@term{pathname components} are @term{similar}.
+@term{pathname} @i{components} are @term{similar}.
 
 @item @id{@code{function}}
 
@@ -1928,20 +1928,20 @@ If for some kind of @term{object}, @term{similarity} is
 neither defined by this specification
 nor by the @term{implementation},
 then the @term{file compiler} must signal an error upon encountering such
-an @term{object} as a @term{literal constant}.
+an @term{object} as a @term{literal} @term{constant}.
 
 
 @node Additional Constraints on Externalizable Objects
 @subsubsection Additional Constraints on Externalizable Objects
 
-If two @term{literal objects} appearing in the source code for a single file
+If two @term{literal} @term{objects} appearing in the source code for a single file
 processed with
 the @term{file compiler}
 are the @term{identical},
 the corresponding @term{objects} in the @term{compiled code}
 must also be the @term{identical}.
 With the exception of @term{symbols} and @term{packages}, any two
-@term{literal objects}
+@term{literal} @term{objects}
 in @term{code} being processed by
 the @term{file compiler}
 may be @term{coalesced}
@@ -1961,7 +1961,7 @@ the @term{same}
 in the corresponding @term{compiled code}.
 
 In addition, the following are constraints on the handling of
-@term{literal objects} by the @term{file compiler}:
+@term{literal} @term{objects} by the @term{file compiler}:
 
 
 @table @asis
@@ -1997,7 +1997,7 @@ appropriate @symbolref{make-load-form} method defined for that
 @term{type}.
 
 The @term{file compiler} calls @symbolref{make-load-form} on any @term{object}
-that is referenced as a @term{literal object} if the @term{object} is a
+that is referenced as a @term{literal} @term{object} if the @term{object} is a
 @term{generalized instance} of @symbolref{standard-object},
 @symbolref{structure-object}, @symbolref{condition}, or any of a
 (possibly empty) @term{implementation-dependent} set of other @term{classes}.
@@ -2306,16 +2306,16 @@ of @f{x} because of the @symbolref{special} @term{declaration} for @f{x}
 in the second line.  The third occurrence of @f{x} @term{establishes} a
 @term{lexical binding} of @f{x} (because there is no @symbolref{special}
 @term{declaration} in the corresponding @symbolref{let} @term{form}).
-The fourth occurrence of @f{x} @term{x} is a reference to the
+The fourth occurrence of @f{x} @i{x} is a reference to the
 @term{lexical binding} of @f{x} established in the third line.
 The fifth occurrence of @f{x} @term{establishes} a @term{dynamic binding}
-of @term{x} for the body of the @symbolref{let} @term{form} that begins on
+of @i{x} for the body of the @symbolref{let} @term{form} that begins on
 that line because of the @symbolref{special} @term{declaration} for @f{x}
 in the sixth line. The reference to @f{x} in the fourth line is not
 affected by the @symbolref{special} @term{declaration} in the sixth line
 because that reference is not within the ``would-be @term{lexical scope}''
 of the @term{variable} @f{x} in the fifth line.  The reference to @f{x}
-in the seventh line is a reference to the @term{dynamic binding} of @term{x}
+in the seventh line is a reference to the @term{dynamic binding} of @i{x}
 @term{established} in the fifth line.
 
 Here is another example, to illustrate the @term{scope} of a
@@ -2448,7 +2448,7 @@ to @term{lambda lists}.
 @subsection Ordinary Lambda Lists
 
 An @newterm{ordinary lambda list} is used to describe how a set of
-@term{arguments} is received by an @term{ordinary} @term{function}.
+@term{arguments} is received by an @term{ordinary function}.
 The @term{defined names} in @thenextfigure{}@spc{}are those which use
 @term{ordinary lambda lists}:
 
@@ -3291,9 +3291,9 @@ For example:
                                              &aux e (f 'eff))))
    (a 1) (b 2) (c 3) (d 4) (e 5) (f 6))
 
- (create-foo 10) @EV{} #S(FOO A 10 B 2 C SEA D 2 E @term{implemention-dependent} F EFF)
+ (create-foo 10) @EV{} #S(FOO A 10 B 2 C SEA D 2 E @term{implementation-dependent} F EFF)
  (create-foo 10 'bee 'see :d 'dee)
-@EV{} #S(FOO A 10 B BEE C SEE D DEE E @term{implemention-dependent} F EFF)
+@EV{} #S(FOO A 10 B BEE C SEE D DEE E @term{implementation-dependent} F EFF)
 @end lisp
 
 
@@ -3498,7 +3498,7 @@ The following special cases require some elaboration:
 @item
 If the @term{function} being called is a @term{generic function},
 it is considered @term{safe} if all of the following are
-@term{safe code} or @term{system code}:
+@term{safe} @term{code} or @term{system code}:
 
 
 @itemize --
@@ -3537,14 +3537,14 @@ must also be @term{safe}.
 @item
 A @term{call} to a @term{method} by @symbolref{call-next-method} must be
 considered @term{safe} if each of the following is
-@term{safe code} or @term{system code}:
+@term{safe} @term{code} or @term{system code}:
 
 
 @itemize --
 @item the definition of the @term{generic function} (if it was defined explicitly).
 @item the @term{method} definitions for all @term{applicable} @term{methods}.
 @item the definition of the @term{method combination}.
-@item the point of entry into the body of the @term{method defining form},
+@item the point of entry into the body of the @term{method} @term{defining form},
 where the @term{binding} of @symbolref{call-next-method} is established.
 @item the point of @term{functional evaluation} of the name @symbolref{call-next-method}.
 @end itemize
@@ -3570,7 +3570,7 @@ If an error is signaled in a @term{safe call},
 the exact point of the @term{signal} is @term{implementation-dependent}.
 In particular, it might be signaled at compile time or at run time,
 and if signaled at run time,
-it might be prior to, during, or after @term{executing} the @term{call}.
+it might be prior to, during, or after @i{executing} the @term{call}.
 However, it is always prior to the execution of the body of the @term{function}
 being @term{called}.
 
@@ -3808,7 +3808,7 @@ in the @term{readtable}.
 
 
 Performing I/O operations on the @term{stream},
-or @term{closing} the @term{stream}.
+or @i{closing} the @term{stream}.
 
 @item @id{All other standardized types}
 
@@ -4061,7 +4061,7 @@ if @param{name} is a @term{symbol} that names a @term{macro},
 its @term{macro function} is updated
 and the @param{name} is returned as the @term{primary value}.
 
-@term{Literal objects} appearing in code processed by
+@term{Literal} @term{objects} appearing in code processed by
 the @symbolref{compile} function are neither copied nor @term{coalesced}.
 The code resulting from the execution of @symbolref{compile}
 references @term{objects} that are @code{eql} to the corresponding
@@ -4461,7 +4461,7 @@ the compiler performs its normal semantic processing (such as macro expansion
 and translation into machine code) on @param{form}, but arranges for the
 execution of @param{form} to occur at load time in a @term{null lexical environment},
 with the result of this @term{evaluation} then being treated as
-a @term{literal object}
+a @term{literal} @term{object}
 at run time.  It is guaranteed that the evaluation of @param{form}
 will take place only once when the @term{file} is @term{loaded}, but
 the order of evaluation with respect to the evaluation of
@@ -4473,7 +4473,7 @@ If a @symbolref{load-time-value} expression appears within a function compiled
 with @symbolref{compile}, the @param{form} is evaluated at compile time in a
 @term{null lexical environment}.  The result of this compile-time evaluation
 is treated as
-a @term{literal object}
+a @term{literal} @term{object}
 in the compiled code.
 
 If a @symbolref{load-time-value} expression is processed by @symbolref{eval},
@@ -4587,7 +4587,7 @@ to make that object read-only.
 
 @Thespecop{quote} just returns @param{object}.
 
-The consequences are undefined if @term{literal objects} (including
+The consequences are undefined if @term{literal} @term{objects} (including
 @term{quoted objects}) are destructively modified.
 
 @subsubheading Examples:
@@ -4913,7 +4913,7 @@ of other @term{forms} returned.
 
 The consequences are undefined if the result of fully macroexpanding
 a @term{form}
-contains any @term{circular} @term{list structure} except in @term{literal objects}.
+contains any @term{circular} @term{list structure} except in @term{literal} @term{objects}.
 
 If a @symbolref{defmacro} @term{form} appears as a @term{top level form},
 the @term{compiler} must store the @term{macro} definition at compile time,
@@ -5624,7 +5624,7 @@ An implementation is free to support other (@term{implementation-defined})
 
 @subsubheading Notes:
 
-Although the @term{execution} of a @symbolref{proclaim} @term{form}
+Although the @i{execution} of a @symbolref{proclaim} @term{form}
 has effects that might affect compilation, the compiler does not make
 any attempt to recognize and specially process @symbolref{proclaim} @term{forms}.
 A @term{proclamation} such as the following, even if a @term{top level form},
@@ -6076,7 +6076,7 @@ the @term{list} which contained it.
 @EV{} NIL
 
 ;; Some implementations might open-code LIST-ALL-PACKAGES in a way
-;; that permits using @term{stack allocation} of the list to be bound to L.
+;; that permits using stack allocation of the list to be bound to L.
  (do ((l (list-all-packages) (cdr l)))
      ((null l))
    (declare (dynamic-extent l))
@@ -6337,7 +6337,7 @@ function is not permitted to be compiled using @term{implementation-dependent}
 
 
 To see why, consider @f{(f most-positive-fixnum 1)}.
-Common Lisp defines that @f{F} must return a @term{bignum} here, rather
+Common Lisp defines that @f{F} must return a @symbolref{bignum} here, rather
 than signal an error or produce a mathematically incorrect result.
 If you have special knowledge such ``@term{fixnum} overflow'' cases will
 not come up, you can declare the result value to be in the @term{fixnum}

@@ -467,7 +467,7 @@ by that @term{form} is active. That is, if the @term{handler} declines,
 no other handler established by that @term{form} will be considered for possible invocation.
 
 @Thenextfigure{}@spc{}shows @term{operators} relating to
-the @term{handling} of @term{conditions}.
+the @i{handling} of @term{conditions}.
 
 
 @float Figure,fig9.4
@@ -811,7 +811,7 @@ and one of these @term{types} can be a @term{subtype} of any
 number of the @subtypesof{condition}.
 
 Whether a user-defined @term{condition} @term{type} has @term{slots}
-that are accessible by @term{with-slots} is @term{implementation-dependent}.
+that are accessible by @symbolref{with-slots} is @term{implementation-dependent}.
 Furthermore, even in an @term{implementation}
 in which user-defined @term{condition} @term{types} would have @term{slots},
 it is @term{implementation-dependent} whether any @term{condition}
@@ -935,7 +935,7 @@ programmer can assure that no harm will come from failing to
 @term{handle} a @term{serious condition}, such a @term{condition} is
 usually signaled with @code{error} rather than @symbolref{signal} in
 order to assure that the program does not continue without
-@term{handling} the @term{condition}.  (And conversely, it is
+@i{handling} the @term{condition}.  (And conversely, it is
 conventional to use @symbolref{signal} rather than @code{error} to signal
 conditions which are not @term{serious conditions}, since normally the
 failure to handle a non-serious condition is not reason enough for the
@@ -1079,7 +1079,7 @@ storage exhausted.
 
 @subsubheading Notes:
 
-While some @clisp{}@spc{}operations might signal @term{storage-condition}
+While some @clisp{}@spc{}operations might signal @symbolref{storage-condition}
 because they are defined to create @term{objects},
 it is unspecified whether operations that are not defined to create
 @term{objects} create them anyway
@@ -1094,7 +1094,7 @@ In general, the entire question of how storage allocation is done is
 and so any operation might signal @symbolref{storage-condition} at any time.
 Because such a @term{condition} is indicative of a limitation
 of the @term{implementation}
-or of the @term{image}
+or of the @i{image}
 rather than an error in a @term{program},
 @term{objects} @oftype{storage-condition} are not @oftype{error}.
 
@@ -2182,7 +2182,7 @@ The debugger is entered.
 For this reason, @symbolref{break} does not take the @param{continue-format-control}
 @term{argument} that @symbolref{cerror} takes.
 This and the lack of any possibility of interception by
-@term{condition} @term{handling} are the only program-visible
+@term{condition} @i{handling} are the only program-visible
 differences between @symbolref{break} and @symbolref{cerror}.
 
 The user interface aspects of @symbolref{break} and @symbolref{cerror} are
@@ -2398,7 +2398,7 @@ operations such as @code{error} and @symbolref{cerror}.
 Executes @param{forms} in a @term{dynamic environment} where the indicated
 @param{handler} @term{bindings} are in effect.
 
-Each @param{handler} should evaluate to a @term{handler-function},
+Each @param{handler} should evaluate to a @param{handler-function},
 which is used to handle @term{conditions} of the given @param{type}
 during execution of the @param{forms}.  This @term{function} should
 take a single argument, the @term{condition} being signaled.
@@ -3386,7 +3386,7 @@ It might be used explicitly, or implicitly through @symbolref{invoke-restart-int
 or a @term{restart function}.
 
 @term{Restart functions} call @symbolref{invoke-restart}, not vice versa.  That is,
-@term{invoke-restart} provides primitive functionality, and @term{restart functions}
+@symbolref{invoke-restart} provides primitive functionality, and @term{restart functions}
 are non-essential ``syntactic sugar.''
 
 
@@ -3638,7 +3638,7 @@ or a @term{lambda expression}.
 @param{results}---the @term{values} resulting from the @term{evaluation}
 of @param{restartable-form},
 or the @term{values} returned by the last @param{form}
-executed in a chosen @term{clause},
+executed in a chosen @i{clause},
 or @nil{}.
 
 @subsubheading Description:

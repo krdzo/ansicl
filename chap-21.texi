@@ -130,7 +130,7 @@ shows a list of @term{operators} that relate specificaly to
 Except as explicitly specified otherwise,
 operations that create and return @term{streams} return @term{open} @term{streams}.
 
-The action of @term{closing} a @term{stream} marks the end of its use as a source
+The action of @i{closing} a @term{stream} marks the end of its use as a source
 or sink of data, permitting the @term{implementation} to reclaim its internal data
 structures, and to free any external resources which might have been locked by the
 @term{stream} when it was opened.
@@ -354,7 +354,7 @@ must be @term{open} @term{streams}.
 @node Restrictions on Composite Streams
 @subsection Restrictions on Composite Streams
 
-The consequences are undefined if any @term{component} of a @term{composite stream}
+The consequences are undefined if any @i{component} of a @term{composite stream}
 is @term{closed} before the @term{composite stream} is @term{closed}.
 
 The consequences are undefined if the @term{synonym stream symbol} is not @term{bound}
@@ -469,7 +469,7 @@ A @term{broadcast stream} is an @term{output} @term{stream} which
 has associated with it a set of zero or more @term{output} @term{streams}
 such that any output sent to the @term{broadcast stream} gets passed on
 as output to each of the associated @term{output} @term{streams}.
-(If a @term{broadcast stream} has no @term{component streams},
+(If a @term{broadcast stream} has no @i{component streams},
 then all output to the @term{broadcast stream} is discarded.)
 
 The set of operations that may be performed on a @term{broadcast stream}
@@ -477,7 +477,7 @@ is the intersection of those for its associated @term{output} @term{streams}.
 
 Some output operations (@eg{} @symbolref{fresh-line}) return @term{values} based on the
 state of the @term{stream} at the time of the operation.
-Since these @term{values} might differ for each of the @term{component streams},
+Since these @term{values} might differ for each of the @i{component streams},
 it is necessary to describe their return value specifically:
 
 
@@ -514,7 +514,7 @@ The functions @symbolref{open-stream-p} tests whether the @term{broadcast stream
 is @term{open}@sub{2}, not whether its component streams are @term{open}.
 
 @item
-The functions @symbolref{input-stream-p} and @term{interactive-stream-p}
+The functions @symbolref{input-stream-p} and @symbolref{interactive-stream-p}
 return an @term{implementation-defined}, @term{generalized boolean} value.
 
 @item
@@ -537,10 +537,10 @@ For any output operations not having their return values explicitly specified ab
 or elsewhere in this document, it is defined that
 the @term{values} returned by such an operation are
 the @term{values} resulting from performing the operation
-on the last of its @term{component streams};
+on the last of its @i{component streams};
 the @term{values} resulting from performing the operation
 on all preceding @term{streams} are discarded.
-If there are no @term{component streams},
+If there are no @i{component streams},
 the value is @term{implementation-dependent}.
 
 @subsubheading See Also:
@@ -572,14 +572,14 @@ sequences of data which could be read from each of the
 constituent @term{streams}.
 
 Input from a @term{concatenated stream} is taken from the first
-of the associated @term{input streams} until it reaches @term{end of file}@sub{1};
+of the associated @term{input} @term{streams} until it reaches @term{end of file}@sub{1};
 then that @term{stream} is discarded, and subsequent input is taken
-from the next @term{input stream}, and so on.
-An @term{end of file} on the associated @term{input streams} is always managed
+from the next @term{input} @term{stream}, and so on.
+An @term{end of file} on the associated @term{input} @term{streams} is always managed
 invisibly by the @term{concatenated stream}---the only time a client of
 a @term{concatenated stream} sees an @term{end of file} is when an attempt is
 made to obtain data from the @term{concatenated stream} but it has no
-remaining @term{input streams} from which to obtain such data.
+remaining @term{input} @term{streams} from which to obtain such data.
 
 
 @subsubheading See Also:
@@ -609,7 +609,7 @@ and  sends its output to   an associated @term{output} @term{stream}.
 All input taken from the @term{input} @term{stream}
 is echoed to the @term{output} @term{stream}.
 Whether the input is echoed immediately after it is encountered,
-or after it has been read from the @term{input stream}
+or after it has been read from the @term{input} @term{stream}
 is @term{implementation-dependent}.
 
 
@@ -2560,7 +2560,7 @@ or @term{implementation-dependent} otherwise.
 @symbolref{close} closes @param{stream}.
 Closing a @term{stream} means
 that it may no longer be used in input or output operations.
-The act of @term{closing} a @term{file stream}
+The act of @i{closing} a @term{file stream}
 ends the association between the @term{stream} and its associated @term{file};
 the transaction with the @term{file system} is terminated,
 and input/output may no longer be performed on the @term{stream}.
@@ -3274,7 +3274,7 @@ and  sends output to   @param{output-stream}.
 Returns a @term{list} of @term{input} @term{streams} that constitute the
 ordered set of @term{streams} the @param{concatenated-stream} still
 has to read from, starting with the current one it is reading from.
-The list may be @term{empty} if no more @term{streams} remain to be read.
+The list may be @i{empty} if no more @term{streams} remain to be read.
 
 The consequences are undefined if the @term{list structure} of the @param{streams}
 is ever modified.
@@ -3447,7 +3447,7 @@ a @term{string} that contains the @term{characters} that were actually output.
 
 The @param{element-type} names the @term{type} of the @term{elements}
 of the @term{string}; a @term{string} is constructed of the most specialized
-@term{type} that can accommodate @term{elements} of that @term{element-type}.
+@term{type} that can accommodate @term{elements} of that @i{element-type}.
 
 @subsubheading Examples:
 
@@ -3841,7 +3841,7 @@ into the output side of the @term{stream}. The means by which this is
 accomplished are @term{implementation-dependent}.
 
 The effect of changing @thevalueof{*terminal-io*},
-either by @term{binding} or @term{assignment},
+either by @term{binding} or @i{assignment},
 is @term{implementation-defined}.
 
 @subsubheading Examples:

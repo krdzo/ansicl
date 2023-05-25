@@ -274,7 +274,7 @@ corresponds to the @term{lowercase} @term{character} @f{e}, and vice versa.
 An @term{implementation} may define that other @term{implementation-defined}
 @term{graphic} @term{characters} have @term{case}.  Such definitions must always
 be done in pairs---one @term{uppercase} @term{character} in one-to-one
-@term{correspondence} with one @term{lowercase} @term{character}.
+@i{correspondence} with one @term{lowercase} @term{character}.
 
 
 
