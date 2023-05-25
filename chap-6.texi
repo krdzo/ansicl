@@ -27,37 +27,37 @@
 @node Simple vs Extended Loop
 @subsubsection Simple vs Extended Loop
 
-@coderef{loop} @term{forms} are partitioned into two categories:
-simple @coderef{loop} @term{forms}
-and extended @coderef{loop} @term{forms}.
+@symbolref{loop} @term{forms} are partitioned into two categories:
+simple @symbolref{loop} @term{forms}
+and extended @symbolref{loop} @term{forms}.
 
 @node Simple Loop
 @subsubsection Simple Loop
 
 
-A simple @coderef{loop} @term{form} is one that has a body containing
+A simple @symbolref{loop} @term{form} is one that has a body containing
 only @term{compound forms}.
 Each @term{form} is @term{evaluated} in turn from left to right.
 When the last @param{form} has been @term{evaluated},
 then the first @param{form} is evaluated again, and so on, in a never-ending cycle.
-A simple @coderef{loop} @term{form} establishes an @term{implicit block} named @nil{}.
-The execution of a simple @coderef{loop} can be terminated by explicitly
-transfering control to the @term{implicit block} (using @coderef{return} or
-@coderef{return-from}) or to some @term{exit point} outside of the @term{block}
-(@eg{} using @coderef{throw}, @coderef{go}, or @coderef{return-from}).
+A simple @symbolref{loop} @term{form} establishes an @term{implicit block} named @nil{}.
+The execution of a simple @symbolref{loop} can be terminated by explicitly
+transfering control to the @term{implicit block} (using @symbolref{return} or
+@symbolref{return-from}) or to some @term{exit point} outside of the @term{block}
+(@eg{} using @symbolref{throw}, @symbolref{go}, or @symbolref{return-from}).
 
 @node Extended Loop
 @subsubsection Extended Loop
 
 
-An extended @coderef{loop} @term{form} is one that has a body containing
+An extended @symbolref{loop} @term{form} is one that has a body containing
 @term{atomic} @term{expressions}.  When @themacro{loop} processes such a
 @term{form}, it invokes a facility that is commonly called ``the Loop Facility.''
 
 The Loop Facility provides standardized access to mechanisms commonly used
 in iterations through Loop schemas, which are introduced by @term{loop keywords}.
 
-The body of an extended @coderef{loop} @term{form} is divided into @coderef{loop} clauses,
+The body of an extended @symbolref{loop} @term{form} is divided into @symbolref{loop} clauses,
 each which is in turn made up of @term{loop keywords} and @term{forms}.
 
 
@@ -67,7 +67,7 @@ each which is in turn made up of @term{loop keywords} and @term{forms}.
 
 @term{Loop keywords} are not true @term{keywords}@sub{1};
 they are special @term{symbols}, recognized by @term{name} rather than @term{object} identity,
-that are meaningful only to the @coderef{loop} facility.
+that are meaningful only to the @symbolref{loop} facility.
 A @term{loop keyword} is a @term{symbol} but is recognized by its @term{name}
 (not its identity), regardless of the @term{packages} in which it is @term{accessible}.
 
@@ -77,17 +77,17 @@ except in the coincidental situation that a @term{symbol} with the same name as 
 there is a @term{symbol} in the @code{COMMON-LISP} @term{package} whose @term{name} is @f{"UNLESS"} but
 not one whose @term{name} is @f{"UNTIL"}.
 
-If no @term{loop keywords} are supplied in a @coderef{loop} @term{form},
+If no @term{loop keywords} are supplied in a @symbolref{loop} @term{form},
 the Loop Facility executes the loop body repeatedly; see @ref{Simple Loop}.
 
 
 @node Parsing Loop Clauses
 @subsubsection Parsing Loop Clauses
 
-The syntactic parts of an extended @coderef{loop} @term{form} are called clauses;
+The syntactic parts of an extended @symbolref{loop} @term{form} are called clauses;
 the rules for parsing are determined by
 that clause's keyword.
-The following example shows a @coderef{loop} @term{form} with six clauses:
+The following example shows a @symbolref{loop} @term{form} with six clauses:
 
 @lisp
  (loop for i from 1 to (compute-top-value)       ; first clause
@@ -117,24 +117,24 @@ above includes the prepositions @loopref{from} and @loopref{to},
 which mark the value from which stepping begins and the value at which stepping
 ends.
 
-For detailed information about @coderef{loop} syntax,
+For detailed information about @symbolref{loop} syntax,
 see the @term{macro} @ref{loop}.
 
 
 @node Expanding Loop Forms
 @subsubsection Expanding Loop Forms
 
-A @coderef{loop} @term{macro form} expands into a @term{form} containing
+A @symbolref{loop} @term{macro form} expands into a @term{form} containing
 one or more binding forms (that @term{establish} @term{bindings} of loop variables)
-and a @coderef{block} and a @coderef{tagbody} (that express a looping control
-structure). The variables established in @coderef{loop} are bound as
-if by @coderef{let} or @t{lambda}.
+and a @symbolref{block} and a @symbolref{tagbody} (that express a looping control
+structure). The variables established in @symbolref{loop} are bound as
+if by @symbolref{let} or @t{lambda}.
 
 Implementations can interleave the setting of initial values with the @term{bindings}.
 However, the assignment of the initial values is always calculated in the order
 specified by the user.  A variable is thus sometimes bound to a meaningless value
 of the correct @term{type}, and then later in the prologue it is set to the true
-initial value by using @coderef{setq}.
+initial value by using @symbolref{setq}.
 One implication of this interleaving is that it is @term{implementation-dependent}
 whether the @term{lexical environment} in which the initial value @term{forms}
 (variously called the @param{form1}, @param{form2}, @param{form3}, @param{step-fun},
@@ -146,7 +146,7 @@ the @param{form1} and @param{form2} in a @param{for-as-equals-then} form
 includes the @term{lexical environment} of all the loop variables.
 
 After the @term{form} is expanded, it consists of three basic parts in the
-@coderef{tagbody}:
+@symbolref{tagbody}:
 the loop prologue,
 the loop body,
 and the loop epilogue.
@@ -181,16 +181,16 @@ an @param{termination-test} clause.
 
 Some clauses from the source @term{form}
 contribute code only to the loop prologue; these clauses must
-come before other clauses that are in the main body of the @coderef{loop} form.
+come before other clauses that are in the main body of the @symbolref{loop} form.
 Others contribute code only to the loop epilogue.
 All other clauses contribute to the final
 translated @term{form} in the same
-order given in the original source @term{form} of the @coderef{loop}.
+order given in the original source @term{form} of the @symbolref{loop}.
 
-Expansion of the @coderef{loop} macro produces an @term{implicit block} named @nil{}@spc{}
+Expansion of the @symbolref{loop} macro produces an @term{implicit block} named @nil{}@spc{}
 unless @loopref{named} is supplied.
-Thus, @coderef{return-from} (and sometimes @coderef{return})
-can be used to return values from @coderef{loop} or to exit @coderef{loop}.
+Thus, @symbolref{return-from} (and sometimes @symbolref{return})
+can be used to return values from @symbolref{loop} or to exit @symbolref{loop}.
 
 
 @node Summary of Loop Clauses
@@ -208,7 +208,7 @@ that establish a variable to be initialized.
 keyword @loopref{and} to get @term{parallel} initialization and @term{stepping}@sub{1}.
 Otherwise, the initialization and @term{stepping}@sub{1} are @term{sequential}.
 
-The @loopref{with} construct is similar to a single @coderef{let} clause.
+The @loopref{with} construct is similar to a single @symbolref{let} clause.
 @loopref{with} clauses can be combined using the @term{loop keyword} @loopref{and}
 to get @term{parallel} initialization.
 
@@ -223,40 +223,40 @@ The @loopref{collect} (or @loopref{collecting}) construct
 takes one @term{form} in its clause
 and adds the value of that @term{form} to the end of a @term{list}
 of values.  By default, the @term{list} of values is returned
-when the @coderef{loop} finishes.
+when the @symbolref{loop} finishes.
 
 The @loopref{append} (or @loopref{appending}) construct
 takes one @term{form} in its clause
 and appends the value of that @term{form} to the end of a @term{list}
 of values.  By default, the @term{list} of values is returned when the
-@coderef{loop} finishes.
+@symbolref{loop} finishes.
 
 The @loopref{nconc} (or @loopref{nconcing}) construct
 is similar to the @loopref{append} construct,
 but its @term{list} values are concatenated as if by the function
 @loopref{nconc}.  By default, the @term{list} of values is returned when
-the @coderef{loop} finishes.
+the @symbolref{loop} finishes.
 
 The @loopref{sum} (or @loopref{summing}) construct
 takes one @term{form} in its clause
 that must evaluate to a @term{number} and accumulates the sum of all these
 @term{numbers}.  By default, the cumulative sum is returned when the
-@coderef{loop} finishes.
+@symbolref{loop} finishes.
 
 The @loopref{count} (or @loopref{counting}) construct
 takes one @term{form} in its clause
 and counts the number of times that the @term{form} evaluates to @term{true}.
-By default, the count is returned when the @coderef{loop} finishes.
+By default, the count is returned when the @symbolref{loop} finishes.
 
 The @loopref{minimize} (or @loopref{minimizing}) construct
 takes one @term{form} in its clause
 and determines the minimum value obtained by evaluating that @term{form}.
-By default, the minimum value is returned when the @coderef{loop} finishes.
+By default, the minimum value is returned when the @symbolref{loop} finishes.
 
 The @loopref{maximize} (or @loopref{maximizing}) construct
 takes one @term{form} in its clause
 and determines the maximum value obtained by evaluating that @term{form}.
-By default, the maximum value is returned when the @coderef{loop} finishes.
+By default, the maximum value is returned when the @symbolref{loop} finishes.
 
 For more information, see @ref{Value Accumulation Clauses}.
 
@@ -284,23 +284,23 @@ An @loopref{until} clause is equivalent to the expression
 @hbox{@f{(if @param{test} (loop-finish))}}.
 
 The @loopref{always} construct takes one @term{form} and
-terminates the @coderef{loop} if the @term{form} ever evaluates to @term{false};
-in this case, the @coderef{loop} @term{form} returns @nil{}.
+terminates the @symbolref{loop} if the @term{form} ever evaluates to @term{false};
+in this case, the @symbolref{loop} @term{form} returns @nil{}.
 Otherwise, it provides a default return value of @code{t}.
 
 The @loopref{never} construct takes one @term{form} and
-terminates the @coderef{loop} if the @term{form} ever evaluates to @term{true};
-in this case, the @coderef{loop} @term{form} returns @nil{}.
+terminates the @symbolref{loop} if the @term{form} ever evaluates to @term{true};
+in this case, the @symbolref{loop} @term{form} returns @nil{}.
 Otherwise, it provides a default return value of @code{t}.
 
 The @loopref{thereis} construct takes one @term{form} and
-terminates the @coderef{loop} if the @term{form} ever evaluates to
+terminates the @symbolref{loop} if the @term{form} ever evaluates to
 a @term{non-nil} @term{object};
-in this case, the @coderef{loop} @term{form} returns that @term{object}.
+in this case, the @symbolref{loop} @term{form} returns that @term{object}.
 Otherwise, it provides a default return value of @nil{}.
 
 If multiple termination test clauses are specified,
-the @coderef{loop} @term{form} terminates if any are satisfied.
+the @symbolref{loop} @term{form} terminates if any are satisfied.
 
 
 For more information, see @ref{Termination Test Clauses}.
@@ -314,7 +314,7 @@ The @loopref{do} (or @loopref{doing}) construct evaluates all @term{forms} in it
 
 The @loopref{return} construct takes one
 @term{form}. Any @term{values} returned by the @term{form} are
-immediately returned by the @coderef{loop} form.
+immediately returned by the @symbolref{loop} form.
 It is equivalent to the clause
 @f{do (return-from @i{block-name} @i{value})},
 where @i{block-name} is the name specified in a @loopref{named}
@@ -355,7 +355,7 @@ For more information, see @ref{Conditional Execution Clauses}.
 @Theloopconstruct{named} gives a name for the @term{block} of the loop.
 
 @Theloopconstruct{initially} causes its @term{forms} to be
-evaluated in the loop prologue, which precedes all @coderef{loop} code
+evaluated in the loop prologue, which precedes all @symbolref{loop} code
 except for initial settings supplied by the constructs @loopref{with},
 @loopref{for}, or @loopref{as}.
 
@@ -373,8 +373,8 @@ For more information, see @ref{Miscellaneous Clauses}.
 With the exceptions listed below, clauses are executed in the loop body
 in the order in which they appear in the source.  Execution is repeated
 until a clause
-terminates the @coderef{loop} or until a @coderef{return}, @coderef{go},
-or @coderef{throw} form is encountered
+terminates the @symbolref{loop} or until a @symbolref{return}, @symbolref{go},
+or @symbolref{throw} form is encountered
 which transfers control to a point outside of the loop.
 The following actions are
 exceptions to the linear order of execution:
@@ -387,16 +387,16 @@ regardless of where the establishing clauses appear in the
 source.  The order of initialization follows the order of these clauses.
 
 @item  The code for any @loopref{initially} clauses is collected
-into one @coderef{progn} in the order in which the clauses appear in
+into one @symbolref{progn} in the order in which the clauses appear in
 the source.  The collected code is executed once in the loop prologue
 after any implicit variable initializations.
 
 @item    The code for any @loopref{finally} clauses is collected
-into one @coderef{progn} in the order in which the clauses appear in
+into one @symbolref{progn} in the order in which the clauses appear in
 the source.  The collected code is executed once in the loop epilogue
 before any implicit values from the accumulation clauses are returned.
 Explicit returns anywhere in the source, however, will exit the
-@coderef{loop} without executing the epilogue code.
+@symbolref{loop} without executing the epilogue code.
 
 @item  A @loopref{with} clause introduces a variable @term{binding}
 and an optional initial value.  The initial values are calculated
@@ -464,7 +464,7 @@ is a @term{compound type specifer}.
 
 Destructuring allows @term{binding} of a set of variables to a corresponding
 set of values anywhere that a value can normally be bound to a single
-variable.  During @coderef{loop} expansion,
+variable.  During @symbolref{loop} expansion,
 each variable in the variable list
 is matched with the values in the values list.  If there are more variables
 in the variable list than there are values in the values list, the
@@ -557,7 +557,7 @@ can specify destructuring.
 
 An error @oftype{program-error} is signaled (at macro expansion time)
 if the same variable is bound twice in any variable-binding
-clause of a single @coderef{loop} expression.  Such variables include
+clause of a single @symbolref{loop} expression.  Such variables include
 local variables, iteration control variables, and variables found by
 destructuring.
 
@@ -575,7 +575,7 @@ See @ref{Traversal Rules and Side Effects}.
 @node Iteration Control
 @subsubsection Iteration Control
 
-Iteration control clauses allow direction of @coderef{loop} iteration.
+Iteration control clauses allow direction of @symbolref{loop} iteration.
 The @term{loop keywords} @loopref{for} and @loopref{as}
 designate iteration control clauses.
 Iteration control clauses differ with respect to the specification of
@@ -587,9 +587,9 @@ return values.
 
 All variables are initialized in the loop prologue.
 A @term{variable} @term{binding} has @term{lexical scope}
-unless it is proclaimed @coderef{special};
+unless it is proclaimed @symbolref{special};
 thus, by default, the variable can be @term{accessed} only by @term{forms}
-that lie textually within the @coderef{loop}.
+that lie textually within the @symbolref{loop}.
 Stepping assignments are made in the loop body before any other @term{forms}
 are evaluated in the body.
 
@@ -603,7 +603,7 @@ must precede any other loop clauses, except
 @loopref{initially}, @loopref{with}, and @loopref{named},
 since they establish variable @term{bindings}.
 When iteration control clauses are
-used in a @coderef{loop},
+used in a @symbolref{loop},
 the corresponding
 termination tests in the loop body are evaluated
 before any other loop body code is executed.
@@ -615,8 +615,8 @@ The @loopref{and} construct can be used to connect two or more
 iteration clauses when @term{sequential} @term{binding} and
 @term{stepping}@sub{1} are not necessary.
 The iteration behavior of clauses joined by @loopref{and}
-is analogous to the behavior of the macro @coderef{do} with
-respect to @coderef{do*}.
+is analogous to the behavior of the macro @symbolref{do} with
+respect to @symbolref{do*}.
 
 The @loopref{for} and @loopref{as} clauses iterate by using one or more local
 loop  variables that are initialized to some value and that
@@ -728,7 +728,7 @@ of @loopref{to} with @param{form2}.
 The @term{loop keyword} @loopref{downto} specifies decremental @term{stepping};
 the @term{loop keyword} @loopref{upto} specifies incremental @term{stepping}.
 In both cases, the amount of change on each step is specified by @param{form3},
-and the @coderef{loop} terminates when the variable @param{var} passes
+and the @symbolref{loop} terminates when the variable @param{var} passes
 the value of @param{form2}.
 Since there is no default for @param{form1} in decremental @term{stepping}@sub{1},
 a @param{form1} value must be supplied (using @loopref{from} or @loopref{downfrom})
@@ -809,12 +809,12 @@ In the @i{for-as-in-list} subclause,
 the @loopref{for}
 or @loopref{as} construct iterates over the contents of a
 @term{list}.  It checks for
-the end of the @term{list} as if by using @coderef{endp}.
+the end of the @term{list} as if by using @symbolref{endp}.
 The variable @param{var} is bound to the successive elements  of
 the @term{list} in @param{form1} before each
 iteration.  At the end of each iteration, the function @param{step-fun}
 is applied to the @term{list}; the default value for @param{step-fun} is
-@coderef{cdr}.
+@symbolref{cdr}.
 The @term{loop keywords} @loopref{in} and @loopref{by} serve as valid prepositions in
 this syntax.
 The @loopref{for} or @loopref{as} construct causes termination when the
@@ -860,7 +860,7 @@ end of the @term{list} as if by using @code{atom}.
 The variable @param{var} is bound to the successive tails of the
 @term{list} in
 @param{form1}.  At the end of each iteration, the function @param{step-fun}
-is applied to the @term{list}; the default value for @param{step-fun} is @coderef{cdr}.
+is applied to the @term{list}; the default value for @param{step-fun} is @symbolref{cdr}.
 The @term{loop keywords} @loopref{on} and @loopref{by} serve as valid
 prepositions in this syntax.
 The @loopref{for} or @loopref{as} construct causes termination when the
@@ -932,7 +932,7 @@ The @term{loop keyword} @loopref{across} marks the array @param{vector}; @loopre
 is used as a preposition in this syntax.
 Iteration stops when there are no more elements in the supplied
 @term{array} that can be referenced.
-Some implementations might recognize a @coderef{the} special form
+Some implementations might recognize a @symbolref{the} special form
 in the @param{vector} form to produce more efficient code.
 
 @node Examples of for-as-across subclause
@@ -1069,7 +1069,7 @@ This agreement isn't required.
 These Loop schemas iterate over the @term{symbols}
 that are @term{present} in a @term{package}.
 The @param{package} to be iterated over is supplied in the same way
-that @term{package} arguments to @coderef{find-package} are supplied.
+that @term{package} arguments to @symbolref{find-package} are supplied.
 If the @param{package} for the iteration is not supplied,
 the @term{current package} is used.
 If a @param{package} that does not exist is supplied,
@@ -1081,7 +1081,7 @@ an error @oftype{package-error} is signaled.
 These Loop schemas iterate over @term{symbols} that are
 @term{accessible} in a given @param{package}.
 The @param{package} to be iterated over is supplied in the same way
-that @term{package} arguments to @coderef{find-package} are supplied.
+that @term{package} arguments to @symbolref{find-package} are supplied.
 If the @param{package} for the iteration is not supplied,
 the @term{current package} is used.
 If a @param{package} that does not exist is supplied,
@@ -1092,7 +1092,7 @@ an error @oftype{package-error} is signaled.
 
 These Loop schemas iterate over the @term{external symbols} of a @param{package}.
 The @param{package} to be iterated over is supplied in the same way
-that @term{package} arguments to @coderef{find-package} are supplied.
+that @term{package} arguments to @symbolref{find-package} are supplied.
 If the @param{package} for the iteration is not supplied,
 the @term{current package} is used.
 If a @param{package} that does not exist is supplied,
@@ -1147,8 +1147,8 @@ in the supplied @param{package}.
 @node Local Variable Initializations
 @subsubsection Local Variable Initializations
 
-When a @coderef{loop} @term{form} is executed, the local variables are bound and are
-initialized to some value.  These local variables exist until @coderef{loop}
+When a @symbolref{loop} @term{form} is executed, the local variables are bound and are
+initialized to some value.  These local variables exist until @symbolref{loop}
 iteration terminates, at which point they cease to exist.
 Implicit variables are also established by iteration control clauses and the
 @loopref{into} preposition of accumulation clauses.
@@ -1158,7 +1158,7 @@ a loop.  The variables are initialized one time only.
 If the optional @param{type-spec} argument is supplied for the variable
 @param{var}, but there is no related expression to be evaluated, @param{var}
 is initialized to an appropriate default value for its @term{type}.
-For example, for the types @code{t}, @coderef{number},
+For example, for the types @code{t}, @symbolref{number},
 and @code{float},
 the default values are @nil{}, @f{0}, and @f{0.0} respectively.
 The consequences are undefined if a
@@ -1187,7 +1187,7 @@ For example, suppose the variables @f{a}, @f{b}, and @f{c} are to be bound in se
 @end lisp
 
 
-The execution of the above @coderef{loop} is equivalent to the execution of
+The execution of the above @symbolref{loop} is equivalent to the execution of
 the following code:
 
 @lisp
@@ -1280,7 +1280,7 @@ The constructs @loopref{collect}, @loopref{collecting},
 @loopref{maximize}, @loopref{maximizing},
 @loopref{minimize}, @loopref{minimizing},
 @loopref{sum}, and @loopref{summing},
-allow values to be accumulated in a @coderef{loop}.
+allow values to be accumulated in a @symbolref{loop}.
 
 
 
@@ -1301,7 +1301,7 @@ collect the value of the supplied
 When iteration terminates, the @term{list} is returned.
 The argument @param{var} is
 set to the @term{list}
-of collected values; if @param{var} is supplied, the @coderef{loop}
+of collected values; if @param{var} is supplied, the @symbolref{loop}
 does not return the final @term{list} automatically.  If
 @param{var} is not
 supplied, it is equivalent to supplying an internal name for
@@ -1334,7 +1334,7 @@ as if they were arguments to @thefunction{nconc}.
 The argument @param{var} is
 set to the @term{list} of
 concatenated values; if @param{var} is supplied,
-@coderef{loop}
+@symbolref{loop}
 does not return the final @term{list} automatically.
 The @param{var} argument
 is bound as if by the construct @loopref{with}.
@@ -1347,11 +1347,11 @@ The @loopref{count} construct counts the number of times
 that the supplied @param{form} returns @term{true}.
 The argument @param{var} accumulates the number of occurrences;
 if @param{var} is supplied,
-@coderef{loop} does not return the final count automatically.
+@symbolref{loop} does not return the final count automatically.
 The @param{var} argument is bound as if by the construct @loopref{with}
 to a zero of the appropriate type.
 Subsequent values (including any necessary coercions)
-are computed as if by the function @coderef{1+}.
+are computed as if by the function @symbolref{1+}.
 If @loopref{into} @param{var} is used,
 a @term{type} can be supplied  for @param{var} with the @param{type-spec} argument;
 the consequences are unspecified if a nonnumeric @term{type} is supplied.
@@ -1376,7 +1376,7 @@ If the @loopref{maximize} or @loopref{minimize} clause
 is never executed, the accumulated value is unspecified.
 The argument @param{var} accumulates the maximum or minimum value;
 if @param{var} is supplied,
-@coderef{loop} does not return the maximum or minimum automatically.
+@symbolref{loop} does not return the maximum or minimum automatically.
 The @param{var} argument is bound as if by the construct @loopref{with}.
 If @loopref{into} @param{var} is used,
 a @term{type} can be supplied for @param{var} with the @param{type-spec} argument;
@@ -1393,7 +1393,7 @@ of the successive @term{primary values} of the supplied @param{form}
 at each iteration.
 The argument @param{var} is used to accumulate the sum;
 if @param{var} is supplied,
-@coderef{loop} does not return the final sum automatically.
+@symbolref{loop} does not return the final sum automatically.
 The @param{var} argument is bound as if by the construct @loopref{with}
 to a zero of the appropriate type.
 Subsequent values (including any necessary coercions) are computed as if by @thefunction{+}.
@@ -1413,14 +1413,14 @@ however, the variable is available
 for use in any @loopref{finally} clause.
 
 
-Certain kinds of accumulation clauses can be combined in a @coderef{loop}
+Certain kinds of accumulation clauses can be combined in a @symbolref{loop}
 if their destination is the same
-(the result of @coderef{loop} or an @loopref{into} @param{var})
+(the result of @symbolref{loop} or an @loopref{into} @param{var})
 because they are considered to accumulate conceptually compatible quantities.
 In particular,
 any elements of following sets of accumulation clauses can be mixed
 with other elements of the same set for the same destination
-in a @coderef{loop} @term{form}:
+in a @symbolref{loop} @term{form}:
 
 
 @itemize @bullet{}
@@ -1446,7 +1446,7 @@ in a @coderef{loop} @term{form}:
 Any two
 clauses that do not accumulate the same @term{type} of
 @term{object}
-can coexist in a @coderef{loop} only
+can coexist in a @symbolref{loop} only
 if each clause accumulates its values into
 a different
 @term{variable}.
@@ -1566,12 +1566,12 @@ The constructs @loopref{always},
 @loopref{thereis},
 @loopref{while},
 @loopref{until},
-and the macro @coderef{loop-finish}
+and the macro @symbolref{loop-finish}
 allow conditional termination of iteration within
-a @coderef{loop}.
+a @symbolref{loop}.
 
 The constructs @loopref{always}, @loopref{never}, and @loopref{thereis} provide
-specific values to be returned when a @coderef{loop} terminates.
+specific values to be returned when a @symbolref{loop} terminates.
 Using @loopref{always}, @loopref{never}, or @loopref{thereis} in a loop with
 value accumulation clauses that are not @loopref{into} causes
 an error @oftype{program-error} to be signaled (at macro expansion time).
@@ -1585,14 +1585,14 @@ In all other respects these
 constructs behave like the @loopref{while} and @loopref{until} constructs.
 
 The @loopref{always} construct takes one @term{form} and terminates the
-@coderef{loop}
+@symbolref{loop}
 if the @term{form} ever evaluates to @nil{}; in this case, it returns
 @nil{}.  Otherwise, it provides a default return value of @code{t}.
 If the value of the supplied @term{form} is never @nil{}, some other construct
 can terminate the iteration.
 
 The @loopref{never} construct terminates iteration the first time that
-the value of the supplied @param{form} is @term{non-nil}; the @coderef{loop} returns
+the value of the supplied @param{form} is @term{non-nil}; the @symbolref{loop} returns
 @nil{}.
 If the value of the supplied @param{form} is always  @nil{}, some other
 construct can terminate the iteration.
@@ -1600,7 +1600,7 @@ Unless some other clause contributes
 a return value, the default value returned is @code{t}.
 
 The @loopref{thereis} construct terminates iteration the first time that the
-value of the supplied @param{form} is @term{non-nil}; the @coderef{loop} returns the
+value of the supplied @param{form} is @term{non-nil}; the @symbolref{loop} returns the
 value of the supplied @param{form}.
 If the value of the supplied @param{form}
 is always  @nil{}, some other
@@ -1665,12 +1665,12 @@ when exit occurs due to @loopref{never}.
 @end itemize
 
 
-In most cases it is not necessary to use @coderef{loop-finish}
-because other loop control clauses terminate the @coderef{loop}.
-The macro @coderef{loop-finish} is used to provide a normal exit
-from a nested conditional inside a @coderef{loop}.
-Since @coderef{loop-finish} transfers control to the loop epilogue,
-using @coderef{loop-finish} within a @loopref{finally} expression can cause
+In most cases it is not necessary to use @symbolref{loop-finish}
+because other loop control clauses terminate the @symbolref{loop}.
+The macro @symbolref{loop-finish} is used to provide a normal exit
+from a nested conditional inside a @symbolref{loop}.
+Since @symbolref{loop-finish} transfers control to the loop epilogue,
+using @symbolref{loop-finish} within a @loopref{finally} expression can cause
 infinite looping.
 
 @node Examples of REPEAT clause
@@ -1781,7 +1781,7 @@ infinite looping.
 The @loopref{do} and @loopref{doing} constructs
 evaluate the
 supplied @param{forms}
-wherever they occur in the expanded form of @coderef{loop}.
+wherever they occur in the expanded form of @symbolref{loop}.
 The @param{form} argument can be any @term{compound form}.
 Each @param{form} is evaluated in every iteration.
 Because every loop clause must begin with a @term{loop keyword},
@@ -1790,7 +1790,7 @@ required.
 
 The @loopref{return} construct takes one @term{form}.
 Any @term{values} returned by the @term{form}
-are immediately returned by the @coderef{loop} form.
+are immediately returned by the @symbolref{loop} form.
 It is equivalent to the clause
 @f{do (return-from @i{block-name} @i{value})},
 where @i{block-name} is the name specified in a @loopref{named}
@@ -1823,7 +1823,7 @@ clause, or @nil{}@spc{}if there is no @loopref{named} clause.
 
 
 The @loopref{if}, @loopref{when}, and @loopref{unless} constructs
-establish conditional control in a @coderef{loop}. If the test
+establish conditional control in a @symbolref{loop}. If the test
 passes, the succeeding loop clause is executed. If the test does
 not pass, the succeeding clause is skipped, and program control
 moves to the clause that follows the @term{loop keyword}
@@ -1919,18 +1919,18 @@ Error: non-numeric value: A
 The @loopref{named} construct
 establishes a name for an @term{implicit block} surrounding the
 entire
-@coderef{loop} so that @thespecop{return-from} can be used to return
-values from or to exit @coderef{loop}.
-Only one name per @coderef{loop} @term{form} can be assigned.
+@symbolref{loop} so that @thespecop{return-from} can be used to return
+values from or to exit @symbolref{loop}.
+Only one name per @symbolref{loop} @term{form} can be assigned.
 If used, the @loopref{named} construct must be the first clause in the loop expression.
 
 The @loopref{return} construct takes one @term{form}.
 Any @term{values} returned by the @term{form}
-are immediately returned by the @coderef{loop} form.
+are immediately returned by the @symbolref{loop} form.
 This construct is similar to @thespecop{return-from} and @themacro{return}.
 The @loopref{return} construct
 does not execute any @loopref{finally} clause that
-the @coderef{loop} @term{form}
+the @symbolref{loop} @term{form}
 is given.
 
 @node Examples of NAMED clause
@@ -1965,7 +1965,7 @@ initial settings supplied by constructs @loopref{with}, @loopref{for}, or
 The code for any @loopref{initially} clauses is
 executed
 in the order in which the clauses appeared in
-the @coderef{loop}.
+the @symbolref{loop}.
 
 The @loopref{finally} construct causes the supplied
 @param{compound-forms}
@@ -1974,17 +1974,17 @@ in the loop epilogue after normal iteration terminates.
 The code for any @loopref{finally} clauses is
 executed
 in the order in which the clauses appeared in
-the @coderef{loop}.  The collected code is executed once in the loop epilogue
+the @symbolref{loop}.  The collected code is executed once in the loop epilogue
 before any implicit values are returned from the accumulation clauses.
-An explicit transfer of control (@eg{} by @coderef{return}, @coderef{go}, or @coderef{throw})
+An explicit transfer of control (@eg{} by @symbolref{return}, @symbolref{go}, or @symbolref{throw})
 from the loop body, however, will exit the
-@coderef{loop} without executing the epilogue code.
+@symbolref{loop} without executing the epilogue code.
 
 Clauses such as @loopref{return}, @loopref{always}, @loopref{never}, and
 @loopref{thereis}
 can bypass the @loopref{finally} clause.
-@coderef{return} (or @coderef{return-from}, if the @loopref{named} option was supplied)
-can be used after @loopref{finally} to return values from a @coderef{loop}.
+@symbolref{return} (or @symbolref{return-from}, if the @loopref{named} option was supplied)
+can be used after @loopref{finally} to return values from a @symbolref{loop}.
 Such an @term{explicit return}
 inside the
 @loopref{finally} clause takes precedence over returning the accumulation
@@ -1992,7 +1992,7 @@ from clauses supplied by such keywords as @loopref{collect}, @loopref{nconc},
 @loopref{append}, @loopref{sum}, @loopref{count}, @loopref{maximize}, and
 @loopref{minimize};
 the accumulation values for these preempted clauses are not returned by
-@coderef{loop} if @coderef{return} or @coderef{return-from} is used.
+@symbolref{loop} if @symbolref{return} or @symbolref{return-from} is used.
 
 
 
@@ -2130,17 +2130,17 @@ but in some @term{implementations},
 the @loopref{repeat} construct might be more efficient.
 
 Within the executable parts of the loop clauses and around the entire
-@coderef{loop} form, variables can be bound by using @coderef{let}.
+@symbolref{loop} form, variables can be bound by using @symbolref{let}.
 
 Use caution when using a variable named @tt{IT} (in any @term{package})
-in connection with @coderef{loop}, since @loopref{it} is a @term{loop keyword}
+in connection with @symbolref{loop}, since @loopref{it} is a @term{loop keyword}
 that can be used in place of a @term{form} in certain contexts.
 
 There is
 no
 @term{standardized}
 mechanism for users to add
-extensions to @coderef{loop}.
+extensions to @symbolref{loop}.
 
 @node Iteration Dictionary
 @section Iteration Dictionary
@@ -2155,9 +2155,9 @@ extensions to @coderef{loop}.
 
 @node do; do*
 @subsection do, do* (Macro)
-@syindexanchor{do, REF}
+@syindexanchor{do, SYM}
 @cindex do
-@syindexanchor{do*, REF}
+@syindexanchor{do*, SYM}
 @cindex do*
 @anchor{do}
 
@@ -2187,15 +2187,15 @@ extensions to @coderef{loop}.
 
 @param{statement}---a @term{compound form}; @evalspecial{}.
 
-@param{results}---if a @coderef{return} or @coderef{return-from} form is executed,
+@param{results}---if a @symbolref{return} or @symbolref{return-from} form is executed,
 the @term{values} passed from that @term{form};
 otherwise, the @term{values} returned by the @param{result-forms}.
 
 @subsubheading Description:
 
-@coderef{do} iterates over a group of @param{statements}
+@symbolref{do} iterates over a group of @param{statements}
 while a test condition holds.
-@coderef{do} accepts an arbitrary number of iteration @param{vars}
+@symbolref{do} accepts an arbitrary number of iteration @param{vars}
 which are bound within the iteration and stepped in parallel.
 An initial value may be supplied for each iteration variable by use of
 an @param{init-form}.
@@ -2207,7 +2207,7 @@ If the @param{end-test-form} condition
 is met prior to an execution of the body, the iteration terminates.
 @param{Tags} label @param{statements}.
 
-@coderef{do*} is exactly like @coderef{do}
+@symbolref{do*} is exactly like @symbolref{do}
 except that the @term{bindings} and steppings
 of the @param{vars} are performed sequentially rather than in parallel.
 
@@ -2216,13 +2216,13 @@ each @param{var} is bound to the value of its respective @param{init-form},
 if supplied.
 This is a @term{binding}, not an assignment; when the loop terminates,
 the old values of those variables will be restored.
-For @coderef{do}, all
+For @symbolref{do}, all
 of the @param{init-forms} are evaluated before any @param{var}
 is bound. The
 @param{init-forms} can refer to the @term{bindings} of the @param{vars}
 visible before beginning execution of
-@coderef{do}.
-For @coderef{do*}, the first @param{init-form} is evaluated, then the first
+@symbolref{do}.
+For @symbolref{do*}, the first @param{init-form} is evaluated, then the first
 @param{var} is bound to that value, then the second @param{init-form}
 is evaluated, then the second @param{var} is bound, and so on;
 in general, the @i{k}th @param{init-form} can refer to the new binding
@@ -2231,46 +2231,46 @@ old binding of the @i{j}th @param{var}.
 
 At the beginning of each iteration, after processing the variables,
 the @param{end-test-form} is evaluated.  If the result is
-@term{false}, execution proceeds with the body of the @coderef{do}
-(or @coderef{do*}) form.
+@term{false}, execution proceeds with the body of the @symbolref{do}
+(or @symbolref{do*}) form.
 If the result is @term{true}, the @param{result-forms} are evaluated in order
 as an @term{implicit progn},
-and then @coderef{do} or @coderef{do*} returns.
+and then @symbolref{do} or @symbolref{do*} returns.
 
 At the beginning of each iteration other than the first,
 @param{vars} are updated as follows.  All the @param{step-forms}, if supplied,
 are evaluated, from left to right, and the resulting values are
 assigned to the respective @param{vars}.
 Any @param{var} that has no associated @param{step-form} is not assigned to.
-For @coderef{do}, all the @param{step-forms} are evaluated before any @param{var}
+For @symbolref{do}, all the @param{step-forms} are evaluated before any @param{var}
 is updated; the assignment of values to @param{vars} is done in parallel,
-as if by @coderef{psetq}.
+as if by @symbolref{psetq}.
 Because all of the @param{step-forms} are evaluated before any
 of the @param{vars} are altered, a @param{step-form} when evaluated always has
 access to the old values of all the @param{vars}, even if other @param{step-forms}
 precede it.
-For @coderef{do*}, the first @param{step-form} is evaluated, then the
+For @symbolref{do*}, the first @param{step-form} is evaluated, then the
 value is assigned to the first @param{var}, then the second @param{step-form}
 is evaluated, then the value is assigned to the second @param{var}, and so on;
 the assignment of values to variables is done sequentially,
-as if by @coderef{setq}.
-For either @coderef{do} or @coderef{do*},
+as if by @symbolref{setq}.
+For either @symbolref{do} or @symbolref{do*},
 after the @param{vars} have been updated,
 the @param{end-test-form}
 is evaluated as described above, and the iteration continues.
 
-The remainder of the @coderef{do} (or @coderef{do*}) form constitutes
+The remainder of the @symbolref{do} (or @symbolref{do*}) form constitutes
 an @term{implicit tagbody}.
-@param{Tags} may appear within the body of a @coderef{do} loop
-for use by @coderef{go} statements appearing in the body (but such @coderef{go}
+@param{Tags} may appear within the body of a @symbolref{do} loop
+for use by @symbolref{go} statements appearing in the body (but such @symbolref{go}
 statements may not appear in the variable specifiers, the @param{end-test-form},
 or the @param{result-forms}).
-When the end of a @coderef{do} body is reached, the next iteration cycle
+When the end of a @symbolref{do} body is reached, the next iteration cycle
 (beginning with the evaluation of @param{step-forms}) occurs.
 
-An @term{implicit block} named @nil{}@spc{}surrounds the entire @coderef{do}
-(or @coderef{do*}) form.
-A @coderef{return} statement may be used at any point to exit the loop
+An @term{implicit block} named @nil{}@spc{}surrounds the entire @symbolref{do}
+(or @symbolref{do*}) form.
+A @symbolref{return} statement may be used at any point to exit the loop
 immediately.
 
 @param{Init-form}  is an
@@ -2279,10 +2279,10 @@ If @param{init-form} is omitted, the initial value of @param{var} is @nil{}.
 If a @param{declaration} is supplied for a @param{var}, @param{init-form}
 must be consistent with the @param{declaration}.
 
-@param{Declarations} can appear at the beginning of a @coderef{do}
-(or @coderef{do*}) body.
-They apply to code in the @coderef{do} (or @coderef{do*}) body,
-to the @term{bindings} of the @coderef{do} (or @coderef{do*})
+@param{Declarations} can appear at the beginning of a @symbolref{do}
+(or @symbolref{do*}) body.
+They apply to code in the @symbolref{do} (or @symbolref{do*}) body,
+to the @term{bindings} of the @symbolref{do} (or @symbolref{do*})
 @param{vars},
 to the @param{step-forms},
 to the @param{end-test-form}, and to the @param{result-forms}.
@@ -2333,7 +2333,7 @@ a-vector @EV{} #(1 0 3 0)
 
 is an example of parallel assignment to index variables.  On the first
 iteration, the value of @f{oldx} is whatever value @f{x} had before
-the @coderef{do} was entered.  On succeeding iterations, @f{oldx} contains
+the @symbolref{do} was entered.  On succeeding iterations, @f{oldx} contains
 the value that @f{x} had on the previous iteration.
 
 @lisp
@@ -2390,15 +2390,15 @@ and more primitive functionality
 @subsubheading Notes:
 If @param{end-test-form} is @nil{}, the test will never succeed.
 This provides an idiom for ``do forever'':
-the body of the @coderef{do} or @coderef{do*}
+the body of the @symbolref{do} or @symbolref{do*}
 is executed repeatedly.
-The infinite loop can be terminated by the use of @coderef{return},
-@coderef{return-from}, @coderef{go} to an outer level, or @coderef{throw}.
+The infinite loop can be terminated by the use of @symbolref{return},
+@symbolref{return-from}, @symbolref{go} to an outer level, or @symbolref{throw}.
 
-A @coderef{do} @term{form} may be explained in terms of the more primitive @term{forms}
-@coderef{block}, @coderef{return},
-@coderef{let}, @coderef{loop}, @coderef{tagbody},
-and @coderef{psetq} as follows:
+A @symbolref{do} @term{form} may be explained in terms of the more primitive @term{forms}
+@symbolref{block}, @symbolref{return},
+@symbolref{let}, @symbolref{loop}, @symbolref{tagbody},
+and @symbolref{psetq} as follows:
 
 @lisp
  (block nil
@@ -2416,14 +2416,14 @@ and @coderef{psetq} as follows:
 @end lisp
 
 
-@coderef{do*} is similar, except that @coderef{let*} and @coderef{setq} replace
-the @coderef{let} and @coderef{psetq}, respectively.
+@symbolref{do*} is similar, except that @symbolref{let*} and @symbolref{setq} replace
+the @symbolref{let} and @symbolref{psetq}, respectively.
 
 
 
 @node dotimes
 @subsection dotimes (Macro)
-@syindexanchor{dotimes, REF}
+@syindexanchor{dotimes, SYM}
 @cindex dotimes
 
 
@@ -2446,20 +2446,20 @@ the @coderef{let} and @coderef{psetq}, respectively.
 
 @param{statement}---a @term{compound form}; @evalspecial{}.
 
-@param{results}---if a @coderef{return} or @coderef{return-from} form is executed,
+@param{results}---if a @symbolref{return} or @symbolref{return-from} form is executed,
 the @term{values} passed from that @term{form};
 otherwise, the @term{values} returned by the @param{result-form}
 or @nil{}@spc{}if there is no @param{result-form}.
 
 @subsubheading Description:
 
-@coderef{dotimes} iterates over a series of @term{integers}.
+@symbolref{dotimes} iterates over a series of @term{integers}.
 
-@coderef{dotimes} evaluates @param{count-form},
+@symbolref{dotimes} evaluates @param{count-form},
 which should produce an @term{integer}.
 If @param{count-form} is zero or negative,
 the body is not executed.
-@coderef{dotimes} then executes the body once for each @term{integer} from 0 up to
+@symbolref{dotimes} then executes the body once for each @term{integer} from 0 up to
 but not including
 the value of @param{count-form},
 in the order in which the
@@ -2473,19 +2473,19 @@ the number of times the body was executed.
 @param{statements}.
 
 An @term{implicit block}
-named @nil{}@spc{}surrounds @coderef{dotimes}.
-@coderef{return} may be used to terminate the loop immediately without
+named @nil{}@spc{}surrounds @symbolref{dotimes}.
+@symbolref{return} may be used to terminate the loop immediately without
 performing any further iterations, returning zero or more @term{values}.
 
 The body of the loop is an @term{implicit tagbody};
-it may contain tags to serve as the targets of @coderef{go} statements.
+it may contain tags to serve as the targets of @symbolref{go} statements.
 Declarations may appear before the body of the loop.
 
 The @term{scope} of the binding of @param{var}
 does not include the @param{count-form},
 but the @param{result-form} is included.
 
-It is @term{implementation-dependent} whether @coderef{dotimes}
+It is @term{implementation-dependent} whether @symbolref{dotimes}
 @term{establishes} a new @term{binding} of @param{var} on each iteration
 or whether it @term{establishes} a binding for @param{var} once at the
 beginning and then @param{assigns} it on any subsequent iterations.
@@ -2538,14 +2538,14 @@ Here is an example of the use of @f{dotimes} in processing strings:
 
 @subsubheading Notes:
 
-@coderef{go} may be used within the body of
-@coderef{dotimes} to transfer control to a statement labeled by a @param{tag}.
+@symbolref{go} may be used within the body of
+@symbolref{dotimes} to transfer control to a statement labeled by a @param{tag}.
 
 
 
 @node dolist
 @subsection dolist (Macro)
-@syindexanchor{dolist, REF}
+@syindexanchor{dolist, SYM}
 @cindex dolist
 
 
@@ -2568,18 +2568,18 @@ Here is an example of the use of @f{dotimes} in processing strings:
 
 @param{statement}---a @term{compound form}; @evalspecial{}.
 
-@param{results}---if a @coderef{return} or @coderef{return-from} form is executed,
+@param{results}---if a @symbolref{return} or @symbolref{return-from} form is executed,
 the @term{values} passed from that @term{form};
 otherwise, the @term{values} returned by the @param{result-form}
 or @nil{}@spc{}if there is no @param{result-form}.
 
 @subsubheading Description:
 
-@coderef{dolist} iterates over the elements of a @term{list}.
-The body of @coderef{dolist} is like a @coderef{tagbody}.
+@symbolref{dolist} iterates over the elements of a @term{list}.
+The body of @symbolref{dolist} is like a @symbolref{tagbody}.
 It consists of a series of @param{tags} and @param{statements}.
 
-@coderef{dolist}
+@symbolref{dolist}
 evaluates @param{list-form},
 which should produce a @term{list}. It then executes the body
 once for each element in the @term{list}, in the order in which the
@@ -2594,15 +2594,15 @@ At the time @param{result-form} is processed,
 @param{var} is bound to @nil{}.
 
 An @term{implicit block}
-named @nil{}@spc{}surrounds @coderef{dolist}.
-@coderef{return} may be used to terminate the loop immediately without
+named @nil{}@spc{}surrounds @symbolref{dolist}.
+@symbolref{return} may be used to terminate the loop immediately without
 performing any further iterations, returning zero or more @term{values}.
 
 The @term{scope} of the binding of @param{var}
 does not include the @param{list-form},
 but the @param{result-form} is included.
 
-It is @term{implementation-dependent} whether @coderef{dolist}
+It is @term{implementation-dependent} whether @symbolref{dolist}
 @term{establishes} a new @term{binding} of @param{var} on each iteration
 or whether it @term{establishes} a binding for @param{var} once at the
 beginning and then @param{assigns} it on any subsequent iterations.
@@ -2631,25 +2631,25 @@ beginning and then @param{assigns} it on any subsequent iterations.
 
 @subsubheading Notes:
 
-@coderef{go} may be used within the body of @coderef{dolist}
+@symbolref{go} may be used within the body of @symbolref{dolist}
 to transfer control to a statement labeled by a @param{tag}.
 
 
 
 @node loop
 @subsection loop (Macro)
-@syindexanchor{loop, REF}
+@syindexanchor{loop, SYM}
 @cindex loop
 
 
 
 @subsubheading Syntax:
 
-The ``simple'' @coderef{loop} @term{form}:
+The ``simple'' @symbolref{loop} @term{form}:
 
 @DefmacWithValues{loop, @starparam{compound-form}, @starparam{result}}
 
-The ``extended'' @coderef{loop} @term{form}:
+The ``extended'' @symbolref{loop} @term{form}:
 
 @DefmacWithValues{loop, @brac{@down{name-clause}} @stardown{variable-clause} @stardown{main-clause}, @starparam{result}}
 
@@ -2679,7 +2679,7 @@ The ``extended'' @coderef{loop} @term{form}:
 @auxbnf{for-as-hash, @param{var} @brac{@param{type-spec}} @loopref{being} @curly{@loopref{each} | @loopref{the}} @CR{} @lcurly{}@curly{@loopref{hash-key} | @loopref{hash-keys}} @curly{@loopref{in} | @loopref{of}} @param{hash-table} @CR{} @xcurly{}@brac{@loopref{using} @paren{@loopref{hash-value} @param{other-var}}} | @CR{} @xcurly{}@curly{@loopref{hash-value} | @loopref{hash-values}} @curly{@loopref{in} | @loopref{of}} @param{hash-table} @CR{} @xcurly{}@brac{@loopref{using} @paren{@loopref{hash-key} @param{other-var}}}@rcurly{}}
 @auxbnf{for-as-package, @param{var} @brac{@param{type-spec}} @loopref{being} @curly{@loopref{each} | @loopref{the}} @CR{} @lcurly{}@loopref{symbol} | @loopref{symbols} |@CR{} @xcurly{}@loopref{present-symbol} | @loopref{present-symbols} |@CR{} @xcurly{}@loopref{external-symbol} | @loopref{external-symbols}@rcurly{} @CR{} @brac{@curly{@loopref{in} | @loopref{of}} @param{package}}}
 @auxbnf{type-spec, @down{simple-type-spec} | @down{destructured-type-spec}}
-@auxbnf{simple-type-spec, @coderef{fixnum} | @code{float} | @code{t} | @code{nil}}
+@auxbnf{simple-type-spec, @symbolref{fixnum} | @code{float} | @code{t} | @code{nil}}
 @auxbnf{destructured-type-spec, @loopref{of-type} @param{d-type-spec}}
 @auxbnf{d-type-spec, @param{type-specifier} | @f{(@param{d-type-spec} . @param{d-type-spec})}}
 @auxbnf{var, @down{d-var-spec}}
@@ -2767,8 +2767,8 @@ For details, see @ref{The LOOP Facility}.
 
 @subsubheading Notes:
 
-Except that @coderef{loop-finish} cannot be used within a simple @coderef{loop} @term{form},
-a simple @coderef{loop} @term{form} is related to an extended @coderef{loop} @term{form}
+Except that @symbolref{loop-finish} cannot be used within a simple @symbolref{loop} @term{form},
+a simple @symbolref{loop} @term{form} is related to an extended @symbolref{loop} @term{form}
 in the following way:
 
 @lisp
@@ -2779,7 +2779,7 @@ in the following way:
 
 @node loop-finish
 @subsection loop-finish (Local Macro)
-@syindexanchor{loop-finish, REF}
+@syindexanchor{loop-finish, SYM}
 @cindex loop-finish
 
 
@@ -2791,10 +2791,10 @@ in the following way:
 
 @Themacro{loop-finish} can be used lexically within
 an extended
-@coderef{loop} @term{form}
+@symbolref{loop} @term{form}
 to terminate that @term{form} ``normally.''
 That is, it transfers control to the loop epilogue
-of the lexically innermost extended @coderef{loop} @term{form}.
+of the lexically innermost extended @symbolref{loop} @term{form}.
 This permits execution of any @code{finally} clause (for effect)
 and
 the return of
@@ -2852,13 +2852,13 @@ Transfers control.
 
 @subsubheading Exceptional Situations:
 
-Whether or not @coderef{loop-finish} is @term{fbound} in the
+Whether or not @symbolref{loop-finish} is @term{fbound} in the
 @term{global environment} is @term{implementation-dependent};
 however, the restrictions on redefinition and @term{shadowing} of
-@coderef{loop-finish} are the same as for @term{symbols} in the @code{COMMON-LISP} @term{package}
+@symbolref{loop-finish} are the same as for @term{symbols} in the @code{COMMON-LISP} @term{package}
 which are @term{fbound} in the @term{global environment}.
-The consequences of attempting to use @coderef{loop-finish} outside
-of @coderef{loop} are undefined.
+The consequences of attempting to use @symbolref{loop-finish} outside
+of @symbolref{loop} are undefined.
 
 @subsubheading See Also:
 

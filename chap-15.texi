@@ -58,7 +58,7 @@ An @term{array} can have any number of @term{dimensions} (including zero).
 The number of @term{dimensions} is called the @newterm{rank}.
 
 If the rank of an @term{array} is zero then the @term{array} is said to have
-no @term{dimensions}, and the product of the dimensions (see @coderef{array-total-size})
+no @term{dimensions}, and the product of the dimensions (see @symbolref{array-total-size})
 is then 1; a zero-rank @term{array} therefore has a single element.
 
 @node Vectors
@@ -75,7 +75,7 @@ is called a @newterm{vector}.
 A @newterm{fill pointer} is a non-negative @term{integer} no
 larger than the total number of @term{elements} in a @term{vector}.
 Not all @term{vectors} have @term{fill pointers}.
-See the @term{functions} @ref{make-array} and @coderef{adjust-array}.
+See the @term{functions} @ref{make-array} and @symbolref{adjust-array}.
 
 An @term{element} of a @term{vector} is said to be @newterm{active} if it has
 an index that is greater than or equal to zero,
@@ -290,12 +290,12 @@ see instead @ref{Strings, Chapter 16 (Strings)}.
 
 @node array
 @subsection array (System Class)
-@syindexanchor{array, REF}
+@syindexanchor{array, SYM}
 @cindex array
 
 
 @subsubheading Class Precedence List:
-@coderef{array},
+@symbolref{array},
 @code{t}
 
 @subsubheading Description:
@@ -393,14 +393,14 @@ other @term{objects}.
 
 @node simple-array
 @subsection simple-array (Type)
-@syindexanchor{simple-array, REF}
+@syindexanchor{simple-array, SYM}
 @cindex simple-array
 
 
 @subsubheading Supertypes:
 
-@coderef{simple-array},
-@coderef{array},
+@symbolref{simple-array},
+@symbolref{array},
 @code{t}
 
 @subsubheading Description:
@@ -414,9 +414,9 @@ exists to allow the implementation to use a specialized representation
 and to allow the user to declare that certain values will always be
 @term{simple arrays}.
 
-The @term{types} @coderef{simple-vector},
-@coderef{simple-string},
-and @coderef{simple-bit-vector}
+The @term{types} @symbolref{simple-vector},
+@symbolref{simple-string},
+and @symbolref{simple-bit-vector}
 are @term{disjoint} @subtypesof{simple-array},
 for they respectively mean @f{(simple-array t (*))},
 the union of all @f{(simple-array @i{c} (*))}
@@ -444,7 +444,7 @@ Specializing.
 @subsubheading Compound Type Specifier Description:
 
 This @term{compound type specifier} is treated exactly as the corresponding
-@term{compound type specifier} for @term{type} @coderef{array} would be treated,
+@term{compound type specifier} for @term{type} @symbolref{array} would be treated,
 except that the set is further constrained to include only @term{simple arrays}.
 
 @subsubheading Notes:
@@ -459,7 +459,7 @@ are @term{simple arrays}.
 regardless of element type, @tt{(simple-array @param{type-specifier})}
 refers only to those @term{simple arrays}
 that can result from giving @param{type-specifier} as the
-@kwd{element-type} argument to @coderef{make-array}.
+@kwd{element-type} argument to @symbolref{make-array}.
 
 @node vector (System Class)
 @subsection vector (System Class)
@@ -469,8 +469,8 @@ that can result from giving @param{type-specifier} as the
 
 @subsubheading Class Precedence List:
 @code{vector},
-@coderef{array},
-@coderef{sequence},
+@symbolref{array},
+@symbolref{sequence},
 @code{t}
 
 @subsubheading Description:
@@ -527,7 +527,7 @@ the set is not restricted on the basis of @term{dimension}.
 The @term{type} @f{(vector @param{e} @param{s})}
 is equivalent to the @term{type} @f{(array @param{e} (@param{s}))}.
 
-The type @f{(vector bit)} has the name @coderef{bit-vector}.
+The type @f{(vector bit)} has the name @symbolref{bit-vector}.
 
 The union of all @term{types} @f{(vector @mat{C})},
 where @mat{C} is any @term{subtype} of @code{character},
@@ -537,21 +537,21 @@ has the name @code{string}.
 regardless of element type, @tt{(vector @param{type-specifier})}
 refers only to those @term{vectors}
 that can result from giving @param{type-specifier} as the
-@kwd{element-type} argument to @coderef{make-array}.
+@kwd{element-type} argument to @symbolref{make-array}.
 
 @node simple-vector
 @subsection simple-vector (Type)
-@syindexanchor{simple-vector, REF}
+@syindexanchor{simple-vector, SYM}
 @cindex simple-vector
 
 
 @subsubheading Supertypes:
 
-@coderef{simple-vector},
+@symbolref{simple-vector},
 @code{vector},
-@coderef{simple-array},
-@coderef{array},
-@coderef{sequence},
+@symbolref{simple-array},
+@symbolref{array},
+@symbolref{sequence},
 @code{t}
 
 @subsubheading Description:
@@ -585,15 +585,15 @@ This is the same as @tt{(simple-array t (@param{size}))}.
 
 @node bit-vector
 @subsection bit-vector (System Class)
-@syindexanchor{bit-vector, REF}
+@syindexanchor{bit-vector, SYM}
 @cindex bit-vector
 
 
 @subsubheading Class Precedence List:
-@coderef{bit-vector},
+@symbolref{bit-vector},
 @code{vector},
-@coderef{array},
-@coderef{sequence},
+@symbolref{array},
+@symbolref{sequence},
 @code{t}
 
 @subsubheading Description:
@@ -601,7 +601,7 @@ This is the same as @tt{(simple-array t (@param{size}))}.
 A @term{bit vector} is a @term{vector} the @term{element type} of which is @term{bit}.
 
 @Thetype{bit-vector} is a @subtypeof{vector},
-for @coderef{bit-vector} means @f{(vector bit)}.
+for @symbolref{bit-vector} means @f{(vector bit)}.
 
 @subsubheading Compound Type Specifier Kind:
 
@@ -629,18 +629,18 @@ that is, the set of @term{bit vectors} of size @param{size}.
 
 @node simple-bit-vector
 @subsection simple-bit-vector (Type)
-@syindexanchor{simple-bit-vector, REF}
+@syindexanchor{simple-bit-vector, SYM}
 @cindex simple-bit-vector
 
 
 @subsubheading Supertypes:
 
-@coderef{simple-bit-vector},
-@coderef{bit-vector},
+@symbolref{simple-bit-vector},
+@symbolref{bit-vector},
 @code{vector},
-@coderef{simple-array},
-@coderef{array},
-@coderef{sequence},
+@symbolref{simple-array},
+@symbolref{array},
+@symbolref{sequence},
 @code{t}
 
 @subsubheading Description:
@@ -675,7 +675,7 @@ that is, the set of @term{simple bit vectors} of size @param{size}.
 
 @node make-array
 @subsection make-array (Function)
-@syindexanchor{make-array, REF}
+@syindexanchor{make-array, SYM}
 @cindex make-array
 
 
@@ -782,7 +782,7 @@ If @param{fill-pointer} is an @term{integer},
 it becomes the initial @term{fill pointer} for the @term{vector}.
 
 If @param{displaced-to} is @term{non-nil},
-@coderef{make-array} will create a @term{displaced array}
+@symbolref{make-array} will create a @term{displaced array}
 and @param{displaced-to} is the @term{target} of that @term{displaced array}.
 In that case, the consequences are undefined if the @term{actual array element type} of
 @param{displaced-to} is not @term{type equivalent} to the @term{actual array element type}
@@ -791,7 +791,7 @@ If @param{displaced-to} is @nil{}, the @term{array} is not a @term{displaced arr
 
 The @param{displaced-index-offset} is made to be the index offset of the @term{array}.
 When an array A is given as
-@thekeyarg{displaced-to} to @coderef{make-array}
+@thekeyarg{displaced-to} to @symbolref{make-array}
 when creating array B,
 then array B is said to be displaced to array A.  The
 total number of elements in an @term{array},
@@ -807,15 +807,15 @@ were one-dimensional by taking the elements in row-major order,
 and then maps an @term{access} to element @f{k} of array B to an @term{access} to element
 @f{k}+@f{n} of array A.
 
-If @coderef{make-array} is called with @param{adjustable}, @param{fill-pointer},
+If @symbolref{make-array} is called with @param{adjustable}, @param{fill-pointer},
 and @param{displaced-to} each @nil{},
 then the result is a @term{simple array}.
-If @coderef{make-array} is called with one or more of @param{adjustable},
+If @symbolref{make-array} is called with one or more of @param{adjustable},
 @param{fill-pointer}, or @param{displaced-to} being @term{true}, whether the
 resulting @term{array} is a @term{simple array} is @term{implementation-dependent}.
 
 When an array A is given as @thekeyarg{displaced-to} to
-@coderef{make-array} when creating array B, then array B is said to
+@symbolref{make-array} when creating array B, then array B is said to
 be displaced to array A.  The total number of elements in an @term{array},
 called the total size of the @term{array}, is calculated as the product
 of all the dimensions.
@@ -921,7 +921,7 @@ stored in row-major order.
 @subsubheading Notes:
 
 There is no specified way to create an @term{array}
-for which @coderef{adjustable-array-p} definitely
+for which @symbolref{adjustable-array-p} definitely
 returns @term{false}.
 There is no specified way to create an @term{array}
 that is not a @term{simple array}.
@@ -929,7 +929,7 @@ that is not a @term{simple array}.
 
 @node adjust-array
 @subsection adjust-array (Function)
-@syindexanchor{adjust-array, REF}
+@syindexanchor{adjust-array, SYM}
 @cindex adjust-array
 
 
@@ -974,7 +974,7 @@ where @i{n} is @tt{(array-total-size @param{displaced-to})}.
 
 @subsubheading Description:
 
-@coderef{adjust-array} changes the dimensions or elements of @param{array}.
+@symbolref{adjust-array} changes the dimensions or elements of @param{array}.
 The result is an @term{array} of the same @term{type} and rank as @param{array},
 that is either the modified @param{array},
 or a newly created @term{array} to which
@@ -990,7 +990,7 @@ the @term{upgraded array element type} of @param{element-type}
 is not the same as the @term{actual array element type} of @param{array}.
 
 If @param{initial-contents} is supplied, it is treated as for
-@coderef{make-array}.  In this case none of the original contents of
+@symbolref{make-array}.  In this case none of the original contents of
 @param{array} appears in the resulting @term{array}.
 
 If @param{fill-pointer} is an @term{integer},
@@ -1010,12 +1010,12 @@ it is displaced to.
 If @param{displaced-to} is not supplied or @nil{},
 the resulting @term{array} is not a @term{displaced array}.
 If array @mat{A} is created displaced to array @mat{B} and subsequently
-array @mat{B} is given to @coderef{adjust-array}, array @mat{A} will still be
+array @mat{B} is given to @symbolref{adjust-array}, array @mat{A} will still be
 displaced to array @mat{B}.
 Although @param{array} might be a @term{displaced array},
 the resulting @term{array} is not a @term{displaced array} unless
 @param{displaced-to} is supplied and not @nil{}.
-The interaction between @coderef{adjust-array} and
+The interaction between @symbolref{adjust-array} and
 displaced @term{arrays}
 is as follows given three @term{arrays}, @tt{A}, @tt{B}, and@tie{}@tt{C}:
 
@@ -1060,7 +1060,7 @@ the contents of @tt{C}, without any rearrangement of @tt{C}.
 @tt{B} and @tt{C} might be the same. The contents of @tt{B} do not appear in
 @tt{A} afterward unless such contents also happen to be in @tt{C}  If
 @param{displaced-index-offset}
-is not supplied in the @coderef{adjust-array} call, it defaults
+is not supplied in the @symbolref{adjust-array} call, it defaults
 to zero; the old offset into @tt{B} is not retained.
 
 @item @id{@tt{A} is displaced to @tt{B} before the call, but not displaced afterward.}
@@ -1115,14 +1115,14 @@ if @tt{B} is adjusted in such a way that it no longer has enough elements
 to satisfy @tt{A}.
 
 
-If @coderef{adjust-array} is applied to an @term{array} that is @term{actually adjustable},
+If @symbolref{adjust-array} is applied to an @term{array} that is @term{actually adjustable},
 the @term{array} returned is @term{identical} to @param{array}.
-If the @term{array} returned by @coderef{adjust-array}
+If the @term{array} returned by @symbolref{adjust-array}
 is @term{distinct} from @param{array}, then the argument @param{array} is unchanged.
 
 Note that if an @term{array} @mat{A} is displaced to another @term{array} @mat{B},
 and @mat{B} is displaced to another @term{array} @mat{C}, and @mat{B} is altered by
-@coderef{adjust-array}, @mat{A} must now refer to the adjust contents of @mat{B}.
+@symbolref{adjust-array}, @mat{A} must now refer to the adjust contents of @mat{B}.
 This means that an implementation cannot collapse the chain to make @mat{A}
 refer to @mat{C} directly and forget that the chain of reference passes through
 @mat{B}.  However, caching techniques are permitted as long as they preserve the
@@ -1189,7 +1189,7 @@ and @term{non-nil} but @param{array} has no @term{fill pointer}.
 
 @node adjustable-array-p
 @subsection adjustable-array-p (Function)
-@syindexanchor{adjustable-array-p, REF}
+@syindexanchor{adjustable-array-p, SYM}
 @cindex adjustable-array-p
 
 
@@ -1206,7 +1206,7 @@ and @term{non-nil} but @param{array} has no @term{fill pointer}.
 @subsubheading Description:
 
 
-Returns true if and only if @coderef{adjust-array} could return a @term{value}
+Returns true if and only if @symbolref{adjust-array} could return a @term{value}
 which is @term{identical} to @param{array} when given that @term{array} as its
 first @term{argument}.
 
@@ -1233,7 +1233,7 @@ Should signal an error @oftype{type-error} if its argument is not an @term{array
 
 @node aref
 @subsection aref (Accessor)
-@syindexanchor{aref, REF}
+@syindexanchor{aref, SYM}
 @cindex aref
 
 
@@ -1254,10 +1254,10 @@ Should signal an error @oftype{type-error} if its argument is not an @term{array
 
 @term{Accesses} the @param{array} @term{element} specified by the @param{subscripts}.
 If no @param{subscripts} are supplied and @param{array} is zero rank,
-@coderef{aref} @term{accesses} the sole element of @param{array}.
+@symbolref{aref} @term{accesses} the sole element of @param{array}.
 
-@coderef{aref} ignores @term{fill pointers}.
-It is permissible to use @coderef{aref}
+@symbolref{aref} ignores @term{fill pointers}.
+It is permissible to use @symbolref{aref}
 to @term{access} any @param{array} @term{element},
 whether @term{active} or not.
 
@@ -1297,7 +1297,7 @@ refers to element (2, 1) of the array.
 
 @node array-dimension
 @subsection array-dimension (Function)
-@syindexanchor{array-dimension, REF}
+@syindexanchor{array-dimension, SYM}
 @cindex array-dimension
 
 
@@ -1316,7 +1316,7 @@ and less than the @term{rank} of the @param{array}.
 
 @subsubheading Description:
 
-@coderef{array-dimension} returns the @param{axis-number}
+@symbolref{array-dimension} returns the @param{axis-number}
 @term{dimension}@sub{1} of @param{array}.
 (Any @term{fill pointer} is ignored.)
 
@@ -1342,7 +1342,7 @@ None.
 
 @node array-dimensions
 @subsection array-dimensions (Function)
-@syindexanchor{array-dimensions, REF}
+@syindexanchor{array-dimensions, SYM}
 @cindex array-dimensions
 
 
@@ -1382,7 +1382,7 @@ Should signal an error @oftype{type-error} if its argument is not an @term{array
 
 @node array-element-type
 @subsection array-element-type (Function)
-@syindexanchor{array-element-type, REF}
+@syindexanchor{array-element-type, SYM}
 @cindex array-element-type
 
 
@@ -1440,7 +1440,7 @@ Should signal an error @oftype{type-error} if its argument is not an @term{array
 
 @node array-has-fill-pointer-p
 @subsection array-has-fill-pointer-p (Function)
-@syindexanchor{array-has-fill-pointer-p, REF}
+@syindexanchor{array-has-fill-pointer-p, SYM}
 @cindex array-has-fill-pointer-p
 
 
@@ -1482,13 +1482,13 @@ Should signal an error @oftype{type-error} if its argument is not an @term{array
 @subsubheading Notes:
 
 Since @term{arrays} of @term{rank} other than one cannot have a @term{fill pointer},
-@coderef{array-has-fill-pointer-p} always returns @nil{}@spc{}when its argument
+@symbolref{array-has-fill-pointer-p} always returns @nil{}@spc{}when its argument
 is such an array.
 
 
 @node array-displacement
 @subsection array-displacement (Function)
-@syindexanchor{array-displacement, REF}
+@syindexanchor{array-displacement, SYM}
 @cindex array-displacement
 
 
@@ -1510,16 +1510,16 @@ is such an array.
 If the @param{array} is a @term{displaced array},
 returns the @term{values} of the @kwd{displaced-to} and @kwd{displaced-index-offset}
 options
-for the @term{array} (see the @term{functions} @ref{make-array} and @coderef{adjust-array}).
+for the @term{array} (see the @term{functions} @ref{make-array} and @symbolref{adjust-array}).
 If the @param{array} is not a @term{displaced array},
 @nil{}@spc{}and @f{0} are returned.
 
-If @coderef{array-displacement} is called on an @param{array}
+If @symbolref{array-displacement} is called on an @param{array}
 for which a @term{non-nil} @term{object} was provided as the
-@kwd{displaced-to} @term{argument} to @coderef{make-array}
-or @coderef{adjust-array}, it must return that @term{object}
+@kwd{displaced-to} @term{argument} to @symbolref{make-array}
+or @symbolref{adjust-array}, it must return that @term{object}
 as its first value. It is @term{implementation-dependent}
-whether @coderef{array-displacement} returns a @term{non-nil}
+whether @symbolref{array-displacement} returns a @term{non-nil}
 @term{primary value} for any other @param{array}.
 
 @subsubheading Examples:
@@ -1551,7 +1551,7 @@ whether @coderef{array-displacement} returns a @term{non-nil}
 
 @node array-in-bounds-p
 @subsection array-in-bounds-p (Function)
-@syindexanchor{array-in-bounds-p, REF}
+@syindexanchor{array-in-bounds-p, SYM}
 @cindex array-in-bounds-p
 
 
@@ -1600,7 +1600,7 @@ that @term{fill pointer} is ignored.)
 
 @node array-rank
 @subsection array-rank (Function)
-@syindexanchor{array-rank, REF}
+@syindexanchor{array-rank, SYM}
 @cindex array-rank
 
 
@@ -1639,7 +1639,7 @@ Should signal an error @oftype{type-error} if its argument is not an @term{array
 
 @node array-row-major-index
 @subsection array-row-major-index (Function)
-@syindexanchor{array-row-major-index, REF}
+@syindexanchor{array-row-major-index, SYM}
 @cindex array-row-major-index
 
 
@@ -1662,10 +1662,10 @@ for the element that is specified by @param{subscripts}, and returns the
 offset of the element in the computed position from the beginning of @param{array}.
 
 For a one-dimensional @param{array},
-the result of @coderef{array-row-major-index}
+the result of @symbolref{array-row-major-index}
 equals @param{subscript}.
 
-@coderef{array-row-major-index} ignores @term{fill pointers}.
+@symbolref{array-row-major-index} ignores @term{fill pointers}.
 
 @subsubheading Examples:
 
@@ -1683,7 +1683,7 @@ equals @param{subscript}.
 
 @subsubheading Notes:
 
-A possible definition of @coderef{array-row-major-index},
+A possible definition of @symbolref{array-row-major-index},
 with no error-checking, is
 
 @lisp
@@ -1698,7 +1698,7 @@ with no error-checking, is
 
 @node array-total-size
 @subsection array-total-size (Function)
-@syindexanchor{array-total-size, REF}
+@syindexanchor{array-total-size, SYM}
 @cindex array-total-size
 
 
@@ -1754,7 +1754,7 @@ zero-dimensional @term{array} is one.
 
 @node arrayp
 @subsection arrayp (Function)
-@syindexanchor{arrayp, REF}
+@syindexanchor{arrayp, SYM}
 @cindex arrayp
 
 
@@ -1798,7 +1798,7 @@ zero-dimensional @term{array} is one.
 
 @node fill-pointer
 @subsection fill-pointer (Accessor)
-@syindexanchor{fill-pointer, REF}
+@syindexanchor{fill-pointer, SYM}
 @cindex fill-pointer
 
 
@@ -1848,7 +1848,7 @@ There is no @term{operator} that will remove a @term{vector}'s @term{fill pointe
 
 @node row-major-aref
 @subsection row-major-aref (Accessor)
-@syindexanchor{row-major-aref, REF}
+@syindexanchor{row-major-aref, SYM}
 @cindex row-major-aref
 
 
@@ -1871,7 +1871,7 @@ Considers @term{array} as a @term{vector} by viewing its @term{elements}
 in row-major order, and returns the @term{element} of that @term{vector}
 which is referred to by the given @param{index}.
 
-@coderef{row-major-aref} is valid for use with @coderef{setf}.
+@symbolref{row-major-aref} is valid for use with @symbolref{setf}.
 
 @subsubheading See Also:
 
@@ -1896,7 +1896,7 @@ which is referred to by the given @param{index}.
 
 @node upgraded-array-element-type
 @subsection upgraded-array-element-type (Function)
-@syindexanchor{upgraded-array-element-type, REF}
+@syindexanchor{upgraded-array-element-type, SYM}
 @cindex upgraded-array-element-type
 
 
@@ -1926,12 +1926,12 @@ the @param{upgraded-typespec}.
 
 If @param{typespec} is @code{bit},
 the result is @term{type equivalent} to @f{bit}.
-If @param{typespec} is @coderef{base-char},
+If @param{typespec} is @symbolref{base-char},
 the result is @term{type equivalent} to @f{base-char}.
 If @param{typespec} is @code{character},
 the result is @term{type equivalent} to @f{character}.
 
-The purpose of @coderef{upgraded-array-element-type} is to reveal how
+The purpose of @symbolref{upgraded-array-element-type} is to reveal how
 an implementation does its @term{upgrading}.
 
 The @param{environment} is used to expand any @term{derived type specifiers}
@@ -1946,7 +1946,7 @@ that are mentioned in the @param{typespec}.
 
 Except for storage allocation consequences and dealing correctly with the
 optional @param{environment} @term{argument},
-@coderef{upgraded-array-element-type} could be defined as:
+@symbolref{upgraded-array-element-type} could be defined as:
 
 @lisp
  (defun upgraded-array-element-type (type &optional environment)
@@ -1958,7 +1958,7 @@ optional @param{environment} @term{argument},
 
 @node array-dimension-limit
 @subsection array-dimension-limit (Constant Variable)
-@syindexanchor{array-dimension-limit, REF}
+@syindexanchor{array-dimension-limit, SYM}
 @cindex array-dimension-limit
 
 
@@ -1980,7 +1980,7 @@ The upper exclusive bound on each individual @term{dimension} of an @term{array}
 
 @node array-rank-limit
 @subsection array-rank-limit (Constant Variable)
-@syindexanchor{array-rank-limit, REF}
+@syindexanchor{array-rank-limit, SYM}
 @cindex array-rank-limit
 
 
@@ -2002,7 +2002,7 @@ The upper exclusive bound on the @term{rank} of an @term{array}.
 
 @node array-total-size-limit
 @subsection array-total-size-limit (Constant Variable)
-@syindexanchor{array-total-size-limit, REF}
+@syindexanchor{array-total-size-limit, SYM}
 @cindex array-total-size-limit
 
 
@@ -2020,7 +2020,7 @@ The upper exclusive bound on the @term{array total size} of an @term{array}.
 The actual limit on the @term{array total size}
 imposed by the @term{implementation}
 might vary according the @term{element type} of the @term{array};
-in this case, the value of @coderef{array-total-size-limit}
+in this case, the value of @symbolref{array-total-size-limit}
 will be the smallest of these possible limits.
 
 @subsubheading See Also:
@@ -2030,7 +2030,7 @@ will be the smallest of these possible limits.
 
 @node simple-vector-p
 @subsection simple-vector-p (Function)
-@syindexanchor{simple-vector-p, REF}
+@syindexanchor{simple-vector-p, SYM}
 @cindex simple-vector-p
 
 
@@ -2071,7 +2071,7 @@ will be the smallest of these possible limits.
 
 @node svref
 @subsection svref (Accessor)
-@syindexanchor{svref, REF}
+@syindexanchor{svref, SYM}
 @cindex svref
 
 
@@ -2115,7 +2115,7 @@ of the @term{array element type} of the @param{simple-vector}).
 
 @subsubheading Notes:
 
-@coderef{svref} is identical to @coderef{aref}
+@symbolref{svref} is identical to @symbolref{aref}
 except that it requires its first argument to be a @term{simple vector}.
 
 @lisp
@@ -2175,7 +2175,7 @@ The @term{vector} is initialized to contain the @param{objects}.
 
 @node vector-pop
 @subsection vector-pop (Function)
-@syindexanchor{vector-pop, REF}
+@syindexanchor{vector-pop, SYM}
 @cindex vector-pop
 
 
@@ -2221,7 +2221,7 @@ The value of the @term{fill pointer}.
 
 An error @oftype{type-error} is signaled if @param{vector} does not have a @term{fill pointer}.
 
-If the @term{fill pointer} is zero, @coderef{vector-pop} signals an error @oftype{error}.
+If the @term{fill pointer} is zero, @symbolref{vector-pop} signals an error @oftype{error}.
 
 @subsubheading See Also:
 
@@ -2230,9 +2230,9 @@ If the @term{fill pointer} is zero, @coderef{vector-pop} signals an error @oftyp
 
 @node vector-push; vector-push-extend
 @subsection vector-push, vector-push-extend (Function)
-@syindexanchor{vector-push, REF}
+@syindexanchor{vector-push, SYM}
 @cindex vector-push
-@syindexanchor{vector-push-extend, REF}
+@syindexanchor{vector-push-extend, SYM}
 @cindex vector-push-extend
 @anchor{vector-push}
 @anchor{vector-push-extend}
@@ -2259,30 +2259,30 @@ If the @term{fill pointer} is zero, @coderef{vector-pop} signals an error @oftyp
 
 @subsubheading Description:
 
-@coderef{vector-push} and @coderef{vector-push-extend} store
+@symbolref{vector-push} and @symbolref{vector-push-extend} store
 @param{new-element} in @param{vector}.
-@coderef{vector-push} attempts to store
+@symbolref{vector-push} attempts to store
 @param{new-element}
 in the element of @param{vector} designated by the @term{fill pointer},
 and to increase the @term{fill pointer} by one.  If the
 @f{(>= (fill-pointer @param{vector}) (array-dimension @param{vector} 0))},
 neither @param{vector} nor its @term{fill pointer} are affected.
 Otherwise, the store and increment take
-place and @coderef{vector-push}
+place and @symbolref{vector-push}
 returns the former value of the @term{fill pointer}
 which is one less than the one it leaves in @param{vector}.
 
-@coderef{vector-push-extend} is just like @coderef{vector-push} except
+@symbolref{vector-push-extend} is just like @symbolref{vector-push} except
 that if the @term{fill pointer} gets too large, @param{vector} is extended using
-@coderef{adjust-array} so that it can contain more elements.
+@symbolref{adjust-array} so that it can contain more elements.
 @param{Extension}
 is the minimum number of elements to be added to @param{vector} if it
 must be extended.
 
-@coderef{vector-push} and
-@coderef{vector-push-extend} return the index of @param{new-element} in @param{vector}.
+@symbolref{vector-push} and
+@symbolref{vector-push-extend} return the index of @param{new-element} in @param{vector}.
 If @f{(>= (fill-pointer @param{vector}) (array-dimension @param{vector} 0))},
-@coderef{vector-push} returns @nil{}.
+@symbolref{vector-push} returns @nil{}.
 
 @subsubheading Examples:
 
@@ -2314,7 +2314,7 @@ How @param{vector} was created.
 
 @subsubheading Exceptional Situations:
 
-An error @oftype{error} is signaled by @coderef{vector-push-extend}
+An error @oftype{error} is signaled by @symbolref{vector-push-extend}
 if it tries to extend @param{vector} and @param{vector} is not @term{actually adjustable}.
 
 An error @oftype{error} is signaled if @param{vector} does not
@@ -2327,7 +2327,7 @@ have a @term{fill pointer}.
 
 @node vectorp
 @subsection vectorp (Function)
-@syindexanchor{vectorp, REF}
+@syindexanchor{vectorp, SYM}
 @cindex vectorp
 
 
@@ -2367,7 +2367,7 @@ have a @term{fill pointer}.
 @subsection bit, sbit (Accessor)
 @syindexanchor{bit, A}
 @cindex bit
-@syindexanchor{sbit, REF}
+@syindexanchor{sbit, SYM}
 @cindex sbit
 @anchor{bit}
 @anchor{sbit}
@@ -2383,7 +2383,7 @@ have a @term{fill pointer}.
 @subsubheading Arguments and Values:
 
 @param{bit-array}---for @code{bit},  a @term{bit array};
-for @coderef{sbit}, a @term{simple bit array}.
+for @symbolref{sbit}, a @term{simple bit array}.
 
 @param{subscripts}---a @term{list} of @term{valid array indices}
 for the @param{bit-array}.
@@ -2392,7 +2392,7 @@ for the @param{bit-array}.
 
 @subsubheading Description:
 
-@code{bit} and @coderef{sbit} @term{access} the @param{bit-array}
+@code{bit} and @symbolref{sbit} @term{access} the @param{bit-array}
 @term{element} specified by @param{subscripts}.
 
 These @term{functions} ignore the @term{fill pointer} when @term{accessing} @term{elements}.
@@ -2419,37 +2419,37 @@ These @term{functions} ignore the @term{fill pointer} when @term{accessing} @ter
 
 @subsubheading Notes:
 
-@code{bit} and @coderef{sbit} are like @coderef{aref}
+@code{bit} and @symbolref{sbit} are like @symbolref{aref}
 except that they require @param{arrays} to be
 a @term{bit array} and a @term{simple bit array}, respectively.
 
-@code{bit} and @coderef{sbit}, unlike @coderef{char} and @coderef{schar},
+@code{bit} and @symbolref{sbit}, unlike @symbolref{char} and @symbolref{schar},
 allow the first argument to be an @term{array} of any @term{rank}.
 
 
 @node bit-and; bit-andc1; bit-andc2; bit-eqv; bit-ior; bit-nand; bit-nor; bit+
 @subsection bit-and, bit-andc1, bit-andc2, bit-eqv, bit-ior, bit-nand, bit-nor, bit-not, bit-orc1, bit-orc2, bit-xor (Function)
-@syindexanchor{bit-and, REF}
+@syindexanchor{bit-and, SYM}
 @cindex bit-and
-@syindexanchor{bit-andc1, REF}
+@syindexanchor{bit-andc1, SYM}
 @cindex bit-andc1
-@syindexanchor{bit-andc2, REF}
+@syindexanchor{bit-andc2, SYM}
 @cindex bit-andc2
-@syindexanchor{bit-eqv, REF}
+@syindexanchor{bit-eqv, SYM}
 @cindex bit-eqv
-@syindexanchor{bit-ior, REF}
+@syindexanchor{bit-ior, SYM}
 @cindex bit-ior
-@syindexanchor{bit-nand, REF}
+@syindexanchor{bit-nand, SYM}
 @cindex bit-nand
-@syindexanchor{bit-nor, REF}
+@syindexanchor{bit-nor, SYM}
 @cindex bit-nor
-@syindexanchor{bit-not, REF}
+@syindexanchor{bit-not, SYM}
 @cindex bit-not
-@syindexanchor{bit-orc1, REF}
+@syindexanchor{bit-orc1, SYM}
 @cindex bit-orc1
-@syindexanchor{bit-orc2, REF}
+@syindexanchor{bit-orc2, SYM}
 @cindex bit-orc2
-@syindexanchor{bit-xor, REF}
+@syindexanchor{bit-xor, SYM}
 @cindex bit-xor
 
 
@@ -2490,7 +2490,7 @@ of matching @term{rank} and @term{dimensions},
 such that any given bit of the result
 is produced by operating on corresponding bits from each of the arguments.
 
-In the case of @coderef{bit-not}, an @term{array}
+In the case of @symbolref{bit-not}, an @term{array}
 of @term{rank} and @term{dimensions} matching @param{bit-array}
 is returned that contains a copy of @param{bit-array}
 with all the bits inverted.
@@ -2508,13 +2508,13 @@ performed by each of the @term{functions}.
 
 @float Figure,fig15.4
 @cartouche
-@multitable{@coderef{bit-andc1}}{and complement of @param{bit-array1} with @param{bit-array2}}
+@multitable{@symbolref{bit-andc1}}{and complement of @param{bit-array1} with @param{bit-array2}}
 @headitem Function @tab Operation
-@item @coderef{bit-nor} @tab complement of @param{bit-array1} or @param{bit-array2}
-@item @coderef{bit-andc1} @tab and complement of @param{bit-array1} with @param{bit-array2}
-@item @coderef{bit-andc2} @tab and @param{bit-array1} with complement of @param{bit-array2}
-@item @coderef{bit-orc1} @tab or complement of @param{bit-array1} with @param{bit-array2}
-@item @coderef{bit-orc2} @tab or @param{bit-array1} with complement of @param{bit-array2}
+@item @symbolref{bit-nor} @tab complement of @param{bit-array1} or @param{bit-array2}
+@item @symbolref{bit-andc1} @tab and complement of @param{bit-array1} with @param{bit-array2}
+@item @symbolref{bit-andc2} @tab and @param{bit-array1} with complement of @param{bit-array2}
+@item @symbolref{bit-orc1} @tab or complement of @param{bit-array1} with @param{bit-array2}
+@item @symbolref{bit-orc2} @tab or @param{bit-array1} with complement of @param{bit-array2}
 @end multitable
 @end cartouche
 @caption{Bit-wise Logical Operations on Bit Arrays}
@@ -2544,7 +2544,7 @@ performed by each of the @term{functions}.
 
 @node bit-vector-p
 @subsection bit-vector-p (Function)
-@syindexanchor{bit-vector-p, REF}
+@syindexanchor{bit-vector-p, SYM}
 @cindex bit-vector-p
 
 
@@ -2587,7 +2587,7 @@ performed by each of the @term{functions}.
 
 @node simple-bit-vector-p
 @subsection simple-bit-vector-p (Function)
-@syindexanchor{simple-bit-vector-p, REF}
+@syindexanchor{simple-bit-vector-p, SYM}
 @cindex simple-bit-vector-p
 
 

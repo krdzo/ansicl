@@ -29,16 +29,16 @@ the @term{hash table} is modified.
 
 @item
 There are four kinds of @term{hash tables}:
-those whose keys are compared with @coderef{eq},
+those whose keys are compared with @symbolref{eq},
 those whose keys are compared with @code{eql},
-those whose keys are compared with @coderef{equal}, and
-those whose keys are compared with @coderef{equalp}.
+those whose keys are compared with @symbolref{equal}, and
+those whose keys are compared with @symbolref{equalp}.
 
 @item
-@term{Hash tables} are created by @coderef{make-hash-table}.
-@coderef{gethash} is used to look up a key and find the associated value.
-New entries are added to @term{hash tables} using @coderef{setf} with @coderef{gethash}.
-@coderef{remhash} is used to remove an entry.
+@term{Hash tables} are created by @symbolref{make-hash-table}.
+@symbolref{gethash} is used to look up a key and find the associated value.
+New entries are added to @term{hash tables} using @symbolref{setf} with @symbolref{gethash}.
+@symbolref{remhash} is used to remove an entry.
 For example:
 
 @lisp
@@ -64,7 +64,7 @@ A key or a value may be any @term{object}.
 
 @item
 The existence of an entry in the @term{hash table} can be determined
-from the @term{secondary value} returned by @coderef{gethash}.
+from the @term{secondary value} returned by @symbolref{gethash}.
 @end itemize
 
 
@@ -87,7 +87,7 @@ from the @term{secondary value} returned by @coderef{gethash}.
 @subsection Modifying Hash Table Keys
 
 
-The function supplied as the @kwd{test} argument to @coderef{make-hash-table}
+The function supplied as the @kwd{test} argument to @symbolref{make-hash-table}
 specifies the `equivalence test' for the @term{hash table} it creates.
 
 An @term{object} is `visibly modified' with regard to an equivalence test
@@ -115,13 +115,13 @@ visible modifications of the @term{object}.
 @subsubsection Visible Modification of Objects with respect to EQ and EQL
 
 No @term{standardized} @term{function} is provided that is capable of visibly
-modifying an @term{object} with regard to @coderef{eq} or @code{eql}.
+modifying an @term{object} with regard to @symbolref{eq} or @code{eql}.
 
 
 @node Visible Modification of Objects with respect to EQUAL
 @subsubsection Visible Modification of Objects with respect to EQUAL
 
-As a consequence of the behavior for @coderef{equal},
+As a consequence of the behavior for @symbolref{equal},
 the rules for visible modification of @term{objects} not explicitly mentioned in this
 section are inherited from those in @ref{Visible Modification of Objects with respect to EQ and EQL}.
 
@@ -130,7 +130,7 @@ section are inherited from those in @ref{Visible Modification of Objects with re
 
 
 Any visible change to the @term{car} or the @term{cdr} of a @term{cons}
-is considered a visible modification with regard to @coderef{equal}.
+is considered a visible modification with regard to @symbolref{equal}.
 
 
 @node Visible Modification of Bit Vectors and Strings with respect to EQUAL
@@ -141,14 +141,14 @@ For a @term{vector} @oftype{bit-vector} or @oftype{string}, any visible change
 to an @term{active} @term{element} of the @term{vector},
 or to the @term{length} of the @term{vector} (if it is @term{actually adjustable}
 or has a @term{fill pointer})
-is considered a visible modification with regard to @coderef{equal}.
+is considered a visible modification with regard to @symbolref{equal}.
 
 
 
 @node Visible Modification of Objects with respect to EQUALP
 @subsubsection Visible Modification of Objects with respect to EQUALP
 
-As a consequence of the behavior for @coderef{equalp},
+As a consequence of the behavior for @symbolref{equalp},
 the rules for visible modification of @term{objects} not explicitly mentioned in this
 section are inherited from those in @ref{Visible Modification of Objects with respect to EQUAL}.
 
@@ -157,7 +157,7 @@ section are inherited from those in @ref{Visible Modification of Objects with re
 
 
 Any visible change to a @term{slot} of a @term{structure}
-is considered a visible modification with regard to @coderef{equalp}.
+is considered a visible modification with regard to @symbolref{equalp}.
 
 
 @node Visible Modification of Arrays with respect to EQUALP
@@ -168,7 +168,7 @@ In an @term{array}, any visible change
 to an @term{active} @term{element},
 to the @term{fill pointer} (if the @term{array} can and does have one),
 or to the @term{dimensions} (if the @term{array} is @term{actually adjustable})
-is considered a visible modification with regard to @coderef{equalp}.
+is considered a visible modification with regard to @symbolref{equalp}.
 
 
 @node Visible Modification of Hash Tables with respect to EQUALP
@@ -179,10 +179,10 @@ In a @term{hash table}, any visible change
 to the count of entries in the @term{hash table},
 to the keys,
 or to the values associated with the keys
-is considered a visible modification with regard to @coderef{equalp}.
+is considered a visible modification with regard to @symbolref{equalp}.
 
 Note that the visibility of modifications to the keys depends on the equivalence test
-of the @term{hash table}, not on the specification of @coderef{equalp}.
+of the @term{hash table}, not on the specification of @symbolref{equalp}.
 
 
 
@@ -196,7 +196,7 @@ document how the use of these extensions interacts with equivalence tests and
 
 @term{Implementations} that extend the language by defining additional acceptable
 equivalence tests for @term{hash tables} (allowing additional values for the @kwd{test}
-argument to @coderef{make-hash-table}) must document the visible components of these
+argument to @symbolref{make-hash-table}) must document the visible components of these
 tests.
 
 @node Hash Tables Dictionary
@@ -222,12 +222,12 @@ tests.
 
 @node hash-table
 @subsection hash-table (System Class)
-@syindexanchor{hash-table, REF}
+@syindexanchor{hash-table, SYM}
 @cindex hash-table
 
 
 @subsubheading Class Precedence List:
-@coderef{hash-table},
+@symbolref{hash-table},
 @code{t}
 
 @subsubheading Description:
@@ -250,7 +250,7 @@ is required to use any particular technique to implement the mapping.
 
 @node make-hash-table
 @subsection make-hash-table (Function)
-@syindexanchor{make-hash-table, REF}
+@syindexanchor{make-hash-table, SYM}
 @cindex make-hash-table
 
 
@@ -261,10 +261,10 @@ is required to use any particular technique to implement the mapping.
 @subsubheading Arguments and Values:
 
 @param{test}---a @term{designator} for one of the @term{functions}
-@coderef{eq},
+@symbolref{eq},
 @code{eql},
-@coderef{equal}, or
-@coderef{equalp}.
+@symbolref{equal}, or
+@symbolref{equalp}.
 @Default{@code{eql}}
 
 @param{size}---a non-negative @term{integer}.
@@ -341,7 +341,7 @@ is permitted to ignore them.
 
 @node hash-table-p
 @subsection hash-table-p (Function)
-@syindexanchor{hash-table-p, REF}
+@syindexanchor{hash-table-p, SYM}
 @cindex hash-table-p
 
 
@@ -379,7 +379,7 @@ is permitted to ignore them.
 
 @node hash-table-count
 @subsection hash-table-count (Function)
-@syindexanchor{hash-table-count, REF}
+@syindexanchor{hash-table-count, SYM}
 @cindex hash-table-count
 
 
@@ -397,7 +397,7 @@ is permitted to ignore them.
 
 Returns the number of entries in the @param{hash-table}.
 If @param{hash-table} has just been created
-or newly cleared (see @coderef{clrhash})
+or newly cleared (see @symbolref{clrhash})
 the entry count is @f{0}.
 
 @subsubheading Examples:
@@ -414,8 +414,8 @@ the entry count is @f{0}.
 
 @subsubheading Affected By:
 
-@coderef{clrhash},
-@coderef{remhash},
+@symbolref{clrhash},
+@symbolref{remhash},
 @SETFof{gethash}
 
 @subsubheading See Also:
@@ -425,7 +425,7 @@ the entry count is @f{0}.
 @subsubheading Notes:
 
 The following relationships are functionally correct, although in practice
-using @coderef{hash-table-count} is probably much faster:
+using @symbolref{hash-table-count} is probably much faster:
 
 @lisp
  (hash-table-count @param{table}) @EQ{}
@@ -442,7 +442,7 @@ using @coderef{hash-table-count} is probably much faster:
 
 @node hash-table-rehash-size
 @subsection hash-table-rehash-size (Function)
-@syindexanchor{hash-table-rehash-size, REF}
+@syindexanchor{hash-table-rehash-size, SYM}
 @cindex hash-table-rehash-size
 
 
@@ -460,7 +460,7 @@ using @coderef{hash-table-count} is probably much faster:
 @subsubheading Description:
 
 Returns the current rehash size of @param{hash-table},
-suitable for use in a call to @coderef{make-hash-table}
+suitable for use in a call to @symbolref{make-hash-table}
 in order to produce a @term{hash table}
 with state corresponding to the current state of the @param{hash-table}.
 
@@ -499,7 +499,7 @@ the actual amount by which the @param{hash-table} will grow upon rehash is
 
 @node hash-table-rehash-threshold
 @subsection hash-table-rehash-threshold (Function)
-@syindexanchor{hash-table-rehash-threshold, REF}
+@syindexanchor{hash-table-rehash-threshold, SYM}
 @cindex hash-table-rehash-threshold
 
 
@@ -517,7 +517,7 @@ the actual amount by which the @param{hash-table} will grow upon rehash is
 @subsubheading Description:
 
 Returns the current rehash threshold of @param{hash-table}, which is
-suitable for use in a call to @coderef{make-hash-table} in order to
+suitable for use in a call to @symbolref{make-hash-table} in order to
 produce a @term{hash table} with state corresponding to the current
 state of the @param{hash-table}.
 
@@ -543,7 +543,7 @@ state of the @param{hash-table}.
 
 @node hash-table-size
 @subsection hash-table-size (Function)
-@syindexanchor{hash-table-size, REF}
+@syindexanchor{hash-table-size, SYM}
 @cindex hash-table-size
 
 
@@ -561,7 +561,7 @@ state of the @param{hash-table}.
 @subsubheading Description:
 
 Returns the current size of @param{hash-table}, which is suitable for use in
-a call to @coderef{make-hash-table} in order to produce a @term{hash table}
+a call to @symbolref{make-hash-table} in order to produce a @term{hash table}
 with state corresponding to the current state of the @param{hash-table}.
 
 @subsubheading Exceptional Situations:
@@ -577,7 +577,7 @@ with state corresponding to the current state of the @param{hash-table}.
 
 @node hash-table-test
 @subsection hash-table-test (Function)
-@syindexanchor{hash-table-test, REF}
+@syindexanchor{hash-table-test, SYM}
 @cindex hash-table-test
 
 
@@ -592,7 +592,7 @@ with state corresponding to the current state of the @param{hash-table}.
 
 @param{test}---a @term{function designator}.
 For the four @term{standardized} @term{hash table} test @term{functions}
-(see @coderef{make-hash-table}), the @param{test} value returned
+(see @symbolref{make-hash-table}), the @param{test} value returned
 is always a @term{symbol}.  If an @term{implementation} permits additional
 tests, it is @term{implementation-dependent} whether such tests are
 returned as @term{function} @term{objects} or @term{function names}.
@@ -613,7 +613,7 @@ Returns the test used for comparing @term{keys} in @param{hash-table}.
 
 @node gethash
 @subsection gethash (Accessor)
-@syindexanchor{gethash, REF}
+@syindexanchor{gethash, SYM}
 @cindex gethash
 
 
@@ -643,9 +643,9 @@ If there is no such entry, @param{value} is the @param{default}.
 
 @param{Present-p} is @term{true} if an entry is found; otherwise, it is @term{false}.
 
-@coderef{setf} may be used with @coderef{gethash} to modify the @term{value}
+@symbolref{setf} may be used with @symbolref{gethash} to modify the @term{value}
 associated with a given @term{key}, or to add a new entry.
-When a @coderef{gethash} @term{form} is used as a @coderef{setf} @param{place},
+When a @symbolref{gethash} @term{form} is used as a @symbolref{setf} @param{place},
 any @param{default} which is supplied is evaluated according to normal
 left-to-right evaluation rules, but its @term{value} is ignored.
 
@@ -687,7 +687,7 @@ from the presence of an entry that has a value of @param{default}.
 
 @node remhash
 @subsection remhash (Function)
-@syindexanchor{remhash, REF}
+@syindexanchor{remhash, SYM}
 @cindex remhash
 
 
@@ -726,7 +726,7 @@ The @param{hash-table} is modified.
 
 @node maphash
 @subsection maphash (Function)
-@syindexanchor{maphash, REF}
+@syindexanchor{maphash, SYM}
 @cindex maphash
 
 
@@ -748,11 +748,11 @@ the @param{function} is called with two @term{arguments}---the @term{key}
 and the @term{value} of that entry.
 
 The consequences are unspecified if any attempt is made to add or remove
-an entry from the @param{hash-table} while a @coderef{maphash} is in progress,
+an entry from the @param{hash-table} while a @symbolref{maphash} is in progress,
 with two exceptions:
-the @param{function} can use can use @coderef{setf} of @coderef{gethash}
+the @param{function} can use can use @symbolref{setf} of @symbolref{gethash}
 to change the @term{value} part of the entry currently being processed,
-or it can use @coderef{remhash} to remove that entry.
+or it can use @symbolref{remhash} to remove that entry.
 
 @subsubheading Examples:
 
@@ -794,7 +794,7 @@ None, other than any which might be done by the @param{function}.
 
 @node with-hash-table-iterator
 @subsection with-hash-table-iterator (Macro)
-@syindexanchor{with-hash-table-iterator, REF}
+@syindexanchor{with-hash-table-iterator, SYM}
 @cindex with-hash-table-iterator
 
 
@@ -806,7 +806,7 @@ None, other than any which might be done by the @param{function}.
 
 @subsubheading Arguments and Values:
 
-@param{name}---a name suitable for the first argument to @coderef{macrolet}.
+@param{name}---a name suitable for the first argument to @symbolref{macrolet}.
 
 @param{hash-table}---a @term{form}, evaluated once, that should produce a @term{hash table}.
 
@@ -818,7 +818,7 @@ None, other than any which might be done by the @param{function}.
 
 @subsubheading Description:
 
-Within the lexical scope of the body, @param{name} is defined via @coderef{macrolet}
+Within the lexical scope of the body, @param{name} is defined via @symbolref{macrolet}
 such that successive invocations of @f{(@param{name})} return the items,
 one by one, from the @term{hash table} that is obtained by evaluating
 @param{hash-table} only once.
@@ -837,10 +837,10 @@ After all entries have been returned by successive invocations of
 
 It is unspecified what happens if any of the implicit interior state
 of an iteration is returned outside the dynamic extent of the
-@coderef{with-hash-table-iterator} @term{form}
+@symbolref{with-hash-table-iterator} @term{form}
 such as by returning some @term{closure} over the invocation @term{form}.
 
-Any number of invocations of @coderef{with-hash-table-iterator}
+Any number of invocations of @symbolref{with-hash-table-iterator}
 can be nested, and the body of the innermost one can invoke all of the
 locally @term{established} @term{macros}, provided all of those @term{macros}
 have @term{distinct} names.
@@ -849,8 +849,8 @@ have @term{distinct} names.
 
 The following function should return @code{t}@spc{}on any
 @term{hash table}, and signal
-an error if the usage of @coderef{with-hash-table-iterator} does not agree
-with the corresponding usage of @coderef{maphash}.
+an error if the usage of @symbolref{with-hash-table-iterator} does not agree
+with the corresponding usage of @symbolref{maphash}.
 
 @lisp
  (defun test-hash-table-iterator (hash-table)
@@ -876,7 +876,7 @@ with the corresponding usage of @coderef{maphash}.
 
 
 The following could be an acceptable definition of
-@coderef{maphash}, implemented by @coderef{with-hash-table-iterator}.
+@symbolref{maphash}, implemented by @symbolref{with-hash-table-iterator}.
 
 @lisp
  (defun maphash (function hash-table)
@@ -890,7 +890,7 @@ The following could be an acceptable definition of
 @subsubheading Exceptional Situations:
 
 The consequences are undefined if the local function named @param{name}
-@term{established} by @coderef{with-hash-table-iterator} is called after it has
+@term{established} by @symbolref{with-hash-table-iterator} is called after it has
 returned @term{false} as its @term{primary value}.
 
 @subsubheading See Also:
@@ -901,7 +901,7 @@ returned @term{false} as its @term{primary value}.
 
 @node clrhash
 @subsection clrhash (Function)
-@syindexanchor{clrhash, REF}
+@syindexanchor{clrhash, SYM}
 @cindex clrhash
 
 
@@ -938,7 +938,7 @@ The @param{hash-table} is modified.
 
 @node sxhash
 @subsection sxhash (Function)
-@syindexanchor{sxhash, REF}
+@syindexanchor{sxhash, SYM}
 @cindex sxhash
 
 
@@ -955,7 +955,7 @@ The @param{hash-table} is modified.
 
 @subsubheading Description:
 
-@coderef{sxhash} returns a hash code for @param{object}.
+@symbolref{sxhash} returns a hash code for @param{object}.
 
 The manner in which the hash code is computed is @term{implementation-dependent},
 but subject to certain constraints:
@@ -985,7 +985,7 @@ See @ref{Literal Objects in Compiled Files}.
 @item
 The @param{hash-code} for an @term{object} is always the @term{same}
 within a single @term{session} provided that the @term{object} is not
-visibly modified with regard to the equivalence test @coderef{equal}.
+visibly modified with regard to the equivalence test @symbolref{equal}.
 See @ref{Modifying Hash Table Keys}.
 
 @item
@@ -1018,22 +1018,22 @@ The @term{implementation}.
 
 @subsubheading Notes:
 
-Many common hashing needs are satisfied by @coderef{make-hash-table} and the
-related functions on @term{hash tables}.  @coderef{sxhash} is intended for use
+Many common hashing needs are satisfied by @symbolref{make-hash-table} and the
+related functions on @term{hash tables}.  @symbolref{sxhash} is intended for use
 where the pre-defined abstractions are insufficient.  Its main intent is to
 allow the user a convenient means of implementing more complicated hashing
 paradigms than are provided through @term{hash tables}.
 
-The hash codes returned by @coderef{sxhash} are not necessarily related to
+The hash codes returned by @symbolref{sxhash} are not necessarily related to
 any hashing strategy used by any other @term{function} in @clisp{}.
 
-For @term{objects} of @term{types} that @coderef{equal} compares
-with @coderef{eq}, item 3 requires that the @param{hash-code} be
+For @term{objects} of @term{types} that @symbolref{equal} compares
+with @symbolref{eq}, item 3 requires that the @param{hash-code} be
 based on some immutable quality of the identity of the object.
 Another legitimate implementation technique would be to have
-@coderef{sxhash} assign (and cache) a random hash code for these
+@symbolref{sxhash} assign (and cache) a random hash code for these
 @term{objects}, since there is no requirement that @term{similar} but
-non-@coderef{eq} objects have the same hash code.
+non-@symbolref{eq} objects have the same hash code.
 
 Although @term{similarity} is defined for @term{symbols} in terms
 of both the @term{symbol}'s @term{name} and the @term{packages} in which

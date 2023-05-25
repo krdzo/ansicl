@@ -65,7 +65,7 @@ into @term{objects} by the @term{Lisp reader}.
 The @term{current readtable} in a given @term{dynamic environment}
 is @thevalueof{*readtable*} in that @term{environment}.
 To make a different @term{readtable} become the @term{current readtable},
-@coderef{*readtable*} can be @term{assigned} or @term{bound}.
+@symbolref{*readtable*} can be @term{assigned} or @term{bound}.
 
 
 @node The Standard Readtable
@@ -119,12 +119,12 @@ the @term{variables} that influence the behavior of the @term{Lisp reader}.
 @subsection Standard Characters
 
 All @term{implementations} must support a @term{character} @term{repertoire}
-called @coderef{standard-char}; @term{characters} that are members of that
+called @symbolref{standard-char}; @term{characters} that are members of that
 @term{repertoire} are called
 @cindex standard character
 @dfn{standard characters}.
 
-The @coderef{standard-char} @term{repertoire} consists of
+The @symbolref{standard-char} @term{repertoire} consists of
 the @term{non-graphic} @term{character} @term{newline},
 the @term{graphic} @term{character} @term{space},
 and the following additional
@@ -452,7 +452,7 @@ A @term{macro character} has an associated @term{function}
 called a @newterm{reader macro function} that implements its specialized parsing behavior.
 An association of this kind can be established or modified under control of
 a @term{conforming program} by using
-@thefunctions{set-macro-character} and @coderef{set-dispatch-macro-character}.
+@thefunctions{set-macro-character} and @symbolref{set-dispatch-macro-character}.
 
 Upon encountering a @term{macro character}, the @term{Lisp reader} calls its
 @term{reader macro function}, which parses one specially formatted object
@@ -612,7 +612,7 @@ The algorithm performed by the @term{Lisp reader} is as follows:
 @enumerate 1
 @item
 If at end of file, end-of-file processing is performed as specified
-in @coderef{read}.
+in @symbolref{read}.
 Otherwise,
 one @term{character}, @param{x},  is read from the @term{input} @term{stream}, and
 dispatched according to the @term{syntax type} of @param{x} to one
@@ -638,7 +638,7 @@ The @term{Lisp reader} may be invoked recursively from the @term{reader macro fu
 
 The @term{reader macro function} must not have any side effects other than on the
 @term{input} @term{stream};
-because of backtracking and restarting of the @coderef{read} operation,
+because of backtracking and restarting of the @symbolref{read} operation,
 front ends to the @term{Lisp reader} (@eg{} ``editors'' and ``rubout handlers'')
 may cause the @term{reader macro function} to be called repeatedly during the
 reading of a single @term{expression} in which @param{x} only appears once.
@@ -719,13 +719,13 @@ an error @oftype{reader-error} is signaled.
 @item
 If @param{y} is a @term{terminating} @term{macro character},
 then it terminates the @term{token}.
-First the @term{character} @param{y} is unread (see @coderef{unread-char}),
+First the @term{character} @param{y} is unread (see @symbolref{unread-char}),
 and then step 10 is entered.
 
 @item
 If @param{y} is a @term{whitespace}@sub{2} @term{character}, then it terminates
 the @term{token}.  First the @term{character} @param{y} is unread
-if appropriate (see @coderef{read-preserving-whitespace}),
+if appropriate (see @symbolref{read-preserving-whitespace}),
 and then step 10 is entered.
 @end itemize
 
@@ -870,7 +870,7 @@ The syntax involving a leading
 @term{package marker} followed by a @term{potential number} is
 not well-defined. The consequences of the use
 of notation such as @f{:1}, @f{:1/2}, and @f{:2@hat{}3} in a
-position where an expression appropriate for @coderef{read}
+position where an expression appropriate for @symbolref{read}
 is expected are unspecified.
 
 @item
@@ -1066,15 +1066,15 @@ an optional sign, and a non-empty sequence of digits.
 If no exponent specifier is present, or if the @term{exponent marker} @f{e}
 (or @f{E}) is used, then
 the format specified
-by @coderef{*read-default-float-format*} is used.
+by @symbolref{*read-default-float-format*} is used.
 See @ref{SyntaxForNumericTokens, Figure 2.9}.
 
 An implementation may provide one or more kinds of @term{float}
 that collectively make up @thetype{float}.
 The letters @f{s}, @f{f}, @f{d}, and @f{l} (or their
 respective uppercase equivalents) explicitly specify the
-use of the @term{types} @coderef{short-float}, @coderef{single-float},
-@coderef{double-float}, and @coderef{long-float}, respectively.
+use of the @term{types} @symbolref{short-float}, @symbolref{single-float},
+@symbolref{double-float}, and @symbolref{long-float}, respectively.
 
 The internal format used for an external representation depends only
 on the @term{exponent marker}, and not on the number of decimal digits
@@ -1290,7 +1290,7 @@ the @term{readtable case} of the @term{current readtable} is @kwd{upcase}.
 @item
 If there is a single @term{package marker}, and it occurs at the beginning of the
 @term{token}, then the @term{token} is interpreted as a @term{symbol} in the @code{KEYWORD} @term{package}.
-It also sets the @coderef{symbol-value} of the newly-created @term{symbol} to that
+It also sets the @symbolref{symbol-value} of the newly-created @term{symbol} to that
 same @term{symbol} so that the @term{symbol} will self-evaluate.
 
 For example,
@@ -1393,17 +1393,17 @@ or to @term{packages}
 or to both
 by continuing from an error,
 or calling one of the following @term{functions}:
-@coderef{unintern},
-@coderef{unexport},
-@coderef{shadow},
-@coderef{shadowing-import},
-or @coderef{unuse-package}.
+@symbolref{unintern},
+@symbolref{unexport},
+@symbolref{shadow},
+@symbolref{shadowing-import},
+or @symbolref{unuse-package}.
 
 An inconsistency only applies if one of the restrictions is violated
 between two of the named @term{symbols}.
-@coderef{shadow}, @coderef{unexport}, @coderef{unintern},
-and @coderef{shadowing-import} can only affect the consistency of
-@term{symbols} with the same @term{names} (under @coderef{string=})
+@symbolref{shadow}, @symbolref{unexport}, @symbolref{unintern},
+and @symbolref{shadowing-import} can only affect the consistency of
+@term{symbols} with the same @term{names} (under @symbolref{string=})
 as the ones supplied as arguments.
 
 
@@ -1440,7 +1440,7 @@ the following:
 @cindex list
 
 The @term{left-parenthesis} initiates reading of a @term{list}.
-@coderef{read} is called recursively to read successive @term{objects}
+@symbolref{read} is called recursively to read successive @term{objects}
 until a right parenthesis is found in the input @term{stream}.
 A @term{list} of the @term{objects} read is returned.  Thus
 
@@ -1799,7 +1799,7 @@ where the brackets indicate a transformation of an @tt{xj} as described above.
 Anywhere ``@f{,@@}'' may be used, the syntax ``@f{,.}'' may be used instead
 to indicate that it is permissible to operate @term{destructively} on
 the @term{list structure}  produced by the form following the ``@f{,.}''
-(in effect, to use @coderef{nconc} instead of @coderef{append}).
+(in effect, to use @symbolref{nconc} instead of @symbolref{append}).
 
 If the backquote syntax is nested, the innermost backquoted form
 should be expanded first.  This means that if several commas occur
@@ -1807,7 +1807,7 @@ in a row, the leftmost one belongs to the innermost @term{backquote}.
 
 An @term{implementation} is free to interpret a backquoted @term{form} @mat{F@sub{1}}
 as any @term{form} @mat{F@sub{2}} that, when evaluated, will produce a result that is
-the @term{same} under @coderef{equal} as the result implied by the above definition,
+the @term{same} under @symbolref{equal} as the result implied by the above definition,
 provided that the side-effect behavior of the substitute @term{form} @mat{F@sub{2}}
 is also consistent with the description given above.
 The constructed
@@ -1968,7 +1968,7 @@ this parses as the literal @term{character} @param{char}.
 @term{Uppercase} and @term{lowercase} letters are distinguished after @f{#@bsl{}};
 @f{#@bsl{}A} and @f{#@bsl{}a} denote different @term{character} @term{objects}.
 Any single @term{character} works after @f{#@bsl{}},
-even those that are normally special to @coderef{read},
+even those that are normally special to @symbolref{read},
 such as @term{left-parenthesis} and @term{right-parenthesis}.
 
 In the single @term{character} case,
@@ -2150,7 +2150,7 @@ see @ref{Printing Symbols}.
 
 @f{#.@param{foo}} is read as the @term{object} resulting from the evaluation
 of the @term{object} represented by @param{foo}.
-The evaluation is done during the @coderef{read} process,
+The evaluation is done during the @symbolref{read} process,
 when the @f{#.} notation is encountered.
 The @f{#.} syntax therefore performs a read-time evaluation of @param{foo}.
 
@@ -2291,7 +2291,7 @@ described in @ref{Contagion in Numeric Operations}.
 
 @f{#C(@param{real} @param{imag})} is equivalent to
 @f{#.(complex (quote @param{real}) (quote @param{imag}))},
-except that @f{#C} is not affected by @coderef{*read-eval*}.
+except that @f{#C} is not affected by @symbolref{*read-eval*}.
 See the @term{function} @ref{complex (Function)}.
 
 @Thenextfigure{}@spc{}contains examples of the use of @tt{#C}.
@@ -2325,7 +2325,7 @@ see @ref{Printing Complexes}@spc{}and @ref{Syntax of a Complex}.
 
 @f{#@param{n}@f{A}@param{object}} constructs an @param{n}-dimensional @term{array},
 using @param{object} as the value of the @kwd{initial-contents} argument
-to @coderef{make-array}.
+to @symbolref{make-array}.
 
 For example, @f{#2A((0 1 5) (foo 2 (hot dog)))} represents a 2-by-3 matrix:
 
@@ -2376,7 +2376,7 @@ or @ref{Printing Other Arrays}.
 
 @f{#s(name slot1 value1 slot2 value2 ...)}
 denotes a @term{structure}.  This is valid only if @param{name} is the name
-of a @term{structure} @term{type} already defined by @coderef{defstruct}
+of a @term{structure} @term{type} already defined by @symbolref{defstruct}
 and if the @term{structure} @term{type} has a standard constructor function.
 Let @param{cm} stand for the name of this constructor function;
 then this syntax is equivalent to
@@ -2417,7 +2417,7 @@ see @ref{Printing Structures}.
 
 @f{#P@metaparam{expression}} is equivalent to
 @f{#.(parse-namestring '@metaparam{expression})},
-except that @f{#P} is not affected by @coderef{*read-eval*}.
+except that @f{#P} is not affected by @symbolref{*read-eval*}.
 
 For information on how the @term{Lisp printer} prints @term{pathnames},
 see @ref{Printing Pathnames}.
@@ -2437,7 +2437,7 @@ has @param{object} as its printed representation.  However, that @term{object}
 is labeled by @param{n}, a required unsigned decimal integer, for
 possible reference by the syntax @f{#@param{n}#}.
 The scope of the label is the @term{expression} being read by the outermost
-call to @coderef{read}; within this @term{expression},
+call to @symbolref{read}; within this @term{expression},
 the same label may not appear twice.
 
 
@@ -2453,7 +2453,7 @@ the same label may not appear twice.
 @term{integer},
 provides a reference to some @term{object} labeled by @f{#@param{n}=};
 that is, @f{#@param{n}#} represents a pointer to the same
-(@coderef{eq}) @term{object} labeled by @f{#@param{n}=}.
+(@symbolref{eq}) @term{object} labeled by @f{#@param{n}=}.
 For example, a structure created in the variable @f{y} by this code:
 
 @lisp
@@ -2468,8 +2468,8 @@ could be represented in this way:
  ((a b) . #1=(#2=(p q) foo #2# . #1#))
 @end lisp
 
-Without this notation, but with @coderef{*print-length*} set to @f{10}
-and @coderef{*print-circle*} set to @nil{},
+Without this notation, but with @symbolref{*print-length*} set to @f{10}
+and @symbolref{*print-circle*} set to @nil{},
 the structure would print in this way:
 
 @lisp
@@ -2507,7 +2507,7 @@ see @ref{Feature Expressions}.
 and then skipping over the @param{form} if the @term{feature expression} fails.
 While reading the @param{test}, the @term{current package} is the @code{KEYWORD} @term{package}.
 Skipping over the @param{form} is accomplished by @term{binding}
-@coderef{*read-suppress*} to @term{true} and then calling @coderef{read}.
+@symbolref{*read-suppress*} to @term{true} and then calling @symbolref{read}.
 
 For examples, see @ref{Examples of Feature Expressions}.
 
@@ -2681,8 +2681,8 @@ generally
 signal an error @oftype{reader-error}
 when reading an @term{expression}@sub{2} that has been
 abbreviated because of length or level limits
-(see @coderef{*print-level*},
-@coderef{*print-length*},
-and @coderef{*print-lines*})
+(see @symbolref{*print-level*},
+@symbolref{*print-length*},
+and @symbolref{*print-lines*})
 due to restrictions on ``@f{..}'', ``@f{...}'', ``@f{#}'' followed by @term{whitespace}@sub{1},
 and ``@f{#)}''.

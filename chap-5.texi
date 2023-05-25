@@ -22,29 +22,29 @@ sometimes called a @newterm{place},
 as if it were a @term{variable} that could be read and written.
 The @term{value} of a @term{place} is
 the @term{object} to which the @term{place} @term{form} evaluates.
-The @term{value} of a @term{place} can be changed by using @coderef{setf}.
+The @term{value} of a @term{place} can be changed by using @symbolref{setf}.
 The concept of binding a @term{place} is not defined in @clisp{},
 but an @term{implementation} is permitted to extend the language by defining this concept.
 
-@Thenextfigure{}@spc{}contains examples of the use of @coderef{setf}.
+@Thenextfigure{}@spc{}contains examples of the use of @symbolref{setf}.
 Note that the values returned by evaluating the @term{forms} in column two
 are not necessarily the same as those obtained by evaluating the
 @term{forms} in column three.
-In general, the exact @term{macro expansion} of a @coderef{setf} @term{form} is not guaranteed
+In general, the exact @term{macro expansion} of a @symbolref{setf} @term{form} is not guaranteed
 and can even be @term{implementation-dependent};
 all that is guaranteed is
 that the expansion is an update form that works
 for that particular @term{implementation},
 that the left-to-right evaluation of @term{subforms} is preserved,
 and
-that the ultimate result of evaluating @coderef{setf} is the value
+that the ultimate result of evaluating @symbolref{setf} is the value
 or values being stored.
 
 
 @float Figure,fig5.1
 @cartouche
 @multitable{@f{(symbol-value x)}}{@f{(rplaca x datum)}}{@f{(setf (symbol-value x) datum)}}
-@headitem Access function @tab Update Function @tab Update using @coderef{setf}
+@headitem Access function @tab Update Function @tab Update using @symbolref{setf}
 @item @f{x} @tab @f{(setq x datum)} @tab @f{(setf x datum)}
 @item @f{(car x)} @tab @f{(rplaca x datum)} @tab @f{(setf (car x) datum)}
 @item @f{(symbol-value x)} @tab @f{(set x datum)} @tab @f{(setf (symbol-value x) datum)}
@@ -79,8 +79,8 @@ or values being stored.
 Some of the @term{operators} above manipulate @term{places}
 and some manipulate @term{setf expanders}.
 A @term{setf expansion} can be derived from any @term{place}.
-New @term{setf expanders} can be defined by using @coderef{defsetf}
-and @coderef{define-setf-expander}.
+New @term{setf expanders} can be defined by using @symbolref{defsetf}
+and @symbolref{define-setf-expander}.
 
 @node Evaluation of Subforms to Places
 @subsubsection Evaluation of Subforms to Places
@@ -93,17 +93,17 @@ The following rules apply to the @term{evaluation} of @term{subforms} in a
 @item
 The evaluation ordering of @term{subforms} within a @term{place}
 is determined by the order specified by the second value returned by
-@coderef{get-setf-expansion}.
+@symbolref{get-setf-expansion}.
 For all @term{places} defined by this specification
-(@eg{} @coderef{getf}, @coderef{ldb}, @mat{@ldots{}}),
+(@eg{} @symbolref{getf}, @symbolref{ldb}, @mat{@ldots{}}),
 this order of evaluation is left-to-right.
 @cindex order of evaluation
 @cindex evaluation order
 When a @term{place} is derived from a macro expansion,
 this rule is applied after the macro is expanded to find the appropriate @term{place}.
 
-@term{Places} defined by using @coderef{defmacro} or
-@coderef{define-setf-expander}
+@term{Places} defined by using @symbolref{defmacro} or
+@symbolref{define-setf-expander}
 use the evaluation order defined by those definitions.
 For example, consider the following:
 
@@ -123,25 +123,25 @@ the macro expansion:
 
 @item
 For the @term{macros} that manipulate @term{places}
-(@coderef{push},
-@coderef{pushnew},
-@coderef{remf},
-@coderef{incf},
-@coderef{decf},
-@coderef{shiftf},
-@coderef{rotatef},
-@coderef{psetf},
-@coderef{setf},
-@coderef{pop}, and those defined by @coderef{define-modify-macro})
+(@symbolref{push},
+@symbolref{pushnew},
+@symbolref{remf},
+@symbolref{incf},
+@symbolref{decf},
+@symbolref{shiftf},
+@symbolref{rotatef},
+@symbolref{psetf},
+@symbolref{setf},
+@symbolref{pop}, and those defined by @symbolref{define-modify-macro})
 the @term{subforms} of the macro call are evaluated exactly once
 in left-to-right order, with the @term{subforms} of the @term{places}
 evaluated in the order specified in (1).
 
-@coderef{push}, @coderef{pushnew}, @coderef{remf},
-@coderef{incf}, @coderef{decf}, @coderef{shiftf}, @coderef{rotatef},
-@coderef{psetf}, @coderef{pop} evaluate all @term{subforms} before modifying
+@symbolref{push}, @symbolref{pushnew}, @symbolref{remf},
+@symbolref{incf}, @symbolref{decf}, @symbolref{shiftf}, @symbolref{rotatef},
+@symbolref{psetf}, @symbolref{pop} evaluate all @term{subforms} before modifying
 any of the @term{place} locations.
-@coderef{setf} (in the case when @coderef{setf} has more than two arguments)
+@symbolref{setf} (in the case when @symbolref{setf} has more than two arguments)
 performs its operation on each pair in sequence. For example, in
 
 @lisp
@@ -152,18 +152,18 @@ the @term{subforms} of @f{place1} and @f{value1} are evaluated, the location
 specified by
 @f{place1} is modified to contain the value returned by
 @f{value1}, and
-then the rest of the @coderef{setf} form is processed in a like manner.
+then the rest of the @symbolref{setf} form is processed in a like manner.
 
 @item
-For @coderef{check-type}, @coderef{ctypecase}, and @coderef{ccase},
+For @symbolref{check-type}, @symbolref{ctypecase}, and @symbolref{ccase},
 @term{subforms} of the @term{place} are evaluated once as in (1),
 but might be evaluated again if the
-type check fails in the case of @coderef{check-type}
+type check fails in the case of @symbolref{check-type}
 or none of the cases hold in
-@coderef{ctypecase} and @coderef{ccase}.
+@symbolref{ctypecase} and @symbolref{ccase}.
 
 @item
-For @coderef{assert}, the order of evaluation of the generalized
+For @symbolref{assert}, the order of evaluation of the generalized
 references is not specified.
 @cindex order of evaluation
 @cindex evaluation order
@@ -190,7 +190,7 @@ Rules 2, 3 and 4 cover all @term{standardized} @term{macros} that manipulate @te
 @end lisp
 
 
-@coderef{push} first evaluates @tt{(setq x (list 'a)) @EV{}@spc{}(a)},
+@symbolref{push} first evaluates @tt{(setq x (list 'a)) @EV{}@spc{}(a)},
 then evaluates @tt{(setq x (list 'b)) @EV{}@spc{}(b)},
 then modifies the @term{car} of this latest value to be @tt{((a) . b)}.
 
@@ -210,7 +210,7 @@ for a given access form can be expressed as an ordered collection of five @term{
 
 
 a list of symbols naming temporary variables to be bound
-sequentially, as if by @coderef{let*}, to @term{values}
+sequentially, as if by @symbolref{let*}, to @term{values}
 resulting from value forms.
 
 @item @id{@b{List of value forms}}
@@ -234,7 +234,7 @@ to hold the new values that will be assigned to the
 a form which can reference both the temporary and the store variables,
 and which changes the @term{value} of the @term{place}
 and guarantees to return as its values the values of the store variables,
-which are the correct values for @coderef{setf} to return.
+which are the correct values for @symbolref{setf} to return.
 
 @item @id{@b{Accessing form}}
 
@@ -249,18 +249,18 @@ affected by execution of the storing form, but either of these
 forms might be evaluated any number of times.
 
 It is possible
-to do more than one @coderef{setf} in parallel via
-@coderef{psetf}, @coderef{shiftf}, and @coderef{rotatef}.
+to do more than one @symbolref{setf} in parallel via
+@symbolref{psetf}, @symbolref{shiftf}, and @symbolref{rotatef}.
 Because of this, the
 @term{setf expander}
 must produce new temporary
 and store variable names every time.  For examples of how to do this,
-see @coderef{gensym}.
+see @symbolref{gensym}.
 
 For each @term{standardized} accessor function @param{F},
 unless it is explicitly documented otherwise,
 it is @term{implementation-dependent} whether the ability to
-use an @param{F} @term{form} as a @coderef{setf} @term{place}
+use an @param{F} @term{form} as a @symbolref{setf} @term{place}
 is implemented by a @term{setf expander} or a @term{setf function}.
 Also, it follows from this that it is @term{implementation-dependent}
 whether the name @f{(setf @param{F})} is @term{fbound}.
@@ -420,18 +420,18 @@ which they are not, but I will do that at some point.}
 @end float
 
 
-In the case of @coderef{subseq}, the replacement value must be a @term{sequence}
-whose elements might be contained by the sequence argument to @coderef{subseq},
+In the case of @symbolref{subseq}, the replacement value must be a @term{sequence}
+whose elements might be contained by the sequence argument to @symbolref{subseq},
 but does not have to be a @term{sequence} of the same @term{type}
 as the @term{sequence} of which the subsequence is specified.
 If the length of the replacement value does not equal the length of
 the subsequence to be replaced, then the shorter length determines
-the number of elements to be stored, as for @coderef{replace}.
+the number of elements to be stored, as for @symbolref{replace}.
 
 
 @item
 A function call form whose first element is the name of
-a selector function constructed by @coderef{defstruct}.
+a selector function constructed by @symbolref{defstruct}.
 The function name must refer to the global function definition,
 rather than a locally defined @term{function}.
 
@@ -446,26 +446,26 @@ result of applying the supplied ``update'' function.
 
 @float Figure,fig5.8
 @cartouche
-@multitable{@coderef{mask-field}}{Argument that is a @param{place}}{@term{implementation-dependent}}
+@multitable{@symbolref{mask-field}}{Argument that is a @param{place}}{@term{implementation-dependent}}
 @headitem Function name @tab Argument that is a @param{place} @tab Update function used
-@item @coderef{ldb} @tab second @tab @coderef{dpb}
-@item @coderef{mask-field} @tab second @tab @coderef{deposit-field}
-@item @coderef{getf} @tab first @tab @term{implementation-dependent}
+@item @symbolref{ldb} @tab second @tab @symbolref{dpb}
+@item @symbolref{mask-field} @tab second @tab @symbolref{deposit-field}
+@item @symbolref{getf} @tab first @tab @term{implementation-dependent}
 @end multitable
 @end cartouche
 @caption{Functions that setf can be used with---2}
 @end float
 
-During the @coderef{setf} expansion of these @term{forms}, it is necessary to call
-@coderef{get-setf-expansion}
+During the @symbolref{setf} expansion of these @term{forms}, it is necessary to call
+@symbolref{get-setf-expansion}
 in order to figure out how the inner, nested generalized variable must be treated.
 
 The information from
-@coderef{get-setf-expansion}
+@symbolref{get-setf-expansion}
 is used as follows.
 
 @table @asis
-@item @id{@coderef{ldb}}
+@item @id{@symbolref{ldb}}
 
 
 In a form such as:
@@ -476,7 +476,7 @@ the place referred to by the @param{place-form} must always be both @term{read}
 and @term{written};  note that the update is to the generalized variable
 specified by @param{place-form}, not to any object @oftype{integer}.
 
-Thus this @coderef{setf} should generate code to do the following:
+Thus this @symbolref{setf} should generate code to do the following:
 
 
 @enumerate 1
@@ -515,12 +515,12 @@ For example:
 @end lisp
 
 
-@item @id{@coderef{mask-field}}
+@item @id{@symbolref{mask-field}}
 
 
-This case is the same as @coderef{ldb} in all essential aspects.
+This case is the same as @symbolref{ldb} in all essential aspects.
 
-@item @id{@coderef{getf}}
+@item @id{@symbolref{getf}}
 
 
 In a form such as:
@@ -533,7 +533,7 @@ specified by @param{place-form}, not necessarily to the particular
 @term{list}
 that is the property list in question.
 
-Thus this @coderef{setf} should generate code to do the following:
+Thus this @symbolref{setf} should generate code to do the following:
 
 @enumerate 1
 @item
@@ -608,7 +608,7 @@ does the following:
 in left-to-right order.
 @item The @param{values-form} is evaluated, and the first store
 variable from each @param{place} is bound to its return values as if by
-@coderef{multiple-value-bind}.
+@symbolref{multiple-value-bind}.
 @item If the @term{setf expansion} for any @param{place}
 involves more than one store variable, then the additional
 store variables are bound to @nil{}.
@@ -627,9 +627,9 @@ values than are produced by the @param{values-form}.
 @node THE Forms as Places
 @subsubsection THE Forms as Places
 
-A @coderef{the} @term{form} can be used as a @term{place},
+A @symbolref{the} @term{form} can be used as a @term{place},
 in which case the declaration is transferred to the @param{newvalue} form,
-and the resulting @coderef{setf} is analyzed.  For example,
+and the resulting @symbolref{setf} is analyzed.  For example,
 
 @lisp
  (setf (the integer (cadr x)) (+ y 3))
@@ -646,7 +646,7 @@ is processed as if it were
 @node APPLY Forms as Places
 @subsubsection APPLY Forms as Places
 
-The following situations involving @coderef{setf} of @coderef{apply} must be supported:
+The following situations involving @symbolref{setf} of @symbolref{apply} must be supported:
 
 
 @itemize @bullet{}
@@ -668,9 +668,9 @@ The following situations involving @coderef{setf} of @coderef{apply} must be sup
 In all three cases, the @term{element} of @param{array} designated
 by the concatenation of @param{subscripts} and @param{more-subscripts}
 (@ie{} the same @term{element} which would be @term{read} by the call to
-@term{apply} if it were not part of a @coderef{setf} @term{form})
+@term{apply} if it were not part of a @symbolref{setf} @term{form})
 is changed to have the @term{value} given by @param{new-element}.
-For these usages, the function name (@coderef{aref}, @code{bit}, or @coderef{sbit})
+For these usages, the function name (@symbolref{aref}, @code{bit}, or @symbolref{sbit})
 must refer to the global function definition, rather than a locally defined
 @term{function}.
 
@@ -708,7 +708,7 @@ rather than a locally defined @term{function} or @term{macro}.
 
 A @term{macro form} can be used as a @term{place},
 in which case @clisp{}@spc{}expands the @term{macro form}
-as if by @coderef{macroexpand-1}
+as if by @symbolref{macroexpand-1}
 and then uses the @term{macro expansion} in place of the original @term{place}.
 Such @term{macro expansion} is attempted only after exhausting all other possibilities
 other than expanding into a call to a function named @f{(setf @param{reader})}.
@@ -719,7 +719,7 @@ other than expanding into a call to a function named @f{(setf @param{reader})}.
 
 A reference to a @term{symbol} that has been @term{established} as a @term{symbol macro}
 can be used as a @term{place}.  In this case,
-@coderef{setf} expands the reference and then analyzes the resulting @term{form}.
+@symbolref{setf} expands the reference and then analyzes the resulting @term{form}.
 
 
 @node Other Compound Forms as Places
@@ -727,7 +727,7 @@ can be used as a @term{place}.  In this case,
 
 For any other @term{compound form} for which the @term{operator} is a
 @term{symbol} @param{f},
-the @coderef{setf} @term{form} expands into a call
+the @symbolref{setf} @term{form} expands into a call
 to the @term{function} named @f{(setf @param{f})}.
 The first @term{argument} in the newly constructed @term{function form}
 is @param{newvalue} and the
@@ -751,7 +751,7 @@ expands into a form with the same effect and value as
 
 
 A @term{function} named @f{(setf @param{f})} must return its first argument
-as its only value in order to preserve the semantics of @coderef{setf}.
+as its only value in order to preserve the semantics of @symbolref{setf}.
 
 
 
@@ -762,7 +762,7 @@ as its only value in order to preserve the semantics of @coderef{setf}.
 
 For each of the ``read-modify-write'' @term{operators} in @thenextfigure{},
 and for any additional @term{macros}
-defined by the @term{programmer} using @coderef{define-modify-macro},
+defined by the @term{programmer} using @symbolref{define-modify-macro},
 an exception is made to the normal rule of left-to-right evaluation of arguments.
 Evaluation of @term{argument} @term{forms} occurs in left-to-right order,
 with the exception that for the @param{place} @term{argument}, the actual
@@ -811,18 +811,18 @@ for that @param{place}.
 @node Transfer of Control to an Exit Point
 @section Transfer of Control to an Exit Point
 
-When a transfer of control is initiated by @coderef{go},
-@coderef{return-from}, or @coderef{throw}
+When a transfer of control is initiated by @symbolref{go},
+@symbolref{return-from}, or @symbolref{throw}
 the following events occur in order to accomplish the transfer of control.
-Note that for @coderef{go},
-the @term{exit point} is the @term{form} within the @coderef{tagbody}
-that is being executed at the time the @coderef{go} is performed;
-for @coderef{return-from},
+Note that for @symbolref{go},
+the @term{exit point} is the @term{form} within the @symbolref{tagbody}
+that is being executed at the time the @symbolref{go} is performed;
+for @symbolref{return-from},
 the @term{exit point} is the corresponding
-@coderef{block} @term{form};
-and for @coderef{throw},
+@symbolref{block} @term{form};
+and for @symbolref{throw},
 the @term{exit point} is the corresponding
-@coderef{catch} @term{form}.
+@symbolref{catch} @term{form}.
 
 
 @enumerate 1
@@ -832,11 +832,11 @@ Intervening @term{exit points} are ``abandoned''
 and it is no longer valid to attempt to transfer control through them).
 
 @item
-The cleanup clauses of any intervening @coderef{unwind-protect} clauses
+The cleanup clauses of any intervening @symbolref{unwind-protect} clauses
 are evaluated.
 
 @item
-Intervening dynamic @term{bindings} of @coderef{special} variables,
+Intervening dynamic @term{bindings} of @symbolref{special} variables,
 @term{catch tags}, @term{condition handlers}, and @term{restarts}
 are undone.
 
@@ -855,10 +855,10 @@ to an @term{exit point} whose @term{dynamic extent} has ended.
 
 Events 2 and 3 are actually performed interleaved, in the order
 corresponding to the reverse order in which they were established.
-The effect of this is that the cleanup clauses of an @coderef{unwind-protect}
+The effect of this is that the cleanup clauses of an @symbolref{unwind-protect}
 see the same dynamic @term{bindings}
 of variables and @term{catch tags} as were
-visible when the @coderef{unwind-protect} was entered.
+visible when the @symbolref{unwind-protect} was entered.
 
 Event 4 occurs at the end of the transfer of control.
 
@@ -939,7 +939,7 @@ Event 4 occurs at the end of the transfer of control.
 
 @node apply
 @subsection apply (Function)
-@syindexanchor{apply, REF}
+@syindexanchor{apply, SYM}
 @cindex apply
 
 
@@ -962,13 +962,13 @@ Event 4 occurs at the end of the transfer of control.
 When the @param{function} receives its arguments via @keyref{rest}, it is
 permissible (but not required) for the @term{implementation} to @term{bind}
 the @term{rest parameter}
-to an @term{object} that shares structure with the last argument to @coderef{apply}.
-Because a @term{function} can neither detect whether it was called via @coderef{apply}
-nor whether (if so) the last argument to @coderef{apply} was a @term{constant},
+to an @term{object} that shares structure with the last argument to @symbolref{apply}.
+Because a @term{function} can neither detect whether it was called via @symbolref{apply}
+nor whether (if so) the last argument to @symbolref{apply} was a @term{constant},
 @term{conforming programs} must neither rely on the @term{list} structure
 of a @term{rest list} to be freshly consed, nor modify that @term{list} structure.
 
-@coderef{setf} can be used with @coderef{apply} in certain circumstances;
+@symbolref{setf} can be used with @symbolref{apply} in certain circumstances;
 see @ref{APPLY Forms as Places}.
 
 @subsubheading Examples:
@@ -1012,7 +1012,7 @@ see @ref{APPLY Forms as Places}.
 
 @node defun
 @subsection defun (Macro)
-@syindexanchor{defun, REF}
+@syindexanchor{defun, SYM}
 @cindex defun
 
 
@@ -1038,16 +1038,16 @@ see @ref{APPLY Forms as Places}.
 @subsubheading Description:
 
 Defines a new @term{function} named @param{function-name} in the @term{global environment}.
-The body of the @term{function} defined by @coderef{defun} consists
+The body of the @term{function} defined by @symbolref{defun} consists
 of @param{forms}; they are executed as an @term{implicit progn}
 when the @term{function} is called.
-@coderef{defun} can be used
+@symbolref{defun} can be used
 to define a new @term{function},
 to install a corrected version of an incorrect definition,
 to redefine an already-defined @term{function},
 or to redefine a @term{macro} as a @term{function}.
 
-@coderef{defun} implicitly puts a @coderef{block} named @param{block-name}
+@symbolref{defun} implicitly puts a @symbolref{block} named @param{block-name}
 around the body @param{forms}
 (but not the @term{forms} in the @param{lambda-list})
 of the @term{function} defined.
@@ -1056,7 +1056,7 @@ of the @term{function} defined.
 to @param{name} (as kind @code{function})
 and to the @term{function} @term{object}.
 
-Evaluating @coderef{defun} causes @param{function-name} to be a global name
+Evaluating @symbolref{defun} causes @param{function-name} to be a global name
 for the @term{function} specified by the @term{lambda expression}
 
 @lisp
@@ -1066,12 +1066,12 @@ for the @term{function} specified by the @term{lambda expression}
 @end lisp
 
 
-processed in the @term{lexical environment} in which @coderef{defun} was executed.
+processed in the @term{lexical environment} in which @symbolref{defun} was executed.
 
 (None of the arguments are evaluated at macro expansion time.)
 
-@coderef{defun} is not required to perform any compile-time side effects.
-In particular, @coderef{defun} does not make the @term{function} definition available
+@symbolref{defun} is not required to perform any compile-time side effects.
+In particular, @symbolref{defun} does not make the @term{function} definition available
 at compile time.  An @term{implementation} may choose to store information
 about the @term{function} for the purposes of compile-time error-checking
 (such as checking the number of arguments on calls),
@@ -1124,8 +1124,8 @@ or to enable the @term{function} to be expanded inline.
 @ref{Syntactic Interaction of Documentation Strings and Declarations}
 
 @subsubheading Notes:
-@coderef{return-from} can be used to return
-prematurely from a @term{function} defined by @coderef{defun}.
+@symbolref{return-from} can be used to return
+prematurely from a @term{function} defined by @symbolref{defun}.
 
 Additional side effects might take place when additional information
 (typically debugging information)
@@ -1135,7 +1135,7 @@ about the function definition is recorded.
 
 @node fdefinition
 @subsection fdefinition (Accessor)
-@syindexanchor{fdefinition, REF}
+@syindexanchor{fdefinition, SYM}
 @cindex fdefinition
 
 
@@ -1148,7 +1148,7 @@ about the function definition is recorded.
 @subsubheading Arguments and Values:
 
 @param{function-name}---a @term{function name}.
-In the non-@coderef{setf} case,
+In the non-@symbolref{setf} case,
 the @term{name} must be @term{fbound} in the @term{global environment}.
 
 @param{definition}---Current global function definition named by @param{function-name}.
@@ -1157,20 +1157,20 @@ the @term{name} must be @term{fbound} in the @term{global environment}.
 
 @subsubheading Description:
 
-@coderef{fdefinition} @term{accesses} the current global function definition
+@symbolref{fdefinition} @term{accesses} the current global function definition
 named by @param{function-name}.  The definition may be a
 @term{function} or may be an @term{object} representing a
 @term{special form} or @term{macro}.
-The value returned by @coderef{fdefinition} when @coderef{fboundp} returns true
+The value returned by @symbolref{fdefinition} when @symbolref{fboundp} returns true
 but the @param{function-name} denotes a @term{macro} or
-@term{special form} is not well-defined, but @coderef{fdefinition} does not signal an error.
+@term{special form} is not well-defined, but @symbolref{fdefinition} does not signal an error.
 
 @subsubheading Exceptional Situations:
 
 @Shouldchecktype{function-name, a @term{function name}}
 
 An error @oftype{undefined-function} is signaled
-in the non-@coderef{setf} case if @param{function-name} is not @term{fbound}.
+in the non-@symbolref{setf} case if @param{function-name} is not @term{fbound}.
 
 @subsubheading See Also:
 
@@ -1182,25 +1182,25 @@ in the non-@coderef{setf} case if @param{function-name} is not @term{fbound}.
 
 @subsubheading Notes:
 
-@coderef{fdefinition} cannot @term{access} the value of a lexical function name
-produced by @coderef{flet} or @coderef{labels}; it can @term{access} only
+@symbolref{fdefinition} cannot @term{access} the value of a lexical function name
+produced by @symbolref{flet} or @symbolref{labels}; it can @term{access} only
 the global function value.
 
-@coderef{setf} can be used with
-@coderef{fdefinition} to replace a global function
+@symbolref{setf} can be used with
+@symbolref{fdefinition} to replace a global function
 definition when the @param{function-name}'s function definition
 does not represent a @term{special form}.
-@coderef{setf} of @coderef{fdefinition}
+@symbolref{setf} of @symbolref{fdefinition}
 requires a @term{function} as the new value.
-It is an error to set the @coderef{fdefinition} of a @param{function-name}
+It is an error to set the @symbolref{fdefinition} of a @param{function-name}
 to a @term{symbol}, a @term{list}, or the value returned
-by @coderef{fdefinition} on the name of a @term{macro}
+by @symbolref{fdefinition} on the name of a @term{macro}
 or @term{special form}.
 
 
 @node fboundp
 @subsection fboundp (Function)
-@syindexanchor{fboundp, REF}
+@syindexanchor{fboundp, SYM}
 @cindex fboundp
 
 
@@ -1256,10 +1256,10 @@ or @term{special form}.
 
 @subsubheading Notes:
 
-It is permissible to call @coderef{symbol-function} on any @term{symbol}
+It is permissible to call @symbolref{symbol-function} on any @term{symbol}
 that is @term{fbound}.
 
-@coderef{fboundp} is sometimes used to ``guard''
+@symbolref{fboundp} is sometimes used to ``guard''
 an access to the @term{function cell}, as in:
 @lisp
 (if (fboundp x) (symbol-function x))
@@ -1272,7 +1272,7 @@ Defining a @term{setf expander} @param{F} does not cause the @term{setf function
 
 @node fmakunbound
 @subsection fmakunbound (Function)
-@syindexanchor{fmakunbound, REF}
+@syindexanchor{fmakunbound, SYM}
 @cindex fmakunbound
 
 
@@ -1319,11 +1319,11 @@ The consequences are undefined if @param{name} is a @term{special operator}.
 
 @node flet; labels; macrolet
 @subsection flet, labels, macrolet (Special Operator)
-@syindexanchor{flet, REF}
+@syindexanchor{flet, SYM}
 @cindex flet
-@syindexanchor{labels, REF}
+@syindexanchor{labels, SYM}
 @cindex labels
-@syindexanchor{macrolet, REF}
+@syindexanchor{macrolet, SYM}
 @cindex macrolet
 @anchor{flet}
 @anchor{labels}
@@ -1346,9 +1346,9 @@ The consequences are undefined if @param{name} is a @term{special operator}.
 @param{name}---a @term{symbol}.
 
 @param{lambda-list}---a @term{lambda list};
-for @coderef{flet} and @coderef{labels},
+for @symbolref{flet} and @symbolref{labels},
 it is an @term{ordinary lambda list};
-for @coderef{macrolet},
+for @symbolref{macrolet},
 it is a @term{macro lambda list}.
 
 @param{local-declaration}---a @t{declare} @term{expression}; @noeval{}.
@@ -1363,14 +1363,14 @@ it is a @term{macro lambda list}.
 
 @subsubheading Description:
 
-@coderef{flet}, @coderef{labels}, and @coderef{macrolet}
+@symbolref{flet}, @symbolref{labels}, and @symbolref{macrolet}
 define local @term{functions} and @term{macros}, and execute
 @param{forms} using the local definitions.
 @param{Forms} are executed  in order of occurrence.
 
 The body forms (but not the @term{lambda list})
-of each @term{function} created by @coderef{flet} and @coderef{labels}
-and each @term{macro} created by @coderef{macrolet}
+of each @term{function} created by @symbolref{flet} and @symbolref{labels}
+and each @term{macro} created by @symbolref{macrolet}
 are enclosed in an @term{implicit block} whose name
 is the @term{function block name} of the @param{function-name} or @param{name},
 as appropriate.
@@ -1378,52 +1378,52 @@ as appropriate.
 The scope of the @param{declarations}
 between
 the list of local function/macro definitions and the body @param{forms}
-in @coderef{flet} and @coderef{labels}
+in @symbolref{flet} and @symbolref{labels}
 does not include the bodies of the
-locally defined @term{functions}, except that for @coderef{labels},
-any @coderef{inline}, @coderef{notinline}, or @coderef{ftype} declarations
+locally defined @term{functions}, except that for @symbolref{labels},
+any @symbolref{inline}, @symbolref{notinline}, or @symbolref{ftype} declarations
 that refer to the locally defined functions do apply to the local function
 bodies. That is, their @term{scope}
 is the same as the function name that they
 affect.
 The scope of these @param{declarations}
 does not include the bodies of the macro expander
-functions defined by @coderef{macrolet}.
+functions defined by @symbolref{macrolet}.
 
 
 @table @asis
 @item @id{@bf{flet}}
 
 
-@coderef{flet} defines locally named @term{functions} and executes a series of
+@symbolref{flet} defines locally named @term{functions} and executes a series of
 @param{forms} with these definition @term{bindings}.  Any number of
 such local @term{functions} can be defined.
 
 The @term{scope} of the name @term{binding} encompasses only the body.
 Within the
-body of @coderef{flet},
+body of @symbolref{flet},
 @param{function-names} matching those defined
-by @coderef{flet}
+by @symbolref{flet}
 refer to the locally defined @term{functions}
 rather than to
 the global function definitions of the same name.
-Also, within the scope of @coderef{flet},
+Also, within the scope of @symbolref{flet},
 global @term{setf expander} definitions of the @param{function-name}
-defined by @coderef{flet} do not apply.
+defined by @symbolref{flet} do not apply.
 Note that this applies to
 @tt{(defsetf @i{f} ...)}, not
 @tt{(defmethod (setf @i{f}) ...)}.
 
-The names of @term{functions} defined by @coderef{flet}
+The names of @term{functions} defined by @symbolref{flet}
 are in the @term{lexical environment}; they retain
-their local definitions only within the body of @coderef{flet}.
+their local definitions only within the body of @symbolref{flet}.
 The function definition bindings are visible only in
-the body of @coderef{flet}, not the definitions themselves.  Within the
+the body of @symbolref{flet}, not the definitions themselves.  Within the
 function definitions, local function names
 that match those being
 defined refer to @term{functions} or
-@term{macros} defined outside the @coderef{flet}.
-@coderef{flet} can locally @term{shadow} a global function name,
+@term{macros} defined outside the @symbolref{flet}.
+@symbolref{flet} can locally @term{shadow} a global function name,
 and the new definition can refer to the global definition.
 
 Any @param{local-documentation} is attached to the corresponding local @param{function}
@@ -1432,28 +1432,28 @@ Any @param{local-documentation} is attached to the corresponding local @param{fu
 @item @id{@bf{labels}}
 
 
-@coderef{labels} is equivalent to @coderef{flet} except that
-the scope of the defined function names for @coderef{labels}
+@symbolref{labels} is equivalent to @symbolref{flet} except that
+the scope of the defined function names for @symbolref{labels}
 encompasses the function definitions themselves as well as the body.
 
 @item @id{@bf{macrolet}}
 
 
-@coderef{macrolet}
+@symbolref{macrolet}
 establishes local @term{macro} definitions,
-using the same format used by @coderef{defmacro}.
+using the same format used by @symbolref{defmacro}.
 
-Within the body of @coderef{macrolet},
+Within the body of @symbolref{macrolet},
 global @term{setf expander} definitions of the @param{names} defined by the
-@coderef{macrolet} do not apply; rather, @coderef{setf} expands the
+@symbolref{macrolet} do not apply; rather, @symbolref{setf} expands the
 @term{macro form} and recursively process the resulting @term{form}.
 
-The macro-expansion functions defined by @coderef{macrolet}
+The macro-expansion functions defined by @symbolref{macrolet}
 are defined in the
-@term{lexical environment} in which the @coderef{macrolet} form appears.
-Declarations and @coderef{macrolet} and
-@coderef{symbol-macrolet} definitions
-affect the local macro definitions in a @coderef{macrolet}, but the
+@term{lexical environment} in which the @symbolref{macrolet} form appears.
+Declarations and @symbolref{macrolet} and
+@symbolref{symbol-macrolet} definitions
+affect the local macro definitions in a @symbolref{macrolet}, but the
 consequences are undefined if the local macro definitions reference
 any local @term{variable} or @term{function} @term{bindings} that are visible in that
 @term{lexical environment}.
@@ -1570,10 +1570,10 @@ visible at the site of the macro call which produced the expansion.
 
 @subsubheading Notes:
 
-It is not possible to define recursive @term{functions} with @coderef{flet}.
-@coderef{labels} can be used to define mutually recursive @term{functions}.
+It is not possible to define recursive @term{functions} with @symbolref{flet}.
+@symbolref{labels} can be used to define mutually recursive @term{functions}.
 
-If a @coderef{macrolet} @term{form} is a @term{top level form},
+If a @symbolref{macrolet} @term{form} is a @term{top level form},
 the body @param{forms} are also processed as @term{top level forms}.
 See @ref{File Compilation}.
 
@@ -1581,7 +1581,7 @@ See @ref{File Compilation}.
 
 @node funcall
 @subsection funcall (Function)
-@syindexanchor{funcall, REF}
+@syindexanchor{funcall, SYM}
 @cindex funcall
 
 
@@ -1599,7 +1599,7 @@ See @ref{File Compilation}.
 
 @subsubheading Description:
 
-@coderef{funcall} applies @param{function} to @param{args}.
+@symbolref{funcall} applies @param{function} to @param{args}.
 If @param{function} is a @term{symbol},
 it is coerced to a @term{function} as if by
 finding its @term{functional value} in the @term{global environment}.
@@ -1639,7 +1639,7 @@ or that has a global definition as a @term{macro} or a @term{special operator}.
 @end lisp
 
 
-The difference between @coderef{funcall} and an ordinary function call is that
+The difference between @symbolref{funcall} and an ordinary function call is that
 in the former case the @param{function} is obtained by ordinary @term{evaluation}
 of a @term{form}, and in the latter case it is obtained by the special
 interpretation of the function position that normally occurs.
@@ -1670,7 +1670,7 @@ in the current @term{lexical environment}.
 If @param{name} is a @term{function name}, the functional definition of that name
 is that
 established by the innermost lexically enclosing
-@coderef{flet}, @coderef{labels}, or @coderef{macrolet} @term{form},
+@symbolref{flet}, @symbolref{labels}, or @symbolref{macrolet} @term{form},
 if there is one.  Otherwise the global functional definition of the
 @term{function name}
 is returned.
@@ -1678,7 +1678,7 @@ is returned.
 If @param{name} is a @term{lambda expression}, then a @term{lexical closure}
 is returned.  In situations where a @term{closure} over the same set of
 @term{bindings} might be produced more than once, the various resulting
-@term{closures} might or might not be @coderef{eq}.
+@term{closures} might or might not be @symbolref{eq}.
 
 It is an error to use @code{function} on a @term{function name}
 that does not denote a @term{function} in the lexical environment in
@@ -1725,7 +1725,7 @@ for @tt{(function @param{name})}.
 
 @node function-lambda-expression
 @subsection function-lambda-expression (Function)
-@syindexanchor{function-lambda-expression, REF}
+@syindexanchor{function-lambda-expression, SYM}
 @cindex function-lambda-expression
 
 
@@ -1752,7 +1752,7 @@ The @term{primary value}, @param{lambda-expression},
 is @param{function}'s defining @term{lambda expression},
 or @nil{}@spc{}if the information is not available.  The @term{lambda expression}
 may have been pre-processed in some ways, but it should remain a suitable
-argument to @coderef{compile} or @code{function}.
+argument to @symbolref{compile} or @code{function}.
 Any @term{implementation} may legitimately return @nil{}
 as the @param{lambda-expression} of any @param{function}.
 
@@ -1767,7 +1767,7 @@ as the @param{closure-p} of any @param{function}.
 The @term{tertiary value}, @param{name},
 is the ``name'' of @param{function}.
 The name is intended for debugging only and is not necessarily one that would
-be valid for use as a name in @coderef{defun} or @code{function}, for example.
+be valid for use as a name in @symbolref{defun} or @code{function}, for example.
 By convention, @nil{}@spc{}is used to mean that @param{function} has no name.
 Any @term{implementation} may legitimately return @nil{}
 as the @param{name} of any @param{function}.
@@ -1823,14 +1823,14 @@ are not intended to be exhaustive:
 
 Although @term{implementations} are free to return ``@nil{}, @term{true}, @nil{}'' in all cases,
 they are encouraged to return a @term{lambda expression} as the @term{primary value}
-in the case where the argument was created by a call to @coderef{compile}
-or @coderef{eval} (as opposed to being created by @term{loading} a @term{compiled file}).
+in the case where the argument was created by a call to @symbolref{compile}
+or @symbolref{eval} (as opposed to being created by @term{loading} a @term{compiled file}).
 
 
 
 @node functionp
 @subsection functionp (Function)
-@syindexanchor{functionp, REF}
+@syindexanchor{functionp, SYM}
 @cindex functionp
 
 
@@ -1875,7 +1875,7 @@ or @coderef{eval} (as opposed to being created by @term{loading} a @term{compile
 
 @node compiled-function-p
 @subsection compiled-function-p (Function)
-@syindexanchor{compiled-function-p, REF}
+@syindexanchor{compiled-function-p, SYM}
 @cindex compiled-function-p
 
 
@@ -1929,14 +1929,14 @@ or @coderef{eval} (as opposed to being created by @term{loading} a @term{compile
 
 @node call-arguments-limit
 @subsection call-arguments-limit (Constant Variable)
-@syindexanchor{call-arguments-limit, REF}
+@syindexanchor{call-arguments-limit, SYM}
 @cindex call-arguments-limit
 
 
 @subsubheading Constant Value:
 
 An integer not smaller than @f{50} and at least as great as
-the @term{value} of @coderef{lambda-parameters-limit},
+the @term{value} of @symbolref{lambda-parameters-limit},
 the exact magnitude of which is @term{implementation-dependent}.
 
 @subsubheading Description:
@@ -1951,7 +1951,7 @@ may be passed to a @term{function}.
 
 @node lambda-list-keywords
 @subsection lambda-list-keywords (Constant Variable)
-@syindexanchor{lambda-list-keywords, REF}
+@syindexanchor{lambda-list-keywords, SYM}
 @cindex lambda-list-keywords
 
 
@@ -1986,7 +1986,7 @@ used only by @term{macro} definition @term{forms}.
 
 @node lambda-parameters-limit
 @subsection lambda-parameters-limit (Constant Variable)
-@syindexanchor{lambda-parameters-limit, REF}
+@syindexanchor{lambda-parameters-limit, SYM}
 @cindex lambda-parameters-limit
 
 
@@ -2007,12 +2007,12 @@ in a single @term{lambda list}.
 @subsubheading Notes:
 
 Implementors are encouraged to make the @term{value} of
-@coderef{lambda-parameters-limit} as large as possible.
+@symbolref{lambda-parameters-limit} as large as possible.
 
 
 @node defconstant
 @subsection defconstant (Macro)
-@syindexanchor{defconstant, REF}
+@syindexanchor{defconstant, SYM}
 @cindex defconstant
 
 
@@ -2030,40 +2030,40 @@ Implementors are encouraged to make the @term{value} of
 
 @subsubheading Description:
 
-@coderef{defconstant}
+@symbolref{defconstant}
 causes the global variable named by @param{name} to be
 given a value that is the result of evaluating @param{initial-value}.
 
-A constant defined by @coderef{defconstant} can be redefined
-with @coderef{defconstant}.
+A constant defined by @symbolref{defconstant} can be redefined
+with @symbolref{defconstant}.
 However, the consequences are undefined if an attempt is made to assign
 a @term{value} to the @term{symbol} using another operator, or to
 assign it to a @term{different}
 @term{value} using a subsequent
-@coderef{defconstant}.
+@symbolref{defconstant}.
 
 If @param{documentation} is supplied, it is attached to @param{name} as a
 @term{documentation string} of kind @t{variable}.
 
-@coderef{defconstant}
+@symbolref{defconstant}
 normally appears as a @term{top level form}, but it is meaningful
 for it to appear as a @term{non-top-level form}.
 However, the compile-time side
 effects described below
-only take place when @coderef{defconstant} appears as a
+only take place when @symbolref{defconstant} appears as a
 @term{top level form}.
 
 The consequences are undefined if there are any
 @term{bindings}
-of the variable named by @param{name} at the time @coderef{defconstant}
+of the variable named by @param{name} at the time @symbolref{defconstant}
 is executed or if the value is not @code{eql} to the value of
 @param{initial-value}.
 
 The consequences are undefined when constant @term{symbols} are rebound
 as either lexical or dynamic variables.  In other words, a reference to a
-@term{symbol} declared with @coderef{defconstant} always refers to its global value.
+@term{symbol} declared with @symbolref{defconstant} always refers to its global value.
 
-The side effects of the execution of @coderef{defconstant} must
+The side effects of the execution of @symbolref{defconstant} must
 be equivalent to at least the side effects of the execution of the following
 code:
 
@@ -2073,7 +2073,7 @@ code:
 @end lisp
 
 
-If a @coderef{defconstant} @term{form} appears as a @term{top level form},
+If a @symbolref{defconstant} @term{form} appears as a @term{top level form},
 the @term{compiler} must recognize that @param{name} names
 a @term{constant variable}.  An implementation may choose to
 evaluate the value-form at compile time, load time, or both.
@@ -2109,9 +2109,9 @@ this-is-a-constant @EV{} NEVER-CHANGING
 
 @node defparameter; defvar
 @subsection defparameter, defvar (Macro)
-@syindexanchor{defparameter, REF}
+@syindexanchor{defparameter, SYM}
 @cindex defparameter
-@syindexanchor{defvar, REF}
+@syindexanchor{defvar, SYM}
 @cindex defvar
 @anchor{defparameter}
 @anchor{defvar}
@@ -2128,25 +2128,25 @@ this-is-a-constant @EV{} NEVER-CHANGING
 
 
 @param{initial-value}---a @term{form};
-for @coderef{defparameter}, it is always @term{evaluated},
-but for @coderef{defvar} it is @term{evaluated}
+for @symbolref{defparameter}, it is always @term{evaluated},
+but for @symbolref{defvar} it is @term{evaluated}
 only if @param{name} is not already @term{bound}.
 
 @param{documentation}---a @param{string}; @noeval{}.
 
 @subsubheading Description:
 
-@coderef{defparameter} and @coderef{defvar} @term{establish} @param{name}
+@symbolref{defparameter} and @symbolref{defvar} @term{establish} @param{name}
 as a @term{dynamic variable}.
 
-@coderef{defparameter} unconditionally
+@symbolref{defparameter} unconditionally
 @term{assigns} the @param{initial-value} to the @term{dynamic variable} named @param{name}.
-@coderef{defvar}, by contrast, @term{assigns} @param{initial-value} (if supplied)
+@symbolref{defvar}, by contrast, @term{assigns} @param{initial-value} (if supplied)
 to the @term{dynamic variable} named @param{name}
 only if @param{name} is not already @term{bound}.
 
 If no @param{initial-value} is supplied,
-@coderef{defvar} leaves the @term{value cell} of
+@symbolref{defvar} leaves the @term{value cell} of
 the @term{dynamic variable} named @param{name} undisturbed;
 if @param{name} was previously @term{bound}, its old @term{value} persists,
 and if it was previously @term{unbound}, it remains @term{unbound}.
@@ -2154,7 +2154,7 @@ and if it was previously @term{unbound}, it remains @term{unbound}.
 If @param{documentation} is supplied, it is attached to @param{name} as a
 @term{documentation string} of kind @t{variable}.
 
-@coderef{defparameter} and @coderef{defvar} normally appear as a @term{top level form},
+@symbolref{defparameter} and @symbolref{defvar} normally appear as a @term{top level form},
 but it is meaningful for them to appear as @term{non-top-level forms}.  However,
 the compile-time side effects described below only take place when
 they appear as @term{top level forms}.
@@ -2184,11 +2184,11 @@ they appear as @term{top level forms}.
 @end lisp
 
 
-The principal operational distinction between @coderef{defparameter} and @coderef{defvar}
-is that @coderef{defparameter} makes an unconditional assignment to @param{name},
-while @coderef{defvar} makes a conditional one.  In practice, this means that
-@coderef{defparameter} is useful in situations where loading or reloading the definition
-would want to pick up a new value of the variable, while @coderef{defvar} is used in
+The principal operational distinction between @symbolref{defparameter} and @symbolref{defvar}
+is that @symbolref{defparameter} makes an unconditional assignment to @param{name},
+while @symbolref{defvar} makes a conditional one.  In practice, this means that
+@symbolref{defparameter} is useful in situations where loading or reloading the definition
+would want to pick up a new value of the variable, while @symbolref{defvar} is used in
 situations where the old value would want to be retained if the file were loaded or reloaded.
 For example, one might create a file which contained:
 
@@ -2205,7 +2205,7 @@ For example, one might create a file which contained:
 
 Here the initial value, @f{()}, for the variable @f{*the-interesting-numbers*}
 is just a seed that we are never likely to want to reset to something else
-once something has been grown from it.  As such, we have used @coderef{defvar}
+once something has been grown from it.  As such, we have used @symbolref{defvar}
 to avoid having the @f{*interesting-numbers*} information reset if the file is
 loaded a second time.  It is true that the two calls to
 @code{define-interesting-number} here would be reprocessed, but
@@ -2221,24 +2221,24 @@ information would be lost.  On the other hand, consider the following code:
 
 Here we could easily imagine editing the code to change the initial value of
 @f{*default-beep-count*}, and then reloading the file to pick up the new value.
-In order to make value updating easy, we have used @coderef{defparameter}.
+In order to make value updating easy, we have used @symbolref{defparameter}.
 
-On the other hand, there is potential value to using @coderef{defvar} in this
+On the other hand, there is potential value to using @symbolref{defvar} in this
 situation.  For example, suppose that someone had predefined an alternate
 value for @f{*default-beep-count*}, or had loaded the file and then manually
-changed the value.  In both cases, if we had used @coderef{defvar} instead of
-@coderef{defparameter}, those user preferences would not be overridden by
+changed the value.  In both cases, if we had used @symbolref{defvar} instead of
+@symbolref{defparameter}, those user preferences would not be overridden by
 (re)loading the file.
 
-The choice of whether to use @coderef{defparameter} or @coderef{defvar} has
+The choice of whether to use @symbolref{defparameter} or @symbolref{defvar} has
 visible consequences to programs, but is nevertheless often made for subjective
 reasons.
 
 @subsubheading Side Effects:
 
-If a @coderef{defvar} or @coderef{defparameter} @term{form} appears as a @term{top level form},
+If a @symbolref{defvar} or @symbolref{defparameter} @term{form} appears as a @term{top level form},
 the @term{compiler} must recognize that the @param{name} has been
-proclaimed @coderef{special}.  However, it must neither @term{evaluate}
+proclaimed @symbolref{special}.  However, it must neither @term{evaluate}
 the @param{initial-value} @term{form} nor @term{assign} the
 @term{dynamic variable} named @param{name} at compile time.
 
@@ -2248,7 +2248,7 @@ correct operation of @term{conforming programs}.
 
 @subsubheading Affected By:
 
-@coderef{defvar} is affected by whether @param{name} is already @term{bound}.
+@symbolref{defvar} is affected by whether @param{name} is already @term{bound}.
 
 @subsubheading See Also:
 
@@ -2270,11 +2270,11 @@ are obliged to adhere to this convention.
 
 The intent of the permission for additional side effects is to allow
 @term{implementations} to do normal ``bookkeeping'' that accompanies
-definitions.  For example, the @term{macro expansion} of a @coderef{defvar}
-or @coderef{defparameter} @term{form} might include code that arranges to
+definitions.  For example, the @term{macro expansion} of a @symbolref{defvar}
+or @symbolref{defparameter} @term{form} might include code that arranges to
 record the name of the source file in which the definition occurs.
 
-@coderef{defparameter} and @coderef{defvar} might be defined as follows:
+@symbolref{defparameter} and @symbolref{defvar} might be defined as follows:
 
 @lisp
  (defmacro defparameter (name initial-value
@@ -2300,7 +2300,7 @@ record the name of the source file in which the definition occurs.
 
 @node destructuring-bind
 @subsection destructuring-bind (Macro)
-@syindexanchor{destructuring-bind, REF}
+@syindexanchor{destructuring-bind, SYM}
 @cindex destructuring-bind
 
 
@@ -2323,9 +2323,9 @@ record the name of the source file in which the definition occurs.
 
 @subsubheading Description:
 
-@coderef{destructuring-bind} binds the variables specified in @param{lambda-list}
+@symbolref{destructuring-bind} binds the variables specified in @param{lambda-list}
 to the corresponding values in the tree structure resulting from the evaluation
-of @param{expression}; then @coderef{destructuring-bind} evaluates @param{forms}.
+of @param{expression}; then @symbolref{destructuring-bind} evaluates @param{forms}.
 
 The @param{lambda-list} supports destructuring as described in
 @ref{Destructuring Lambda Lists}.
@@ -2352,9 +2352,9 @@ destructuring pattern, an error @oftype{error} should be signaled.
 
 @node let; let*
 @subsection let, let* (Special Operator)
-@syindexanchor{let, REF}
+@syindexanchor{let, SYM}
 @cindex let
-@syindexanchor{let*, REF}
+@syindexanchor{let*, SYM}
 @cindex let*
 @anchor{let}
 
@@ -2380,11 +2380,11 @@ destructuring pattern, an error @oftype{error} should be signaled.
 
 @subsubheading Description:
 
-@coderef{let} and @coderef{let*}
+@symbolref{let} and @symbolref{let*}
 create new variable @term{bindings} and
 execute a series of @param{forms} that use these @term{bindings}.
-@coderef{let} performs the @term{bindings} in parallel and
-@coderef{let*} does them sequentially.
+@symbolref{let} performs the @term{bindings} in parallel and
+@symbolref{let*} does them sequentially.
 
 The form
 
@@ -2407,18 +2407,18 @@ first evaluates the expressions @param{init-form-1}, @param{init-form-2}, and so
 in that order, saving the resulting values.
 Then all of the variables @param{varj} are bound to the corresponding
 values; each @term{binding} is lexical unless
-there is a @coderef{special} declaration to the contrary.
+there is a @symbolref{special} declaration to the contrary.
 The expressions @param{formk} are then evaluated
 in order; the values of all but the last are discarded
-(that is, the body of a @coderef{let}
+(that is, the body of a @symbolref{let}
 is an @term{implicit progn}).
 
-@coderef{let*}
-is similar to @coderef{let}, but the @term{bindings} of variables
+@symbolref{let*}
+is similar to @symbolref{let}, but the @term{bindings} of variables
 are performed sequentially rather than in parallel.
 The expression for the @param{init-form} of a
 @param{var} can refer to @param{vars}
-previously bound in the @coderef{let*}.
+previously bound in the @symbolref{let*}.
 
 The form
 
@@ -2442,17 +2442,17 @@ first evaluates the expression @param{init-form-1}, then binds the variable
 @param{var2}, and so on.
 The expressions @param{formj} are then evaluated
 in order; the values of all but the last are discarded
-(that is, the body of @coderef{let*} is an implicit @coderef{progn}).
+(that is, the body of @symbolref{let*} is an implicit @symbolref{progn}).
 
-For both @coderef{let} and @coderef{let*},
+For both @symbolref{let} and @symbolref{let*},
 if there is not an @param{init-form} associated with a @param{var},
 @param{var} is initialized to @nil{}.
 
-The special form @coderef{let}
+The special form @symbolref{let}
 has the property that the @term{scope}
 of the name binding does not include any
 initial value form.
-For @coderef{let*}, a variable's @term{scope} also includes the
+For @symbolref{let*}, a variable's @term{scope} also includes the
 remaining initial value forms for subsequent variable bindings.
 
 @subsubheading Examples:
@@ -2493,7 +2493,7 @@ declaration.
 
 @node progv
 @subsection progv (Special Operator)
-@syindexanchor{progv, REF}
+@syindexanchor{progv, SYM}
 @cindex progv
 
 
@@ -2513,11 +2513,11 @@ declaration.
 
 @subsubheading Description:
 
-@coderef{progv} creates new dynamic variable @term{bindings} and
+@symbolref{progv} creates new dynamic variable @term{bindings} and
 executes each @param{form} using those @term{bindings}.
 Each @param{form} is evaluated in  order.
 
-@coderef{progv} allows @term{binding} one or more dynamic
+@symbolref{progv} allows @term{binding} one or more dynamic
 variables whose names may be determined at run time.
 Each @param{form} is evaluated in order
 with the dynamic variables whose names are in
@@ -2527,7 +2527,7 @@ are supplied, the remaining @term{symbols} are bound and then
 made to have no value. If too many @param{values} are
 supplied, the excess values are ignored.
 The @term{bindings} of the dynamic variables are undone on
-exit from @coderef{progv}.
+exit from @symbolref{progv}.
 
 @subsubheading Examples:
 @lisp
@@ -2549,14 +2549,14 @@ Assuming *x* is not globally special,
 
 @subsubheading Notes:
 
-Among other things, @coderef{progv} is useful when writing
+Among other things, @symbolref{progv} is useful when writing
 interpreters for languages embedded in @Lisp{}; it provides a handle
 on the mechanism for @term{binding} @term{dynamic variables}.
 
 
 @node setq
 @subsection setq (Special Form)
-@syindexanchor{setq, REF}
+@syindexanchor{setq, SYM}
 @cindex setq
 
 
@@ -2588,13 +2588,13 @@ is the simple variable assignment statement of @Lisp{}.
 First @param{form1} is evaluated
 and the result is stored in the variable @param{var1}, then @param{form2}
 is evaluated and the result stored in @param{var2}, and so forth.
-@coderef{setq} may be used for assignment of both lexical
+@symbolref{setq} may be used for assignment of both lexical
 and dynamic variables.
 
 If any @param{var} refers to a @term{binding}
-made by @coderef{symbol-macrolet},
-then that @param{var} is treated as if @coderef{setf}
-(not @coderef{setq}) had been used.
+made by @symbolref{symbol-macrolet},
+then that @param{var} is treated as if @symbolref{setf}
+(not @symbolref{setq}) had been used.
 
 @subsubheading Examples:
 
@@ -2633,7 +2633,7 @@ The @term{primary value} of each @param{form} is assigned to the corresponding @
 
 @node psetq
 @subsection psetq (Macro)
-@syindexanchor{psetq, REF}
+@syindexanchor{psetq, SYM}
 @cindex psetq
 
 
@@ -2645,7 +2645,7 @@ The @term{primary value} of each @param{form} is assigned to the corresponding @
 
 @subsubheading Pronunciation:
 
-@coderef{psetq}: @pronounced{@maybeStress{p@harde{}}@Stress{set}@stress{ky@uumlaut{}}}
+@symbolref{psetq}: @pronounced{@maybeStress{p@harde{}}@Stress{set}@stress{ky@uumlaut{}}}
 
 @subsubheading Arguments and Values:
 
@@ -2657,16 +2657,16 @@ The @term{primary value} of each @param{form} is assigned to the corresponding @
 
 Assigns values to @term{variables}.
 
-This is just like @coderef{setq}, except that the assignments
+This is just like @symbolref{setq}, except that the assignments
 happen ``in parallel.''  That is, first all of the forms are
 evaluated, and only then are the variables set to the resulting values.
 In this way, the assignment to one variable does not affect the value
-computation of another in the way that would occur with @coderef{setq}'s
+computation of another in the way that would occur with @symbolref{setq}'s
 sequential assignment.
 
 If any @param{var} refers to a @term{binding}
-made by @coderef{symbol-macrolet},
-then that @param{var} is treated as if @coderef{psetf} (not @coderef{psetq})
+made by @symbolref{symbol-macrolet},
+then that @param{var} is treated as if @symbolref{psetf} (not @symbolref{psetq})
 had been used.
 
 @subsubheading Examples:
@@ -2715,7 +2715,7 @@ The values of @param{forms} are assigned to @param{vars}.
 
 @node block
 @subsection block (Special Operator)
-@syindexanchor{block, REF}
+@syindexanchor{block, SYM}
 @cindex block
 
 
@@ -2734,13 +2734,13 @@ or else, if an @term{explicit return} occurs, the @term{values} that were transf
 
 @subsubheading Description:
 
-@coderef{block} @term{establishes} a @term{block} named @param{name}
+@symbolref{block} @term{establishes} a @term{block} named @param{name}
 and then evaluates @param{forms} as an @term{implicit progn}.
 
-The @term{special operators} @coderef{block} and @coderef{return-from} work together to
+The @term{special operators} @symbolref{block} and @symbolref{return-from} work together to
 provide a structured, lexical, non-local exit facility.  At any point lexically
-contained within @term{forms}, @coderef{return-from} can be used with the
-given @param{name} to return control and values from the @coderef{block}
+contained within @term{forms}, @symbolref{return-from} can be used with the
+given @param{name} to return control and values from the @symbolref{block}
 @term{form}, except when an intervening @term{block} with the same name
 has been @term{established}, in which case the outer @term{block} is
 shadowed by the inner one.
@@ -2779,7 +2779,7 @@ whether by @term{normal return} or @term{explicit return}.
 
 @node catch
 @subsection catch (Special Operator)
-@syindexanchor{catch, REF}
+@syindexanchor{catch, SYM}
 @cindex catch
 
 
@@ -2800,15 +2800,15 @@ the @term{values} that are thrown.
 
 @subsubheading Description:
 
-@coderef{catch} is used as the destination of a non-local
-control transfer by @coderef{throw}.
-@param{Tags} are used to find the @coderef{catch}
-to which a @coderef{throw} is transferring control.
+@symbolref{catch} is used as the destination of a non-local
+control transfer by @symbolref{throw}.
+@param{Tags} are used to find the @symbolref{catch}
+to which a @symbolref{throw} is transferring control.
 @f{(catch 'foo @i{form})} catches a
 @f{(throw 'foo @i{form})} but not a
 @f{(throw 'bar @i{form})}.
 
-The order of execution of @coderef{catch} follows:
+The order of execution of @symbolref{catch} follows:
 @cindex order of evaluation
 @cindex evaluation order
 
@@ -2816,37 +2816,37 @@ The order of execution of @coderef{catch} follows:
 @enumerate 1
 @item @param{Tag} is evaluated.
 It serves as the name of the
-@coderef{catch}.
+@symbolref{catch}.
 
-@item @param{Forms} are then evaluated as an implicit @coderef{progn},
+@item @param{Forms} are then evaluated as an implicit @symbolref{progn},
 and the results of the last @param{form} are returned unless a
-@coderef{throw} occurs.
+@symbolref{throw} occurs.
 
-@item If a @coderef{throw} occurs
+@item If a @symbolref{throw} occurs
 during the execution of one of the @param{forms}, control
-is transferred  to the @coderef{catch} @term{form} whose @param{tag}
-is @coderef{eq} to
-the tag argument of the @coderef{throw}
-and which is the most recently established @coderef{catch} with that
+is transferred  to the @symbolref{catch} @term{form} whose @param{tag}
+is @symbolref{eq} to
+the tag argument of the @symbolref{throw}
+and which is the most recently established @symbolref{catch} with that
 @param{tag}.
 No further evaluation of @param{forms} occurs.
 
 @item The @param{tag} @term{established}
-by @coderef{catch} is @term{disestablished}
+by @symbolref{catch} is @term{disestablished}
 just before the results are returned.
 @end enumerate
 
 
-If during the execution of one of the @param{forms}, a @coderef{throw}
-is executed whose tag is @coderef{eq} to the @coderef{catch} tag,
-then the values specified by the @coderef{throw} are
+If during the execution of one of the @param{forms}, a @symbolref{throw}
+is executed whose tag is @symbolref{eq} to the @symbolref{catch} tag,
+then the values specified by the @symbolref{throw} are
 returned as the result of the dynamically most recently established
-@coderef{catch} form with that tag.
+@symbolref{catch} form with that tag.
 
-The mechanism for @coderef{catch} and @coderef{throw} works even
-if @coderef{throw} is not within the lexical scope of @coderef{catch}.
-@coderef{throw} must occur within the @term{dynamic extent}
-of the @term{evaluation} of the body of a @coderef{catch} with a corresponding @param{tag}.
+The mechanism for @symbolref{catch} and @symbolref{throw} works even
+if @symbolref{throw} is not within the lexical scope of @symbolref{catch}.
+@symbolref{throw} must occur within the @term{dynamic extent}
+of the @term{evaluation} of the body of a @symbolref{catch} with a corresponding @param{tag}.
 
 @subsubheading Examples:
 @lisp
@@ -2865,8 +2865,8 @@ of the @term{evaluation} of the body of a @coderef{catch} with a corresponding @
 
 @subsubheading Exceptional Situations:
 An error @oftype{control-error} is signaled
-if @coderef{throw} is done
-when there is no suitable @coderef{catch} @param{tag}.
+if @symbolref{throw} is done
+when there is no suitable @symbolref{catch} @param{tag}.
 @subsubheading See Also:
 
 @ref{throw}, @ref{Evaluation}
@@ -2876,17 +2876,17 @@ when there is no suitable @coderef{catch} @param{tag}.
 It is customary for @term{symbols} to be used
 as @param{tags}, but any @term{object} is permitted.
 However, numbers should not be
-used because the comparison is done using @coderef{eq}.
+used because the comparison is done using @symbolref{eq}.
 
-@coderef{catch} differs from @coderef{block} in that
-@coderef{catch}
+@symbolref{catch} differs from @symbolref{block} in that
+@symbolref{catch}
 tags have dynamic @term{scope} while
-@coderef{block} names have @term{lexical scope}.
+@symbolref{block} names have @term{lexical scope}.
 
 
 @node go
 @subsection go (Special Operator)
-@syindexanchor{go, REF}
+@syindexanchor{go, SYM}
 @cindex go
 
 
@@ -2900,22 +2900,22 @@ tags have dynamic @term{scope} while
 
 @subsubheading Description:
 
-@coderef{go} transfers control to the point in the body
-of an enclosing @coderef{tagbody} form labeled by a
+@symbolref{go} transfers control to the point in the body
+of an enclosing @symbolref{tagbody} form labeled by a
 tag @code{eql} to @param{tag}.
 If there is no such @param{tag}  in the body, the
-bodies of lexically containing @coderef{tagbody} @term{forms}
+bodies of lexically containing @symbolref{tagbody} @term{forms}
 (if any) are examined as well.
 If several tags are @code{eql}
 to @param{tag}, control is transferred to
 whichever matching @param{tag}
-is contained in the innermost @coderef{tagbody} form that
-contains the @coderef{go}.
+is contained in the innermost @symbolref{tagbody} form that
+contains the @symbolref{go}.
 The consequences are undefined
 if there is no matching @param{tag} lexically visible
-to the point of the @coderef{go}.
+to the point of the @symbolref{go}.
 
-The transfer of control initiated by @coderef{go} is performed
+The transfer of control initiated by @symbolref{go} is performed
 as described in @ref{Transfer of Control to an Exit Point}.
 
 @subsubheading Examples:
@@ -2931,8 +2931,8 @@ as described in @ref{Transfer of Control to an Exit Point}.
 
 
 The following is in error because there is a normal exit
-of the @coderef{tagbody} before the
-@coderef{go} is executed.
+of the @symbolref{tagbody} before the
+@symbolref{go} is executed.
 
 @lisp
  (let ((a nil))
@@ -2941,8 +2941,8 @@ of the @coderef{tagbody} before the
 @end lisp
 
 
-The following is in error because the @coderef{tagbody} is passed over
-before the @coderef{go} @term{form} is executed.
+The following is in error because the @symbolref{tagbody} is passed over
+before the @symbolref{go} @term{form} is executed.
 
 @lisp
  (funcall (block nil
@@ -2957,7 +2957,7 @@ before the @coderef{go} @term{form} is executed.
 
 @node return-from
 @subsection return-from (Special Operator)
-@syindexanchor{return-from, REF}
+@syindexanchor{return-from, SYM}
 @cindex return-from
 
 
@@ -2976,12 +2976,12 @@ before the @coderef{go} @term{form} is executed.
 
 Returns control and @term{multiple values}@sub{2} from a lexically enclosing @term{block}.
 
-A @coderef{block} @term{form} named @param{name} must lexically enclose
-the occurrence of @coderef{return-from};  any @term{values} @term{yielded}
+A @symbolref{block} @term{form} named @param{name} must lexically enclose
+the occurrence of @symbolref{return-from};  any @term{values} @term{yielded}
 by the @term{evaluation} of @param{result} are immediately returned from
 the innermost such lexically enclosing @term{block}.
 
-The transfer of control initiated by @coderef{return-from} is performed
+The transfer of control initiated by @symbolref{return-from} is performed
 as described in @ref{Transfer of Control to an Exit Point}.
 
 @subsubheading Examples:
@@ -3034,8 +3034,8 @@ as described in @ref{Transfer of Control to an Exit Point}.
 @end lisp
 
 
-The following has undefined consequences because the @coderef{block} @term{form}
-exits normally before the @coderef{return-from} @term{form} is attempted.
+The following has undefined consequences because the @symbolref{block} @term{form}
+exits normally before the @symbolref{return-from} @term{form} is attempted.
 
 @lisp
  (funcall (block nil #'(lambda () (return-from nil)))) is an error.
@@ -3052,7 +3052,7 @@ exits normally before the @coderef{return-from} @term{form} is attempted.
 
 @node return
 @subsection return (Macro)
-@syindexanchor{return, REF}
+@syindexanchor{return, SYM}
 @cindex return
 
 
@@ -3067,7 +3067,7 @@ exits normally before the @coderef{return-from} @term{form} is attempted.
 
 @subsubheading Description:
 
-Returns, as if by @coderef{return-from}, from the @term{block} named @nil{}.
+Returns, as if by @symbolref{return-from}, from the @term{block} named @nil{}.
 
 @subsubheading Examples:
 
@@ -3095,14 +3095,14 @@ Returns, as if by @coderef{return-from}, from the @term{block} named @nil{}.
 @end lisp
 
 
-The @term{implicit blocks} @term{established} by @term{macros} such as @coderef{do}
-are often named @nil{}, so that @coderef{return} can be used to exit from
+The @term{implicit blocks} @term{established} by @term{macros} such as @symbolref{do}
+are often named @nil{}, so that @symbolref{return} can be used to exit from
 such @term{forms}.
 
 
 @node tagbody
 @subsection tagbody (Special Operator)
-@syindexanchor{tagbody, REF}
+@syindexanchor{tagbody, SYM}
 @cindex tagbody
 
 
@@ -3122,18 +3122,18 @@ Executes zero or more @term{statements} in a
 @term{lexical environment}
 that provides for control transfers to labels indicated by the @param{tags}.
 
-The @param{statements} in a @coderef{tagbody} are @term{evaluated} in order
+The @param{statements} in a @symbolref{tagbody} are @term{evaluated} in order
 from left to right, and their @term{values} are discarded.  If at any time
-there are no remaining @param{statements}, @coderef{tagbody} returns @nil{}.
+there are no remaining @param{statements}, @symbolref{tagbody} returns @nil{}.
 However, if @f{(go @param{tag})} is @term{evaluated}, control jumps to the
 part of the body labeled with the @param{tag}.  (Tags are compared with @code{eql}.)
 
-A @param{tag} established by @coderef{tagbody} has @term{lexical scope}
-and has @term{dynamic extent}.  Once @coderef{tagbody} has been exited,
-it is no longer valid to @coderef{go} to a @param{tag} in its body.
-It is permissible for @coderef{go} to jump to a @coderef{tagbody} that is
-not the innermost @coderef{tagbody} containing that @coderef{go};
-the @param{tags} established by a @coderef{tagbody} only shadow
+A @param{tag} established by @symbolref{tagbody} has @term{lexical scope}
+and has @term{dynamic extent}.  Once @symbolref{tagbody} has been exited,
+it is no longer valid to @symbolref{go} to a @param{tag} in its body.
+It is permissible for @symbolref{go} to jump to a @symbolref{tagbody} that is
+not the innermost @symbolref{tagbody} containing that @symbolref{go};
+the @param{tags} established by a @symbolref{tagbody} only shadow
 other @param{tags} of like name.
 
 The determination of which elements of the body are @param{tags}
@@ -3206,7 +3206,7 @@ The @term{macros} in @thenextfigure{}@spc{}have @term{implicit tagbodies}.
 
 @node throw
 @subsection throw (Special Operator)
-@syindexanchor{throw, REF}
+@syindexanchor{throw, SYM}
 @cindex throw
 
 
@@ -3222,19 +3222,19 @@ The @term{macros} in @thenextfigure{}@spc{}have @term{implicit tagbodies}.
 
 @subsubheading Description:
 
-@coderef{throw} causes a non-local control transfer
-to a @coderef{catch} whose tag is @coderef{eq} to @param{tag}.
+@symbolref{throw} causes a non-local control transfer
+to a @symbolref{catch} whose tag is @symbolref{eq} to @param{tag}.
 
 @param{Tag} is evaluated first to produce an @term{object}
 called the throw tag; then @param{result-form} is evaluated,
 and its results are saved. If the @param{result-form} produces
 multiple values, then all the values are saved.
-The most recent outstanding @coderef{catch}
-whose @param{tag} is @coderef{eq} to the throw tag
+The most recent outstanding @symbolref{catch}
+whose @param{tag} is @symbolref{eq} to the throw tag
 is exited; the saved results are returned as the value or
-values of @coderef{catch}.
+values of @symbolref{catch}.
 
-The transfer of control initiated by @coderef{throw} is performed
+The transfer of control initiated by @symbolref{throw} is performed
 as described in @ref{Transfer of Control to an Exit Point}.
 
 @subsubheading Examples:
@@ -3256,12 +3256,12 @@ as described in @ref{Transfer of Control to an Exit Point}.
 
 
 The consequences of the following are undefined
-because the @coderef{catch} of @f{b}
-is passed over by the first @coderef{throw},
+because the @symbolref{catch} of @f{b}
+is passed over by the first @symbolref{throw},
 hence portable programs must assume that
 its @term{dynamic extent} is terminated.
 The @term{binding} of the @term{catch tag} is not yet @term{disestablished}
-and therefore it is the target of the second @coderef{throw}.
+and therefore it is the target of the second @symbolref{throw}.
 
 @lisp
  (catch 'a
@@ -3294,7 +3294,7 @@ no unwinding of the stack is performed,
 and an error @oftype{control-error} is signaled.
 When the error is signaled,
 the @term{dynamic environment} is that which was
-in force at the point of the @coderef{throw}.
+in force at the point of the @symbolref{throw}.
 
 @subsubheading See Also:
 
@@ -3306,15 +3306,15 @@ in force at the point of the @coderef{throw}.
 
 @subsubheading Notes:
 
-@coderef{catch} and @coderef{throw} are normally used when the @term{exit point}
-must have @term{dynamic scope} (@eg{} the @coderef{throw} is not lexically enclosed
-by the @coderef{catch}), while @coderef{block} and @coderef{return} are used
+@symbolref{catch} and @symbolref{throw} are normally used when the @term{exit point}
+must have @term{dynamic scope} (@eg{} the @symbolref{throw} is not lexically enclosed
+by the @symbolref{catch}), while @symbolref{block} and @symbolref{return} are used
 when @term{lexical scope} is sufficient.
 
 
 @node unwind-protect
 @subsection unwind-protect (Special Operator)
-@syindexanchor{unwind-protect, REF}
+@syindexanchor{unwind-protect, SYM}
 @cindex unwind-protect
 
 
@@ -3331,37 +3331,37 @@ when @term{lexical scope} is sufficient.
 @param{results}---the @term{values} of the @term{protected-form}.
 
 @subsubheading Description:
-@coderef{unwind-protect} evaluates @param{protected-form}
+@symbolref{unwind-protect} evaluates @param{protected-form}
 and guarantees that @param{cleanup-forms} are executed
-before @coderef{unwind-protect} exits,
+before @symbolref{unwind-protect} exits,
 whether it terminates
 normally or is aborted by a control transfer of some kind.
-@coderef{unwind-protect} is intended to be used
+@symbolref{unwind-protect} is intended to be used
 to make sure that
 certain side effects take place after the evaluation of
 @param{protected-form}.
 
 If a @term{non-local exit} occurs during execution of @param{cleanup-forms},
 no special action is taken.  The @param{cleanup-forms} of
-@coderef{unwind-protect}
-are not protected by that @coderef{unwind-protect}.
+@symbolref{unwind-protect}
+are not protected by that @symbolref{unwind-protect}.
 
-@coderef{unwind-protect} protects against all attempts to exit
+@symbolref{unwind-protect} protects against all attempts to exit
 from @param{protected-form}, including
-@coderef{go},
-@coderef{handler-case},
-@coderef{ignore-errors},
-@coderef{restart-case},
-@coderef{return-from},
-@coderef{throw},
-and @coderef{with-simple-restart}.
+@symbolref{go},
+@symbolref{handler-case},
+@symbolref{ignore-errors},
+@symbolref{restart-case},
+@symbolref{return-from},
+@symbolref{throw},
+and @symbolref{with-simple-restart}.
 
 Undoing of @term{handler} and @term{restart} @term{bindings} during an exit
 happens in parallel with the undoing of the bindings of @term{dynamic variables}
-and @coderef{catch} tags, in the reverse order in which they were established.
+and @symbolref{catch} tags, in the reverse order in which they were established.
 The effect of this is that @param{cleanup-form} sees the same @term{handler}
 and @term{restart} @term{bindings}, as well as @term{dynamic variable} @term{bindings}
-and @coderef{catch} tags, as were visible when the @coderef{unwind-protect} was entered.
+and @symbolref{catch} tags, as were visible when the @symbolref{unwind-protect} was entered.
 
 @subsubheading Examples:
 @lisp
@@ -3374,7 +3374,7 @@ and @coderef{catch} tags, as were visible when the @coderef{unwind-protect} was 
    ...)
 @end lisp
 
-When @coderef{go} is executed, the call to @coderef{print} is executed first,
+When @symbolref{go} is executed, the call to @symbolref{print} is executed first,
 and then the transfer of control to the tag @f{out} is completed.
 
 @lisp
@@ -3402,8 +3402,8 @@ is not correct:
    (decf *access-count*))
 @end lisp
 
-If an exit occurs before completion of @coderef{incf},
-the @coderef{decf} @term{form} is executed anyway, resulting in an
+If an exit occurs before completion of @symbolref{incf},
+the @symbolref{decf} @term{form} is executed anyway, resulting in an
 incorrect value for @f{*access-count*}.
 The correct way to code this is as follows:
 
@@ -3600,7 +3600,7 @@ For example,
 as the @term{name} of a @term{class},
 as a @term{designator} (@eg{} a @term{stream designator})
 or as a special symbol for some syntactic reason
-(@eg{} in @coderef{case} and @coderef{typecase} to label the @param{otherwise-clause}).
+(@eg{} in @symbolref{case} and @symbolref{typecase} to label the @param{otherwise-clause}).
 
 @subsubheading Examples:
 
@@ -3623,7 +3623,7 @@ or as a special symbol for some syntactic reason
 
 @node eq
 @subsection eq (Function)
-@syindexanchor{eq, REF}
+@syindexanchor{eq, SYM}
 @cindex eq
 
 
@@ -3692,22 +3692,22 @@ otherwise, returns @term{false}.
 
 @subsubheading Notes:
 @term{Objects} that appear the same when printed are not necessarily
-@coderef{eq} to each other.  @term{Symbols} that print the same
-usually are @coderef{eq} to each other because of the use of the
-@coderef{intern} function.  However, @term{numbers} with the
-same value need not be @coderef{eq}, and two similar
+@symbolref{eq} to each other.  @term{Symbols} that print the same
+usually are @symbolref{eq} to each other because of the use of the
+@symbolref{intern} function.  However, @term{numbers} with the
+same value need not be @symbolref{eq}, and two similar
 @term{lists} are usually not @term{identical}.
 
 An implementation is permitted to make ``copies'' of
 @term{characters} and @term{numbers} at any time.
-The effect is that @clisp{}@spc{}makes no guarantee that @coderef{eq}
+The effect is that @clisp{}@spc{}makes no guarantee that @symbolref{eq}
 is true even when both its arguments are ``the same thing'' if
 that thing is a @term{character} or @term{number}.
 
 Most @clisp{}@spc{}@term{operators} use @code{eql} rather than
-@coderef{eq} to compare objects, or else they default to @code{eql}
-and only use @coderef{eq} if specifically requested to do so.
-However, the following @term{operators} are defined to use @coderef{eq}
+@symbolref{eq} to compare objects, or else they default to @code{eql}
+and only use @symbolref{eq} if specifically requested to do so.
+However, the following @term{operators} are defined to use @symbolref{eq}
 rather than @code{eql} in a way that cannot be overridden by the
 @term{code} which employs them:
 
@@ -3750,7 +3750,7 @@ The value of @code{eql} is @term{true} of two objects, @param{x} and
 @param{y}, in the folowing cases:
 
 @enumerate 1
-@item If @param{x} and @param{y} are @coderef{eq}.
+@item If @param{x} and @param{y} are @symbolref{eq}.
 @item If @param{x} and @param{y} are both @term{numbers}
 of the same @term{type} and the same value.
 @item If they are both @term{characters} that represent the
@@ -3808,19 +3808,19 @@ might be true.
 
 @subsubheading Notes:
 
-@code{eql} is the same as @coderef{eq}, except that if the
+@code{eql} is the same as @symbolref{eq}, except that if the
 arguments are @term{characters} or @term{numbers}
 of the same type then their
 values are compared.  Thus @code{eql} tells whether two @term{objects}
-are conceptually the same, whereas @coderef{eq} tells whether two
+are conceptually the same, whereas @symbolref{eq} tells whether two
 @term{objects} are implementationally identical.  It is for this reason
-that @code{eql}, not @coderef{eq}, is the default comparison predicate
+that @code{eql}, not @symbolref{eq}, is the default comparison predicate
 for @term{operators} that take @term{sequences}
 as arguments.
 
 @code{eql} may not be true of two @term{floats}
 even when they represent the same
-value.  @coderef{=} is used to compare
+value.  @symbolref{=} is used to compare
 mathematical values.
 
 Two @term{complex} numbers are considered to be @code{eql}
@@ -3841,7 +3841,7 @@ to the @term{integer} @f{5}.
 
 @node equal
 @subsection equal (Function)
-@syindexanchor{equal, REF}
+@syindexanchor{equal, SYM}
 @cindex equal
 
 
@@ -3861,61 +3861,61 @@ to the @term{integer} @f{5}.
 
 Returns @term{true} if @param{x} and @param{y} are structurally similar
 (isomorphic) @term{objects}.  @term{Objects} are treated as follows by
-@coderef{equal}.
+@symbolref{equal}.
 
 
 @table @asis
 @item @id{@term{Symbols}, @term{Numbers}, and @term{Characters}}
 
 
-@coderef{equal} is @term{true} of two @term{objects}
-if they are @term{symbols} that are @coderef{eq},
+@symbolref{equal} is @term{true} of two @term{objects}
+if they are @term{symbols} that are @symbolref{eq},
 if they are @term{numbers} that are @code{eql}, or
 if they are @term{characters} that are @code{eql}.
 
 @item @id{@term{Conses}}
 
 
-For @term{conses}, @coderef{equal} is defined recursively as
-the two @term{cars} being @coderef{equal}
-and the two @term{cdrs} being @coderef{equal}.
+For @term{conses}, @symbolref{equal} is defined recursively as
+the two @term{cars} being @symbolref{equal}
+and the two @term{cdrs} being @symbolref{equal}.
 
 @item @id{@term{Arrays}}
 
 
-Two @term{arrays} are @coderef{equal} only if they are @coderef{eq},
+Two @term{arrays} are @symbolref{equal} only if they are @symbolref{eq},
 with one exception:
 @term{strings} and @term{bit vectors} are compared element-by-element (using @code{eql}).
 If either @param{x} or @param{y} has a @term{fill pointer}, the
 @term{fill pointer} limits
-the number of elements examined by @coderef{equal}.
+the number of elements examined by @symbolref{equal}.
 Uppercase and lowercase letters in @term{strings} are considered by
-@coderef{equal} to be different.
+@symbolref{equal} to be different.
 
 @item @id{@term{Pathnames}}
 
 
-Two @term{pathnames} are @coderef{equal} if and only if
+Two @term{pathnames} are @symbolref{equal} if and only if
 all the corresponding components
 (host, device, and so on) are
 equivalent.  Whether or not
 uppercase and lowercase letters are considered equivalent
 in @term{strings} appearing in components is @term{implementation-dependent}.
 @term{pathnames}
-that are @coderef{equal} should be functionally equivalent.
+that are @symbolref{equal} should be functionally equivalent.
 
 @item @id{@bf{Other (Structures, hash-tables, instances, @mat{@ldots{}})}}
 
 
-Two other @term{objects} are @coderef{equal} only if they are @coderef{eq}.
+Two other @term{objects} are @symbolref{equal} only if they are @symbolref{eq}.
 
 @end table
 
 
-@coderef{equal} does not descend any @term{objects} other than the
+@symbolref{equal} does not descend any @term{objects} other than the
 ones explicitly specified above.
 @Thenextfigure{}@spc{}summarizes the information given in the previous list.
-In addition, the figure specifies the priority of the behavior of @coderef{equal},
+In addition, the figure specifies the priority of the behavior of @symbolref{equal},
 with upper
 entries taking priority over lower ones.
 
@@ -3930,19 +3930,19 @@ entries taking priority over lower ones.
 @item @term{bit vector} @tab descends
 @item @term{string} @tab descends
 @item @term{pathname} @tab ``functionally equivalent''
-@item @term{structure} @tab uses @coderef{eq}
-@item Other @term{array} @tab uses @coderef{eq}
-@item @term{hash table} @tab uses @coderef{eq}
-@item Other @term{object} @tab uses @coderef{eq}
+@item @term{structure} @tab uses @symbolref{eq}
+@item Other @term{array} @tab uses @symbolref{eq}
+@item @term{hash table} @tab uses @symbolref{eq}
+@item Other @term{object} @tab uses @symbolref{eq}
 @end multitable
 @end cartouche
-@caption{Summary and priorities of behavior of @coderef{equal}}
+@caption{Summary and priorities of behavior of @symbolref{equal}}
 @end float
 
 
-Any two @term{objects} that are @code{eql} are also @coderef{equal}.
+Any two @term{objects} that are @code{eql} are also @symbolref{equal}.
 
-@coderef{equal} may fail to terminate if @param{x} or @param{y} is circular.
+@symbolref{equal} may fail to terminate if @param{x} or @param{y} is circular.
 
 @subsubheading Examples:
 
@@ -3979,16 +3979,16 @@ determined correct algorithm. The appropriateness of an equality
 predicate can be judged only in the context of the needs of some
 particular program. Although these functions take any type of
 argument and their names sound very generic,
-@coderef{equal} and @coderef{equalp} are
+@symbolref{equal} and @symbolref{equalp} are
 not appropriate for every application.
 
-A rough rule of thumb is that two @term{objects} are @coderef{equal}
+A rough rule of thumb is that two @term{objects} are @symbolref{equal}
 if and only if their printed representations are the same.
 
 
 @node equalp
 @subsection equalp (Function)
-@syindexanchor{equalp, REF}
+@syindexanchor{equalp, SYM}
 @cindex equalp
 
 
@@ -4006,27 +4006,27 @@ if and only if their printed representations are the same.
 
 @subsubheading Description:
 
-Returns @term{true} if @param{x} and @param{y} are @coderef{equal},
+Returns @term{true} if @param{x} and @param{y} are @symbolref{equal},
 or if they have components that are of the same @term{type} as each other
-and if those components are @coderef{equalp};
-specifically, @coderef{equalp} returns @term{true} in the following cases:
+and if those components are @symbolref{equalp};
+specifically, @symbolref{equalp} returns @term{true} in the following cases:
 
 @table @asis
 @item @id{@term{Characters}}
 
 
-If two @term{characters} are @coderef{char-equal}.
+If two @term{characters} are @symbolref{char-equal}.
 
 @item @id{@term{Numbers}}
 
 
-If two @term{numbers} are the @term{same} under @coderef{=}.
+If two @term{numbers} are the @term{same} under @symbolref{=}.
 
 @item @id{@term{Conses}}
 
 
-If the two @term{cars} in the @term{conses} are @coderef{equalp}
-and the two @term{cdrs} in the @term{conses} are @coderef{equalp}.
+If the two @term{cars} in the @term{conses} are @symbolref{equalp}
+and the two @term{cdrs} in the @term{conses} are @symbolref{equalp}.
 
 @item @id{@term{Arrays}}
 
@@ -4035,35 +4035,35 @@ If two @term{arrays} have the same
 number of dimensions, the dimensions match,
 and the corresponding
 @term{active elements}
-are @coderef{equalp}.
+are @symbolref{equalp}.
 The @term{types} for which the @term{arrays} are @term{specialized} need not match;
 for example, a @term{string} and a general @term{array} that happens to contain the same
-@term{characters} are @coderef{equalp}.
-Because @coderef{equalp} performs @term{element}-by-@term{element} comparisons
+@term{characters} are @symbolref{equalp}.
+Because @symbolref{equalp} performs @term{element}-by-@term{element} comparisons
 of @term{strings} and ignores the @term{case} of @term{characters},
-@term{case} distinctions are ignored when @coderef{equalp} compares @term{strings}.
+@term{case} distinctions are ignored when @symbolref{equalp} compares @term{strings}.
 
 @item @id{@term{Structures}}
 
 
 If two @term{structures} @mat{S@sub{1}} and @mat{S@sub{2}} have the same @term{class}
-and the value of each @term{slot} in @mat{S@sub{1}} is the @term{same} under @coderef{equalp}
+and the value of each @term{slot} in @mat{S@sub{1}} is the @term{same} under @symbolref{equalp}
 as the value of the corresponding @term{slot} in @mat{S@sub{2}}.
 
 @item @id{@term{Hash Tables}}
 
 
-@coderef{equalp} descends @term{hash-tables} by first comparing the count of entries
+@symbolref{equalp} descends @term{hash-tables} by first comparing the count of entries
 and the @kwd{test} function; if those are the same, it compares the
 keys of the tables using the @kwd{test} function and then the values
-of the matching keys using @coderef{equalp} recursively.
+of the matching keys using @symbolref{equalp} recursively.
 @end table
 
 
-@coderef{equalp} does not descend any @term{objects}
+@symbolref{equalp} does not descend any @term{objects}
 other than the ones explicitly specified above.
 @Thenextfigure{}@spc{}summarizes the information given in the previous list.
-In addition, the figure specifies the priority of the behavior of @coderef{equalp},
+In addition, the figure specifies the priority of the behavior of @symbolref{equalp},
 with upper
 entries taking priority over lower ones.
 
@@ -4072,19 +4072,19 @@ entries taking priority over lower ones.
 @cartouche
 @multitable{Other @term{object}}{descends, as described above}
 @headitem Type @tab Behavior
-@item @term{number} @tab uses @coderef{=}
-@item @term{character} @tab uses @coderef{char-equal}
+@item @term{number} @tab uses @symbolref{=}
+@item @term{character} @tab uses @symbolref{char-equal}
 @item @term{cons} @tab descends
 @item @term{bit vector} @tab descends
 @item @term{string} @tab descends
-@item @term{pathname} @tab same as @coderef{equal}
+@item @term{pathname} @tab same as @symbolref{equal}
 @item @term{structure} @tab descends, as described above
 @item Other @term{array} @tab descends
 @item @term{hash table} @tab descends, as described above
-@item Other @term{object} @tab uses @coderef{eq}
+@item Other @term{object} @tab uses @symbolref{eq}
 @end multitable
 @end cartouche
-@caption{Summary and priorities of behavior of @coderef{equalp}}
+@caption{Summary and priorities of behavior of @symbolref{equalp}}
 @end float
 
 
@@ -4134,13 +4134,13 @@ determined correct algorithm. The appropriateness of an equality
 predicate can be judged only in the context of the needs of some
 particular program. Although these functions take any type of
 argument and their names sound very generic,
-@coderef{equal} and @coderef{equalp} are
+@symbolref{equal} and @symbolref{equalp} are
 not appropriate for every application.
 
 
 @node identity
 @subsection identity (Function)
-@syindexanchor{identity, REF}
+@syindexanchor{identity, SYM}
 @cindex identity
 
 
@@ -4166,14 +4166,14 @@ Returns its argument @param{object}.
 
 @subsubheading Notes:
 
-@coderef{identity} is intended for use with functions that require
+@symbolref{identity} is intended for use with functions that require
 a @term{function} as an argument.
 
 @f{(eql x (identity x))} returns @term{true} for all possible values of @param{x},
 but @f{(eq x (identity x))} might return @term{false} when @param{x} is a @term{number}
 or @term{character}.
 
-@coderef{identity} could be defined by
+@symbolref{identity} could be defined by
 
 @lisp
 (defun identity (x) x)
@@ -4183,7 +4183,7 @@ or @term{character}.
 
 @node complement
 @subsection complement (Function)
-@syindexanchor{complement, REF}
+@syindexanchor{complement, SYM}
 @cindex complement
 
 
@@ -4254,12 +4254,12 @@ For example,
 Note that since the ``@f{@i{xxx}-if-not}'' @term{functions}
 and the @kwd{test-not} arguments have been deprecated,
 uses of ``@f{@i{xxx}-if}'' @term{functions} or
-@kwd{test} arguments with @coderef{complement} are preferred.
+@kwd{test} arguments with @symbolref{complement} are preferred.
 
 
 @node constantly
 @subsection constantly (Function)
-@syindexanchor{constantly, REF}
+@syindexanchor{constantly, SYM}
 @cindex constantly
 
 
@@ -4276,7 +4276,7 @@ uses of ``@f{@i{xxx}-if}'' @term{functions} or
 
 @subsubheading Description:
 
-@coderef{constantly} returns a @term{function} that accepts any number of
+@symbolref{constantly} returns a @term{function} that accepts any number of
 arguments, that has no side-effects, and that always returns @param{value}.
 
 @subsubheading Examples:
@@ -4297,7 +4297,7 @@ arguments, that has no side-effects, and that always returns @param{value}.
 
 @subsubheading Notes:
 
-@coderef{constantly} could be defined by:
+@symbolref{constantly} could be defined by:
 
 @lisp
  (defun constantly (object)
@@ -4309,13 +4309,13 @@ arguments, that has no side-effects, and that always returns @param{value}.
 
 @node every; some; notevery; notany
 @subsection every, some, notevery, notany (Function)
-@syindexanchor{every, REF}
+@syindexanchor{every, SYM}
 @cindex every
-@syindexanchor{some, REF}
+@syindexanchor{some, SYM}
 @cindex some
-@syindexanchor{notevery, REF}
+@syindexanchor{notevery, SYM}
 @cindex notevery
-@syindexanchor{notany, REF}
+@syindexanchor{notany, SYM}
 @cindex notany
 @anchor{every}
 @anchor{some}
@@ -4341,7 +4341,7 @@ as many @term{arguments} as there are @param{sequences}.
 
 @subsubheading Description:
 
-@coderef{every}, @coderef{some}, @coderef{notevery}, and @coderef{notany}
+@symbolref{every}, @symbolref{some}, @symbolref{notevery}, and @symbolref{notany}
 test @term{elements} of @param{sequences} for satisfaction of a given @param{predicate}.
 The first argument to @param{predicate} is an @term{element} of the first @param{sequence};
 each succeeding argument is an @term{element} of a succeeding @param{sequence}.
@@ -4351,32 +4351,32 @@ with index @f{0} in each of the @param{sequences}, and possibly then to
 the elements with index @f{1}, and so on, until a termination
 criterion is met or the end of the shortest of the @param{sequences} is reached.
 
-@coderef{every} returns @term{false} as soon
+@symbolref{every} returns @term{false} as soon
 as any invocation of @param{predicate} returns @term{false}.
 If the end of a @param{sequence} is reached,
-@coderef{every} returns @term{true}.
-Thus, @coderef{every} returns @term{true} if and only if
+@symbolref{every} returns @term{true}.
+Thus, @symbolref{every} returns @term{true} if and only if
 every invocation of @param{predicate} returns @term{true}.
 
-@coderef{some} returns the first @term{non-nil} value
+@symbolref{some} returns the first @term{non-nil} value
 which is returned by an invocation of @param{predicate}.
 If the end of a @param{sequence} is reached without any invocation of the
-@param{predicate} returning @term{true}, @coderef{some} returns @term{false}.
-Thus, @coderef{some} returns @term{true} if and only if
+@param{predicate} returning @term{true}, @symbolref{some} returns @term{false}.
+Thus, @symbolref{some} returns @term{true} if and only if
 some invocation of @param{predicate} returns @term{true}.
 
-@coderef{notany} returns @term{false}
+@symbolref{notany} returns @term{false}
 as soon as any invocation of @param{predicate} returns @term{true}.
 If the end of a @param{sequence} is reached,
-@coderef{notany} returns @term{true}.
-Thus, @coderef{notany} returns @term{true} if and only if
+@symbolref{notany} returns @term{true}.
+Thus, @symbolref{notany} returns @term{true} if and only if
 it is not the case that any invocation of @param{predicate} returns @term{true}.
 
-@coderef{notevery} returns @term{true} as soon as any invocation of
+@symbolref{notevery} returns @term{true} as soon as any invocation of
 @param{predicate} returns @term{false}.
 If the end of a @param{sequence} is reached,
-@coderef{notevery} returns @term{false}.
-Thus, @coderef{notevery} returns @term{true} if and only if
+@symbolref{notevery} returns @term{false}.
+Thus, @symbolref{notevery} returns @term{true} if and only if
 it is not the case that every invocation of @param{predicate} returns @term{true}.
 
 @subsubheading Examples:
@@ -4391,7 +4391,7 @@ it is not the case that every invocation of @param{predicate} returns @term{true
 
 @subsubheading Exceptional Situations:
 
-Should signal @coderef{type-error} if its first argument is neither a
+Should signal @symbolref{type-error} if its first argument is neither a
 @term{symbol} nor a @term{function} or if any subsequent
 argument is not a @term{proper sequence}.
 
@@ -4456,7 +4456,7 @@ The above expression prints @f{Foo!} if element @f{n} of @f{a-simple-vector}
 is the symbol @f{foo}, provided also that @f{n} is indeed a valid index
 for @f{a-simple-vector}.  Because @code{and} guarantees
 left-to-right testing
-of its parts, @coderef{elt} is not called if @f{n} is out of range.
+of its parts, @symbolref{elt} is not called if @f{n} is out of range.
 
 @lisp
  (setq temp1 1 temp2 1 temp3 1) @EV{} 1
@@ -4488,7 +4488,7 @@ of its parts, @coderef{elt} is not called if @f{n} is out of range.
 
 @node cond
 @subsection cond (Macro)
-@syindexanchor{cond, REF}
+@syindexanchor{cond, SYM}
 @cindex cond
 
 
@@ -4512,7 +4512,7 @@ or else @nil{}@spc{}if no @param{test-form} @term{yields} @term{true}.
 
 @subsubheading Description:
 
-@coderef{cond} allows the execution of @param{forms} to be dependent
+@symbolref{cond} allows the execution of @param{forms} to be dependent
 on @param{test-form}.
 
 @param{Test-forms} are evaluated one at a time in the order in which
@@ -4520,11 +4520,11 @@ they are given in the argument list until a @param{test-form} is found that
 evaluates to @term{true}.
 
 If there are no @term{forms} in that clause, the @term{primary value}
-of the @param{test-form} is returned by the @coderef{cond} @term{form}.
+of the @param{test-form} is returned by the @symbolref{cond} @term{form}.
 Otherwise, the @param{forms} associated with this @param{test-form} are
 evaluated in order, left to right, as an @term{implicit progn}, and the
 @term{values} returned by the last @param{form}
-are returned by the @coderef{cond} @term{form}.
+are returned by the @symbolref{cond} @term{form}.
 
 Once one @param{test-form} has @term{yielded} @term{true},
 no additional @param{test-forms} are @term{evaluated}.
@@ -4556,7 +4556,7 @@ If no @param{test-form} @term{yields} @term{true}, @nil{}@spc{}is returned.
 
 @node if
 @subsection if (Special Operator)
-@syindexanchor{if, REF}
+@syindexanchor{if, SYM}
 @cindex if
 
 
@@ -4579,7 +4579,7 @@ the @term{values} returned by the @param{else-form}.
 
 @subsubheading Description:
 
-@coderef{if} allows the execution of a @term{form} to be dependent
+@symbolref{if} allows the execution of a @term{form} to be dependent
 on a single @param{test-form}.
 
 First @param{test-form} is evaluated.
@@ -4679,9 +4679,9 @@ If no @param{forms} are supplied, @code{or} returns @nil{}.
 
 @node when; unless
 @subsection when, unless (Macro)
-@syindexanchor{when, REF}
+@syindexanchor{when, SYM}
 @cindex when
-@syindexanchor{unless, REF}
+@syindexanchor{unless, SYM}
 @cindex unless
 @anchor{when}
 @anchor{unless}
@@ -4700,32 +4700,32 @@ If no @param{forms} are supplied, @code{or} returns @nil{}.
 @param{forms}---an @term{implicit progn}.
 
 @param{results}---the @term{values} of the @term{forms}
-in a  @coderef{when}   @term{form} if the @param{test-form} @term{yields} @term{true}
-or in an @coderef{unless} @term{form} if the @param{test-form} @term{yields} @term{false};
+in a  @symbolref{when}   @term{form} if the @param{test-form} @term{yields} @term{true}
+or in an @symbolref{unless} @term{form} if the @param{test-form} @term{yields} @term{false};
 otherwise @nil{}.
 
 @subsubheading Description:
 
-@coderef{when} and @coderef{unless} allow the execution of @param{forms}
+@symbolref{when} and @symbolref{unless} allow the execution of @param{forms}
 to be dependent on a single @param{test-form}.
 
-In a @coderef{when} @term{form},
+In a @symbolref{when} @term{form},
 if the @param{test-form} @term{yields} @term{true},
 the @param{forms} are @term{evaluated} in order from left to right
 and the @term{values} returned by the @param{forms}
-are returned from the @coderef{when} @term{form}.
+are returned from the @symbolref{when} @term{form}.
 Otherwise, if the @param{test-form} @term{yields} @term{false},
 the @param{forms} are not @term{evaluated},
-and the @coderef{when} @term{form} returns @nil{}.
+and the @symbolref{when} @term{form} returns @nil{}.
 
-In an @coderef{unless} @term{form},
+In an @symbolref{unless} @term{form},
 if the @param{test-form} @term{yields} @term{false},
 the @param{forms} are @term{evaluated} in order from left to right
 and the @term{values} returned by the @param{forms}
-are returned from the @coderef{unless} @term{form}.
+are returned from the @symbolref{unless} @term{form}.
 Otherwise, if the @param{test-form} @term{yields} @term{false},
 the @param{forms} are not @term{evaluated},
-and the @coderef{unless} @term{form} returns @nil{}.
+and the @symbolref{unless} @term{form} returns @nil{}.
 
 @subsubheading Examples:
 
@@ -4780,11 +4780,11 @@ and the @coderef{unless} @term{form} returns @nil{}.
 
 @node case; ccase; ecase
 @subsection case, ccase, ecase (Macro)
-@syindexanchor{case, REF}
+@syindexanchor{case, SYM}
 @cindex case
-@syindexanchor{ccase, REF}
+@syindexanchor{ccase, SYM}
 @cindex ccase
-@syindexanchor{ecase, REF}
+@syindexanchor{ecase, SYM}
 @cindex ecase
 @anchor{case}
 @anchor{ccase}
@@ -4812,7 +4812,7 @@ Possibly also used later as a @term{place} if no @param{keys} match.
 @param{test-key}---an object produced by evaluating @param{keyform} or @param{keyplace}.
 
 @param{keys}---a @term{designator} for a @term{list} of @term{objects}.
-In the case of @coderef{case}, the @term{symbols} @code{t}@spc{}and @t{otherwise} may
+In the case of @symbolref{case}, the @term{symbols} @code{t}@spc{}and @t{otherwise} may
 not be used as the @param{keys} @term{designator}.  To refer to these @term{symbols}
 by themselves as @param{keys}, the designators @f{(t)} and @f{(otherwise)}, respectively,
 must be used instead.
@@ -4835,8 +4835,8 @@ Each of the @param{normal-clauses} is then considered in turn.
 If the @param{test-key} is the @term{same} as any @term{key} for
 that @param{clause}, the @param{forms} in that @param{clause} are
 @param{evaluated} as an @term{implicit progn}, and the @term{values}
-it returns are returned as the value of the @coderef{case},
-@coderef{ccase}, or @coderef{ecase} @term{form}.
+it returns are returned as the value of the @symbolref{case},
+@symbolref{ccase}, or @symbolref{ecase} @term{form}.
 
 These @term{macros} differ only in their @term{behavior} when
 no @param{normal-clause} matches; specifically:
@@ -4844,17 +4844,17 @@ no @param{normal-clause} matches; specifically:
 
 @table @asis
 
-@item @id{@coderef{case}}
+@item @id{@symbolref{case}}
 
 
 If no @param{normal-clause} matches, and there is an @param{otherwise-clause},
 then that @param{otherwise-clause} automatically matches; the @param{forms} in
 that @param{clause} are @param{evaluated} as an @term{implicit progn},
-and the @term{values} it returns are returned as the value of the @coderef{case}.
+and the @term{values} it returns are returned as the value of the @symbolref{case}.
 
-If there is no @param{otherwise-clause}, @coderef{case} returns @nil{}.
+If there is no @param{otherwise-clause}, @symbolref{case} returns @nil{}.
 
-@item @id{@coderef{ccase}}
+@item @id{@symbolref{ccase}}
 
 
 If no @param{normal-clause} matches,
@@ -4866,14 +4866,14 @@ the expected type is @term{type equivalent} to @f{(member @param{key1} @param{ke
 If @therestart{store-value} is invoked, its @term{argument} becomes the
 new @param{test-key}, and is stored in @param{keyplace} as if by
 @f{(setf @param{keyplace} @param{test-key})}.
-Then @coderef{ccase} starts over, considering each @param{clause} anew.
+Then @symbolref{ccase} starts over, considering each @param{clause} anew.
 
 @reviewer{Barmar: Will it prompt for multiple values if keyplace is a VALUES general ref?}
 
 The subforms of @param{keyplace} might be evaluated again if
 none of the cases holds.
 
-@item @id{@coderef{ecase}}
+@item @id{@symbolref{ecase}}
 
 
 If no @param{normal-clause} matches,
@@ -4881,8 +4881,8 @@ a @term{non-correctable} @term{error} @oftype{type-error} is signaled.
 The offending datum is the @param{test-key} and
 the expected type is @term{type equivalent} to @f{(member @param{key1} @param{key2} ...)}.
 
-Note that in contrast with @coderef{ccase},
-the caller of @coderef{ecase} may rely on the fact that @coderef{ecase}
+Note that in contrast with @symbolref{ccase},
+the caller of @symbolref{ecase} may rely on the fact that @symbolref{ecase}
 does not return if a @param{normal-clause} does not match.
 @end table
 
@@ -4930,12 +4930,12 @@ the @term{value} of @param{keyplace} might be changed.
 
 @subsubheading Affected By:
 
-@coderef{ccase} and @coderef{ecase}, since they might signal an error,
-are potentially affected by existing @param{handlers} and @coderef{*debug-io*}.
+@symbolref{ccase} and @symbolref{ecase}, since they might signal an error,
+are potentially affected by existing @param{handlers} and @symbolref{*debug-io*}.
 
 @subsubheading Exceptional Situations:
 
-@coderef{ccase} and @coderef{ecase} signal an error @oftype{type-error}
+@symbolref{ccase} and @symbolref{ecase} signal an error @oftype{type-error}
 if no @param{normal-clause} matches.
 
 @subsubheading See Also:
@@ -4956,20 +4956,20 @@ if no @param{normal-clause} matches.
 @end lisp
 
 
-The specific error message used by @coderef{ecase} and @coderef{ccase} can vary
+The specific error message used by @symbolref{ecase} and @symbolref{ccase} can vary
 between implementations.  In situations where control of the specific wording
-of the error message is important, it is better to use @coderef{case} with an
+of the error message is important, it is better to use @symbolref{case} with an
 @param{otherwise-clause} that explicitly signals an error with an appropriate
 message.
 
 
 @node typecase; ctypecase; etypecase
 @subsection typecase, ctypecase, etypecase (Macro)
-@syindexanchor{typecase, REF}
+@syindexanchor{typecase, SYM}
 @cindex typecase
-@syindexanchor{ctypecase, REF}
+@syindexanchor{ctypecase, SYM}
 @cindex ctypecase
-@syindexanchor{etypecase, REF}
+@syindexanchor{etypecase, SYM}
 @cindex etypecase
 @anchor{typecase}
 @anchor{ctypecase}
@@ -5017,8 +5017,8 @@ If the @param{test-key} is of the @term{type}
 given by the @param{clauses}'s @param{type},
 the @param{forms} in that @param{clause} are
 @param{evaluated} as an @term{implicit progn}, and the @term{values}
-it returns are returned as the value of the @coderef{typecase},
-@coderef{ctypecase}, or @coderef{etypecase} @term{form}.
+it returns are returned as the value of the @symbolref{typecase},
+@symbolref{ctypecase}, or @symbolref{etypecase} @term{form}.
 
 These @term{macros} differ only in their @term{behavior} when
 no @param{normal-clause} matches; specifically:
@@ -5026,17 +5026,17 @@ no @param{normal-clause} matches; specifically:
 
 @table @asis
 
-@item @id{@coderef{typecase}}
+@item @id{@symbolref{typecase}}
 
 
 If no @param{normal-clause} matches, and there is an @param{otherwise-clause},
 then that @param{otherwise-clause} automatically matches; the @param{forms} in
 that @param{clause} are @param{evaluated} as an @term{implicit progn},
-and the @term{values} it returns are returned as the value of the @coderef{typecase}.
+and the @term{values} it returns are returned as the value of the @symbolref{typecase}.
 
-If there is no @param{otherwise-clause}, @coderef{typecase} returns @nil{}.
+If there is no @param{otherwise-clause}, @symbolref{typecase} returns @nil{}.
 
-@item @id{@coderef{ctypecase}}
+@item @id{@symbolref{ctypecase}}
 
 
 If no @param{normal-clause} matches,
@@ -5048,7 +5048,7 @@ the expected type is @term{type equivalent} to @f{(or @param{type1} @param{type2
 If @therestart{store-value} is invoked, its @term{argument} becomes the
 new @param{test-key}, and is stored in @param{keyplace} as if by
 @f{(setf @param{keyplace} @param{test-key})}.
-Then @coderef{ctypecase} starts over, considering each @param{clause} anew.
+Then @symbolref{ctypecase} starts over, considering each @param{clause} anew.
 
 If @therestart{store-value} is invoked interactively,
 the user is prompted for a new @param{test-key} to use.
@@ -5056,7 +5056,7 @@ the user is prompted for a new @param{test-key} to use.
 The subforms of @param{keyplace} might be evaluated again if
 none of the cases holds.
 
-@item @id{@coderef{etypecase}}
+@item @id{@symbolref{etypecase}}
 
 
 If no @param{normal-clause} matches,
@@ -5064,8 +5064,8 @@ a @term{non-correctable} @term{error} @oftype{type-error} is signaled.
 The offending datum is the @param{test-key} and
 the expected type is @term{type equivalent} to @f{(or @param{type1} @param{type2} ...)}.
 
-Note that in contrast with @coderef{ctypecase},
-the caller of @coderef{etypecase} may rely on the fact that @coderef{etypecase}
+Note that in contrast with @symbolref{ctypecase},
+the caller of @symbolref{etypecase} may rely on the fact that @symbolref{etypecase}
 does not return if a @param{normal-clause} does not match.
 @end table
 
@@ -5118,12 +5118,12 @@ the earliest applicable @param{clause} is chosen.
 
 @subsubheading Affected By:
 
-@coderef{ctypecase} and @coderef{etypecase}, since they might signal an error,
-are potentially affected by existing @param{handlers} and @coderef{*debug-io*}.
+@symbolref{ctypecase} and @symbolref{etypecase}, since they might signal an error,
+are potentially affected by existing @param{handlers} and @symbolref{*debug-io*}.
 
 @subsubheading Exceptional Situations:
 
-@coderef{ctypecase} and @coderef{etypecase} signal an error @oftype{type-error}
+@symbolref{ctypecase} and @symbolref{etypecase} signal an error @oftype{type-error}
 if no @param{normal-clause} matches.
 
 The @term{compiler} may choose to issue a warning @oftype{style-warning}
@@ -5148,16 +5148,16 @@ shadowed by earlier clauses.
 @end lisp
 
 
-The specific error message used by @coderef{etypecase} and @coderef{ctypecase} can vary
+The specific error message used by @symbolref{etypecase} and @symbolref{ctypecase} can vary
 between implementations.  In situations where control of the specific wording
-of the error message is important, it is better to use @coderef{typecase} with an
+of the error message is important, it is better to use @symbolref{typecase} with an
 @param{otherwise-clause} that explicitly signals an error with an appropriate
 message.
 
 
 @node multiple-value-bind
 @subsection multiple-value-bind (Macro)
-@syindexanchor{multiple-value-bind, REF}
+@syindexanchor{multiple-value-bind, SYM}
 @cindex multiple-value-bind
 
 
@@ -5184,7 +5184,7 @@ Creates new variable @term{bindings} for the @param{vars} and
 executes a series of @param{forms} that use these @term{bindings}.
 
 The variable @term{bindings} created are lexical unless
-@coderef{special} declarations are specified.
+@symbolref{special} declarations are specified.
 
 @param{Values-form} is evaluated, and each of the @param{vars} is
 bound to the respective value returned by that @term{form}.  If there are more
@@ -5192,7 +5192,7 @@ bound to the respective value returned by that @term{form}.  If there are more
 remaining @param{vars}. If there are more values than
 @param{vars}, the excess
 values are discarded.  The @param{vars} are bound to the values over
-the execution of the @param{forms}, which make up an implicit @coderef{progn}.
+the execution of the @param{forms}, which make up an implicit @symbolref{progn}.
 The consequences are unspecified if a type @param{declaration} is specified
 for a @param{var}, but the value to which
 that @param{var} is bound  is not consistent with
@@ -5230,7 +5230,7 @@ do not include the @param{values-form}.
 
 @node multiple-value-call
 @subsection multiple-value-call (Special Operator)
-@syindexanchor{multiple-value-call, REF}
+@syindexanchor{multiple-value-call, SYM}
 @cindex multiple-value-call
 
 
@@ -5254,7 +5254,7 @@ resulting from the evaluation of @param{function-form}.
 Applies @param{function} to a @term{list} of the @term{objects} collected from groups of
 @term{multiple values}@sub{2}.
 
-@coderef{multiple-value-call} first evaluates the @param{function-form}
+@symbolref{multiple-value-call} first evaluates the @param{function-form}
 to obtain @param{function}, and then evaluates each @param{form}.
 All the values
 of each @param{form} are gathered together (not just one value from each)
@@ -5278,7 +5278,7 @@ and given as arguments to the @param{function}.
 
 @node multiple-value-list
 @subsection multiple-value-list (Macro)
-@syindexanchor{multiple-value-list, REF}
+@syindexanchor{multiple-value-list, SYM}
 @cindex multiple-value-list
 
 
@@ -5294,7 +5294,7 @@ and given as arguments to the @param{function}.
 
 @subsubheading Description:
 
-@coderef{multiple-value-list} evaluates @param{form}
+@symbolref{multiple-value-list} evaluates @param{form}
 and creates a @term{list} of the @term{multiple values}@sub{2} it returns.
 
 @subsubheading Examples:
@@ -5311,7 +5311,7 @@ and creates a @term{list} of the @term{multiple values}@sub{2} it returns.
 
 @subsubheading Notes:
 
-@coderef{multiple-value-list} and @coderef{values-list} are inverses
+@symbolref{multiple-value-list} and @symbolref{values-list} are inverses
 of each other.
 
 @lisp
@@ -5322,7 +5322,7 @@ of each other.
 
 @node multiple-value-prog1
 @subsection multiple-value-prog1 (Special Operator)
-@syindexanchor{multiple-value-prog1, REF}
+@syindexanchor{multiple-value-prog1, SYM}
 @cindex multiple-value-prog1
 
 
@@ -5341,7 +5341,7 @@ the @term{evaluation} of @param{first-form}.
 
 @subsubheading Description:
 
-@coderef{multiple-value-prog1} evaluates @param{first-form} and saves
+@symbolref{multiple-value-prog1} evaluates @param{first-form} and saves
 all the values produced by that @term{form}. It then evaluates each
 @param{form} from left to right, discarding their values.
 
@@ -5363,7 +5363,7 @@ all the values produced by that @term{form}. It then evaluates each
 
 @node multiple-value-setq
 @subsection multiple-value-setq (Macro)
-@syindexanchor{multiple-value-setq, REF}
+@syindexanchor{multiple-value-setq, SYM}
 @cindex multiple-value-setq
 
 
@@ -5383,7 +5383,7 @@ or @term{names} of @term{symbol macros}.
 
 @subsubheading Description:
 
-@coderef{multiple-value-setq} assigns values to @param{vars}.
+@symbolref{multiple-value-setq} assigns values to @param{vars}.
 
 The @param{form} is evaluated,
 and each @param{var} is @term{assigned}
@@ -5394,7 +5394,7 @@ If there are more @term{values} than @param{vars},
 the extra @term{values} are discarded.
 
 If any @param{var} is the @term{name} of a @term{symbol macro},
-then it is @term{assigned} as if by @coderef{setf}.  Specifically,
+then it is @term{assigned} as if by @symbolref{setf}.  Specifically,
 
 @begingroup{}
 @lisp
@@ -5409,7 +5409,7 @@ is defined to always behave in the same way as
 
 @endgroup{}
 in order that the rules for order of evaluation and side-effects be consistent
-with those used by @coderef{setf}.
+with those used by @symbolref{setf}.
 @cindex order of evaluation
 @cindex evaluation order
 See @ref{VALUES Forms as Places}.
@@ -5460,7 +5460,7 @@ See @ref{VALUES Forms as Places}.
 @code{values}
 returns the @param{objects} as @term{multiple values}@sub{2}.
 
-@coderef{setf} of @code{values} is used to store the
+@symbolref{setf} of @code{values} is used to store the
 @term{multiple values}@sub{2} @param{new-values} into the @param{places}.
 See @ref{VALUES Forms as Places}.
 
@@ -5488,7 +5488,7 @@ exactly one value.  For example, the function
    (floor (+ x y) y)) @EV{} FOO
 @end lisp
 
-returns two values because @coderef{floor} returns
+returns two values because @symbolref{floor} returns
 two values.  It may be that the second value makes no sense,
 or that for efficiency reasons it is desired not to compute the
 second value.  @code{values} is the standard idiom
@@ -5521,7 +5521,7 @@ its @term{argument} @term{forms}.
 
 @node values-list
 @subsection values-list (Function)
-@syindexanchor{values-list, REF}
+@syindexanchor{values-list, SYM}
 @cindex values-list
 
 
@@ -5551,7 +5551,7 @@ Returns the @term{elements} of the @param{list} as @term{multiple values}@sub{2}
 
 @subsubheading Exceptional Situations:
 
-Should signal @coderef{type-error} if its argument is not a @term{proper list}.
+Should signal @symbolref{type-error} if its argument is not a @term{proper list}.
 
 @subsubheading See Also:
 
@@ -5573,7 +5573,7 @@ returns @term{true} for all @term{lists} @param{x}.
 
 @node multiple-values-limit
 @subsection multiple-values-limit (Constant Variable)
-@syindexanchor{multiple-values-limit, REF}
+@syindexanchor{multiple-values-limit, SYM}
 @cindex multiple-values-limit
 
 
@@ -5586,8 +5586,8 @@ the exact magnitude of which is @term{implementation-dependent}.
 
 The upper exclusive bound on the number of @term{values} that may be
 returned from a @term{function},
-bound or assigned by @coderef{multiple-value-bind} or @coderef{multiple-value-setq},
-or passed as a first argument to @coderef{nth-value}.
+bound or assigned by @symbolref{multiple-value-bind} or @symbolref{multiple-value-setq},
+or passed as a first argument to @symbolref{nth-value}.
 (If these individual limits might differ, the minimum value is used.)
 
 @subsubheading See Also:
@@ -5601,7 +5601,7 @@ Implementors are encouraged to make this limit as large as possible.
 
 @node nth-value
 @subsection nth-value (Macro)
-@syindexanchor{nth-value, REF}
+@syindexanchor{nth-value, SYM}
 @cindex nth-value
 
 
@@ -5647,7 +5647,7 @@ returned by @param{form}.  (The first returned value is numbered @f{0}.)
 
 @subsubheading Notes:
 
-Operationally, the following relationship is true, although @coderef{nth-value}
+Operationally, the following relationship is true, although @symbolref{nth-value}
 might be more efficient in some @term{implementations}
 because, for example, some @term{consing} might be avoided.
 
@@ -5659,9 +5659,9 @@ because, for example, some @term{consing} might be avoided.
 
 @node prog; prog*
 @subsection prog, prog* (Macro)
-@syindexanchor{prog, REF}
+@syindexanchor{prog, SYM}
 @cindex prog
-@syindexanchor{prog*, REF}
+@syindexanchor{prog*, SYM}
 @cindex prog*
 
 
@@ -5689,13 +5689,13 @@ or else, if an @term{explicit return} occurs, the @term{values} that were transf
 
 @subsubheading Description:
 
-Three distinct operations are performed by @coderef{prog} and
-@coderef{prog*}:
+Three distinct operations are performed by @symbolref{prog} and
+@symbolref{prog*}:
 they bind local variables,
-they permit use of the @coderef{return}
-statement, and they permit use of the @coderef{go}
+they permit use of the @symbolref{return}
+statement, and they permit use of the @symbolref{go}
 statement.
-A typical @coderef{prog} looks like this:
+A typical @symbolref{prog} looks like this:
 
 @lisp
  (prog (var1 var2 (var3 init-form-3) var4 (var5 init-form-5))
@@ -5712,24 +5712,24 @@ A typical @coderef{prog} looks like this:
 @end lisp
 
 
-For @coderef{prog},
+For @symbolref{prog},
 @param{init-forms} are evaluated first, in the order in which they are
 supplied. The @param{vars} are then bound to the corresponding values in
 parallel.  If no @param{init-form}
 is supplied for a given @param{var},
 that @param{var} is  bound to @nil{}.
 
-The body of @coderef{prog} is executed as if it were a @coderef{tagbody} @term{form};
-the @coderef{go} statement can be used to transfer control
+The body of @symbolref{prog} is executed as if it were a @symbolref{tagbody} @term{form};
+the @symbolref{go} statement can be used to transfer control
 to a @param{tag}.
 @param{Tags} label @param{statements}.
 
-@coderef{prog} implicitly establishes a @coderef{block} named @nil{}@spc{}around
-the entire @coderef{prog} @term{form}, so that @coderef{return} can be used
-at any time to exit from the @coderef{prog} @term{form}.
+@symbolref{prog} implicitly establishes a @symbolref{block} named @nil{}@spc{}around
+the entire @symbolref{prog} @term{form}, so that @symbolref{return} can be used
+at any time to exit from the @symbolref{prog} @term{form}.
 
-The difference between @coderef{prog*} and @coderef{prog} is that
-in @coderef{prog*} the @term{binding} and initialization of the @param{vars}
+The difference between @symbolref{prog*} and @symbolref{prog} is that
+in @symbolref{prog*} the @term{binding} and initialization of the @param{vars}
 is done @term{sequentially}, so that the @param{init-form} for each
 one can use the values of previous ones.
 
@@ -5791,8 +5791,8 @@ This can be accomplished more perspicuously as follows:
 @ref{return}, @ref{Evaluation}
 
 @subsubheading Notes:
-@coderef{prog} can be explained in terms of
-@coderef{block}, @coderef{let}, and @coderef{tagbody} as
+@symbolref{prog} can be explained in terms of
+@symbolref{block}, @symbolref{let}, and @symbolref{tagbody} as
 follows:
 
 @lisp
@@ -5805,9 +5805,9 @@ follows:
 
 @node prog1; prog2
 @subsection prog1, prog2 (Macro)
-@syindexanchor{prog1, REF}
+@syindexanchor{prog1, SYM}
 @cindex prog1
-@syindexanchor{prog2, REF}
+@syindexanchor{prog2, SYM}
 @cindex prog2
 @anchor{prog1}
 @anchor{prog2}
@@ -5834,12 +5834,12 @@ the @term{evaluation} of @param{second-form}.
 
 @subsubheading Description:
 
-@coderef{prog1} @term{evaluates} @param{first-form}
+@symbolref{prog1} @term{evaluates} @param{first-form}
 and then @param{forms},
 @term{yielding} as its only @term{value}
 the @term{primary value} @term{yielded} by @param{first-form}.
 
-@coderef{prog2} @term{evaluates} @param{first-form},
+@symbolref{prog2} @term{evaluates} @param{first-form},
 then @param{second-form},
 and then @param{forms},
 @term{yielding} as its only @term{value}
@@ -5882,7 +5882,7 @@ the @term{primary value} @term{yielded} by @param{first-form}.
 
 @subsubheading Notes:
 
-@coderef{prog1} and @coderef{prog2} are typically used to @term{evaluate}
+@symbolref{prog1} and @symbolref{prog2} are typically used to @term{evaluate}
 one or more @term{forms} with side effects and return a @term{value} that
 must be computed before some or all of the side effects happen.
 
@@ -5895,7 +5895,7 @@ must be computed before some or all of the side effects happen.
 
 @node progn
 @subsection progn (Special Operator)
-@syindexanchor{progn, REF}
+@syindexanchor{progn, SYM}
 @cindex progn
 
 
@@ -5911,13 +5911,13 @@ must be computed before some or all of the side effects happen.
 
 @subsubheading Description:
 
-@coderef{progn} evaluates @param{forms},
+@symbolref{progn} evaluates @param{forms},
 in the order in which they are given.
 
 The values of each @param{form} but the last are discarded.
 
-If @coderef{progn} appears as a @term{top level form}, then all @term{forms}
-within that @coderef{progn} are considered by the compiler to be
+If @symbolref{progn} appears as a @term{top level form}, then all @term{forms}
+within that @symbolref{progn} are considered by the compiler to be
 @term{top level forms}.
 
 @subsubheading Examples:
@@ -5946,12 +5946,12 @@ of all @term{forms} but the last and returning the results of the last @term{for
 Such places include, but are not limited to, the following:
 the body of a @term{lambda expression};
 the bodies of various control and conditional @term{forms}
-(@eg{} @coderef{case}, @coderef{catch}, @coderef{progn}, and @coderef{when}).
+(@eg{} @symbolref{case}, @symbolref{catch}, @symbolref{progn}, and @symbolref{when}).
 
 
 @node define-modify-macro
 @subsection define-modify-macro (Macro)
-@syindexanchor{define-modify-macro, REF}
+@syindexanchor{define-modify-macro, SYM}
 @cindex define-modify-macro
 
 
@@ -5971,15 +5971,15 @@ the bodies of various control and conditional @term{forms}
 
 @subsubheading Description:
 
-@coderef{define-modify-macro} defines a @term{macro} named
+@symbolref{define-modify-macro} defines a @term{macro} named
 @param{name} to @term{read} and @term{write} a @term{place}.
 
 The arguments to the new @term{macro} are a @term{place},
 followed
 by the arguments that are supplied in @param{lambda-list}.
-@term{Macros} defined with @coderef{define-modify-macro}
+@term{Macros} defined with @symbolref{define-modify-macro}
 correctly pass the @term{environment parameter} to
-@coderef{get-setf-expansion}.
+@symbolref{get-setf-expansion}.
 
 When the @term{macro} is invoked, @param{function}
 is applied to the old contents of the @term{place}
@@ -5987,7 +5987,7 @@ and the @param{lambda-list} arguments to obtain the new value,
 and the @term{place} is updated to contain the result.
 
 Except for the issue of avoiding multiple evaluation (see below), the expansion
-of a @coderef{define-modify-macro} is equivalent to the following:
+of a @symbolref{define-modify-macro} is equivalent to the following:
 
 @lisp
  (defmacro @param{name} (reference . @param{lambda-list})
@@ -6001,14 +6001,14 @@ where @i{arg1}, @i{arg2}, ...,
 are the parameters appearing in @param{lambda-list};
 appropriate provision is made for a @term{rest parameter}.
 
-The @term{subforms} of the macro calls defined by @coderef{define-modify-macro}
+The @term{subforms} of the macro calls defined by @symbolref{define-modify-macro}
 are evaluated as specified in @ref{Evaluation of Subforms to Places}.
 
 @param{Documentation} is attached as a @term{documentation string}
 to @param{name} (as kind @code{function})
 and to the @term{macro function}.
 
-If a @coderef{define-modify-macro} @term{form} appears as a @term{top level form},
+If a @symbolref{define-modify-macro} @term{form} appears as a @term{top level form},
 the @term{compiler} must store the @term{macro} definition at compile time,
 so that occurrences of the macro later on in the file can be expanded correctly.
 
@@ -6039,7 +6039,7 @@ A macro definition is assigned to @param{name}.
 
 @node defsetf
 @subsection defsetf (Macro)
-@syindexanchor{defsetf, REF}
+@syindexanchor{defsetf, SYM}
 @cindex defsetf
 
 
@@ -6072,70 +6072,70 @@ The ``long form'':
 
 @subsubheading Description:
 
-@coderef{defsetf} defines how to
-@coderef{setf} a @term{place}
+@symbolref{defsetf} defines how to
+@symbolref{setf} a @term{place}
 of the form @f{(@i{access-fn} ...)} for relatively simple cases.
-(See @coderef{define-setf-expander} for more general access to this facility.)
+(See @symbolref{define-setf-expander} for more general access to this facility.)
 It must be the case that the @term{function} or @term{macro} named by @param{access-fn}
 evaluates all of its arguments.
 
-@coderef{defsetf} may take one of two forms, called the ``short form'' and the ``long form,''
+@symbolref{defsetf} may take one of two forms, called the ``short form'' and the ``long form,''
 which are distinguished by the @term{type} of the second @term{argument}.
 
 When the short form is used,
 @param{update-fn} must name
 a @term{function} (or @term{macro}) that takes one more argument
-than @param{access-fn} takes.  When @coderef{setf} is given a @term{place}
+than @param{access-fn} takes.  When @symbolref{setf} is given a @term{place}
 that is a call on @param{access-fn}, it expands into
 a call on @param{update-fn} that is given all the arguments to
 @param{access-fn} and also, as its last argument, the new value
 (which must be returned by @param{update-fn} as its value).
 
-The long form @coderef{defsetf}
-resembles @coderef{defmacro}.
+The long form @symbolref{defsetf}
+resembles @symbolref{defmacro}.
 The @param{lambda-list} describes the arguments of @param{access-fn}.
 The @param{store-variables} describe the
 value
 or values
 to be stored into the @term{place}.
 The @param{body} must
-compute the expansion of a @coderef{setf} of a call on @param{access-fn}.
+compute the expansion of a @symbolref{setf} of a call on @param{access-fn}.
 The expansion function is defined in the same @term{lexical environment}
-in which the @coderef{defsetf} @term{form} appears.
+in which the @symbolref{defsetf} @term{form} appears.
 
 During the evaluation of the
 @param{forms}, the variables in the @param{lambda-list} and the
 @param{store-variables}
 are bound to names of temporary variables,
-generated as if by @coderef{gensym}
-or @coderef{gentemp},
+generated as if by @symbolref{gensym}
+or @symbolref{gentemp},
 that will be bound by the
-expansion of @coderef{setf}
+expansion of @symbolref{setf}
 to the values of those @term{subforms}.  This binding
 permits the
 @param{forms} to be written without regard for order-of-evaluation
-issues.  @coderef{defsetf} arranges for the temporary variables to be
+issues.  @symbolref{defsetf} arranges for the temporary variables to be
 optimized out of the final result in cases where that is possible.
 
-The body code in @coderef{defsetf} is implicitly enclosed in a
+The body code in @symbolref{defsetf} is implicitly enclosed in a
 @term{block} whose name is
 @param{access-fn}
 
-@coderef{defsetf}
+@symbolref{defsetf}
 ensures that @term{subforms}
 of the @term{place} are evaluated exactly once.
 
 @param{Documentation} is attached to @param{access-fn} as a @term{documentation string}
 of kind @t{setf}.
 
-If a @coderef{defsetf} @term{form} appears as a @term{top level form},
+If a @symbolref{defsetf} @term{form} appears as a @term{top level form},
 the @term{compiler} must make the @term{setf expander} available so that
-it may be used to expand calls to @coderef{setf} later on in the @term{file}.
+it may be used to expand calls to @symbolref{setf} later on in the @term{file}.
 Users must ensure that the @param{forms}, if any, can be evaluated
 at compile time if the @param{access-fn} is used in a @term{place}
 later in the same @term{file}.
 The @term{compiler} must make these @term{setf expanders} available to
-compile-time calls to @coderef{get-setf-expansion} when its @param{environment}
+compile-time calls to @symbolref{get-setf-expansion} when its @param{environment}
 argument is a value received as the @term{environment parameter} of a @term{macro}.
 
 @subsubheading Examples:
@@ -6155,7 +6155,7 @@ Note that
  (defsetf car rplaca)
 @end lisp
 
-would be incorrect because @coderef{rplaca} does not return its last argument.
+would be incorrect because @symbolref{rplaca} does not return its last argument.
 
 @lisp
  (defun middleguy (x) (nth (truncate (1- (list-length x)) 2) x)) @EV{} MIDDLEGUY
@@ -6176,7 +6176,7 @@ would be incorrect because @coderef{rplaca} does not return its last argument.
 @end lisp
 
 
-An example of the use of the long form of @coderef{defsetf}:
+An example of the use of the long form of @symbolref{defsetf}:
 
 @lisp
  (defsetf subseq (sequence start &optional end) (new-sequence)
@@ -6229,26 +6229,26 @@ for returning the correct value (the value
 or values
 of @param{store-variable}).
 This is
-handled by @param{forms} rather than by @coderef{defsetf} because
+handled by @param{forms} rather than by @symbolref{defsetf} because
 in many cases this value can be returned at no extra cost, by calling a
 function that simultaneously stores into the @term{place} and
 returns the correct value.
 
-A @coderef{setf} of a call on @param{access-fn} also evaluates
+A @symbolref{setf} of a call on @param{access-fn} also evaluates
 all of @param{access-fn}'s arguments; it cannot treat any of them specially.
-This means that @coderef{defsetf}
+This means that @symbolref{defsetf}
 cannot be used to describe how to store into
 a @term{generalized reference} to a byte, such as @f{(ldb field reference)}.
-@coderef{define-setf-expander}
+@symbolref{define-setf-expander}
 is used to handle situations that
-do not fit the restrictions imposed by @coderef{defsetf}
+do not fit the restrictions imposed by @symbolref{defsetf}
 and gives the user additional control.
 
 
 
 @node define-setf-expander
 @subsection define-setf-expander (Macro)
-@syindexanchor{define-setf-expander, REF}
+@syindexanchor{define-setf-expander, SYM}
 @cindex define-setf-expander
 
 
@@ -6271,10 +6271,10 @@ and gives the user additional control.
 
 @subsubheading Description:
 
-@coderef{define-setf-expander} specifies the means by which @coderef{setf}
+@symbolref{define-setf-expander} specifies the means by which @symbolref{setf}
 updates a @term{place} that is referenced by @param{access-fn}.
 
-When @coderef{setf} is given a @term{place} that is
+When @symbolref{setf} is given a @term{place} that is
 specified in terms of @param{access-fn} and a new value for the
 @term{place}, it is expanded into a form that performs
 the appropriate update.
@@ -6287,29 +6287,29 @@ of kind @t{setf}.
 
 @param{Forms} constitute the body of the
 @term{setf expander}
-definition and must compute the @term{setf expansion} for a call on @coderef{setf}
+definition and must compute the @term{setf expansion} for a call on @symbolref{setf}
 that references the @term{place} by means of the given
 @param{access-fn}.
 The @term{setf expander} function is defined in the same @term{lexical environment}
-in which the @coderef{define-setf-expander} @term{form} appears.
+in which the @symbolref{define-setf-expander} @term{form} appears.
 While @param{forms} are being executed,
 the variables in @param{lambda-list} are bound to parts of the @term{place} @term{form}.
 The body @param{forms} (but not the @param{lambda-list})
-in a @coderef{define-setf-expander} @term{form} are implicitly enclosed in a
+in a @symbolref{define-setf-expander} @term{form} are implicitly enclosed in a
 @term{block} whose name is
 @param{access-fn}.
 
 The evaluation of @param{forms} must result in the five values
 described in @ref{Setf Expansions}.
 
-If a @coderef{define-setf-expander} @term{form} appears as a @term{top level form},
+If a @symbolref{define-setf-expander} @term{form} appears as a @term{top level form},
 the @term{compiler} must make the @term{setf expander} available so that
-it may be used to expand calls to @coderef{setf} later on in the @term{file}.
+it may be used to expand calls to @symbolref{setf} later on in the @term{file}.
 @term{Programmers} must ensure that the @param{forms} can be evaluated
 at compile time if the @param{access-fn} is used in a @term{place}
 later in the same @term{file}.
 The @term{compiler} must make these @term{setf expanders} available to
-compile-time calls to @coderef{get-setf-expansion} when its @param{environment}
+compile-time calls to @symbolref{get-setf-expansion} when its @param{environment}
 argument is a value received as the @term{environment parameter} of a @term{macro}.
 
 @subsubheading Examples:
@@ -6370,20 +6370,20 @@ argument is a value received as the @term{environment parameter} of a @term{macr
 
 @subsubheading Notes:
 
-@coderef{define-setf-expander} differs from the long form of @coderef{defsetf}
+@symbolref{define-setf-expander} differs from the long form of @symbolref{defsetf}
 in that while the body is being executed the @term{variables}
 in @param{lambda-list} are bound to parts of the @term{place} @term{form},
 not to temporary variables that will be bound to the values of such parts.
-In addition, @coderef{define-setf-expander} does not have @coderef{defsetf}'s
+In addition, @symbolref{define-setf-expander} does not have @symbolref{defsetf}'s
 restriction that @param{access-fn} must be a @term{function}
-or a function-like @term{macro}; an arbitrary @coderef{defmacro} destructuring
+or a function-like @term{macro}; an arbitrary @symbolref{defmacro} destructuring
 pattern is permitted in @param{lambda-list}.
 
 
 
 @node get-setf-expansion
 @subsection get-setf-expansion (Function)
-@syindexanchor{get-setf-expansion, REF}
+@syindexanchor{get-setf-expansion, SYM}
 @cindex get-setf-expansion
 
 
@@ -6454,9 +6454,9 @@ are expanded into a call to @f{(setf @param{f})}.
 
 @node setf; psetf
 @subsection setf, psetf (Macro)
-@syindexanchor{setf, REF}
+@syindexanchor{setf, SYM}
 @cindex setf
-@syindexanchor{psetf, REF}
+@syindexanchor{psetf, SYM}
 @cindex psetf
 @anchor{setf}
 @anchor{psetf}
@@ -6481,7 +6481,7 @@ or @nil{}@spc{}if there are no @param{pairs}.
 
 @subsubheading Description:
 
-@coderef{setf} changes the @term{value} of @param{place} to be @param{newvalue}.
+@symbolref{setf} changes the @term{value} of @param{place} to be @param{newvalue}.
 
 @f{(setf place newvalue)}
 expands into an update form that stores the
@@ -6491,14 +6491,14 @@ of evaluating
 Some @param{place} forms
 involve uses of accessors that take optional arguments.
 Whether those optional arguments are permitted by
-@coderef{setf}, or what their use
+@symbolref{setf}, or what their use
 is, is up to the
-@coderef{setf} expander function and is not under the control
-of @coderef{setf}.
+@symbolref{setf} expander function and is not under the control
+of @symbolref{setf}.
 The documentation for any @term{function}
 that accepts @keyref{optional}, @keyref{rest},
 or @tt{&key} arguments and that
-claims to be usable with @coderef{setf} must specify
+claims to be usable with @symbolref{setf} must specify
 how those arguments are treated.
 
 If more than one @param{pair} is supplied,
@@ -6520,14 +6520,14 @@ is precisely equivalent to
         (setf place-N newvalue-N))
 @end lisp
 
-For @coderef{psetf},
+For @symbolref{psetf},
 if more than one @param{pair} is supplied then the assignments of new values to places are
 done in parallel.  More precisely, all @term{subforms} (in both the @param{place}
 and @param{newvalue} @term{forms}) that are to be evaluated
 are evaluated from left to right; after all evaluations have been performed,
 all of the assignments are performed in an unpredictable order.
 
-For detailed treatment of the expansion of @coderef{setf} and @coderef{psetf},
+For detailed treatment of the expansion of @symbolref{setf} and @symbolref{psetf},
 see @ref{Kinds of Places}.
 
 @subsubheading Examples:
@@ -6546,9 +6546,9 @@ see @ref{Kinds of Places}.
 
 @subsubheading Affected By:
 
-@coderef{define-setf-expander},
-@coderef{defsetf},
-@coderef{*macroexpand-hook*}
+@symbolref{define-setf-expander},
+@symbolref{defsetf},
+@symbolref{*macroexpand-hook*}
 
 @subsubheading See Also:
 
@@ -6562,7 +6562,7 @@ see @ref{Kinds of Places}.
 
 @node shiftf
 @subsection shiftf (Macro)
-@syindexanchor{shiftf, REF}
+@syindexanchor{shiftf, SYM}
 @cindex shiftf
 
 
@@ -6580,7 +6580,7 @@ see @ref{Kinds of Places}.
 
 @subsubheading Description:
 
-@coderef{shiftf} modifies the values of each
+@symbolref{shiftf} modifies the values of each
 @param{place} by storing @param{newvalue}
 into the last @param{place}, and shifting the
 values of the second through the last @param{place}
@@ -6624,9 +6624,9 @@ see @ref{Evaluation of Subforms to Places}.
 
 @subsubheading Affected By:
 
-@coderef{define-setf-expander},
-@coderef{defsetf},
-@coderef{*macroexpand-hook*}
+@symbolref{define-setf-expander},
+@symbolref{defsetf},
+@symbolref{*macroexpand-hook*}
 
 @subsubheading See Also:
 
@@ -6652,7 +6652,7 @@ is roughly equivalent to
 @end lisp
 
 except that the latter would evaluate any @term{subforms}
-of each @f{place} twice, whereas @coderef{shiftf} evaluates them once.
+of each @f{place} twice, whereas @symbolref{shiftf} evaluates them once.
 For example,
 
 @lisp
@@ -6667,7 +6667,7 @@ For example,
 
 @node rotatef
 @subsection rotatef (Macro)
-@syindexanchor{rotatef, REF}
+@syindexanchor{rotatef, SYM}
 @cindex rotatef
 
 
@@ -6681,7 +6681,7 @@ For example,
 
 @subsubheading Description:
 
-@coderef{rotatef} modifies the values of each @param{place} by
+@symbolref{rotatef} modifies the values of each @param{place} by
 rotating values from one @param{place} into another.
 
 If a @param{place} produces more values than there
@@ -6734,42 +6734,42 @@ is roughly equivalent to
 @end lisp
 
 except that the latter would evaluate any @term{subforms}
-of each @f{place} twice, whereas @coderef{rotatef} evaluates them once.
+of each @f{place} twice, whereas @symbolref{rotatef} evaluates them once.
 
 
 @node control-error
 @subsection control-error (Condition Type)
-@syindexanchor{control-error, REF}
+@syindexanchor{control-error, SYM}
 @cindex control-error
 
 
 @subsubheading Class Precedence List:
-@coderef{control-error},
+@symbolref{control-error},
 @code{error},
-@coderef{serious-condition},
-@coderef{condition},
+@symbolref{serious-condition},
+@symbolref{condition},
 @code{t}
 
 @subsubheading Description:
 
 @Thetype{control-error} consists of error conditions that result from
 invalid dynamic transfers of control in a program.  The errors that
-result from giving @coderef{throw} a tag that is not active or from
-giving @coderef{go} or @coderef{return-from} a tag that is no longer
+result from giving @symbolref{throw} a tag that is not active or from
+giving @symbolref{go} or @symbolref{return-from} a tag that is no longer
 dynamically available are @oftype{control-error}.
 
 
 @node program-error
 @subsection program-error (Condition Type)
-@syindexanchor{program-error, REF}
+@syindexanchor{program-error, SYM}
 @cindex program-error
 
 
 @subsubheading Class Precedence List:
-@coderef{program-error},
+@symbolref{program-error},
 @code{error},
-@coderef{serious-condition},
-@coderef{condition},
+@symbolref{serious-condition},
+@symbolref{condition},
 @code{t}
 
 @subsubheading Description:
@@ -6782,16 +6782,16 @@ that is not lexically apparent are @oftype{program-error}.
 
 @node undefined-function
 @subsection undefined-function (Condition Type)
-@syindexanchor{undefined-function, REF}
+@syindexanchor{undefined-function, SYM}
 @cindex undefined-function
 
 
 @subsubheading Class Precedence List:
-@coderef{undefined-function},
-@coderef{cell-error},
+@symbolref{undefined-function},
+@symbolref{cell-error},
 @code{error},
-@coderef{serious-condition},
-@coderef{condition},
+@symbolref{serious-condition},
+@symbolref{condition},
 @code{t}
 
 @subsubheading Description:
@@ -6799,7 +6799,7 @@ that is not lexically apparent are @oftype{program-error}.
 @Thetype{undefined-function} consists of @term{error} @term{conditions}
 that represent attempts to @term{read} the definition of an @term{undefined function}.
 
-The name of the cell (see @coderef{cell-error}) is the @term{function name}
+The name of the cell (see @symbolref{cell-error}) is the @term{function name}
 which was @term{funbound}.
 
 @subsubheading See Also:

@@ -14,8 +14,8 @@ implemented as either a @term{vector} or a @term{list}.
 
 @term{Sequences} can be created by @thefunction{make-sequence},
 as well as other @term{functions} that create @term{objects}
-of @term{types} that are @term{subtypes} of @coderef{sequence}
-(@eg{} @code{list}, @coderef{make-list}, @coderef{mapcar}, and @code{vector}).
+of @term{types} that are @term{subtypes} of @symbolref{sequence}
+(@eg{} @code{list}, @symbolref{make-list}, @symbolref{mapcar}, and @code{vector}).
 
 A @newterm{sequence function} is a @term{function}
 defined by this specification
@@ -112,7 +112,7 @@ and @term{yielding} an @term{object} @mat{Z@subs1{i}} to be used for comparison.
 
 The @term{function} designated by @thekeyarg{key} is never called on @mat{O} itself.
 However, if the function operates on multiple sequences
-(@eg{} as happens in @coderef{set-difference}), @mat{O}
+(@eg{} as happens in @symbolref{set-difference}), @mat{O}
 will be the result of calling the @kwd{key} function on an
 @term{element} of the other sequence.
 
@@ -267,12 +267,12 @@ returns a @term{generalized boolean} representing @term{false}.
 
 @node sequence
 @subsection sequence (System Class)
-@syindexanchor{sequence, REF}
+@syindexanchor{sequence, SYM}
 @cindex sequence
 
 
 @subsubheading Class Precedence List:
-@coderef{sequence},
+@symbolref{sequence},
 @code{t}
 
 @subsubheading Description:
@@ -293,7 +293,7 @@ when given @term{sequences} represented as @term{vectors}.
 
 @node copy-seq
 @subsection copy-seq (Function)
-@syindexanchor{copy-seq, REF}
+@syindexanchor{copy-seq, SYM}
 @cindex copy-seq
 
 
@@ -348,7 +348,7 @@ However, the programmer intent is typically very different in these two cases.
 
 @node elt
 @subsection elt (Accessor)
-@syindexanchor{elt, REF}
+@syindexanchor{elt, SYM}
 @cindex elt
 
 
@@ -394,13 +394,13 @@ However, the programmer intent is typically very different in these two cases.
 
 @subsubheading Notes:
 
-@coderef{aref} may be used to @term{access} @term{vector}
+@symbolref{aref} may be used to @term{access} @term{vector}
 elements that are beyond the @term{vector}'s @term{fill pointer}.
 
 
 @node fill
 @subsection fill (Function)
-@syindexanchor{fill, REF}
+@syindexanchor{fill, SYM}
 @cindex fill
 
 
@@ -458,7 +458,7 @@ with @param{item}.
 
 @node make-sequence
 @subsection make-sequence (Function)
-@syindexanchor{make-sequence, REF}
+@syindexanchor{make-sequence, SYM}
 @cindex make-sequence
 
 
@@ -468,7 +468,7 @@ with @param{item}.
 
 @subsubheading Arguments and Values:
 
-@param{result-type}---a @coderef{sequence} @term{type specifier}.
+@param{result-type}---a @symbolref{sequence} @term{type specifier}.
 
 @param{size}---a non-negative @term{integer}.
 
@@ -539,7 +539,7 @@ the number of elements and @param{size} is different from that number.
 
 @node subseq
 @subsection subseq (Accessor)
-@syindexanchor{subseq, REF}
+@syindexanchor{subseq, SYM}
 @cindex subseq
 
 
@@ -561,7 +561,7 @@ the number of elements and @param{size} is different from that number.
 
 @subsubheading Description:
 
-@coderef{subseq} creates a @term{sequence}
+@symbolref{subseq} creates a @term{sequence}
 that is a copy of the subsequence of @param{sequence}
 @param{bounded} by @param{start} and @param{end}.
 
@@ -569,7 +569,7 @@ that is a copy of the subsequence of @param{sequence}
 marks the beginning position of the subsequence.
 @param{end} marks the position following the last element of the subsequence.
 
-@coderef{subseq} always allocates a new @term{sequence} for a result;
+@symbolref{subseq} always allocates a new @term{sequence} for a result;
 it never shares storage with an old @term{sequence}.
 The result subsequence is always of the same @term{type} as @param{sequence}.
 
@@ -580,7 +580,7 @@ that has the same @term{actual array element type} as @param{sequence}.
 If @param{sequence} is a @term{list},
 the result is a @term{fresh} @term{list}.
 
-@coderef{setf} may be used with @coderef{subseq} to destructively replace
+@symbolref{setf} may be used with @symbolref{subseq} to destructively replace
 @term{elements} of a subsequence with @term{elements}
 taken from a @term{sequence} of new values.
 If the subsequence and the new sequence are not of equal length,
@@ -613,7 +613,7 @@ are not modified in the operation.
 
 @node map
 @subsection map (Function)
-@syindexanchor{map, REF}
+@syindexanchor{map, SYM}
 @cindex map
 
 
@@ -623,7 +623,7 @@ are not modified in the operation.
 
 @subsubheading Arguments and Values:
 
-@param{result-type}---a @coderef{sequence} @term{type specifier}, or @nil{}.
+@param{result-type}---a @symbolref{sequence} @term{type specifier}, or @nil{}.
 
 @param{function}---a @term{function designator}.
 @param{function} must take as many arguments as
@@ -643,8 +643,8 @@ The @param{function} is called first on all the elements with index @f{0},
 then on all those with index @f{1}, and so on.
 The @param{result-type} specifies the @term{type} of the resulting @term{sequence}.
 
-@coderef{map} returns @nil{}@spc{}if @param{result-type} is @nil{}.
-Otherwise, @coderef{map} returns
+@symbolref{map} returns @nil{}@spc{}if @param{result-type} is @nil{}.
+Otherwise, @symbolref{map} returns
 a @term{sequence} such that element @f{j} is the result
 of applying @param{function} to element @f{j} of each of the
 @param{sequences}.  The result @term{sequence}
@@ -708,7 +708,7 @@ is different from that number.
 
 @node map-into
 @subsection map-into (Function)
-@syindexanchor{map-into, REF}
+@syindexanchor{map-into, SYM}
 @cindex map-into
 
 
@@ -744,7 +744,7 @@ many iterations to perform, and afterwards the @term{fill pointer} is set to
 the number of times @param{function} was applied.
 If @param{result-sequence} is longer than the shortest element of @param{sequences},
 extra elements at the end of @param{result-sequence} are left unchanged.
-If @param{result-sequence} is @nil{}, @coderef{map-into} immediately returns
+If @param{result-sequence} is @nil{}, @symbolref{map-into} immediately returns
 @nil{}, since @nil{}@spc{}is a @term{sequence} of length zero.
 
 If @param{function} has side effects, it can count on being called
@@ -772,12 +772,12 @@ numbered 1, and so on.
 
 @subsubheading Notes:
 
-@coderef{map-into} differs from @coderef{map} in that it modifies an
+@symbolref{map-into} differs from @symbolref{map} in that it modifies an
 existing @term{sequence} rather than creating a new one.
-In addition, @coderef{map-into} can be called with only two
-arguments, while @coderef{map} requires at least three arguments.
+In addition, @symbolref{map-into} can be called with only two
+arguments, while @symbolref{map} requires at least three arguments.
 
-@coderef{map-into} could be defined by:
+@symbolref{map-into} could be defined by:
 
 @lisp
  (defun map-into (result-sequence function &rest sequences)
@@ -795,7 +795,7 @@ arguments, while @coderef{map} requires at least three arguments.
 
 @node reduce
 @subsection reduce (Function)
-@syindexanchor{reduce, REF}
+@syindexanchor{reduce, SYM}
 @cindex reduce
 
 
@@ -825,7 +825,7 @@ or @nil{}.
 
 @subsubheading Description:
 
-@coderef{reduce} uses a binary operation, @param{function},
+@symbolref{reduce} uses a binary operation, @param{function},
 to combine the @term{elements} of @param{sequence}
 @term{bounded} by @param{start} and @param{end}.
 
@@ -848,7 +848,7 @@ it is logically placed before the subsequence
 (or after it if @param{from-end} is @term{true})
 and included in the reduction operation.
 
-In the normal case, the result of @coderef{reduce} is the combined
+In the normal case, the result of @symbolref{reduce} is the combined
 result of @param{function}'s being applied to successive pairs of @term{elements}
 of @param{sequence}.
 If the subsequence contains exactly one @term{element}
@@ -858,7 +858,7 @@ If the subsequence is empty and an @param{initial-value} is given,
 then the @param{initial-value} is returned and @param{function} is not called.
 If the subsequence is empty and no @param{initial-value} is given,
 then the @param{function} is called with zero arguments,
-and @coderef{reduce} returns whatever @param{function} does.
+and @symbolref{reduce} returns whatever @param{function} does.
 This is the only case where the
 @param{function} is called with other than two arguments.
 
@@ -893,11 +893,11 @@ This is the only case where the
 
 @node count; count-if; count-if-not
 @subsection count, count-if, count-if-not (Function)
-@syindexanchor{count, REF}
+@syindexanchor{count, SYM}
 @cindex count
-@syindexanchor{count-if, REF}
+@syindexanchor{count-if, SYM}
 @cindex count-if
-@syindexanchor{count-if-not, REF}
+@syindexanchor{count-if-not, SYM}
 @cindex count-if-not
 
 
@@ -937,7 +937,7 @@ less than or equal to the @term{length} of @param{sequence}.
 
 @subsubheading Description:
 
-@coderef{count}, @coderef{count-if}, and @coderef{count-if-not}
+@symbolref{count}, @symbolref{count-if}, and @symbolref{count-if-not}
 count and return the number of @term{elements} in
 the @param{sequence} @term{bounded} by @param{start} and @param{end}
 that @term{satisfy the test}.
@@ -977,7 +977,7 @@ The @kwd{test-not} @term{argument} is deprecated.
 
 @node length
 @subsection length (Function)
-@syindexanchor{length, REF}
+@syindexanchor{length, SYM}
 @cindex length
 
 
@@ -1023,9 +1023,9 @@ the active length as specified by the @term{fill pointer} is returned.
 
 @node reverse; nreverse
 @subsection reverse, nreverse (Function)
-@syindexanchor{reverse, REF}
+@syindexanchor{reverse, SYM}
 @cindex reverse
-@syindexanchor{nreverse, REF}
+@syindexanchor{nreverse, SYM}
 @cindex nreverse
 @anchor{reverse}
 @anchor{nreverse}
@@ -1045,33 +1045,33 @@ the active length as specified by the @term{fill pointer} is returned.
 
 @subsubheading Description:
 
-@coderef{reverse} and @coderef{nreverse} return a new @term{sequence}
+@symbolref{reverse} and @symbolref{nreverse} return a new @term{sequence}
 of the same kind as @param{sequence}, containing the same @term{elements},
 but in reverse order.
 
-@coderef{reverse} and @coderef{nreverse} differ in that @coderef{reverse}
-always creates and returns a new @term{sequence}, whereas @coderef{nreverse}
-might modify and return the given @param{sequence}.  @coderef{reverse} never
+@symbolref{reverse} and @symbolref{nreverse} differ in that @symbolref{reverse}
+always creates and returns a new @term{sequence}, whereas @symbolref{nreverse}
+might modify and return the given @param{sequence}.  @symbolref{reverse} never
 modifies the given @param{sequence}.
 
-For @coderef{reverse}, if @param{sequence} is a @term{vector},
+For @symbolref{reverse}, if @param{sequence} is a @term{vector},
 the result is a @term{fresh} @term{simple array} of @term{rank} one
 that has the same @term{actual array element type} as @param{sequence}.
 If @param{sequence} is a @term{list}, the result is a @term{fresh} @term{list}.
 
-For @coderef{nreverse}, if @param{sequence} is a @term{vector},
+For @symbolref{nreverse}, if @param{sequence} is a @term{vector},
 the result is a @term{vector}
 that has the same @term{actual array element type} as @param{sequence}.
 If @param{sequence} is a @term{list}, the result is a @term{list}.
 
-For @coderef{nreverse},
+For @symbolref{nreverse},
 @param{sequence} might be destroyed and re-used to produce the result.
 The result might or might not be @term{identical} to @param{sequence}.
 Specifically, when @param{sequence} is a @term{list},
-@coderef{nreverse} is permitted to @coderef{setf} any part, @coderef{car} or @coderef{cdr},
+@symbolref{nreverse} is permitted to @symbolref{setf} any part, @symbolref{car} or @symbolref{cdr},
 of any @term{cons} that is part of the @term{list structure} of @param{sequence}.
 When @param{sequence} is a @term{vector},
-@coderef{nreverse} is permitted to re-order the elements of @param{sequence}
+@symbolref{nreverse} is permitted to re-order the elements of @param{sequence}
 in order to produce the resulting @term{vector}.
 
 @subsubheading Examples:
@@ -1090,9 +1090,9 @@ in order to produce the resulting @term{vector}.
 
 @subsubheading Side Effects:
 
-@coderef{nreverse} might either create a new @term{sequence},
+@symbolref{nreverse} might either create a new @term{sequence},
 modify the argument @param{sequence}, or both.
-(@coderef{reverse} does not modify @param{sequence}.)
+(@symbolref{reverse} does not modify @param{sequence}.)
 
 @subsubheading Exceptional Situations:
 
@@ -1101,9 +1101,9 @@ modify the argument @param{sequence}, or both.
 
 @node sort; stable-sort
 @subsection sort, stable-sort (Function)
-@syindexanchor{sort, REF}
+@syindexanchor{sort, SYM}
 @cindex sort
-@syindexanchor{stable-sort, REF}
+@syindexanchor{stable-sort, SYM}
 @cindex stable-sort
 @anchor{sort}
 @anchor{stable-sort}
@@ -1128,7 +1128,7 @@ or @nil{}.
 
 @subsubheading Description:
 
-@coderef{sort} and @coderef{stable-sort} destructively sort @param{sequences}
+@symbolref{sort} and @symbolref{stable-sort} destructively sort @param{sequences}
 according to the order determined by the @param{predicate} function.
 
 If @param{sequence} is a @term{vector},
@@ -1137,7 +1137,7 @@ that has the same @term{actual array element type} as @param{sequence}.
 If @param{sequence} is a @term{list},
 the result is a @term{list}.
 
-@coderef{sort} determines the relationship between two elements
+@symbolref{sort} determines the relationship between two elements
 by giving keys extracted from the elements to the @param{predicate}.
 The first argument to the @param{predicate} function is the part of one element
 of @param{sequence} extracted by the @param{key} function
@@ -1169,20 +1169,20 @@ and the @param{predicate} does reflect some total ordering criterion on those ke
 then the @term{elements} of the @param{sorted-sequence}
 will be properly sorted according to that ordering.
 
-The sorting operation performed by @coderef{sort} is not guaranteed stable.
+The sorting operation performed by @symbolref{sort} is not guaranteed stable.
 Elements considered equal by the @param{predicate} might or might not
 stay in their original order.  The @param{predicate} is assumed to
 consider two elements @f{x} and @f{y} to be equal if
 @f{(funcall @i{predicate} @i{x} @i{y})} and
 @f{(funcall @i{predicate} @i{y} @i{x})} are both @term{false}.
-@coderef{stable-sort} guarantees stability.
+@symbolref{stable-sort} guarantees stability.
 
 The sorting operation can be destructive in all cases.  In the case of a
 @term{vector}
 argument, this is accomplished by permuting the elements in place.
 In the case of a @term{list}, the @term{list} is
 destructively reordered in the same manner as for
-@coderef{nreverse}.
+@symbolref{nreverse}.
 
 @subsubheading Examples:
 
@@ -1250,11 +1250,11 @@ and might or might not be @term{identical} to @param{sequence}.
 
 @node find; find-if; find-if-not
 @subsection find, find-if, find-if-not (Function)
-@syindexanchor{find, REF}
+@syindexanchor{find, SYM}
 @cindex find
-@syindexanchor{find-if, REF}
+@syindexanchor{find-if, SYM}
 @cindex find-if
-@syindexanchor{find-if-not, REF}
+@syindexanchor{find-if-not, SYM}
 @cindex find-if-not
 @anchor{find}
 
@@ -1294,7 +1294,7 @@ or @nil{}.
 
 @subsubheading Description:
 
-@coderef{find}, @coderef{find-if}, and @coderef{find-if-not}
+@symbolref{find}, @symbolref{find-if}, and @symbolref{find-if-not}
 each search for an @term{element} of the @param{sequence}
 @term{bounded} by @param{start} and @term{end}
 that @term{satisfies the predicate} @param{predicate}
@@ -1341,11 +1341,11 @@ The @kwd{test-not} @term{argument} is deprecated.
 
 @node position; position-if; position-if-not
 @subsection position, position-if, position-if-not (Function)
-@syindexanchor{position, REF}
+@syindexanchor{position, SYM}
 @cindex position
-@syindexanchor{position-if, REF}
+@syindexanchor{position-if, SYM}
 @cindex position-if
-@syindexanchor{position-if-not, REF}
+@syindexanchor{position-if-not, SYM}
 @cindex position-if-not
 @anchor{position}
 
@@ -1386,7 +1386,7 @@ or @nil{}.
 
 @subsubheading Description:
 
-@coderef{position}, @coderef{position-if}, and @coderef{position-if-not}
+@symbolref{position}, @symbolref{position-if}, and @symbolref{position-if-not}
 each search @param{sequence} for an @term{element} that @term{satisfies the test}.
 
 The @param{position} returned is the index within @param{sequence}
@@ -1425,7 +1425,7 @@ The @kwd{test-not} @term{argument} is deprecated.
 
 @node search
 @subsection search (Function)
-@syindexanchor{search, REF}
+@syindexanchor{search, SYM}
 @cindex search
 
 
@@ -1473,10 +1473,10 @@ the @param{sequence} might actually be searched from left to right
 instead of from right to left (but in either case would return
 the rightmost matching subsequence).
 If the search succeeds,
-@coderef{search} returns the offset into @param{sequence-2}
+@symbolref{search} returns the offset into @param{sequence-2}
 of the first element of the leftmost or rightmost matching subsequence,
 depending on @param{from-end};
-otherwise @coderef{search} returns @nil{}.
+otherwise @symbolref{search} returns @nil{}.
 
 If @param{from-end} is @term{true}, the index of the leftmost
 element of the rightmost matching subsequence is returned.
@@ -1499,7 +1499,7 @@ The @kwd{test-not} @term{argument} is deprecated.
 
 @node mismatch
 @subsection mismatch (Function)
-@syindexanchor{mismatch, REF}
+@syindexanchor{mismatch, SYM}
 @cindex mismatch
 
 
@@ -1581,7 +1581,7 @@ The @kwd{test-not} @term{argument} is deprecated.
 
 @node replace
 @subsection replace (Function)
-@syindexanchor{replace, REF}
+@syindexanchor{replace, SYM}
 @cindex replace
 
 
@@ -1633,7 +1633,7 @@ place and only then copied back into the target region.
 However, if @param{sequence-1} and @param{sequence-2} are not the same,
 but the region being modified overlaps the region being copied from
 (perhaps because of shared list structure or displaced @term{arrays}),
-then after the @coderef{replace} operation
+then after the @symbolref{replace} operation
 the subsequence of @param{sequence-1} being modified will have
 unpredictable contents.
 It is an error if the elements of @param{sequence-2} are not of a
@@ -1660,17 +1660,17 @@ The @param{sequence-1} is modified.
 
 @node substitute; substitute-if; substitute-if-not; nsubstitute; nsubstitute-+
 @subsection substitute, substitute-if, substitute-if-not, nsubstitute, nsubstitute-if, nsubstitute-if-not (Function)
-@syindexanchor{substitute, REF}
+@syindexanchor{substitute, SYM}
 @cindex substitute
-@syindexanchor{substitute-if, REF}
+@syindexanchor{substitute-if, SYM}
 @cindex substitute-if
-@syindexanchor{substitute-if-not, REF}
+@syindexanchor{substitute-if-not, SYM}
 @cindex substitute-if-not
-@syindexanchor{nsubstitute, REF}
+@syindexanchor{nsubstitute, SYM}
 @cindex nsubstitute
-@syindexanchor{nsubstitute-if, REF}
+@syindexanchor{nsubstitute-if, SYM}
 @cindex nsubstitute-if
-@syindexanchor{nsubstitute-if-not, REF}
+@syindexanchor{nsubstitute-if-not, SYM}
 @cindex nsubstitute-if-not
 @anchor{substitute}
 @anchor{nsubstitute}
@@ -1724,14 +1724,14 @@ or @nil{}.
 
 @subsubheading Description:
 
-@coderef{substitute}, @coderef{substitute-if}, and @coderef{substitute-if-not}
+@symbolref{substitute}, @symbolref{substitute-if}, and @symbolref{substitute-if-not}
 return a
 copy of @param{sequence} in which each @term{element}
 that @term{satisfies the test} has been replaced with @param{newitem}.
 
-@coderef{nsubstitute}, @coderef{nsubstitute-if}, and @coderef{nsubstitute-if-not}
-are like @coderef{substitute}, @coderef{substitute-if}, and
-@coderef{substitute-if-not} respectively, but they may modify
+@symbolref{nsubstitute}, @symbolref{nsubstitute-if}, and @symbolref{nsubstitute-if-not}
+are like @symbolref{substitute}, @symbolref{substitute-if}, and
+@symbolref{substitute-if-not} respectively, but they may modify
 @param{sequence}.
 
 If
@@ -1766,14 +1766,14 @@ that has the same elements except that those in the subsequence
 @term{bounded} by @param{start} and @param{end} and @term{satisfying the test}
 have been replaced by @param{newitem}.
 
-@coderef{substitute}, @coderef{substitute-if}, and @coderef{substitute-if-not}
+@symbolref{substitute}, @symbolref{substitute-if}, and @symbolref{substitute-if-not}
 return a @param{sequence} which can share with @param{sequence}
 or may be @term{identical} to the input @param{sequence}
 if no elements need to be changed.
 
-@coderef{nsubstitute} and  @coderef{nsubstitute-if} are required to
-@coderef{setf} any @coderef{car} (if @param{sequence} is a @term{list})
-or @coderef{aref} (if @param{sequence} is a @term{vector})
+@symbolref{nsubstitute} and  @symbolref{nsubstitute-if} are required to
+@symbolref{setf} any @symbolref{car} (if @param{sequence} is a @term{list})
+or @symbolref{aref} (if @param{sequence} is a @term{vector})
 of @param{sequence} that is required to be replaced with @param{newitem}.
 If @param{sequence} is a @term{list},
 none of the @term{cdrs} of the top-level @term{list} can be modified.
@@ -1806,7 +1806,7 @@ none of the @term{cdrs} of the top-level @term{list} can be modified.
 
 @subsubheading Side Effects:
 
-@coderef{nsubstitute}, @coderef{nsubstitute-if}, and @coderef{nsubstitute-if-not}
+@symbolref{nsubstitute}, @symbolref{nsubstitute-if}, and @symbolref{nsubstitute-if-not}
 modify @param{sequence}.
 
 @subsubheading Exceptional Situations:
@@ -1828,12 +1828,12 @@ and might or might not be @term{identical} to @param{sequence}.
 
 The @kwd{test-not} @term{argument} is deprecated.
 
-The functions @coderef{substitute-if-not} and @coderef{nsubstitute-if-not} are deprecated.
+The functions @symbolref{substitute-if-not} and @symbolref{nsubstitute-if-not} are deprecated.
 
-@coderef{nsubstitute} and @coderef{nsubstitute-if} can be used
+@symbolref{nsubstitute} and @symbolref{nsubstitute-if} can be used
 in for-effect-only positions in code.
 
-Because the side-effecting variants (@eg{} @coderef{nsubstitute})
+Because the side-effecting variants (@eg{} @symbolref{nsubstitute})
 potentially change the path that is being traversed, their effects in
 the presence of shared or circular structure may vary in surprising ways when
 compared to their non-side-effecting alternatives.  To see this,
@@ -1853,7 +1853,7 @@ some implementations:
 
 @node concatenate
 @subsection concatenate (Function)
-@syindexanchor{concatenate, REF}
+@syindexanchor{concatenate, SYM}
 @cindex concatenate
 
 
@@ -1863,7 +1863,7 @@ some implementations:
 
 @subsubheading Arguments and Values:
 
-@param{result-type}---a @coderef{sequence} @term{type specifier}.
+@param{result-type}---a @symbolref{sequence} @term{type specifier}.
 
 @param{sequences}---a @term{sequence}.
 
@@ -1871,7 +1871,7 @@ some implementations:
 
 @subsubheading Description:
 
-@coderef{concatenate} returns a @term{sequence} that contains
+@symbolref{concatenate} returns a @term{sequence} that contains
 all the individual elements of all the @param{sequences} in the order
 that they are supplied.
 The @term{sequence} is of type @param{result-type},
@@ -1881,7 +1881,7 @@ All of the @param{sequences} are copied from; the result
 does not share any structure with any of the @param{sequences}.
 Therefore, if only one @param{sequence} is provided
 and it is of type @param{result-type},
-@coderef{concatenate} is required to copy @param{sequence} rather than simply
+@symbolref{concatenate} is required to copy @param{sequence} rather than simply
 returning it.
 
 It is an error if any element of the @param{sequences} cannot be an
@@ -1931,7 +1931,7 @@ is different from that number.
 
 @node merge
 @subsection merge (Function)
-@syindexanchor{merge, REF}
+@syindexanchor{merge, SYM}
 @cindex merge
 
 
@@ -1941,7 +1941,7 @@ is different from that number.
 
 @subsubheading Arguments and Values:
 
-@param{result-type}---a @coderef{sequence} @term{type specifier}.
+@param{result-type}---a @symbolref{sequence} @term{type specifier}.
 
 @param{sequence-1}---a @term{sequence}.
 
@@ -1958,7 +1958,7 @@ or @nil{}.
 @subsubheading Description:
 
 Destructively merges @param{sequence-1} with @param{sequence-2} according
-to an order determined by the @param{predicate}.  @coderef{merge} determines
+to an order determined by the @param{predicate}.  @symbolref{merge} determines
 the relationship between two elements by giving keys extracted from the
 sequence elements to the @param{predicate}.
 
@@ -1970,7 +1970,7 @@ the @param{key} (if supplied).
 argument is strictly less than the second (in some appropriate sense).
 If the first argument is greater than or equal to the second
 (in the appropriate sense), then @param{predicate} should return @term{false}.
-@coderef{merge}
+@symbolref{merge}
 considers two elements @f{x} and @f{y} to be equal if
 @f{(funcall predicate x y)} and
 @f{(funcall predicate y x)} both @term{yield} @term{false}.
@@ -2054,17 +2054,17 @@ is different from that number.
 
 @node remove; remove-if; remove-if-not; delete; delete-if; delete-if-not
 @subsection remove, remove-if, remove-if-not, delete, delete-if, delete-if-not (Function)
-@syindexanchor{remove, REF}
+@syindexanchor{remove, SYM}
 @cindex remove
-@syindexanchor{remove-if, REF}
+@syindexanchor{remove-if, SYM}
 @cindex remove-if
-@syindexanchor{remove-if-not, REF}
+@syindexanchor{remove-if-not, SYM}
 @cindex remove-if-not
-@syindexanchor{delete, REF}
+@syindexanchor{delete, SYM}
 @cindex delete
-@syindexanchor{delete-if, REF}
+@syindexanchor{delete-if, SYM}
 @cindex delete-if
-@syindexanchor{delete-if-not, REF}
+@syindexanchor{delete-if-not, SYM}
 @cindex delete-if-not
 
 
@@ -2114,14 +2114,14 @@ or @nil{}.
 
 @subsubheading Description:
 
-@coderef{remove}, @coderef{remove-if}, and @coderef{remove-if-not}
+@symbolref{remove}, @symbolref{remove-if}, and @symbolref{remove-if-not}
 return a @param{sequence} from which
 the elements that @term{satisfy the test}
 have been removed.
 
-@coderef{delete}, @coderef{delete-if}, and @coderef{delete-if-not}
-are like @coderef{remove}, @coderef{remove-if}, and
-@coderef{remove-if-not} respectively,
+@symbolref{delete}, @symbolref{delete-if}, and @symbolref{delete-if-not}
+are like @symbolref{remove}, @symbolref{remove-if}, and
+@symbolref{remove-if-not} respectively,
 but they may modify @param{sequence}.
 
 If @param{sequence} is a @term{vector}, the result is a
@@ -2148,7 +2148,7 @@ elements
 not removed or deleted occur in the same order in the result
 as they did in @param{sequence}.
 
-@coderef{remove}, @coderef{remove-if}, @coderef{remove-if-not} return
+@symbolref{remove}, @symbolref{remove-if}, @symbolref{remove-if-not} return
 a @term{sequence}
 of the same @term{type} as @param{sequence}
 that has the same elements except that those in the subsequence
@@ -2156,12 +2156,12 @@ that has the same elements except that those in the subsequence
 have been removed.
 This is a non-destructive operation. If any
 elements need to be removed, the result will be a copy.
-The result of @coderef{remove} may share
+The result of @symbolref{remove} may share
 with @param{sequence};
 the result may be @term{identical} to the input @param{sequence}
 if no elements need to be removed.
 
-@coderef{delete}, @coderef{delete-if}, and @coderef{delete-if-not}
+@symbolref{delete}, @symbolref{delete-if}, and @symbolref{delete-if-not}
 return a @term{sequence}
 of the same @term{type} as @param{sequence}
 that has the same elements except that those in the subsequence
@@ -2171,15 +2171,15 @@ have been deleted.
 the result; however, the result might or might not be @term{identical}
 to @param{sequence}.
 
-@coderef{delete}, when @param{sequence} is a @term{list}, is permitted to
-@coderef{setf} any part, @coderef{car} or @coderef{cdr}, of the
+@symbolref{delete}, when @param{sequence} is a @term{list}, is permitted to
+@symbolref{setf} any part, @symbolref{car} or @symbolref{cdr}, of the
 top-level list structure in that @param{sequence}.
-When @param{sequence} is a @term{vector},  @coderef{delete} is
+When @param{sequence} is a @term{vector},  @symbolref{delete} is
 permitted to change the dimensions of the @term{vector}
 and to slide its elements into new positions without
 permuting them to produce the resulting @term{vector}.
 
-@coderef{delete-if} is constrained to behave exactly as follows:
+@symbolref{delete-if} is constrained to behave exactly as follows:
 
 @lisp
  (delete nil @i{sequence}
@@ -2234,7 +2234,7 @@ permuting them to produce the resulting @term{vector}.
 
 @subsubheading Side Effects:
 
-For @coderef{delete}, @coderef{delete-if}, and @coderef{delete-if-not},
+For @symbolref{delete}, @symbolref{delete-if}, and @symbolref{delete-if-not},
 @param{sequence} may be destroyed and used to construct the result.
 
 @subsubheading Exceptional Situations:
@@ -2254,14 +2254,14 @@ and might or might not be @term{identical} to @param{sequence}.
 
 The @kwd{test-not} @term{argument} is deprecated.
 
-The functions @coderef{delete-if-not} and @coderef{remove-if-not} are deprecated.
+The functions @symbolref{delete-if-not} and @symbolref{remove-if-not} are deprecated.
 
 
 @node remove-duplicates; delete-duplicates
 @subsection remove-duplicates, delete-duplicates (Function)
-@syindexanchor{remove-duplicates, REF}
+@syindexanchor{remove-duplicates, SYM}
 @cindex remove-duplicates
-@syindexanchor{delete-duplicates, REF}
+@syindexanchor{delete-duplicates, SYM}
 @cindex delete-duplicates
 
 
@@ -2295,7 +2295,7 @@ or @nil{}.
 
 @subsubheading Description:
 
-@coderef{remove-duplicates} returns a modified copy of @param{sequence}
+@symbolref{remove-duplicates} returns a modified copy of @param{sequence}
 from which any element that matches another element occurring in
 @param{sequence} has been removed.
 
@@ -2304,29 +2304,29 @@ If @param{sequence} is a @term{vector}, the result is a
 @term{actual array element type} as @param{sequence}.
 If @param{sequence} is a @term{list}, the result is a @term{list}.
 
-@coderef{delete-duplicates} is like @coderef{remove-duplicates},
-but @coderef{delete-duplicates} may modify @param{sequence}.
+@symbolref{delete-duplicates} is like @symbolref{remove-duplicates},
+but @symbolref{delete-duplicates} may modify @param{sequence}.
 
 The elements of @param{sequence} are compared @term{pairwise}, and if any two match,
 then the one occurring earlier in @param{sequence}
 is discarded, unless @param{from-end} is @term{true}, in which case the one
 later in @param{sequence} is discarded.
 
-@coderef{remove-duplicates} and @coderef{delete-duplicates}
+@symbolref{remove-duplicates} and @symbolref{delete-duplicates}
 return a @term{sequence} of the same @term{type} as
 @param{sequence} with enough elements removed so that no two of the remaining
 elements match.  The order of the elements remaining in the result
 is the same as the order in which they appear in @param{sequence}.
 
-@coderef{remove-duplicates} returns a @term{sequence}
+@symbolref{remove-duplicates} returns a @term{sequence}
 that may share
 with @param{sequence} or may be @term{identical} to @param{sequence}
 if no elements need to be removed.
 
-@coderef{delete-duplicates}, when @param{sequence} is a @term{list},
-is permitted to @coderef{setf} any part, @coderef{car} or @coderef{cdr},
+@symbolref{delete-duplicates}, when @param{sequence} is a @term{list},
+is permitted to @symbolref{setf} any part, @symbolref{car} or @symbolref{cdr},
 of the top-level list structure in that @param{sequence}.
-When @param{sequence} is a @term{vector}, @coderef{delete-duplicates}
+When @param{sequence} is a @term{vector}, @symbolref{delete-duplicates}
 is permitted to change the dimensions of the @term{vector}
 and to slide its elements into new positions without
 permuting them to produce the resulting @term{vector}.
@@ -2348,7 +2348,7 @@ permuting them to produce the resulting @term{vector}.
 
 @subsubheading Side Effects:
 
-@coderef{delete-duplicates} might destructively modify @param{sequence}.
+@symbolref{delete-duplicates} might destructively modify @param{sequence}.
 
 @subsubheading Exceptional Situations:
 

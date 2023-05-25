@@ -12,15 +12,14 @@
 @c put SYMBOL in symbol index and make an anchor of TYPE_SYMBOL
 @c type is to disambiguate different meaning for the same symbol
 @c ie. how the same symbol can be a Function and System Class
-@c if we don't need to disambiguate then we pass REF for symbol index
+@c if we don't need to disambiguate then we pass SYM for symbol index
 @macro syindexanchor {symbol, type}
-@syindex \symbol\
-@anchor{\type\_\symbol\}
+@anchor{\type\_\symbol\} @syindex \symbol\
 @end macro
 
-@c general code reference for all SI symbols
-@macro coderef {arg}
-@code{@ref{REF_\arg\, \arg\}}
+@c referece to a symbol
+@macro symbolref {symbol}
+@code{@ref{SYM_\symbol\, \symbol\}}
 @end macro
 
 @macro spc {}

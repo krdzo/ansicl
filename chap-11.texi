@@ -65,7 +65,7 @@ There is a single namespace for @term{packages}.
 @Thefunction{package-name} returns the @term{name} of a @term{package}.
 @Thefunction{package-nicknames} returns
 a @term{list} of all @term{nicknames} for a @term{package}.
-@coderef{rename-package} removes a @term{package}'s
+@symbolref{rename-package} removes a @term{package}'s
 current @term{name} and @term{nicknames} and replaces them with new ones
 specified by the caller.
 
@@ -107,7 +107,7 @@ of mappings from @term{strings} into @term{internal symbols} and
 @term{external symbols}.
 However, some of these mappings might be established within the @term{package}
 itself, while other mappings are inherited from other @term{packages}
-via @coderef{use-package}.
+via @symbolref{use-package}.
 A @term{symbol} is said to be @newterm{present} in a @term{package}
 if the mapping is in the @term{package} itself and is
 not inherited from somewhere else.
@@ -127,7 +127,7 @@ or the @term{symbol} must be @term{imported} into the @term{current package}.
 A @term{symbol} becomes @newterm{accessible} in a @term{package}
 if that is its @term{home package} when it is created,
 or if it is @term{imported} into that @term{package},
-or by inheritance via @coderef{use-package}.
+or by inheritance via @symbolref{use-package}.
 
 If a @term{symbol} is @term{accessible} in a @term{package},
 it can be referred to when using the @term{Lisp reader}
@@ -141,26 +141,26 @@ in another @term{package} in two ways.
 @itemize --
 @item
 Any individual @term{symbol} can be added to a @term{package} by use
-of @coderef{import}.  After the call to @coderef{import} the
+of @symbolref{import}.  After the call to @symbolref{import} the
 @term{symbol} is @term{present} in the importing @term{package}.
 The status of the @term{symbol} in the @term{package}
 it came from (if any) is unchanged, and the @term{home package} for
 this @term{symbol} is unchanged.
 Once @term{imported}, a @term{symbol} is @term{present} in the
 importing @term{package}
-and can be removed only by calling @coderef{unintern}.
+and can be removed only by calling @symbolref{unintern}.
 
 A @term{symbol} is @term{shadowed}@sub{3} by another @term{symbol}
 in some @term{package} if the first @term{symbol} would be @term{accessible}
 by inheritance if not for the presence of the second @term{symbol}.
-See @coderef{shadowing-import}.
+See @symbolref{shadowing-import}.
 
 @item
 The second mechanism for making @term{symbols} from one @term{package}
-@term{accessible} in another is provided by @coderef{use-package}.
+@term{accessible} in another is provided by @symbolref{use-package}.
 All of the @term{external symbols} of the used @term{package} are inherited
 by the using @term{package}.
-@Thefunction{unuse-package} undoes the effects of a previous @coderef{use-package}.
+@Thefunction{unuse-package} undoes the effects of a previous @symbolref{use-package}.
 @end itemize
 
 
@@ -206,34 +206,34 @@ If the @term{same} @term{symbol} is @term{accessible} to a @term{package}
 through more than one path, there is no name conflict.
 A @term{symbol} cannot conflict with itself.
 Name conflicts occur only between @term{distinct} @term{symbols} with
-the same name (under @coderef{string=}).
+the same name (under @symbolref{string=}).
 
 @item Every @term{package} has a list of shadowing @term{symbols}.
 A shadowing @term{symbol} takes precedence over any other @term{symbol} of
 the same name that would otherwise be @term{accessible} in the @term{package}.
 A name conflict involving a shadowing symbol is always resolved in favor of
 the shadowing @term{symbol}, without signaling an error (except for one
-exception involving @coderef{import}).
-See @coderef{shadow} and @coderef{shadowing-import}.
+exception involving @symbolref{import}).
+See @symbolref{shadow} and @symbolref{shadowing-import}.
 
 @item
-The functions @coderef{use-package}, @coderef{import}, and
-@coderef{export} check for name conflicts.
+The functions @symbolref{use-package}, @symbolref{import}, and
+@symbolref{export} check for name conflicts.
 
 @item
-@coderef{shadow} and @coderef{shadowing-import}
+@symbolref{shadow} and @symbolref{shadowing-import}
 never signal a name-conflict error.
 
 @item
-@coderef{unuse-package} and @coderef{unexport}
+@symbolref{unuse-package} and @symbolref{unexport}
 do not need to do any name-conflict checking.
-@coderef{unintern} does name-conflict checking only when a @term{symbol}
+@symbolref{unintern} does name-conflict checking only when a @term{symbol}
 being @term{uninterned} is a @term{shadowing symbol}
 @cindex shadowing symbol
 .
 
 @item
-Giving a shadowing symbol to @coderef{unintern}
+Giving a shadowing symbol to @symbolref{unintern}
 can uncover a name conflict that had
 previously been resolved by the shadowing.
 
@@ -242,14 +242,14 @@ Package functions signal name-conflict errors @oftype{package-error} before maki
 change to the package structure.  When multiple changes are to be made,
 it is
 permissible for the implementation to process each change separately.
-For example, when @coderef{export} is given a
+For example, when @symbolref{export} is given a
 @term{list} of
 @term{symbols},
 aborting from a name
 conflict caused by the second @term{symbol}
 in the @term{list} might still export the
 first @term{symbol} in the @term{list}.
-However, a name-conflict error caused by @coderef{export}
+However, a name-conflict error caused by @symbolref{export}
 of a single @term{symbol} will be signaled before
 that @term{symbol}'s @term{accessibility} in any @term{package} is changed.
 
@@ -258,27 +258,27 @@ Continuing from a name-conflict error must offer the user a chance to
 resolve the name conflict in favor of either of the candidates.  The
 @term{package}
 structure should be altered to reflect the resolution of the
-name conflict, via @coderef{shadowing-import},
-@coderef{unintern},
-or @coderef{unexport}.
+name conflict, via @symbolref{shadowing-import},
+@symbolref{unintern},
+or @symbolref{unexport}.
 
 @item
-A name conflict in @coderef{use-package} between a @term{symbol}
+A name conflict in @symbolref{use-package} between a @term{symbol}
 @term{present} in the using @term{package} and an @term{external symbol} of the used
 @term{package} is resolved in favor of the first @term{symbol} by making it a
 shadowing @term{symbol}, or in favor of the second @term{symbol} by uninterning
 the first @term{symbol} from the using @term{package}.
 
 @item
-A name conflict in @coderef{export} or @coderef{unintern}
+A name conflict in @symbolref{export} or @symbolref{unintern}
 due to a @term{package}'s inheriting two @term{distinct} @term{symbols}
-with the @term{same} @term{name} (under @coderef{string=})
+with the @term{same} @term{name} (under @symbolref{string=})
 from two other @term{packages} can be resolved in
 favor of either @term{symbol} by importing it into the using
 @term{package} and making it a @term{shadowing symbol}
 @cindex shadowing symbol
 ,
-just as with @coderef{use-package}.
+just as with @symbolref{use-package}.
 @end itemize
 
 
@@ -319,7 +319,7 @@ The @code{COMMON-LISP} @term{package} contains the primitives of the @clisp{}@sp
 defined by this specification.  Its @term{external} @term{symbols} include
 all of the @term{defined names} (except for @term{defined names} in
 the @code{KEYWORD} @term{package}) that are present in the @clisp{}@spc{}system,
-such as @coderef{car}, @coderef{cdr},  @coderef{*package*}, etc.
+such as @symbolref{car}, @symbolref{cdr},  @symbolref{*package*}, etc.
 The @code{COMMON-LISP} @term{package} has the @term{nickname} @code{CL}.
 
 The @code{COMMON-LISP} @term{package} has as @term{external} @term{symbols} those
@@ -346,22 +346,22 @@ an @term{external} @term{symbol} of the @code{COMMON-LISP} @term{package} can ha
 a @term{function}, @term{macro}, or @term{special operator} definition,
 a @term{global variable} definition
 (or other status as a @term{dynamic variable}
-due to a @coderef{special} @term{proclamation}),
+due to a @symbolref{special} @term{proclamation}),
 or a @term{type} definition
 only if explicitly permitted in this standard.
 For example,
-@coderef{fboundp} @term{yields} @term{false}
+@symbolref{fboundp} @term{yields} @term{false}
 for any @term{external symbol} of the @code{COMMON-LISP} @term{package}
 that is not the @term{name} of a @term{standardized}
 @term{function}, @term{macro} or @term{special operator},
 and
-@coderef{boundp} returns @term{false}
+@symbolref{boundp} returns @term{false}
 for any @term{external symbol} of the @code{COMMON-LISP} @term{package}
 that is not the @term{name} of a @term{standardized} @term{global variable}.
 It also follows that
 @term{conforming programs} can use @term{external symbols} of the @code{COMMON-LISP} @term{package}
 as the @term{names} of local @term{lexical variables}
-with confidence that those @term{names} have not been @term{proclaimed} @coderef{special}
+with confidence that those @term{names} have not been @term{proclaimed} @symbolref{special}
 by the @term{implementation}
 unless those @term{symbols} are
 @term{names} of @term{standardized} @term{global variables}.
@@ -398,47 +398,47 @@ or @term{compiler macro}.
 (Some exceptions are noted below.)
 
 @item Defining it as a @term{type specifier}
-(via @coderef{defstruct},
-@coderef{defclass},
-@coderef{deftype},
-@coderef{define-condition}).
+(via @symbolref{defstruct},
+@symbolref{defclass},
+@symbolref{deftype},
+@symbolref{define-condition}).
 
-@item Defining it as a structure (via @coderef{defstruct}).
+@item Defining it as a structure (via @symbolref{defstruct}).
 
 @item Defining it as a @term{declaration}
-with a @coderef{declaration} @term{proclamation}.
+with a @symbolref{declaration} @term{proclamation}.
 
 @item Defining it as a @term{symbol macro}.
 
 @item Altering its @term{home package}.
 
-@item Tracing it  (via @coderef{trace}).
+@item Tracing it  (via @symbolref{trace}).
 
 @item Declaring or proclaiming it
-@coderef{special}
+@symbolref{special}
 (via @t{declare},
-@coderef{declaim},
-or @coderef{proclaim}).
+@symbolref{declaim},
+or @symbolref{proclaim}).
 
-@item Declaring or proclaiming its @coderef{type} or @coderef{ftype}
+@item Declaring or proclaiming its @symbolref{type} or @symbolref{ftype}
 (via @t{declare},
-@coderef{declaim},
-or @coderef{proclaim}).
+@symbolref{declaim},
+or @symbolref{proclaim}).
 (Some exceptions are noted below.)
 
 @item Removing it from the @code{COMMON-LISP} @term{package}.
 
 
 @item Defining a @term{setf expander} for it
-(via @coderef{defsetf} or @code{define-setf-method}).
+(via @symbolref{defsetf} or @code{define-setf-method}).
 
 @item Defining, undefining, or binding its @term{setf function name}.
 
 @item Defining it as a @term{method combination} type
-(via @coderef{define-method-combination}).
+(via @symbolref{define-method-combination}).
 
 @item Using it as the class-name argument
-to @coderef{setf} of @coderef{find-class}.
+to @symbolref{setf} of @symbolref{find-class}.
 
 @item Binding it as a @term{catch tag}.
 
@@ -460,10 +460,10 @@ If an @term{external symbol} of the @code{COMMON-LISP} @term{package}
 is not globally defined as a @term{standardized} @term{dynamic variable}
 or @term{constant variable},
 it is allowed to lexically @term{bind} it
-and to declare the @coderef{type} of that @term{binding},
+and to declare the @symbolref{type} of that @term{binding},
 and
 it is allowed to locally @term{establish} it as a @term{symbol macro}
-(@eg{} with @coderef{symbol-macrolet}).
+(@eg{} with @symbolref{symbol-macrolet}).
 
 Unless explicitly specified otherwise,
 if an @term{external symbol} of the @code{COMMON-LISP} @term{package}
@@ -475,22 +475,22 @@ is consistent with the stated purpose of the @term{variable}.
 
 If an @term{external symbol} of the @code{COMMON-LISP} @term{package} is not defined
 as a @term{standardized} @term{function}, @term{macro}, or @term{special operator},
-it is allowed to lexically @term{bind} it as a @term{function} (@eg{} with @coderef{flet}),
-to declare the @coderef{ftype} of that @term{binding},
+it is allowed to lexically @term{bind} it as a @term{function} (@eg{} with @symbolref{flet}),
+to declare the @symbolref{ftype} of that @term{binding},
 and
 (in @term{implementations} which provide the ability to do so)
-to @coderef{trace} that @term{binding}.
+to @symbolref{trace} that @term{binding}.
 
 If an @term{external symbol} of the @code{COMMON-LISP} @term{package} is not defined
 as a @term{standardized} @term{function}, @term{macro}, or @term{special operator},
-it is allowed to lexically @term{bind} it as a @term{macro} (@eg{} with @coderef{macrolet}).
+it is allowed to lexically @term{bind} it as a @term{macro} (@eg{} with @symbolref{macrolet}).
 
 
 If an @term{external symbol} of the @code{COMMON-LISP} @term{package} is not defined
 as a @term{standardized} @term{function}, @term{macro}, or @term{special operator},
 it is allowed to lexically @term{bind} its @term{setf function name}
 as a @term{function},
-and to declare the @coderef{ftype} of that @term{binding}.
+and to declare the @symbolref{ftype} of that @term{binding}.
 
 
 
@@ -564,7 +564,7 @@ in the initial @clisp{}@spc{}environment.
 It is recommended, but not required, that the documentation for a
 @term{conforming implementation} contain a full list of all @term{package} names
 initially present in that @term{implementation} but not specified in this specification.
-(See also the @term{function} @coderef{list-all-packages}.)
+(See also the @term{function} @symbolref{list-all-packages}.)
 
 
 @node Packages Dictionary
@@ -606,12 +606,12 @@ initially present in that @term{implementation} but not specified in this specif
 
 @node package
 @subsection package (System Class)
-@syindexanchor{package, REF}
+@syindexanchor{package, SYM}
 @cindex package
 
 
 @subsubheading Class Precedence List:
-@coderef{package},
+@symbolref{package},
 @code{t}
 
 @subsubheading Description:
@@ -628,7 +628,7 @@ to @term{symbols}; see @ref{Package Concepts}.
 
 @node export
 @subsection export (Function)
-@syindexanchor{export, REF}
+@syindexanchor{export, SYM}
 @cindex export
 
 
@@ -645,17 +645,17 @@ to @term{symbols}; see @ref{Package Concepts}.
 
 @subsubheading Description:
 
-@coderef{export} makes one or more @param{symbols} that are @term{accessible}
+@symbolref{export} makes one or more @param{symbols} that are @term{accessible}
 in @param{package} (whether directly or by inheritance) be @term{external symbols}
 of that @param{package}.
 
 If any of the @param{symbols} is already @term{accessible} as
 an @term{external symbol} of @param{package},
-@coderef{export} has no effect on that @term{symbol}.
+@symbolref{export} has no effect on that @term{symbol}.
 If the @param{symbol} is
 @term{present} in @param{package}
 as an internal symbol, it is simply changed to external status.
-If it is @term{accessible} as an @term{internal symbol} via @coderef{use-package},
+If it is @term{accessible} as an @term{internal symbol} via @symbolref{use-package},
 it
 is first @term{imported} into @param{package},
 then @term{exported}.
@@ -663,20 +663,20 @@ then @term{exported}.
 whether or not @param{package} continues to use the @term{package} through
 which the @term{symbol} was originally inherited.)
 
-@coderef{export} makes
+@symbolref{export} makes
 each @param{symbol}
 @term{accessible} to all the @term{packages} that use @param{package}.
 All of these @term{packages} are checked for name conflicts:
 @f{(export @i{s} @i{p})} does
 @f{(find-symbol (symbol-name @i{s}) @i{q})} for each package @i{q}
 in @f{(package-used-by-list @i{p})}.  Note that in the usual case of
-an @coderef{export} during the initial definition of a @term{package},
+an @symbolref{export} during the initial definition of a @term{package},
 the
-result of @coderef{package-used-by-list}
+result of @symbolref{package-used-by-list}
 is @nil{}@spc{}and the name-conflict checking
 takes negligible time.
 When multiple changes are to be made,
-for example when @coderef{export}
+for example when @symbolref{export}
 is given a @param{list} of @param{symbols}, it is
 permissible for the implementation to process each change separately,
 so that aborting from a name
@@ -684,15 +684,15 @@ conflict caused by any but the first @param{symbol} in the
 @term{list} does not unexport the
 first @param{symbol} in the @param{list}.
 However, aborting from a name-conflict error
-caused by @coderef{export}
+caused by @symbolref{export}
 of one of @param{symbols} does not leave that @term{symbol}
 @term{accessible}
 to some @term{packages}
 and @term{inaccessible} to others; with respect to
-each of @param{symbols} processed, @coderef{export}
+each of @param{symbols} processed, @symbolref{export}
 behaves as if it were as an atomic operation.
 
-A name conflict in @coderef{export} between one of
+A name conflict in @symbolref{export} between one of
 @param{symbols} being exported and a
 @term{symbol} already @term{present} in a @term{package}
 that would inherit the
@@ -737,7 +737,7 @@ to interactively specify whether that @term{symbol} should be @term{imported}.
 
 @node find-symbol
 @subsection find-symbol (Function)
-@syindexanchor{find-symbol, REF}
+@syindexanchor{find-symbol, SYM}
 @cindex find-symbol
 
 
@@ -759,7 +759,7 @@ or @nil{}.
 
 @subsubheading Description:
 
-@coderef{find-symbol} locates a @term{symbol} whose @term{name} is
+@symbolref{find-symbol} locates a @term{symbol} whose @term{name} is
 @param{string} in a @term{package}.
 If a @term{symbol} named @param{string} is found in @param{package},
 directly or by inheritance, the @term{symbol}
@@ -784,7 +784,7 @@ as an @term{external symbol}.
 
 
 If the @term{symbol} is inherited by @param{package}
-through @coderef{use-package},
+through @symbolref{use-package},
 but is not @term{present} in @param{package}.
 @end table
 
@@ -819,13 +819,13 @@ both values are @nil{}.
 
 @subsubheading Affected By:
 
-@coderef{intern},
-@coderef{import},
-@coderef{export},
-@coderef{use-package},
-@coderef{unintern},
-@coderef{unexport},
-@coderef{unuse-package}
+@symbolref{intern},
+@symbolref{import},
+@symbolref{export},
+@symbolref{use-package},
+@symbolref{unintern},
+@symbolref{unexport},
+@symbolref{unuse-package}
 
 @subsubheading See Also:
 
@@ -833,13 +833,13 @@ both values are @nil{}.
 
 @subsubheading Notes:
 
-@coderef{find-symbol} is operationally equivalent to @coderef{intern},
+@symbolref{find-symbol} is operationally equivalent to @symbolref{intern},
 except that it never creates a new @term{symbol}.
 
 
 @node find-package
 @subsection find-package (Function)
-@syindexanchor{find-package, REF}
+@syindexanchor{find-package, SYM}
 @cindex find-package
 
 
@@ -856,12 +856,12 @@ except that it never creates a new @term{symbol}.
 @subsubheading Description:
 
 If @param{name} is a @term{string designator},
-@coderef{find-package} locates and returns the
+@symbolref{find-package} locates and returns the
 @term{package} whose name or nickname is @param{name}.
 This
 search is case sensitive.
 If there is no such @term{package},
-@coderef{find-package} returns @nil{}.
+@symbolref{find-package} returns @nil{}.
 
 If @param{name} is a @term{package} @term{object},
 that @term{package} @term{object} is returned.
@@ -879,10 +879,10 @@ that @term{package} @term{object} is returned.
 
 The set of @term{packages} created by the @term{implementation}.
 
-@coderef{defpackage},
-@coderef{delete-package},
-@coderef{make-package},
-@coderef{rename-package}
+@symbolref{defpackage},
+@symbolref{delete-package},
+@symbolref{make-package},
+@symbolref{rename-package}
 
 @subsubheading See Also:
 
@@ -891,7 +891,7 @@ The set of @term{packages} created by the @term{implementation}.
 
 @node find-all-symbols
 @subsection find-all-symbols (Function)
-@syindexanchor{find-all-symbols, REF}
+@syindexanchor{find-all-symbols, SYM}
 @cindex find-all-symbols
 
 
@@ -907,8 +907,8 @@ The set of @term{packages} created by the @term{implementation}.
 
 @subsubheading Description:
 
-@coderef{find-all-symbols} searches
-@term{name} that is the @term{same} (under @coderef{string=}) as
+@symbolref{find-all-symbols} searches
+@term{name} that is the @term{same} (under @symbolref{string=}) as
 @param{string}.  A @term{list} of all such @term{symbols} is returned.
 Whether or how the @term{list} is ordered is
 @term{implementation-dependent}.
@@ -936,7 +936,7 @@ Whether or how the @term{list} is ordered is
 
 @node import
 @subsection import (Function)
-@syindexanchor{import, REF}
+@syindexanchor{import, SYM}
 @cindex import
 
 
@@ -953,25 +953,25 @@ Whether or how the @term{list} is ordered is
 
 @subsubheading Description:
 
-@coderef{import} adds @param{symbol} or
+@symbolref{import} adds @param{symbol} or
 @param{symbols} to the internals of @param{package}, checking for name
 conflicts with existing @term{symbols} either @term{present} in @param{package}
 or @term{accessible} to it.  Once the @param{symbols} have been
 @term{imported}, they may be referenced in the @term{importing}
 @param{package} without the use of a @term{package prefix} when using the @term{Lisp reader}.
 
-A name conflict in @coderef{import} between the
+A name conflict in @symbolref{import} between the
 @param{symbol} being imported and a symbol inherited from some other @term{package} can
 be resolved in favor of the
 @param{symbol} being @term{imported}
 by making it a shadowing symbol, or in favor
 of the @term{symbol} already @term{accessible} by
-not doing the @coderef{import}.  A
-name conflict in @coderef{import} with a @term{symbol}
+not doing the @symbolref{import}.  A
+name conflict in @symbolref{import} with a @term{symbol}
 already @term{present} in the
 @param{package}
 may be resolved by uninterning that @term{symbol}, or by not
-doing the @coderef{import}.
+doing the @symbolref{import}.
 
 The imported @term{symbol} is
 not automatically exported from the @term{current package}, but if it is
@@ -979,11 +979,11 @@ already @term{present} and external, then the fact that it
 is external is not changed.
 If any @term{symbol} to be @term{imported} has no home
 package (@ie{} @tt{(symbol-package @param{symbol}) @EV{}@spc{}nil}),
-@coderef{import} sets the @term{home package}
+@symbolref{import} sets the @term{home package}
 of the @param{symbol} to @param{package}.
 
 If the @param{symbol} is already @term{present} in the importing @param{package},
-@coderef{import} has no effect.
+@symbolref{import} has no effect.
 
 @subsubheading Examples:
 
@@ -1010,9 +1010,9 @@ Current state of the package system.
 
 @subsubheading Exceptional Situations:
 
-@coderef{import} signals a @term{correctable} error @oftype{package-error}
+@symbolref{import} signals a @term{correctable} error @oftype{package-error}
 if any of the @param{symbols} to be @term{imported} has the @term{same} @term{name}
-(under @coderef{string=}) as some distinct @term{symbol} (under @code{eql})
+(under @symbolref{string=}) as some distinct @term{symbol} (under @code{eql})
 already @term{accessible} in the @param{package}, even if the conflict is
 with a @term{shadowing symbol} of the @param{package}.
 
@@ -1023,7 +1023,7 @@ with a @term{shadowing symbol} of the @param{package}.
 
 @node list-all-packages
 @subsection list-all-packages (Function)
-@syindexanchor{list-all-packages, REF}
+@syindexanchor{list-all-packages, SYM}
 @cindex list-all-packages
 
 
@@ -1037,7 +1037,7 @@ with a @term{shadowing symbol} of the @param{package}.
 
 @subsubheading Description:
 
-@coderef{list-all-packages} returns a
+@symbolref{list-all-packages} returns a
 @term{fresh}
 @term{list} of
 all @term{registered packages}.
@@ -1053,14 +1053,14 @@ all @term{registered packages}.
 
 @subsubheading Affected By:
 
-@coderef{defpackage},
-@coderef{delete-package},
-@coderef{make-package}
+@symbolref{defpackage},
+@symbolref{delete-package},
+@symbolref{make-package}
 
 
 @node rename-package
 @subsection rename-package (Function)
-@syindexanchor{rename-package, REF}
+@syindexanchor{rename-package, SYM}
 @cindex rename-package
 
 
@@ -1108,7 +1108,7 @@ conflicts with any existing package names.
 
 @node shadow
 @subsection shadow (Function)
-@syindexanchor{shadow, REF}
+@syindexanchor{shadow, SYM}
 @cindex shadow
 
 
@@ -1126,7 +1126,7 @@ a @term{list} of @term{@symbolnamedesignators{}}.
 
 @subsubheading Description:
 
-@coderef{shadow} assures that @term{symbols} with names given
+@symbolref{shadow} assures that @term{symbols} with names given
 by @param{symbol-names} are @term{present}
 in
 the @param{package}.
@@ -1170,7 +1170,7 @@ of @param{package}.
 
 @subsubheading Side Effects:
 
-@coderef{shadow} changes the state of the package system in such a
+@symbolref{shadow} changes the state of the package system in such a
 way that the package consistency rules do not hold across the change.
 
 @subsubheading Affected By:
@@ -1191,7 +1191,7 @@ in @param{package}, but by inheritance, the inherited symbol becomes
 
 @node shadowing-import
 @subsection shadowing-import (Function)
-@syindexanchor{shadowing-import, REF}
+@syindexanchor{shadowing-import, SYM}
 @cindex shadowing-import
 
 
@@ -1208,11 +1208,11 @@ in @param{package}, but by inheritance, the inherited symbol becomes
 
 @subsubheading Description:
 
-@coderef{shadowing-import} is like @coderef{import},
+@symbolref{shadowing-import} is like @symbolref{import},
 but it does not signal an error even if the importation of a @term{symbol}
 would shadow some @term{symbol} already @term{accessible} in @param{package}.
 
-@coderef{shadowing-import} inserts each of @param{symbols}
+@symbolref{shadowing-import} inserts each of @param{symbols}
 into @param{package} as an internal symbol, regardless
 of whether another @term{symbol} of the same name is shadowed by this
 action.
@@ -1221,7 +1221,7 @@ in @param{package},
 that @term{symbol} is first @term{uninterned} from @param{package}.
 The new @term{symbol} is added to @param{package}'s shadowing-symbols list.
 
-@coderef{shadowing-import} does name-conflict
+@symbolref{shadowing-import} does name-conflict
 checking to the extent that it checks whether a distinct existing
 @term{symbol} with the same name is @term{accessible}; if so, it is shadowed by
 the new @term{symbol}, which implies that it must be uninterned
@@ -1241,7 +1241,7 @@ if it was
 
 @subsubheading Side Effects:
 
-@coderef{shadowing-import}
+@symbolref{shadowing-import}
 changes the state of the package system in such a way that
 the consistency rules do not hold across the change.
 
@@ -1258,7 +1258,7 @@ Current state of the package system.
 
 @node delete-package
 @subsection delete-package (Function)
-@syindexanchor{delete-package, REF}
+@syindexanchor{delete-package, SYM}
 @cindex delete-package
 
 
@@ -1275,26 +1275,26 @@ Current state of the package system.
 
 @subsubheading Description:
 
-@coderef{delete-package} deletes @param{package} from all package system
+@symbolref{delete-package} deletes @param{package} from all package system
 data structures.
-If the operation is successful, @coderef{delete-package} returns
+If the operation is successful, @symbolref{delete-package} returns
 true, otherwise @nil{}.
-The effect of @coderef{delete-package} is that the name and nicknames
+The effect of @symbolref{delete-package} is that the name and nicknames
 of @param{package} cease to be recognized package names.
 The package @term{object} is still a @term{package}
-(@ie{} @coderef{packagep} is @term{true} of it)
-but @coderef{package-name} returns @nil{}.
+(@ie{} @symbolref{packagep} is @term{true} of it)
+but @symbolref{package-name} returns @nil{}.
 The consequences of deleting the @code{COMMON-LISP} @term{package} or the @code{KEYWORD} @term{package} are undefined.
 The consequences of invoking any other package operation on @param{package}
 once it has been deleted are unspecified.
-In particular, the consequences of invoking @coderef{find-symbol},
-@coderef{intern} and other functions that look for a symbol name in
-a @term{package} are unspecified if they are called with @coderef{*package*}
+In particular, the consequences of invoking @symbolref{find-symbol},
+@symbolref{intern} and other functions that look for a symbol name in
+a @term{package} are unspecified if they are called with @symbolref{*package*}
 bound to the deleted @param{package} or with the deleted @param{package}
 as an argument.
 
 If @param{package} is a @term{package} @term{object} that has already
-been deleted, @coderef{delete-package} immediately returns @nil{}.
+been deleted, @symbolref{delete-package} immediately returns @nil{}.
 
 After this operation completes, the
 @term{home package}
@@ -1391,15 +1391,15 @@ If the @param{package} @term{designator} is a @term{name} that does not
 currently name a @term{package},
 a @term{correctable} error @oftype{package-error} is signaled.
 If correction is attempted, no deletion action is attempted;
-instead, @coderef{delete-package} immediately returns @nil{}.
+instead, @symbolref{delete-package} immediately returns @nil{}.
 
 If @param{package} is used by other @term{packages},
 a @term{correctable} error @oftype{package-error} is signaled.
 If correction is attempted,
-@coderef{unuse-package} is effectively called to remove any dependencies,
+@symbolref{unuse-package} is effectively called to remove any dependencies,
 causing @param{package}'s @term{external symbols} to cease being @term{accessible} to those
 @term{packages} that use @param{package}.
-@coderef{delete-package} then deletes @param{package} just as it would have had
+@symbolref{delete-package} then deletes @param{package} just as it would have had
 there been no @term{packages} that used it.
 
 @subsubheading See Also:
@@ -1410,7 +1410,7 @@ there been no @term{packages} that used it.
 
 @node make-package
 @subsection make-package (Function)
-@syindexanchor{make-package, REF}
+@syindexanchor{make-package, SYM}
 @cindex make-package
 
 
@@ -1474,17 +1474,17 @@ the @term{name} or @term{nickname} of an existing @term{package}.
 
 In situations where the @term{packages} to be used contain symbols which would conflict,
 it is necessary to first create the package with @f{:use '()},
-then to use @coderef{shadow} or @coderef{shadowing-import} to address the conflicts,
-and then after that to use @coderef{use-package} once the conflicts have been addressed.
+then to use @symbolref{shadow} or @symbolref{shadowing-import} to address the conflicts,
+and then after that to use @symbolref{use-package} once the conflicts have been addressed.
 
 When packages are being created as part of the static definition of a program
 rather than dynamically by the program, it is generally considered more stylistically
-appropriate to use @coderef{defpackage} rather than @coderef{make-package}.
+appropriate to use @symbolref{defpackage} rather than @symbolref{make-package}.
 
 
 @node with-package-iterator
 @subsection with-package-iterator (Macro)
-@syindexanchor{with-package-iterator, REF}
+@syindexanchor{with-package-iterator, SYM}
 @cindex with-package-iterator
 
 
@@ -1514,7 +1514,7 @@ appropriate to use @coderef{defpackage} rather than @coderef{make-package}.
 @subsubheading Description:
 
 Within the lexical scope of the body @param{forms},
-the @param{name} is defined via @coderef{macrolet}
+the @param{name} is defined via @symbolref{macrolet}
 such that successive invocations of @tt{(@param{name})}
 will return the @term{symbols}, one by one,
 from the @term{packages} in @param{package-list}.
@@ -1602,10 +1602,10 @@ from some used @term{package}.
 
 It is unspecified what happens if any of the implicit interior state
 of an iteration is returned outside the dynamic extent of the
-@coderef{with-package-iterator}
+@symbolref{with-package-iterator}
 form such as by returning some @term{closure} over the invocation @term{form}.
 
-Any number of invocations of @coderef{with-package-iterator}
+Any number of invocations of @symbolref{with-package-iterator}
 can be nested, and the body of the innermost one can invoke all of the
 locally @term{established} @term{macros}, provided all those @term{macros}
 have distinct names.
@@ -1613,8 +1613,8 @@ have distinct names.
 @subsubheading Examples:
 
 The following function should return @code{t}@spc{}on any @term{package}, and signal
-an error if the usage of @coderef{with-package-iterator} does not agree
-with the corresponding usage of @coderef{do-symbols}.
+an error if the usage of @symbolref{with-package-iterator} does not agree
+with the corresponding usage of @symbolref{do-symbols}.
 
 @lisp
  (defun test-package-iterator (package)
@@ -1662,12 +1662,12 @@ The following function prints out every @term{present} @term{symbol}
 
 @subsubheading Exceptional Situations:
 
-@coderef{with-package-iterator} signals an error @oftype{program-error} if
+@symbolref{with-package-iterator} signals an error @oftype{program-error} if
 no @param{symbol-types} are supplied or if a @param{symbol-type} is not
 recognized  by the implementation is supplied.
 
 The consequences are undefined if the local function named @param{name}
-@term{established} by @coderef{with-package-iterator} is called after it
+@term{established} by @symbolref{with-package-iterator} is called after it
 has returned @term{false} as its @term{primary value}.
 
 @subsubheading See Also:
@@ -1678,7 +1678,7 @@ has returned @term{false} as its @term{primary value}.
 
 @node unexport
 @subsection unexport (Function)
-@syindexanchor{unexport, REF}
+@syindexanchor{unexport, SYM}
 @cindex unexport
 
 
@@ -1695,13 +1695,13 @@ has returned @term{false} as its @term{primary value}.
 
 @subsubheading Description:
 
-@coderef{unexport} reverts external @param{symbols} in @param{package} to
-internal status; it undoes the effect of @coderef{export}.
+@symbolref{unexport} reverts external @param{symbols} in @param{package} to
+internal status; it undoes the effect of @symbolref{export}.
 
-@coderef{unexport} works only on @term{symbols}
+@symbolref{unexport} works only on @term{symbols}
 @term{present}
 in @param{package}, switching them back to internal status.
-If @coderef{unexport} is given a @term{symbol} that is
+If @symbolref{unexport} is given a @term{symbol} that is
 already @term{accessible} as an @term{internal symbol} in @param{package},
 it does nothing.
 
@@ -1728,7 +1728,7 @@ Current state of the package system.
 
 @subsubheading Exceptional Situations:
 
-If @coderef{unexport} is given a @term{symbol}
+If @symbolref{unexport} is given a @term{symbol}
 not @term{accessible} in @param{package} at all,
 an error @oftype{package-error} is signaled.
 
@@ -1742,7 +1742,7 @@ or the @code{COMMON-LISP} @term{package}.
 
 @node unintern
 @subsection unintern (Function)
-@syindexanchor{unintern, REF}
+@syindexanchor{unintern, SYM}
 @cindex unintern
 
 
@@ -1760,7 +1760,7 @@ or the @code{COMMON-LISP} @term{package}.
 @param{generalized-boolean}---a @term{generalized boolean}.
 
 @subsubheading Description:
-@coderef{unintern} removes @param{symbol} from @param{package}.
+@symbolref{unintern} removes @param{symbol} from @param{package}.
 If @param{symbol} is @term{present} in @param{package}, it is
 removed from @param{package} and also from @param{package}'s
 @term{shadowing symbols list} if it is present there.  If @param{package} is the
@@ -1769,7 +1769,7 @@ removed from @param{package} and also from @param{package}'s
 @param{Symbol} may continue to be @term{accessible}
 in @param{package} by inheritance.
 
-Use of @coderef{unintern} can result in a @term{symbol}
+Use of @symbolref{unintern} can result in a @term{symbol}
 that has no
 recorded @term{home package},
 but that in fact is @term{accessible} in some @term{package}.
@@ -1777,7 +1777,7 @@ but that in fact is @term{accessible} in some @term{package}.
 and such @term{symbols}
 are always printed preceded by @f{#:}.
 
-@coderef{unintern} returns @term{true} if it removes @param{symbol}, and @nil{}@spc{}otherwise.
+@symbolref{unintern} returns @term{true} if it removes @param{symbol}, and @nil{}@spc{}otherwise.
 
 @subsubheading Examples:
 
@@ -1792,7 +1792,7 @@ are always printed preceded by @f{#:}.
 
 @subsubheading Side Effects:
 
-@coderef{unintern} changes the state of the
+@symbolref{unintern} changes the state of the
 package system in such a way that the consistency rules do not hold
 across the change.
 
@@ -1800,14 +1800,14 @@ across the change.
 Current state of the package system.
 
 @subsubheading Exceptional Situations:
-Giving a shadowing symbol to @coderef{unintern}
+Giving a shadowing symbol to @symbolref{unintern}
 can uncover a name conflict that had
 previously been resolved by the shadowing.  If package A uses packages
 B and C, A contains a shadowing symbol @f{x}, and B and C each contain external
 symbols named @f{x}, then removing the shadowing symbol @f{x}
 from A will reveal a name
 conflict between @f{b:x} and @f{c:x} if those two @term{symbols} are distinct.
-In this case @coderef{unintern} will signal an error.
+In this case @symbolref{unintern} will signal an error.
 
 @subsubheading See Also:
 
@@ -1816,7 +1816,7 @@ In this case @coderef{unintern} will signal an error.
 
 @node in-package
 @subsection in-package (Macro)
-@syindexanchor{in-package, REF}
+@syindexanchor{in-package, SYM}
 @cindex in-package
 
 
@@ -1837,13 +1837,13 @@ Causes the the @term{package} named by @param{name}
 to become the @term{current package}---that is, @thevalueof{*package*}.
 If no such @term{package} already exists, an error @oftype{package-error} is signaled.
 
-Everything @coderef{in-package} does is also performed at compile time
+Everything @symbolref{in-package} does is also performed at compile time
 if the call appears as a @term{top level form}.
 
 @subsubheading Side Effects:
 
 @Thevariable{*package*} is assigned.
-If the @coderef{in-package} @term{form} is a @term{top level form},
+If the @symbolref{in-package} @term{form} is a @term{top level form},
 this assignment also occurs at compile time.
 
 @subsubheading Exceptional Situations:
@@ -1858,7 +1858,7 @@ An error @oftype{package-error} is signaled if the specified @term{package} does
 
 @node unuse-package
 @subsection unuse-package (Function)
-@syindexanchor{unuse-package, REF}
+@syindexanchor{unuse-package, SYM}
 @cindex unuse-package
 
 
@@ -1876,10 +1876,10 @@ a @term{list} of @term{package designators}.
 
 @subsubheading Description:
 
-@coderef{unuse-package} causes @param{package} to cease inheriting
+@symbolref{unuse-package} causes @param{package} to cease inheriting
 all the @term{external symbols} of
-@param{packages-to-unuse}; @coderef{unuse-package} undoes
-the effects of @coderef{use-package}.   The
+@param{packages-to-unuse}; @symbolref{unuse-package} undoes
+the effects of @symbolref{use-package}.   The
 @param{packages-to-unuse}
 are removed from the @term{use list} of @param{package}.
 
@@ -1913,7 +1913,7 @@ Current state of the package system.
 
 @node use-package
 @subsection use-package (Function)
-@syindexanchor{use-package, REF}
+@syindexanchor{use-package, SYM}
 @cindex use-package
 
 
@@ -1933,7 +1933,7 @@ The @param{package} cannot be the @code{KEYWORD} @term{package}.
 
 @subsubheading Description:
 
-@coderef{use-package} causes @param{package} to inherit all the
+@symbolref{use-package} causes @param{package} to inherit all the
 @term{external symbols} of @param{packages-to-use}.
 The inherited @term{symbols} become @term{accessible} as
 @term{internal symbols} of @param{package}.
@@ -1942,13 +1942,13 @@ The inherited @term{symbols} become @term{accessible} as
 if they are not there already.  All @term{external symbols} in
 @param{packages-to-use} become @term{accessible} in @param{package}
 as @term{internal symbols}.
-@coderef{use-package} does not cause any new @term{symbols} to be @term{present}
+@symbolref{use-package} does not cause any new @term{symbols} to be @term{present}
 in @param{package} but only makes them @term{accessible} by inheritance.
 
-@coderef{use-package} checks for
+@symbolref{use-package} checks for
 name conflicts between the newly imported symbols and those already
 @term{accessible} in @param{package}.
-A name conflict in @coderef{use-package}
+A name conflict in @symbolref{use-package}
 between two external symbols inherited
 by @param{package} from @param{packages-to-use} may be resolved in favor of
 either @term{symbol}
@@ -1988,7 +1988,7 @@ so no problem results from the apparent circularity.
 
 @node defpackage
 @subsection defpackage (Macro)
-@syindexanchor{defpackage, REF}
+@syindexanchor{defpackage, SYM}
 @cindex defpackage
 
 
@@ -2013,7 +2013,7 @@ so no problem results from the apparent circularity.
 
 @subsubheading Description:
 
-@coderef{defpackage} creates a @term{package} as specified and returns
+@symbolref{defpackage} creates a @term{package} as specified and returns
 the @term{package}.
 
 If @param{defined-package-name} already refers to an existing
@@ -2040,7 +2040,7 @@ supplied names.
 The argument to @kwd{documentation} specifies a @term{documentation string};
 it is attached as a @term{documentation string} to the @term{package}.
 At most one @kwd{documentation} option
-can appear in a single @coderef{defpackage} @term{form}.
+can appear in a single @symbolref{defpackage} @term{form}.
 
 @item @id{@kwd{use}}
 
@@ -2049,7 +2049,7 @@ The arguments to @kwd{use} set the @term{packages} that the @term{package}
 named by @param{package-name}
 will inherit from. If @kwd{use} is not supplied,
 it defaults to the same @term{implementation-dependent} value as @thekeyarg{use} to
-@coderef{make-package}.
+@symbolref{make-package}.
 
 @item @id{@kwd{shadow}}
 
@@ -2057,16 +2057,16 @@ it defaults to the same @term{implementation-dependent} value as @thekeyarg{use}
 The arguments to @kwd{shadow}, @param{symbol-names}, name @term{symbols}
 that are to be created in the @term{package} being defined.
 These @term{symbols} are added to the list of shadowing
-@term{symbols} effectively as if by @coderef{shadow}.
+@term{symbols} effectively as if by @symbolref{shadow}.
 
 @item @id{@kwd{shadowing-import-from}}
 
 
 The @term{symbols} named by the argument @param{symbol-names}
-are found (involving a lookup as if by @coderef{find-symbol})
+are found (involving a lookup as if by @symbolref{find-symbol})
 in the specified @param{package-name}.  The resulting @term{symbols}
 are @term{imported} into the @term{package} being defined, and
-placed on the shadowing symbols list as if by @coderef{shadowing-import}.
+placed on the shadowing symbols list as if by @symbolref{shadowing-import}.
 In no case are @term{symbols} created in any @term{package}
 other than the one being defined.
 
@@ -2095,7 +2095,7 @@ with the
 @term{imported}
 symbols can be used rather than new ones created.
 If an argument to the @kwd{export} option is @term{accessible} as
-an (inherited) @term{internal symbol} via @coderef{use-package}, that the
+an (inherited) @term{internal symbol} via @symbolref{use-package}, that the
 @term{symbol} named by @param{symbol-name}
 is first @term{imported} into the @term{package} being
 defined, and is then @term{exported} from that @term{package}.
@@ -2121,7 +2121,7 @@ implementation.
 
 
 The order in which the options appear in a
-@coderef{defpackage} form is irrelevant.
+@symbolref{defpackage} form is irrelevant.
 The order in which they are executed is as follows:
 
 @enumerate 1
@@ -2196,7 +2196,7 @@ all be disjoint; additionally, the @param{symbol-name} arguments given to
 @kwd{export} and @kwd{intern}
 must be disjoint.
 Disjoint in this context is defined as no two of the @param{symbol-names}
-being @coderef{string=} with each other. If either condition is
+being @symbolref{string=} with each other. If either condition is
 violated, an error @oftype{program-error} should be signaled.
 
 For the @kwd{shadowing-import-from} and @kwd{import-from} options,
@@ -2206,8 +2206,8 @@ is signaled if no @term{symbol} is
 @param{package-name} for one of the argument @param{symbol-names}.
 
 Name conflict errors are handled by the underlying calls to
-@coderef{make-package}, @coderef{use-package}, @coderef{import}, and
-@coderef{export}. See @ref{Package Concepts}.
+@symbolref{make-package}, @symbolref{use-package}, @symbolref{import}, and
+@symbolref{export}. See @ref{Package Concepts}.
 
 @subsubheading See Also:
 
@@ -2218,7 +2218,7 @@ Name conflict errors are handled by the underlying calls to
 @subsubheading Notes:
 
 The @kwd{intern} option is useful if an @kwd{import-from} or a
-@kwd{shadowing-import-from} option in a subsequent call to @coderef{defpackage}
+@kwd{shadowing-import-from} option in a subsequent call to @symbolref{defpackage}
 (for some other @term{package}) expects to find
 these @term{symbols} @term{accessible} but not necessarily external.
 
@@ -2230,7 +2230,7 @@ program are in a single file.  This file can be @term{loaded} before
 @term{packages}. Such a file can be read in the @code{COMMON-LISP-USER} @term{package},
 avoiding any initial state issues.
 
-@coderef{defpackage} cannot be used to create two ``mutually
+@symbolref{defpackage} cannot be used to create two ``mutually
 recursive'' packages, such as:
 
 @lisp
@@ -2246,15 +2246,15 @@ recursive'' packages, such as:
 
 However, nothing prevents the user from using the
 @term{package}-affecting functions
-such as @coderef{use-package},
-@coderef{import}, and @coderef{export} to establish such links
-after a more standard use of @coderef{defpackage}.
+such as @symbolref{use-package},
+@symbolref{import}, and @symbolref{export} to establish such links
+after a more standard use of @symbolref{defpackage}.
 
-The macroexpansion of @coderef{defpackage}
+The macroexpansion of @symbolref{defpackage}
 could usefully canonicalize the names
 into @term{strings},
 so that even if a source file has random @term{symbols} in the
-@coderef{defpackage} form, the compiled file would only contain
+@symbolref{defpackage} form, the compiled file would only contain
 @term{strings}.
 
 Frequently additional @term{implementation-dependent} options take the
@@ -2265,11 +2265,11 @@ option in implementations that do not support it.
 
 @node do-symbols; do-external-symbols; do-all-symbols
 @subsection do-symbols, do-external-symbols, do-all-symbols (Macro)
-@syindexanchor{do-symbols, REF}
+@syindexanchor{do-symbols, SYM}
 @cindex do-symbols
-@syindexanchor{do-external-symbols, REF}
+@syindexanchor{do-external-symbols, SYM}
 @cindex do-external-symbols
-@syindexanchor{do-all-symbols, REF}
+@syindexanchor{do-all-symbols, SYM}
 @cindex do-all-symbols
 
 
@@ -2287,7 +2287,7 @@ option in implementations that do not support it.
 @param{var}---a @term{variable} @term{name}; @noeval{}.
 
 @param{package}---a @term{package designator}; @eval{}.
-@DefaultIn{@coderef{do-symbols} and @coderef{do-external-symbols}, the @term{current package}}
+@DefaultIn{@symbolref{do-symbols} and @symbolref{do-external-symbols}, the @term{current package}}
 
 @param{result-form}---a @term{form}; @evalspecial{}.
 @Default{@nil{}}
@@ -2304,9 +2304,9 @@ or else, if an @term{explicit return} occurs, the @term{values} that were transf
 
 @subsubheading Description:
 
-@coderef{do-symbols},
-@coderef{do-external-symbols}, and
-@coderef{do-all-symbols} iterate over the @term{symbols}
+@symbolref{do-symbols},
+@symbolref{do-external-symbols}, and
+@symbolref{do-all-symbols} iterate over the @term{symbols}
 of @term{packages}.
 For each @term{symbol} in the set of @term{packages} chosen,
 the @param{var} is bound to the @term{symbol},
@@ -2314,40 +2314,40 @@ and the @param{statements} in the body are executed.
 When all the @term{symbols} have been processed,
 @param{result-form} is evaluated and returned as the value of the macro.
 
-@coderef{do-symbols} iterates
+@symbolref{do-symbols} iterates
 over the @term{symbols} @term{accessible} in
 @param{package}.
 @param{Statements} may execute more than once for @term{symbols}
 that are inherited from multiple @term{packages}.
 
-@coderef{do-all-symbols} iterates on every @term{registered package}.
-@coderef{do-all-symbols} will not process every @term{symbol}
+@symbolref{do-all-symbols} iterates on every @term{registered package}.
+@symbolref{do-all-symbols} will not process every @term{symbol}
 whatsoever, because a @term{symbol} not @term{accessible} in any
 @term{registered package} will not be processed.
-@coderef{do-all-symbols} may cause a @term{symbol} that is @term{present} in
+@symbolref{do-all-symbols} may cause a @term{symbol} that is @term{present} in
 several @term{packages} to be processed more than once.
 
-@coderef{do-external-symbols} iterates on the external symbols of @param{package}.
+@symbolref{do-external-symbols} iterates on the external symbols of @param{package}.
 
 When @param{result-form} is evaluated, @param{var} is bound and has the value @nil{}.
 
-An @term{implicit block} named @nil{}@spc{}surrounds the entire @coderef{do-symbols},
-@coderef{do-external-symbols}, or @coderef{do-all-symbols} @term{form}.
-@coderef{return} or @coderef{return-from} may be used to terminate the
+An @term{implicit block} named @nil{}@spc{}surrounds the entire @symbolref{do-symbols},
+@symbolref{do-external-symbols}, or @symbolref{do-all-symbols} @term{form}.
+@symbolref{return} or @symbolref{return-from} may be used to terminate the
 iteration prematurely.
 
 If execution of the body affects which @term{symbols}
 are contained in the set of @term{packages} over which iteration
 is occurring, other than to
 remove the @term{symbol}
-currently the value of @param{var} by using @coderef{unintern},
+currently the value of @param{var} by using @symbolref{unintern},
 the consequences are undefined.
 
 For each of these macros, the
 @term{scope} of the name binding does not include any
 initial value form, but the optional result forms are included.
 
-Any @param{tag} in the body is treated as with @coderef{tagbody}.
+Any @param{tag} in the body is treated as with @symbolref{tagbody}.
 
 @subsubheading Examples:
 
@@ -2384,7 +2384,7 @@ Any @param{tag} in the body is treated as with @coderef{tagbody}.
 
 @node intern
 @subsection intern (Function)
-@syindexanchor{intern, REF}
+@syindexanchor{intern, SYM}
 @cindex intern
 
 
@@ -2405,7 +2405,7 @@ Any @param{tag} in the body is treated as with @coderef{tagbody}.
 
 @subsubheading Description:
 
-@coderef{intern} enters a @term{symbol} named @param{string} into @param{package}.
+@symbolref{intern} enters a @term{symbol} named @param{string} into @param{package}.
 If a @term{symbol} whose name is the same as @param{string}
 is already @term{accessible} in @param{package}, it is returned.
 If no such @term{symbol} is @term{accessible} in @param{package},
@@ -2414,7 +2414,7 @@ and entered into @param{package} as an @term{internal symbol},
 or as an @term{external symbol} if the @param{package} is the @code{KEYWORD} @term{package};
 @param{package} becomes the @term{home package} of the created @term{symbol}.
 
-The first value returned by @coderef{intern}, @param{symbol},
+The first value returned by @symbolref{intern}, @param{symbol},
 is the @term{symbol} that was found or
 created.
 The meaning of the @term{secondary value}, @param{status}, is as follows:
@@ -2438,7 +2438,7 @@ and is
 
 
 The @term{symbol} was found
-and is inherited via @coderef{use-package}
+and is inherited via @symbolref{use-package}
 (which implies that the @term{symbol} is internal).
 
 @item @id{@nil{}}
@@ -2478,14 +2478,14 @@ subsequent attempt is made to alter that @term{string}.
 
 @subsubheading Notes:
 
-@coderef{intern} does not need to do any name conflict checking
+@symbolref{intern} does not need to do any name conflict checking
 because it never creates a new @term{symbol}
 if there is already an @term{accessible} @term{symbol} with the name given.
 
 
 @node package-name
 @subsection package-name (Function)
-@syindexanchor{package-name, REF}
+@syindexanchor{package-name, SYM}
 @cindex package-name
 
 
@@ -2502,7 +2502,7 @@ or @nil{}.
 
 @subsubheading Description:
 
-@coderef{package-name} returns the @term{string} that names @param{package},
+@symbolref{package-name} returns the @term{string} that names @param{package},
 or @nil{}@spc{}if the @param{package} @term{designator}
 is a @term{package} @term{object} that has no name (see the @term{function} @ref{delete-package}).
 
@@ -2530,7 +2530,7 @@ is a @term{package} @term{object} that has no name (see the @term{function} @ref
 
 @node package-nicknames
 @subsection package-nicknames (Function)
-@syindexanchor{package-nicknames, REF}
+@syindexanchor{package-nicknames, SYM}
 @cindex package-nicknames
 
 
@@ -2565,7 +2565,7 @@ for @param{package}, not including the name of @param{package}.
 
 @node package-shadowing-symbols
 @subsection package-shadowing-symbols (Function)
-@syindexanchor{package-shadowing-symbols, REF}
+@syindexanchor{package-shadowing-symbols, SYM}
 @cindex package-shadowing-symbols
 
 
@@ -2582,8 +2582,8 @@ for @param{package}, not including the name of @param{package}.
 @subsubheading Description:
 
 Returns a @term{list} of @term{symbols} that have been declared
-as @term{shadowing symbols} in @param{package} by @coderef{shadow}
-or @coderef{shadowing-import} (or the equivalent @coderef{defpackage} options).
+as @term{shadowing symbols} in @param{package} by @symbolref{shadow}
+or @symbolref{shadowing-import} (or the equivalent @symbolref{defpackage} options).
 All @term{symbols} on this @term{list} are @term{present} in @param{package}.
 
 @subsubheading Examples:
@@ -2614,7 +2614,7 @@ Whether the list of @param{symbols} is @term{fresh} is @term{implementation-depe
 
 @node package-use-list
 @subsection package-use-list (Function)
-@syindexanchor{package-use-list, REF}
+@syindexanchor{package-use-list, SYM}
 @cindex package-use-list
 
 
@@ -2653,7 +2653,7 @@ Returns a @term{list} of other @term{packages} used by @param{package}.
 
 @node package-used-by-list
 @subsection package-used-by-list (Function)
-@syindexanchor{package-used-by-list, REF}
+@syindexanchor{package-used-by-list, SYM}
 @cindex package-used-by-list
 
 
@@ -2669,7 +2669,7 @@ Returns a @term{list} of other @term{packages} used by @param{package}.
 
 @subsubheading Description:
 
-@coderef{package-used-by-list} returns a @term{list}
+@symbolref{package-used-by-list} returns a @term{list}
 of other @term{packages} that use @param{package}.
 
 @subsubheading Examples:
@@ -2693,7 +2693,7 @@ of other @term{packages} that use @param{package}.
 
 @node packagep
 @subsection packagep (Function)
-@syindexanchor{packagep, REF}
+@syindexanchor{packagep, SYM}
 @cindex packagep
 
 
@@ -2729,7 +2729,7 @@ of other @term{packages} that use @param{package}.
 
 @node *package*
 @subsection *package* (Variable)
-@syindexanchor{*package*, REF}
+@syindexanchor{*package*, SYM}
 @cindex *package*
 
 
@@ -2771,9 +2771,9 @@ Whatever @term{package} @term{object} is currently
 
 @subsubheading Affected By:
 
-@coderef{load},
-@coderef{compile-file},
-@coderef{in-package}
+@symbolref{load},
+@symbolref{compile-file},
+@symbolref{in-package}
 
 @subsubheading See Also:
 
@@ -2785,15 +2785,15 @@ Whatever @term{package} @term{object} is currently
 
 @node package-error
 @subsection package-error (Condition Type)
-@syindexanchor{package-error, REF}
+@syindexanchor{package-error, SYM}
 @cindex package-error
 
 
 @subsubheading Class Precedence List:
-@coderef{package-error},
+@symbolref{package-error},
 @code{error},
-@coderef{serious-condition},
-@coderef{condition},
+@symbolref{serious-condition},
+@symbolref{condition},
 @code{t}
 
 @subsubheading Description:
@@ -2801,7 +2801,7 @@ Whatever @term{package} @term{object} is currently
 @Thetype{package-error} consists of @term{error} @term{conditions}
 related to operations on @term{packages}.
 The offending @term{package} (or @term{package} @term{name})
-is initialized by @theinitkeyarg{package} to @coderef{make-condition},
+is initialized by @theinitkeyarg{package} to @symbolref{make-condition},
 and is @term{accessed} by @thefunction{package-error-package}.
 
 @subsubheading See Also:
@@ -2812,7 +2812,7 @@ and is @term{accessed} by @thefunction{package-error-package}.
 
 @node package-error-package
 @subsection package-error-package (Function)
-@syindexanchor{package-error-package, REF}
+@syindexanchor{package-error-package, SYM}
 @cindex package-error-package
 
 

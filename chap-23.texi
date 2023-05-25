@@ -110,15 +110,15 @@ an error @oftype{end-of-file} is signaled
 at end of file.  If it is @term{false}, then no error is signaled, and instead
 the function returns @param{eof-value}.
 
-Functions such as @coderef{read} that read the representation
+Functions such as @symbolref{read} that read the representation
 of an @term{object} rather than a single
 character always signals an error, regardless of @param{eof-error-p}, if
 the file ends in the middle of an object representation.
 For example, if a file does
 not contain enough right parentheses to balance the left parentheses in
-it, @coderef{read} signals an error.  If a file ends in a
+it, @symbolref{read} signals an error.  If a file ends in a
 @term{symbol} or a @term{number}
-immediately followed by end-of-file, @coderef{read} reads the
+immediately followed by end-of-file, @symbolref{read} reads the
 @term{symbol} or
 @term{number}
 successfully and when called again will
@@ -128,7 +128,7 @@ successfully reads the last line of a file even if that line
 is terminated by end-of-file rather than the newline character.
 Ignorable text, such as lines containing only @term{whitespace}@sub{2} or comments,
 are not considered to begin an @term{object};
-if @coderef{read} begins to read an @term{expression} but sees only such
+if @symbolref{read} begins to read an @term{expression} but sees only such
 ignorable text, it does not consider the file to end in the middle of an @term{object}.
 Thus an @param{eof-error-p} argument controls what happens
 when the file ends between @term{objects}.
@@ -138,7 +138,7 @@ when the file ends between @term{objects}.
 @subsubsection The RECURSIVE-P argument
 
 If @param{recursive-p} is supplied and not @nil{}, it specifies that
-this function call is not an outermost call to @coderef{read} but an
+this function call is not an outermost call to @symbolref{read} but an
 embedded call, typically from a @term{reader macro function}.
 It is important to distinguish such recursive calls for three reasons.
 
@@ -164,7 +164,7 @@ If the @term{single-quote} @term{reader macro} were defined in this way:
 
 
 then each call to the @term{single-quote} @term{reader macro function} would establish
-independent contexts for the scope of @coderef{read} information, including the scope of
+independent contexts for the scope of @symbolref{read} information, including the scope of
 identifications between markers like ``@f{#3=}'' and ``@f{#3#}''.  However, for
 this expression, the scope was clearly intended to be determined by the outer set
 of parentheses, so such a definition would be incorrect.
@@ -182,17 +182,17 @@ The correct way to define the @term{single-quote}
 @item
 A recursive call does not alter whether the reading process
 is to preserve @term{whitespace}@sub{2} or not (as determined by whether the
-outermost call was to @coderef{read} or @coderef{read-preserving-whitespace}).
+outermost call was to @symbolref{read} or @symbolref{read-preserving-whitespace}).
 Suppose again that @term{single-quote}
 were to be defined as shown above in the incorrect definition.
-Then a call to @coderef{read-preserving-whitespace}
+Then a call to @symbolref{read-preserving-whitespace}
 that read the expression @f{'foo@SpaceChar{}} would fail to preserve the space
 character following the symbol @f{foo} because the @term{single-quote}
-@term{reader macro function} calls @coderef{read},
-not @coderef{read-preserving-whitespace},
+@term{reader macro function} calls @symbolref{read},
+not @symbolref{read-preserving-whitespace},
 to read the following expression (in this case @f{foo}).
 The correct definition, which passes the value @term{true} for @param{recursive-p}
-to @coderef{read}, allows the outermost call to determine
+to @symbolref{read}, allows the outermost call to determine
 whether @term{whitespace}@sub{2} is preserved.
 
 @item
@@ -232,12 +232,12 @@ occurred between @term{objects} rather than within the middle of one.
 
 @node readtable
 @subsection readtable (System Class)
-@syindexanchor{readtable, REF}
+@syindexanchor{readtable, SYM}
 @cindex readtable
 
 
 @subsubheading Class Precedence List:
-@coderef{readtable},
+@symbolref{readtable},
 @code{t}
 
 @subsubheading Description:
@@ -262,7 +262,7 @@ can have syntax descriptions in the @term{readtable}.
 
 @node copy-readtable
 @subsection copy-readtable (Function)
-@syindexanchor{copy-readtable, REF}
+@syindexanchor{copy-readtable, SYM}
 @cindex copy-readtable
 
 
@@ -283,12 +283,12 @@ or else a @term{fresh} @term{readtable}.
 
 @subsubheading Description:
 
-@coderef{copy-readtable} copies @param{from-readtable}.
+@symbolref{copy-readtable} copies @param{from-readtable}.
 
 If @param{to-readtable} is @nil{}, a new @term{readtable} is created and returned.
 Otherwise the @term{readtable} specified by @param{to-readtable} is modified and returned.
 
-@coderef{copy-readtable} copies the setting of @coderef{readtable-case}.
+@symbolref{copy-readtable} copies the setting of @symbolref{readtable-case}.
 
 @subsubheading Examples:
 
@@ -339,7 +339,7 @@ locally bind the readtable to a copy of itself, as in:
 
 @node make-dispatch-macro-character
 @subsection make-dispatch-macro-character (Function)
-@syindexanchor{make-dispatch-macro-character, REF}
+@syindexanchor{make-dispatch-macro-character, SYM}
 @cindex make-dispatch-macro-character
 
 
@@ -359,7 +359,7 @@ locally bind the readtable to a copy of itself, as in:
 
 @subsubheading Description:
 
-@coderef{make-dispatch-macro-character} makes @param{char}
+@symbolref{make-dispatch-macro-character} makes @param{char}
 be a @term{dispatching macro character} in @param{readtable}.
 
 Initially, every @term{character} in the dispatch table
@@ -391,9 +391,9 @@ The @param{readtable} is altered.
 
 @node read; read-preserving-whitespace
 @subsection read, read-preserving-whitespace (Function)
-@syindexanchor{read, REF}
+@syindexanchor{read, SYM}
 @cindex read
-@syindexanchor{read-preserving-whitespace, REF}
+@syindexanchor{read-preserving-whitespace, SYM}
 @cindex read-preserving-whitespace
 @anchor{read}
 @anchor{read-preserving-whitespace}
@@ -423,38 +423,38 @@ or the @param{eof-value}.
 
 @subsubheading Description:
 
-@coderef{read} parses the printed representation of an @term{object}
+@symbolref{read} parses the printed representation of an @term{object}
 from @param{input-stream} and builds such an @term{object}.
 
-@coderef{read-preserving-whitespace} is like @coderef{read} but preserves
+@symbolref{read-preserving-whitespace} is like @symbolref{read} but preserves
 any @term{whitespace}@sub{2} @term{character}
 that delimits the printed representation of the @term{object}.
-@coderef{read-preserving-whitespace} is exactly like @coderef{read}
-when the @param{recursive-p} @term{argument} to @coderef{read-preserving-whitespace}
+@symbolref{read-preserving-whitespace} is exactly like @symbolref{read}
+when the @param{recursive-p} @term{argument} to @symbolref{read-preserving-whitespace}
 is @term{true}.
 
-When @coderef{*read-suppress*} is @term{false},
-@coderef{read} throws away the delimiting @term{character} required by
+When @symbolref{*read-suppress*} is @term{false},
+@symbolref{read} throws away the delimiting @term{character} required by
 certain printed representations if it is a
 @term{whitespace}@sub{2} @term{character};
-but @coderef{read} preserves the character
-(using @coderef{unread-char}) if it is
+but @symbolref{read} preserves the character
+(using @symbolref{unread-char}) if it is
 syntactically meaningful, because it could be the start of the next expression.
 
 If a file ends in a @term{symbol} or a @term{number}
 immediately followed by an @term{end of file}@sub{1},
-@coderef{read} reads the @term{symbol} or @term{number} successfully;
+@symbolref{read} reads the @term{symbol} or @term{number} successfully;
 when called again, it sees the @term{end of file}@sub{1} and
 only then acts according to @param{eof-error-p}.
 If a file contains ignorable text at the end, such
-as blank lines and comments, @coderef{read}
+as blank lines and comments, @symbolref{read}
 does not consider it to end in the
 middle of an @term{object}.
 
-If @param{recursive-p} is @term{true}, the call to @coderef{read} is
+If @param{recursive-p} is @term{true}, the call to @symbolref{read} is
 expected to be made
 from within some function that itself
-has been called from @coderef{read} or from a similar input function, rather
+has been called from @symbolref{read} or from a similar input function, rather
 than from the top level.
 
 
@@ -494,7 +494,7 @@ As an example, consider this @term{reader macro} definition:
 @end lisp
 
 
-Consider now calling @coderef{read} on this expression:
+Consider now calling @symbolref{read} on this expression:
 
 @lisp
  (zyedh /usr/games/zork /usr/games/boggle)
@@ -508,10 +508,10 @@ The entire example expression should therefore be read as
  (zyedh (path usr games zork) (path usr games boggle))
 @end lisp
 
-However, if @coderef{read} had been used instead of
-@coderef{read-preserving-whitespace}, then after the reading of the symbol
+However, if @symbolref{read} had been used instead of
+@symbolref{read-preserving-whitespace}, then after the reading of the symbol
 @f{zork}, the following space would be discarded; the next call
-to @coderef{peek-char} would see the following @f{/}, and the loop would
+to @symbolref{peek-char} would see the following @f{/}, and the loop would
 continue, producing this interpretation:
 
 @lisp
@@ -527,24 +527,24 @@ some time later after the @term{symbol} had been read.
 
 @subsubheading Affected By:
 
-@coderef{*standard-input*},
-@coderef{*terminal-io*},
-@coderef{*readtable*},
-@coderef{*read-default-float-format*},
-@coderef{*read-base*},
-@coderef{*read-suppress*},
-@coderef{*package*},
-@coderef{*read-eval*}.
+@symbolref{*standard-input*},
+@symbolref{*terminal-io*},
+@symbolref{*readtable*},
+@symbolref{*read-default-float-format*},
+@symbolref{*read-base*},
+@symbolref{*read-suppress*},
+@symbolref{*package*},
+@symbolref{*read-eval*}.
 
 @subsubheading Exceptional Situations:
 
-@coderef{read} signals an error @oftype{end-of-file},
+@symbolref{read} signals an error @oftype{end-of-file},
 regardless of @param{eof-error-p}, if
 the file ends in the middle of an @term{object} representation.
 For example, if a file does
 not contain enough right parentheses to balance the left parentheses in
-it, @coderef{read} signals an error.
-This is detected when @coderef{read} or @coderef{read-preserving-whitespace}
+it, @symbolref{read} signals an error.
+This is detected when @symbolref{read} or @symbolref{read-preserving-whitespace}
 is called with @param{recursive-p} and @param{eof-error-p} @term{non-nil},
 and end-of-file is reached before the beginning of an @term{object}.
 
@@ -565,7 +565,7 @@ is signaled at the end of file.
 
 @node read-delimited-list
 @subsection read-delimited-list (Function)
-@syindexanchor{read-delimited-list, REF}
+@syindexanchor{read-delimited-list, SYM}
 @cindex read-delimited-list
 
 
@@ -587,17 +587,17 @@ is signaled at the end of file.
 
 @subsubheading Description:
 
-@coderef{read-delimited-list} reads @term{objects} from @param{input-stream}
+@symbolref{read-delimited-list} reads @term{objects} from @param{input-stream}
 until the next character after an @term{object}'s
 representation (ignoring @term{whitespace}@sub{2} characters and comments) is @param{char}.
 
-@coderef{read-delimited-list} looks ahead at each step
+@symbolref{read-delimited-list} looks ahead at each step
 for the next non-@term{whitespace}@sub{2} @term{character}
-and peeks at it as if with @coderef{peek-char}.
+and peeks at it as if with @symbolref{peek-char}.
 If it is @param{char},
 then the @term{character} is consumed and the @term{list} of @term{objects} is returned.
 If it is a @term{constituent} or @term{escape} @term{character},
-then @coderef{read} is used to read an @term{object},
+then @symbolref{read} is used to read an @term{object},
 which is added to the end of the @term{list}.
 If it is a @term{macro character},
 its @term{reader macro function} is called;
@@ -606,11 +606,11 @@ that @term{value} is added to the @term{list}.
 The peek-ahead process is then repeated.
 
 If @param{recursive-p} is @term{true},
-this call is expected to be embedded in a higher-level call to @coderef{read}
+this call is expected to be embedded in a higher-level call to @symbolref{read}
 or a similar function.
 
 It is an error to reach end-of-file during the operation of
-@coderef{read-delimited-list}.
+@symbolref{read-delimited-list}.
 
 The consequences are undefined
 if @param{char} has a @term{syntax type} of @term{whitespace}@sub{2}
@@ -632,7 +632,7 @@ to read as a list of all pairs of the elements @i{a}, @i{b}, @i{c},
 
 This can be done by specifying a macro-character definition for @f{#@lcurly{}}
 that does two things: reads in all the items up to the @f{@rcurly{}},
-and constructs the pairs.  @coderef{read-delimited-list} performs
+and constructs the pairs.  @symbolref{read-delimited-list} performs
 the first task.
 
 @lisp
@@ -665,19 +665,19 @@ shown above were not included, then the @f{@rcurly{}} in
 would be considered a constituent character, part of the symbol named
 @f{a@rcurly{}}.  This could be corrected by putting a space before
 the @f{@rcurly{}}, but it is better to call
-@coderef{set-macro-character}.
+@symbolref{set-macro-character}.
 
 Giving @f{@rcurly{}} the same
 definition as the standard definition of the character @f{)} has the
 twin benefit of making it terminate tokens for use with
-@coderef{read-delimited-list} and also making it invalid for use in any
+@symbolref{read-delimited-list} and also making it invalid for use in any
 other context. Attempting to read a stray @f{@rcurly{}} will signal an error.
 
 @subsubheading Affected By:
 
-@coderef{*standard-input*},
-@coderef{*readtable*},
-@coderef{*terminal-io*}.
+@symbolref{*standard-input*},
+@symbolref{*readtable*},
+@symbolref{*terminal-io*}.
 
 @subsubheading See Also:
 
@@ -688,9 +688,9 @@ other context. Attempting to read a stray @f{@rcurly{}} will signal an error.
 
 @subsubheading Notes:
 
-@coderef{read-delimited-list} is intended for use in implementing @term{reader macros}.
+@symbolref{read-delimited-list} is intended for use in implementing @term{reader macros}.
 Usually it is desirable for @param{char} to be a @term{terminating} @term{macro character}
-so that it can be used to delimit tokens; however, @coderef{read-delimited-list}
+so that it can be used to delimit tokens; however, @symbolref{read-delimited-list}
 makes no attempt to alter the syntax specified for @param{char} by the current
 readtable.  The caller must make any necessary changes to the readtable syntax
 explicitly.
@@ -698,7 +698,7 @@ explicitly.
 
 @node read-from-string
 @subsection read-from-string (Function)
-@syindexanchor{read-from-string, REF}
+@syindexanchor{read-from-string, SYM}
 @cindex read-from-string
 
 
@@ -733,12 +733,12 @@ one more than the @term{length} of the @param{string}.
 
 Parses the printed representation of an @term{object}
 from the subsequence of @param{string} @term{bounded} by @param{start} and @param{end},
-as if @coderef{read} had been called on an @term{input} @term{stream}
+as if @symbolref{read} had been called on an @term{input} @term{stream}
 containing those same @term{characters}.
 
 If @param{preserve-whitespace} is @term{true},
 the operation will preserve @term{whitespace}@sub{2}
-as @coderef{read-preserving-whitespace} would do.
+as @symbolref{read-preserving-whitespace} would do.
 
 If an @term{object} is successfully parsed, the @term{primary value}, @param{object},
 is the @term{object} that was parsed.
@@ -785,7 +785,7 @@ the @param{position} might count the simulated delimiter.
 
 @node readtable-case
 @subsection readtable-case (Accessor)
-@syindexanchor{readtable-case, REF}
+@syindexanchor{readtable-case, SYM}
 @cindex readtable-case
 
 
@@ -826,12 +826,12 @@ See @ref{Examples of Effect of Readtable Case on the Lisp Reader}@spc{}and @ref{
 
 @subsubheading Notes:
 
-@coderef{copy-readtable} copies the @term{readtable case} of the @param{readtable}.
+@symbolref{copy-readtable} copies the @term{readtable case} of the @param{readtable}.
 
 
 @node readtablep
 @subsection readtablep (Function)
-@syindexanchor{readtablep, REF}
+@syindexanchor{readtablep, SYM}
 @cindex readtablep
 
 
@@ -868,9 +868,9 @@ See @ref{Examples of Effect of Readtable Case on the Lisp Reader}@spc{}and @ref{
 
 @node set-dispatch-macro-character; get-dispatch-macro-character
 @subsection set-dispatch-macro-character, get-dispatch-macro-character (Function)
-@syindexanchor{set-dispatch-macro-character, REF}
+@syindexanchor{set-dispatch-macro-character, SYM}
 @cindex set-dispatch-macro-character
-@syindexanchor{get-dispatch-macro-character, REF}
+@syindexanchor{get-dispatch-macro-character, SYM}
 @cindex get-dispatch-macro-character
 @anchor{set-dispatch-macro-character}
 
@@ -896,13 +896,13 @@ See @ref{Examples of Effect of Readtable Case on the Lisp Reader}@spc{}and @ref{
 
 @subsubheading Description:
 
-@coderef{set-dispatch-macro-character} causes @param{new-function} to be called
+@symbolref{set-dispatch-macro-character} causes @param{new-function} to be called
 when @param{disp-char} followed by @param{sub-char} is read.
 If @param{sub-char} is a lowercase letter,
 it is converted to its uppercase equivalent.
 It is an error if @param{sub-char} is one of the ten decimal digits.
 
-@coderef{set-dispatch-macro-character} installs a @param{new-function} to be called
+@symbolref{set-dispatch-macro-character} installs a @param{new-function} to be called
 when a particular @term{dispatching macro character} pair is read.
 @param{New-function} is installed as the dispatch function to be
 called  when @param{readtable} is in use and when @param{disp-char} is followed by
@@ -911,14 +911,14 @@ called  when @param{readtable} is in use and when @param{disp-char} is followed 
 For more information about how the @param{new-function} is invoked,
 see @ref{Macro Characters}.
 
-@coderef{get-dispatch-macro-character} retrieves
+@symbolref{get-dispatch-macro-character} retrieves
 the dispatch function associated with @param{disp-char} and @param{sub-char}
 in @param{readtable}.
 
-@coderef{get-dispatch-macro-character} returns the macro-character function
+@symbolref{get-dispatch-macro-character} returns the macro-character function
 for @param{sub-char} under @param{disp-char}, or @nil{}@spc{}if there is no
 function associated with @param{sub-char}.
-If @param{sub-char} is a decimal digit, @coderef{get-dispatch-macro-character}
+If @param{sub-char} is a decimal digit, @symbolref{get-dispatch-macro-character}
 returns @nil{}.
 
 @subsubheading Examples:
@@ -958,7 +958,7 @@ The @param{readtable} is modified.
 
 @subsubheading Affected By:
 
-@coderef{*readtable*}.
+@symbolref{*readtable*}.
 
 @subsubheading Exceptional Situations:
 
@@ -971,14 +971,14 @@ a @term{dispatching macro character} in @param{readtable}.
 
 @subsubheading Notes:
 It is necessary
-to use @coderef{make-dispatch-macro-character} to set up the
+to use @symbolref{make-dispatch-macro-character} to set up the
 dispatch character before specifying its sub-characters.
 
 @node set-macro-character; get-macro-character
 @subsection set-macro-character, get-macro-character (Function)
-@syindexanchor{set-macro-character, REF}
+@syindexanchor{set-macro-character, SYM}
 @cindex set-macro-character
-@syindexanchor{get-macro-character, REF}
+@syindexanchor{get-macro-character, SYM}
 @cindex get-macro-character
 @anchor{set-macro-character}
 
@@ -1006,14 +1006,14 @@ or a @term{designator} for a @term{function} of two @term{arguments}.
 
 @subsubheading Description:
 
-@coderef{get-macro-character} returns as its @term{primary value}, @param{function},
+@symbolref{get-macro-character} returns as its @term{primary value}, @param{function},
 the @term{reader macro function} associated with @param{char} in @param{readtable} (if any),
 or else @nil{}@spc{}if @param{char} is not a @term{macro character} in @param{readtable}.
 The @term{secondary value}, @param{non-terminating-p}, is @term{true}
 if @param{char} is a @term{non-terminating} @term{macro character};
 otherwise, it is @term{false}.
 
-@coderef{set-macro-character} causes @param{char} to be a @term{macro character}
+@symbolref{set-macro-character} causes @param{char} to be a @term{macro character}
 associated with the @term{reader macro function} @param{new-function}
 (or the @term{designator} for @param{new-function}) in @param{readtable}.
 If @param{non-terminating-p} is @term{true},
@@ -1040,7 +1040,7 @@ in @term{standard syntax}:
 
 
 Here @f{single-quote-reader} reads an @term{object} following the @term{single-quote}
-and returns a @term{list} of @coderef{quote} and that @term{object}.
+and returns a @term{list} of @symbolref{quote} and that @term{object}.
 The @param{char} argument is ignored.
 
 The following is a possible definition for the @term{semicolon} @term{reader macro}
@@ -1069,7 +1069,7 @@ The @param{readtable} is modified.
 
 @node set-syntax-from-char
 @subsection set-syntax-from-char (Function)
-@syindexanchor{set-syntax-from-char, REF}
+@syindexanchor{set-syntax-from-char, SYM}
 @cindex set-syntax-from-char
 
 
@@ -1091,11 +1091,11 @@ The @param{readtable} is modified.
 
 @subsubheading Description:
 
-@coderef{set-syntax-from-char} makes
+@symbolref{set-syntax-from-char} makes
 the syntax of @param{to-char}   in @param{to-readtable}    be the same as
 the syntax of @param{from-char} in @param{from-readtable}.
 
-@coderef{set-syntax-from-char} copies the @term{syntax types} of @param{from-char}.
+@symbolref{set-syntax-from-char} copies the @term{syntax types} of @param{from-char}.
 If @param{from-char} is a @term{macro character},
 its @term{reader macro function} is copied also.
 If the character is a @term{dispatching macro character},
@@ -1145,7 +1145,7 @@ For further information, see @ref{Constituent Traits}.
 
 @node with-standard-io-syntax
 @subsection with-standard-io-syntax (Macro)
-@syindexanchor{with-standard-io-syntax, REF}
+@syindexanchor{with-standard-io-syntax, SYM}
 @cindex with-standard-io-syntax
 
 
@@ -1172,29 +1172,29 @@ behavior.  The values for the variables specified by this standard are listed in
 
 @float Figure,fig23.1
 @cartouche
-@multitable{@coderef{*read-default-float-format*}}{The @term{standard pprint dispatch table}}
+@multitable{@symbolref{*read-default-float-format*}}{The @term{standard pprint dispatch table}}
 @headitem Variable @tab Value
-@item @coderef{*package*} @tab The @code{CL-USER} @term{package}
-@item @coderef{*print-array*} @tab @code{t}
-@item @coderef{*print-base*} @tab @f{10}
-@item @coderef{*print-case*} @tab @kwd{upcase}
-@item @coderef{*print-circle*} @tab @nil{}
-@item @coderef{*print-escape*} @tab @code{t}
-@item @coderef{*print-gensym*} @tab @code{t}
-@item @coderef{*print-length*} @tab @nil{}
-@item @coderef{*print-level*} @tab @nil{}
-@item @coderef{*print-lines*} @tab @nil{}
-@item @coderef{*print-miser-width*} @tab @nil{}
-@item @coderef{*print-pprint-dispatch*} @tab The @term{standard pprint dispatch table}
-@item @coderef{*print-pretty*} @tab @nil{}
-@item @coderef{*print-radix*} @tab @nil{}
-@item @coderef{*print-readably*} @tab @code{t}
-@item @coderef{*print-right-margin*} @tab @nil{}
-@item @coderef{*read-base*} @tab @f{10}
-@item @coderef{*read-default-float-format*} @tab @coderef{single-float}
-@item @coderef{*read-eval*} @tab @code{t}
-@item @coderef{*read-suppress*} @tab @nil{}
-@item @coderef{*readtable*} @tab The @term{standard readtable}
+@item @symbolref{*package*} @tab The @code{CL-USER} @term{package}
+@item @symbolref{*print-array*} @tab @code{t}
+@item @symbolref{*print-base*} @tab @f{10}
+@item @symbolref{*print-case*} @tab @kwd{upcase}
+@item @symbolref{*print-circle*} @tab @nil{}
+@item @symbolref{*print-escape*} @tab @code{t}
+@item @symbolref{*print-gensym*} @tab @code{t}
+@item @symbolref{*print-length*} @tab @nil{}
+@item @symbolref{*print-level*} @tab @nil{}
+@item @symbolref{*print-lines*} @tab @nil{}
+@item @symbolref{*print-miser-width*} @tab @nil{}
+@item @symbolref{*print-pprint-dispatch*} @tab The @term{standard pprint dispatch table}
+@item @symbolref{*print-pretty*} @tab @nil{}
+@item @symbolref{*print-radix*} @tab @nil{}
+@item @symbolref{*print-readably*} @tab @code{t}
+@item @symbolref{*print-right-margin*} @tab @nil{}
+@item @symbolref{*read-base*} @tab @f{10}
+@item @symbolref{*read-default-float-format*} @tab @symbolref{single-float}
+@item @symbolref{*read-eval*} @tab @code{t}
+@item @symbolref{*read-suppress*} @tab @nil{}
+@item @symbolref{*readtable*} @tab The @term{standard readtable}
 @end multitable
 @end cartouche
 @caption{Values of standard control variables}
@@ -1219,7 +1219,7 @@ behavior.  The values for the variables specified by this standard are listed in
 
 @node *read-base*
 @subsection *read-base* (Variable)
-@syindexanchor{*read-base*, REF}
+@syindexanchor{*read-base*, SYM}
 @cindex *read-base*
 
 
@@ -1233,7 +1233,7 @@ a @term{radix}.
 
 @subsubheading Description:
 
-Controls the interpretation of tokens by @coderef{read} as being
+Controls the interpretation of tokens by @symbolref{read} as being
 @term{integers} or @term{ratios}.
 
 @Thevalueof{*read-base*}, called the @newterm{current input base},
@@ -1242,7 +1242,7 @@ is the radix in which @term{integers} and
 The parsing of other numeric @term{types} (@eg{} @term{floats}) is
 not affected by this option.
 
-The effect of @coderef{*read-base*} on the reading of any particular
+The effect of @symbolref{*read-base*} on the reading of any particular
 @term{rational} number can be locally overridden by explicit use of the
 @f{#O}, @f{#X}, @f{#B}, or @tt{#@i{n}R} syntax
 or by a trailing decimal point.
@@ -1271,23 +1271,23 @@ Altering the input radix can be useful when reading data files in special format
 
 @node *read-default-float-format*
 @subsection *read-default-float-format* (Variable)
-@syindexanchor{*read-default-float-format*, REF}
+@syindexanchor{*read-default-float-format*, SYM}
 @cindex *read-default-float-format*
 
 
 @subsubheading Value Type:
 
 one of the @term{atomic type specifiers}
-@coderef{short-float},
-@coderef{single-float},
-@coderef{double-float},
-or @coderef{long-float},
+@symbolref{short-float},
+@symbolref{single-float},
+@symbolref{double-float},
+or @symbolref{long-float},
 or else some other @term{type specifier} defined
 by the @term{implementation} to be acceptable.
 
 @subsubheading Initial Value:
 
-The @term{symbol} @coderef{single-float}.
+The @term{symbol} @symbolref{single-float}.
 
 @subsubheading Description:
 
@@ -1296,7 +1296,7 @@ floating-point number that has no @term{exponent marker} or that has
 @f{e} or @f{E} for an @term{exponent marker}.  Other @term{exponent markers}
 explicitly prescribe the floating-point format to be used.
 
-The printer uses @coderef{*read-default-float-format*} to guide the
+The printer uses @symbolref{*read-default-float-format*} to guide the
 choice of @term{exponent markers} when printing floating-point numbers.
 
 @subsubheading Examples:
@@ -1316,7 +1316,7 @@ choice of @term{exponent markers} when printing floating-point numbers.
 
 @node *read-eval*
 @subsection *read-eval* (Variable)
-@syindexanchor{*read-eval*, REF}
+@syindexanchor{*read-eval*, SYM}
 @cindex *read-eval*
 
 
@@ -1340,8 +1340,8 @@ Otherwise, that @term{reader macro} signals an error @oftype{reader-error}.
 
 @subsubheading Notes:
 
-If @coderef{*read-eval*} is @term{false} and @coderef{*print-readably*} is @term{true},
-any @term{method} for @coderef{print-object} that would output a reference
+If @symbolref{*read-eval*} is @term{false} and @symbolref{*print-readably*} is @term{true},
+any @term{method} for @symbolref{print-object} that would output a reference
 to the @f{#.} @term{reader macro} either outputs something different
 or signals an error @oftype{print-not-readable}.
 
@@ -1349,7 +1349,7 @@ or signals an error @oftype{print-not-readable}.
 
 @node *read-suppress*
 @subsection *read-suppress* (Variable)
-@syindexanchor{*read-suppress*, REF}
+@syindexanchor{*read-suppress*, SYM}
 @cindex *read-suppress*
 
 
@@ -1377,10 +1377,10 @@ If it is @term{false}, the @term{Lisp reader} operates normally.
 
 
 If @thevalueof{*read-suppress*} is @term{true},
-@coderef{read},
-@coderef{read-preserving-whitespace},
-@coderef{read-delimited-list},
-and @coderef{read-from-string}
+@symbolref{read},
+@symbolref{read-preserving-whitespace},
+@symbolref{read-delimited-list},
+and @symbolref{read-from-string}
 all return a @term{primary value} of @nil{}@spc{}when they complete successfully;
 however, they continue to parse the representation of an @term{object}
 in the normal way, in order to skip over the @term{object},
@@ -1462,7 +1462,7 @@ interpreted properly.  Such situations as
 
 @term{Programmers} and @term{implementations} that define additional
 @term{macro characters} are strongly encouraged to make them respect
-@coderef{*read-suppress*} just as @term{standardized} @term{macro characters} do.
+@symbolref{*read-suppress*} just as @term{standardized} @term{macro characters} do.
 That is, when @thevalueof{*read-suppress*} is @term{true},
 they should ignore type errors when reading a following @term{object}
 and the @term{functions} that implement @term{dispatching macro characters}
@@ -1472,7 +1472,7 @@ value would ordinarily be required.
 
 @node *readtable*
 @subsection *readtable* (Variable)
-@syindexanchor{*readtable*, REF}
+@syindexanchor{*readtable*, SYM}
 @cindex *readtable*
 
 
@@ -1506,8 +1506,8 @@ and can also influence the @term{Lisp printer} (@eg{} see the @term{function} @r
 
 @subsubheading Affected By:
 
-@coderef{compile-file},
-@coderef{load}
+@symbolref{compile-file},
+@symbolref{load}
 
 @subsubheading See Also:
 
@@ -1519,18 +1519,18 @@ and can also influence the @term{Lisp printer} (@eg{} see the @term{function} @r
 
 @node reader-error
 @subsection reader-error (Condition Type)
-@syindexanchor{reader-error, REF}
+@syindexanchor{reader-error, SYM}
 @cindex reader-error
 
 
 
 @subsubheading Class Precedence List:
-@coderef{reader-error},
-@coderef{parse-error},
-@coderef{stream-error},
+@symbolref{reader-error},
+@symbolref{parse-error},
+@symbolref{stream-error},
 @code{error},
-@coderef{serious-condition},
-@coderef{condition},
+@symbolref{serious-condition},
+@symbolref{condition},
 @code{t}
 
 @subsubheading Description:

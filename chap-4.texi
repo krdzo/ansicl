@@ -16,18 +16,18 @@ An @term{object} can belong to more than one @term{type}.
 Instead, they are referred to indirectly by the use of @term{type specifiers},
 which are @term{objects} that denote @term{types}.
 
-New @term{types} can be defined using @coderef{deftype}, @coderef{defstruct},
-@coderef{defclass}, and @coderef{define-condition}.
+New @term{types} can be defined using @symbolref{deftype}, @symbolref{defstruct},
+@symbolref{defclass}, and @symbolref{define-condition}.
 
 @Thefunction{typep}, a set membership test, is used to determine
 whether a given @term{object} is of a given @term{type}.  The function
-@coderef{subtypep}, a subset test, is used to determine whether a
+@symbolref{subtypep}, a subset test, is used to determine whether a
 given @term{type} is a @term{subtype} of another given @term{type}.  The
-function @coderef{type-of} returns a particular @term{type} to
+function @symbolref{type-of} returns a particular @term{type} to
 which a given @term{object} belongs, even though that @term{object}
 must belong to one or more other @term{types} as well.
 (For example, every @term{object} is @oftype{t},
-but @coderef{type-of} always returns a @term{type specifier}
+but @symbolref{type-of} always returns a @term{type specifier}
 for a @term{type} more specific than @code{t}.)
 
 @term{Objects}, not @term{variables}, have @term{types}.
@@ -38,7 +38,7 @@ values of a given @term{type} by making an explicit @term{type declaration}.
 for the presence of equivalences.
 
 @term{Declarations} can be made about @term{types} using @t{declare},
-@coderef{proclaim}, @coderef{declaim}, or @coderef{the}.
+@symbolref{proclaim}, @symbolref{declaim}, or @symbolref{the}.
 For more information about @term{declarations},
 see @ref{Declarations}.
 
@@ -107,33 +107,33 @@ that are particularly relevant to the @CLOS{}.
 @itemize @bullet{}
 
 @item
-@Thetypes{cons}, @coderef{symbol}, @coderef{array}, @coderef{number},
-@code{character}, @coderef{hash-table},
+@Thetypes{cons}, @symbolref{symbol}, @symbolref{array}, @symbolref{number},
+@code{character}, @symbolref{hash-table},
 @code{function},
-@coderef{readtable}, @coderef{package}, @code{pathname}, @coderef{stream},
-@coderef{random-state}, @coderef{condition}, @coderef{restart},
-and any single other @term{type} created by @coderef{defstruct},
-@coderef{define-condition},
-or @coderef{defclass} are @term{pairwise} @term{disjoint},
+@symbolref{readtable}, @symbolref{package}, @code{pathname}, @symbolref{stream},
+@symbolref{random-state}, @symbolref{condition}, @symbolref{restart},
+and any single other @term{type} created by @symbolref{defstruct},
+@symbolref{define-condition},
+or @symbolref{defclass} are @term{pairwise} @term{disjoint},
 except for type relations explicitly established by specifying
-@term{superclasses} in @coderef{defclass}
-or @coderef{define-condition}
+@term{superclasses} in @symbolref{defclass}
+or @symbolref{define-condition}
 or the @kwd{include} option of @code{destruct}.
 
 
 
-@item Any two @term{types} created by @coderef{defstruct} are
+@item Any two @term{types} created by @symbolref{defstruct} are
 @term{disjoint} unless
 one is a @term{supertype} of the other by virtue of
-the @coderef{defstruct} @kwd{include} option.
+the @symbolref{defstruct} @kwd{include} option.
 
 @editornote{KMP: The comments in the source say gray suggested some change
 from ``common superclass'' to ``common subclass'' in the following, but the
 result looks suspicious to me.}
 
 @item
-Any two @term{distinct} @term{classes} created by @coderef{defclass}
-or @coderef{define-condition}
+Any two @term{distinct} @term{classes} created by @symbolref{defclass}
+or @symbolref{define-condition}
 are @term{disjoint} unless they have a common @term{subclass} or
 one @term{class} is a @term{subclass} of the other.
 
@@ -148,10 +148,10 @@ specified @term{types}, as long as each additional @term{type} is
 a @subtypeof{t} and a @supertypeof{nil} and the disjointness requirements
 are not violated.
 
-At the discretion of the implementation, either @coderef{standard-object}
-or @coderef{structure-object} might appear in any class precedence list
+At the discretion of the implementation, either @symbolref{standard-object}
+or @symbolref{structure-object} might appear in any class precedence list
 for a @term{system class} that does not already specify either
-@coderef{standard-object} or @coderef{structure-object}.  If it does,
+@symbolref{standard-object} or @symbolref{structure-object}.  If it does,
 it must precede @theclass{t} and follow all other @term{standardized} @term{classes}.
 @end itemize
 
@@ -168,11 +168,11 @@ it must precede @theclass{t} and follow all other @term{standardized} @term{clas
 @term{standardized} @term{compound type specifier} @term{names}.
 For syntax information, see the dictionary entry for the corresponding @term{type specifier}.
 It is possible to define new @term{type specifiers} using
-@coderef{defclass},
-@coderef{define-condition},
-@coderef{defstruct},
+@symbolref{defclass},
+@symbolref{define-condition},
+@symbolref{defstruct},
 or
-@coderef{deftype}.
+@symbolref{deftype}.
 
 
 
@@ -310,14 +310,14 @@ New @term{type specifiers} can come into existence in two ways.
 
 @itemize @bullet{}
 @item
-Defining a structure by using @coderef{defstruct} without using
+Defining a structure by using @symbolref{defstruct} without using
 the @kwd{type} specifier or defining a @term{class} by using
-@coderef{defclass}
-or @coderef{define-condition}
+@symbolref{defclass}
+or @symbolref{define-condition}
 automatically causes the name of the structure
 or class to be a new @term{type specifier} @term{symbol}.
 @item
-@coderef{deftype} can be used to define
+@symbolref{deftype} can be used to define
 @cindex derived type specifier
 @dfn{derived type specifiers},
 which act as `abbreviations' for other @term{type specifiers}.
@@ -406,8 +406,8 @@ and @ref{StandardizedCompoundTypeSpecNames, Figure 4.3}.
 
 
 While the @CLOS{}@spc{}is general enough to describe all @term{standardized} @term{classes}
-(including, for example, @coderef{number}, @coderef{hash-table}, and
-@coderef{symbol}), @thenextfigure{}@spc{}contains a list of @term{classes} that are
+(including, for example, @symbolref{number}, @symbolref{hash-table}, and
+@symbolref{symbol}), @thenextfigure{}@spc{}contains a list of @term{classes} that are
 especially relevant to understanding the @CLOS{}.
 
 
@@ -449,10 +449,10 @@ of inheriting from them is said to be a @term{subclass} of each of
 those @term{classes}. The @term{classes} that are designated for purposes of
 inheritance are said to be @term{superclasses} of the inheriting @term{class}.
 
-A @term{class} can have a @term{name}. The @term{function} @coderef{class-name}
+A @term{class} can have a @term{name}. The @term{function} @symbolref{class-name}
 takes a @term{class} @term{object} and returns its @term{name}.
 The @term{name} of an anonymous @term{class} is @nil{}.  A @term{symbol}
-can @term{name} a @term{class}. The @term{function} @coderef{find-class} takes a
+can @term{name} a @term{class}. The @term{function} @symbolref{find-class} takes a
 @term{symbol} and returns the @term{class} that the @term{symbol} names.
 A @term{class} has a @term{proper name} if the @term{name} is a @term{symbol}
 and if the @term{name} of the @term{class} names that @term{class}.
@@ -505,10 +505,10 @@ The @term{class precedence list} and its computation is discussed
 in @ref{Determining the Class Precedence List}.
 
 @term{classes} are organized into a directed acyclic graph.
-There are two distinguished @term{classes}, named @code{t} and @coderef{standard-object}.
+There are two distinguished @term{classes}, named @code{t} and @symbolref{standard-object}.
 The @term{class} named @code{t} has no @term{superclasses}.
 It is a @term{superclass} of every @term{class} except itself.
-The @term{class} named @coderef{standard-object} is an @term{instance} of
+The @term{class} named @symbolref{standard-object} is an @term{instance} of
 @theclass{standard-class} and is a @term{superclass} of
 every @term{class} that is an @term{instance} of @theclass{standard-class} except itself.
 
@@ -528,7 +528,7 @@ possible, the term @term{metaclass} is used to refer to a @term{class}
 that has @term{instances} that are themselves @term{classes}. The @term{metaclass}
 determines the form of inheritance used by the @term{classes} that are its
 @term{instances} and the representation of the @term{instances} of those @term{classes}.
-The @CLOS{}@spc{}provides a default @term{metaclass}, @coderef{standard-class}, that is
+The @CLOS{}@spc{}provides a default @term{metaclass}, @symbolref{standard-class}, that is
 appropriate for most programs.
 
 Except where otherwise specified, all @term{classes} mentioned in this
@@ -542,27 +542,27 @@ and all @term{methods} are @term{instances} of @theclass{standard-method}.
 @subsubsection Standard Metaclasses
 
 The @CLOS{}@spc{}provides a number of predefined @term{metaclasses}.
-These include the @term{classes} @coderef{standard-class},
-@coderef{built-in-class}, and @coderef{structure-class}:
+These include the @term{classes} @symbolref{standard-class},
+@symbolref{built-in-class}, and @symbolref{structure-class}:
 
 
 @itemize @bullet{}
 
 @item
 @Theclass{standard-class} is the default @term{class} of
-@term{classes} defined by @coderef{defclass}.
+@term{classes} defined by @symbolref{defclass}.
 
 @item @Theclass{built-in-class} is the @term{class} whose
 @term{instances} are @term{classes} that have special implementations with
 restricted capabilities.  Any @term{class} that corresponds to a standard
-@term{type} might be an @term{instance} of @coderef{built-in-class}.
+@term{type} might be an @term{instance} of @symbolref{built-in-class}.
 The predefined @term{type} specifiers that are required to have
 corresponding @term{classes} are listed in @ref{ClassTypeCorrespondence, Figure 4.8}.
 It is @term{implementation-dependent} whether each of these @term{classes}
 is implemented as a @term{built-in class}.
 
 @item
-All @term{classes} defined by means of @coderef{defstruct} are
+All @term{classes} defined by means of @symbolref{defstruct} are
 @term{instances} of @theclass{structure-class}.
 @end itemize
 
@@ -571,7 +571,7 @@ All @term{classes} defined by means of @coderef{defstruct} are
 @node Defining Classes
 @subsection Defining Classes
 
-The macro @coderef{defclass} is used to define a new named @term{class}.
+The macro @symbolref{defclass} is used to define a new named @term{class}.
 
 The definition of a @term{class} includes:
 
@@ -597,7 +597,7 @@ Each @term{class} option pertains to the @term{class} as a whole.
 
 
 The @term{slot} options and @term{class} options of
-the @coderef{defclass} form provide mechanisms for the following:
+the @symbolref{defclass} form provide mechanisms for the following:
 
 
 @itemize @bullet{}
@@ -634,13 +634,13 @@ in the @term{slot}.
 @node Creating Instances of Classes
 @subsection Creating Instances of Classes
 
-The generic function @coderef{make-instance} creates and returns a new
+The generic function @symbolref{make-instance} creates and returns a new
 @term{instance} of a @term{class}.
 The @OS{}@spc{}provides several mechanisms for
 specifying how a new @term{instance} is to be initialized.  For example, it
 is possible to specify the initial values for @term{slots} in newly created
 @term{instances}
-either by giving arguments to @coderef{make-instance} or by
+either by giving arguments to @symbolref{make-instance} or by
 providing default initial values.  Further initialization activities
 can be performed by @term{methods} written for @term{generic functions}
 that are
@@ -653,7 +653,7 @@ protocol is described in @ref{Object Creation and Initialization}.
 
 
 A @term{class} can inherit @term{methods}, @term{slots},
-and some @coderef{defclass} options from its @term{superclasses}.
+and some @symbolref{defclass} options from its @term{superclasses}.
 Other sections describe the inheritance of @term{methods},
 the inheritance of @term{slots} and @term{slot} options,
 and the inheritance of @term{class} options.
@@ -708,7 +708,7 @@ error @oftype{program-error} is signaled.
 @node Determining the Class Precedence List
 @subsection Determining the Class Precedence List
 
-The @coderef{defclass} form for a @term{class} provides a total ordering
+The @symbolref{defclass} form for a @term{class} provides a total ordering
 on that @term{class} and its direct @term{superclasses}.  This ordering is
 called the @newterm{local precedence order}.  It is an ordered list of the
 @term{class} and its direct @term{superclasses}. The
@@ -719,14 +719,14 @@ called the @newterm{local precedence order}.  It is an ordered list of the
 A @term{class} precedes its direct @term{superclasses},
 and a direct @term{superclass} precedes all other
 direct @term{superclasses} specified to its right
-in the @term{superclasses} list of the @coderef{defclass} form.
+in the @term{superclasses} list of the @symbolref{defclass} form.
 For every class @mat{C}, define
 @quotation
 @mat{R@subs1{C}=@lcurly{}(C,C@sub{1}),(C@sub{1},C@sub{2}),@ldots{},(C@subs{n-1},C@subs1{n})@rcurly{}}
 @end quotation
  where @mat{C@sub{1},@ldots{},C@subs1{n}} are
 the direct @term{superclasses} of @mat{C} in the order in which
-they are mentioned in the @coderef{defclass} form. These ordered pairs
+they are mentioned in the @symbolref{defclass} form. These ordered pairs
 generate the total ordering on the class @mat{C} and its direct
 @term{superclasses}.
 
@@ -865,7 +865,7 @@ The class @f{cinnamon} is next, giving the result so far as @tt{
 food, standard-object, t}@mat{@rcurly{}}; @mat{R}@tie{}@mat{=} @mat{@lcurly{}}@tt{(spice, food), (food,
 standard-object), (standard-object, t)}@mat{@rcurly{}}.
 
-The classes @f{spice}, @f{food}, @coderef{standard-object}, and
+The classes @f{spice}, @f{food}, @symbolref{standard-object}, and
 @code{t} are added in that order, and the @term{class precedence list}
 is @f{(pie apple fruit cinnamon spice food standard-object t)}.
 
@@ -915,16 +915,16 @@ has both @f{pie} and @f{pastry} as @term{superclasses}.
 @node Redefining Classes
 @subsection Redefining Classes
 
-A @term{class} that is a @term{direct instance} of @coderef{standard-class} can
+A @term{class} that is a @term{direct instance} of @symbolref{standard-class} can
 be redefined if the new @term{class} is also
-a @term{direct instance} of @coderef{standard-class}.
+a @term{direct instance} of @symbolref{standard-class}.
 Redefining a @term{class} modifies the existing
 @term{class} @term{object} to reflect the new @term{class} definition; it does not
 create a new @term{class} @term{object} for the @term{class}.
 Any @term{method} @term{object} created by a @kwd{reader}, @kwd{writer},
-or @kwd{accessor} option specified by the old @coderef{defclass} form is
+or @kwd{accessor} option specified by the old @symbolref{defclass} form is
 removed from the corresponding @term{generic function}.
-@term{Methods} specified by the new @coderef{defclass} form are added.
+@term{Methods} specified by the new @symbolref{defclass} form are added.
 
 When the class @mat{C} is redefined, changes are propagated to its @term{instances}
 and to @term{instances} of any of its @term{subclasses}.  Updating such an
@@ -957,14 +957,14 @@ initialized.  Newly added @term{shared slots} are initialized.
 
 Each newly added @term{shared slot} is set to the result of evaluating the
 @term{captured initialization form} for the @term{slot} that was specified
-in the @coderef{defclass} @term{form} for the new @term{class}.
+in the @symbolref{defclass} @term{form} for the new @term{class}.
 If there was no @term{initialization form}, the @term{slot} is unbound.
 
 If a @term{class} is redefined in such a way that the set of
 @term{local slots} @term{accessible} in an @term{instance} of the @term{class}
 is changed, a two-step process of updating the @term{instances} of the
 @term{class} takes place.  The process may be explicitly started by
-invoking the generic function @coderef{make-instances-obsolete}.  This
+invoking the generic function @symbolref{make-instances-obsolete}.  This
 two-step process can happen in other circumstances in some implementations.
 For example, in some implementations this two-step process is
 triggered if the order of @term{slots} in storage is changed.
@@ -991,7 +991,7 @@ local or shared by the new @term{class} definition that are specified as
 local by the old @term{class} are discarded.
 The @term{names} of these added and discarded
 @term{slots} are passed as arguments
-to @coderef{update-instance-for-redefined-class}
+to @symbolref{update-instance-for-redefined-class}
 as described in the next section.
 
 The values of @term{local slots} specified by both the new and old
@@ -1008,11 +1008,11 @@ a @term{shared slot} was unbound, the @term{local slot} is unbound.
 
 The second step initializes the newly added @term{local slots} and performs
 any other user-defined actions.  This step is implemented by the generic
-function @coderef{update-instance-for-redefined-class}, which is called after
+function @symbolref{update-instance-for-redefined-class}, which is called after
 completion of the first step of modifying the structure of the
 @term{instance}.
 
-The generic function @coderef{update-instance-for-redefined-class} takes
+The generic function @symbolref{update-instance-for-redefined-class} takes
 four required arguments: the @term{instance} being updated after it has
 undergone the first step, a list of the names of @term{local slots} that were
 added, a list of the names of @term{local slots} that were discarded, and a
@@ -1022,20 +1022,20 @@ discarded and had values.  Included among the discarded @term{slots} are
 @term{slots} that were local in the old @term{class} and that are shared in the new
 @term{class}.
 
-The generic function @coderef{update-instance-for-redefined-class} also
+The generic function @symbolref{update-instance-for-redefined-class} also
 takes any number of initialization arguments.  When it is called by
 the system to update an @term{instance} whose @term{class}
 has been redefined, no
 initialization arguments are provided.
 
 There is a system-supplied primary @term{method} for
-@coderef{update-instance-for-redefined-class} whose @term{parameter specializer}
+@symbolref{update-instance-for-redefined-class} whose @term{parameter specializer}
 for its @term{instance} argument is @theclass{standard-object}.
 First this @term{method} checks the validity of initialization arguments and signals an
 error if an initialization argument is supplied that is not declared
 as valid.  (For more information, see @ref{Declaring the Validity of Initialization Arguments}.)
 Then it calls the generic function
-@coderef{shared-initialize} with the following arguments: the
+@symbolref{shared-initialize} with the following arguments: the
 @term{instance},
 the list of @term{names} of
 the newly added @term{slots}, and the initialization
@@ -1047,19 +1047,19 @@ arguments it received.
 
 @reviewer{Barmar: This description is hard to follow.}
 
-@term{Methods} for @coderef{update-instance-for-redefined-class} may be
+@term{Methods} for @symbolref{update-instance-for-redefined-class} may be
 defined to specify actions to be taken when an @term{instance} is updated.
-If only @term{after methods} for @coderef{update-instance-for-redefined-class} are
+If only @term{after methods} for @symbolref{update-instance-for-redefined-class} are
 defined, they will be run after the system-supplied primary @term{method} for
 initialization and therefore will not interfere with the default
-behavior of @coderef{update-instance-for-redefined-class}.  Because no
-initialization arguments are passed to @coderef{update-instance-for-redefined-class}
+behavior of @symbolref{update-instance-for-redefined-class}.  Because no
+initialization arguments are passed to @symbolref{update-instance-for-redefined-class}
 when it is called by the system, the
 @term{initialization forms} for @term{slots}
-that are filled by @term{before methods} for @coderef{update-instance-for-redefined-class}
-will not be evaluated by @coderef{shared-initialize}.
+that are filled by @term{before methods} for @symbolref{update-instance-for-redefined-class}
+will not be evaluated by @symbolref{shared-initialize}.
 
-@term{Methods} for @coderef{shared-initialize} may be defined to customize
+@term{Methods} for @symbolref{shared-initialize} may be defined to customize
 @term{class} redefinition.  For more information, see @ref{Shared-Initialize}.
 
 
@@ -1080,24 +1080,24 @@ a @term{subclass} of @term{class}.  The evaluation of the expression
 same @term{class}; otherwise it returns the values
 @term{false} and @term{true}.
 If  @mat{I} is an @term{instance} of some @term{class} @mat{C} named @mat{S}
-and @mat{C} is an @term{instance} of @coderef{standard-class},
+and @mat{C} is an @term{instance} of @symbolref{standard-class},
 the evaluation of the expression @f{(type-of @mat{I})} returns @mat{S}
 if @mat{S} is the @term{proper name} of @mat{C};
 otherwise, it returns @mat{C}.
 
 Because the names of @term{classes}
 and @term{class} @term{objects} are @term{type specifiers}, they may
-be used in the special form @coderef{the} and in type declarations.
+be used in the special form @symbolref{the} and in type declarations.
 
 Many but not all of the predefined @term{type specifiers} have a
 corresponding @term{class} with
 the same proper name as the @term{type}.  These type
 specifiers are listed in @ref{ClassTypeCorrespondence, Figure 4.8}.
 For example, @thetype{array} has
-a corresponding @term{class} named @coderef{array}.
+a corresponding @term{class} named @symbolref{array}.
 No @term{type specifier} that is a
 list, such as @tt{(vector double-float 100)}, has a corresponding @term{class}.
-The @term{operator} @coderef{deftype} does not create any @term{classes}.
+The @term{operator} @symbolref{deftype} does not create any @term{classes}.
 
 Each @term{class} that corresponds to a predefined @term{type specifier} can
 be implemented in one of three ways, at the discretion of each implementation.
@@ -1106,12 +1106,12 @@ a @term{structure class},
 or a @term{system class}.
 
 A @term{built-in class} is one whose @term{generalized instances} have restricted capabilities
-or special representations.  Attempting to use @coderef{defclass} to define
-@term{subclasses} of a @coderef{built-in-class} signals an error.
-Calling @coderef{make-instance} to create a @term{generalized instance} of a
-@term{built-in class} signals an error.  Calling @coderef{slot-value} on a
+or special representations.  Attempting to use @symbolref{defclass} to define
+@term{subclasses} of a @symbolref{built-in-class} signals an error.
+Calling @symbolref{make-instance} to create a @term{generalized instance} of a
+@term{built-in class} signals an error.  Calling @symbolref{slot-value} on a
 @term{generalized instance} of a @term{built-in class} signals an error.
-Redefining a @term{built-in class} or using @coderef{change-class} to change
+Redefining a @term{built-in class} or using @symbolref{change-class} to change
 the @term{class} of an @term{object} to or from a @term{built-in class} signals an error.
 However, @term{built-in classes} can be used as @term{parameter specializers}
 in @term{methods}.
@@ -1123,10 +1123,10 @@ A @term{standard class}  is an @term{instance} of @theclass{standard-class},
 a @term{built-in class}  is an @term{instance} of @theclass{built-in-class}, and
 a @term{structure class} is an @term{instance} of @theclass{structure-class}.
 
-Each @term{structure} @term{type} created by @coderef{defstruct} without
+Each @term{structure} @term{type} created by @symbolref{defstruct} without
 using the @kwd{type} option has a corresponding @term{class}.
 This @term{class} is a @term{generalized instance} of @theclass{structure-class}.
-The @kwd{include} option of @coderef{defstruct} creates a direct
+The @kwd{include} option of @symbolref{defstruct} creates a direct
 @term{subclass} of the @term{class}
 that corresponds to the included @term{structure}
 @term{type}.
@@ -1264,14 +1264,14 @@ not @thetype{nil}.
 
 @node boolean
 @subsection boolean (Type)
-@syindexanchor{boolean, REF}
+@syindexanchor{boolean, SYM}
 @cindex boolean
 
 
 @subsubheading Supertypes:
 
-@coderef{boolean},
-@coderef{symbol},
+@symbolref{boolean},
+@symbolref{symbol},
 @code{t}
 
 @subsubheading Description:
@@ -1289,7 +1289,7 @@ which represent true and false, respectively.
 
 @subsubheading Notes:
 
-Conditional operations, such as @coderef{if},
+Conditional operations, such as @symbolref{if},
 permit the use of @term{generalized booleans},
 not just @term{booleans};
 any @term{non-nil} value,
@@ -1321,7 +1321,7 @@ A @term{function} is produced by
 or
 @thefunction{compile}.
 A @term{function} can be directly invoked by using it as the first argument to
-@coderef{funcall}, @coderef{apply}, or @coderef{multiple-value-call}.
+@symbolref{funcall}, @symbolref{apply}, or @symbolref{multiple-value-call}.
 
 @subsubheading Compound Type Specifier Kind:
 
@@ -1412,7 +1412,7 @@ specified @term{type}. In particular, if any argument is not of the
 correct @term{type}, the result is not guaranteed to be of the
 specified @term{type}.
 
-Thus, an @coderef{ftype} declaration for a @term{function}
+Thus, an @symbolref{ftype} declaration for a @term{function}
 describes @term{calls} to the @term{function}, not the actual definition
 of the @term{function}.
 
@@ -1435,7 +1435,7 @@ imply intersections of @term{types}, as follows:
 @itemize @bullet{}
 @item
 Consider the following two
-declarations of @coderef{ftype}:
+declarations of @symbolref{ftype}:
 
 @lisp
  (ftype (function (arg0-type1 arg1-type1 ...) val-type1) f))
@@ -1459,7 +1459,7 @@ treated as if @tt{f} were declared as follows:
 @end lisp
 
 
-It is permitted to ignore one or all of the @coderef{ftype} declarations in force.
+It is permitted to ignore one or all of the @symbolref{ftype} declarations in force.
 
 @item
 If two (or more) type declarations are in effect for a variable, and
@@ -1472,14 +1472,14 @@ they are both @tt{function} declarations, the declarations combine similarly.
 
 @node compiled-function
 @subsection compiled-function (Type)
-@syindexanchor{compiled-function, REF}
+@syindexanchor{compiled-function, SYM}
 @cindex compiled-function
 
 
 
 @subsubheading Supertypes:
 
-@coderef{compiled-function},
+@symbolref{compiled-function},
 @code{function},
 @code{t}
 
@@ -1491,9 +1491,9 @@ must be expanded at run time, and it contains no unresolved references
 to @term{load time values}.  See @ref{Compilation Semantics}.
 
 @term{Functions} whose definitions appear lexically within a
-@term{file} that has been @term{compiled} with @coderef{compile-file} and then
-@term{loaded} with @coderef{load} are @oftype{compiled-function}.
-@term{Functions} produced by the @coderef{compile} function
+@term{file} that has been @term{compiled} with @symbolref{compile-file} and then
+@term{loaded} with @symbolref{load} are @oftype{compiled-function}.
+@term{Functions} produced by the @symbolref{compile} function
 are @oftype{compiled-function}.
 Other @term{functions} might also be @oftype{compiled-function}.
 
@@ -1501,13 +1501,13 @@ Other @term{functions} might also be @oftype{compiled-function}.
 
 @node generic-function
 @subsection generic-function (System Class)
-@syindexanchor{generic-function, REF}
+@syindexanchor{generic-function, SYM}
 @cindex generic-function
 
 
 @subsubheading Class Precedence List:
 
-@coderef{generic-function},
+@symbolref{generic-function},
 @code{function},
 @code{t}
 
@@ -1525,19 +1525,19 @@ When invoked, a @term{generic function} executes a subset of its
 
 A @term{generic function} can be used in the same ways that an
 ordinary @term{function} can be used; specifically, a @term{generic function} can
-be used as an argument to @coderef{funcall} and @coderef{apply},
+be used as an argument to @symbolref{funcall} and @symbolref{apply},
 and can be given a global or a local name.
 
 
 @node standard-generic-function
 @subsection standard-generic-function (System Class)
-@syindexanchor{standard-generic-function, REF}
+@syindexanchor{standard-generic-function, SYM}
 @cindex standard-generic-function
 
 
 @subsubheading Class Precedence List:
-@coderef{standard-generic-function},
-@coderef{generic-function},
+@symbolref{standard-generic-function},
+@symbolref{generic-function},
 @code{function},
 @code{t}
 
@@ -1545,22 +1545,22 @@ and can be given a global or a local name.
 
 @Theclass{standard-generic-function} is the default @term{class} of
 @term{generic functions} @term{established} by
-@coderef{defmethod},
-@coderef{ensure-generic-function},
-@coderef{defgeneric},
+@symbolref{defmethod},
+@symbolref{ensure-generic-function},
+@symbolref{defgeneric},
 and
-@coderef{defclass} @term{forms}.
+@symbolref{defclass} @term{forms}.
 
 
 @node class
 @subsection class (System Class)
-@syindexanchor{class, REF}
+@syindexanchor{class, SYM}
 @cindex class
 
 
 @subsubheading Class Precedence List:
-@coderef{class},
-@coderef{standard-object},
+@symbolref{class},
+@symbolref{standard-object},
 @code{t}
 
 @subsubheading Description:
@@ -1573,14 +1573,14 @@ directed acyclic graph of @term{classes}, its @term{slots}, and its options.
 
 @node built-in-class
 @subsection built-in-class (System Class)
-@syindexanchor{built-in-class, REF}
+@syindexanchor{built-in-class, SYM}
 @cindex built-in-class
 
 
 @subsubheading Class Precedence List:
-@coderef{built-in-class},
-@coderef{class},
-@coderef{standard-object},
+@symbolref{built-in-class},
+@symbolref{class},
+@symbolref{standard-object},
 @code{t}
 
 @subsubheading Description:
@@ -1588,13 +1588,13 @@ directed acyclic graph of @term{classes}, its @term{slots}, and its options.
 A @term{built-in class} is a @term{class} whose @term{instances} have
 restricted capabilities or special representations.
 Attempting to use
-@coderef{defclass} to define @term{subclasses} of a @term{built-in class}
+@symbolref{defclass} to define @term{subclasses} of a @term{built-in class}
 signals an error @oftype{error}.
-Calling @coderef{make-instance} to create an @term{instance}
+Calling @symbolref{make-instance} to create an @term{instance}
 of a @term{built-in class} signals an error @oftype{error}.
-Calling @coderef{slot-value} on an @term{instance} of a @term{built-in class}
+Calling @symbolref{slot-value} on an @term{instance} of a @term{built-in class}
 signals an error @oftype{error}.  Redefining a @term{built-in class}
-or using @coderef{change-class} to change the @term{class} of an @term{instance}
+or using @symbolref{change-class} to change the @term{class} of an @term{instance}
 to or from a @term{built-in class} signals an error @oftype{error}.
 However, @term{built-in classes} can be used as @term{parameter specializers}
 in @term{methods}.
@@ -1602,49 +1602,49 @@ in @term{methods}.
 
 @node structure-class
 @subsection structure-class (System Class)
-@syindexanchor{structure-class, REF}
+@syindexanchor{structure-class, SYM}
 @cindex structure-class
 
 
 @subsubheading Class Precedence List:
 
-@coderef{structure-class},
-@coderef{class},
-@coderef{standard-object},
+@symbolref{structure-class},
+@symbolref{class},
+@symbolref{standard-object},
 @code{t}
 
 @subsubheading Description:
 
-All @term{classes} defined by means of @coderef{defstruct}
+All @term{classes} defined by means of @symbolref{defstruct}
 are @instsofclass{structure-class}.
 
 
 @node standard-class
 @subsection standard-class (System Class)
-@syindexanchor{standard-class, REF}
+@syindexanchor{standard-class, SYM}
 @cindex standard-class
 
 
 @subsubheading Class Precedence List:
-@coderef{standard-class},
-@coderef{class},
-@coderef{standard-object},
+@symbolref{standard-class},
+@symbolref{class},
+@symbolref{standard-object},
 @code{t}
 
 @subsubheading Description:
 
 @Theclass{standard-class} is the default @term{class} of @term{classes}
-defined by @coderef{defclass}.
+defined by @symbolref{defclass}.
 
 
 @node method
 @subsection method (System Class)
-@syindexanchor{method, REF}
+@syindexanchor{method, SYM}
 @cindex method
 
 
 @subsubheading Class Precedence List:
-@coderef{method},
+@symbolref{method},
 @code{t}
 
 @subsubheading Description:
@@ -1674,42 +1674,42 @@ method combination.
 
 @node standard-method
 @subsection standard-method (System Class)
-@syindexanchor{standard-method, REF}
+@syindexanchor{standard-method, SYM}
 @cindex standard-method
 
 
 @subsubheading Class Precedence List:
-@coderef{standard-method},
-@coderef{method},
-@coderef{standard-object},
+@symbolref{standard-method},
+@symbolref{method},
+@symbolref{standard-object},
 @code{t}
 
 @subsubheading Description:
 
 @Theclass{standard-method} is the default @term{class} of
 @term{methods} defined by the
-@coderef{defmethod} and
-@coderef{defgeneric} @term{forms}.
+@symbolref{defmethod} and
+@symbolref{defgeneric} @term{forms}.
 
 
 @node structure-object
 @subsection structure-object (Class)
-@syindexanchor{structure-object, REF}
+@syindexanchor{structure-object, SYM}
 @cindex structure-object
 
 
 @subsubheading Class Precedence List:
 
-@coderef{structure-object},
+@symbolref{structure-object},
 @code{t}
 
 @subsubheading Description:
 
-@Theclass{structure-object} is an @term{instance} of @coderef{structure-class}
+@Theclass{structure-object} is an @term{instance} of @symbolref{structure-class}
 and is a @term{superclass} of every @term{class}
-that is an @term{instance} of @coderef{structure-class}
+that is an @term{instance} of @symbolref{structure-class}
 except itself, and is a @term{superclass} of every @term{class}
-that is defined by @coderef{defstruct}.
+that is defined by @symbolref{defstruct}.
 
 
 @subsubheading See Also:
@@ -1721,35 +1721,35 @@ that is defined by @coderef{defstruct}.
 
 @node standard-object
 @subsection standard-object (Class)
-@syindexanchor{standard-object, REF}
+@syindexanchor{standard-object, SYM}
 @cindex standard-object
 
 
 @subsubheading Class Precedence List:
-@coderef{standard-object},
+@symbolref{standard-object},
 @code{t}
 
 @subsubheading Description:
 
-@Theclass{standard-object} is an @term{instance} of @coderef{standard-class}
+@Theclass{standard-object} is an @term{instance} of @symbolref{standard-class}
 and is a @term{superclass} of every @term{class} that is an @term{instance} of
-@coderef{standard-class} except itself.
+@symbolref{standard-class} except itself.
 
 
 @node method-combination
 @subsection method-combination (System Class)
-@syindexanchor{method-combination, REF}
+@syindexanchor{method-combination, SYM}
 @cindex method-combination
 
 
 @subsubheading Class Precedence List:
-@coderef{method-combination},
+@symbolref{method-combination},
 @code{t}
 
 @subsubheading Description:
 
 Every @term{method combination} @term{object} is an
-@term{indirect instance} of the @term{class} @coderef{method-combination}.
+@term{indirect instance} of the @term{class} @symbolref{method-combination}.
 A @term{method combination} @term{object} represents the information about
 the @term{method combination} being used by a @term{generic function}.
 A @term{method combination} @term{object} contains information about
@@ -1775,7 +1775,7 @@ including itself. Every @term{object} is @oftype{t}.
 
 @node satisfies
 @subsection satisfies (Type Specifier)
-@syindexanchor{satisfies, REF}
+@syindexanchor{satisfies, SYM}
 @cindex satisfies
 
 
@@ -1808,7 +1808,7 @@ The @term{symbol} @t{*} can be the argument, but it
 denotes itself (the @term{symbol} @t{*}),
 and does not represent an unspecified value.
 
-The symbol @coderef{satisfies} is not valid as a @term{type specifier}.
+The symbol @symbolref{satisfies} is not valid as a @term{type specifier}.
 
 
 @node member (Type Specifier)
@@ -1927,7 +1927,7 @@ Combining.
 This denotes the set of all @term{objects} of the
 @term{type} determined by the union of the @param{typespecs}.
 For example, @thetype{list} by definition is the same as @f{(or null cons)}.
-Also, the value returned by @coderef{position} is an @objectoftype{(or null (integer 0 *))};
+Also, the value returned by @symbolref{position} is an @objectoftype{(or null (integer 0 *))};
 @ie{} either @nil{}@spc{}or a non-negative @term{integer}.
 
 @t{*} is not permitted as an argument.
@@ -1962,12 +1962,12 @@ Specializing.
 @subsubheading Compound Type Specifier Description:
 
 This @term{type specifier} can be used only as the @param{value-type} in a
-@code{function} @term{type specifier} or a @coderef{the}
+@code{function} @term{type specifier} or a @symbolref{the}
 @term{special form}.  It is used to specify individual @term{types}
 when @term{multiple values} are involved.
 The @keyref{optional} and @keyref{rest} markers can appear in the @param{value-type} list;
 they indicate the parameter list of a @term{function} that,
-when given to @coderef{multiple-value-call} along with the values,
+when given to @symbolref{multiple-value-call} along with the values,
 would correctly receive those values.
 
 The symbol @t{*} may not be among the @param{value-types}.
@@ -2007,7 +2007,7 @@ The @term{symbol} @t{eql} is not valid as an @term{atomic type specifier}.
 
 @node coerce
 @subsection coerce (Function)
-@syindexanchor{coerce, REF}
+@syindexanchor{coerce, SYM}
 @cindex coerce
 
 
@@ -2039,7 +2039,7 @@ according to the following rules:
 
 @table @asis
 
-@item @id{@coderef{sequence}}
+@item @id{@symbolref{sequence}}
 
 
 
@@ -2075,7 +2075,7 @@ and the @term{object} is a @term{real},
 then the @param{result} is obtained by constructing a @term{complex}
 whose real part is the @term{object} and
 whose imaginary part is the result of @term{coercing} an @term{integer} zero
-to the @term{type} of the @term{object} (using @coderef{coerce}).
+to the @term{type} of the @term{object} (using @symbolref{coerce}).
 (If the real part is a @term{rational}, however,
 then the result must be represented as a @term{rational} rather
 than a @term{complex}; see @ref{Rule of Canonical Representation for Complex Rationals}.
@@ -2086,10 +2086,10 @@ but will return @f{3}, which is not a @term{complex}.)
 
 
 If the @param{result-type} is any of @code{float},
-@coderef{short-float},
-@coderef{single-float},
-@coderef{double-float},
-@coderef{long-float},
+@symbolref{short-float},
+@symbolref{single-float},
+@symbolref{double-float},
+@symbolref{long-float},
 and the @term{object} is a
 @term{real},
 then the @param{result} is a @term{float} of @term{type} @param{result-type}
@@ -2183,7 +2183,7 @@ are not provided because of rounding problems.
 
 @node deftype
 @subsection deftype (Macro)
-@syindexanchor{deftype, REF}
+@syindexanchor{deftype, SYM}
 @cindex deftype
 
 
@@ -2206,7 +2206,7 @@ are not provided because of rounding problems.
 
 @subsubheading Description:
 
-@coderef{deftype} defines a @term{derived type specifier} named @param{name}.
+@symbolref{deftype} defines a @term{derived type specifier} named @param{name}.
 
 The meaning of the new @term{type specifier} is given in terms of
 a function which expands the @term{type specifier} into another
@@ -2225,7 +2225,7 @@ The @term{argument} @term{expressions} to the @term{type specifier},
 Instead, these @term{literal objects} become the @term{objects} to which
 corresponding @term{parameters} become @term{bound}.
 
-The body of the @coderef{deftype} @term{form}
+The body of the @symbolref{deftype} @term{form}
 (but not the @param{lambda-list})
 is
 implicitly enclosed in a @term{block} named @param{name},
@@ -2233,7 +2233,7 @@ and is evaluated as an @term{implicit progn},
 returning a new @term{type specifier}.
 
 The @term{lexical environment} of the body is the one which was current
-at the time the @coderef{deftype} form was evaluated, augmented by the
+at the time the @symbolref{deftype} form was evaluated, augmented by the
 @term{variables} in the @param{lambda-list}.
 
 Recursive expansion of the @term{type specifier} returned as the expansion
@@ -2248,15 +2248,15 @@ the @term{objects} referred to by @code{member} and @code{eql}
 @param{Documentation} is attached to @param{name} as a @term{documentation string}
 of kind @t{type}.
 
-If a @coderef{deftype} @term{form} appears as a @term{top level form},
+If a @symbolref{deftype} @term{form} appears as a @term{top level form},
 the @term{compiler} must ensure that the @param{name} is recognized
 in subsequent @term{type} declarations.
-The @term{programmer} must ensure that the body of a @coderef{deftype} form
+The @term{programmer} must ensure that the body of a @symbolref{deftype} form
 can be @term{evaluated} at compile time if the @param{name} is
 referenced in subsequent @term{type} declarations.
 If the expansion of a @term{type specifier} is not defined fully at compile time
 (perhaps because it expands into an unknown @term{type specifier} or a
-@coderef{satisfies} of a named @term{function} that isn't defined in the
+@symbolref{satisfies} of a named @term{function} that isn't defined in the
 compile-time environment), an @term{implementation} may ignore any references to
 this @term{type} in declarations and/or signal a warning.
 
@@ -2283,7 +2283,7 @@ this @term{type} in declarations and/or signal a warning.
 
 @node subtypep
 @subsection subtypep (Function)
-@syindexanchor{subtypep, REF}
+@syindexanchor{subtypep, SYM}
 @cindex subtypep
 
 
@@ -2334,7 +2334,7 @@ that might result.
 @param{type-2}.
 @item @term{false} @tab @term{true} @tab @param{type-1} is definitely not a @term{subtype} of
 @param{type-2}.
-@item @term{false} @tab @term{false} @tab @coderef{subtypep} could not determine the relationship,
+@item @term{false} @tab @term{false} @tab @symbolref{subtypep} could not determine the relationship,
 @item  @tab  @tab so @param{type-1} might or might not be a @term{subtype} of
 @param{type-2}.
 @end multitable
@@ -2344,7 +2344,7 @@ that might result.
 
 
 
-@coderef{subtypep} is permitted to return the
+@symbolref{subtypep} is permitted to return the
 @term{values} @term{false} and @term{false} only when at least
 one argument involves one of these @term{type specifiers}:
 @code{and},
@@ -2353,7 +2353,7 @@ the list form of @code{function},
 @code{member},
 @code{not},
 @code{or},
-@coderef{satisfies},
+@symbolref{satisfies},
 or
 @code{values}.
 (A @term{type specifier} `involves' such a @term{symbol} if,
@@ -2361,24 +2361,24 @@ after being @term{type expanded},
 it contains that @term{symbol} in a position that would call for
 its meaning as a @term{type specifier} to be used.)
 One consequence of this is that if neither @param{type-1} nor @param{type-2}
-involves any of these @term{type specifiers}, then @coderef{subtypep} is obliged
-to determine the relationship accurately.  In particular, @coderef{subtypep}
+involves any of these @term{type specifiers}, then @symbolref{subtypep} is obliged
+to determine the relationship accurately.  In particular, @symbolref{subtypep}
 returns the @term{values} @term{true} and @term{true}
-if the arguments are @coderef{equal} and do not involve
+if the arguments are @symbolref{equal} and do not involve
 any of these @term{type specifiers}.
 
-@coderef{subtypep} never returns a second value of @nil{}@spc{}when both
+@symbolref{subtypep} never returns a second value of @nil{}@spc{}when both
 @param{type-1} and @param{type-2} involve only
 the names in @ref{StandardizedAtomicTypeSpecs, Figure 4.2}, or
-names of @term{types} defined by @coderef{defstruct},
-@coderef{define-condition},
-or @coderef{defclass}, or
+names of @term{types} defined by @symbolref{defstruct},
+@symbolref{define-condition},
+or @symbolref{defclass}, or
 @term{derived types} that expand into only those names.
 While @term{type specifiers} listed in @ref{StandardizedAtomicTypeSpecs, Figure 4.2}@spc{}and
-names of @coderef{defclass} and @coderef{defstruct} can in some cases be
-implemented as @term{derived types}, @coderef{subtypep} regards them as primitive.
+names of @symbolref{defclass} and @symbolref{defstruct} can in some cases be
+implemented as @term{derived types}, @symbolref{subtypep} regards them as primitive.
 
-The relationships between @term{types} reflected by @coderef{subtypep}
+The relationships between @term{types} reflected by @symbolref{subtypep}
 are those specific to the particular implementation.  For example, if
 an implementation supports only a single type of floating-point numbers,
 in that implementation @f{(subtypep 'float 'long-float)}
@@ -2485,7 +2485,7 @@ Let @f{<aet-x>} and @f{<aet-y>} be two distinct @term{type specifiers} that
 do not always refer to the same sets of
 @term{objects}
 in a given implementation, but for which
-@coderef{make-array}, will return an
+@symbolref{make-array}, will return an
 @term{object} of the same @term{array} @term{type}.
 
 Thus, in each case,
@@ -2520,15 +2520,15 @@ That implies that the following set of tests are also true:
 
 @subsubheading Notes:
 
-The small differences between the @coderef{subtypep} specification for
-the @coderef{array} and @code{complex} types are necessary because there
+The small differences between the @symbolref{subtypep} specification for
+the @symbolref{array} and @code{complex} types are necessary because there
 is no creation function for @term{complexes} which allows
 the specification of the resultant part type independently of
 the actual types of the parts.  Thus in the case of @thetype{complex},
 the actual type of the parts is referred to, although a @term{number}
 can be a member of more than one @term{type}.
 For example, @f{17} is of @term{type} @f{(mod 18)}
-as well as @term{type} @f{(mod 256)} and @term{type} @coderef{integer};
+as well as @term{type} @f{(mod 256)} and @term{type} @symbolref{integer};
 and @f{2.3f5} is @oftype{single-float}
 as well as @term{type} @code{float}.
 
@@ -2536,7 +2536,7 @@ as well as @term{type} @code{float}.
 
 @node type-of
 @subsection type-of (Function)
-@syindexanchor{type-of, REF}
+@syindexanchor{type-of, SYM}
 @cindex type-of
 
 
@@ -2584,12 +2584,12 @@ or @f{values}.
 For all @param{objects}, @f{(typep @param{object} (type-of @param{object}))}
 returns @term{true}.
 Implicit in this is that @term{type specifiers} which are
-not valid for use with @coderef{typep}, such as the @term{list} form of the
-@code{function} @term{type specifier}, are never returned by @coderef{type-of}.
+not valid for use with @symbolref{typep}, such as the @term{list} form of the
+@code{function} @term{type specifier}, are never returned by @symbolref{type-of}.
 
 @item
-The @term{type} returned by @coderef{type-of} is always a @term{recognizable subtype}
-of the @term{class} returned by @coderef{class-of}.  That is,
+The @term{type} returned by @symbolref{type-of} is always a @term{recognizable subtype}
+of the @term{class} returned by @symbolref{class-of}.  That is,
 
 @lisp
  (subtypep (type-of @param{object}) (class-of @param{object})) @EV{} @term{true}, @term{true}
@@ -2597,23 +2597,23 @@ of the @term{class} returned by @coderef{class-of}.  That is,
 
 
 @item
-For @param{objects} of metaclass @coderef{structure-class} or @coderef{standard-class},
+For @param{objects} of metaclass @symbolref{structure-class} or @symbolref{standard-class},
 and for @term{conditions},
-@coderef{type-of} returns the @term{proper name} of the @term{class} returned
-by @coderef{class-of} if it has a @term{proper name},
+@symbolref{type-of} returns the @term{proper name} of the @term{class} returned
+by @symbolref{class-of} if it has a @term{proper name},
 and otherwise returns the @term{class} itself.
 In particular, for @param{objects} created by the constructor function
-of a structure defined with @coderef{defstruct} without a @kwd{type} option,
-@coderef{type-of} returns the structure name; and for @param{objects} created
-by @coderef{make-condition}, the @param{typespec} is the @term{name} of the
+of a structure defined with @symbolref{defstruct} without a @kwd{type} option,
+@symbolref{type-of} returns the structure name; and for @param{objects} created
+by @symbolref{make-condition}, the @param{typespec} is the @term{name} of the
 @term{condition} @term{type}.
 
 @item
 For each of the @term{types}
-@coderef{short-float},
-@coderef{single-float},
-@coderef{double-float},
-or @coderef{long-float}
+@symbolref{short-float},
+@symbolref{single-float},
+@symbolref{double-float},
+or @symbolref{long-float}
 of which the @param{object} is an @term{element},
 the @param{typespec} is a @term{recognizable subtype} of that @term{type}.
 @end enumerate
@@ -2667,13 +2667,13 @@ the @param{typespec} is a @term{recognizable subtype} of that @term{type}.
 
 @subsubheading Notes:
 
-Implementors are encouraged to arrange for @coderef{type-of} to return
+Implementors are encouraged to arrange for @symbolref{type-of} to return
 a portable value.
 
 
 @node typep
 @subsection typep (Function)
-@syindexanchor{typep, REF}
+@syindexanchor{typep, SYM}
 @cindex typep
 
 
@@ -2708,12 +2708,12 @@ where @param{type-specifier} is not @f{*},
 returns @term{true} if and only if @param{object} is an @term{array}
 that could be the result
 of supplying @param{type-specifier}
-as the @kwd{element-type} argument to @coderef{make-array}.
+as the @kwd{element-type} argument to @symbolref{make-array}.
 @f{(array *)} refers to all @term{arrays}
 regardless of element type, while @f{(array @param{type-specifier})}
 refers only to those @term{arrays}
 that can result from giving @param{type-specifier} as the
-@kwd{element-type} argument to @coderef{make-array}.
+@kwd{element-type} argument to @symbolref{make-array}.
 A similar interpretation applies to @f{(simple-array @param{type-specifier})}
 and @f{(vector @param{type-specifier})}.
 See @ref{Array Upgrading}.
@@ -2795,7 +2795,7 @@ the @param{type-specifier} is not a @term{type specifier}.
 @term{Implementations} are encouraged to recognize and optimize the case of
 @f{(typep @param{x} (the class @param{y}))},
 since it does not involve any need for expansion
-of @coderef{deftype} information at runtime.
+of @symbolref{deftype} information at runtime.
 
 @lisp
 
@@ -2806,24 +2806,24 @@ of @coderef{deftype} information at runtime.
 
 @node type-error
 @subsection type-error (Condition Type)
-@syindexanchor{type-error, REF}
+@syindexanchor{type-error, SYM}
 @cindex type-error
 
 
 @subsubheading Class Precedence List:
-@coderef{type-error},
+@symbolref{type-error},
 @code{error},
-@coderef{serious-condition},
-@coderef{condition},
+@symbolref{serious-condition},
+@symbolref{condition},
 @code{t}
 
 @subsubheading Description:
 
 @Thetype{type-error} represents a situation in which an @term{object} is not
 of the expected type.  The ``offending datum'' and ``expected type'' are initialized
-by @theinitkeyargs{datum} and @kwd{expected-type} to @coderef{make-condition},
+by @theinitkeyargs{datum} and @kwd{expected-type} to @symbolref{make-condition},
 and are @term{accessed} by the functions
-@coderef{type-error-datum} and @coderef{type-error-expected-type}.
+@symbolref{type-error-datum} and @symbolref{type-error-expected-type}.
 
 @subsubheading See Also:
 
@@ -2832,9 +2832,9 @@ and are @term{accessed} by the functions
 
 @node type-error-datum; type-error-expected-type
 @subsection type-error-datum, type-error-expected-type (Function)
-@syindexanchor{type-error-datum, REF}
+@syindexanchor{type-error-datum, SYM}
 @cindex type-error-datum
-@syindexanchor{type-error-expected-type, REF}
+@syindexanchor{type-error-expected-type, SYM}
 @cindex type-error-expected-type
 @anchor{type-error-datum}
 @anchor{type-error-expected-type}
@@ -2855,10 +2855,10 @@ and are @term{accessed} by the functions
 
 @subsubheading Description:
 
-@coderef{type-error-datum} returns the offending datum in the @term{situation}
+@symbolref{type-error-datum} returns the offending datum in the @term{situation}
 represented by the @param{condition}.
 
-@coderef{type-error-expected-type} returns the expected type of the
+@symbolref{type-error-expected-type} returns the expected type of the
 offending datum in the @term{situation} represented by the @param{condition}.
 
 @subsubheading Examples:
@@ -2890,18 +2890,18 @@ offending datum in the @term{situation} represented by the @param{condition}.
 
 @node simple-type-error
 @subsection simple-type-error (Condition Type)
-@syindexanchor{simple-type-error, REF}
+@syindexanchor{simple-type-error, SYM}
 @cindex simple-type-error
 
 
 @subsubheading Class Precedence List:
 
-@coderef{simple-type-error},
-@coderef{simple-condition},
-@coderef{type-error},
+@symbolref{simple-type-error},
+@symbolref{simple-condition},
+@symbolref{type-error},
 @code{error},
-@coderef{serious-condition},
-@coderef{condition},
+@symbolref{serious-condition},
+@symbolref{condition},
 @code{t}
 
 @subsubheading Description:

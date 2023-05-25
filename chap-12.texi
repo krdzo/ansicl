@@ -352,11 +352,11 @@ Float substitutability applies neither to the rational @term{functions}
 @code{*},
 and @code{/}
 nor to the related @term{operators}
-@coderef{1+},
-@coderef{1-},
-@coderef{incf},
-@coderef{decf},
-and @coderef{conjugate}.
+@symbolref{1+},
+@symbolref{1-},
+@symbolref{incf},
+@symbolref{decf},
+and @symbolref{conjugate}.
 For rational @term{functions},
 if all arguments are @term{rational},
 then the result is @term{rational};
@@ -366,30 +366,30 @@ then the result is of type @f{(or rational (complex rational))}.
 
 @float Figure,fig12.8
 @cartouche
-@multitable{@coderef{signum}}{@f{(signum #c(3 4)) @EV{}@spc{}#c(3/5 4/5) @i{or} #c(0.6 0.8)}}
+@multitable{@symbolref{signum}}{@f{(signum #c(3 4)) @EV{}@spc{}#c(3/5 4/5) @i{or} #c(0.6 0.8)}}
 @headitem Function @tab Sample Results
-@item @coderef{abs} @tab @f{(abs #c(3 4)) @EV{}@spc{}5 @i{or} 5.0}
-@item @coderef{acos} @tab @f{(acos 1) @EV{}@spc{}0 @i{or} 0.0}
-@item @coderef{acosh} @tab @f{(acosh 1) @EV{}@spc{}0 @i{or} 0.0}
-@item @coderef{asin} @tab @f{(asin 0) @EV{}@spc{}0 @i{or} 0.0}
-@item @coderef{asinh} @tab @f{(asinh 0) @EV{}@spc{}0 @i{or} 0.0}
-@item @coderef{atan} @tab @f{(atan 0) @EV{}@spc{}0 @i{or} 0.0}
-@item @coderef{atanh} @tab @f{(atanh 0) @EV{}@spc{}0 @i{or} 0.0}
-@item @coderef{cis} @tab @f{(cis 0) @EV{}@spc{}1 @i{or} #c(1.0 0.0)}
-@item @coderef{cos} @tab @f{(cos 0) @EV{}@spc{}1 @i{or} 1.0}
-@item @coderef{cosh} @tab @f{(cosh 0) @EV{}@spc{}1 @i{or} 1.0}
-@item @coderef{exp} @tab @f{(exp 0) @EV{}@spc{}1 @i{or} 1.0}
-@item @coderef{expt} @tab @f{(expt 8 1/3) @EV{}@spc{}2 @i{or} 2.0}
-@item @coderef{log} @tab @f{(log 1) @EV{}@spc{}0 @i{or} 0.0}
+@item @symbolref{abs} @tab @f{(abs #c(3 4)) @EV{}@spc{}5 @i{or} 5.0}
+@item @symbolref{acos} @tab @f{(acos 1) @EV{}@spc{}0 @i{or} 0.0}
+@item @symbolref{acosh} @tab @f{(acosh 1) @EV{}@spc{}0 @i{or} 0.0}
+@item @symbolref{asin} @tab @f{(asin 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @symbolref{asinh} @tab @f{(asinh 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @symbolref{atan} @tab @f{(atan 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @symbolref{atanh} @tab @f{(atanh 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @symbolref{cis} @tab @f{(cis 0) @EV{}@spc{}1 @i{or} #c(1.0 0.0)}
+@item @symbolref{cos} @tab @f{(cos 0) @EV{}@spc{}1 @i{or} 1.0}
+@item @symbolref{cosh} @tab @f{(cosh 0) @EV{}@spc{}1 @i{or} 1.0}
+@item @symbolref{exp} @tab @f{(exp 0) @EV{}@spc{}1 @i{or} 1.0}
+@item @symbolref{expt} @tab @f{(expt 8 1/3) @EV{}@spc{}2 @i{or} 2.0}
+@item @symbolref{log} @tab @f{(log 1) @EV{}@spc{}0 @i{or} 0.0}
 @item  @tab @f{(log 8 2) @EV{}@spc{}3 @i{or} 3.0}
-@item @coderef{phase} @tab @f{(phase 7) @EV{}@spc{}0 @i{or} 0.0}
-@item @coderef{signum} @tab @f{(signum #c(3 4)) @EV{}@spc{}#c(3/5 4/5) @i{or} #c(0.6 0.8)}
-@item @coderef{sin} @tab @f{(sin 0) @EV{}@spc{}0 @i{or} 0.0}
-@item @coderef{sinh} @tab @f{(sinh 0) @EV{}@spc{}0 @i{or} 0.0}
-@item @coderef{sqrt} @tab @f{(sqrt 4) @EV{}@spc{}2 @i{or} 2.0}
+@item @symbolref{phase} @tab @f{(phase 7) @EV{}@spc{}0 @i{or} 0.0}
+@item @symbolref{signum} @tab @f{(signum #c(3 4)) @EV{}@spc{}#c(3/5 4/5) @i{or} #c(0.6 0.8)}
+@item @symbolref{sin} @tab @f{(sin 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @symbolref{sinh} @tab @f{(sinh 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @symbolref{sqrt} @tab @f{(sqrt 4) @EV{}@spc{}2 @i{or} 2.0}
 @item  @tab @f{(sqrt 9/16) @EV{}@spc{}3/4 @i{or} 0.75}
-@item @coderef{tan} @tab @f{(tan 0) @EV{}@spc{}0 @i{or} 0.0}
-@item @coderef{tanh} @tab @f{(tanh 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @symbolref{tan} @tab @f{(tan 0) @EV{}@spc{}0 @i{or} 0.0}
+@item @symbolref{tanh} @tab @f{(tanh 0) @EV{}@spc{}0 @i{or} 0.0}
 @end multitable
 @end cartouche
 @caption{Functions Affected by Rule of Float Substitutability}
@@ -470,8 +470,8 @@ never convert automatically from a larger size to a smaller one.
 @node Rule of Float Underflow and Overflow
 @subsubsection Rule of Float Underflow and Overflow
 
-An error of @term{type} @coderef{floating-point-overflow}
-or @coderef{floating-point-underflow} should be signaled if a
+An error of @term{type} @symbolref{floating-point-overflow}
+or @symbolref{floating-point-underflow} should be signaled if a
 floating-point computation causes exponent overflow or underflow, respectively.
 
 
@@ -519,7 +519,7 @@ For example, @f{#C(5 0)} and @f{5} are not @term{different} @term{objects} in @c
 (they are always the @term{same} under @code{eql});
 @f{#C(5.0 0.0)} and @f{5.0} are always @term{different} @term{objects} in @clisp{}
 (they are never the @term{same} under @code{eql},
-although they are the @term{same} under @coderef{equalp} and @coderef{=}).
+although they are the @term{same} under @symbolref{equalp} and @symbolref{=}).
 
 @node Examples of Rule of Canonical Representation for Complex Rationals
 @subsubsection Examples of Rule of Canonical Representation for Complex Rationals
@@ -750,26 +750,26 @@ This denotes the absence of an upper bound on the interval.
 
 @node number
 @subsection number (System Class)
-@syindexanchor{number, REF}
+@syindexanchor{number, SYM}
 @cindex number
 
 
 @subsubheading Class Precedence List:
-@coderef{number},
+@symbolref{number},
 @code{t}
 
 @subsubheading Description:
 
 @Thetype{number} contains @term{objects} which represent
 mathematical numbers.
-The @term{types} @coderef{real} and @code{complex} are @term{disjoint}
-@term{subtypes} of @coderef{number}.
+The @term{types} @symbolref{real} and @code{complex} are @term{disjoint}
+@term{subtypes} of @symbolref{number}.
 
 @Thefunction{=} tests for numerical equality.
 @Thefunction{eql}, when its arguments are both @term{numbers},
 tests that they have both the same @term{type} and numerical value.
-Two @term{numbers} that are the @term{same} under @code{eql} or @coderef{=}
-are not necessarily the @term{same} under @coderef{eq}.
+Two @term{numbers} that are the @term{same} under @code{eql} or @symbolref{=}
+are not necessarily the @term{same} under @symbolref{eq}.
 
 @subsubheading Notes:
 
@@ -777,7 +777,7 @@ are not necessarily the @term{same} under @coderef{eq}.
 the set of real numbers is traditionally described as a subset of the
 complex numbers, but in @clisp{}, @thetype{real} and @thetype{complex} are
 disjoint.  The @clisp{}@spc{}type which includes all mathematical complex
-numbers is called @coderef{number}.  The reasons for these differences
+numbers is called @symbolref{number}.  The reasons for these differences
 include historical precedent, compatibility with most other popular
 computer languages, and various issues of time and space efficiency.
 
@@ -789,7 +789,7 @@ computer languages, and various issues of time and space efficiency.
 
 @subsubheading Class Precedence List:
 @code{complex},
-@coderef{number},
+@symbolref{number},
 @code{t}
 
 @subsubheading Description:
@@ -855,14 +855,14 @@ and which can be obtained by @tt{(COERCE @mat{n} 'COMPLEX)}.
 
 @node real
 @subsection real (System Class)
-@syindexanchor{real, REF}
+@syindexanchor{real, SYM}
 @cindex real
 
 
 
 @subsubheading Class Precedence List:
-@coderef{real},
-@coderef{number},
+@symbolref{real},
+@symbolref{number},
 @code{t}
 
 @subsubheading Description:
@@ -871,7 +871,7 @@ and which can be obtained by @tt{(COERCE @mat{n} 'COMPLEX)}.
 represent mathematical real numbers, though there are mathematical real
 numbers (@eg{} irrational numbers) that do not have an exact representation
 in @clisp{}.  Only @term{reals} can be ordered using the
-@coderef{<}, @coderef{>}, @coderef{<=}, and @coderef{>=} functions.
+@symbolref{<}, @symbolref{>}, @symbolref{<=}, and @symbolref{>=} functions.
 
 The @term{types} @code{rational} and @code{float} are @term{disjoint}
 @subtypesof{real}.
@@ -887,8 +887,8 @@ The @term{types} @code{rational} and @code{float} are @term{disjoint}
 
 @subsubheading Class Precedence List:
 @code{float},
-@coderef{real},
-@coderef{number},
+@symbolref{real},
+@symbolref{number},
 @code{t}
 
 @subsubheading Description:
@@ -922,8 +922,8 @@ otherwise it is @term{true}.
 Can there be additional subtypes of float or does ``others'' in the
 list of four?}
 
-The @term{types} @coderef{short-float}, @coderef{single-float}, @coderef{double-float},
-and @coderef{long-float} are @subtypesof{float}.  Any two of them must be
+The @term{types} @symbolref{short-float}, @symbolref{single-float}, @symbolref{double-float},
+and @symbolref{long-float} are @subtypesof{float}.  Any two of them must be
 either @term{disjoint} @term{types} or the @term{same} @term{type};
 if the @term{same} @term{type}, then any other @term{types} between them in the
 above ordering must also be the @term{same} @term{type}.  For example,
@@ -949,44 +949,44 @@ or the @term{complex} @f{#C(1.0 0.0)}.
 
 @node short-float; single-float; double-float; long-float
 @subsection short-float, single-float, double-float, long-float (Type)
-@syindexanchor{short-float, REF}
+@syindexanchor{short-float, SYM}
 @cindex short-float
-@syindexanchor{single-float, REF}
+@syindexanchor{single-float, SYM}
 @cindex single-float
-@syindexanchor{double-float, REF}
+@syindexanchor{double-float, SYM}
 @cindex double-float
-@syindexanchor{long-float, REF}
+@syindexanchor{long-float, SYM}
 @cindex long-float
 
 
 @subsubheading Supertypes:
 
-@coderef{short-float}:
-@coderef{short-float},
+@symbolref{short-float}:
+@symbolref{short-float},
 @code{float},
-@coderef{real},
-@coderef{number},
+@symbolref{real},
+@symbolref{number},
 @code{t}
 
-@coderef{single-float}:
-@coderef{single-float},
+@symbolref{single-float}:
+@symbolref{single-float},
 @code{float},
-@coderef{real},
-@coderef{number},
+@symbolref{real},
+@symbolref{number},
 @code{t}
 
-@coderef{double-float}:
-@coderef{double-float},
+@symbolref{double-float}:
+@symbolref{double-float},
 @code{float},
-@coderef{real},
-@coderef{number},
+@symbolref{real},
+@symbolref{number},
 @code{t}
 
-@coderef{long-float}:
-@coderef{long-float},
+@symbolref{long-float}:
+@symbolref{long-float},
 @code{float},
-@coderef{real},
-@coderef{number},
+@symbolref{real},
+@symbolref{number},
 @code{t}
 
 @subsubheading Description:
@@ -1027,33 +1027,33 @@ If there are fewer distinct representations, the following rules apply:
 @item If there is only one, it is
 @thetype{single-float}.
 In this representation, an @term{object} is simultaneously of @term{types}
-@coderef{single-float}, @coderef{double-float}, @coderef{short-float},
-and @coderef{long-float}.
+@symbolref{single-float}, @symbolref{double-float}, @symbolref{short-float},
+and @symbolref{long-float}.
 @item Two internal representations can be arranged in either of the
 following ways:
 
 @itemize @bullet{}
-@item Two @term{types} are provided: @coderef{single-float} and
-@coderef{short-float}.  An @term{object} is simultaneously
-of @term{types} @coderef{single-float}, @coderef{double-float}, and @coderef{long-float}.
-@item Two @term{types} are provided: @coderef{single-float} and
-@coderef{double-float}. An @term{object} is simultaneously of @term{types}
-@coderef{single-float} and @coderef{short-float}, or
-@coderef{double-float} and @coderef{long-float}.
+@item Two @term{types} are provided: @symbolref{single-float} and
+@symbolref{short-float}.  An @term{object} is simultaneously
+of @term{types} @symbolref{single-float}, @symbolref{double-float}, and @symbolref{long-float}.
+@item Two @term{types} are provided: @symbolref{single-float} and
+@symbolref{double-float}. An @term{object} is simultaneously of @term{types}
+@symbolref{single-float} and @symbolref{short-float}, or
+@symbolref{double-float} and @symbolref{long-float}.
 @end itemize
 
 @item Three internal representations can be arranged in either
 of the following ways:
 
 @itemize @bullet{}
-@item Three @term{types} are provided: @coderef{short-float},
-@coderef{single-float}, and @coderef{double-float}.
-An @term{object} can simultaneously be of @term{type} @coderef{double-float}
-and @coderef{long-float}.
+@item Three @term{types} are provided: @symbolref{short-float},
+@symbolref{single-float}, and @symbolref{double-float}.
+An @term{object} can simultaneously be of @term{type} @symbolref{double-float}
+and @symbolref{long-float}.
 @item Three @term{types} are provided:
-@coderef{single-float}, @coderef{double-float},
-and @coderef{long-float}. An @term{object} can simultaneously
-be of @term{types} @coderef{single-float} and @coderef{short-float}.
+@symbolref{single-float}, @symbolref{double-float},
+and @symbolref{long-float}. An @term{object} can simultaneously
+be of @term{types} @symbolref{single-float} and @symbolref{short-float}.
 @end itemize
 @end itemize
 
@@ -1072,19 +1072,19 @@ Abbreviating.
 @subsubheading Compound Type Specifier Arguments:
 
 @param{short-lower-limit}, @param{short-upper-limit}---@term{interval designators}
-for @term{type} @coderef{short-float}.
+for @term{type} @symbolref{short-float}.
 @DefaultEach{@param{lower-limit} and @param{upper-limit}, the @term{symbol} @t{*}}
 
 @param{single-lower-limit}, @param{single-upper-limit}---@term{interval designators}
-for @term{type} @coderef{single-float}.
+for @term{type} @symbolref{single-float}.
 @DefaultEach{@param{lower-limit} and @param{upper-limit}, the @term{symbol} @t{*}}
 
 @param{double-lower-limit}, @param{double-upper-limit}---@term{interval designators}
-for @term{type} @coderef{double-float}.
+for @term{type} @symbolref{double-float}.
 @DefaultEach{@param{lower-limit} and @param{upper-limit}, the @term{symbol} @t{*}}
 
 @param{long-lower-limit}, @param{long-upper-limit}---@term{interval designators}
-for @term{type} @coderef{long-float}.
+for @term{type} @symbolref{long-float}.
 @DefaultEach{@param{lower-limit} and @param{upper-limit}, the @term{symbol} @t{*}}
 
 @subsubheading Compound Type Specifier Description:
@@ -1100,8 +1100,8 @@ that are on the interval specified by the @term{interval designators}.
 
 @subsubheading Class Precedence List:
 @code{rational},
-@coderef{real},
-@coderef{number},
+@symbolref{real},
+@symbolref{number},
 @code{t}
 
 @subsubheading Description:
@@ -1110,22 +1110,22 @@ The canonical representation of a @term{rational}
 is as an @term{integer} if its value is integral,
 and otherwise as a @term{ratio}.
 
-The @term{types} @coderef{integer} and @coderef{ratio}
+The @term{types} @symbolref{integer} and @symbolref{ratio}
 are @term{disjoint} @subtypesof{rational}.
 
 @realtypespec{rational}
 
 @node ratio
 @subsection ratio (System Class)
-@syindexanchor{ratio, REF}
+@syindexanchor{ratio, SYM}
 @cindex ratio
 
 
 @subsubheading Class Precedence List:
-@coderef{ratio},
+@symbolref{ratio},
 @code{rational},
-@coderef{real},
-@coderef{number},
+@symbolref{real},
+@symbolref{number},
 @code{t}
 
 @subsubheading Description:
@@ -1144,15 +1144,15 @@ and of which the denominator is positive and greater than one.
 
 @node integer
 @subsection integer (System Class)
-@syindexanchor{integer, REF}
+@syindexanchor{integer, SYM}
 @cindex integer
 
 
 @subsubheading Class Precedence List:
-@coderef{integer},
+@symbolref{integer},
 @code{rational},
-@coderef{real},
-@coderef{number},
+@symbolref{real},
+@symbolref{number},
 @code{t}
 
 @subsubheading Description:
@@ -1160,8 +1160,8 @@ and of which the denominator is positive and greater than one.
 An @term{integer} is a mathematical integer. There is no limit on the
 magnitude of an @term{integer}.
 
-The @term{types} @coderef{fixnum} and @coderef{bignum}
-form an @term{exhaustive partition} of @term{type} @coderef{integer}.
+The @term{types} @symbolref{fixnum} and @symbolref{bignum}
+form an @term{exhaustive partition} of @term{type} @symbolref{integer}.
 
 @realtypespec{integer}
 
@@ -1175,31 +1175,31 @@ form an @term{exhaustive partition} of @term{type} @coderef{integer}.
 
 The @term{type} @f{(integer @i{lower} @i{upper})},
 where @i{lower} and @i{upper}
-are @coderef{most-negative-fixnum} and @coderef{most-positive-fixnum}, respectively,
-is also called @coderef{fixnum}.
+are @symbolref{most-negative-fixnum} and @symbolref{most-positive-fixnum}, respectively,
+is also called @symbolref{fixnum}.
 
 The @term{type} @f{(integer 0 1)} is also called @code{bit}.
-The @term{type} @f{(integer 0 *)} is also called @coderef{unsigned-byte}.
+The @term{type} @f{(integer 0 *)} is also called @symbolref{unsigned-byte}.
 
 @node signed-byte
 @subsection signed-byte (Type)
-@syindexanchor{signed-byte, REF}
+@syindexanchor{signed-byte, SYM}
 @cindex signed-byte
 
 
 @subsubheading Supertypes:
 
-@coderef{signed-byte},
-@coderef{integer},
+@symbolref{signed-byte},
+@symbolref{integer},
 @code{rational},
-@coderef{real},
-@coderef{number},
+@symbolref{real},
+@symbolref{number},
 @code{t}
 
 @subsubheading Description:
 
-The atomic @term{type specifier} @coderef{signed-byte} denotes the same
-type as is denoted by the @term{type specifier} @coderef{integer};
+The atomic @term{type specifier} @symbolref{signed-byte} denotes the same
+type as is denoted by the @term{type specifier} @symbolref{integer};
 however, the list forms of these two @term{type specifiers} have different semantics.
 
 @subsubheading Compound Type Specifier Kind:
@@ -1219,28 +1219,28 @@ Abbreviating.
 This denotes the set of @term{integers} that can be represented
 in two's-complement form in a @term{byte} of @param{s} bits.  This is
 equivalent to @f{(integer @mat{-2^s-1} @mat{2^s-1-1})}.  The type
-@coderef{signed-byte} or the type @f{(signed-byte *)} is the same
+@symbolref{signed-byte} or the type @f{(signed-byte *)} is the same
 as @thetype{integer}.
 
 @node unsigned-byte
 @subsection unsigned-byte (Type)
-@syindexanchor{unsigned-byte, REF}
+@syindexanchor{unsigned-byte, SYM}
 @cindex unsigned-byte
 
 
 @subsubheading Supertypes:
 
-@coderef{unsigned-byte},
-@coderef{signed-byte},
-@coderef{integer},
+@symbolref{unsigned-byte},
+@symbolref{signed-byte},
+@symbolref{integer},
 @code{rational},
-@coderef{real},
-@coderef{number},
+@symbolref{real},
+@symbolref{number},
 @code{t}
 
 @subsubheading Description:
 
-The atomic @term{type specifier} @coderef{unsigned-byte} denotes the same
+The atomic @term{type specifier} @symbolref{unsigned-byte} denotes the same
 type as is denoted by the @term{type specifier} @f{(integer 0 *)}.
 
 @subsubheading Compound Type Specifier Kind:
@@ -1312,12 +1312,12 @@ The symbol @code{mod} is not valid as a @term{type specifier}.
 @subsubheading Supertypes:
 
 @code{bit},
-@coderef{unsigned-byte},
-@coderef{signed-byte},
-@coderef{integer},
+@symbolref{unsigned-byte},
+@symbolref{signed-byte},
+@symbolref{integer},
 @code{rational},
-@coderef{real},
-@coderef{number},
+@symbolref{real},
+@symbolref{number},
 @code{t}
 
 @subsubheading Description:
@@ -1328,42 +1328,42 @@ and @f{(unsigned-byte 1)}.
 
 @node fixnum
 @subsection fixnum (Type)
-@syindexanchor{fixnum, REF}
+@syindexanchor{fixnum, SYM}
 @cindex fixnum
 
 
 @subsubheading Supertypes:
 
-@coderef{fixnum},
-@coderef{integer},
+@symbolref{fixnum},
+@symbolref{integer},
 @code{rational},
-@coderef{real},
-@coderef{number},
+@symbolref{real},
+@symbolref{number},
 @code{t}
 
 @subsubheading Description:
 
 A @term{fixnum} is an @term{integer} whose value is between
-@coderef{most-negative-fixnum} and @coderef{most-positive-fixnum} inclusive.
+@symbolref{most-negative-fixnum} and @symbolref{most-positive-fixnum} inclusive.
 Exactly which @term{integers} are @term{fixnums} is
 @term{implementation-defined}.
-The @term{type} @coderef{fixnum} is required to be a supertype of
+The @term{type} @symbolref{fixnum} is required to be a supertype of
 @f{(signed-byte 16)}.
 
 
 @node bignum
 @subsection bignum (Type)
-@syindexanchor{bignum, REF}
+@syindexanchor{bignum, SYM}
 @cindex bignum
 
 
 @subsubheading Supertypes:
 
-@coderef{bignum},
-@coderef{integer},
+@symbolref{bignum},
+@symbolref{integer},
 @code{rational},
-@coderef{real},
-@coderef{number},
+@symbolref{real},
+@symbolref{number},
 @code{t}
 
 @subsubheading Description:
@@ -1373,17 +1373,17 @@ The @term{type} @coderef{fixnum} is required to be a supertype of
 
 @node =; /=; <; >; <=; >=
 @subsection =, /=, <, >, <=, >= (Function)
-@syindexanchor{=, REF}
+@syindexanchor{=, SYM}
 @cindex =
-@syindexanchor{/=, REF}
+@syindexanchor{/=, SYM}
 @cindex /=
-@syindexanchor{<, REF}
+@syindexanchor{<, SYM}
 @cindex <
-@syindexanchor{>, REF}
+@syindexanchor{>, SYM}
 @cindex >
-@syindexanchor{<=, REF}
+@syindexanchor{<=, SYM}
 @cindex <=
-@syindexanchor{>=, REF}
+@syindexanchor{>=, SYM}
 @cindex >=
 @anchor{=}
 
@@ -1399,61 +1399,61 @@ The @term{type} @coderef{fixnum} is required to be a supertype of
 
 @subsubheading Arguments and Values:
 
-@param{number}---for @coderef{<}, @coderef{>}, @coderef{<=}, @coderef{>=}: a @term{real};
-for @coderef{=}, @coderef{/=}: a @term{number}.
+@param{number}---for @symbolref{<}, @symbolref{>}, @symbolref{<=}, @symbolref{>=}: a @term{real};
+for @symbolref{=}, @symbolref{/=}: a @term{number}.
 
 @param{generalized-boolean}---a @term{generalized boolean}.
 
 @subsubheading Description:
 
-@coderef{=}, @coderef{/=}, @coderef{<}, @coderef{>}, @coderef{<=}, and @coderef{>=}
+@symbolref{=}, @symbolref{/=}, @symbolref{<}, @symbolref{>}, @symbolref{<=}, and @symbolref{>=}
 perform arithmetic comparisons on their arguments as follows:
 
 
 @table @asis
-@item @id{@coderef{=}}
+@item @id{@symbolref{=}}
 
 
-The value of @coderef{=} is @term{true} if all @param{numbers} are the same in value;
+The value of @symbolref{=} is @term{true} if all @param{numbers} are the same in value;
 otherwise it is @term{false}.
-Two @term{complexes} are considered equal by @coderef{=}
-if their real and imaginary parts are equal according to @coderef{=}.
+Two @term{complexes} are considered equal by @symbolref{=}
+if their real and imaginary parts are equal according to @symbolref{=}.
 
-@item @id{@coderef{/=}}
-
-
-The value of @coderef{/=} is @term{true} if no two @param{numbers} are the same in value;
-otherwise it is @term{false}.
-
-@item @id{@coderef{<}}
+@item @id{@symbolref{/=}}
 
 
-The value of @coderef{<} is @term{true} if the @param{numbers} are in monotonically increasing order;
+The value of @symbolref{/=} is @term{true} if no two @param{numbers} are the same in value;
 otherwise it is @term{false}.
 
-@item @id{@coderef{>}}
+@item @id{@symbolref{<}}
 
 
-The value of @coderef{>} is @term{true} if the @param{numbers} are in monotonically decreasing order;
+The value of @symbolref{<} is @term{true} if the @param{numbers} are in monotonically increasing order;
 otherwise it is @term{false}.
 
-@item @id{@coderef{<=}}
+@item @id{@symbolref{>}}
 
 
-The value of @coderef{<=} is @term{true} if the @param{numbers} are in monotonically
+The value of @symbolref{>} is @term{true} if the @param{numbers} are in monotonically decreasing order;
+otherwise it is @term{false}.
+
+@item @id{@symbolref{<=}}
+
+
+The value of @symbolref{<=} is @term{true} if the @param{numbers} are in monotonically
 nondecreasing order;
 otherwise it is @term{false}.
 
-@item @id{@coderef{>=}}
+@item @id{@symbolref{>=}}
 
 
-The value of @coderef{>=} is @term{true} if the @param{numbers} are in monotonically
+The value of @symbolref{>=} is @term{true} if the @param{numbers} are in monotonically
 nonincreasing order;
 otherwise it is @term{false}.
 @end table
 
 
-@coderef{=}, @coderef{/=}, @coderef{<}, @coderef{>}, @coderef{<=}, and @coderef{>=}
+@symbolref{=}, @symbolref{/=}, @symbolref{<}, @symbolref{>}, @symbolref{<=}, and @symbolref{>=}
 perform necessary type conversions.
 
 @subsubheading Examples:
@@ -1494,22 +1494,22 @@ The uses of these functions are illustrated in @thenextfigure{}.
 
 @subsubheading Exceptional Situations:
 
-Might signal @coderef{type-error} if some @term{argument} is not a @term{real}.
-Might signal @coderef{arithmetic-error} if otherwise unable to fulfill its contract.
+Might signal @symbolref{type-error} if some @term{argument} is not a @term{real}.
+Might signal @symbolref{arithmetic-error} if otherwise unable to fulfill its contract.
 
 @subsubheading Notes:
 
-@coderef{=} differs from @code{eql} in that
+@symbolref{=} differs from @code{eql} in that
 @f{(= 0.0 -0.0)} is always true,
-because @coderef{=} compares the mathematical values of its operands,
+because @symbolref{=} compares the mathematical values of its operands,
 whereas @code{eql} compares the representational values, so to speak.
 
 
 @node max; min
 @subsection max, min (Function)
-@syindexanchor{max, REF}
+@syindexanchor{max, SYM}
 @cindex max
-@syindexanchor{min, REF}
+@syindexanchor{min, SYM}
 @cindex min
 
 
@@ -1526,14 +1526,14 @@ whereas @code{eql} compares the representational values, so to speak.
 
 @subsubheading Description:
 
-@coderef{max} returns the @param{real} that is greatest (closest to positive infinity).
-@coderef{min} returns the @param{real} that is least (closest to negative infinity).
+@symbolref{max} returns the @param{real} that is greatest (closest to positive infinity).
+@symbolref{min} returns the @param{real} that is least (closest to negative infinity).
 
-For @coderef{max},
+For @symbolref{max},
 the implementation has the choice of returning the largest
 argument as is or applying the rules of floating-point @term{contagion},
 taking all the arguments into consideration for @term{contagion} purposes.
-Also, if one or more of the arguments are @coderef{=}, then any one
+Also, if one or more of the arguments are @symbolref{=}, then any one
 of them may be chosen as the value to return.
 For example, if the @param{reals} are a mixture of @term{rationals} and @term{floats},
 and the largest argument is a @term{rational},
@@ -1545,7 +1545,7 @@ if the largest argument is a
 than the largest format of any @term{float} argument,
 then the implementation is free to
 return the argument in its given format or expanded to the larger format.
-Similar remarks apply to @coderef{min}
+Similar remarks apply to @symbolref{min}
 (replacing ``largest argument'' by ``smallest argument'').
 
 @subsubheading Examples:
@@ -1592,9 +1592,9 @@ Similar remarks apply to @coderef{min}
 
 @node minusp; plusp
 @subsection minusp, plusp (Function)
-@syindexanchor{minusp, REF}
+@syindexanchor{minusp, SYM}
 @cindex minusp
-@syindexanchor{plusp, REF}
+@syindexanchor{plusp, SYM}
 @cindex plusp
 
 
@@ -1635,7 +1635,7 @@ representations for positive and negative @term{float} zeros,
 
 @node zerop
 @subsection zerop (Function)
-@syindexanchor{zerop, REF}
+@syindexanchor{zerop, SYM}
 @cindex zerop
 
 
@@ -1686,21 +1686,21 @@ always returns @term{true}.
 
 @node floor; ffloor; ceiling; fceiling; truncate; ftruncate; round; fround
 @subsection floor, ffloor, ceiling, fceiling, truncate, ftruncate, round, fround (Function)
-@syindexanchor{floor, REF}
+@syindexanchor{floor, SYM}
 @cindex floor
-@syindexanchor{ffloor, REF}
+@syindexanchor{ffloor, SYM}
 @cindex ffloor
-@syindexanchor{ceiling, REF}
+@syindexanchor{ceiling, SYM}
 @cindex ceiling
-@syindexanchor{fceiling, REF}
+@syindexanchor{fceiling, SYM}
 @cindex fceiling
-@syindexanchor{truncate, REF}
+@syindexanchor{truncate, SYM}
 @cindex truncate
-@syindexanchor{ftruncate, REF}
+@syindexanchor{ftruncate, SYM}
 @cindex ftruncate
-@syindexanchor{round, REF}
+@syindexanchor{round, SYM}
 @cindex round
-@syindexanchor{fround, REF}
+@syindexanchor{fround, SYM}
 @cindex fround
 @anchor{floor}
 @anchor{ceiling}
@@ -1727,10 +1727,10 @@ always returns @term{true}.
 @param{divisor}---a non-zero @term{real}.
 @Default{the @term{integer} @f{1}}
 
-@param{quotient}---for @coderef{floor}, @coderef{ceiling},
-@coderef{truncate}, and @coderef{round}: an @term{integer};
-for @coderef{ffloor}, @coderef{fceiling},
-@coderef{ftruncate}, and @coderef{fround}: a @term{float}.
+@param{quotient}---for @symbolref{floor}, @symbolref{ceiling},
+@symbolref{truncate}, and @symbolref{round}: an @term{integer};
+for @symbolref{ffloor}, @symbolref{fceiling},
+@symbolref{ftruncate}, and @symbolref{fround}: a @term{float}.
 
 @param{remainder}---a @term{real}.
 
@@ -1749,35 +1749,35 @@ the kind of rounding or truncation depends on the @term{operator}:
 
 @table @asis
 
-@item @id{@coderef{floor}, @coderef{ffloor}}
+@item @id{@symbolref{floor}, @symbolref{ffloor}}
 
 
-@coderef{floor} and @coderef{ffloor} produce a @param{quotient}
+@symbolref{floor} and @symbolref{ffloor} produce a @param{quotient}
 that has been truncated toward negative infinity;
 that is, the @param{quotient} represents the largest mathematical integer
 that is not larger than the mathematical quotient.
 
-@item @id{@coderef{ceiling}, @coderef{fceiling}}
+@item @id{@symbolref{ceiling}, @symbolref{fceiling}}
 
 
-@coderef{ceiling} and @coderef{fceiling} produce a @param{quotient}
+@symbolref{ceiling} and @symbolref{fceiling} produce a @param{quotient}
 that has been truncated toward positive infinity;
 that is, the @param{quotient} represents the smallest mathematical integer
 that is not smaller than the mathematical result.
 
-@item @id{@coderef{truncate}, @coderef{ftruncate}}
+@item @id{@symbolref{truncate}, @symbolref{ftruncate}}
 
 
-@coderef{truncate} and @coderef{ftruncate} produce a @param{quotient}
+@symbolref{truncate} and @symbolref{ftruncate} produce a @param{quotient}
 that has been truncated towards zero;
 that is, the @param{quotient} represents the mathematical integer
 of the same sign as the mathematical quotient, and
 that has the greatest integral magnitude not greater than that of the mathematical quotient.
 
-@item @id{@coderef{round}, @coderef{fround}}
+@item @id{@symbolref{round}, @symbolref{fround}}
 
 
-@coderef{round} and @coderef{fround} produce a @param{quotient}
+@symbolref{round} and @symbolref{fround} produce a @param{quotient}
 that has been rounded to the nearest mathematical integer;
 if the mathematical quotient is exactly halfway between two integers,
 (that is, it has the form @i{integer}+@mat{1@over2{}}),
@@ -1792,7 +1792,7 @@ is an @term{integer}  if both   @f{x} and @f{y} are @term{integers},
 is a  @term{rational} if both   @f{x} and @f{y} are @term{rationals}, and
 is a  @term{float}    if either @f{x} or  @f{y} is  a @term{float}.
 
-@coderef{ffloor}, @coderef{fceiling}, @coderef{ftruncate}, and @coderef{fround}
+@symbolref{ffloor}, @symbolref{fceiling}, @symbolref{ftruncate}, and @symbolref{fround}
 handle arguments of different @term{types} in the following way:
 If  @param{number}  is     a @term{float},
 and @param{divisor} is not a @term{float} of longer format,
@@ -1840,9 +1840,9 @@ mathematical value of @param{number}.
 @f{(@i{function} @param{number} @param{divisor})}
 and @f{(@i{function} (/ @param{number} @param{divisor}))}
 (where @i{function} is any of one
-of @coderef{floor}, @coderef{ceiling}, @coderef{ffloor},
-@coderef{fceiling}, @coderef{truncate},
-@coderef{round}, @coderef{ftruncate}, and @coderef{fround})
+of @symbolref{floor}, @symbolref{ceiling}, @symbolref{ffloor},
+@symbolref{fceiling}, @symbolref{truncate},
+@symbolref{round}, @symbolref{ftruncate}, and @symbolref{fround})
 return the same first value, but
 they return different remainders as the second value. For example:
 
@@ -1852,7 +1852,7 @@ they return different remainders as the second value. For example:
 @end lisp
 
 
-If an effect is desired that is similar to @coderef{round},
+If an effect is desired that is similar to @symbolref{round},
 but that always rounds up or down (rather than toward the nearest even integer)
 if the mathematical quotient is exactly halfway between two integers,
 the programmer should consider a construction such as
@@ -1862,11 +1862,11 @@ or @f{(ceiling (- x 1/2))}.
 
 @node sin; cos; tan
 @subsection sin, cos, tan (Function)
-@syindexanchor{sin, REF}
+@syindexanchor{sin, SYM}
 @cindex sin
-@syindexanchor{cos, REF}
+@syindexanchor{cos, SYM}
 @cindex cos
-@syindexanchor{tan, REF}
+@syindexanchor{tan, SYM}
 @cindex tan
 
 
@@ -1884,7 +1884,7 @@ or @f{(ceiling (- x 1/2))}.
 
 @subsubheading Description:
 
-@coderef{sin}, @coderef{cos}, and @coderef{tan}
+@symbolref{sin}, @symbolref{cos}, and @symbolref{tan}
 return the sine, cosine, and tangent, respectively, of @param{radians}.
 
 @subsubheading Examples:
@@ -1899,7 +1899,7 @@ return the sine, cosine, and tangent, respectively, of @param{radians}.
 @subsubheading Exceptional Situations:
 
 @Shouldchecktype{radians, a @term{number}}
-Might signal @coderef{arithmetic-error}.
+Might signal @symbolref{arithmetic-error}.
 
 @subsubheading See Also:
 
@@ -1911,11 +1911,11 @@ Might signal @coderef{arithmetic-error}.
 
 @node asin; acos; atan
 @subsection asin, acos, atan (Function)
-@syindexanchor{asin, REF}
+@syindexanchor{asin, SYM}
 @cindex asin
-@syindexanchor{acos, REF}
+@syindexanchor{acos, SYM}
 @cindex acos
-@syindexanchor{atan, REF}
+@syindexanchor{atan, SYM}
 @cindex atan
 @anchor{asin}
 @anchor{acos}
@@ -1941,7 +1941,7 @@ or a @term{real}   if @param{number2} is     supplied.
 
 @subsubheading Description:
 
-@coderef{asin}, @coderef{acos}, and @coderef{atan}
+@symbolref{asin}, @symbolref{acos}, and @symbolref{atan}
 compute the arc sine, arc cosine, and arc tangent respectively.
 
 The arc sine, arc cosine, and arc tangent (with only @param{number1} supplied)
@@ -1967,9 +1967,9 @@ completely accurate computation. They are not necessarily
 the simplest ones for real-valued computations.
 
 If both @param{number1} and @param{number2} are supplied
-for @coderef{atan}, the result is the arc tangent
+for @symbolref{atan}, the result is the arc tangent
 of @hbox{@param{number1}/@param{number2}}.
-The value of @coderef{atan} is always between
+The value of @symbolref{atan} is always between
 @mat{-@pi{}} (exclusive) and@tie{}@mat{@pi{}} (inclusive)
 when minus zero is not supported.
 The range of the two-argument arc tangent when minus zero is supported
@@ -2066,7 +2066,7 @@ the range if and only if its imaginary part is strictly negative.  Thus the rang
 arc tangent is identical to that of arc sine with the points
 @mat{-@pi{}/2} and@tie{}@mat{@pi{}/2} excluded.
 
-For @coderef{atan},
+For @symbolref{atan},
 the signs of @param{number1} (indicated as @i{x})
 and @param{number2} (indicated as @i{y}) are used to derive quadrant
 information. @Thenextfigure{}@spc{}details various special cases.
@@ -2113,12 +2113,12 @@ implementations that support minus zero.
 
 @subsubheading Exceptional Situations:
 
-@coderef{acos} and @coderef{asin} @shouldchecktype{number, a @term{number}}
-@coderef{atan} should signal @coderef{type-error} if
+@symbolref{acos} and @symbolref{asin} @shouldchecktype{number, a @term{number}}
+@symbolref{atan} should signal @symbolref{type-error} if
 one argument is supplied and that argument is not a @term{number},
 or if two arguments are supplied and both of those arguments are not @term{reals}.
 
-@coderef{acos}, @coderef{asin}, and @coderef{atan} might signal @coderef{arithmetic-error}.
+@symbolref{acos}, @symbolref{asin}, and @symbolref{atan} might signal @symbolref{arithmetic-error}.
 
 @subsubheading See Also:
 
@@ -2128,14 +2128,14 @@ or if two arguments are supplied and both of those arguments are not @term{reals
 
 @subsubheading Notes:
 
-The result of either @coderef{asin} or @coderef{acos} can be a @term{complex}
+The result of either @symbolref{asin} or @symbolref{acos} can be a @term{complex}
 even if @param{number} is not a @term{complex}; this occurs when the
 absolute value of @param{number} is greater than one.
 
 
 @node pi
 @subsection pi (Constant Variable)
-@syindexanchor{pi, REF}
+@syindexanchor{pi, SYM}
 @cindex pi
 
 
@@ -2169,22 +2169,22 @@ The best @term{long float} approximation to the mathematical constant @mat{@pi{}
 An approximation to @mat{@pi{}} in some other precision can be obtained
 by writing @f{(float pi x)}, where @f{x} is a @term{float} of the
 desired precision, or by writing @f{(coerce pi @i{type})},
-where @i{type} is the desired type, such as @coderef{short-float}.
+where @i{type} is the desired type, such as @symbolref{short-float}.
 
 
 @node sinh; cosh; tanh; asinh; acosh; atanh
 @subsection sinh, cosh, tanh, asinh, acosh, atanh (Function)
-@syindexanchor{sinh, REF}
+@syindexanchor{sinh, SYM}
 @cindex sinh
-@syindexanchor{cosh, REF}
+@syindexanchor{cosh, SYM}
 @cindex cosh
-@syindexanchor{tanh, REF}
+@syindexanchor{tanh, SYM}
 @cindex tanh
-@syindexanchor{asinh, REF}
+@syindexanchor{asinh, SYM}
 @cindex asinh
-@syindexanchor{acosh, REF}
+@syindexanchor{acosh, SYM}
 @cindex acosh
-@syindexanchor{atanh, REF}
+@syindexanchor{atanh, SYM}
 @cindex atanh
 
 
@@ -2308,7 +2308,7 @@ that of the inverse hyperbolic sine function with the points
 @subsubheading Exceptional Situations:
 
 @Shouldchecktype{number, a @term{number}}
-Might signal @coderef{arithmetic-error}.
+Might signal @symbolref{arithmetic-error}.
 
 @subsubheading See Also:
 
@@ -2318,9 +2318,9 @@ Might signal @coderef{arithmetic-error}.
 
 @subsubheading Notes:
 
-The result of @coderef{acosh} may be a @term{complex} even if @param{number}
+The result of @symbolref{acosh} may be a @term{complex} even if @param{number}
 is not a @term{complex}; this occurs when @param{number} is less than one.
-Also, the result of @coderef{atanh} may be a @term{complex} even if @param{number}
+Also, the result of @symbolref{atanh} may be a @term{complex} even if @param{number}
 is not a @term{complex}; this occurs when the absolute value of @param{number}
 is greater than one.
 
@@ -2365,8 +2365,8 @@ If no @param{numbers} are supplied, @f{1} is returned.
 
 @subsubheading Exceptional Situations:
 
-Might signal @coderef{type-error} if some @term{argument} is not a @term{number}.
-Might signal @coderef{arithmetic-error}.
+Might signal @symbolref{type-error} if some @term{argument} is not a @term{number}.
+Might signal @symbolref{arithmetic-error}.
 
 @subsubheading See Also:
 
@@ -2409,8 +2409,8 @@ If no @param{numbers} are supplied, @f{0} is returned.
 
 @subsubheading Exceptional Situations:
 
-Might signal @coderef{type-error} if some @term{argument} is not a @term{number}.
-Might signal @coderef{arithmetic-error}.
+Might signal @symbolref{type-error} if some @term{argument} is not a @term{number}.
+Might signal @symbolref{arithmetic-error}.
 
 @subsubheading See Also:
 
@@ -2465,8 +2465,8 @@ and returns the result.
 
 @subsubheading Exceptional Situations:
 
-Might signal @coderef{type-error} if some @term{argument} is not a @term{number}.
-Might signal @coderef{arithmetic-error}.
+Might signal @symbolref{type-error} if some @term{argument} is not a @term{number}.
+Might signal @symbolref{arithmetic-error}.
 
 @subsubheading See Also:
 
@@ -2533,9 +2533,9 @@ see @ref{Floating-point Computations}.
 The consequences are unspecified if any @term{argument} other than the first is zero.
 If there is only one @term{argument}, the consequences are unspecified if it is zero.
 
-Might signal @coderef{type-error} if some @term{argument} is not a @term{number}.
-Might signal @coderef{division-by-zero} if division by zero is attempted.
-Might signal @coderef{arithmetic-error}.
+Might signal @symbolref{type-error} if some @term{argument} is not a @term{number}.
+Might signal @symbolref{division-by-zero} if division by zero is attempted.
+Might signal @symbolref{arithmetic-error}.
 
 @subsubheading See Also:
 
@@ -2544,9 +2544,9 @@ Might signal @coderef{arithmetic-error}.
 
 @node 1+; 1-
 @subsection 1+, 1- (Function)
-@syindexanchor{1+, REF}
+@syindexanchor{1+, SYM}
 @cindex 1+
-@syindexanchor{1-, REF}
+@syindexanchor{1-, SYM}
 @cindex 1-
 @anchor{1+}
 @anchor{1- (Function)}
@@ -2565,8 +2565,8 @@ Might signal @coderef{arithmetic-error}.
 
 @subsubheading Description:
 
-@coderef{1+} returns a @term{number} that is one more than its argument @param{number}.
-@coderef{1-} returns a @term{number} that is one less than its argument @param{number}.
+@symbolref{1+} returns a @term{number} that is one more than its argument @param{number}.
+@symbolref{1-} returns a @term{number} that is one less than its argument @param{number}.
 
 @subsubheading Examples:
 
@@ -2580,8 +2580,8 @@ Might signal @coderef{arithmetic-error}.
 
 @subsubheading Exceptional Situations:
 
-Might signal @coderef{type-error} if its @term{argument} is not a @term{number}.
-Might signal @coderef{arithmetic-error}.
+Might signal @symbolref{type-error} if its @term{argument} is not a @term{number}.
+Might signal @symbolref{arithmetic-error}.
 
 @subsubheading See Also:
 
@@ -2600,7 +2600,7 @@ expressions be the same.
 
 @node abs
 @subsection abs (Function)
-@syindexanchor{abs, REF}
+@syindexanchor{abs, SYM}
 @cindex abs
 
 
@@ -2616,7 +2616,7 @@ expressions be the same.
 
 @subsubheading Description:
 
-@coderef{abs} returns the absolute value of @param{number}.
+@symbolref{abs} returns the absolute value of @param{number}.
 
 If @param{number} is
 a @term{real},
@@ -2667,9 +2667,9 @@ to avoid intermediate overflow or underflow.
 
 @node evenp; oddp
 @subsection evenp, oddp (Function)
-@syindexanchor{evenp, REF}
+@syindexanchor{evenp, SYM}
 @cindex evenp
-@syindexanchor{oddp, REF}
+@syindexanchor{oddp, SYM}
 @cindex oddp
 
 
@@ -2714,9 +2714,9 @@ to avoid intermediate overflow or underflow.
 
 @node exp; expt
 @subsection exp, expt (Function)
-@syindexanchor{exp, REF}
+@syindexanchor{exp, SYM}
 @cindex exp
-@syindexanchor{expt, REF}
+@syindexanchor{expt, SYM}
 @cindex expt
 @anchor{exp}
 @anchor{expt}
@@ -2739,24 +2739,24 @@ to avoid intermediate overflow or underflow.
 
 @subsubheading Description:
 
-@coderef{exp} and @coderef{expt} perform exponentiation.
+@symbolref{exp} and @symbolref{expt} perform exponentiation.
 
-@coderef{exp} returns @i{e} raised to the power @param{number},
+@symbolref{exp} returns @i{e} raised to the power @param{number},
 where @i{e} is the base of the natural logarithms.
-@coderef{exp} has no branch cut.
+@symbolref{exp} has no branch cut.
 
-@coderef{expt} returns @param{base-number}
+@symbolref{expt} returns @param{base-number}
 raised to the power @param{power-number}.
 If the @param{base-number} is a @term{rational}
 and @param{power-number} is
 an @term{integer},
 the calculation is exact and the result will be @oftype{rational};
 otherwise a floating-point approximation might result.
-For @coderef{expt} of a @term{complex rational} to an @term{integer} power,
+For @symbolref{expt} of a @term{complex rational} to an @term{integer} power,
 the calculation must be exact and the result is
 of type @f{(or rational (complex rational))}.
 
-The result of @coderef{expt} can be a @term{complex},
+The result of @symbolref{expt} can be a @term{complex},
 even when neither argument is a @term{complex},
 if @param{base-number} is negative and @param{power-number}
 is not an @term{integer}.
@@ -2766,10 +2766,10 @@ even though @f{-2} is one of the cube roots of @f{-8}.
 The @term{principal} cube root is a @term{complex}
 approximately equal to @f{#C(1.0 1.73205)}, not @f{-2}.
 
-@coderef{expt} is defined
+@symbolref{expt} is defined
 as @i{@mat{b^x} = @mat{e^x log b}}.
 This defines the @term{principal} @term{values} precisely.  The range of
-@coderef{expt} is the entire complex plane.  Regarded
+@symbolref{expt} is the entire complex plane.  Regarded
 as a function of @i{x}, with @i{b} fixed, there is no branch cut.
 Regarded as a function of @i{b}, with @i{x} fixed, there is in general
 a branch cut along the negative real axis, continuous with quadrant II.
@@ -2816,7 +2816,7 @@ is zero and not @oftype{integer}.
 
 @subsubheading Notes:
 
-Implementations of @coderef{expt} are permitted to use different algorithms
+Implementations of @symbolref{expt} are permitted to use different algorithms
 for the cases of a @param{power-number} @oftype{rational}
 and a @param{power-number} @oftype{float}.
 
@@ -2836,7 +2836,7 @@ Note that by the following logic,
 
 @node gcd
 @subsection gcd (Function)
-@syindexanchor{gcd, REF}
+@syindexanchor{gcd, SYM}
 @cindex gcd
 
 
@@ -2854,7 +2854,7 @@ Note that by the following logic,
 
 Returns the greatest common divisor of @param{integers}.
 If only one @param{integer} is supplied, its absolute value is returned.
-If no @param{integers} are given, @coderef{gcd} returns @f{0},
+If no @param{integers} are given, @symbolref{gcd} returns @f{0},
 which is an identity for this operation.
 
 @subsubheading Examples:
@@ -2889,9 +2889,9 @@ For three or more arguments,
 
 @node incf; decf
 @subsection incf, decf (Macro)
-@syindexanchor{incf, REF}
+@syindexanchor{incf, SYM}
 @cindex incf
-@syindexanchor{decf, REF}
+@syindexanchor{decf, SYM}
 @cindex decf
 @anchor{incf}
 @anchor{decf}
@@ -2915,12 +2915,12 @@ For three or more arguments,
 
 @subsubheading Description:
 
-@coderef{incf} and @coderef{decf} are used for incrementing and
+@symbolref{incf} and @symbolref{decf} are used for incrementing and
 decrementing the @term{value} of @param{place}, respectively.
 
 The @param{delta} is
-added to        (in the case of @coderef{incf})
-or subtracted from (in the case of @coderef{decf})
+added to        (in the case of @symbolref{incf})
+or subtracted from (in the case of @symbolref{decf})
 the number in @param{place} and the result is stored in @param{place}.
 
 Any necessary type conversions are performed automatically.
@@ -2954,7 +2954,7 @@ see @ref{Evaluation of Subforms to Places}.
 
 @node lcm
 @subsection lcm (Function)
-@syindexanchor{lcm, REF}
+@syindexanchor{lcm, SYM}
 @cindex lcm
 
 
@@ -2970,7 +2970,7 @@ see @ref{Evaluation of Subforms to Places}.
 
 @subsubheading Description:
 
-@coderef{lcm} returns the least common multiple of the @param{integers}.
+@symbolref{lcm} returns the least common multiple of the @param{integers}.
 
 If no @param{integer} is supplied, the @term{integer} @f{1} is returned.
 
@@ -3011,7 +3011,7 @@ For three or more arguments,
 
 @subsubheading Exceptional Situations:
 
-Should signal @coderef{type-error} if any argument is not an @term{integer}.
+Should signal @symbolref{type-error} if any argument is not an @term{integer}.
 
 @subsubheading See Also:
 
@@ -3020,7 +3020,7 @@ Should signal @coderef{type-error} if any argument is not an @term{integer}.
 
 @node log
 @subsection log (Function)
-@syindexanchor{log, REF}
+@syindexanchor{log, SYM}
 @cindex log
 
 
@@ -3038,11 +3038,11 @@ Should signal @coderef{type-error} if any argument is not an @term{integer}.
 
 @subsubheading Description:
 
-@coderef{log} returns the logarithm of @param{number} in base @param{base}.
+@symbolref{log} returns the logarithm of @param{number} in base @param{base}.
 If @param{base} is not supplied its value is @i{e},
 the base of the natural logarithms.
 
-@coderef{log} may return a @term{complex} when given a
+@symbolref{log} may return a @term{complex} when given a
 @term{real}
 negative @param{number}.
 
@@ -3052,7 +3052,7 @@ negative @param{number}.
 
 
 If @param{base} is zero,
-@coderef{log} returns zero.
+@symbolref{log} returns zero.
 
 The result of @f{(log 8 2)} may be either @f{3} or @f{3.0}, depending on the
 implementation. An implementation can use floating-point calculations
@@ -3122,7 +3122,7 @@ The implementation.
 @subsection mod, rem (Function)
 @syindexanchor{mod, F}
 @cindex mod
-@syindexanchor{rem, REF}
+@syindexanchor{rem, SYM}
 @cindex rem
 
 
@@ -3141,18 +3141,18 @@ The implementation.
 
 @subsubheading Description:
 
-@code{mod} and @coderef{rem} are generalizations of the modulus
+@code{mod} and @symbolref{rem} are generalizations of the modulus
 and remainder functions respectively.
 
-@code{mod} performs the operation @coderef{floor}
+@code{mod} performs the operation @symbolref{floor}
 on @param{number} and @param{divisor}
-and returns the remainder of the @coderef{floor} operation.
+and returns the remainder of the @symbolref{floor} operation.
 
-@coderef{rem} performs the operation @coderef{truncate}
+@symbolref{rem} performs the operation @symbolref{truncate}
 on @param{number} and @param{divisor}
-and returns the remainder of the @coderef{truncate} operation.
+and returns the remainder of the @symbolref{truncate} operation.
 
-@code{mod} and @coderef{rem} are
+@code{mod} and @symbolref{rem} are
 the modulus and remainder functions
 when @param{number} and @param{divisor} are @term{integers}.
 
@@ -3187,7 +3187,7 @@ with the same sign as @param{divisor}.
 
 @node signum
 @subsection signum (Function)
-@syindexanchor{signum, REF}
+@syindexanchor{signum, SYM}
 @cindex signum
 
 
@@ -3203,11 +3203,11 @@ with the same sign as @param{divisor}.
 
 @subsubheading Description:
 
-@coderef{signum} determines a numerical value that indicates whether
+@symbolref{signum} determines a numerical value that indicates whether
 @param{number} is negative, zero, or positive.
 
 For a @term{rational},
-@coderef{signum} returns one of @f{-1}, @f{0}, or @f{1}
+@symbolref{signum} returns one of @f{-1}, @f{0}, or @f{1}
 according to whether @param{number} is negative, zero, or positive.
 For a @term{float},
 the result is a @term{float} of the same format
@@ -3216,7 +3216,7 @@ For a @term{complex} number @f{z},
 @f{(signum @i{z})} is a complex number of the same phase but with unit magnitude,
 unless @f{z} is a complex zero, in which case the result is @f{z}.
 
-For @term{rational} @term{arguments}, @coderef{signum} is a rational function,
+For @term{rational} @term{arguments}, @symbolref{signum} is a rational function,
 but it may be irrational for @term{complex} @term{arguments}.
 
 If @param{number} is a @term{float}, the result is a @term{float}.
@@ -3254,9 +3254,9 @@ but it is @term{implementation-dependent} whether that result is a
 
 @node sqrt; isqrt
 @subsection sqrt, isqrt (Function)
-@syindexanchor{sqrt, REF}
+@syindexanchor{sqrt, SYM}
 @cindex sqrt
-@syindexanchor{isqrt, REF}
+@syindexanchor{isqrt, SYM}
 @cindex isqrt
 @anchor{sqrt}
 
@@ -3274,13 +3274,13 @@ but it is @term{implementation-dependent} whether that result is a
 
 @subsubheading Description:
 
-@coderef{sqrt} and @coderef{isqrt} compute square roots.
+@symbolref{sqrt} and @symbolref{isqrt} compute square roots.
 
-@coderef{sqrt} returns the @term{principal} square root of @param{number}.
+@symbolref{sqrt} returns the @term{principal} square root of @param{number}.
 If the @param{number} is not a @term{complex} but is negative,
 then the result is a @term{complex}.
 
-@coderef{isqrt} returns the greatest @term{integer}
+@symbolref{isqrt} returns the greatest @term{integer}
 less than or equal to the exact positive square root of @param{natural}.
 
 If @param{number} is a positive @term{rational},
@@ -3322,13 +3322,13 @@ imaginary axis and excluding the negative imaginary axis.
 
 @subsubheading Exceptional Situations:
 
-@Thefunction{sqrt} should signal @coderef{type-error} if its argument
+@Thefunction{sqrt} should signal @symbolref{type-error} if its argument
 is not a @term{number}.
 
-@Thefunction{isqrt} should signal @coderef{type-error} if its argument
+@Thefunction{isqrt} should signal @symbolref{type-error} if its argument
 is not a non-negative @term{integer}.
 
-The functions @coderef{sqrt} and @coderef{isqrt} might signal @coderef{arithmetic-error}.
+The functions @symbolref{sqrt} and @symbolref{isqrt} might signal @symbolref{arithmetic-error}.
 
 @subsubheading See Also:
 
@@ -3347,12 +3347,12 @@ but it is potentially more efficient.
 
 @node random-state
 @subsection random-state (System Class)
-@syindexanchor{random-state, REF}
+@syindexanchor{random-state, SYM}
 @cindex random-state
 
 
 @subsubheading Class Precedence List:
-@coderef{random-state},
+@symbolref{random-state},
 @code{t}
 
 @subsubheading Description:
@@ -3376,7 +3376,7 @@ is @term{implementation-dependent}.
 
 @node make-random-state
 @subsection make-random-state (Function)
-@syindexanchor{make-random-state, REF}
+@syindexanchor{make-random-state, SYM}
 @cindex make-random-state
 
 
@@ -3437,14 +3437,14 @@ that has been randomly initialized by some means.
 
 @subsubheading Notes:
 
-One important use of @coderef{make-random-state} is to allow the same
+One important use of @symbolref{make-random-state} is to allow the same
 series of pseudo-random @term{numbers} to be generated many times within a
 single program.
 
 
 @node random
 @subsection random (Function)
-@syindexanchor{random, REF}
+@syindexanchor{random, SYM}
 @cindex random
 
 
@@ -3505,7 +3505,7 @@ See @CLtL{}@spc{}for information about generating random numbers.
 
 @node random-state-p
 @subsection random-state-p (Function)
-@syindexanchor{random-state-p, REF}
+@syindexanchor{random-state-p, SYM}
 @cindex random-state-p
 
 
@@ -3546,7 +3546,7 @@ See @CLtL{}@spc{}for information about generating random numbers.
 
 @node *random-state*
 @subsection *random-state* (Variable)
-@syindexanchor{*random-state*, REF}
+@syindexanchor{*random-state*, SYM}
 @cindex *random-state*
 
 
@@ -3587,7 +3587,7 @@ by @thefunction{random} when a @term{random state} is not explicitly supplied.
 
 The @term{implementation}.
 
-@coderef{random}.
+@symbolref{random}.
 
 @subsubheading See Also:
 
@@ -3597,14 +3597,14 @@ The @term{implementation}.
 
 @subsubheading Notes:
 
-@term{Binding} @coderef{*random-state*} to a different
+@term{Binding} @symbolref{*random-state*} to a different
 @term{random state} @term{object} correctly saves and
 restores the old @term{random state} @term{object}.
 
 
 @node numberp
 @subsection numberp (Function)
-@syindexanchor{numberp, REF}
+@syindexanchor{numberp, SYM}
 @cindex numberp
 
 
@@ -3643,7 +3643,7 @@ restores the old @term{random state} @term{object}.
 
 @node cis
 @subsection cis (Function)
-@syindexanchor{cis, REF}
+@syindexanchor{cis, SYM}
 @cindex cis
 
 
@@ -3659,7 +3659,7 @@ restores the old @term{random state} @term{object}.
 
 @subsubheading Description:
 
-@coderef{cis} returns the value of@tie{}@mat{@i{e}^i@cdot{}@spc{}@i{radians}},
+@symbolref{cis} returns the value of@tie{}@mat{@i{e}^i@cdot{}@spc{}@i{radians}},
 which is a @term{complex} in which the
 real part is equal to the cosine of @param{radians}, and the
 imaginary part is equal to the sine of @param{radians}.
@@ -3746,7 +3746,7 @@ the same thing.
 
 @node complexp
 @subsection complexp (Function)
-@syindexanchor{complexp, REF}
+@syindexanchor{complexp, SYM}
 @cindex complexp
 
 
@@ -3786,7 +3786,7 @@ the same thing.
 
 @node conjugate
 @subsection conjugate (Function)
-@syindexanchor{conjugate, REF}
+@syindexanchor{conjugate, SYM}
 @cindex conjugate
 
 
@@ -3831,7 +3831,7 @@ For a @term{complex} number @f{z},
 
 @node phase
 @subsection phase (Function)
-@syindexanchor{phase, REF}
+@syindexanchor{phase, SYM}
 @cindex phase
 
 
@@ -3847,7 +3847,7 @@ For a @term{complex} number @f{z},
 
 @subsubheading Description:
 
-@coderef{phase}
+@symbolref{phase}
 returns the phase
 of @param{number} (the angle part of its polar representation)
 in radians, in the range
@@ -3869,11 +3869,11 @@ If @param{number} is a @term{float}, the result is a
 If @param{number} is a @term{rational} or a @term{complex rational},
 the result is a @term{single float}.
 
-The branch cut for @coderef{phase} lies along the negative real
+The branch cut for @symbolref{phase} lies along the negative real
 axis, continuous with quadrant II.  The range consists of that portion of
 the real axis between @mat{-@pi{}} (exclusive) and@tie{}@mat{@pi{}} (inclusive).
 
-The mathematical definition of @coderef{phase} is as follows:
+The mathematical definition of @symbolref{phase} is as follows:
 
 @f{(phase @i{x}) = (atan (imagpart @i{x}) (realpart @i{x}))}
 
@@ -3889,8 +3889,8 @@ The mathematical definition of @coderef{phase} is as follows:
 
 @subsubheading Exceptional Situations:
 
-Should signal @coderef{type-error} if its argument is not a @term{number}.
-Might signal @coderef{arithmetic-error}.
+Should signal @symbolref{type-error} if its argument is not a @term{number}.
+Might signal @symbolref{arithmetic-error}.
 
 @subsubheading See Also:
 
@@ -3899,9 +3899,9 @@ Might signal @coderef{arithmetic-error}.
 
 @node realpart; imagpart
 @subsection realpart, imagpart (Function)
-@syindexanchor{realpart, REF}
+@syindexanchor{realpart, SYM}
 @cindex realpart
-@syindexanchor{imagpart, REF}
+@syindexanchor{imagpart, SYM}
 @cindex imagpart
 @anchor{realpart}
 @anchor{imagpart}
@@ -3920,11 +3920,11 @@ Might signal @coderef{arithmetic-error}.
 
 @subsubheading Description:
 
-@coderef{realpart} and @coderef{imagpart} return the real and
+@symbolref{realpart} and @symbolref{imagpart} return the real and
 imaginary parts of @param{number} respectively.
 If @param{number} is
 @term{real},
-then @coderef{realpart} returns @param{number} and @coderef{imagpart}
+then @symbolref{realpart} returns @param{number} and @symbolref{imagpart}
 returns @f{(* 0 @param{number})}, which has the effect that the
 imaginary part of a @term{rational} is @f{0} and that of
 a @term{float} is a floating-point zero of the same format.
@@ -3950,7 +3950,7 @@ a @term{float} is a floating-point zero of the same format.
 
 @node upgraded-complex-part-type
 @subsection upgraded-complex-part-type (Function)
-@syindexanchor{upgraded-complex-part-type, REF}
+@syindexanchor{upgraded-complex-part-type, SYM}
 @cindex upgraded-complex-part-type
 
 
@@ -3971,7 +3971,7 @@ and the and current @term{global environment}}
 
 @subsubheading Description:
 
-@coderef{upgraded-complex-part-type} returns the part type of the
+@symbolref{upgraded-complex-part-type} returns the part type of the
 most specialized @term{complex} number representation that can
 hold parts of @term{type} @term{typespec}.
 
@@ -3979,7 +3979,7 @@ The @param{typespec} is a @term{subtype} of
 (and possibly @term{type equivalent} to)
 the @param{upgraded-typespec}.
 
-The purpose of @coderef{upgraded-complex-part-type}
+The purpose of @symbolref{upgraded-complex-part-type}
 is to reveal how an implementation does its @term{upgrading}.
 
 @subsubheading See Also:
@@ -3992,7 +3992,7 @@ is to reveal how an implementation does its @term{upgrading}.
 
 @node realp
 @subsection realp (Function)
-@syindexanchor{realp, REF}
+@syindexanchor{realp, SYM}
 @cindex realp
 
 
@@ -4030,9 +4030,9 @@ is to reveal how an implementation does its @term{upgrading}.
 
 @node numerator; denominator
 @subsection numerator, denominator (Function)
-@syindexanchor{numerator, REF}
+@syindexanchor{numerator, SYM}
 @cindex numerator
-@syindexanchor{denominator, REF}
+@syindexanchor{denominator, SYM}
 @cindex denominator
 
 
@@ -4051,15 +4051,15 @@ is to reveal how an implementation does its @term{upgrading}.
 
 @subsubheading Description:
 
-@coderef{numerator} and @coderef{denominator} reduce @param{rational}
+@symbolref{numerator} and @symbolref{denominator} reduce @param{rational}
 to canonical form and compute the numerator or denominator of that number.
 
-@coderef{numerator} and @coderef{denominator} return the numerator
+@symbolref{numerator} and @symbolref{denominator} return the numerator
 or denominator of the canonical form of @param{rational}.
 
 If @param{rational} is an @term{integer},
-@coderef{numerator} returns @param{rational}
-and @coderef{denominator} returns 1.
+@symbolref{numerator} returns @param{rational}
+and @symbolref{denominator} returns 1.
 
 @subsubheading Examples:
 @lisp
@@ -4087,7 +4087,7 @@ and @coderef{denominator} returns 1.
 @subsection rational, rationalize (Function)
 @syindexanchor{rational, F}
 @cindex rational
-@syindexanchor{rationalize, REF}
+@syindexanchor{rationalize, SYM}
 @cindex rationalize
 @anchor{rational}
 
@@ -4105,7 +4105,7 @@ and @coderef{denominator} returns 1.
 
 @subsubheading Description:
 
-@code{rational} and @coderef{rationalize} convert
+@code{rational} and @symbolref{rationalize} convert
 @term{reals}
 to @term{rationals}.
 
@@ -4114,13 +4114,13 @@ If @param{number} is already @term{rational}, it is returned.
 If @param{number} is a @term{float},
 @code{rational} returns a @term{rational}
 that is mathematically equal in value to the @term{float}.
-@coderef{rationalize} returns a @term{rational} that
+@symbolref{rationalize} returns a @term{rational} that
 approximates the @term{float} to the accuracy of
 the underlying floating-point representation.
 
 @code{rational} assumes that the @term{float} is completely accurate.
 
-@coderef{rationalize} assumes that the
+@symbolref{rationalize} assumes that the
 @term{float} is accurate only to the precision of the
 floating-point representation.
 
@@ -4140,7 +4140,7 @@ The @term{implementation}.
 @subsubheading Exceptional Situations:
 
 @Shouldchecktype{number, a @term{real}}
-Might signal @coderef{arithmetic-error}.
+Might signal @symbolref{arithmetic-error}.
 
 @subsubheading Notes:
 
@@ -4163,7 +4163,7 @@ of the same format produces the original @param{number}.
 
 @node rationalp
 @subsection rationalp (Function)
-@syindexanchor{rationalp, REF}
+@syindexanchor{rationalp, SYM}
 @cindex rationalp
 
 
@@ -4203,7 +4203,7 @@ of the same format produces the original @param{number}.
 
 @node ash
 @subsection ash (Function)
-@syindexanchor{ash, REF}
+@syindexanchor{ash, SYM}
 @cindex ash
 
 
@@ -4221,23 +4221,23 @@ of the same format produces the original @param{number}.
 
 @subsubheading Description:
 
-@coderef{ash} performs the arithmetic shift operation on the binary
+@symbolref{ash} performs the arithmetic shift operation on the binary
 representation of @param{integer}, which is treated as if it were binary.
 
-@coderef{ash} shifts @param{integer} arithmetically left by @param{count} bit
+@symbolref{ash} shifts @param{integer} arithmetically left by @param{count} bit
 positions if @param{count} is positive,
 or right @param{count} bit positions if @param{count} is negative.
 The shifted value of the same sign
 as @param{integer} is returned.
 
-Mathematically speaking, @coderef{ash} performs the computation
+Mathematically speaking, @symbolref{ash} performs the computation
 @f{floor}(@param{integer}@centerdot{} @mat{2^@param{count}}).
-Logically, @coderef{ash}
+Logically, @symbolref{ash}
 moves all of the bits in @param{integer} to the left,
 adding zero-bits at the right, or moves them to the right,
 discarding bits.
 
-@coderef{ash} is defined to behave as if @param{integer} were
+@symbolref{ash} is defined to behave as if @param{integer} were
 represented in two's complement form, regardless of
 how @term{integers} are represented internally.
 @subsubheading Examples:
@@ -4253,7 +4253,7 @@ how @term{integers} are represented internally.
 
 @Shouldchecktype{integer, an @term{integer}}
 @Shouldchecktype{count, an @term{integer}}
-Might signal @coderef{arithmetic-error}.
+Might signal @symbolref{arithmetic-error}.
 
 @subsubheading Notes:
 
@@ -4265,7 +4265,7 @@ Might signal @coderef{arithmetic-error}.
 
 @node integer-length
 @subsection integer-length (Function)
-@syindexanchor{integer-length, REF}
+@syindexanchor{integer-length, SYM}
 @cindex integer-length
 
 
@@ -4330,7 +4330,7 @@ whose width in bits is no smaller than @tt{(+ (integer-length @param{integer}) 1
 
 @node integerp
 @subsection integerp (Function)
-@syindexanchor{integerp, REF}
+@syindexanchor{integerp, SYM}
 @cindex integerp
 
 
@@ -4368,7 +4368,7 @@ whose width in bits is no smaller than @tt{(+ (integer-length @param{integer}) 1
 
 @node parse-integer
 @subsection parse-integer (Function)
-@syindexanchor{parse-integer, REF}
+@syindexanchor{parse-integer, SYM}
 @cindex parse-integer
 
 
@@ -4395,14 +4395,14 @@ whose width in bits is no smaller than @tt{(+ (integer-length @param{integer}) 1
 
 @subsubheading Description:
 
-@coderef{parse-integer} parses an @term{integer} in the specified @param{radix}
+@symbolref{parse-integer} parses an @term{integer} in the specified @param{radix}
 from the substring of @param{string} delimited by @param{start} and @param{end}.
 
-@coderef{parse-integer} expects an optional sign (@f{+} or @f{-}) followed by
+@symbolref{parse-integer} expects an optional sign (@f{+} or @f{-}) followed by
 a a non-empty sequence of digits to be interpreted in the specified @param{radix}.
 Optional leading and trailing @term{whitespace}@sub{1} is ignored.
 
-@coderef{parse-integer} does not recognize the syntactic radix-specifier
+@symbolref{parse-integer} does not recognize the syntactic radix-specifier
 prefixes @f{#O}, @f{#B}, @f{#X}, and @f{#@i{n}R},
 nor does it recognize a trailing decimal point.
 
@@ -4441,7 +4441,7 @@ possibly surrounded on either side by
 
 @node boole
 @subsection boole (Function)
-@syindexanchor{boole, REF}
+@syindexanchor{boole, SYM}
 @cindex boole
 
 
@@ -4461,37 +4461,37 @@ possibly surrounded on either side by
 
 @subsubheading Description:
 
-@coderef{boole} performs bit-wise logical operations on
+@symbolref{boole} performs bit-wise logical operations on
 @param{integer-1} and @param{integer-2}, which are treated as if
 they were binary and in two's complement representation.
 
 The operation to be performed and the return value are determined by
 @param{op}.
 
-@coderef{boole} returns the values
+@symbolref{boole} returns the values
 specified for any @param{op} in @thenextfigure{}.
 
 
 @float Figure,fig12.17
 @cartouche
-@multitable{@coderef{boole-andc1}}{and complement of @param{integer-1} with @param{integer-2}}
+@multitable{@symbolref{boole-andc1}}{and complement of @param{integer-1} with @param{integer-2}}
 @headitem Op @tab Result
-@item @coderef{boole-1} @tab @param{integer-1}
-@item @coderef{boole-2} @tab @param{integer-2}
-@item @coderef{boole-andc1} @tab and complement of @param{integer-1} with @param{integer-2}
-@item @coderef{boole-andc2} @tab and @param{integer-1} with complement of @param{integer-2}
-@item @coderef{boole-and} @tab and
-@item @coderef{boole-c1} @tab complement of @param{integer-1}
-@item @coderef{boole-c2} @tab complement of @param{integer-2}
-@item @coderef{boole-clr} @tab always 0 (all zero bits)
-@item @coderef{boole-eqv} @tab equivalence (exclusive nor)
-@item @coderef{boole-ior} @tab inclusive or
-@item @coderef{boole-nand} @tab not-and
-@item @coderef{boole-nor} @tab not-or
-@item @coderef{boole-orc1} @tab or complement of @param{integer-1} with @param{integer-2}
-@item @coderef{boole-orc2} @tab or @param{integer-1} with complement of @param{integer-2}
-@item @coderef{boole-set} @tab always -1 (all one bits)
-@item @coderef{boole-xor} @tab exclusive or
+@item @symbolref{boole-1} @tab @param{integer-1}
+@item @symbolref{boole-2} @tab @param{integer-2}
+@item @symbolref{boole-andc1} @tab and complement of @param{integer-1} with @param{integer-2}
+@item @symbolref{boole-andc2} @tab and @param{integer-1} with complement of @param{integer-2}
+@item @symbolref{boole-and} @tab and
+@item @symbolref{boole-c1} @tab complement of @param{integer-1}
+@item @symbolref{boole-c2} @tab complement of @param{integer-2}
+@item @symbolref{boole-clr} @tab always 0 (all zero bits)
+@item @symbolref{boole-eqv} @tab equivalence (exclusive nor)
+@item @symbolref{boole-ior} @tab inclusive or
+@item @symbolref{boole-nand} @tab not-and
+@item @symbolref{boole-nor} @tab not-or
+@item @symbolref{boole-orc1} @tab or complement of @param{integer-1} with @param{integer-2}
+@item @symbolref{boole-orc2} @tab or @param{integer-1} with complement of @param{integer-2}
+@item @symbolref{boole-set} @tab always -1 (all one bits)
+@item @symbolref{boole-xor} @tab exclusive or
 @end multitable
 @end cartouche
 @caption{Bit-Wise Logical Operations}
@@ -4541,7 +4541,7 @@ specified for any @param{op} in @thenextfigure{}.
 
 @subsubheading Exceptional Situations:
 
-Should signal @coderef{type-error} if its first argument is not a
+Should signal @symbolref{type-error} if its first argument is not a
 @term{bit-wise logical operation specifier} or if any subsequent argument is not
 an @term{integer}.
 
@@ -4587,37 +4587,37 @@ by a technique such as the following:
 
 @node boole-1; boole-2; boole-and; boole-andc1; boole-andc2; boole-c1; boole-+
 @subsection boole-1, boole-2, boole-and, boole-andc1, boole-andc2, boole-c1, boole-c2, boole-clr, boole-eqv, boole-ior, boole-nand, boole-nor, boole-orc1, boole-orc2, boole-set, boole-xor (Constant Variable)
-@syindexanchor{boole-1, REF}
+@syindexanchor{boole-1, SYM}
 @cindex boole-1
-@syindexanchor{boole-2, REF}
+@syindexanchor{boole-2, SYM}
 @cindex boole-2
-@syindexanchor{boole-and, REF}
+@syindexanchor{boole-and, SYM}
 @cindex boole-and
-@syindexanchor{boole-andc1, REF}
+@syindexanchor{boole-andc1, SYM}
 @cindex boole-andc1
-@syindexanchor{boole-andc2, REF}
+@syindexanchor{boole-andc2, SYM}
 @cindex boole-andc2
-@syindexanchor{boole-c1, REF}
+@syindexanchor{boole-c1, SYM}
 @cindex boole-c1
-@syindexanchor{boole-c2, REF}
+@syindexanchor{boole-c2, SYM}
 @cindex boole-c2
-@syindexanchor{boole-clr, REF}
+@syindexanchor{boole-clr, SYM}
 @cindex boole-clr
-@syindexanchor{boole-eqv, REF}
+@syindexanchor{boole-eqv, SYM}
 @cindex boole-eqv
-@syindexanchor{boole-ior, REF}
+@syindexanchor{boole-ior, SYM}
 @cindex boole-ior
-@syindexanchor{boole-nand, REF}
+@syindexanchor{boole-nand, SYM}
 @cindex boole-nand
-@syindexanchor{boole-nor, REF}
+@syindexanchor{boole-nor, SYM}
 @cindex boole-nor
-@syindexanchor{boole-orc1, REF}
+@syindexanchor{boole-orc1, SYM}
 @cindex boole-orc1
-@syindexanchor{boole-orc2, REF}
+@syindexanchor{boole-orc2, SYM}
 @cindex boole-orc2
-@syindexanchor{boole-set, REF}
+@syindexanchor{boole-set, SYM}
 @cindex boole-set
-@syindexanchor{boole-xor, REF}
+@syindexanchor{boole-xor, SYM}
 @cindex boole-xor
 
 
@@ -4648,27 +4648,27 @@ sixteen possible @term{bit-wise logical operation specifiers}.
 
 @node logand; logandc1; logandc2; logeqv; logior; lognand; lognor; lognot; lo+
 @subsection logand, logandc1, logandc2, logeqv, logior, lognand, lognor, lognot, logorc1, logorc2, logxor (Function)
-@syindexanchor{logand, REF}
+@syindexanchor{logand, SYM}
 @cindex logand
-@syindexanchor{logandc1, REF}
+@syindexanchor{logandc1, SYM}
 @cindex logandc1
-@syindexanchor{logandc2, REF}
+@syindexanchor{logandc2, SYM}
 @cindex logandc2
-@syindexanchor{logeqv, REF}
+@syindexanchor{logeqv, SYM}
 @cindex logeqv
-@syindexanchor{logior, REF}
+@syindexanchor{logior, SYM}
 @cindex logior
-@syindexanchor{lognand, REF}
+@syindexanchor{lognand, SYM}
 @cindex lognand
-@syindexanchor{lognor, REF}
+@syindexanchor{lognor, SYM}
 @cindex lognor
-@syindexanchor{lognot, REF}
+@syindexanchor{lognot, SYM}
 @cindex lognot
-@syindexanchor{logorc1, REF}
+@syindexanchor{logorc1, SYM}
 @cindex logorc1
-@syindexanchor{logorc2, REF}
+@syindexanchor{logorc2, SYM}
 @cindex logorc2
-@syindexanchor{logxor, REF}
+@syindexanchor{logxor, SYM}
 @cindex logxor
 @anchor{logand}
 @anchor{lognot}
@@ -4703,17 +4703,17 @@ sixteen possible @term{bit-wise logical operation specifiers}.
 @subsubheading Description:
 
 The @term{functions}
-@coderef{logandc1},
-@coderef{logandc2},
-@coderef{logand},
-@coderef{logeqv},
-@coderef{logior},
-@coderef{lognand},
-@coderef{lognor},
-@coderef{lognot},
-@coderef{logorc1},
-@coderef{logorc2},
-and @coderef{logxor}
+@symbolref{logandc1},
+@symbolref{logandc2},
+@symbolref{logand},
+@symbolref{logeqv},
+@symbolref{logior},
+@symbolref{lognand},
+@symbolref{lognor},
+@symbolref{lognot},
+@symbolref{logorc1},
+@symbolref{logorc2},
+and @symbolref{logxor}
 perform bit-wise logical operations on their @term{arguments},
 that are treated as if they were binary.
 
@@ -4724,19 +4724,19 @@ by the @term{function} when no @term{arguments} are supplied.
 
 @float Figure,fig12.18
 @cartouche
-@multitable{@coderef{logandc1}}{Identity}{and complement of @param{integer-1} with @param{integer-2}}
+@multitable{@symbolref{logandc1}}{Identity}{and complement of @param{integer-1} with @param{integer-2}}
 @headitem Function @tab Identity @tab Operation performed
-@item @coderef{logandc1} @tab --- @tab and complement of @param{integer-1} with @param{integer-2}
-@item @coderef{logandc2} @tab --- @tab and @param{integer-1} with complement of @param{integer-2}
-@item @coderef{logand} @tab @f{-1} @tab and
-@item @coderef{logeqv} @tab @f{-1} @tab equivalence (exclusive nor)
-@item @coderef{logior} @tab @f{0} @tab inclusive or
-@item @coderef{lognand} @tab --- @tab complement of @param{integer-1} and @param{integer-2}
-@item @coderef{lognor} @tab --- @tab complement of @param{integer-1} or @param{integer-2}
-@item @coderef{lognot} @tab --- @tab complement
-@item @coderef{logorc1} @tab --- @tab or complement of @param{integer-1} with @param{integer-2}
-@item @coderef{logorc2} @tab --- @tab or @param{integer-1} with complement of @param{integer-2}
-@item @coderef{logxor} @tab @f{0} @tab exclusive or
+@item @symbolref{logandc1} @tab --- @tab and complement of @param{integer-1} with @param{integer-2}
+@item @symbolref{logandc2} @tab --- @tab and @param{integer-1} with complement of @param{integer-2}
+@item @symbolref{logand} @tab @f{-1} @tab and
+@item @symbolref{logeqv} @tab @f{-1} @tab equivalence (exclusive nor)
+@item @symbolref{logior} @tab @f{0} @tab inclusive or
+@item @symbolref{lognand} @tab --- @tab complement of @param{integer-1} and @param{integer-2}
+@item @symbolref{lognor} @tab --- @tab complement of @param{integer-1} or @param{integer-2}
+@item @symbolref{lognot} @tab --- @tab complement
+@item @symbolref{logorc1} @tab --- @tab or complement of @param{integer-1} with @param{integer-2}
+@item @symbolref{logorc2} @tab --- @tab or @param{integer-1} with complement of @param{integer-2}
+@item @symbolref{logxor} @tab @f{0} @tab exclusive or
 @end multitable
 @end cartouche
 @caption{Bit-wise Logical Operations on Integers}
@@ -4785,7 +4785,7 @@ Negative @param{integers} are treated as if they were in two's-complement notati
 
 @subsubheading Exceptional Situations:
 
-Should signal @coderef{type-error} if any argument is not an @term{integer}.
+Should signal @symbolref{type-error} if any argument is not an @term{integer}.
 
 @subsubheading See Also:
 
@@ -4813,7 +4813,7 @@ of arguments.
 
 @node logbitp
 @subsection logbitp (Function)
-@syindexanchor{logbitp, REF}
+@syindexanchor{logbitp, SYM}
 @cindex logbitp
 
 
@@ -4831,9 +4831,9 @@ of arguments.
 
 @subsubheading Description:
 
-@coderef{logbitp} is used to test the value of a particular bit
+@symbolref{logbitp} is used to test the value of a particular bit
 in @param{integer}, that is treated as if it were binary.
-The value of @coderef{logbitp} is @term{true} if the bit in @param{integer}
+The value of @symbolref{logbitp} is @term{true} if the bit in @param{integer}
 whose index is @param{index} (that is, its weight is @mat{2^@i{index}})
 is a one-bit; otherwise it is @term{false}.
 
@@ -4866,7 +4866,7 @@ two's-complement notation.
 
 @node logcount
 @subsection logcount (Function)
-@syindexanchor{logcount, REF}
+@syindexanchor{logcount, SYM}
 @cindex logcount
 
 
@@ -4906,12 +4906,12 @@ otherwise, the @f{1} bits are counted.
 
 @subsubheading Exceptional Situations:
 
-Should signal @coderef{type-error} if its argument is not an @term{integer}.
+Should signal @symbolref{type-error} if its argument is not an @term{integer}.
 
 @subsubheading Notes:
 
 Even if the @term{implementation} does not represent @term{integers} internally
-in two's complement binary, @coderef{logcount} behaves as if it did.
+in two's complement binary, @symbolref{logcount} behaves as if it did.
 
 The following identity always holds:
 
@@ -4925,7 +4925,7 @@ The following identity always holds:
 
 @node logtest
 @subsection logtest (Function)
-@syindexanchor{logtest, REF}
+@syindexanchor{logtest, SYM}
 @cindex logtest
 
 
@@ -4976,11 +4976,11 @@ they were represented in two's-complement binary.
 
 @node byte; byte-size; byte-position
 @subsection byte, byte-size, byte-position (Function)
-@syindexanchor{byte, REF}
+@syindexanchor{byte, SYM}
 @cindex byte
-@syindexanchor{byte-size, REF}
+@syindexanchor{byte-size, SYM}
 @cindex byte-size
-@syindexanchor{byte-position, REF}
+@syindexanchor{byte-position, SYM}
 @cindex byte-position
 @anchor{byte}
 @anchor{byte-size}
@@ -5002,15 +5002,15 @@ they were represented in two's-complement binary.
 
 @subsubheading Description:
 
-@coderef{byte} returns a @term{byte specifier} that indicates
+@symbolref{byte} returns a @term{byte specifier} that indicates
 a @term{byte} of width @param{size} and whose bits have weights
 @mat{2^@param{position} + @param{size} - 1} through @mat{2^@param{position}},
 and whose representation is
 @term{implementation-dependent}.
 
-@coderef{byte-size} returns the number of bits specified by @param{bytespec}.
+@symbolref{byte-size} returns the number of bits specified by @param{bytespec}.
 
-@coderef{byte-position} returns the position specified by @param{bytespec}.
+@symbolref{byte-position} returns the position specified by @param{bytespec}.
 
 @subsubheading Examples:
 
@@ -5045,7 +5045,7 @@ it refers to a @term{byte} of width zero.  For example,
 
 @node deposit-field
 @subsection deposit-field (Function)
-@syindexanchor{deposit-field, REF}
+@syindexanchor{deposit-field, SYM}
 @cindex deposit-field
 
 
@@ -5094,13 +5094,13 @@ and elsewhere contains the bits of @param{integer}.
 @end lisp
 
 
-@coderef{deposit-field} is to @coderef{mask-field}
-as @coderef{dpb}           is to @coderef{ldb}.
+@symbolref{deposit-field} is to @symbolref{mask-field}
+as @symbolref{dpb}           is to @symbolref{ldb}.
 
 
 @node dpb
 @subsection dpb (Function)
-@syindexanchor{dpb, REF}
+@syindexanchor{dpb, SYM}
 @cindex dpb
 
 
@@ -5126,16 +5126,16 @@ or @pronounced{@Stress{d@harde{}}@Stress{p@harde{}}@Stress{b@harde{}}}
 
 @subsubheading Description:
 
-@coderef{dpb} (deposit byte) is used to
+@symbolref{dpb} (deposit byte) is used to
 replace a field of bits within @param{integer}.
-@coderef{dpb} returns an @term{integer} that is
+@symbolref{dpb} returns an @term{integer} that is
 the same as @param{integer} except in the bits specified by @param{bytespec}.
 
 Let @f{s} be the size specified
 by @param{bytespec}; then the low @f{s} bits of @param{newbyte} appear in
 the result in the byte specified by @param{bytespec}.
 @param{Newbyte} is interpreted as
-being right-justified, as if it were the result of @coderef{ldb}.
+being right-justified, as if it were the result of @symbolref{ldb}.
 
 @subsubheading Examples:
 
@@ -5175,7 +5175,7 @@ instruction meaning ``deposit byte.''
 
 @node ldb
 @subsection ldb (Accessor)
-@syindexanchor{ldb, REF}
+@syindexanchor{ldb, SYM}
 @cindex ldb
 
 
@@ -5201,24 +5201,24 @@ or @pronounced{@Stress{el}@Stress{d@harde{}}@Stress{b@harde{}}}
 
 @subsubheading Description:
 
-@coderef{ldb} extracts and returns the @term{byte} of @param{integer}
+@symbolref{ldb} extracts and returns the @term{byte} of @param{integer}
 specified by @param{bytespec}.
 
-@coderef{ldb} returns an @term{integer} in which the bits with weights
+@symbolref{ldb} returns an @term{integer} in which the bits with weights
 @mat{2^(@i{s}-1)} through @mat{2^0} are the same as those in
 @param{integer} with weights @mat{2^(@i{p}+@i{s}-1)}
 through @mat{2^@i{p}}, and all other bits zero; @i{s} is
 @f{(byte-size @param{bytespec})}
 and @i{p} is @f{(byte-position @param{bytespec})}.
 
-@coderef{setf} may be used with @coderef{ldb} to modify
+@symbolref{setf} may be used with @symbolref{ldb} to modify
 a byte within the @param{integer} that is stored
 in a given @param{place}.
-The order of evaluation, when an @coderef{ldb} form is supplied
-to @coderef{setf}, is exactly left-to-right.
+The order of evaluation, when an @symbolref{ldb} form is supplied
+to @symbolref{setf}, is exactly left-to-right.
 @cindex order of evaluation
 @cindex evaluation order
-The effect is to perform a @coderef{dpb} operation
+The effect is to perform a @symbolref{dpb} operation
 and then store the result back into the @param{place}.
 
 @subsubheading Examples:
@@ -5261,7 +5261,7 @@ instruction meaning ``load byte.''
 
 @node ldb-test
 @subsection ldb-test (Function)
-@syindexanchor{ldb-test, REF}
+@syindexanchor{ldb-test, SYM}
 @cindex ldb-test
 
 
@@ -5306,7 +5306,7 @@ specified by @param{bytespec} is non-zero; otherwise returns @term{false}.
 
 @node mask-field
 @subsection mask-field (Accessor)
-@syindexanchor{mask-field, REF}
+@syindexanchor{mask-field, SYM}
 @cindex mask-field
 
 
@@ -5325,14 +5325,14 @@ specified by @param{bytespec} is non-zero; otherwise returns @term{false}.
 
 @subsubheading Description:
 
-@coderef{mask-field} performs a ``mask'' operation on @param{integer}.
+@symbolref{mask-field} performs a ``mask'' operation on @param{integer}.
 It returns an @term{integer} that has the same bits as @param{integer} in
 the @term{byte} specified by @param{bytespec}, but that has zero-bits everywhere else.
 
-@coderef{setf} may be used with @coderef{mask-field}
+@symbolref{setf} may be used with @symbolref{mask-field}
 to modify a byte within the @term{integer} that is stored
 in a given @param{place}.
-The effect is to perform a @coderef{deposit-field} operation
+The effect is to perform a @symbolref{deposit-field} operation
 and then store the result back into the @param{place}.
 
 @subsubheading Examples:
@@ -5365,9 +5365,9 @@ and then store the result back into the @param{place}.
 
 @node most-positive-fixnum; most-negative-fixnum
 @subsection most-positive-fixnum, most-negative-fixnum (Constant Variable)
-@syindexanchor{most-positive-fixnum, REF}
+@syindexanchor{most-positive-fixnum, SYM}
 @cindex most-positive-fixnum
-@syindexanchor{most-negative-fixnum, REF}
+@syindexanchor{most-negative-fixnum, SYM}
 @cindex most-negative-fixnum
 
 
@@ -5377,31 +5377,31 @@ and then store the result back into the @param{place}.
 
 @subsubheading Description:
 
-@coderef{most-positive-fixnum} is that @term{fixnum} closest in value
+@symbolref{most-positive-fixnum} is that @term{fixnum} closest in value
 to positive infinity provided by the implementation,
 and greater than or equal to both @mat{2^15} - 1 and
-@coderef{array-dimension-limit}.
+@symbolref{array-dimension-limit}.
 
-@coderef{most-negative-fixnum} is that @term{fixnum} closest in value
+@symbolref{most-negative-fixnum} is that @term{fixnum} closest in value
 to negative infinity provided by the implementation,
 and less than or equal to @mat{-2^15}.
 
 
 @node decode-float; scale-float; float-radix; float-sign; float-digits; float+
 @subsection decode-float, scale-float, float-radix, float-sign, float-digits, float-precision, integer-decode-float (Function)
-@syindexanchor{decode-float, REF}
+@syindexanchor{decode-float, SYM}
 @cindex decode-float
-@syindexanchor{scale-float, REF}
+@syindexanchor{scale-float, SYM}
 @cindex scale-float
-@syindexanchor{float-radix, REF}
+@syindexanchor{float-radix, SYM}
 @cindex float-radix
-@syindexanchor{float-sign, REF}
+@syindexanchor{float-sign, SYM}
 @cindex float-sign
-@syindexanchor{float-digits, REF}
+@syindexanchor{float-digits, SYM}
 @cindex float-digits
-@syindexanchor{float-precision, REF}
+@syindexanchor{float-precision, SYM}
 @cindex float-precision
-@syindexanchor{integer-decode-float, REF}
+@syindexanchor{integer-decode-float, SYM}
 @cindex integer-decode-float
 
 
@@ -5453,7 +5453,7 @@ but numerically equal to @f{1.0} or @f{-1.0}.
 
 @subsubheading Description:
 
-@coderef{decode-float} computes three values that characterize
+@symbolref{decode-float} computes three values that characterize
 @param{float}.
 The first value is of the same @term{type}
 as @param{float} and
@@ -5463,13 +5463,13 @@ to which the radix (notated in this description by @i{b}) must
 be raised to obtain the value that, when multiplied with the first
 result, produces the absolute value of @param{float}.
 If @param{float} is zero, any @term{integer} value may be returned,
-provided that the identity shown for @coderef{scale-float} holds.
+provided that the identity shown for @symbolref{scale-float} holds.
 The third value
 is of the same @term{type} as @param{float}
 and is 1.0 if @param{float} is greater
 than or equal to zero or -1.0 otherwise.
 
-@coderef{decode-float}
+@symbolref{decode-float}
 divides @param{float} by an integral power of @i{b}
 so as to bring its value between @mat{1/@i{b}} (inclusive) and@tie{}@mat{1} (exclusive),
 and returns the quotient as the first value.
@@ -5477,16 +5477,16 @@ If @param{float} is zero, however, the result
 equals the absolute value of @param{float} (that is, if there is a negative
 zero, its significand is considered to be a positive zero).
 
-@coderef{scale-float} returns
+@symbolref{scale-float} returns
 @tt{(* @param{float} (expt (float @i{b} @param{float})
 @param{integer}))}, where @i{b} is the radix of the floating-point
 representation. @param{float} is not necessarily between @mat{1/@i{b}} and@tie{}@mat{1}.
 
 
-@coderef{float-radix} returns
+@symbolref{float-radix} returns
 the radix of @param{float}.
 
-@coderef{float-sign} returns a number @f{z} such
+@symbolref{float-sign} returns a number @f{z} such
 that @f{z} and @param{float-1} have the same sign and also such that
 @f{z} and @param{float-2} have the same absolute value.
 If @param{float-2} is not supplied, its value is @f{(float 1 @param{float-1})}.
@@ -5494,31 +5494,31 @@ If an implementation
 has distinct representations for negative zero and positive zero,
 then @f{(float-sign -0.0)} @EV{}@spc{}@f{-1.0}.
 
-@coderef{float-digits} returns
+@symbolref{float-digits} returns
 the number of radix @i{b} digits
 used in the representation of @param{float} (including any implicit
 digits, such as a ``hidden bit'').
 
-@coderef{float-precision}
+@symbolref{float-precision}
 returns
 the number of significant radix @i{b} digits present in @param{float};
 if @param{float} is a @term{float}
 zero, then the result is an @term{integer} zero.
 
 For @term{normalized} @term{floats},
-the results of @coderef{float-digits} and @coderef{float-precision} are the same,
+the results of @symbolref{float-digits} and @symbolref{float-precision} are the same,
 but the precision is less than the number of representation digits
 for a @term{denormalized} or zero number.
 
-@coderef{integer-decode-float} computes three values that characterize
+@symbolref{integer-decode-float} computes three values that characterize
 @param{float} -
 the significand scaled so as to be an @term{integer},
 and the same last two
-values that are returned by @coderef{decode-float}.
-If @param{float} is zero, @coderef{integer-decode-float} returns
+values that are returned by @symbolref{decode-float}.
+If @param{float} is zero, @symbolref{integer-decode-float} returns
 zero as the first value.
 The second value bears the same relationship to the first value
-as for @coderef{decode-float}:
+as for @symbolref{decode-float}:
 
 @lisp
  (multiple-value-bind (signif expon sign)
@@ -5559,8 +5559,8 @@ The implementation's representation for @term{floats}.
 
 @subsubheading Exceptional Situations:
 
-The functions @coderef{decode-float}, @coderef{float-radix}, @coderef{float-digits},
-@coderef{float-precision}, and @coderef{integer-decode-float} should signal an error
+The functions @symbolref{decode-float}, @symbolref{float-radix}, @symbolref{float-digits},
+@symbolref{float-precision}, and @symbolref{integer-decode-float} should signal an error
 if their only argument is not a @term{float}.
 
 @Thefunction{scale-float} should signal an error if its first argument
@@ -5572,7 +5572,7 @@ not a @term{float}.
 
 @subsubheading Notes:
 
-The product of the first result of @coderef{decode-float} or @coderef{integer-decode-float},
+The product of the first result of @symbolref{decode-float} or @symbolref{integer-decode-float},
 of the radix raised to the power of the second result, and of the third result
 is exactly equal to the value of @param{float}.
 
@@ -5646,7 +5646,7 @@ but is a @term{single float}.
 
 @node floatp
 @subsection floatp (Function)
-@syindexanchor{floatp, REF}
+@syindexanchor{floatp, SYM}
 @cindex floatp
 
 
@@ -5684,53 +5684,53 @@ but is a @term{single float}.
 
 @node most-positive-short-float; least-positive-short-float; least-positive-n+
 @subsection most-positive-short-float, least-positive-short-float, least-positive-normalized-short-float, most-positive-double-float, least-positive-double-float, least-positive-normalized-double-float, most-positive-long-float, least-positive-long-float, least-positive-normalized-long-float, most-positive-single-float, least-positive-single-float, least-positive-normalized-single-float, most-negative-short-float, least-negative-short-float, least-negative-normalized-short-float, most-negative-single-float, least-negative-single-float, least-negative-normalized-single-float, most-negative-double-float, least-negative-double-float, least-negative-normalized-double-float, most-negative-long-float, least-negative-long-float, least-negative-normalized-long-float (Constant Variable)
-@syindexanchor{most-positive-short-float, REF}
+@syindexanchor{most-positive-short-float, SYM}
 @cindex most-positive-short-float
-@syindexanchor{least-positive-short-float, REF}
+@syindexanchor{least-positive-short-float, SYM}
 @cindex least-positive-short-float
-@syindexanchor{least-positive-normalized-short-float, REF}
+@syindexanchor{least-positive-normalized-short-float, SYM}
 @cindex least-positive-normalized-short-float
-@syindexanchor{most-positive-double-float, REF}
+@syindexanchor{most-positive-double-float, SYM}
 @cindex most-positive-double-float
-@syindexanchor{least-positive-double-float, REF}
+@syindexanchor{least-positive-double-float, SYM}
 @cindex least-positive-double-float
-@syindexanchor{least-positive-normalized-double-float, REF}
+@syindexanchor{least-positive-normalized-double-float, SYM}
 @cindex least-positive-normalized-double-float
-@syindexanchor{most-positive-long-float, REF}
+@syindexanchor{most-positive-long-float, SYM}
 @cindex most-positive-long-float
-@syindexanchor{least-positive-long-float, REF}
+@syindexanchor{least-positive-long-float, SYM}
 @cindex least-positive-long-float
-@syindexanchor{least-positive-normalized-long-float, REF}
+@syindexanchor{least-positive-normalized-long-float, SYM}
 @cindex least-positive-normalized-long-float
-@syindexanchor{most-positive-single-float, REF}
+@syindexanchor{most-positive-single-float, SYM}
 @cindex most-positive-single-float
-@syindexanchor{least-positive-single-float, REF}
+@syindexanchor{least-positive-single-float, SYM}
 @cindex least-positive-single-float
-@syindexanchor{least-positive-normalized-single-float, REF}
+@syindexanchor{least-positive-normalized-single-float, SYM}
 @cindex least-positive-normalized-single-float
-@syindexanchor{most-negative-short-float, REF}
+@syindexanchor{most-negative-short-float, SYM}
 @cindex most-negative-short-float
-@syindexanchor{least-negative-short-float, REF}
+@syindexanchor{least-negative-short-float, SYM}
 @cindex least-negative-short-float
-@syindexanchor{least-negative-normalized-short-float, REF}
+@syindexanchor{least-negative-normalized-short-float, SYM}
 @cindex least-negative-normalized-short-float
-@syindexanchor{most-negative-single-float, REF}
+@syindexanchor{most-negative-single-float, SYM}
 @cindex most-negative-single-float
-@syindexanchor{least-negative-single-float, REF}
+@syindexanchor{least-negative-single-float, SYM}
 @cindex least-negative-single-float
-@syindexanchor{least-negative-normalized-single-float, REF}
+@syindexanchor{least-negative-normalized-single-float, SYM}
 @cindex least-negative-normalized-single-float
-@syindexanchor{most-negative-double-float, REF}
+@syindexanchor{most-negative-double-float, SYM}
 @cindex most-negative-double-float
-@syindexanchor{least-negative-double-float, REF}
+@syindexanchor{least-negative-double-float, SYM}
 @cindex least-negative-double-float
-@syindexanchor{least-negative-normalized-double-float, REF}
+@syindexanchor{least-negative-normalized-double-float, SYM}
 @cindex least-negative-normalized-double-float
-@syindexanchor{most-negative-long-float, REF}
+@syindexanchor{most-negative-long-float, SYM}
 @cindex most-negative-long-float
-@syindexanchor{least-negative-long-float, REF}
+@syindexanchor{least-negative-long-float, SYM}
 @cindex least-negative-long-float
-@syindexanchor{least-negative-normalized-long-float, REF}
+@syindexanchor{least-negative-normalized-long-float, SYM}
 @cindex least-negative-normalized-long-float
 
 
@@ -5765,10 +5765,10 @@ must have a @term{value} which is a @term{long float}.
 @itemize @bullet{}
 
 @item
-@vtop{@hbox{@coderef{most-positive-short-float},
-@coderef{most-positive-single-float},}
-@hbox{@coderef{most-positive-double-float},
-@coderef{most-positive-long-float}}}
+@vtop{@hbox{@symbolref{most-positive-short-float},
+@symbolref{most-positive-single-float},}
+@hbox{@symbolref{most-positive-double-float},
+@symbolref{most-positive-long-float}}}
 
 
 Each of these @term{constant variables} has as its @term{value}
@@ -5777,14 +5777,14 @@ the positive @term{float} of the largest magnitude
 for the float format implied by its name.
 
 @item
-@vtop{@hbox{@coderef{least-positive-short-float},
-@coderef{least-positive-normalized-short-float},}
-@hbox{@coderef{least-positive-single-float},
-@coderef{least-positive-normalized-single-float},}
-@hbox{@coderef{least-positive-double-float},
-@coderef{least-positive-normalized-double-float},}
-@hbox{@coderef{least-positive-long-float},
-@coderef{least-positive-normalized-long-float}}}
+@vtop{@hbox{@symbolref{least-positive-short-float},
+@symbolref{least-positive-normalized-short-float},}
+@hbox{@symbolref{least-positive-single-float},
+@symbolref{least-positive-normalized-single-float},}
+@hbox{@symbolref{least-positive-double-float},
+@symbolref{least-positive-normalized-double-float},}
+@hbox{@symbolref{least-positive-long-float},
+@symbolref{least-positive-normalized-long-float}}}
 
 
 Each of these @term{constant variables} has as its @term{value}
@@ -5792,14 +5792,14 @@ the smallest positive (nonzero) @term{float}
 for the float format implied by its name.
 
 @item
-@vtop{@hbox{@coderef{least-negative-short-float},
-@coderef{least-negative-normalized-short-float},}
-@hbox{@coderef{least-negative-single-float},
-@coderef{least-negative-normalized-single-float},}
-@hbox{@coderef{least-negative-double-float},
-@coderef{least-negative-normalized-double-float},}
-@hbox{@coderef{least-negative-long-float},
-@coderef{least-negative-normalized-long-float}}}
+@vtop{@hbox{@symbolref{least-negative-short-float},
+@symbolref{least-negative-normalized-short-float},}
+@hbox{@symbolref{least-negative-single-float},
+@symbolref{least-negative-normalized-single-float},}
+@hbox{@symbolref{least-negative-double-float},
+@symbolref{least-negative-normalized-double-float},}
+@hbox{@symbolref{least-negative-long-float},
+@symbolref{least-negative-normalized-long-float}}}
 
 
 Each of these @term{constant variables} has as its @term{value}
@@ -5809,10 +5809,10 @@ for the float format implied by its name.
 @term{object} from positive zero, this value must not be minus zero.)
 
 @item
-@vtop{@hbox{@coderef{most-negative-short-float},
-@coderef{most-negative-single-float},}
-@hbox{@coderef{most-negative-double-float},
-@coderef{most-negative-long-float}}}
+@vtop{@hbox{@symbolref{most-negative-short-float},
+@symbolref{most-negative-single-float},}
+@hbox{@symbolref{most-negative-double-float},
+@symbolref{most-negative-long-float}}}
 
 
 Each of these @term{constant variables} has as its @term{value}
@@ -5828,21 +5828,21 @@ for the float format implied by its name.
 
 @node short-float-epsilon; short-float-negative-epsilon; single-float-epsilon+
 @subsection short-float-epsilon, short-float-negative-epsilon, single-float-epsilon, single-float-negative-epsilon, double-float-epsilon, double-float-negative-epsilon, long-float-epsilon, long-float-negative-epsilon (Constant Variable)
-@syindexanchor{short-float-epsilon, REF}
+@syindexanchor{short-float-epsilon, SYM}
 @cindex short-float-epsilon
-@syindexanchor{short-float-negative-epsilon, REF}
+@syindexanchor{short-float-negative-epsilon, SYM}
 @cindex short-float-negative-epsilon
-@syindexanchor{single-float-epsilon, REF}
+@syindexanchor{single-float-epsilon, SYM}
 @cindex single-float-epsilon
-@syindexanchor{single-float-negative-epsilon, REF}
+@syindexanchor{single-float-negative-epsilon, SYM}
 @cindex single-float-negative-epsilon
-@syindexanchor{double-float-epsilon, REF}
+@syindexanchor{double-float-epsilon, SYM}
 @cindex double-float-epsilon
-@syindexanchor{double-float-negative-epsilon, REF}
+@syindexanchor{double-float-negative-epsilon, SYM}
 @cindex double-float-negative-epsilon
-@syindexanchor{long-float-epsilon, REF}
+@syindexanchor{long-float-epsilon, SYM}
 @cindex long-float-epsilon
-@syindexanchor{long-float-negative-epsilon, REF}
+@syindexanchor{long-float-negative-epsilon, SYM}
 @cindex long-float-negative-epsilon
 
 
@@ -5852,18 +5852,18 @@ for the float format implied by its name.
 
 @subsubheading Description:
 
-The value of each of the constants @coderef{short-float-epsilon},
-@coderef{single-float-epsilon},
-@coderef{double-float-epsilon}, and @coderef{long-float-epsilon} is
+The value of each of the constants @symbolref{short-float-epsilon},
+@symbolref{single-float-epsilon},
+@symbolref{double-float-epsilon}, and @symbolref{long-float-epsilon} is
 the smallest positive @term{float} @mat{@epsilon{}} of the given format,
 such that the following expression is @term{true} when evaluated:
 
 @tt{(not (= (float 1 @mat{@epsilon{}}) (+ (float 1 @mat{@epsilon{}}) @mat{@epsilon{}})))}
 
-The value of each of the constants @coderef{short-float-negative-epsilon},
-@coderef{single-float-negative-epsilon},
-@coderef{double-float-negative-epsilon}, and
-@coderef{long-float-negative-epsilon} is the smallest positive
+The value of each of the constants @symbolref{short-float-negative-epsilon},
+@symbolref{single-float-negative-epsilon},
+@symbolref{double-float-negative-epsilon}, and
+@symbolref{long-float-negative-epsilon} is the smallest positive
 @term{float} @mat{@epsilon{}} of the given format, such that the following
 expression is @term{true} when evaluated:
 
@@ -5872,15 +5872,15 @@ expression is @term{true} when evaluated:
 
 @node arithmetic-error
 @subsection arithmetic-error (Condition Type)
-@syindexanchor{arithmetic-error, REF}
+@syindexanchor{arithmetic-error, SYM}
 @cindex arithmetic-error
 
 
 @subsubheading Class Precedence List:
-@coderef{arithmetic-error},
+@symbolref{arithmetic-error},
 @code{error},
-@coderef{serious-condition},
-@coderef{condition},
+@symbolref{serious-condition},
+@symbolref{condition},
 @code{t}
 
 @subsubheading Description:
@@ -5888,10 +5888,10 @@ expression is @term{true} when evaluated:
 @Thetype{arithmetic-error} consists of error conditions
 that occur during arithmetic operations.
 The operation and operands are initialized with
-@theinitkeyargs{operation} and @kwd{operands} to @coderef{make-condition},
+@theinitkeyargs{operation} and @kwd{operands} to @symbolref{make-condition},
 and are @term{accessed} by
-the functions @coderef{arithmetic-error-operation} and
-@coderef{arithmetic-error-operands}.
+the functions @symbolref{arithmetic-error-operation} and
+@symbolref{arithmetic-error-operands}.
 
 @subsubheading See Also:
 
@@ -5900,9 +5900,9 @@ the functions @coderef{arithmetic-error-operation} and
 
 @node arithmetic-error-operands; arithmetic-error-operation
 @subsection arithmetic-error-operands, arithmetic-error-operation (Function)
-@syindexanchor{arithmetic-error-operands, REF}
+@syindexanchor{arithmetic-error-operands, SYM}
 @cindex arithmetic-error-operands
-@syindexanchor{arithmetic-error-operation, REF}
+@syindexanchor{arithmetic-error-operation, SYM}
 @cindex arithmetic-error-operation
 @anchor{arithmetic-error-operands}
 @anchor{arithmetic-error-operation}
@@ -5923,11 +5923,11 @@ the functions @coderef{arithmetic-error-operation} and
 
 @subsubheading Description:
 
-@coderef{arithmetic-error-operands} returns a @term{list} of the operands
+@symbolref{arithmetic-error-operands} returns a @term{list} of the operands
 which were used in the offending call to the operation that signaled
 the @param{condition}.
 
-@coderef{arithmetic-error-operation} returns a @term{list} of
+@symbolref{arithmetic-error-operation} returns a @term{list} of
 the offending operation in the offending call that signaled the @param{condition}.
 
 @subsubheading See Also:
@@ -5940,16 +5940,16 @@ the offending operation in the offending call that signaled the @param{condition
 
 @node division-by-zero
 @subsection division-by-zero (Condition Type)
-@syindexanchor{division-by-zero, REF}
+@syindexanchor{division-by-zero, SYM}
 @cindex division-by-zero
 
 
 @subsubheading Class Precedence List:
-@coderef{division-by-zero},
-@coderef{arithmetic-error},
+@symbolref{division-by-zero},
+@symbolref{arithmetic-error},
 @code{error},
-@coderef{serious-condition},
-@coderef{condition},
+@symbolref{serious-condition},
+@symbolref{condition},
 @code{t}
 
 @subsubheading Description:
@@ -5960,17 +5960,17 @@ occur because of division by zero.
 
 @node floating-point-invalid-operation
 @subsection floating-point-invalid-operation (Condition Type)
-@syindexanchor{floating-point-invalid-operation, REF}
+@syindexanchor{floating-point-invalid-operation, SYM}
 @cindex floating-point-invalid-operation
 
 
 
 @subsubheading Class Precedence List:
-@coderef{floating-point-invalid-operation},
-@coderef{arithmetic-error},
+@symbolref{floating-point-invalid-operation},
+@symbolref{arithmetic-error},
 @code{error},
-@coderef{serious-condition},
-@coderef{condition},
+@symbolref{serious-condition},
+@symbolref{condition},
 @code{t}
 
 @subsubheading Description:
@@ -5988,17 +5988,17 @@ depend on its being @term{signaled}.
 
 @node floating-point-inexact
 @subsection floating-point-inexact (Condition Type)
-@syindexanchor{floating-point-inexact, REF}
+@syindexanchor{floating-point-inexact, SYM}
 @cindex floating-point-inexact
 
 
 
 @subsubheading Class Precedence List:
-@coderef{floating-point-inexact},
-@coderef{arithmetic-error},
+@symbolref{floating-point-inexact},
+@symbolref{arithmetic-error},
 @code{error},
-@coderef{serious-condition},
-@coderef{condition},
+@symbolref{serious-condition},
+@symbolref{condition},
 @code{t}
 
 @subsubheading Description:
@@ -6016,16 +6016,16 @@ depend on its being @term{signaled}.
 
 @node floating-point-overflow
 @subsection floating-point-overflow (Condition Type)
-@syindexanchor{floating-point-overflow, REF}
+@syindexanchor{floating-point-overflow, SYM}
 @cindex floating-point-overflow
 
 
 @subsubheading Class Precedence List:
-@coderef{floating-point-overflow},
-@coderef{arithmetic-error},
+@symbolref{floating-point-overflow},
+@symbolref{arithmetic-error},
 @code{error},
-@coderef{serious-condition},
-@coderef{condition},
+@symbolref{serious-condition},
+@symbolref{condition},
 @code{t}
 
 @subsubheading Description:
@@ -6036,16 +6036,16 @@ conditions that occur because of floating-point overflow.
 
 @node floating-point-underflow
 @subsection floating-point-underflow (Condition Type)
-@syindexanchor{floating-point-underflow, REF}, REF
+@syindexanchor{floating-point-underflow, SYM}
 @cindex floating-point-underflow
 
 
 @subsubheading Class Precedence List:
-@coderef{floating-point-underflow},
-@coderef{arithmetic-error},
+@symbolref{floating-point-underflow},
+@symbolref{arithmetic-error},
 @code{error},
-@coderef{serious-condition},
-@coderef{condition},
+@symbolref{serious-condition},
+@symbolref{condition},
 @code{t}
 
 @subsubheading Description:

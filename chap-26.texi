@@ -180,7 +180,7 @@ all @term{elements} are considered @term{active}.
  @Noun{}@spc{}(of an @term{array})
 a @term{generalized boolean} that is associated with the @term{array},
 representing whether the @term{array} is @term{actually adjustable}.
-See also @ref{glos-expressed adjustability, expressed adjustability} and @coderef{adjustable-array-p}.
+See also @ref{glos-expressed adjustability, expressed adjustability} and @symbolref{adjustable-array-p}.
 
 @item @b{actual argument}  @Noun{}@spc{}@Traditional{}@spc{}
 an @term{argument}.
@@ -200,12 +200,12 @@ are actually represented, which is the @term{upgraded complex part type} of the
 an @term{argument}.
 
 @item @b{actually adjustable}  @Adjective{}@spc{}(of an @term{array})
-such that @coderef{adjust-array} can adjust its characteristics
+such that @symbolref{adjust-array} can adjust its characteristics
 by direct modification.
 A @term{conforming program} may depend on
 an @term{array} being @term{actually adjustable}
 only if either that @term{array} is known to have been @term{expressly adjustable}
-or if that @term{array} has been explicitly tested by @coderef{adjustable-array-p}.
+or if that @term{array} has been explicitly tested by @symbolref{adjustable-array-p}.
 
 @item @b{adjustability}  @Noun{}@spc{}(of an @term{array})
 1. @term{expressed adjustability}.
@@ -416,8 +416,8 @@ being both an @term{input} @term{stream} and an @term{output} @term{stream}.
 1. (of a @term{stream})
 being a @term{stream} that has an @term{element type} that is a @subtypeof{integer}.
 The most fundamental operation on a @term{binary} @term{input} @term{stream}
-is @coderef{read-byte} and on a @term{binary} @term{output} @term{stream}
-is @coderef{write-byte}.
+is @symbolref{read-byte} and on a @term{binary} @term{output} @term{stream}
+is @symbolref{write-byte}.
 See @ref{glos-character, character}.
 2. (of a @term{file})
 having been created by opening a @term{binary} @term{stream}.
@@ -436,9 +436,9 @@ name and its value.}
 When the term @term{binding} is qualified by the name of a @term{namespace},
 such as ``variable'' or ``function,''
 it restricts the binding to the indicated namespace, as in:
-@gexample{@coderef{let} establishes variable bindings.}
+@gexample{@symbolref{let} establishes variable bindings.}
 or
-@gexample{@coderef{let} establishes bindings of variables.}
+@gexample{@symbolref{let} establishes bindings of variables.}
 
 @item @b{bit}  @Noun{}@spc{}
 an @term{object} @oftype{bit};
@@ -454,31 +454,31 @@ and whose elements are @oftype{bit}.
 
 @item @b{bit-wise logical operation specifier}  @Noun{}@spc{}
 an @term{object} which names one of the sixteen possible bit-wise logical
-operations that can be performed by the @coderef{boole} function,
+operations that can be performed by the @symbolref{boole} function,
 and which is the @term{value} of exactly one of the
 @term{constant variables}
-@coderef{boole-clr},     @coderef{boole-set},
-@coderef{boole-1},       @coderef{boole-2},
-@coderef{boole-c1},      @coderef{boole-c2},
-@coderef{boole-and},     @coderef{boole-ior},
-@coderef{boole-xor},     @coderef{boole-eqv},
-@coderef{boole-nand},    @coderef{boole-nor},
-@coderef{boole-andc1},   @coderef{boole-andc2},
-@coderef{boole-orc1}, or @coderef{boole-orc2}.
+@symbolref{boole-clr},     @symbolref{boole-set},
+@symbolref{boole-1},       @symbolref{boole-2},
+@symbolref{boole-c1},      @symbolref{boole-c2},
+@symbolref{boole-and},     @symbolref{boole-ior},
+@symbolref{boole-xor},     @symbolref{boole-eqv},
+@symbolref{boole-nand},    @symbolref{boole-nor},
+@symbolref{boole-andc1},   @symbolref{boole-andc2},
+@symbolref{boole-orc1}, or @symbolref{boole-orc2}.
 
 @item @b{block}  @Noun{}
 a named lexical @term{exit point},
-@term{established} explicitly by @coderef{block}
+@term{established} explicitly by @symbolref{block}
 or implicitly by @term{operators}
-such as @coderef{loop}, @coderef{do} and @coderef{prog},
+such as @symbolref{loop}, @symbolref{do} and @symbolref{prog},
 to which control and values may be transfered by
-using a @coderef{return-from} @term{form} with the name of the @term{block}.
+using a @symbolref{return-from} @term{form} with the name of the @term{block}.
 
 @item @b{block tag}  @Noun{}@spc{}
 the @term{symbol} that, within the @term{lexical scope}
-of a @coderef{block} @term{form}, names the @term{block}
-@term{established} by that @coderef{block} @term{form}.
-See @coderef{return} or @coderef{return-from}.
+of a @symbolref{block} @term{form}, names the @term{block}
+@term{established} by that @symbolref{block} @term{form}.
+See @symbolref{return} or @symbolref{return-from}.
 
 @item @b{boa lambda list}  @Noun{}
 a @term{lambda list} that is syntactically like an @term{ordinary lambda list},
@@ -511,13 +511,13 @@ when both @mat{O@sub{1}} and @mat{O@sub{2}} are viewed as @term{generalized bool
 @item @b{bound} @anchor{glos-bound}
  @Adjective{}, @TransitiveVerb{}@spc{}
 1. @Adjective{}@spc{}having an associated denotation in a @term{binding}.
-@gexample{The variables named by a @coderef{let} are bound within
+@gexample{The variables named by a @symbolref{let} are bound within
 its body.}
 See @ref{glos-unbound, unbound}.
 2. @Adjective{}@spc{}having a local @term{binding} which
 @term{shadows}@sub{2} another.
-@gexample{The variable @coderef{*print-escape*} is bound while in
-the @coderef{princ} function.}
+@gexample{The variable @symbolref{*print-escape*} is bound while in
+the @symbolref{princ} function.}
 3. @TransitiveVerb{}@spc{}the past tense of @term{bind}.
 
 @item @b{bound declaration}  @Noun{}@spc{}
@@ -578,13 +578,13 @@ one of the @term{types} in @ref{StandardizedAtomicTypeSpecs, Figure 4.2}.
 see the @term{function} @ref{byte}.)
 2. an integer in a specified range.
 (The specific range can vary from point to point in the program;
-see the @term{functions} @ref{open} and @coderef{write-byte}.)
+see the @term{functions} @ref{open} and @symbolref{write-byte}.)
 
 @item @b{byte specifier}  @Noun{}
 An @term{object} of @term{implementation-dependent} nature
 that is returned by @thefunction{byte} and
 that specifies the range of bits in an @term{integer} to be used
-as a @term{byte} by @term{functions} such as @coderef{ldb}.
+as a @term{byte} by @term{functions} such as @symbolref{ldb}.
 
 
 @end table
@@ -611,19 +611,19 @@ in which the @term{form} that defined the @term{initialization form}
 was @term{evaluated}.
 @gexample{Each newly added shared slot is set to the result of evaluating
 the captured initialization form for the slot that was specified
-in the @coderef{defclass} form for the new class.}
+in the @symbolref{defclass} form for the new class.}
 
 @item @b{car}  @Noun{}
 1. a. (of a @term{cons})
 the component of a @term{cons} corresponding to the first
 @term{argument} to @code{cons}; the other component is the
 @term{cdr}.
-@gexample{The function @coderef{rplaca} modifies the car of a cons.}
+@gexample{The function @symbolref{rplaca} modifies the car of a cons.}
 b. (of a @term{list})
 the first @term{element} of the @term{list}, or @nil{}@spc{}if the
 @term{list} is the @term{empty list}.
 2. the @term{object} that is held in the @term{car}@sub{1}.
-@gexample{The function @coderef{car} returns the car of a cons.}
+@gexample{The function @symbolref{car} returns the car of a cons.}
 
 @item @b{case}  @Noun{}@spc{}(of a @term{character})
 the property of being either @term{uppercase} or @term{lowercase}.
@@ -637,7 +637,7 @@ one of the @term{symbols}
 @kwd{upcase}, @kwd{downcase}, @kwd{preserve}, or @kwd{invert}.
 
 @item @b{catch}  @Noun{}
-an @term{exit point} which is @term{established} by a @coderef{catch}
+an @term{exit point} which is @term{established} by a @symbolref{catch}
 @term{form} within the @term{dynamic scope} of its body,
 which is named by a @term{catch tag},
 and to which control and @term{values} may be @term{thrown}.
@@ -657,13 +657,13 @@ the @term{cdr} of the @term{cdr} of that @term{object}.
 1. a. (of a @term{cons})
 the component of a @term{cons} corresponding to the second @term{argument}
 to @code{cons}; the other component is the @term{car}.
-@gexample{The function @coderef{rplacd} modifies the cdr of a cons.}
+@gexample{The function @symbolref{rplacd} modifies the cdr of a cons.}
 b. (of a @term{list} @mat{L@sub{1}})
 either the @term{list} @mat{L@sub{2}} that contains
 the @term{elements} of @mat{L@sub{1}} that follow after the first,
 or else @nil{}@spc{}if @mat{L@sub{1}} is the @term{empty list}.
 2. the @term{object} that is held in the @term{cdr}@sub{1}.
-@gexample{The function @coderef{cdr} returns the cdr of a cons.}
+@gexample{The function @symbolref{cdr} returns the cdr of a cons.}
 
 @item @b{cell} @anchor{glos-cell}
  @Noun{}@spc{}@Traditional{}@spc{}(of an @term{object})
@@ -681,8 +681,8 @@ see @ref{Character Concepts}.
 a. (of a @term{stream})
 having an @term{element type} that is a @subtypeof{character}.
 The most fundamental operation on a @term{character} @term{input} @term{stream}
-is @coderef{read-char} and on a @term{character} @term{output} @term{stream}
-is @coderef{write-char}. See @ref{glos-binary, binary}.
+is @symbolref{read-char} and on a @term{character} @term{output} @term{stream}
+is @symbolref{write-char}. See @ref{glos-binary, binary}.
 b. (of a @term{file})
 having been created by opening a @term{character} @term{stream}.
 (It is @term{implementation-dependent} whether this is an inspectable aspect
@@ -720,7 +720,7 @@ that contributes structure and behavior to a set of
 other @term{objects} called its @term{indirect instances},
 and that acts as a @term{type specifier} for a set of objects
 called its @term{generalized instances}.
-@gexample{The class @coderef{integer} is a subclass of the class @coderef{number}.}
+@gexample{The class @symbolref{integer} is a subclass of the class @symbolref{number}.}
 (Note that the phrase ``the @term{class} @f{foo}'' is often substituted for
 the more precise phrase ``the @term{class} named @f{foo}''---in both
 cases, a @term{class} @term{object} (not a @term{symbol}) is denoted.)
@@ -728,8 +728,8 @@ cases, a @term{class} @term{object} (not a @term{symbol}) is denoted.)
 the uniquely determined @term{class} of which the @term{object} is
 a @term{direct instance}.
 See the @term{function} @ref{class-of}.
-@gexample{The class of the object returned by @coderef{gensym}
-is @coderef{symbol}.}
+@gexample{The class of the object returned by @symbolref{gensym}
+is @symbolref{symbol}.}
 (Note that with this usage a phrase such as ``its @term{class} is @f{foo}''
 is often substituted for the more precise phrase
 ``its @term{class} is the @term{class} named @f{foo}''---in both
@@ -863,7 +863,7 @@ to @term{load time values}.
 a facility that is part of Lisp and that translates @term{code}
 into an @term{implementation-dependent} form
 that might be represented or @term{executed} efficiently.
-The functions @coderef{compile} and @coderef{compile-file}
+The functions @symbolref{compile} and @symbolref{compile-file}
 permit programs to invoke the @term{compiler}.
 
 @item @b{compiler macro}  @Noun{}
@@ -884,7 +884,7 @@ by a @term{compiler macro}.
 @item @b{compiler macro form}  @Noun{}
 a @term{function form} or @term{macro form} whose @term{operator}
 has a definition as a @term{compiler macro},
-or a @coderef{funcall} @term{form} whose first @term{argument} is a
+or a @symbolref{funcall} @term{form} whose first @term{argument} is a
 @code{function} @term{form} whose @term{argument} is the @term{name}
 of a @term{function} that has a definition as a @term{compiler macro}.
 
@@ -920,13 +920,13 @@ see @ref{Rule of Canonical Representation for Complex Rationals}.
 
 @item @b{complex single float}  @Noun{}
 an @term{object} @oftype{complex} which has a @term{complex part type}
-that is a @term{subtype} of @coderef{single-float}.
+that is a @term{subtype} of @symbolref{single-float}.
 A @term{complex single float} is a @term{complex},
 but it is not a @term{single float}.
 
 @item @b{composite stream}  @Noun{}
 a @term{stream} that is composed of one or more other @term{streams}.
-@gexample{@coderef{make-synonym-stream} creates a composite stream.}
+@gexample{@symbolref{make-synonym-stream} creates a composite stream.}
 
 @item @b{compound form}  @Noun{}
 a @term{non-empty} @term{list} which is a @term{form}:
@@ -962,7 +962,7 @@ or to @term{decline}.  See @ref{Signaling}.
 
 @item @b{condition reporter}  @Noun{}
 a @term{function} that describes how a @term{condition} is to be printed
-when the @term{Lisp printer} is invoked while @coderef{*print-escape*}
+when the @term{Lisp printer} is invoked while @symbolref{*print-escape*}
 is @term{false}.  See @ref{Printing Conditions}.
 
 @item @b{conditional newline}  @Noun{}
@@ -1029,20 +1029,20 @@ and
 that neither affects nor is affected by the state of any @term{object}
 except those @term{objects} that are @term{otherwise inaccessible parts}
 of @term{objects} created by the @term{form} itself.
-@gexample{A @coderef{car} form in which the argument is a
-@coderef{quote} form is a constant form.}
+@gexample{A @symbolref{car} form in which the argument is a
+@symbolref{quote} form is a constant form.}
 
 @item @b{constant object}  @Noun{}
 an @term{object} that is constrained (@eg{} by its context in a @term{program}
 or by the source from which it was obtained) to be @term{immutable}.
-@gexample{A literal object that has been processed by @coderef{compile-file}
+@gexample{A literal object that has been processed by @symbolref{compile-file}
 is a constant object.}
 
 @item @b{constant variable}  @Noun{}
 a @term{variable}, the @term{value} of which can never change;
 that is, a @term{keyword}@sub{1} or a @term{named constant}.
 @gexample{The symbols @code{t}, @nil{}, @kwd{direction}, and
-@coderef{most-positive-fixnum}@spc{}are constant variables.}
+@symbolref{most-positive-fixnum}@spc{}are constant variables.}
 
 @item @b{constituent}  @Noun{}, @Adjective{}
 1. a. @Noun{}@spc{}the @term{syntax type} of a @term{character} that is part of a @term{token}.
@@ -1115,7 +1115,7 @@ second definition.)
 1. (by a @term{restart} other than @t{abort}
 that has been associated with the @term{error})
 capable of being corrected by invoking that @term{restart}.
-@gexample{The function @coderef{cerror} signals an error
+@gexample{The function @symbolref{cerror} signals an error
 that is correctable by the @t{continue} @term{restart}.}
 (Note that correctability is not a property of an
 @term{error} @term{object}, but rather a property of the
@@ -1126,7 +1126,7 @@ the @term{error} @term{condition} @term{object}.
 See @ref{Associating a Restart with a Condition}.)
 2. (when no specific @term{restart} is mentioned)
 @term{correctable}@sub{1} by at least one @term{restart}.
-@gexample{@coderef{import} signals a correctable error @oftype{package-error}
+@gexample{@symbolref{import} signals a correctable error @oftype{package-error}
 if any of the imported symbols has the same name as
 some distinct symbol already accessible in the package.}
 
@@ -1136,7 +1136,7 @@ and that is the default @term{radix} employed by the @term{Lisp reader}
 and its related @term{functions}.
 
 @item @b{current logical block}  @Noun{}
-the context of the innermost lexically enclosing use of @coderef{pprint-logical-block}.
+the context of the innermost lexically enclosing use of @symbolref{pprint-logical-block}.
 
 @item @b{current output base}  @Noun{}@spc{}(in a @term{dynamic environment})
 the @term{radix} that is @thevalueof{*print-base*} in that @term{environment},
@@ -1155,7 +1155,7 @@ employed by the @term{pretty printer}.
 
 @item @b{current random state}  @Noun{}@spc{}(in a @term{dynamic environment})
 the @term{random state} that is @thevalueof{*random-state*} in that @term{environment},
-and that is the default @term{random state} employed by @coderef{random}.
+and that is the default @term{random state} employed by @symbolref{random}.
 
 @item @b{current readtable}  @Noun{}@spc{}(in a @term{dynamic environment})
 the @term{readtable} that is @thevalueof{*readtable*} in that @term{environment},
@@ -1187,31 +1187,31 @@ a @term{global declaration} or @term{local declaration}.
 
 @item @b{declaration identifier}  @Noun{}
 one of the @term{symbols}
-@coderef{declaration},
-@coderef{dynamic-extent},
-@coderef{ftype},
+@symbolref{declaration},
+@symbolref{dynamic-extent},
+@symbolref{ftype},
 @code{function},
-@coderef{ignore},
-@coderef{inline},
-@coderef{notinline},
-@coderef{optimize},
-@coderef{special},
-or @coderef{type};
+@symbolref{ignore},
+@symbolref{inline},
+@symbolref{notinline},
+@symbolref{optimize},
+@symbolref{special},
+or @symbolref{type};
 or a @term{symbol} which is the @term{name} of a @term{type};
 or a @term{symbol} which has been @term{declared}
-to be a @term{declaration identifier} by using a @coderef{declaration}
+to be a @term{declaration identifier} by using a @symbolref{declaration}
 @term{declaration}.
 
 @item @b{declaration specifier}  @Noun{}
 an @term{expression} that can appear at top level of a @t{declare}
-expression or a @coderef{declaim} form, or as the argument to @coderef{proclaim},
+expression or a @symbolref{declaim} form, or as the argument to @symbolref{proclaim},
 and which has a @term{car} which is a @term{declaration identifier},
 and which has a @term{cdr} that is data interpreted according to rules
 specific to the @term{declaration identifier}.
 
 @item @b{declare}  @Verb{}@spc{}
 to @term{establish} a @term{declaration}.
-See @ref{declare}, @coderef{declaim}, or @coderef{proclaim}.
+See @ref{declare}, @symbolref{declaim}, or @symbolref{proclaim}.
 
 @item @b{decline}  @Verb{}@spc{}(of a @term{handler})
 to return normally without having @term{handled} the @term{condition}
@@ -1239,11 +1239,11 @@ defaulted, used in the protocol for initializing and reinitializing
 
 @item @b{define-method-combination arguments lambda list}  @Noun{}
 a @term{lambda list} used by the @kwd{arguments} option
-to @coderef{define-method-combination}.
+to @symbolref{define-method-combination}.
 See @ref{Define-method-combination Arguments Lambda Lists}.
 
 @item @b{define-modify-macro lambda list}  @Noun{}
-a @term{lambda list} used by @coderef{define-modify-macro}.
+a @term{lambda list} used by @symbolref{define-modify-macro}.
 See @ref{Define-modify-macro Lambda Lists}.
 
 @item @b{defined name}  @Noun{}
@@ -1251,7 +1251,7 @@ a @term{symbol} the meaning of which is defined by @clisp{}.
 
 @item @b{defining form}  @Noun{}
 a @term{form} that has the side-effect of @term{establishing} a definition.
-@gexample{@coderef{defun} and @coderef{defparameter} are defining forms.}
+@gexample{@symbolref{defun} and @symbolref{defparameter} are defining forms.}
 
 @item @b{defsetf lambda list}  @Noun{}
 a @term{lambda list} that is like an @term{ordinary lambda list}
@@ -1278,7 +1278,7 @@ have less precision than @term{normalized} @term{floats}.
 
 @item @b{derived type}  @Noun{}
 a @term{type specifier} which is defined in terms of an expansion into another
-@term{type specifier}.  @coderef{deftype} defines @term{derived types},
+@term{type specifier}.  @symbolref{deftype} defines @term{derived types},
 and there may be other @term{implementation-defined} @term{operators}
 which do so as well.
 
@@ -1301,14 +1301,14 @@ capable of modifying some program-visible aspect of one or more
 from the @term{global environment} by the @term{operator}.
 
 @item @b{destructuring lambda list}  @Noun{}
-an @term{extended lambda list} used in @coderef{destructuring-bind} and
+an @term{extended lambda list} used in @symbolref{destructuring-bind} and
 nested within @term{macro lambda lists}.
 See @ref{Destructuring Lambda Lists}.
 
 @item @b{different}  @Adjective{}@spc{}
 not the @term{same}
 @gexample{The strings @f{"FOO"} and @f{"foo"} are different under
-@coderef{equal} but not under @coderef{equalp}.}
+@symbolref{equal} but not under @symbolref{equalp}.}
 
 @item @b{digit}  @Noun{}@spc{}(in a @term{radix})
 a @term{character} that is among the possible digits (@f{0} to @f{9},
@@ -1328,7 +1328,7 @@ the @term{fill pointer} is ignored.
 @item @b{direct instance}  @Noun{}@spc{}(of a @term{class} @mat{C})
 an @term{object} whose @term{class} is @mat{C} itself,
 rather than some @term{subclass} of @mat{C}.
-@gexample{The function @coderef{make-instance} always returns a
+@gexample{The function @symbolref{make-instance} always returns a
 direct instance of the class which is (or is named by)
 its first argument.}
 
@@ -1376,7 +1376,7 @@ aspect of the @term{string}) is taken as documentation.
 In some cases, the @term{documentation string} is saved in such a
 way that it can later be obtained by supplying either an @term{object},
 or by supplying a @term{name} and a ``kind'' to @thefunction{documentation}.
-@gexample{The body of code in a @coderef{defmacro} form can be preceded
+@gexample{The body of code in a @symbolref{defmacro} form can be preceded
 by a documentation string of kind @t{function}.}
 
 @item @b{dot}  @Noun{}
@@ -1411,11 +1411,11 @@ a @term{binding} in a @term{dynamic environment}.
 that part of an @term{environment} that contains @term{bindings}
 with @term{dynamic extent}.  A @term{dynamic environment} contains,
 among other things:
-@term{exit points} established by @coderef{unwind-protect},
+@term{exit points} established by @symbolref{unwind-protect},
 and
 @term{bindings} of
 @term{dynamic variables},
-@term{exit points} established by @coderef{catch},
+@term{exit points} established by @symbolref{catch},
 @term{condition handlers},
 and
 @term{restarts}.
@@ -1463,14 +1463,14 @@ designated by the @term{type}.
 a @term{character} or @term{number} (as appropriate to the
 @term{element type} of the @term{stream})
 that is among the ordered series of @term{objects} that can be
-read from the @term{stream} (using @coderef{read-char} or @coderef{read-byte},
+read from the @term{stream} (using @symbolref{read-char} or @symbolref{read-byte},
 as appropriate to the @term{stream}).
 6. (of an @term{output} @term{stream})
 a @term{character} or @term{number} (as appropriate to the
 @term{element type} of the @term{stream})
 that is among the ordered series of @term{objects} that has been
-or will be written to the @term{stream} (using @coderef{write-char}
-or @coderef{write-byte}, as appropriate to the @term{stream}).
+or will be written to the @term{stream} (using @symbolref{write-char}
+or @symbolref{write-byte}, as appropriate to the @term{stream}).
 7. (of a @term{class}) a @term{generalized instance} of the @term{class}.
 
 @item @b{element type}  @Noun{}@spc{}
@@ -1511,13 +1511,13 @@ is @term{implementation-defined}.
 @item @b{environment}  @Noun{}
 1. a set of @term{bindings}. See @ref{Introduction to Environments}.
 2. an @term{environment object}.
-@gexample{@coderef{macroexpand} takes an optional environment argument.}
+@gexample{@symbolref{macroexpand} takes an optional environment argument.}
 
 @item @b{environment object}  @Noun{}
 an @term{object} representing a set of @term{lexical bindings},
 used in the processing of a @term{form} to provide meanings for
 @term{names} within that @term{form}.
-@gexample{@coderef{macroexpand} takes an optional environment argument.}
+@gexample{@symbolref{macroexpand} takes an optional environment argument.}
 (The @term{object} @nil{}@spc{}when used as an @term{environment object}
 denotes the @term{null lexical environment};
 the @term{values} of @term{environment parameters}
@@ -1543,7 +1543,7 @@ See @ref{Error Terminology}.
 
 @item @b{error output}  @Noun{}@spc{}
 the @term{output} @term{stream} which is the @term{value} of the @term{dynamic variable}
-@coderef{*error-output*}.
+@symbolref{*error-output*}.
 
 @item @b{escape}  @Noun{}, @Adjective{}
 1. @Noun{}@spc{}a @term{single escape} or a @term{multiple escape}.
@@ -1558,7 +1558,7 @@ a  @term{tag},
 a  @term{handler},
 a @term{restart},
 or an @term{environment}.
-@gexample{@coderef{let} establishes lexical bindings.}
+@gexample{@symbolref{let} establishes lexical bindings.}
 
 @item @b{evaluate}  @TransitiveVerb{}@spc{}(a @term{form} or an @term{implicit progn})
 to @term{execute} the @term{code} represented by the @term{form}
@@ -1579,7 +1579,7 @@ See @ref{The Evaluation Model}.
 
 @item @b{evaluation environment}  @Noun{}
 a @term{run-time environment} in which macro expanders
-and code specified by @coderef{eval-when} to be evaluated
+and code specified by @symbolref{eval-when} to be evaluated
 are evaluated.  All evaluations initiated by the @term{compiler}
 take place in the @term{evaluation environment}.
 
@@ -1599,25 +1599,25 @@ whose union contains all @term{elements} of that @term{type}.
 
 @item @b{exit point}  @Noun{}
 a point in a @term{control form}
-from which (@eg{} @coderef{block}),
-through which (@eg{} @coderef{unwind-protect}),
-or to which (@eg{} @coderef{tagbody})
+from which (@eg{} @symbolref{block}),
+through which (@eg{} @symbolref{unwind-protect}),
+or to which (@eg{} @symbolref{tagbody})
 control and possibly @term{values} can be transferred both actively by using
 another @term{control form} and passively through the normal control and
 data flow of @term{evaluation}.
-@gexample{@coderef{catch} and @coderef{block} establish bindings for
-exit points to which @coderef{throw} and @coderef{return-from},
+@gexample{@symbolref{catch} and @symbolref{block} establish bindings for
+exit points to which @symbolref{throw} and @symbolref{return-from},
 respectively, can transfer control and values;
-@coderef{tagbody} establishes a binding for an exit point
-with lexical extent to which @coderef{go} can transfer control;
-and @coderef{unwind-protect} establishes an exit point
+@symbolref{tagbody} establishes a binding for an exit point
+with lexical extent to which @symbolref{go} can transfer control;
+and @symbolref{unwind-protect} establishes an exit point
 through which control might be transferred by
-operators such as @coderef{throw}, @coderef{return-from},
-and @coderef{go}.}
+operators such as @symbolref{throw}, @symbolref{return-from},
+and @symbolref{go}.}
 
 @item @b{explicit return}  @Noun{}@spc{}
 the act of transferring control (and possibly @term{values})
-to a @term{block} by using @coderef{return-from} (or @coderef{return}).
+to a @term{block} by using @symbolref{return-from} (or @symbolref{return}).
 
 @item @b{explicit use}  @Noun{}@spc{}(of a @term{variable} @mat{V} in a @term{form} @mat{F})
 a reference to @mat{V} that is directly apparent in the normal semantics of @mat{F};
@@ -1638,13 +1638,13 @@ that this number is to be represented as a double float.}
 
 @float Figure,fig26.1
 @cartouche
-@multitable{@f{D} or @f{d}}{@code{float} (see @coderef{*read-default-float-format*})}
+@multitable{@f{D} or @f{d}}{@code{float} (see @symbolref{*read-default-float-format*})}
 @headitem Marker @tab Meaning
-@item @f{D} or @f{d} @tab @coderef{double-float}
-@item @f{E} or @f{e} @tab @code{float} (see @coderef{*read-default-float-format*})
-@item @f{F} or @f{f} @tab @coderef{single-float}
-@item @f{L} or @f{l} @tab @coderef{long-float}
-@item @f{S} or @f{s} @tab @coderef{short-float}
+@item @f{D} or @f{d} @tab @symbolref{double-float}
+@item @f{E} or @f{e} @tab @code{float} (see @symbolref{*read-default-float-format*})
+@item @f{F} or @f{f} @tab @symbolref{single-float}
+@item @f{L} or @f{l} @tab @symbolref{long-float}
+@item @f{S} or @f{s} @tab @symbolref{short-float}
 @end multitable
 @end cartouche
 @caption{Exponent Markers}
@@ -1696,7 +1696,7 @@ the @term{upgraded complex part type} of the
 1. an @term{object}, often used to emphasize the use
 of the @term{object} to encode or represent information in a specialized
 format, such as program text.
-@gexample{The second expression in a @coderef{let} form is a list
+@gexample{The second expression in a @symbolref{let} form is a list
 of bindings.}
 2. the textual notation used to notate an @term{object} in a source file.
 @gexample{The expression @f{'sample} is equivalent to @f{(quote sample)}.}
@@ -1733,7 +1733,7 @@ See also @ref{glos-function designator, function designator}.
 a list resembling an @term{ordinary lambda list} in form and purpose, but
 offering additional syntax or functionality not available in an
 @term{ordinary lambda list}.
-@gexample{@coderef{defmacro} uses extended lambda lists.}
+@gexample{@symbolref{defmacro} uses extended lambda lists.}
 
 @item @b{extension}  @Noun{}
 a facility in an @term{implementation} of @clisp{}@spc{}
@@ -1807,7 +1807,7 @@ Further, defining a @term{setf expander} @param{F} does not cause the @term{setf
 of a @term{setf expander} @param{F}, the @term{function} @f{(setf @param{F})}
 can be @term{fbound} if and only if, by design or coincidence, a
 function binding for @f{(setf @param{F})} has been independently established.)
-See the @term{functions} @ref{fboundp} and @coderef{symbol-function}.
+See the @term{functions} @ref{fboundp} and @symbolref{symbol-function}.
 
 @item @b{feature}  @Noun{}
 1. an aspect or attribute
@@ -1833,7 +1833,7 @@ having an @term{implementation-defined} nature.
 
 @item @b{file compiler}  @Noun{}
 any @term{compiler} which @term{compiles} @term{source code} contained in a @term{file},
-producing a @term{compiled file} as output.  The @coderef{compile-file}
+producing a @term{compiled file} as output.  The @symbolref{compile-file}
 function is the only interface to such a @term{compiler} provided by @clisp{},
 but there might be other, @term{implementation-defined} mechanisms for
 invoking the @term{file compiler}.
@@ -1883,7 +1883,7 @@ Not all @term{vectors} have @term{fill pointers}.)
 @item @b{finite}  @Adjective{}@spc{}(of a @term{type})
 having a finite number of @term{elements}.
 @gexample{The type specifier @f{(integer 0 5)} denotes a finite type,
-but the type specifiers @coderef{integer} and @f{(integer 0)} do not.}
+but the type specifiers @symbolref{integer} and @f{(integer 0)} do not.}
 
 @item @b{fixnum}  @Noun{}@spc{}
 an @term{integer} @oftype{fixnum}.
@@ -1902,7 +1902,7 @@ a @term{compound form},
 or a @term{self-evaluating object}.
 3. (for an @term{operator}, as in ``@metavar{operator} @term{form}'')
 a @term{compound form} having that @term{operator} as its first element.
-@gexample{A @coderef{quote} form is a constant form.}
+@gexample{A @symbolref{quote} form is a constant form.}
 
 @item @b{formal argument}  @Noun{}@spc{}@Traditional{}@spc{}
 a @term{parameter}.
@@ -1911,11 +1911,11 @@ a @term{parameter}.
 a @term{parameter}.
 
 @item @b{format}  @TransitiveVerb{}@spc{}(a @term{format control} and @term{format arguments})
-to perform output as if by @coderef{format},
+to perform output as if by @symbolref{format},
 using the @term{format string} and @term{format arguments}.
 
 @item @b{format argument}  @Noun{}
-an @term{object} which is used as data by functions such as @coderef{format}
+an @term{object} which is used as data by functions such as @symbolref{format}
 which interpret @term{format controls}.
 
 @item @b{format control}  @Noun{}
@@ -1941,7 +1941,7 @@ which use the same dispatch character.
 @item @b{format string}  @Noun{}
 a @term{string} which can contain both ordinary text and @term{format directives},
 and which is used in conjunction with @term{format arguments} to describe how
-text output should be formatted by certain functions, such as @coderef{format}.
+text output should be formatted by certain functions, such as @symbolref{format}.
 
 @item @b{free declaration}  @Noun{}
 a declaration that is not a @term{bound declaration}.
@@ -1988,7 +1988,7 @@ must specify for each how the corresponding @term{function block name} is comput
 @item @b{function cell}  @Noun{}@spc{}@Traditional{}@spc{}(of a @term{symbol})
 The @term{place} which holds the @term{definition} of the
 global @term{function} @term{binding}, if any, named by that @term{symbol},
-and which is @term{accessed} by @coderef{symbol-function}.
+and which is @term{accessed} by @symbolref{symbol-function}.
 See @ref{glos-cell, cell}.
 
 @item @b{function designator} @anchor{glos-function designator}
@@ -2107,8 +2107,8 @@ See the @term{function} @ref{gensym}.
 
 @item @b{global declaration}  @Noun{}@spc{}
 a @term{form} that makes certain kinds of information about
-code globally available; that is, a @coderef{proclaim} @term{form}
-or a @coderef{declaim} @term{form}.
+code globally available; that is, a @symbolref{proclaim} @term{form}
+or a @symbolref{declaim} @term{form}.
 
 @item @b{global environment}  @Noun{}@spc{}
 that part of an @term{environment} that contains @term{bindings}
@@ -2127,13 +2127,13 @@ See the @term{special operator} @ref{go}.
 
 @item @b{go point}
 one of possibly several @term{exit points} that are @term{established}
-by @coderef{tagbody} (or other abstractions, such as @coderef{prog},
-which are built from @coderef{tagbody}).
+by @symbolref{tagbody} (or other abstractions, such as @symbolref{prog},
+which are built from @symbolref{tagbody}).
 
 @item @b{go tag}  @Noun{}@spc{}
 the @term{symbol} or @term{integer} that, within the @term{lexical scope}
-of a @coderef{tagbody} @term{form}, names an @term{exit point}
-@term{established} by that @coderef{tagbody} @term{form}.
+of a @symbolref{tagbody} @term{form}, names an @term{exit point}
+@term{established} by that @symbolref{tagbody} @term{form}.
 
 @item @b{graphic}  @Adjective{}@spc{}(of a @term{character})
 being a ``printing'' or ``displayable'' @term{character}
@@ -2195,7 +2195,7 @@ to be an @term{I/O customization variable}.
 
 
 @item @b{identical}  @Adjective{}@spc{}
-the @term{same} under @coderef{eq}.
+the @term{same} under @symbolref{eq}.
 
 @item @b{identifier}  @Noun{}@spc{}
 1. a @term{symbol} used to identify or to distinguish @term{names}.
@@ -2237,7 +2237,7 @@ not vary between @term{conforming implementations}.
 
 @item @b{implicit block}  @Noun{}@spc{}
 a @term{block} introduced by a @term{macro form}
-rather than by an explicit @coderef{block} @term{form}.
+rather than by an explicit @symbolref{block} @term{form}.
 
 @item @b{implicit compilation}  @Noun{}@spc{}
 @term{compilation} performed during @term{evaluation}.
@@ -2245,12 +2245,12 @@ rather than by an explicit @coderef{block} @term{form}.
 @item @b{implicit progn}  @Noun{}@spc{}
 an ordered set of adjacent @term{forms} appearing in another
 @term{form}, and defined by their context in that @term{form}
-to be executed as if within a @coderef{progn}.
+to be executed as if within a @symbolref{progn}.
 
 @item @b{implicit tagbody}  @Noun{}@spc{}
 an ordered set of adjacent @term{forms} and/or @term{tags}
 appearing in another @term{form}, and defined by their context
-in that @term{form} to be executed as if within a @coderef{tagbody}.
+in that @term{form} to be executed as if within a @symbolref{tagbody}.
 
 @item @b{import}  @TransitiveVerb{}@spc{}(a @term{symbol} into a @term{package})
 to make the @term{symbol} be @term{present} in the @term{package}.
@@ -2277,7 +2277,7 @@ a @term{property indicator}.
 @item @b{indirect instance}  @Noun{}@spc{}(of a @term{class} @mat{C@sub{1}})
 an @term{object} of @term{class} @mat{C@sub{2}},
 where @mat{C@sub{2}} is a @term{subclass} of @mat{C@sub{1}}.
-@gexample{An integer is an indirect instance of the class @coderef{number}.}
+@gexample{An integer is an indirect instance of the class @symbolref{number}.}
 
 @item @b{inherit}  @TransitiveVerb{}@spc{}
 1. to receive or acquire a quality, trait, or characteristic;
@@ -2285,7 +2285,7 @@ to gain access to a feature defined elsewhere.
 2. (a @term{class}) to acquire the structure and behavior defined
 by a @term{superclass}.
 3. (a @term{package}) to make @term{symbols} @term{exported} by another
-@term{package} @term{accessible} by using @coderef{use-package}.
+@term{package} @term{accessible} by using @symbolref{use-package}.
 
 @item @b{initial pprint dispatch table}  @Noun{}
 @thevalueof{*print-pprint-dispatch*} at the time the @term{Lisp image} is started.
@@ -2301,7 +2301,7 @@ See @ref{Object Creation and Initialization}.
 @item @b{initialization form}  @Noun{}@spc{}
 a @term{form} used to supply the initial @term{value} for a @term{slot}
 or @term{variable}.
-@gexample{The initialization form for a slot in a @coderef{defclass} form
+@gexample{The initialization form for a slot in a @symbolref{defclass} form
 is introduced by the keyword @kwd{initform}.}
 
 @item @b{input}  @Adjective{}@spc{}(of a @term{stream})
@@ -2613,7 +2613,7 @@ are not involved.)
 @item @b{literal}  @Adjective{}@spc{}(of an @term{object})
 referenced directly in a program rather than being computed by the program;
 that is,
-appearing as data in a @coderef{quote} @term{form},
+appearing as data in a @symbolref{quote} @term{form},
 or, if the @term{object} is a @term{self-evaluating object},
 appearing as unquoted data.
 @gexample{In the form @f{(cons "one" '("two"))},
@@ -2628,7 +2628,7 @@ See the @term{function} @ref{load}.
 the duration of time that the loader is @term{loading} @term{compiled code}.
 
 @item @b{load time value}  @Noun{}@spc{}
-an @term{object} referred to in @term{code} by a @coderef{load-time-value}
+an @term{object} referred to in @term{code} by a @symbolref{load-time-value}
 @term{form}.  The @term{value} of such a @term{form} is some specific
 @term{object} which can only be computed in the run-time @term{environment}.
 In the case of @term{file} @term{compilation}, the @term{value} is
@@ -2684,8 +2684,8 @@ an @term{object} @oftype{long-float}.
 
 @item @b{loop keyword}  @Noun{}@spc{}@Traditional{}
 a symbol that is a specially recognized part of the syntax of
-an extended @coderef{loop} @term{form}.  Such symbols are recognized by their
-@term{name} (using @coderef{string=}), not by their identity; as such, they
+an extended @symbolref{loop} @term{form}.  Such symbols are recognized by their
+@term{name} (using @symbolref{string=}), not by their identity; as such, they
 may be in any package.  A @term{loop keyword} is not a @term{keyword}.
 
 @item @b{lowercase}  @Adjective{}@spc{}(of a @term{character})
@@ -2733,11 +2733,11 @@ argument @term{form}.
 
 @item @b{macro lambda list}  @Noun{}
 an @term{extended lambda list} used in @term{forms} that @term{establish}
-@term{macro} definitions, such as @coderef{defmacro} and @coderef{macrolet}.
+@term{macro} definitions, such as @symbolref{defmacro} and @symbolref{macrolet}.
 See @ref{Macro Lambda Lists}.
 
 @item @b{macro name}  @Noun{}@spc{}
-a @term{name} for which @coderef{macro-function} returns @term{true}
+a @term{name} for which @symbolref{macro-function} returns @term{true}
 and which when used as the first element of a @term{compound form}
 identifies that @term{form} as a @term{macro form}.
 
@@ -2798,7 +2798,7 @@ a list resembling an @term{ordinary lambda list} in form and purpose,
 but which deviates in syntax or functionality from the definition of an
 @term{ordinary lambda list}.
 See @ref{glos-ordinary lambda list, ordinary lambda list}.
-@gexample{@coderef{deftype} uses a modified lambda list.}
+@gexample{@symbolref{deftype} uses a modified lambda list.}
 
 @item @b{most recent}  @Adjective{}
 innermost;
@@ -2819,11 +2819,11 @@ having the @term{multiple escape} @term{syntax type}.
 
 @item @b{multiple values}  @Noun{}@spc{}
 1. more than one @term{value}.
-@gexample{The function @coderef{truncate} returns multiple values.}
+@gexample{The function @symbolref{truncate} returns multiple values.}
 2. a variable number of @term{values}, possibly including zero or one.
 @gexample{The function @code{values} returns multiple values.}
 3. a fixed number of values other than one.
-@gexample{The macro @coderef{multiple-value-bind} is among the few
+@gexample{The macro @symbolref{multiple-value-bind} is among the few
 operators in @clisp{}@spc{}which can detect and manipulate
 multiple values.}
 
@@ -2841,10 +2841,10 @@ is referred to by association using a @term{binding}.
 3. @Noun{}@spc{}(of an @term{object} having a name component)
 the @term{object} which is that component.
 @gexample{The string which is a symbol's name is returned
-by @coderef{symbol-name}.}
+by @symbolref{symbol-name}.}
 4. @Noun{}@spc{}(of a @term{pathname})
-a. the name component, returned by @coderef{pathname-name}.
-b. the entire namestring, returned by @coderef{namestring}.
+a. the name component, returned by @symbolref{pathname-name}.
+b. the entire namestring, returned by @symbolref{namestring}.
 5. @Noun{}@spc{}(of a @term{character})
 a @term{string} that names the @term{character}
 and that has @term{length} greater than one.
@@ -2930,8 +2930,8 @@ other than a @term{list}; @ie{} a @term{non-nil} @term{atom}.
 @item @b{non-local exit}  @Noun{}@spc{}
 a transfer of control (and sometimes @term{values}) to
 an @term{exit point} for reasons other than a @term{normal return}.
-@gexample{The operators @coderef{go}, @coderef{throw},
-and @coderef{return-from} cause a non-local exit.}
+@gexample{The operators @symbolref{go}, @symbolref{throw},
+and @symbolref{return-from} cause a non-local exit.}
 
 @item @b{non-nil}  @Noun{}, @Adjective{}@spc{}
 not @nil{}.  Technically, any @term{object} which is not @nil{}@spc{}can be
@@ -3007,15 +3007,15 @@ to two other objects.}
 an @term{object} which is of that @term{type}, used to emphasize that the
 @term{object} is not just a @term{name} for an object of that @term{type}
 but really an @term{element} of the @term{type} in cases where @term{objects}
-of that @term{type} (such as @code{function} or @coderef{class}) are commonly
+of that @term{type} (such as @code{function} or @symbolref{class}) are commonly
 referred to by @term{name}.
-@gexample{The function @coderef{symbol-function} takes a function name
+@gexample{The function @symbolref{symbol-function} takes a function name
 and returns a function object.}
 
 @item @b{object-traversing}  @Adjective{}@spc{}
 operating in succession on components of an @term{object}.
-@gexample{The operators @coderef{mapcar}, @coderef{maphash},
-@coderef{with-package-iterator} and @coderef{count}
+@gexample{The operators @symbolref{mapcar}, @symbolref{maphash},
+@symbolref{with-package-iterator} and @symbolref{count}
 perform object-traversing operations.}
 
 @item @b{open}  @Adjective{}, @TransitiveVerb{}@spc{}(a @term{file})
@@ -3039,7 +3039,7 @@ or a @term{lambda expression}, and which is never @f{(setf @term{symbol})}.
 one of several aspects of a program that might be optimizable by
 certain compilers.  Since optimizing one such quality
 might conflict with optimizing another, relative priorities for
-qualities can be established in an @coderef{optimize} @term{declaration}.
+qualities can be established in an @symbolref{optimize} @term{declaration}.
 The @term{standardized} @term{optimize qualities} are
 @f{compilation-speed} (speed of the compilation process),
 @f{debug} (ease of debugging),
@@ -3061,7 +3061,7 @@ a @term{function} that is not a @term{generic function}.
  @Noun{}@spc{}
 the kind of @term{lambda list} used by @t{lambda}.
 See @ref{glos-modified lambda list, modified lambda list} and @term{extended lambda list}.
-@gexample{@coderef{defun} uses an ordinary lambda list.}
+@gexample{@symbolref{defun} uses an ordinary lambda list.}
 
 @item @b{otherwise inaccessible part}  @Noun{}@spc{}(of an @term{object}, @mat{O@sub{1}})
 an @term{object}, @mat{O@sub{2}}, which would be made @term{inaccessible} if
@@ -3116,10 +3116,10 @@ the symbol is looked up in the indicated @term{package}.
 A mapping of @term{names} to @term{package} @term{objects}.
 It is possible for there to be a @term{package} @term{object} which is not
 in this mapping; such a @term{package} is called an @term{unregistered package}.
-@term{Operators} such as @coderef{find-package} consult this mapping in order
+@term{Operators} such as @symbolref{find-package} consult this mapping in order
 to find a @term{package} from its @term{name}.
-@term{Operators} such as @coderef{do-all-symbols}, @coderef{find-all-symbols},
-and @coderef{list-all-packages} operate only on @term{packages} that exist
+@term{Operators} such as @symbolref{do-all-symbols}, @symbolref{find-all-symbols},
+and @symbolref{list-all-packages} operate only on @term{packages} that exist
 in the @term{package registry}.
 
 @item @b{pairwise}  @Adverb{}@spc{}(of an adjective on a set)
@@ -3131,7 +3131,7 @@ applying individually to all possible pairings of elements of the set.
 
 @item @b{parallel} @anchor{glos-parallel}
  @Adjective{}@spc{}@Traditional{}@spc{}(of @term{binding} or @term{assignment})
-done in the style of @coderef{psetq}, @coderef{let}, or @coderef{do};
+done in the style of @symbolref{psetq}, @symbolref{let}, or @symbolref{do};
 that is, first evaluating all of the @term{forms} that produce @term{values},
 and only then @term{assigning} or @term{binding} the @term{variables} (or @term{places}).
 Note that this does not imply traditional computational ``parallelism''
@@ -3230,7 +3230,7 @@ See @ref{Potential Numbers as Tokens}.
 @item @b{pprint dispatch table}  @Noun{}@spc{}
 an @term{object} that can be @thevalueof{*print-pprint-dispatch*}
 and hence can control how @term{objects} are printed when
-@coderef{*print-pretty*} is @term{true}.
+@symbolref{*print-pretty*} is @term{true}.
 See @ref{Pretty Print Dispatch Tables}.
 
 @item @b{predicate}  @Noun{}@spc{}
@@ -3251,7 +3251,7 @@ to invoke the @term{pretty printer} on the @term{object}.
 @item @b{pretty printer}  @Noun{}@spc{}
 the procedure that prints the character representation of an
 @term{object} onto a @term{stream} when the @term{value} of
-@coderef{*print-pretty*} is @term{true},
+@symbolref{*print-pretty*} is @term{true},
 and that uses layout techniques (@eg{} indentation) that
 tend to highlight the structure of the @term{object} in a way that
 makes it easier for human readers to parse visually.
@@ -3273,7 +3273,7 @@ see @ref{Introduction to Methods}.
 @item @b{primary value}  @Noun{}@spc{}(of @term{values} resulting from the
 @term{evaluation} of a @term{form})
 the first @term{value}, if any, or else @nil{}@spc{}if there are no @term{values}.
-@gexample{The primary value returned by @coderef{truncate} is an
+@gexample{The primary value returned by @symbolref{truncate} is an
 integer quotient, truncated toward zero.}
 
 @item @b{principal}  @Adjective{}@spc{}(of a value returned by a @clisp{}@spc{}@term{function} that
@@ -3295,10 +3295,10 @@ defined by the @term{implementation} to be a @term{printer control variable}.
 
 @item @b{printer escaping}  @Noun{}
 The combined state of the @term{printer control variables}
-@coderef{*print-escape*} and @coderef{*print-readably*}.
-If the value of either @coderef{*print-readably*} or @coderef{*print-escape*} is @term{true},
+@symbolref{*print-escape*} and @symbolref{*print-readably*}.
+If the value of either @symbolref{*print-readably*} or @symbolref{*print-escape*} is @term{true},
 then @newterm{printer escaping} is ``enabled'';
-otherwise (if the values of both @coderef{*print-readably*} and @coderef{*print-escape*}
+otherwise (if the values of both @symbolref{*print-readably*} and @symbolref{*print-escape*}
 are @term{false}),
 then @term{printer escaping} is ``disabled''.
 
@@ -3342,7 +3342,7 @@ See @ref{glos-improper list, improper list}.
 @item @b{proper name}  @Noun{}@spc{}(of a @term{class})
 a @term{symbol} that @term{names} the @term{class} whose @term{name}
 is that @term{symbol}.
-See the @term{functions} @ref{class-name} and @coderef{find-class}.
+See the @term{functions} @ref{class-name} and @symbolref{find-class}.
 
 @item @b{proper sequence}  @Noun{}@spc{}
 a @term{sequence} which is not an @term{improper list};
@@ -3412,7 +3412,7 @@ that is the @term{value} of @thevariable{*query-io*}.
 
 @item @b{quoted object}  @Noun{}@spc{}
 an @term{object} which is the second element of a
-@coderef{quote} @term{form}.
+@symbolref{quote} @term{form}.
 
 
 @end table
@@ -3483,7 +3483,7 @@ or the conceptual pairing of a @term{dispatching macro character} and the
 @item @b{reader macro function}  @Noun{}
 a @term{function} @term{designator} that denotes a @term{function}
 that implements a @term{reader macro}@sub{2}.
-See the @term{functions} @ref{set-macro-character} and @coderef{set-dispatch-macro-character}.
+See the @term{functions} @ref{set-macro-character} and @symbolref{set-dispatch-macro-character}.
 
 @item @b{readtable}  @Noun{}
 an @term{object} @oftype{readtable}.
@@ -3522,9 +3522,9 @@ a @term{package} @term{object} that is installed in the @term{package registry}.
 (Every @term{registered package} has a @term{name} that is a @term{string},
 as well as zero or more @term{string} nicknames.
 All @term{packages} that are initially specified by @clisp{}@spc{}
-or created by @coderef{make-package} or @coderef{defpackage}
+or created by @symbolref{make-package} or @symbolref{defpackage}
 are @term{registered packages}.  @term{Registered packages} can be turned into
-@term{unregistered packages} by @coderef{delete-package}.)
+@term{unregistered packages} by @symbolref{delete-package}.)
 
 @item @b{relative} @anchor{glos-relative}
  @Adjective{}
@@ -3576,7 +3576,7 @@ a @term{non-nil} @term{symbol}
 or a @term{restart} (denoting itself).
 
 @item @b{restart function}  @Noun{}
-a @term{function} that invokes a @term{restart}, as if by @coderef{invoke-restart}.
+a @term{function} that invokes a @term{restart}, as if by @symbolref{invoke-restart}.
 The primary purpose of a @term{restart function} is to provide an alternate
 interface. By convention, a @term{restart function} usually has the same name
 as the @term{restart} which it invokes. @Thenextfigure{}@spc{}shows a list of the
@@ -3616,7 +3616,7 @@ See @ref{StdCharsThree, Figure 2.5}.
 2. @term{execution time}
 
 @item @b{run-time compiler}  @Noun{}
-refers to the @coderef{compile} function or to @term{implicit compilation},
+refers to the @symbolref{compile} function or to @term{implicit compilation},
 for which the compilation and run-time @term{environments} are maintained
 in the same @term{Lisp image}.
 
@@ -3651,14 +3651,14 @@ For more detailed information, see @ref{Safe and Unsafe Calls}.
 1. (of @term{objects} under a specified @term{predicate})
 indistinguishable by that @term{predicate}.
 @gexample{The symbol @f{car}, the string @f{"car"}, and the string @f{"CAR"}
-are the @f{same} under @coderef{string-equal}}.
+are the @f{same} under @symbolref{string-equal}}.
 2. (of @term{objects} if no predicate is implied by context)
 indistinguishable by @code{eql}.
-Note that @coderef{eq} might be capable of distinguishing some
+Note that @symbolref{eq} might be capable of distinguishing some
 @term{numbers} and @term{characters} which @code{eql} cannot
 distinguish, but the nature of such, if any,
 is @term{implementation-dependent}.
-Since @coderef{eq} is used only rarely in this specification,
+Since @symbolref{eq} is used only rarely in this specification,
 @code{eql} is the default predicate when none is mentioned explicitly.
 @gexample{The conses returned by two successive calls to @code{cons}
 are never the same.}
@@ -3707,7 +3707,7 @@ of the type @code{character}.  See @ref{Character Scripts}.
 @term{evaluation} of a @term{form})
 the second @term{value}, if any,
 or else @nil{}@spc{}if there are fewer than two @term{values}.
-@gexample{The secondary value returned by @coderef{truncate} is a remainder.}
+@gexample{The secondary value returned by @symbolref{truncate} is a remainder.}
 
 @item @b{section}  @Noun{}
 a partitioning of output by a @term{conditional newline} on a @term{pretty printing stream}.
@@ -3745,7 +3745,7 @@ and that is defined by the @term{implementation} to be a @term{sequence function
 
 @item @b{sequential} @anchor{glos-sequential}
  @Adjective{}@spc{}@Traditional{}@spc{}(of @term{binding} or @term{assignment})
-done in the style of @coderef{setq}, @coderef{let*}, or @coderef{do*};
+done in the style of @symbolref{setq}, @symbolref{let*}, or @symbolref{do*};
 that is, interleaving the evaluation of the @term{forms} that produce @term{values}
 with the @term{assignments} or @term{bindings} of the @term{variables} (or @term{places}).
 See @ref{glos-parallel, parallel}.
@@ -3769,7 +3769,7 @@ is the @term{name} of a @term{dynamic variable})
 to @term{assign} the @term{variable}.
 
 @item @b{setf expander}  @Noun{}@spc{}
-a function used by @coderef{setf} to compute the @term{setf expansion}
+a function used by @symbolref{setf} to compute the @term{setf expansion}
 of a @term{place}.
 
 @item @b{setf expansion}  @Noun{}@spc{}
@@ -3789,8 +3789,8 @@ the @term{list} @f{(setf @param{S})}.
 1. to override the meaning of.
 @gexample{That binding of @f{X} shadows an outer one.}
 2. to hide the presence of.
-@gexample{That @coderef{macrolet} of @f{F} shadows the
-outer @coderef{flet} of @f{F}.}
+@gexample{That @symbolref{macrolet} of @f{F} shadows the
+outer @symbolref{flet} of @f{F}.}
 3. to replace.
 @gexample{That package shadows the symbol @f{cl:car} with
 its own symbol @f{car}.}
@@ -3923,7 +3923,7 @@ A @term{slot} option pertains only to a single @term{slot}.
 
 @item @b{source code}  @Noun{}@spc{}
 @term{code} representing @term{objects} suitable for @term{evaluation}
-(@eg{} @term{objects} created by @coderef{read},
+(@eg{} @term{objects} created by @symbolref{read},
 by @term{macro expansion},
 or by @term{compiler macro expansion}).
 
@@ -3968,7 +3968,7 @@ five that is specialized for bits.}
 
 @item @b{specialized lambda list}  @Noun{}
 an @term{extended lambda list} used in @term{forms} that @term{establish}
-@term{method} definitions, such as @coderef{defmethod}.
+@term{method} definitions, such as @symbolref{defmethod}.
 See @ref{Specialized Lambda Lists}.
 
 @item @b{spreadable argument list designator}  @Noun{}
@@ -4008,7 +4008,7 @@ a @term{function} @oftype{standard-generic-function}.
 
 @item @b{standard input}  @Noun{}@spc{}
 the @term{input} @term{stream} which is the @term{value} of the @term{dynamic variable}
-@coderef{*standard-input*}.
+@symbolref{*standard-input*}.
 
 @item @b{standard method combination}  @Noun{}@spc{}
 the @term{method combination} named @code{standard}.
@@ -4020,7 +4020,7 @@ a @term{generalized instance}
 
 @item @b{standard output}  @Noun{}@spc{}
 the @term{output} @term{stream} which is the @term{value} of the @term{dynamic variable}
-@coderef{*standard-output*}.
+@symbolref{*standard-output*}.
 
 @item @b{standard pprint dispatch table}  @Noun{}
 A @term{pprint dispatch table} that is @term{different} from
@@ -4080,12 +4080,12 @@ identify an appropriate source or sink of @term{characters} or
 a @term{file stream}, or a @term{synonym stream} the @term{target}
 of which is a @term{stream associated with a file}.
 Such a @term{stream} cannot be created with
-@coderef{make-two-way-stream},
-@coderef{make-echo-stream},
-@coderef{make-broadcast-stream},
-@coderef{make-concatenated-stream},
-@coderef{make-string-input-stream},
-or @coderef{make-string-output-stream}.
+@symbolref{make-two-way-stream},
+@symbolref{make-echo-stream},
+@symbolref{make-broadcast-stream},
+@symbolref{make-concatenated-stream},
+@symbolref{make-string-input-stream},
+or @symbolref{make-string-output-stream}.
 
 @item @b{stream designator}  @Noun{}
 a @term{designator} for a @term{stream}; that is,
@@ -4108,10 +4108,10 @@ a @term{variable} whose @term{value} must be a @term{stream}.
 a @term{designator} for a @term{stream variable}; that is,
 a @term{symbol} that denotes a @term{stream variable}
 and that is one of:
-@code{t}@spc{}(denoting @coderef{*terminal-io*}),
-@nil{}@spc{}(denoting @coderef{*standard-input*}
+@code{t}@spc{}(denoting @symbolref{*terminal-io*}),
+@nil{}@spc{}(denoting @symbolref{*standard-input*}
 for @term{input} @term{stream variable designators}
-or denoting @coderef{*standard-output*}
+or denoting @symbolref{*standard-output*}
 for @term{output} @term{stream variable designators}),
 or some other @term{symbol} (denoting itself).
 
@@ -4132,7 +4132,7 @@ The intent is that this term be consistent with the behavior of @code{string};
 this term in a compatible way.
 
 @item @b{string equal}  @Adjective{}@spc{}
-the @term{same} under @coderef{string-equal}.
+the @term{same} under @symbolref{string-equal}.
 
 @item @b{string stream}  @Noun{}@spc{}
 a @term{stream} @oftype{string-stream}.
@@ -4144,10 +4144,10 @@ an @term{object} @oftype{structure-object}.
 a @term{class} that is a @term{generalized instance} @ofclass{structure-class}.
 
 @item @b{structure name}  @Noun{}
-a @term{name} defined with @coderef{defstruct}.
+a @term{name} defined with @symbolref{defstruct}.
 Usually, such a @term{type} is also a @term{structure class},
 but there may be @term{implementation-dependent} situations
-in which this is not so, if the @kwd{type} option to @coderef{defstruct} is used.
+in which this is not so, if the @kwd{type} option to @symbolref{defstruct} is used.
 
 @item @b{style warning}  @Noun{}
 a @term{condition} @oftype{style-warning}.
@@ -4237,7 +4237,7 @@ and hence cannot be inherited by @term{classes} defined by @term{conforming prog
 
 @item @b{system code}  @Noun{}@spc{}
 @term{code} supplied by the @term{implementation} to implement this specification
-(@eg{} the definition of @coderef{mapcar})
+(@eg{} the definition of @symbolref{mapcar})
 or generated automatically in support of this specification
 (@eg{} during method combination);
 that is, @term{code} that is not @term{programmer code}.
@@ -4326,7 +4326,7 @@ a textual representation for a @term{number} or a @term{symbol}.
 See @ref{Interpretation of Tokens}.
 
 @item @b{top level form}  @Noun{}@spc{}
-a @term{form} which is processed specially by @coderef{compile-file} for
+a @term{form} which is processed specially by @symbolref{compile-file} for
 the purposes of enabling @term{compile time} @term{evaluation} of that
 @term{form}.
 @term{Top level forms} include those @term{forms} which
@@ -4335,7 +4335,7 @@ and certain other cases.  See @ref{Processing of Top Level Forms}.
 
 @item @b{trace output}  @Noun{}@spc{}
 the @term{output} @term{stream} which is the @term{value} of the @term{dynamic variable}
-@coderef{*trace-output*}.
+@symbolref{*trace-output*}.
 
 @item @b{tree}  @Noun{}@spc{}
 1. a binary recursive data structure made up of @term{conses} and
@@ -4519,11 +4519,11 @@ an active entity, typically a human, that invokes or interacts with a
 @item @b{valid array dimension}  @Noun{}@spc{}
 a @term{fixnum} suitable for use as an @term{array} @term{dimension}.
 Such a @term{fixnum} must be greater than or equal to zero,
-and less than the @term{value} of @coderef{array-dimension-limit}.
+and less than the @term{value} of @symbolref{array-dimension-limit}.
 When multiple @term{array} @term{dimensions} are to be used together to specify a
 multi-dimensional @term{array}, there is also an implied constraint
 that the product of all of the @term{dimensions} be less than the @term{value} of
-@coderef{array-total-size-limit}.
+@symbolref{array-total-size-limit}.
 
 @item @b{valid array index}  @Noun{}@spc{}(of an @term{array})
 a @term{fixnum} suitable for use as one of possibly several indices needed
@@ -4642,7 +4642,7 @@ or a  @term{hash table}.
 @item @b{value cell}  @Noun{}@spc{}@Traditional{}@spc{}(of a @term{symbol})
 The @term{place} which holds the @term{value}, if any, of the
 @term{dynamic variable} named by that @term{symbol},
-and which is @term{accessed} by @coderef{symbol-value}.
+and which is @term{accessed} by @symbolref{symbol-value}.
 See @ref{glos-cell, cell}.
 
 @item @b{variable}  @Noun{}@spc{}

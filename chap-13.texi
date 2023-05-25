@@ -131,7 +131,7 @@ standards organization.
 @term{Characters} have only one @term{standardized} @term{attribute}:
 a @term{code}.  A @term{character}'s @term{code} is a non-negative @term{integer}.
 This @term{code} is composed from a character @term{script} and a character label
-in an @term{implementation-dependent} way.  See the @term{functions} @ref{char-code} and @coderef{code-char}.
+in an @term{implementation-dependent} way.  See the @term{functions} @ref{char-code} and @symbolref{code-char}.
 
 
 Additional, @term{implementation-defined} @term{attributes} of @term{characters}
@@ -236,7 +236,7 @@ with some other @term{character} with the opposite @term{case}.
 
 An uppercase @term{character} is one that has a corresponding
 @term{lowercase} @term{character} that is @term{different}
-(and can be obtained using @coderef{char-downcase}).
+(and can be obtained using @symbolref{char-downcase}).
 
 Of the @term{standard characters}, only these are @term{uppercase} @term{characters}:
 
@@ -249,7 +249,7 @@ Of the @term{standard characters}, only these are @term{uppercase} @term{charact
 
 A lowercase @term{character} is one that has a corresponding
 @term{uppercase} @term{character} that is @term{different}
-(and can be obtained using @coderef{char-upcase}).
+(and can be obtained using @symbolref{char-upcase}).
 
 Of the @term{standard characters}, only these are @term{lowercase} @term{characters}:
 
@@ -326,8 +326,8 @@ are @term{digits} with weight @f{15}.
 @node Identity of Characters
 @subsection Identity of Characters
 
-Two @term{characters} that are @code{eql}, @coderef{char=}, or @coderef{char-equal}
-are not necessarily @coderef{eq}.
+Two @term{characters} that are @code{eql}, @symbolref{char=}, or @symbolref{char-equal}
+are not necessarily @symbolref{eq}.
 
 
 @node Ordering of Characters
@@ -342,18 +342,18 @@ the following properties:
 
 @item
 If two @term{characters} have the same @term{implementation-defined} @term{attributes},
-then their ordering by @coderef{char<} is consistent with the numerical
-ordering by the predicate @coderef{<} on their code @term{attributes}.
+then their ordering by @symbolref{char<} is consistent with the numerical
+ordering by the predicate @symbolref{<} on their code @term{attributes}.
 
 @item If two @term{characters} differ in any @term{attribute}, then they
-are not @coderef{char=}.
+are not @symbolref{char=}.
 
 @reviewer{Barmar: I wonder if we should say that the ordering may be dependent on the
 @term{implementation-defined} @term{attributes}.}
 
 @item
 The total ordering is not necessarily the same as the total ordering
-on the @term{integers} produced by applying @coderef{char-int} to the
+on the @term{integers} produced by applying @symbolref{char-int} to the
 @term{characters}.
 
 @item
@@ -475,7 +475,7 @@ by another @term{integer} value which is composed from the @term{code} and all
 @term{implementation-defined} @term{attributes}
 (in an @term{implementation-defined} way
 that might vary between @term{Lisp images} even in the same @term{implementation}).
-This @term{integer}, returned by the function @coderef{char-int}, is called the
+This @term{integer}, returned by the function @symbolref{char-int}, is called the
 character's ``encoding.''
 There is no corresponding function
 from a character's encoding back to the @term{character},
@@ -498,30 +498,30 @@ Character labels must be uniquely named using only Latin capital letters A--Z,
 hyphen (-), and digits 0--9.
 @item
 Reader canonicalization.
-Any mechanisms by which @coderef{read} treats
+Any mechanisms by which @symbolref{read} treats
 @term{different} characters as equivalent must be documented.
 @item
-The impact on @coderef{char-upcase},
-@coderef{char-downcase},
+The impact on @symbolref{char-upcase},
+@symbolref{char-downcase},
 and the case-sensitive @term{format directives}.
 In particular, for each @term{character} with @term{case},
 whether it is @term{uppercase} or @term{lowercase},
 and which @term{character} is its equivalent in the opposite case.
 @item
 The behavior of the case-insensitive @term{functions}
-@coderef{char-equal}, @coderef{char-not-equal},
-@coderef{char-lessp}, @coderef{char-greaterp},
-@coderef{char-not-greaterp}, and @coderef{char-not-lessp}.
+@symbolref{char-equal}, @symbolref{char-not-equal},
+@symbolref{char-lessp}, @symbolref{char-greaterp},
+@symbolref{char-not-greaterp}, and @symbolref{char-not-lessp}.
 @item
 The behavior of any @term{character} @term{predicates};
 in particular, the effects of
-@coderef{alpha-char-p},
-@coderef{lower-case-p},
-@coderef{upper-case-p},
-@coderef{both-case-p},
-@coderef{graphic-char-p},
+@symbolref{alpha-char-p},
+@symbolref{lower-case-p},
+@symbolref{upper-case-p},
+@symbolref{both-case-p},
+@symbolref{graphic-char-p},
 and
-@coderef{alphanumericp}.
+@symbolref{alphanumericp}.
 @item
 The interaction with file I/O, in particular,
 the supported coded character sets (for example, ISO8859/1-1987)
@@ -571,7 +571,7 @@ A @term{character} is an @term{object} that
 represents a unitary token in an aggregate quantity of text;
 see @ref{Character Concepts}.
 
-@Thetypes{base-char} and @coderef{extended-char}
+@Thetypes{base-char} and @symbolref{extended-char}
 form an @term{exhaustive partition} of @thetype{character}.
 
 @subsubheading See Also:
@@ -582,25 +582,25 @@ form an @term{exhaustive partition} of @thetype{character}.
 
 @node base-char
 @subsection base-char (Type)
-@syindexanchor{base-char, REF}
+@syindexanchor{base-char, SYM}
 @cindex base-char
 
 
 
 @subsubheading Supertypes:
 
-@coderef{base-char},
+@symbolref{base-char},
 @code{character},
 @code{t}
 
 @subsubheading Description:
 
 @Thetype{base-char} is defined as the @term{upgraded array element type}
-of @coderef{standard-char}.
+of @symbolref{standard-char}.
 An @term{implementation} can support additional @subtypesof{character}
 (besides the ones listed in this standard)
 that might or might not be @supertypesof{base-char}.
-In addition, an @term{implementation} can define @coderef{base-char}
+In addition, an @term{implementation} can define @symbolref{base-char}
 to be the @term{same} @term{type} as @code{character}.
 
 @term{Base characters} are distinguished in the following respects:
@@ -613,7 +613,7 @@ is implementation defined.
 @term{elements} of a @term{base string}.
 @item
 No upper bound is specified for the number of characters in the
-@coderef{base-char} @term{repertoire}; the size of that @term{repertoire}
+@symbolref{base-char} @term{repertoire}; the size of that @term{repertoire}
 is
 @term{implementation-defined}.
 The lower bound is@tie{}96, the number of @term{standard characters}.
@@ -641,15 +641,15 @@ having 8-bit encodings.  In such an implementation,
 
 @node standard-char
 @subsection standard-char (Type)
-@syindexanchor{standard-char, REF}
+@syindexanchor{standard-char, SYM}
 @cindex standard-char
 
 
 
 @subsubheading Supertypes:
 
-@coderef{standard-char},
-@coderef{base-char},
+@symbolref{standard-char},
+@symbolref{base-char},
 @code{character},
 @code{t}
 
@@ -668,14 +668,14 @@ Any @term{character} that is not @term{simple} is not a @term{standard character
 
 @node extended-char
 @subsection extended-char (Type)
-@syindexanchor{extended-char, REF}
+@syindexanchor{extended-char, SYM}
 @cindex extended-char
 
 
 
 @subsubheading Supertypes:
 
-@coderef{extended-char},
+@symbolref{extended-char},
 @code{character},
 @code{t}
 
@@ -693,29 +693,29 @@ in @term{implementations} in which all @term{characters} are @oftype{base-char}.
 
 @node char=; char/=; char<; char>; char<=; char>=; char-equal; char-not-equal+
 @subsection char=, char/=, char<, char>, char<=, char>=, char-equal, char-not-equal, char-lessp, char-greaterp, char-not-greaterp, char-not-lessp (Function)
-@syindexanchor{char=, REF}
+@syindexanchor{char=, SYM}
 @cindex char=
-@syindexanchor{char/=, REF}
+@syindexanchor{char/=, SYM}
 @cindex char/=
-@syindexanchor{char<, REF}
+@syindexanchor{char<, SYM}
 @cindex char<
-@syindexanchor{char>, REF}
+@syindexanchor{char>, SYM}
 @cindex char>
-@syindexanchor{char<=, REF}
+@syindexanchor{char<=, SYM}
 @cindex char<=
-@syindexanchor{char>=, REF}
+@syindexanchor{char>=, SYM}
 @cindex char>=
-@syindexanchor{char-equal, REF}
+@syindexanchor{char-equal, SYM}
 @cindex char-equal
-@syindexanchor{char-not-equal, REF}
+@syindexanchor{char-not-equal, SYM}
 @cindex char-not-equal
-@syindexanchor{char-lessp, REF}
+@syindexanchor{char-lessp, SYM}
 @cindex char-lessp
-@syindexanchor{char-greaterp, REF}
+@syindexanchor{char-greaterp, SYM}
 @cindex char-greaterp
-@syindexanchor{char-not-greaterp, REF}
+@syindexanchor{char-not-greaterp, SYM}
 @cindex char-not-greaterp
-@syindexanchor{char-not-lessp, REF}
+@syindexanchor{char-not-lessp, SYM}
 @cindex char-not-lessp
 @anchor{char=}
 @anchor{char-equal}
@@ -747,64 +747,64 @@ in @term{implementations} in which all @term{characters} are @oftype{base-char}.
 
 These predicates compare @term{characters}.
 
-@coderef{char=} returns @term{true} if all @param{characters} are the @term{same};
+@symbolref{char=} returns @term{true} if all @param{characters} are the @term{same};
 otherwise, it returns @term{false}.
 If two @param{characters} differ
 in any @term{implementation-defined} @term{attributes},
-then they are not @coderef{char=}.
+then they are not @symbolref{char=}.
 
-@coderef{char/=} returns @term{true} if all @param{characters} are different;
+@symbolref{char/=} returns @term{true} if all @param{characters} are different;
 otherwise, it returns @term{false}.
 
-@coderef{char<} returns @term{true} if the @param{characters} are monotonically increasing;
+@symbolref{char<} returns @term{true} if the @param{characters} are monotonically increasing;
 otherwise, it returns @term{false}.
 If two @term{characters}
 have @term{identical} @term{implementation-defined} @term{attributes},
-then their ordering by @coderef{char<} is
+then their ordering by @symbolref{char<} is
 consistent with the numerical ordering by the predicate @f{<} on their @term{codes}.
 
-@coderef{char>} returns @term{true} if the @param{characters} are monotonically decreasing;
+@symbolref{char>} returns @term{true} if the @param{characters} are monotonically decreasing;
 otherwise, it returns @term{false}.
 If two @term{characters} have
 @term{identical} @term{implementation-defined} @term{attributes},
-then their ordering by @coderef{char>} is
+then their ordering by @symbolref{char>} is
 consistent with the numerical ordering by the predicate @f{>} on their @term{codes}.
 
-@coderef{char<=} returns @term{true}
+@symbolref{char<=} returns @term{true}
 if the @param{characters} are monotonically nondecreasing;
 otherwise, it returns @term{false}.
 If two @term{characters} have
 @term{identical} @term{implementation-defined} @term{attributes},
-then their ordering by @coderef{char<=} is
+then their ordering by @symbolref{char<=} is
 consistent with the numerical ordering by the predicate @f{<=} on their @term{codes}.
 
-@coderef{char>=} returns @term{true}
+@symbolref{char>=} returns @term{true}
 if the @param{characters} are monotonically nonincreasing;
 otherwise, it returns @term{false}.
 If two @term{characters} have
 @term{identical} @term{implementation-defined} @term{attributes},
-then their ordering by @coderef{char>=} is
+then their ordering by @symbolref{char>=} is
 consistent with the numerical ordering by the predicate @f{>=} on their @term{codes}.
 
-@coderef{char-equal},
-@coderef{char-not-equal},
-@coderef{char-lessp},
-@coderef{char-greaterp},
-@coderef{char-not-greaterp},
-and @coderef{char-not-lessp}
+@symbolref{char-equal},
+@symbolref{char-not-equal},
+@symbolref{char-lessp},
+@symbolref{char-greaterp},
+@symbolref{char-not-greaterp},
+and @symbolref{char-not-lessp}
 are similar to
-@coderef{char=},
-@coderef{char/=},
-@coderef{char<},
-@coderef{char>},
-@coderef{char<=},
-@coderef{char>=},
+@symbolref{char=},
+@symbolref{char/=},
+@symbolref{char<},
+@symbolref{char>},
+@symbolref{char<=},
+@symbolref{char>=},
 respectively,
 except that they ignore differences in @term{case} and
 might have an @term{implementation-defined} behavior
 for @term{non-simple} @term{characters}.
 For example, an @term{implementation} might define that
-@coderef{char-equal}, @i{etc.} ignore certain
+@symbolref{char-equal}, @i{etc.} ignore certain
 @term{implementation-defined} @term{attributes}.
 The effect, if any,
 of each @term{implementation-defined} @term{attribute}
@@ -871,27 +871,27 @@ upon these functions must be specified as part of the definition of that @term{a
 
 If characters differ in their @term{code} @term{attribute}
 or any @term{implementation-defined} @term{attribute},
-they are considered to be different by @coderef{char=}.
+they are considered to be different by @symbolref{char=}.
 
 There is no requirement that @f{(eq c1 c2)} be true merely because
-@f{(char= c1 c2)} is @term{true}.  While @coderef{eq} can distinguish two
+@f{(char= c1 c2)} is @term{true}.  While @symbolref{eq} can distinguish two
 @term{characters}
-that @coderef{char=} does not, it is distinguishing them not
+that @symbolref{char=} does not, it is distinguishing them not
 as @term{characters}, but in some sense on the basis of a lower level
 implementation characteristic.
 If @f{(eq c1 c2)} is @term{true},
 then @f{(char= c1 c2)} is also true.
-@code{eql} and @coderef{equal}
+@code{eql} and @symbolref{equal}
 compare @term{characters} in the same
-way that @coderef{char=} does.
+way that @symbolref{char=} does.
 
 The manner in which @term{case} is used by
-@coderef{char-equal},
-@coderef{char-not-equal},
-@coderef{char-lessp},
-@coderef{char-greaterp},
-@coderef{char-not-greaterp},
-and @coderef{char-not-lessp}
+@symbolref{char-equal},
+@symbolref{char-not-equal},
+@symbolref{char-lessp},
+@symbolref{char-greaterp},
+@symbolref{char-not-greaterp},
+and @symbolref{char-not-lessp}
 implies an ordering for @term{standard characters} such that
 @f{A=a}, @f{B=b}, and so on, up to @f{Z=z}, and furthermore either
 @f{9<A} or @f{Z<0}.
@@ -947,7 +947,7 @@ Returns the @term{character} denoted by the @param{character} @term{designator}.
 
 @node characterp
 @subsection characterp (Function)
-@syindexanchor{characterp, REF}
+@syindexanchor{characterp, SYM}
 @cindex characterp
 
 
@@ -993,7 +993,7 @@ Returns the @term{character} denoted by the @param{character} @term{designator}.
 
 @node alpha-char-p
 @subsection alpha-char-p (Function)
-@syindexanchor{alpha-char-p, REF}
+@syindexanchor{alpha-char-p, SYM}
 @cindex alpha-char-p
 
 
@@ -1041,7 +1041,7 @@ of any special syntax which might have been enabled in the @term{current readtab
 
 @node alphanumericp
 @subsection alphanumericp (Function)
-@syindexanchor{alphanumericp, REF}
+@syindexanchor{alphanumericp, SYM}
 @cindex alphanumericp
 
 
@@ -1086,7 +1086,7 @@ of any special syntax which might have been enabled in the @term{current readtab
 @subsubheading Notes:
 
 Alphanumeric characters are graphic
-as defined by @coderef{graphic-char-p}.
+as defined by @symbolref{graphic-char-p}.
 The alphanumeric characters are a subset of the graphic characters.
 The standard characters @f{A} through @f{Z},
 @f{a} through @f{z},
@@ -1100,7 +1100,7 @@ and @f{0} through @f{9} are alphanumeric characters.
 
 @node digit-char
 @subsection digit-char (Function)
-@syindexanchor{digit-char, REF}
+@syindexanchor{digit-char, SYM}
 @cindex digit-char
 
 
@@ -1121,13 +1121,13 @@ and @f{0} through @f{9} are alphanumeric characters.
 @subsubheading Description:
 
 If @param{weight} is less than @param{radix},
-@coderef{digit-char} returns a @term{character} which has that @param{weight}
+@symbolref{digit-char} returns a @term{character} which has that @param{weight}
 when considered as a digit in the specified radix.
 If the resulting @term{character} is to be an @term{alphabetic}@sub{1} @term{character},
 it will be an uppercase @term{character}.
 
 If @param{weight} is greater than or equal to @param{radix},
-@coderef{digit-char} returns @term{false}.
+@symbolref{digit-char} returns @term{false}.
 
 @subsubheading Examples:
 
@@ -1155,7 +1155,7 @@ If @param{weight} is greater than or equal to @param{radix},
 
 @node digit-char-p
 @subsection digit-char-p (Function)
-@syindexanchor{digit-char-p, REF}
+@syindexanchor{digit-char-p, SYM}
 @cindex digit-char-p
 
 
@@ -1219,7 +1219,7 @@ Digits are @term{graphic} @term{characters}.
 
 @node graphic-char-p
 @subsection graphic-char-p (Function)
-@syindexanchor{graphic-char-p, REF}
+@syindexanchor{graphic-char-p, SYM}
 @cindex graphic-char-p
 
 
@@ -1260,7 +1260,7 @@ Digits are @term{graphic} @term{characters}.
 
 @node standard-char-p
 @subsection standard-char-p (Function)
-@syindexanchor{standard-char-p, REF}
+@syindexanchor{standard-char-p, SYM}
 @cindex standard-char-p
 
 
@@ -1296,9 +1296,9 @@ Digits are @term{graphic} @term{characters}.
 
 @node char-upcase; char-downcase
 @subsection char-upcase, char-downcase (Function)
-@syindexanchor{char-upcase, REF}
+@syindexanchor{char-upcase, SYM}
 @cindex char-upcase
-@syindexanchor{char-downcase, REF}
+@syindexanchor{char-downcase, SYM}
 @cindex char-downcase
 @anchor{char-upcase}
 @anchor{char-downcase}
@@ -1317,12 +1317,12 @@ Digits are @term{graphic} @term{characters}.
 @subsubheading Description:
 
 If @param{character} is a @term{lowercase} @term{character},
-@coderef{char-upcase} returns the corresponding @term{uppercase} @term{character}.
-Otherwise, @coderef{char-upcase} just returns the given @param{character}.
+@symbolref{char-upcase} returns the corresponding @term{uppercase} @term{character}.
+Otherwise, @symbolref{char-upcase} just returns the given @param{character}.
 
 If @param{character} is an @term{uppercase} @term{character},
-@coderef{char-downcase} returns the corresponding @term{lowercase} @term{character}.
-Otherwise, @coderef{char-downcase} just returns the given @param{character}.
+@symbolref{char-downcase} returns the corresponding @term{lowercase} @term{character}.
+Otherwise, @symbolref{char-downcase} just returns the given @param{character}.
 
 The result only ever differs from @param{character}
 in its @term{code} @term{attribute};
@@ -1370,18 +1370,18 @@ all @term{implementation-defined} @term{attributes} are preserved.
 If the @param{corresponding-char} is @term{different} than @param{character},
 then both the @param{character} and the @param{corresponding-char} have @term{case}.
 
-Since @coderef{char-equal} ignores the @term{case} of the @term{characters} it compares,
+Since @symbolref{char-equal} ignores the @term{case} of the @term{characters} it compares,
 the @param{corresponding-character} is always the @term{same} as @param{character}
-under @coderef{char-equal}.
+under @symbolref{char-equal}.
 
 
 @node upper-case-p; lower-case-p; both-case-p
 @subsection upper-case-p, lower-case-p, both-case-p (Function)
-@syindexanchor{upper-case-p, REF}
+@syindexanchor{upper-case-p, SYM}
 @cindex upper-case-p
-@syindexanchor{lower-case-p, REF}
+@syindexanchor{lower-case-p, SYM}
 @cindex lower-case-p
-@syindexanchor{both-case-p, REF}
+@syindexanchor{both-case-p, SYM}
 @cindex both-case-p
 @anchor{upper-case-p}
 
@@ -1438,7 +1438,7 @@ These functions test the case of a given @param{character}.
 
 @node char-code
 @subsection char-code (Function)
-@syindexanchor{char-code, REF}
+@syindexanchor{char-code, SYM}
 @cindex char-code
 
 
@@ -1454,7 +1454,7 @@ These functions test the case of a given @param{character}.
 
 @subsubheading Description:
 
-@coderef{char-code} returns the @term{code} @term{attribute} of @param{character}.
+@symbolref{char-code} returns the @term{code} @term{attribute} of @param{character}.
 
 @subsubheading Examples:
 
@@ -1477,7 +1477,7 @@ These functions test the case of a given @param{character}.
 
 @node char-int
 @subsection char-int (Function)
-@syindexanchor{char-int, REF}
+@syindexanchor{char-int, SYM}
 @cindex char-int
 
 
@@ -1495,11 +1495,11 @@ These functions test the case of a given @param{character}.
 
 Returns a non-negative @term{integer} encoding the @param{character} object.
 The manner in which the @term{integer} is computed is @term{implementation-dependent}.
-In contrast to @coderef{sxhash}, the result is not guaranteed to be independent
+In contrast to @symbolref{sxhash}, the result is not guaranteed to be independent
 of the particular @term{Lisp image}.
 
 If @param{character} has no @term{implementation-defined} @term{attributes},
-the results of @coderef{char-int} and @coderef{char-code} are the same.
+the results of @symbolref{char-int} and @symbolref{char-code} are the same.
 
 @lisp
  (char= @i{c1} @i{c2}) @EQ{} (= (char-int @i{c1}) (char-int @i{c2}))
@@ -1523,7 +1523,7 @@ for characters @i{c1} and @i{c2}.
 
 @node code-char
 @subsection code-char (Function)
-@syindexanchor{code-char, REF}
+@syindexanchor{code-char, SYM}
 @cindex code-char
 
 
@@ -1565,7 +1565,7 @@ The @term{implementation}'s character encoding.
 
 @node char-code-limit
 @subsection char-code-limit (Constant Variable)
-@syindexanchor{char-code-limit, REF}
+@syindexanchor{char-code-limit, SYM}
 @cindex char-code-limit
 
 
@@ -1578,7 +1578,7 @@ than @f{96} (the number of @term{standard characters}).
 @subsubheading Description:
 
 The upper exclusive bound on the @term{value} returned by
-the @term{function} @coderef{char-code}.
+the @term{function} @symbolref{char-code}.
 
 @subsubheading See Also:
 
@@ -1592,7 +1592,7 @@ number of @term{characters} supported by the @term{implementation}.
 
 @node char-name
 @subsection char-name (Function)
-@syindexanchor{char-name, REF}
+@syindexanchor{char-name, SYM}
 @cindex char-name
 
 
@@ -1669,7 +1669,7 @@ as ``@f{#@bsl{}}'' followed by the their @term{name}; see @ref{Printing Characte
 
 @node name-char
 @subsection name-char (Function)
-@syindexanchor{name-char, REF}
+@syindexanchor{name-char, SYM}
 @cindex name-char
 
 
@@ -1686,7 +1686,7 @@ as ``@f{#@bsl{}}'' followed by the their @term{name}; see @ref{Printing Characte
 @subsubheading Description:
 
 Returns the @term{character} @term{object} whose @term{name} is
-@param{name} (as determined by @coderef{string-equal}---@ie{} lookup is not case sensitive).
+@param{name} (as determined by @symbolref{string-equal}---@ie{} lookup is not case sensitive).
 If such a @term{character} does not exist, @nil{}@spc{}is returned.
 
 @subsubheading Examples:

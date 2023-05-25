@@ -237,7 +237,7 @@ if that @term{list} is @term{circular}.
 @subsubheading Class Precedence List:
 
 @code{list},
-@coderef{sequence},
+@symbolref{sequence},
 @code{t}
 
 @subsubheading Description:
@@ -279,9 +279,9 @@ of the @term{type} @code{list}.
 
 @subsubheading Class Precedence List:
 @code{null},
-@coderef{symbol},
+@symbolref{symbol},
 @code{list},
-@coderef{sequence},
+@symbolref{sequence},
 @code{t}
 
 @subsubheading Description:
@@ -304,7 +304,7 @@ which represents the @term{empty list} and can also be notated @empty{}.
 @subsubheading Class Precedence List:
 @code{cons},
 @code{list},
-@coderef{sequence},
+@symbolref{sequence},
 @code{t}
 
 @subsubheading Description:
@@ -409,7 +409,7 @@ producing a new @term{list} which is like it but has @param{object-1} prepended.
 
 @node consp
 @subsection consp (Function)
-@syindexanchor{consp, REF}
+@syindexanchor{consp, SYM}
 @cindex consp
 
 
@@ -494,9 +494,9 @@ The @term{empty list} is not a @term{cons}, so
 
 @node rplaca; rplacd
 @subsection rplaca, rplacd (Function)
-@syindexanchor{rplaca, REF}
+@syindexanchor{rplaca, SYM}
 @cindex rplaca
-@syindexanchor{rplacd, REF}
+@syindexanchor{rplacd, SYM}
 @cindex rplacd
 @anchor{rplaca}
 
@@ -509,10 +509,10 @@ The @term{empty list} is not a @term{cons}, so
 
 @subsubheading Pronunciation:
 
-@coderef{rplaca}: @pronounced{@stress{r@harde{}}@Stress{plak}@schwa{}}
+@symbolref{rplaca}: @pronounced{@stress{r@harde{}}@Stress{plak}@schwa{}}
 or @pronounced{@stress{r@schwa{}}@Stress{plak}@schwa{}}
 
-@coderef{rplacd}: @pronounced{@stress{r@harde{}}@Stress{plak}d@schwa{}}
+@symbolref{rplacd}: @pronounced{@stress{r@harde{}}@Stress{plak}d@schwa{}}
 or @pronounced{@stress{r@schwa{}}@Stress{plak}d@schwa{}}
 or @pronounced{@stress{r@harde{}}@Stress{plak}d@harde{}}
 or @pronounced{@stress{r@schwa{}}@Stress{plak}d@harde{}}
@@ -525,9 +525,9 @@ or @pronounced{@stress{r@schwa{}}@Stress{plak}d@harde{}}
 
 @subsubheading Description:
 
-@coderef{rplaca} replaces the @term{car} of the @param{cons} with @param{object}.
+@symbolref{rplaca} replaces the @term{car} of the @param{cons} with @param{object}.
 
-@coderef{rplacd} replaces the @term{cdr} of the @param{cons} with @param{object}.
+@symbolref{rplacd} replaces the @term{cdr} of the @param{cons} with @param{object}.
 
 @subsubheading Examples:
 @lisp
@@ -549,65 +549,65 @@ The @param{cons} is modified.
 
 @node car; cdr; caar; cadr; cdar; cddr; caaar; caadr; cadar; caddr; cdaar; cd+
 @subsection car, cdr, caar, cadr, cdar, cddr, caaar, caadr, cadar, caddr, cdaar, cdadr, cddar, cdddr, caaaar, caaadr, caadar, caaddr, cadaar, cadadr, caddar, cadddr, cdaaar, cdaadr, cdadar, cdaddr, cddaar, cddadr, cdddar, cddddr (Accessor)
-@syindexanchor{car, REF}
+@syindexanchor{car, SYM}
 @cindex car
-@syindexanchor{cdr, REF}
+@syindexanchor{cdr, SYM}
 @cindex cdr
-@syindexanchor{caar, REF}
+@syindexanchor{caar, SYM}
 @cindex caar
-@syindexanchor{cadr, REF}
+@syindexanchor{cadr, SYM}
 @cindex cadr
-@syindexanchor{cdar, REF}
+@syindexanchor{cdar, SYM}
 @cindex cdar
-@syindexanchor{cddr, REF}
+@syindexanchor{cddr, SYM}
 @cindex cddr
-@syindexanchor{caaar, REF}
+@syindexanchor{caaar, SYM}
 @cindex caaar
-@syindexanchor{caadr, REF}
+@syindexanchor{caadr, SYM}
 @cindex caadr
-@syindexanchor{cadar, REF}
+@syindexanchor{cadar, SYM}
 @cindex cadar
-@syindexanchor{caddr, REF}
+@syindexanchor{caddr, SYM}
 @cindex caddr
-@syindexanchor{cdaar, REF}
+@syindexanchor{cdaar, SYM}
 @cindex cdaar
-@syindexanchor{cdadr, REF}
+@syindexanchor{cdadr, SYM}
 @cindex cdadr
-@syindexanchor{cddar, REF}
+@syindexanchor{cddar, SYM}
 @cindex cddar
-@syindexanchor{cdddr, REF}
+@syindexanchor{cdddr, SYM}
 @cindex cdddr
-@syindexanchor{caaaar, REF}
+@syindexanchor{caaaar, SYM}
 @cindex caaaar
-@syindexanchor{caaadr, REF}
+@syindexanchor{caaadr, SYM}
 @cindex caaadr
-@syindexanchor{caadar, REF}
+@syindexanchor{caadar, SYM}
 @cindex caadar
-@syindexanchor{caaddr, REF}
+@syindexanchor{caaddr, SYM}
 @cindex caaddr
-@syindexanchor{cadaar, REF}
+@syindexanchor{cadaar, SYM}
 @cindex cadaar
-@syindexanchor{cadadr, REF}
+@syindexanchor{cadadr, SYM}
 @cindex cadadr
-@syindexanchor{caddar, REF}
+@syindexanchor{caddar, SYM}
 @cindex caddar
-@syindexanchor{cadddr, REF}
+@syindexanchor{cadddr, SYM}
 @cindex cadddr
-@syindexanchor{cdaaar, REF}
+@syindexanchor{cdaaar, SYM}
 @cindex cdaaar
-@syindexanchor{cdaadr, REF}
+@syindexanchor{cdaadr, SYM}
 @cindex cdaadr
-@syindexanchor{cdadar, REF}
+@syindexanchor{cdadar, SYM}
 @cindex cdadar
-@syindexanchor{cdaddr, REF}
+@syindexanchor{cdaddr, SYM}
 @cindex cdaddr
-@syindexanchor{cddaar, REF}
+@syindexanchor{cddaar, SYM}
 @cindex cddaar
-@syindexanchor{cddadr, REF}
+@syindexanchor{cddadr, SYM}
 @cindex cddadr
-@syindexanchor{cdddar, REF}
+@syindexanchor{cdddar, SYM}
 @cindex cdddar
-@syindexanchor{cddddr, REF}
+@syindexanchor{cddddr, SYM}
 @cindex cddddr
 @anchor{car}
 @anchor{cdr}
@@ -650,14 +650,14 @@ cddddr x @EV{} object  |  (setf (x object) new-object)@*
 
 @subsubheading Pronunciation:
 
-@coderef{cadr}: @pronounced{@Stress{ka}@stress{d@schwa{} r}}
+@symbolref{cadr}: @pronounced{@Stress{ka}@stress{d@schwa{} r}}
 
-@coderef{caddr}: @pronounced{@Stress{kad}@schwa{} @stress{d@schwa{} r}}
+@symbolref{caddr}: @pronounced{@Stress{kad}@schwa{} @stress{d@schwa{} r}}
 or @pronounced{@Stress{ka}@stress{d\.ud@schwa{} r}}
 
-@coderef{cdr}: @pronounced{@Stress{k\.u}@stress{d@schwa{} r}}
+@symbolref{cdr}: @pronounced{@Stress{k\.u}@stress{d@schwa{} r}}
 
-@coderef{cddr}: @pronounced{@Stress{k\.ud}@schwa{} @stress{d@schwa{} r}}
+@symbolref{cddr}: @pronounced{@Stress{k\.ud}@schwa{} @stress{d@schwa{} r}}
 or @pronounced{@Stress{k@schwa{}}@stress{d\.ud@schwa{} r}}
 
 @subsubheading Arguments and Values:
@@ -670,18 +670,18 @@ or @pronounced{@Stress{k@schwa{}}@stress{d\.ud@schwa{} r}}
 
 @subsubheading Description:
 
-If @param{x} is a @term{cons}, @coderef{car} returns the @term{car}
-of that @term{cons}.  If @param{x} is @nil{}, @coderef{car} returns @nil{}.
+If @param{x} is a @term{cons}, @symbolref{car} returns the @term{car}
+of that @term{cons}.  If @param{x} is @nil{}, @symbolref{car} returns @nil{}.
 
-If @param{x} is a @term{cons}, @coderef{cdr} returns the @term{cdr}
-of that @term{cons}.  If @param{x} is @nil{}, @coderef{cdr} returns @nil{}.
+If @param{x} is a @term{cons}, @symbolref{cdr} returns the @term{cdr}
+of that @term{cons}.  If @param{x} is @nil{}, @symbolref{cdr} returns @nil{}.
 
 @term{Functions} are provided which perform compositions of up to four
-@coderef{car} and @coderef{cdr} operations.  Their @term{names} consist of
+@symbolref{car} and @symbolref{cdr} operations.  Their @term{names} consist of
 a @f{C}, followed by two, three, or four occurrences of @f{A} or @f{D},
 and finally an @f{R}.  The series of @f{A}'s and @f{D}'s in each
 @term{function}'s @term{name} is chosen to identify the series of
-@coderef{car} and @coderef{cdr} operations that is performed by the function.
+@symbolref{car} and @symbolref{cdr} operations that is performed by the function.
 The order in which the @f{A}'s and @f{D}'s appear is the inverse of the
 order in which the corresponding operations are performed.  @Thenextfigure{}@spc{}
 defines the relationships precisely.
@@ -725,15 +725,15 @@ defines the relationships precisely.
 @end float
 
 
-@coderef{setf} can also be used with any of these functions to change an
-existing component of @param{x}, but @coderef{setf} will not make new
+@symbolref{setf} can also be used with any of these functions to change an
+existing component of @param{x}, but @symbolref{setf} will not make new
 components.  So, for example, the @term{car} of a @term{cons}
-can be assigned with @coderef{setf} of @coderef{car},
-but the @term{car} of @nil{}@spc{}cannot be assigned with @coderef{setf} of @coderef{car}.
+can be assigned with @symbolref{setf} of @symbolref{car},
+but the @term{car} of @nil{}@spc{}cannot be assigned with @symbolref{setf} of @symbolref{car}.
 Similarly, the @term{car} of the @term{car} of a @term{cons} whose @term{car}
-is a @term{cons} can be assigned with @coderef{setf} of @coderef{caar},
+is a @term{cons} can be assigned with @symbolref{setf} of @symbolref{caar},
 but neither @nil{} nor a @term{cons} whose car is @nil{}@spc{}can be assigned
-with @coderef{setf} of @coderef{caar}.
+with @symbolref{setf} of @symbolref{caar}.
 
 The argument @param{x} is permitted to be a @term{dotted list}
 or a @term{circular list}.
@@ -752,12 +752,12 @@ or a @term{circular list}.
 
 @subsubheading Exceptional Situations:
 
-The functions @coderef{car} and @coderef{cdr}
-should signal @coderef{type-error} if they receive an argument which is not a
-@term{list}.  The other functions (@coderef{caar}, @coderef{cadr},
-@mat{@ldots{}} @coderef{cddddr}) should behave for the purpose of
-error checking as if defined by appropriate calls to @coderef{car} and
-@coderef{cdr}.
+The functions @symbolref{car} and @symbolref{cdr}
+should signal @symbolref{type-error} if they receive an argument which is not a
+@term{list}.  The other functions (@symbolref{caar}, @symbolref{cadr},
+@mat{@ldots{}} @symbolref{cddddr}) should behave for the purpose of
+error checking as if defined by appropriate calls to @symbolref{car} and
+@symbolref{cdr}.
 
 @subsubheading See Also:
 
@@ -765,8 +765,8 @@ error checking as if defined by appropriate calls to @coderef{car} and
 
 @subsubheading Notes:
 
-The @term{car} of a @term{cons} can also be altered by using @coderef{rplaca},
-and the @term{cdr} of a @term{cons} can be altered by using @coderef{rplacd}.
+The @term{car} of a @term{cons} can also be altered by using @symbolref{rplaca},
+and the @term{cdr} of a @term{cons} can be altered by using @symbolref{rplacd}.
 
 @lisp
 (car @i{x})    @EQ{} (first @i{x})
@@ -779,7 +779,7 @@ and the @term{cdr} of a @term{cons} can be altered by using @coderef{rplacd}.
 
 @node copy-tree
 @subsection copy-tree (Function)
-@syindexanchor{copy-tree, REF}
+@syindexanchor{copy-tree, SYM}
 @cindex copy-tree
 
 
@@ -799,12 +799,12 @@ and the @term{cdr} of a @term{cons} can be altered by using @coderef{rplacd}.
 Creates a @term{copy} of a @term{tree} of @term{conses}.
 
 If @param{tree} is not a @term{cons}, it is returned;
-otherwise, the result is a new @term{cons} of the results of calling @coderef{copy-tree}
+otherwise, the result is a new @term{cons} of the results of calling @symbolref{copy-tree}
 on the @term{car} and @term{cdr} of @param{tree}.
 In other words, all @term{conses} in the @term{tree} represented by @param{tree}
 are copied recursively, stopping only when non-@term{conses} are encountered.
 
-@coderef{copy-tree} does not preserve circularities and the sharing of substructure.
+@symbolref{copy-tree} does not preserve circularities and the sharing of substructure.
 
 @subsubheading Examples:
 
@@ -839,9 +839,9 @@ are copied recursively, stopping only when non-@term{conses} are encountered.
 
 @node sublis; nsublis
 @subsection sublis, nsublis (Function)
-@syindexanchor{sublis, REF}
+@syindexanchor{sublis, SYM}
 @cindex sublis
-@syindexanchor{nsublis, REF}
+@syindexanchor{nsublis, SYM}
 @cindex nsublis
 
 
@@ -870,27 +870,27 @@ or @nil{}.
 
 @subsubheading Description:
 
-@coderef{sublis} makes substitutions for @term{objects} in @param{tree}
+@symbolref{sublis} makes substitutions for @term{objects} in @param{tree}
 (a structure of @term{conses}).
-@coderef{nsublis} is like @coderef{sublis}
+@symbolref{nsublis} is like @symbolref{sublis}
 but destructively modifies the relevant
 parts of the @param{tree}.
 
-@coderef{sublis} looks at all subtrees and leaves of @param{tree};
+@symbolref{sublis} looks at all subtrees and leaves of @param{tree};
 if a subtree or leaf appears as a key in @param{alist}
 (that is, the key and the subtree or leaf @term{satisfy the test}),
 it is replaced by the @term{object} with which that key is associated.
-This operation is non-destructive.  In effect, @coderef{sublis} can
-perform several @coderef{subst} operations simultaneously.
+This operation is non-destructive.  In effect, @symbolref{sublis} can
+perform several @symbolref{subst} operations simultaneously.
 
-If @coderef{sublis} succeeds, a new copy of @param{tree} is returned in
+If @symbolref{sublis} succeeds, a new copy of @param{tree} is returned in
 which each occurrence of such a subtree or leaf is replaced by the
 @term{object} with which it is associated.   If no changes are made, the
 original tree is returned.  The original @param{tree} is left unchanged,
 but the result tree may share cells with it.
 
-@coderef{nsublis} is permitted to modify @param{tree}
-but otherwise returns the same values as @coderef{sublis}.
+@symbolref{nsublis} is permitted to modify @param{tree}
+but otherwise returns the same values as @symbolref{sublis}.
 
 @subsubheading Examples:
 
@@ -928,7 +928,7 @@ but otherwise returns the same values as @coderef{sublis}.
 
 @subsubheading Side Effects:
 
-@coderef{nsublis} modifies @param{tree}.
+@symbolref{nsublis} modifies @param{tree}.
 
 @subsubheading See Also:
 
@@ -940,7 +940,7 @@ but otherwise returns the same values as @coderef{sublis}.
 
 The @kwd{test-not} parameter is deprecated.
 
-Because the side-effecting variants (@eg{} @coderef{nsublis}) potentially
+Because the side-effecting variants (@eg{} @symbolref{nsublis}) potentially
 change the path that is being traversed, their effects in the presence
 of shared or circular structure structure may vary in surprising ways
 when compared to their non-side-effecting alternatives.  To see this,
@@ -960,17 +960,17 @@ some implementations:
 
 @node subst; subst-if; subst-if-not; nsubst; nsubst-if; nsubst-if-not
 @subsection subst, subst-if, subst-if-not, nsubst, nsubst-if, nsubst-if-not (Function)
-@syindexanchor{subst, REF}
+@syindexanchor{subst, SYM}
 @cindex subst
-@syindexanchor{subst-if, REF}
+@syindexanchor{subst-if, SYM}
 @cindex subst-if
-@syindexanchor{subst-if-not, REF}
+@syindexanchor{subst-if-not, SYM}
 @cindex subst-if-not
-@syindexanchor{nsubst, REF}
+@syindexanchor{nsubst, SYM}
 @cindex nsubst
-@syindexanchor{nsubst-if, REF}
+@syindexanchor{nsubst-if, SYM}
 @cindex nsubst-if
-@syindexanchor{nsubst-if-not, REF}
+@syindexanchor{nsubst-if-not, SYM}
 @cindex nsubst-if-not
 @anchor{subst}
 @anchor{nsubst}
@@ -1012,30 +1012,30 @@ or @nil{}.
 
 @subsubheading Description:
 
-@coderef{subst}, @coderef{subst-if}, and @coderef{subst-if-not} perform
+@symbolref{subst}, @symbolref{subst-if}, and @symbolref{subst-if-not} perform
 substitution operations on @param{tree}.
 Each function searches @param{tree} for occurrences of a
 particular @param{old} item of an element or subexpression that
 @term{satisfies the test}.
 
-@coderef{nsubst}, @coderef{nsubst-if}, and @coderef{nsubst-if-not} are
-like @coderef{subst},
-@coderef{subst-if}, and @coderef{subst-if-not} respectively, except that the
+@symbolref{nsubst}, @symbolref{nsubst-if}, and @symbolref{nsubst-if-not} are
+like @symbolref{subst},
+@symbolref{subst-if}, and @symbolref{subst-if-not} respectively, except that the
 original @param{tree} is  modified.
 
-@coderef{subst} makes a copy of @param{tree},
+@symbolref{subst} makes a copy of @param{tree},
 substituting @param{new} for every subtree or leaf of @param{tree}
 (whether the subtree or leaf is a @term{car} or a @term{cdr} of its parent)
 such that @param{old} and the subtree or leaf @term{satisfy the test}.
 
-@coderef{nsubst} is a destructive version of @coderef{subst}.
+@symbolref{nsubst} is a destructive version of @symbolref{subst}.
 The list structure of
 @param{tree} is altered by destructively replacing with @param{new}
 each leaf of the @param{tree} such that @param{old} and the leaf
 @term{satisfy the test}.
 
-For @coderef{subst}, @coderef{subst-if},
-and @coderef{subst-if-not},
+For @symbolref{subst}, @symbolref{subst-if},
+and @symbolref{subst-if-not},
 if the functions succeed, a new
 copy of the tree is returned in which each  occurrence of such an
 element is replaced by the
@@ -1044,10 +1044,10 @@ element is replaced by the
 The original @param{tree} is left unchanged, but the result tree
 may share storage with it.
 
-For @coderef{nsubst}, @coderef{nsubst-if},
-and @coderef{nsubst-if-not}
+For @symbolref{nsubst}, @symbolref{nsubst-if},
+and @symbolref{nsubst-if-not}
 the original @param{tree} is  modified and returned as the function result,
-but the result may not be @coderef{eq} to @param{tree}.
+but the result may not be @symbolref{eq} to @param{tree}.
 
 @subsubheading Examples:
 
@@ -1079,7 +1079,7 @@ but the result may not be @coderef{eq} to @param{tree}.
 
 @subsubheading Side Effects:
 
-@coderef{nsubst}, @coderef{nsubst-if}, and @coderef{nsubst-if-not}
+@symbolref{nsubst}, @symbolref{nsubst-if}, and @symbolref{nsubst-if-not}
 might alter the @term{tree structure} of @param{tree}.
 
 @subsubheading See Also:
@@ -1093,9 +1093,9 @@ might alter the @term{tree structure} of @param{tree}.
 
 The @kwd{test-not} parameter is deprecated.
 
-The functions @coderef{subst-if-not} and @coderef{nsubst-if-not} are deprecated.
+The functions @symbolref{subst-if-not} and @symbolref{nsubst-if-not} are deprecated.
 
-One possible definition of @coderef{subst}:
+One possible definition of @symbolref{subst}:
 
 @lisp
  (defun subst (old new tree &rest x &key test test-not key)
@@ -1114,7 +1114,7 @@ One possible definition of @coderef{subst}:
 
 @node tree-equal
 @subsection tree-equal (Function)
-@syindexanchor{tree-equal, REF}
+@syindexanchor{tree-equal, SYM}
 @cindex tree-equal
 
 
@@ -1140,18 +1140,18 @@ that returns a @term{generalized boolean}.
 
 @subsubheading Description:
 
-@coderef{tree-equal} tests whether two trees are of the same shape
+@symbolref{tree-equal} tests whether two trees are of the same shape
 and have the same leaves.
-@coderef{tree-equal} returns @term{true} if @param{tree-1} and @param{tree-2}  are
+@symbolref{tree-equal} returns @term{true} if @param{tree-1} and @param{tree-2}  are
 both @term{atoms} and @term{satisfy the test},
 or if they are both @term{conses} and
-the @term{car} of @param{tree-1} is @coderef{tree-equal} to
+the @term{car} of @param{tree-1} is @symbolref{tree-equal} to
 the @term{car} of @param{tree-2} and
-the @term{cdr} of @param{tree-1} is @coderef{tree-equal} to
+the @term{cdr} of @param{tree-1} is @symbolref{tree-equal} to
 the @term{cdr} of @param{tree-2}.
-Otherwise, @coderef{tree-equal} returns @term{false}.
+Otherwise, @symbolref{tree-equal} returns @term{false}.
 
-@coderef{tree-equal} recursively compares @term{conses} but not any
+@symbolref{tree-equal} recursively compares @term{conses} but not any
 other @term{objects} that have components.
 
 The first argument to the @kwd{test} or @kwd{test-not}
@@ -1191,7 +1191,7 @@ The @kwd{test-not} parameter is deprecated.
 
 @node copy-list
 @subsection copy-list (Function)
-@syindexanchor{copy-list, REF}
+@syindexanchor{copy-list, SYM}
 @cindex copy-list
 
 
@@ -1246,14 +1246,14 @@ The consequences are undefined if @param{list} is a @term{circular list}.
 
 @subsubheading Notes:
 
-The copy created is @coderef{equal} to @param{list}, but not @coderef{eq}.
+The copy created is @symbolref{equal} to @param{list}, but not @symbolref{eq}.
 
 
 @node list; list*
 @subsection list, list* (Function)
 @syindexanchor{list, F}
 @cindex list
-@syindexanchor{list*, REF}
+@syindexanchor{list*, SYM}
 @cindex list*
 @anchor{list}
 
@@ -1275,20 +1275,20 @@ The copy created is @coderef{equal} to @param{list}, but not @coderef{eq}.
 
 @code{list} returns a @term{list} containing the supplied @param{objects}.
 
-@coderef{list*} is like @code{list} except that
+@symbolref{list*} is like @code{list} except that
 the last @term{argument} to @code{list} becomes
 the @term{car} of the last @term{cons} constructed, while
-the last @term{argument} to @coderef{list*} becomes
+the last @term{argument} to @symbolref{list*} becomes
 the @term{cdr} of the last @term{cons} constructed.
-Hence, any given call to @coderef{list*} always produces one fewer @term{conses}
+Hence, any given call to @symbolref{list*} always produces one fewer @term{conses}
 than a call to @code{list} with the same number of arguments.
 
-If the last @term{argument} to @coderef{list*} is a @term{list},
+If the last @term{argument} to @symbolref{list*} is a @term{list},
 the effect is to construct a new @term{list} which is similar, but
 which has additional elements added to the front corresponding to
-the preceding @term{arguments} of @coderef{list*}.
+the preceding @term{arguments} of @symbolref{list*}.
 
-If @coderef{list*} receives only one @param{object},
+If @symbolref{list*} receives only one @param{object},
 that @param{object} is returned, regardless of whether or not it is a @term{list}.
 
 @subsubheading Examples:
@@ -1324,7 +1324,7 @@ that @param{object} is returned, regardless of whether or not it is a @term{list
 
 @node list-length
 @subsection list-length (Function)
-@syindexanchor{list-length, REF}
+@syindexanchor{list-length, SYM}
 @cindex list-length
 
 
@@ -1369,7 +1369,7 @@ Returns @nil{}@spc{}if @param{list} is a @term{circular list}.
 
 @subsubheading Notes:
 
-@coderef{list-length} could be implemented as follows:
+@symbolref{list-length} could be implemented as follows:
 
 @lisp
  (defun list-length (x)
@@ -1394,7 +1394,7 @@ Returns @nil{}@spc{}if @param{list} is a @term{circular list}.
 
 @node listp
 @subsection listp (Function)
-@syindexanchor{listp, REF}
+@syindexanchor{listp, SYM}
 @cindex listp
 
 
@@ -1428,7 +1428,7 @@ Returns @nil{}@spc{}if @param{list} is a @term{circular list}.
 @subsubheading Notes:
 
 If @param{object} is a @term{cons},
-@coderef{listp} does not check whether @param{object} is a @term{proper list};
+@symbolref{listp} does not check whether @param{object} is a @term{proper list};
 it returns @term{true} for any kind of @term{list}.
 
 @lisp
@@ -1439,7 +1439,7 @@ it returns @term{true} for any kind of @term{list}.
 
 @node make-list
 @subsection make-list (Function)
-@syindexanchor{make-list, REF}
+@syindexanchor{make-list, SYM}
 @cindex make-list
 
 
@@ -1483,7 +1483,7 @@ each of the @term{elements} of which is @param{initial-element}.
 
 @node push
 @subsection push (Macro)
-@syindexanchor{push, REF}
+@syindexanchor{push, SYM}
 @cindex push
 
 
@@ -1501,7 +1501,7 @@ each of the @term{elements} of which is @param{initial-element}.
 
 @subsubheading Description:
 
-@coderef{push} prepends @param{item} to the @term{list} that is stored
+@symbolref{push} prepends @param{item} to the @term{list} that is stored
 in @param{place}, stores the resulting @term{list} in @param{place},
 and returns the @term{list}.
 
@@ -1546,7 +1546,7 @@ before @param{place}.
 
 @node pop
 @subsection pop (Macro)
-@syindexanchor{pop, REF}
+@syindexanchor{pop, SYM}
 @cindex pop
 
 
@@ -1563,7 +1563,7 @@ before @param{place}.
 
 @subsubheading Description:
 
-@coderef{pop} @term{reads} the @term{value} of @param{place},
+@symbolref{pop} @term{reads} the @term{value} of @param{place},
 remembers the @term{car} of the @term{list} which was retrieved,
 @term{writes} the @term{cdr} of the @term{list} back into the @param{place},
 and finally @term{yields} the @term{car} of the originally retrieved @term{list}.
@@ -1602,30 +1602,30 @@ The effect of @f{(pop @param{place})} is roughly equivalent to
 @end lisp
 
 except that the latter would evaluate any @term{subforms} of @param{place}
-three times, while @coderef{pop} evaluates them only once.
+three times, while @symbolref{pop} evaluates them only once.
 
 
 @node first; second; third; fourth; fifth; sixth; seventh; eighth; ninth; ten+
 @subsection first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth (Accessor)
-@syindexanchor{first, REF}
+@syindexanchor{first, SYM}
 @cindex first
-@syindexanchor{second, REF}
+@syindexanchor{second, SYM}
 @cindex second
-@syindexanchor{third, REF}
+@syindexanchor{third, SYM}
 @cindex third
-@syindexanchor{fourth, REF}
+@syindexanchor{fourth, SYM}
 @cindex fourth
-@syindexanchor{fifth, REF}
+@syindexanchor{fifth, SYM}
 @cindex fifth
-@syindexanchor{sixth, REF}
+@syindexanchor{sixth, SYM}
 @cindex sixth
-@syindexanchor{seventh, REF}
+@syindexanchor{seventh, SYM}
 @cindex seventh
-@syindexanchor{eighth, REF}
+@syindexanchor{eighth, SYM}
 @cindex eighth
-@syindexanchor{ninth, REF}
+@syindexanchor{ninth, SYM}
 @cindex ninth
-@syindexanchor{tenth, REF}
+@syindexanchor{tenth, SYM}
 @cindex tenth
 @anchor{first}
 
@@ -1655,17 +1655,17 @@ which might be a @term{dotted list} or a @term{circular list}.
 @subsubheading Description:
 
 The functions
-@coderef{first},
-@coderef{second},
-@coderef{third},
-@coderef{fourth},
-@coderef{fifth},
-@coderef{sixth},
-@coderef{seventh},
-@coderef{eighth},
-@coderef{ninth},
+@symbolref{first},
+@symbolref{second},
+@symbolref{third},
+@symbolref{fourth},
+@symbolref{fifth},
+@symbolref{sixth},
+@symbolref{seventh},
+@symbolref{eighth},
+@symbolref{ninth},
 and
-@coderef{tenth}
+@symbolref{tenth}
 @param{access} the first, second, third, fourth, fifth, sixth, seventh, eighth,
 ninth, and tenth @term{elements} of @param{list}, respectively.
 Specifically,
@@ -1684,7 +1684,7 @@ Specifically,
 @end lisp
 
 
-@coderef{setf} can also be used with any of these functions to change an
+@symbolref{setf} can also be used with any of these functions to change an
 existing component.  The same equivalences apply.  For example:
 
 @lisp
@@ -1713,13 +1713,13 @@ existing component.  The same equivalences apply.  For example:
 
 @subsubheading Notes:
 
-@coderef{first}  is functionally equivalent to @coderef{car},
-@coderef{second} is functionally equivalent to @coderef{cadr},
-@coderef{third}  is functionally equivalent to @coderef{caddr}, and
-@coderef{fourth} is functionally equivalent to @coderef{cadddr}.
+@symbolref{first}  is functionally equivalent to @symbolref{car},
+@symbolref{second} is functionally equivalent to @symbolref{cadr},
+@symbolref{third}  is functionally equivalent to @symbolref{caddr}, and
+@symbolref{fourth} is functionally equivalent to @symbolref{cadddr}.
 
 The ordinal numbering used here is one-origin,
-as opposed to the zero-origin numbering used by @coderef{nth}:
+as opposed to the zero-origin numbering used by @symbolref{nth}:
 
 @lisp
  (fifth x) @EQ{} (nth 4 x)
@@ -1729,7 +1729,7 @@ as opposed to the zero-origin numbering used by @coderef{nth}:
 
 @node nth
 @subsection nth (Accessor)
-@syindexanchor{nth, REF}
+@syindexanchor{nth, SYM}
 @cindex nth
 
 
@@ -1751,7 +1751,7 @@ which might be a @term{dotted list} or a @term{circular list}.
 
 @subsubheading Description:
 
-@coderef{nth} locates the @param{n}th element of @param{list},
+@symbolref{nth} locates the @param{n}th element of @param{list},
 where the @term{car} of the @param{list} is the ``zeroth'' element.
 Specifically,
 
@@ -1760,7 +1760,7 @@ Specifically,
 @end lisp
 
 
-@coderef{nth} may be used to specify a @param{place} to @coderef{setf}.
+@symbolref{nth} may be used to specify a @param{place} to @symbolref{setf}.
 Specifically,
 
 @lisp
@@ -1789,7 +1789,7 @@ Specifically,
 
 @node endp
 @subsection endp (Function)
-@syindexanchor{endp, REF}
+@syindexanchor{endp, SYM}
 @cindex endp
 
 
@@ -1824,19 +1824,19 @@ Returns @term{false} if @param{list} is a @term{cons}.
 
 @subsubheading Notes:
 
-The purpose of @coderef{endp} is to test for the end of @param{proper list}.
-Since @coderef{endp} does not descend into a @term{cons},
+The purpose of @symbolref{endp} is to test for the end of @param{proper list}.
+Since @symbolref{endp} does not descend into a @term{cons},
 it is well-defined to pass it a @term{dotted list}.
 However, if shorter ``lists'' are iteratively produced
-by calling @coderef{cdr} on such a @term{dotted list}
-and those ``lists'' are tested with @coderef{endp},
+by calling @symbolref{cdr} on such a @term{dotted list}
+and those ``lists'' are tested with @symbolref{endp},
 a situation that has undefined consequences will eventually result
 when the @term{non-nil} @term{atom} (which is not in fact a @term{list})
-finally becomes the argument to @coderef{endp}.
-Since this is the usual way in which @coderef{endp} is used,
+finally becomes the argument to @symbolref{endp}.
+Since this is the usual way in which @symbolref{endp} is used,
 it is conservative programming style
-and consistent with the intent of @coderef{endp}
-to treat @coderef{endp} as simply a function on @term{proper lists}
+and consistent with the intent of @symbolref{endp}
+to treat @symbolref{endp} as simply a function on @term{proper lists}
 which happens not to enforce an argument type of @term{proper list} except
 when the argument is @term{atomic}.
 
@@ -1893,7 +1893,7 @@ which to use is a matter of style.
 
 @node nconc
 @subsection nconc (Function)
-@syindexanchor{nconc, REF}
+@syindexanchor{nconc, SYM}
 @cindex nconc
 
 
@@ -1913,7 +1913,7 @@ the last @param{list} may be any @term{object}.
 
 Returns a @term{list} that is the concatenation of @param{lists}.
 If no @param{lists} are supplied, @f{(nconc)} returns @nil{}.
-@coderef{nconc} is defined using the following recursive relationship:
+@symbolref{nconc} is defined using the following recursive relationship:
 
 @lisp
  (nconc) @EV{} ()
@@ -1936,12 +1936,12 @@ If no @param{lists} are supplied, @f{(nconc)} returns @nil{}.
 
 Note, in the example, that the value of @f{x} is now different,
 since its last @term{cons}
-has been @coderef{rplacd}'d to the value of @f{y}.
+has been @symbolref{rplacd}'d to the value of @f{y}.
 If @f{(nconc x y)} were evaluated again,
 it would yield a piece of a @term{circular list},
 whose printed representation would be
 @f{(A B C D E F D E F D E F ...)}, repeating forever;
-if the @coderef{*print-circle*} switch were @term{non-nil},
+if the @symbolref{*print-circle*} switch were @term{non-nil},
 it would be printed as @f{(A B C . #1=(D E F . #1#))}.
 
 @lisp
@@ -1975,7 +1975,7 @@ The @param{lists} are modified rather than copied.
 
 @node append
 @subsection append (Function)
-@syindexanchor{append, REF}
+@syindexanchor{append, SYM}
 @cindex append
 
 
@@ -1994,7 +1994,7 @@ and all preceding @param{lists} were @term{null}.
 
 @subsubheading Description:
 
-@coderef{append} returns a new @param{list} that is the concatenation of
+@symbolref{append} returns a new @param{list} that is the concatenation of
 the copies.  @param{lists} are left unchanged; the @term{list structure}
 of each of @param{lists} except the last is copied.
 The last argument is not copied; it becomes the @term{cdr} of the
@@ -2023,9 +2023,9 @@ or is returned directly if there are no preceding
 
 @node revappend; nreconc
 @subsection revappend, nreconc (Function)
-@syindexanchor{revappend, REF}
+@syindexanchor{revappend, SYM}
 @cindex revappend
-@syindexanchor{nreconc, REF}
+@syindexanchor{nreconc, SYM}
 @cindex nreconc
 
 
@@ -2045,12 +2045,12 @@ or is returned directly if there are no preceding
 
 @subsubheading Description:
 
-@coderef{revappend} constructs a @term{copy}@sub{2} of @param{list},
+@symbolref{revappend} constructs a @term{copy}@sub{2} of @param{list},
 but with the @term{elements} in reverse order.  It then appends (as if
-by @coderef{nconc}) the @param{tail} to that reversed list and returns the result.
+by @symbolref{nconc}) the @param{tail} to that reversed list and returns the result.
 
-@coderef{nreconc} reverses the order of @term{elements} in @param{list}
-(as if by @coderef{nreverse}).  It then appends (as if by @coderef{nconc})
+@symbolref{nreconc} reverses the order of @term{elements} in @param{list}
+(as if by @symbolref{nreverse}).  It then appends (as if by @symbolref{nconc})
 the @param{tail} to that reversed list and returns the result.
 
 The resulting @term{list} shares @term{list structure} with @param{tail}.
@@ -2089,11 +2089,11 @@ The resulting @term{list} shares @term{list structure} with @param{tail}.
 
 @subsubheading Side Effects:
 
-@coderef{revappend} does not modify either of its @term{arguments}.
-@coderef{nreconc} is permitted to modify @param{list} but not @param{tail}.
+@symbolref{revappend} does not modify either of its @term{arguments}.
+@symbolref{nreconc} is permitted to modify @param{list} but not @param{tail}.
 
 Although it might be implemented differently,
-@coderef{nreconc} is constrained to have side-effect behavior equivalent to:
+@symbolref{nreconc} is constrained to have side-effect behavior equivalent to:
 
 @lisp
  (nconc (nreverse @param{list}) @param{tail})
@@ -2122,9 +2122,9 @@ achieving the same effect:
 
 @node butlast; nbutlast
 @subsection butlast, nbutlast (Function)
-@syindexanchor{butlast, REF}
+@syindexanchor{butlast, SYM}
 @cindex butlast
-@syindexanchor{nbutlast, REF}
+@syindexanchor{nbutlast, SYM}
 @cindex nbutlast
 @anchor{butlast}
 
@@ -2145,7 +2145,7 @@ which might be a @term{dotted list} but must not be a @term{circular list}.
 
 @subsubheading Description:
 
-@coderef{butlast} returns a copy of @param{list} from which the last
+@symbolref{butlast} returns a copy of @param{list} from which the last
 @param{n}
 conses
 have been omitted.
@@ -2153,10 +2153,10 @@ If @param{n} is not supplied, its value is 1.
 If there are fewer than @param{n}
 conses
 in @param{list},
-@nil{}@spc{}is returned and, in the case of @coderef{nbutlast},
+@nil{}@spc{}is returned and, in the case of @symbolref{nbutlast},
 @param{list} is not modified.
 
-@coderef{nbutlast} is like @coderef{butlast}, but @coderef{nbutlast}
+@symbolref{nbutlast} is like @symbolref{butlast}, but @symbolref{nbutlast}
 may modify @param{list}.
 It changes the @term{cdr} of
 the @term{cons} @param{n}+1 from the end of the @param{list} to @nil{}.
@@ -2199,7 +2199,7 @@ the @term{cons} @param{n}+1 from the end of the @param{list} to @nil{}.
 
 @node last
 @subsection last (Function)
-@syindexanchor{last, REF}
+@syindexanchor{last, SYM}
 @cindex last
 
 
@@ -2219,9 +2219,9 @@ which might be a @term{dotted list} but must not be a @term{circular list}.
 
 @subsubheading Description:
 
-@coderef{last} returns the last @param{n} @term{conses}
+@symbolref{last} returns the last @param{n} @term{conses}
 (not the last @param{n} elements) of @param{list}).
-If @param{list} is @empty{}, @coderef{last} returns @empty{}.
+If @param{list} is @empty{}, @symbolref{last} returns @empty{}.
 
 If @param{n} is zero,
 the atom that terminates @param{list} is returned.
@@ -2265,7 +2265,7 @@ The consequences are undefined if @param{list} is a @term{circular list}.
 
 @subsubheading Notes:
 
-The following code could be used to define @coderef{last}.
+The following code could be used to define @symbolref{last}.
 
 @lisp
  (defun last (list &optional (n 1))
@@ -2280,9 +2280,9 @@ The following code could be used to define @coderef{last}.
 
 @node ldiff; tailp
 @subsection ldiff, tailp (Function)
-@syindexanchor{ldiff, REF}
+@syindexanchor{ldiff, SYM}
 @cindex ldiff
-@syindexanchor{tailp, REF}
+@syindexanchor{tailp, SYM}
 @cindex tailp
 
 
@@ -2305,11 +2305,11 @@ which might be a @term{dotted list}.
 @subsubheading Description:
 
 If @param{object} is the @term{same} as some @term{tail} of @param{list},
-@coderef{tailp} returns @term{true};
+@symbolref{tailp} returns @term{true};
 otherwise, it returns @term{false}.
 
 If @param{object} is the @term{same} as some @term{tail} of @param{list},
-@coderef{ldiff} returns a @term{fresh} @term{list}
+@symbolref{ldiff} returns a @term{fresh} @term{list}
 of the @term{elements} of @term{list}
 that precede @code{object} in the @term{list structure} of @param{list};
 otherwise, it returns a @term{copy}@sub{2} of @param{list}.
@@ -2352,7 +2352,7 @@ otherwise, it returns a @term{copy}@sub{2} of @param{list}.
 
 @subsubheading Side Effects:
 
-Neither @coderef{ldiff} nor @coderef{tailp} modifies either of its @term{arguments}.
+Neither @symbolref{ldiff} nor @symbolref{tailp} modifies either of its @term{arguments}.
 
 @subsubheading Exceptional Situations:
 
@@ -2365,15 +2365,15 @@ Neither @coderef{ldiff} nor @coderef{tailp} modifies either of its @term{argumen
 @subsubheading Notes:
 
 If the @param{list} is a @term{circular list},
-@coderef{tailp} will reliably @term{yield} a @term{value}
+@symbolref{tailp} will reliably @term{yield} a @term{value}
 only if the given @param{object} is in fact a @term{tail} of @param{list}.
 Otherwise, the consequences are unspecified:
 a given @term{implementation} which detects the circularity must return @term{false},
 but since an @term{implementation} is not obliged to detect such a @term{situation},
-@coderef{tailp} might just loop indefinitely without returning in that case.
+@symbolref{tailp} might just loop indefinitely without returning in that case.
 
 
-@coderef{tailp} could be defined as follows:
+@symbolref{tailp} could be defined as follows:
 
 @lisp
  (defun tailp (object list)
@@ -2384,7 +2384,7 @@ but since an @term{implementation} is not obliged to detect such a @term{situati
 @end lisp
 
 
-and @coderef{ldiff} could be defined by:
+and @symbolref{ldiff} could be defined by:
 
 @lisp
 (defun ldiff (list object)
@@ -2402,7 +2402,7 @@ and @coderef{ldiff} could be defined by:
 
 @node nthcdr
 @subsection nthcdr (Function)
-@syindexanchor{nthcdr, REF}
+@syindexanchor{nthcdr, SYM}
 @cindex nthcdr
 
 
@@ -2421,7 +2421,7 @@ which might be a @term{dotted list} or a @term{circular list}.
 
 @subsubheading Description:
 
-Returns the @term{tail} of @param{list} that would be obtained by calling @coderef{cdr}
+Returns the @term{tail} of @param{list} that would be obtained by calling @symbolref{cdr}
 @param{n} times in succession.
 
 @subsubheading Examples:
@@ -2458,7 +2458,7 @@ see the @term{function} @ref{cdr}.
 
 @node rest
 @subsection rest (Accessor)
-@syindexanchor{rest, REF}
+@syindexanchor{rest, SYM}
 @cindex rest
 
 
@@ -2476,8 +2476,8 @@ which might be a @term{dotted list} or a @term{circular list}.
 
 @subsubheading Description:
 
-@coderef{rest} performs the same operation as @coderef{cdr},
-but mnemonically complements @coderef{first}.
+@symbolref{rest} performs the same operation as @symbolref{cdr},
+but mnemonically complements @symbolref{first}.
 Specifically,
 
 @lisp
@@ -2505,7 +2505,7 @@ Specifically,
 
 @subsubheading Notes:
 
-@coderef{rest} is often preferred stylistically over @coderef{cdr}
+@symbolref{rest} is often preferred stylistically over @symbolref{cdr}
 when the argument is to being subjectively viewed as a @term{list}
 rather than as a @term{cons}.
 
@@ -2514,9 +2514,9 @@ rather than as a @term{cons}.
 @subsection member, member-if, member-if-not (Function)
 @syindexanchor{member, F}
 @cindex member
-@syindexanchor{member-if, REF}
+@syindexanchor{member-if, SYM}
 @cindex member-if
-@syindexanchor{member-if-not, REF}
+@syindexanchor{member-if-not, SYM}
 @cindex member-if-not
 @anchor{member}
 
@@ -2551,7 +2551,7 @@ or @nil{}.
 
 @subsubheading Description:
 
-@code{member}, @coderef{member-if}, and @coderef{member-if-not} each
+@code{member}, @symbolref{member-if}, and @symbolref{member-if-not} each
 search @param{list} for @param{item} or for a top-level element that
 @term{satisfies the test}.  The argument to the @param{predicate} function
 is an element of @param{list}.
@@ -2604,7 +2604,7 @@ In the following
 
 
 the value returned by @code{member} is @term{identical} to the portion
-of the @term{list} beginning with @f{a}.  Thus @coderef{rplaca} on the
+of the @term{list} beginning with @f{a}.  Thus @symbolref{rplaca} on the
 result of @code{member} can be used to alter the part of the @term{list}
 where @f{a} was found (assuming a check has been made that @code{member}
 did not return @nil{}).
@@ -2612,17 +2612,17 @@ did not return @nil{}).
 
 @node mapc; mapcar; mapcan; mapl; maplist; mapcon
 @subsection mapc, mapcar, mapcan, mapl, maplist, mapcon (Function)
-@syindexanchor{mapc, REF}
+@syindexanchor{mapc, SYM}
 @cindex mapc
-@syindexanchor{mapcar, REF}
+@syindexanchor{mapcar, SYM}
 @cindex mapcar
-@syindexanchor{mapcan, REF}
+@syindexanchor{mapcan, SYM}
 @cindex mapcan
-@syindexanchor{mapl, REF}
+@syindexanchor{mapl, SYM}
 @cindex mapl
-@syindexanchor{maplist, REF}
+@syindexanchor{maplist, SYM}
 @cindex maplist
-@syindexanchor{mapcon, REF}
+@syindexanchor{mapcon, SYM}
 @cindex mapcon
 
 
@@ -2653,9 +2653,9 @@ that must take as many @term{arguments} as there are @param{lists}.
 The mapping operation involves applying @param{function} to
 successive sets of arguments in which
 one argument is obtained from each @term{sequence}.
-Except for @coderef{mapc} and @coderef{mapl},
+Except for @symbolref{mapc} and @symbolref{mapl},
 the result contains the results returned by @param{function}.
-In the cases of @coderef{mapc} and @coderef{mapl},
+In the cases of @symbolref{mapc} and @symbolref{mapl},
 the resulting @term{sequence} is @param{list}.
 
 @param{function} is called
@@ -2664,22 +2664,22 @@ with index @f{1}, and so on.
 @param{result-type} specifies the @term{type} of
 the
 resulting @term{sequence}.
-If @param{function} is a @term{symbol}, it is @coderef{coerce}d
-to a @term{function} as if by @coderef{symbol-function}.
+If @param{function} is a @term{symbol}, it is @symbolref{coerce}d
+to a @term{function} as if by @symbolref{symbol-function}.
 
-@coderef{mapcar} operates on successive @term{elements} of the @param{lists}.
+@symbolref{mapcar} operates on successive @term{elements} of the @param{lists}.
 @param{function} is applied to the first @term{element} of each @param{list},
 then to the second @term{element} of each @param{list}, and so on.
 The iteration terminates when the shortest @param{list} runs out,
 and excess elements in other lists are ignored.
-The value returned by @coderef{mapcar} is a @term{list}
+The value returned by @symbolref{mapcar} is a @term{list}
 of the results of successive calls to @param{function}.
 
-@coderef{mapc} is like @coderef{mapcar} except that the results of
+@symbolref{mapc} is like @symbolref{mapcar} except that the results of
 applying @param{function} are not accumulated.
 The @param{list} argument is returned.
 
-@coderef{maplist} is like @coderef{mapcar} except that
+@symbolref{maplist} is like @symbolref{mapcar} except that
 @param{function} is applied to successive sublists of the @param{lists}.
 @param{function}
 is first applied to the @param{lists} themselves,
@@ -2687,14 +2687,14 @@ and then to the @term{cdr} of each
 @param{list}, and then to the @term{cdr} of the @term{cdr}
 of each @param{list}, and so on.
 
-@coderef{mapl} is like @coderef{maplist} except that the results of
+@symbolref{mapl} is like @symbolref{maplist} except that the results of
 applying @param{function} are not accumulated;
 @param{list-1} is returned.
 
-@coderef{mapcan} and @coderef{mapcon} are like @coderef{mapcar} and
-@coderef{maplist} respectively, except that the results of
+@symbolref{mapcan} and @symbolref{mapcon} are like @symbolref{mapcar} and
+@symbolref{maplist} respectively, except that the results of
 applying @param{function} are combined
-into a @term{list} by the use of @coderef{nconc}
+into a @term{list} by the use of @symbolref{nconc}
 rather than @code{list}.
 That is,
 
@@ -2703,8 +2703,8 @@ That is,
    @EQ{} (apply #'nconc (maplist f x1 ... xn))
 @end lisp
 
-and similarly for the relationship between @coderef{mapcan}
-and @coderef{mapcar}.
+and similarly for the relationship between @symbolref{mapcan}
+and @symbolref{mapcar}.
 
 @subsubheading Examples:
 
@@ -2742,7 +2742,7 @@ and @coderef{mapcar}.
 @end lisp
 
 In this case the function serves as a filter;
-this is a standard @Lisp{}@spc{}idiom using @coderef{mapcan}.
+this is a standard @Lisp{}@spc{}idiom using @symbolref{mapcan}.
 
 @lisp
  (mapcon #'list '(1 2 3 4)) @EV{} ((1 2 3 4) (2 3 4) (3 4) (4))
@@ -2762,7 +2762,7 @@ this is a standard @Lisp{}@spc{}idiom using @coderef{mapcan}.
 
 @node acons
 @subsection acons (Function)
-@syindexanchor{acons, REF}
+@syindexanchor{acons, SYM}
 @cindex acons
 
 
@@ -2815,11 +2815,11 @@ the @term{cdr} of which is @param{datum}.
 
 @node assoc; assoc-if; assoc-if-not
 @subsection assoc, assoc-if, assoc-if-not (Function)
-@syindexanchor{assoc, REF}
+@syindexanchor{assoc, SYM}
 @cindex assoc
-@syindexanchor{assoc-if, REF}
+@syindexanchor{assoc-if, SYM}
 @cindex assoc-if
-@syindexanchor{assoc-if-not, REF}
+@syindexanchor{assoc-if-not, SYM}
 @cindex assoc-if-not
 @anchor{assoc}
 
@@ -2858,11 +2858,11 @@ or @nil{}.
 
 @subsubheading Description:
 
-@coderef{assoc}, @coderef{assoc-if}, and @coderef{assoc-if-not}
+@symbolref{assoc}, @symbolref{assoc-if}, and @symbolref{assoc-if-not}
 return the first @term{cons} in @param{alist} whose @term{car} @term{satisfies the test},
 or @nil{}@spc{}if no such @term{cons} is found.
 
-For @coderef{assoc}, @coderef{assoc-if}, and @coderef{assoc-if-not}, if @nil{}@spc{}appears
+For @symbolref{assoc}, @symbolref{assoc-if}, and @symbolref{assoc-if-not}, if @nil{}@spc{}appears
 in @param{alist} in place of a pair, it is ignored.
 
 @subsubheading Examples:
@@ -2910,7 +2910,7 @@ The @kwd{test-not} parameter is deprecated.
 
 @Thefunction{assoc-if-not} is deprecated.
 
-It is possible to @coderef{rplacd} the result of @coderef{assoc}, provided
+It is possible to @symbolref{rplacd} the result of @symbolref{assoc}, provided
 that it is not @nil{},
 in order to ``update'' @param{alist}.
 
@@ -2929,15 +2929,15 @@ and
 are equivalent in meaning with one exception:
 if @nil{}@spc{}appears in @param{alist} in place of a pair,
 and @param{item} is @nil{},
-@coderef{find} will compute the @term{car} of the @nil{}@spc{}in @param{alist},
+@symbolref{find} will compute the @term{car} of the @nil{}@spc{}in @param{alist},
 find that it is equal to @param{item}, and return @nil{},
-whereas @coderef{assoc} will ignore the @nil{}@spc{}in @param{alist} and continue
+whereas @symbolref{assoc} will ignore the @nil{}@spc{}in @param{alist} and continue
 to search for an actual @term{cons} whose @term{car} is @nil{}.
 
 
 @node copy-alist
 @subsection copy-alist (Function)
-@syindexanchor{copy-alist, REF}
+@syindexanchor{copy-alist, SYM}
 @cindex copy-alist
 
 
@@ -2953,7 +2953,7 @@ to search for an actual @term{cons} whose @term{car} is @nil{}.
 
 @subsubheading Description:
 
-@coderef{copy-alist} returns a @term{copy} of @param{alist}.
+@symbolref{copy-alist} returns a @term{copy} of @param{alist}.
 
 The @term{list structure} of @param{alist} is copied,
 and the @term{elements} of @param{alist} which are @term{conses} are
@@ -2987,7 +2987,7 @@ by the @param{alist} continue to be shared.
 
 @node pairlis
 @subsection pairlis (Function)
-@syindexanchor{pairlis, REF}
+@syindexanchor{pairlis, SYM}
 @cindex pairlis
 
 
@@ -3013,7 +3013,7 @@ elements of @param{keys} to corresponding elements of @param{data}.
 The consequences are undefined if @param{keys} and @param{data} are
 not of the same @term{length}.
 
-If @param{alist} is supplied, @coderef{pairlis} returns
+If @param{alist} is supplied, @symbolref{pairlis} returns
 a modified @param{alist} with the
 new pairs prepended to it.
 The new pairs may appear in the resulting @term{association list} in
@@ -3060,11 +3060,11 @@ or
 
 @node rassoc; rassoc-if; rassoc-if-not
 @subsection rassoc, rassoc-if, rassoc-if-not (Function)
-@syindexanchor{rassoc, REF}
+@syindexanchor{rassoc, SYM}
 @cindex rassoc
-@syindexanchor{rassoc-if, REF}
+@syindexanchor{rassoc-if, SYM}
 @cindex rassoc-if
-@syindexanchor{rassoc-if-not, REF}
+@syindexanchor{rassoc-if-not, SYM}
 @cindex rassoc-if-not
 @anchor{rassoc}
 
@@ -3103,7 +3103,7 @@ or @nil{}.
 
 @subsubheading Description:
 
-@coderef{rassoc}, @coderef{rassoc-if}, and @coderef{rassoc-if-not}
+@symbolref{rassoc}, @symbolref{rassoc-if}, and @symbolref{rassoc-if-not}
 return the first @term{cons} whose @term{cdr}
 @term{satisfies the test}.
 If no such @term{cons} is found, @nil{}
@@ -3138,7 +3138,7 @@ The @kwd{test-not} parameter is deprecated.
 
 @Thefunction{rassoc-if-not} is deprecated.
 
-It is possible to @coderef{rplaca} the result of @coderef{rassoc},
+It is possible to @symbolref{rplaca} the result of @symbolref{rassoc},
 provided that it is not @nil{}, in order to ``update'' @param{alist}.
 
 The expressions
@@ -3160,7 +3160,7 @@ See the @term{function} @ref{assoc}.
 
 @node get-properties
 @subsection get-properties (Function)
-@syindexanchor{get-properties, REF}
+@syindexanchor{get-properties, SYM}
 @cindex get-properties
 
 
@@ -3182,7 +3182,7 @@ See the @term{function} @ref{assoc}.
 
 @subsubheading Description:
 
-@coderef{get-properties} is used to look up any of several
+@symbolref{get-properties} is used to look up any of several
 @term{property list} entries all at once.
 
 It searches the @param{plist} for the first entry whose @term{indicator}
@@ -3214,7 +3214,7 @@ are all @nil{}.
 
 @node getf
 @subsection getf (Accessor)
-@syindexanchor{getf, REF}
+@syindexanchor{getf, SYM}
 @cindex getf
 
 
@@ -3240,25 +3240,25 @@ are all @nil{}.
 
 @subsubheading Description:
 
-@coderef{getf} finds a @term{property} on the @param{plist}
+@symbolref{getf} finds a @term{property} on the @param{plist}
 whose @term{property indicator} is @term{identical} to @param{indicator},
 and returns its corresponding @term{property value}.
 If there are multiple @term{properties}@sub{1} with that @term{property indicator},
-@coderef{getf} uses the first such @term{property}.
+@symbolref{getf} uses the first such @term{property}.
 If there is no @term{property} with that @term{property indicator},
 @param{default} is returned.
 
-@coderef{setf} of @coderef{getf} may be used to associate a new @term{object}
+@symbolref{setf} of @symbolref{getf} may be used to associate a new @term{object}
 with an existing indicator in the @term{property list} held by @param{place},
 or to create a new assocation if none exists.
 If there are multiple @term{properties}@sub{1} with that @term{property indicator},
-@coderef{setf} of @coderef{getf} associates the @param{new-value}
+@symbolref{setf} of @symbolref{getf} associates the @param{new-value}
 with the first such @term{property}.
-When a @coderef{getf} @term{form} is used as a @coderef{setf} @param{place},
+When a @symbolref{getf} @term{form} is used as a @symbolref{setf} @param{place},
 any @param{default} which is supplied is evaluated according to normal
 left-to-right evaluation rules, but its @term{value} is ignored.
 
-@coderef{setf} of @coderef{getf} is permitted to either
+@symbolref{setf} of @symbolref{getf} is permitted to either
 @term{write} the @term{value} of @param{place} itself,
 or modify of any part, @term{car} or @term{cdr},
 of the @term{list structure} held by @param{place}.
@@ -3299,13 +3299,13 @@ of the @term{list structure} held by @param{place}.
 
 @subsubheading Notes:
 
-There is no way (using @coderef{getf}) to distinguish an absent property
-from one whose value is @param{default}; but see @coderef{get-properties}.
+There is no way (using @symbolref{getf}) to distinguish an absent property
+from one whose value is @param{default}; but see @symbolref{get-properties}.
 
-Note that while supplying a @term{default} argument to @coderef{getf}
-in a @coderef{setf} situation is sometimes not very interesting,
-it is still important because some macros, such as @coderef{push} and
-@coderef{incf}, require a @param{place} argument which data is both @term{read}
+Note that while supplying a @term{default} argument to @symbolref{getf}
+in a @symbolref{setf} situation is sometimes not very interesting,
+it is still important because some macros, such as @symbolref{push} and
+@symbolref{incf}, require a @param{place} argument which data is both @term{read}
 from and @term{written} to.  In such a context, if a @term{default}
 argument is to be supplied for the @term{read} situation, it must be
 syntactically valid for the @term{write} situation as well. For example,
@@ -3320,7 +3320,7 @@ syntactically valid for the @term{write} situation as well. For example,
 
 @node remf
 @subsection remf (Macro)
-@syindexanchor{remf, REF}
+@syindexanchor{remf, SYM}
 @cindex remf
 
 
@@ -3338,20 +3338,20 @@ syntactically valid for the @term{write} situation as well. For example,
 
 @subsubheading Description:
 
-@coderef{remf} removes from the @term{property list} stored in @param{place}
+@symbolref{remf} removes from the @term{property list} stored in @param{place}
 a @term{property}@sub{1} with a @term{property indicator}
 @term{identical} to @param{indicator}.
 If there are multiple @term{properties}@sub{1} with the @term{identical} key,
-@coderef{remf} only removes the first such @term{property}.
-@coderef{remf} returns @term{false} if no such @term{property} was found,
+@symbolref{remf} only removes the first such @term{property}.
+@symbolref{remf} returns @term{false} if no such @term{property} was found,
 or @term{true} if a property was found.
 
 The @term{property indicator}
 and the corresponding @term{property value}
 are removed in an undefined order
 by destructively splicing the property list.
-@coderef{remf} is permitted to either @coderef{setf} @param{place} or to
-@coderef{setf} any part, @coderef{car} or @coderef{cdr},
+@symbolref{remf} is permitted to either @symbolref{setf} @param{place} or to
+@symbolref{setf} any part, @symbolref{car} or @symbolref{cdr},
 of the @term{list structure} held by that @param{place}.
 
 For information about the @term{evaluation} of @term{subforms} of @param{place},
@@ -3378,9 +3378,9 @@ The property list stored in @param{place} is modified.
 
 @node intersection; nintersection
 @subsection intersection, nintersection (Function)
-@syindexanchor{intersection, REF}
+@syindexanchor{intersection, SYM}
 @cindex intersection
-@syindexanchor{nintersection, REF}
+@syindexanchor{nintersection, SYM}
 @cindex nintersection
 @anchor{intersection}
 
@@ -3410,10 +3410,10 @@ or @nil{}.
 
 @subsubheading Description:
 
-@coderef{intersection} and @coderef{nintersection} return a @term{list}
+@symbolref{intersection} and @symbolref{nintersection} return a @term{list}
 that contains every element that occurs in both @param{list-1} and @param{list-2}.
 
-@coderef{nintersection} is the destructive version of @coderef{intersection}.
+@symbolref{nintersection} is the destructive version of @symbolref{intersection}.
 It performs the same operation,
 but may destroy @param{list-1} using its cells to construct the result.
 @param{list-2} is not destroyed.
@@ -3451,7 +3451,7 @@ elements, there may be duplication in the result.
 There is no guarantee that the order of elements in the result will
 reflect the ordering of the arguments in any particular way.
 The result @term{list} may share cells with,
-or be @coderef{eq} to, either @param{list-1} or @param{list-2}
+or be @symbolref{eq} to, either @param{list-1} or @param{list-2}
 if appropriate.
 
 @subsubheading Examples:
@@ -3478,7 +3478,7 @@ if appropriate.
 
 @subsubheading Side Effects:
 
-@coderef{nintersection} can modify @param{list-1},
+@symbolref{nintersection} can modify @param{list-1},
 but not @param{list-2}.
 
 @subsubheading Exceptional Situations:
@@ -3495,13 +3495,13 @@ but not @param{list-2}.
 
 The @kwd{test-not} parameter is deprecated.
 
-Since the @coderef{nintersection} side effect is not required,
+Since the @symbolref{nintersection} side effect is not required,
 it should not be used in for-effect-only
 positions in portable code.
 
 @node adjoin
 @subsection adjoin (Function)
-@syindexanchor{adjoin, REF}
+@syindexanchor{adjoin, SYM}
 @cindex adjoin
 
 
@@ -3531,7 +3531,7 @@ or @nil{}.
 
 Tests whether @param{item} is the same as an existing element of @param{list}.
 If the @param{item} is not an existing element,
-@coderef{adjoin} adds it to @param{list} (as if by @code{cons})
+@symbolref{adjoin} adds it to @param{list} (as if by @code{cons})
 and returns the resulting @term{list};
 otherwise, nothing is added and the original @param{list} is returned.
 
@@ -3573,7 +3573,7 @@ The @kwd{test-not} parameter is deprecated.
 
 @node pushnew
 @subsection pushnew (Macro)
-@syindexanchor{pushnew, REF}
+@syindexanchor{pushnew, SYM}
 @cindex pushnew
 
 
@@ -3601,12 +3601,12 @@ or @nil{}.
 
 @subsubheading Description:
 
-@coderef{pushnew} tests whether  @param{item} is the same as any existing
+@symbolref{pushnew} tests whether  @param{item} is the same as any existing
 element of the @term{list} stored in @param{place}.  If @param{item} is not,
 it is prepended to the @term{list}, and the new @term{list} is stored in
 @param{place}.
 
-@coderef{pushnew} returns the new @term{list} that is stored in @param{place}.
+@symbolref{pushnew} returns the new @term{list} that is stored in @param{place}.
 
 Whether or not @param{item} is already a member of the @term{list} that is
 in @param{place} is determined by comparisons using @kwd{test} or @kwd{test-not}.
@@ -3617,7 +3617,7 @@ the @kwd{key} function (if supplied).
 
 If @kwd{key} is supplied, it is used to extract the part to be tested from
 both @param{item} and the @term{list} element,
-as for @coderef{adjoin}.
+as for @symbolref{adjoin}.
 
 The argument to the @kwd{key} function
 is an element of the @term{list} stored in
@@ -3629,7 +3629,7 @@ element is used.
 For information about the @term{evaluation} of @term{subforms} of @param{place},
 see @ref{Evaluation of Subforms to Places}.
 
-It is @term{implementation-dependent} whether or not @coderef{pushnew}
+It is @term{implementation-dependent} whether or not @symbolref{pushnew}
 actually executes the storing form for its @param{place} in the
 situation where the @param{item} is already a member of the @term{list}
 held by @param{place}.
@@ -3677,9 +3677,9 @@ and @f{item} is evaluated before @f{place}.
 
 @node set-difference; nset-difference
 @subsection set-difference, nset-difference (Function)
-@syindexanchor{set-difference, REF}
+@syindexanchor{set-difference, SYM}
 @cindex set-difference
-@syindexanchor{nset-difference, REF}
+@syindexanchor{nset-difference, SYM}
 @cindex nset-difference
 @anchor{set-difference}
 
@@ -3708,12 +3708,12 @@ or @nil{}.
 @param{result-list}---a @term{list}.
 
 @subsubheading Description:
-@coderef{set-difference} returns a @term{list}
+@symbolref{set-difference} returns a @term{list}
 of elements of @param{list-1}
 that do not appear in @param{list-2}.
 
-@coderef{nset-difference} is the destructive
-version of @coderef{set-difference}.
+@symbolref{nset-difference} is the destructive
+version of @symbolref{set-difference}.
 It may destroy @param{list-1}.
 
 For all possible ordered pairs consisting of
@@ -3740,7 +3740,7 @@ of @param{list-2}.
 There is no guarantee that the order of elements in the result will
 reflect the ordering of the arguments in any particular way.
 The result @term{list}
-may share cells with, or be @coderef{eq} to, either of @param{list-1}
+may share cells with, or be @symbolref{eq} to, either of @param{list-1}
 or @param{list-2},
 if appropriate.
 
@@ -3775,7 +3775,7 @@ if appropriate.
 
 @subsubheading Side Effects:
 
-@coderef{nset-difference} may destroy @param{list-1}.
+@symbolref{nset-difference} may destroy @param{list-1}.
 
 @subsubheading Exceptional Situations:
 
@@ -3793,9 +3793,9 @@ The @kwd{test-not} parameter is deprecated.
 
 @node set-exclusive-or; nset-exclusive-or
 @subsection set-exclusive-or, nset-exclusive-or (Function)
-@syindexanchor{set-exclusive-or, REF}
+@syindexanchor{set-exclusive-or, SYM}
 @cindex set-exclusive-or
-@syindexanchor{nset-exclusive-or, REF}
+@syindexanchor{nset-exclusive-or, SYM}
 @cindex nset-exclusive-or
 
 
@@ -3823,11 +3823,11 @@ or @nil{}.
 @param{result-list}---a @term{list}.
 
 @subsubheading Description:
-@coderef{set-exclusive-or} returns a @term{list} of elements that appear
+@symbolref{set-exclusive-or} returns a @term{list} of elements that appear
 in exactly one of @param{list-1} and @param{list-2}.
 
-@coderef{nset-exclusive-or}
-is the @term{destructive} version of @coderef{set-exclusive-or}.
+@symbolref{nset-exclusive-or}
+is the @term{destructive} version of @symbolref{set-exclusive-or}.
 
 For all possible ordered pairs consisting of
 one element from @param{list-1} and one element from @param{list-2}, the
@@ -3847,7 +3847,7 @@ The result contains precisely
 those elements of @param{list-1} and @param{list-2}
 that appear in no matching pair.
 
-The result @term{list} of @coderef{set-exclusive-or}
+The result @term{list} of @symbolref{set-exclusive-or}
 might share storage with one of @param{list-1} or @param{list-2}.
 
 @subsubheading Examples:
@@ -3872,7 +3872,7 @@ might share storage with one of @param{list-1} or @param{list-2}.
 
 @subsubheading Side Effects:
 
-@coderef{nset-exclusive-or} is permitted to modify any part,
+@symbolref{nset-exclusive-or} is permitted to modify any part,
 @term{car} or @term{cdr}, of the @term{list structure} of @param{list-1} or @param{list-2}.
 
 @subsubheading Exceptional Situations:
@@ -3888,7 +3888,7 @@ might share storage with one of @param{list-1} or @param{list-2}.
 
 The @kwd{test-not} parameter is deprecated.
 
-Since the @coderef{nset-exclusive-or} side effect is not required,
+Since the @symbolref{nset-exclusive-or} side effect is not required,
 it should not be used in for-effect-only
 positions in portable code.
 
@@ -3896,7 +3896,7 @@ positions in portable code.
 
 @node subsetp
 @subsection subsetp (Function)
-@syindexanchor{subsetp, REF}
+@syindexanchor{subsetp, SYM}
 @cindex subsetp
 
 
@@ -3924,7 +3924,7 @@ or @nil{}.
 
 @subsubheading Description:
 
-@coderef{subsetp} returns @term{true} if every element of @param{list-1}
+@symbolref{subsetp} returns @term{true} if every element of @param{list-1}
 @bogusterm{matches} some element of @param{list-2},
 and @term{false} otherwise.
 
@@ -3974,9 +3974,9 @@ The @kwd{test-not} parameter is deprecated.
 
 @node union; nunion
 @subsection union, nunion (Function)
-@syindexanchor{union, REF}
+@syindexanchor{union, SYM}
 @cindex union
-@syindexanchor{nunion, REF}
+@syindexanchor{nunion, SYM}
 @cindex nunion
 @anchor{union}
 
@@ -4006,7 +4006,7 @@ or @nil{}.
 
 @subsubheading Description:
 
-@coderef{union} and @coderef{nunion} return a @term{list}
+@symbolref{union} and @symbolref{nunion} return a @term{list}
 that contains every element that occurs in either @param{list-1}
 or @param{list-2}.
 
@@ -4043,7 +4043,7 @@ might or might not appear in the result.
 
 The order of elements in the result do not have to
 reflect the ordering of @param{list-1} or @param{list-2} in any way.
-The result @term{list} may be @coderef{eq} to either
+The result @term{list} may be @symbolref{eq} to either
 @param{list-1} or @param{list-2} if appropriate.
 
 @subsubheading Examples:
@@ -4068,7 +4068,7 @@ The result @term{list} may be @coderef{eq} to either
 
 @subsubheading Side Effects:
 
-@coderef{nunion} is permitted to modify any part, @term{car} or @term{cdr},
+@symbolref{nunion} is permitted to modify any part, @term{car} or @term{cdr},
 of the @term{list structure} of @param{list-1} or @param{list-2}.
 
 @subsubheading Exceptional Situations:
@@ -4085,5 +4085,5 @@ of the @term{list structure} of @param{list-1} or @param{list-2}.
 
 The @kwd{test-not} parameter is deprecated.
 
-Since the @coderef{nunion} side effect is not required,
+Since the @symbolref{nunion} side effect is not required,
 it should not be used in for-effect-only positions in portable code.
