@@ -750,7 +750,7 @@ This denotes the absence of an upper bound on the interval.
 
 @node number
 @subsection number (System Class)
-@syindex number
+@syindexanchor{number}
 @cindex number
 
 
@@ -783,7 +783,7 @@ computer languages, and various issues of time and space efficiency.
 
 @node complex (System Class)
 @subsection complex (System Class)
-@syindex complex
+@syindexanchor{complex}
 @cindex complex
 
 
@@ -855,7 +855,7 @@ and which can be obtained by @tt{(COERCE @mat{n} 'COMPLEX)}.
 
 @node real
 @subsection real (System Class)
-@syindex real
+@syindexanchor{real}
 @cindex real
 
 
@@ -881,7 +881,7 @@ The @term{types} @coderef{rational} and @coderef{float} are @term{disjoint}
 
 @node float (System Class)
 @subsection float (System Class)
-@syindex float
+@syindexanchor{float}
 @cindex float
 
 
@@ -949,13 +949,13 @@ or the @term{complex} @f{#C(1.0 0.0)}.
 
 @node short-float; single-float; double-float; long-float
 @subsection short-float, single-float, double-float, long-float (Type)
-@syindex short-float
+@syindexanchor{short-float}
 @cindex short-float
-@syindex single-float
+@syindexanchor{single-float}
 @cindex single-float
-@syindex double-float
+@syindexanchor{double-float}
 @cindex double-float
-@syindex long-float
+@syindexanchor{long-float}
 @cindex long-float
 
 
@@ -1094,7 +1094,7 @@ that are on the interval specified by the @term{interval designators}.
 
 @node rational (System Class)
 @subsection rational (System Class)
-@syindex rational
+@syindexanchor{rational}
 @cindex rational
 
 
@@ -1117,7 +1117,7 @@ are @term{disjoint} @subtypesof{rational}.
 
 @node ratio
 @subsection ratio (System Class)
-@syindex ratio
+@syindexanchor{ratio}
 @cindex ratio
 
 
@@ -1144,7 +1144,7 @@ and of which the denominator is positive and greater than one.
 
 @node integer
 @subsection integer (System Class)
-@syindex integer
+@syindexanchor{integer}
 @cindex integer
 
 
@@ -1183,7 +1183,7 @@ The @term{type} @f{(integer 0 *)} is also called @coderef{unsigned-byte}.
 
 @node signed-byte
 @subsection signed-byte (Type)
-@syindex signed-byte
+@syindexanchor{signed-byte}
 @cindex signed-byte
 
 
@@ -1224,7 +1224,7 @@ as @thetype{integer}.
 
 @node unsigned-byte
 @subsection unsigned-byte (Type)
-@syindex unsigned-byte
+@syindexanchor{unsigned-byte}
 @cindex unsigned-byte
 
 
@@ -1273,7 +1273,7 @@ The @term{type} @f{(unsigned-byte 1)} is also called @coderef{bit}.
 
 @node mod (Type Specifier)
 @subsection mod (Type Specifier)
-@syindex mod
+@syindexanchor{mod}
 @cindex mod
 
 
@@ -1305,7 +1305,7 @@ The symbol @coderef{mod} is not valid as a @term{type specifier}.
 
 @node bit (Type)
 @subsection bit (Type)
-@syindex bit
+@syindexanchor{bit}
 @cindex bit
 
 
@@ -1328,7 +1328,7 @@ and @f{(unsigned-byte 1)}.
 
 @node fixnum
 @subsection fixnum (Type)
-@syindex fixnum
+@syindexanchor{fixnum}
 @cindex fixnum
 
 
@@ -1353,7 +1353,7 @@ The @term{type} @coderef{fixnum} is required to be a supertype of
 
 @node bignum
 @subsection bignum (Type)
-@syindex bignum
+@syindexanchor{bignum}
 @cindex bignum
 
 
@@ -1373,17 +1373,17 @@ The @term{type} @coderef{fixnum} is required to be a supertype of
 
 @node =; /=; <; >; <=; >=
 @subsection =, /=, <, >, <=, >= (Function)
-@syindex =
+@syindexanchor{=}
 @cindex =
-@syindex /=
+@syindexanchor{/=}
 @cindex /=
-@syindex <
+@syindexanchor{<}
 @cindex <
-@syindex >
+@syindexanchor{>}
 @cindex >
-@syindex <=
+@syindexanchor{<=}
 @cindex <=
-@syindex >=
+@syindexanchor{>=}
 @cindex >=
 @anchor{=}
 
@@ -1507,9 +1507,9 @@ whereas @coderef{eql} compares the representational values, so to speak.
 
 @node max; min
 @subsection max, min (Function)
-@syindex max
+@syindexanchor{max}
 @cindex max
-@syindex min
+@syindexanchor{min}
 @cindex min
 
 
@@ -1592,9 +1592,9 @@ Similar remarks apply to @coderef{min}
 
 @node minusp; plusp
 @subsection minusp, plusp (Function)
-@syindex minusp
+@syindexanchor{minusp}
 @cindex minusp
-@syindex plusp
+@syindexanchor{plusp}
 @cindex plusp
 
 
@@ -1635,7 +1635,7 @@ representations for positive and negative @term{float} zeros,
 
 @node zerop
 @subsection zerop (Function)
-@syindex zerop
+@syindexanchor{zerop}
 @cindex zerop
 
 
@@ -1686,21 +1686,21 @@ always returns @term{true}.
 
 @node floor; ffloor; ceiling; fceiling; truncate; ftruncate; round; fround
 @subsection floor, ffloor, ceiling, fceiling, truncate, ftruncate, round, fround (Function)
-@syindex floor
+@syindexanchor{floor}
 @cindex floor
-@syindex ffloor
+@syindexanchor{ffloor}
 @cindex ffloor
-@syindex ceiling
+@syindexanchor{ceiling}
 @cindex ceiling
-@syindex fceiling
+@syindexanchor{fceiling}
 @cindex fceiling
-@syindex truncate
+@syindexanchor{truncate}
 @cindex truncate
-@syindex ftruncate
+@syindexanchor{ftruncate}
 @cindex ftruncate
-@syindex round
+@syindexanchor{round}
 @cindex round
-@syindex fround
+@syindexanchor{fround}
 @cindex fround
 @anchor{floor}
 @anchor{ceiling}
@@ -1862,11 +1862,11 @@ or @f{(ceiling (- x 1/2))}.
 
 @node sin; cos; tan
 @subsection sin, cos, tan (Function)
-@syindex sin
+@syindexanchor{sin}
 @cindex sin
-@syindex cos
+@syindexanchor{cos}
 @cindex cos
-@syindex tan
+@syindexanchor{tan}
 @cindex tan
 
 
@@ -1911,11 +1911,11 @@ Might signal @coderef{arithmetic-error}.
 
 @node asin; acos; atan
 @subsection asin, acos, atan (Function)
-@syindex asin
+@syindexanchor{asin}
 @cindex asin
-@syindex acos
+@syindexanchor{acos}
 @cindex acos
-@syindex atan
+@syindexanchor{atan}
 @cindex atan
 @anchor{asin}
 @anchor{acos}
@@ -2135,7 +2135,7 @@ absolute value of @param{number} is greater than one.
 
 @node pi
 @subsection pi (Constant Variable)
-@syindex pi
+@syindexanchor{pi}
 @cindex pi
 
 
@@ -2174,17 +2174,17 @@ where @i{type} is the desired type, such as @coderef{short-float}.
 
 @node sinh; cosh; tanh; asinh; acosh; atanh
 @subsection sinh, cosh, tanh, asinh, acosh, atanh (Function)
-@syindex sinh
+@syindexanchor{sinh}
 @cindex sinh
-@syindex cosh
+@syindexanchor{cosh}
 @cindex cosh
-@syindex tanh
+@syindexanchor{tanh}
 @cindex tanh
-@syindex asinh
+@syindexanchor{asinh}
 @cindex asinh
-@syindex acosh
+@syindexanchor{acosh}
 @cindex acosh
-@syindex atanh
+@syindexanchor{atanh}
 @cindex atanh
 
 
@@ -2334,7 +2334,7 @@ to define the branch cuts in desirable ways for the complex case.
 
 @node * (Function)
 @subsection * (Function)
-@syindex *
+@syindexanchor{*}
 @cindex *
 
 
@@ -2378,7 +2378,7 @@ Might signal @coderef{arithmetic-error}.
 
 @node + (Function)
 @subsection + (Function)
-@syindex +
+@syindexanchor{+}
 @cindex +
 
 
@@ -2422,7 +2422,7 @@ Might signal @coderef{arithmetic-error}.
 
 @node - (Function)
 @subsection - (Function)
-@syindex -
+@syindexanchor{-}
 @cindex -
 
 
@@ -2478,7 +2478,7 @@ Might signal @coderef{arithmetic-error}.
 
 @node / (Function)
 @subsection / (Function)
-@syindex /
+@syindexanchor{/}
 @cindex /
 
 
@@ -2544,9 +2544,9 @@ Might signal @coderef{arithmetic-error}.
 
 @node 1+; 1-
 @subsection 1+, 1- (Function)
-@syindex 1+
+@syindexanchor{1+}
 @cindex 1+
-@syindex 1-
+@syindexanchor{1-}
 @cindex 1-
 @anchor{1+}
 @anchor{1- (Function)}
@@ -2600,7 +2600,7 @@ expressions be the same.
 
 @node abs
 @subsection abs (Function)
-@syindex abs
+@syindexanchor{abs}
 @cindex abs
 
 
@@ -2667,9 +2667,9 @@ to avoid intermediate overflow or underflow.
 
 @node evenp; oddp
 @subsection evenp, oddp (Function)
-@syindex evenp
+@syindexanchor{evenp}
 @cindex evenp
-@syindex oddp
+@syindexanchor{oddp}
 @cindex oddp
 
 
@@ -2714,9 +2714,9 @@ to avoid intermediate overflow or underflow.
 
 @node exp; expt
 @subsection exp, expt (Function)
-@syindex exp
+@syindexanchor{exp}
 @cindex exp
-@syindex expt
+@syindexanchor{expt}
 @cindex expt
 @anchor{exp}
 @anchor{expt}
@@ -2836,7 +2836,7 @@ Note that by the following logic,
 
 @node gcd
 @subsection gcd (Function)
-@syindex gcd
+@syindexanchor{gcd}
 @cindex gcd
 
 
@@ -2889,9 +2889,9 @@ For three or more arguments,
 
 @node incf; decf
 @subsection incf, decf (Macro)
-@syindex incf
+@syindexanchor{incf}
 @cindex incf
-@syindex decf
+@syindexanchor{decf}
 @cindex decf
 @anchor{incf}
 @anchor{decf}
@@ -2954,7 +2954,7 @@ see @ref{Evaluation of Subforms to Places}.
 
 @node lcm
 @subsection lcm (Function)
-@syindex lcm
+@syindexanchor{lcm}
 @cindex lcm
 
 
@@ -3020,7 +3020,7 @@ Should signal @coderef{type-error} if any argument is not an @term{integer}.
 
 @node log
 @subsection log (Function)
-@syindex log
+@syindexanchor{log}
 @cindex log
 
 
@@ -3120,9 +3120,9 @@ The implementation.
 
 @node mod; rem
 @subsection mod, rem (Function)
-@syindex mod
+@syindexanchor{mod}
 @cindex mod
-@syindex rem
+@syindexanchor{rem}
 @cindex rem
 
 
@@ -3187,7 +3187,7 @@ with the same sign as @param{divisor}.
 
 @node signum
 @subsection signum (Function)
-@syindex signum
+@syindexanchor{signum}
 @cindex signum
 
 
@@ -3254,9 +3254,9 @@ but it is @term{implementation-dependent} whether that result is a
 
 @node sqrt; isqrt
 @subsection sqrt, isqrt (Function)
-@syindex sqrt
+@syindexanchor{sqrt}
 @cindex sqrt
-@syindex isqrt
+@syindexanchor{isqrt}
 @cindex isqrt
 @anchor{sqrt}
 
@@ -3347,7 +3347,7 @@ but it is potentially more efficient.
 
 @node random-state
 @subsection random-state (System Class)
-@syindex random-state
+@syindexanchor{random-state}
 @cindex random-state
 
 
@@ -3376,7 +3376,7 @@ is @term{implementation-dependent}.
 
 @node make-random-state
 @subsection make-random-state (Function)
-@syindex make-random-state
+@syindexanchor{make-random-state}
 @cindex make-random-state
 
 
@@ -3444,7 +3444,7 @@ single program.
 
 @node random
 @subsection random (Function)
-@syindex random
+@syindexanchor{random}
 @cindex random
 
 
@@ -3505,7 +3505,7 @@ See @CLtL{}@spc{}for information about generating random numbers.
 
 @node random-state-p
 @subsection random-state-p (Function)
-@syindex random-state-p
+@syindexanchor{random-state-p}
 @cindex random-state-p
 
 
@@ -3546,7 +3546,7 @@ See @CLtL{}@spc{}for information about generating random numbers.
 
 @node *random-state*
 @subsection *random-state* (Variable)
-@syindex *random-state*
+@syindexanchor{*random-state*}
 @cindex *random-state*
 
 
@@ -3604,7 +3604,7 @@ restores the old @term{random state} @term{object}.
 
 @node numberp
 @subsection numberp (Function)
-@syindex numberp
+@syindexanchor{numberp}
 @cindex numberp
 
 
@@ -3643,7 +3643,7 @@ restores the old @term{random state} @term{object}.
 
 @node cis
 @subsection cis (Function)
-@syindex cis
+@syindexanchor{cis}
 @cindex cis
 
 
@@ -3677,7 +3677,7 @@ imaginary part is equal to the sine of @param{radians}.
 
 @node complex (Function)
 @subsection complex (Function)
-@syindex complex
+@syindexanchor{complex}
 @cindex complex
 
 
@@ -3746,7 +3746,7 @@ the same thing.
 
 @node complexp
 @subsection complexp (Function)
-@syindex complexp
+@syindexanchor{complexp}
 @cindex complexp
 
 
@@ -3786,7 +3786,7 @@ the same thing.
 
 @node conjugate
 @subsection conjugate (Function)
-@syindex conjugate
+@syindexanchor{conjugate}
 @cindex conjugate
 
 
@@ -3831,7 +3831,7 @@ For a @term{complex} number @f{z},
 
 @node phase
 @subsection phase (Function)
-@syindex phase
+@syindexanchor{phase}
 @cindex phase
 
 
@@ -3899,9 +3899,9 @@ Might signal @coderef{arithmetic-error}.
 
 @node realpart; imagpart
 @subsection realpart, imagpart (Function)
-@syindex realpart
+@syindexanchor{realpart}
 @cindex realpart
-@syindex imagpart
+@syindexanchor{imagpart}
 @cindex imagpart
 @anchor{realpart}
 @anchor{imagpart}
@@ -3950,7 +3950,7 @@ a @term{float} is a floating-point zero of the same format.
 
 @node upgraded-complex-part-type
 @subsection upgraded-complex-part-type (Function)
-@syindex upgraded-complex-part-type
+@syindexanchor{upgraded-complex-part-type}
 @cindex upgraded-complex-part-type
 
 
@@ -3992,7 +3992,7 @@ is to reveal how an implementation does its @term{upgrading}.
 
 @node realp
 @subsection realp (Function)
-@syindex realp
+@syindexanchor{realp}
 @cindex realp
 
 
@@ -4030,9 +4030,9 @@ is to reveal how an implementation does its @term{upgrading}.
 
 @node numerator; denominator
 @subsection numerator, denominator (Function)
-@syindex numerator
+@syindexanchor{numerator}
 @cindex numerator
-@syindex denominator
+@syindexanchor{denominator}
 @cindex denominator
 
 
@@ -4085,9 +4085,9 @@ and @coderef{denominator} returns 1.
 
 @node rational; rationalize
 @subsection rational, rationalize (Function)
-@syindex rational
+@syindexanchor{rational}
 @cindex rational
-@syindex rationalize
+@syindexanchor{rationalize}
 @cindex rationalize
 @anchor{rational}
 
@@ -4163,7 +4163,7 @@ of the same format produces the original @param{number}.
 
 @node rationalp
 @subsection rationalp (Function)
-@syindex rationalp
+@syindexanchor{rationalp}
 @cindex rationalp
 
 
@@ -4203,7 +4203,7 @@ of the same format produces the original @param{number}.
 
 @node ash
 @subsection ash (Function)
-@syindex ash
+@syindexanchor{ash}
 @cindex ash
 
 
@@ -4265,7 +4265,7 @@ Might signal @coderef{arithmetic-error}.
 
 @node integer-length
 @subsection integer-length (Function)
-@syindex integer-length
+@syindexanchor{integer-length}
 @cindex integer-length
 
 
@@ -4330,7 +4330,7 @@ whose width in bits is no smaller than @tt{(+ (integer-length @param{integer}) 1
 
 @node integerp
 @subsection integerp (Function)
-@syindex integerp
+@syindexanchor{integerp}
 @cindex integerp
 
 
@@ -4368,7 +4368,7 @@ whose width in bits is no smaller than @tt{(+ (integer-length @param{integer}) 1
 
 @node parse-integer
 @subsection parse-integer (Function)
-@syindex parse-integer
+@syindexanchor{parse-integer}
 @cindex parse-integer
 
 
@@ -4441,7 +4441,7 @@ possibly surrounded on either side by
 
 @node boole
 @subsection boole (Function)
-@syindex boole
+@syindexanchor{boole}
 @cindex boole
 
 
@@ -4587,37 +4587,37 @@ by a technique such as the following:
 
 @node boole-1; boole-2; boole-and; boole-andc1; boole-andc2; boole-c1; boole-+
 @subsection boole-1, boole-2, boole-and, boole-andc1, boole-andc2, boole-c1, boole-c2, boole-clr, boole-eqv, boole-ior, boole-nand, boole-nor, boole-orc1, boole-orc2, boole-set, boole-xor (Constant Variable)
-@syindex boole-1
+@syindexanchor{boole-1}
 @cindex boole-1
-@syindex boole-2
+@syindexanchor{boole-2}
 @cindex boole-2
-@syindex boole-and
+@syindexanchor{boole-and}
 @cindex boole-and
-@syindex boole-andc1
+@syindexanchor{boole-andc1}
 @cindex boole-andc1
-@syindex boole-andc2
+@syindexanchor{boole-andc2}
 @cindex boole-andc2
-@syindex boole-c1
+@syindexanchor{boole-c1}
 @cindex boole-c1
-@syindex boole-c2
+@syindexanchor{boole-c2}
 @cindex boole-c2
-@syindex boole-clr
+@syindexanchor{boole-clr}
 @cindex boole-clr
-@syindex boole-eqv
+@syindexanchor{boole-eqv}
 @cindex boole-eqv
-@syindex boole-ior
+@syindexanchor{boole-ior}
 @cindex boole-ior
-@syindex boole-nand
+@syindexanchor{boole-nand}
 @cindex boole-nand
-@syindex boole-nor
+@syindexanchor{boole-nor}
 @cindex boole-nor
-@syindex boole-orc1
+@syindexanchor{boole-orc1}
 @cindex boole-orc1
-@syindex boole-orc2
+@syindexanchor{boole-orc2}
 @cindex boole-orc2
-@syindex boole-set
+@syindexanchor{boole-set}
 @cindex boole-set
-@syindex boole-xor
+@syindexanchor{boole-xor}
 @cindex boole-xor
 
 
@@ -4648,27 +4648,27 @@ sixteen possible @term{bit-wise logical operation specifiers}.
 
 @node logand; logandc1; logandc2; logeqv; logior; lognand; lognor; lognot; lo+
 @subsection logand, logandc1, logandc2, logeqv, logior, lognand, lognor, lognot, logorc1, logorc2, logxor (Function)
-@syindex logand
+@syindexanchor{logand}
 @cindex logand
-@syindex logandc1
+@syindexanchor{logandc1}
 @cindex logandc1
-@syindex logandc2
+@syindexanchor{logandc2}
 @cindex logandc2
-@syindex logeqv
+@syindexanchor{logeqv}
 @cindex logeqv
-@syindex logior
+@syindexanchor{logior}
 @cindex logior
-@syindex lognand
+@syindexanchor{lognand}
 @cindex lognand
-@syindex lognor
+@syindexanchor{lognor}
 @cindex lognor
-@syindex lognot
+@syindexanchor{lognot}
 @cindex lognot
-@syindex logorc1
+@syindexanchor{logorc1}
 @cindex logorc1
-@syindex logorc2
+@syindexanchor{logorc2}
 @cindex logorc2
-@syindex logxor
+@syindexanchor{logxor}
 @cindex logxor
 @anchor{logand}
 @anchor{lognot}
@@ -4813,7 +4813,7 @@ of arguments.
 
 @node logbitp
 @subsection logbitp (Function)
-@syindex logbitp
+@syindexanchor{logbitp}
 @cindex logbitp
 
 
@@ -4866,7 +4866,7 @@ two's-complement notation.
 
 @node logcount
 @subsection logcount (Function)
-@syindex logcount
+@syindexanchor{logcount}
 @cindex logcount
 
 
@@ -4925,7 +4925,7 @@ The following identity always holds:
 
 @node logtest
 @subsection logtest (Function)
-@syindex logtest
+@syindexanchor{logtest}
 @cindex logtest
 
 
@@ -4976,11 +4976,11 @@ they were represented in two's-complement binary.
 
 @node byte; byte-size; byte-position
 @subsection byte, byte-size, byte-position (Function)
-@syindex byte
+@syindexanchor{byte}
 @cindex byte
-@syindex byte-size
+@syindexanchor{byte-size}
 @cindex byte-size
-@syindex byte-position
+@syindexanchor{byte-position}
 @cindex byte-position
 @anchor{byte}
 @anchor{byte-size}
@@ -5045,7 +5045,7 @@ it refers to a @term{byte} of width zero.  For example,
 
 @node deposit-field
 @subsection deposit-field (Function)
-@syindex deposit-field
+@syindexanchor{deposit-field}
 @cindex deposit-field
 
 
@@ -5100,7 +5100,7 @@ as @coderef{dpb}           is to @coderef{ldb}.
 
 @node dpb
 @subsection dpb (Function)
-@syindex dpb
+@syindexanchor{dpb}
 @cindex dpb
 
 
@@ -5175,7 +5175,7 @@ instruction meaning ``deposit byte.''
 
 @node ldb
 @subsection ldb (Accessor)
-@syindex ldb
+@syindexanchor{ldb}
 @cindex ldb
 
 
@@ -5261,7 +5261,7 @@ instruction meaning ``load byte.''
 
 @node ldb-test
 @subsection ldb-test (Function)
-@syindex ldb-test
+@syindexanchor{ldb-test}
 @cindex ldb-test
 
 
@@ -5306,7 +5306,7 @@ specified by @param{bytespec} is non-zero; otherwise returns @term{false}.
 
 @node mask-field
 @subsection mask-field (Accessor)
-@syindex mask-field
+@syindexanchor{mask-field}
 @cindex mask-field
 
 
@@ -5365,9 +5365,9 @@ and then store the result back into the @param{place}.
 
 @node most-positive-fixnum; most-negative-fixnum
 @subsection most-positive-fixnum, most-negative-fixnum (Constant Variable)
-@syindex most-positive-fixnum
+@syindexanchor{most-positive-fixnum}
 @cindex most-positive-fixnum
-@syindex most-negative-fixnum
+@syindexanchor{most-negative-fixnum}
 @cindex most-negative-fixnum
 
 
@@ -5389,19 +5389,19 @@ and less than or equal to @mat{-2^15}.
 
 @node decode-float; scale-float; float-radix; float-sign; float-digits; float+
 @subsection decode-float, scale-float, float-radix, float-sign, float-digits, float-precision, integer-decode-float (Function)
-@syindex decode-float
+@syindexanchor{decode-float}
 @cindex decode-float
-@syindex scale-float
+@syindexanchor{scale-float}
 @cindex scale-float
-@syindex float-radix
+@syindexanchor{float-radix}
 @cindex float-radix
-@syindex float-sign
+@syindexanchor{float-sign}
 @cindex float-sign
-@syindex float-digits
+@syindexanchor{float-digits}
 @cindex float-digits
-@syindex float-precision
+@syindexanchor{float-precision}
 @cindex float-precision
-@syindex integer-decode-float
+@syindexanchor{integer-decode-float}
 @cindex integer-decode-float
 
 
@@ -5595,7 +5595,7 @@ and
 
 @node float (Function)
 @subsection float (Function)
-@syindex float
+@syindexanchor{float}
 @cindex float
 
 
@@ -5646,7 +5646,7 @@ but is a @term{single float}.
 
 @node floatp
 @subsection floatp (Function)
-@syindex floatp
+@syindexanchor{floatp}
 @cindex floatp
 
 
@@ -5684,53 +5684,53 @@ but is a @term{single float}.
 
 @node most-positive-short-float; least-positive-short-float; least-positive-n+
 @subsection most-positive-short-float, least-positive-short-float, least-positive-normalized-short-float, most-positive-double-float, least-positive-double-float, least-positive-normalized-double-float, most-positive-long-float, least-positive-long-float, least-positive-normalized-long-float, most-positive-single-float, least-positive-single-float, least-positive-normalized-single-float, most-negative-short-float, least-negative-short-float, least-negative-normalized-short-float, most-negative-single-float, least-negative-single-float, least-negative-normalized-single-float, most-negative-double-float, least-negative-double-float, least-negative-normalized-double-float, most-negative-long-float, least-negative-long-float, least-negative-normalized-long-float (Constant Variable)
-@syindex most-positive-short-float
+@syindexanchor{most-positive-short-float}
 @cindex most-positive-short-float
-@syindex least-positive-short-float
+@syindexanchor{least-positive-short-float}
 @cindex least-positive-short-float
-@syindex least-positive-normalized-short-float
+@syindexanchor{least-positive-normalized-short-float}
 @cindex least-positive-normalized-short-float
-@syindex most-positive-double-float
+@syindexanchor{most-positive-double-float}
 @cindex most-positive-double-float
-@syindex least-positive-double-float
+@syindexanchor{least-positive-double-float}
 @cindex least-positive-double-float
-@syindex least-positive-normalized-double-float
+@syindexanchor{least-positive-normalized-double-float}
 @cindex least-positive-normalized-double-float
-@syindex most-positive-long-float
+@syindexanchor{most-positive-long-float}
 @cindex most-positive-long-float
-@syindex least-positive-long-float
+@syindexanchor{least-positive-long-float}
 @cindex least-positive-long-float
-@syindex least-positive-normalized-long-float
+@syindexanchor{least-positive-normalized-long-float}
 @cindex least-positive-normalized-long-float
-@syindex most-positive-single-float
+@syindexanchor{most-positive-single-float}
 @cindex most-positive-single-float
-@syindex least-positive-single-float
+@syindexanchor{least-positive-single-float}
 @cindex least-positive-single-float
-@syindex least-positive-normalized-single-float
+@syindexanchor{least-positive-normalized-single-float}
 @cindex least-positive-normalized-single-float
-@syindex most-negative-short-float
+@syindexanchor{most-negative-short-float}
 @cindex most-negative-short-float
-@syindex least-negative-short-float
+@syindexanchor{least-negative-short-float}
 @cindex least-negative-short-float
-@syindex least-negative-normalized-short-float
+@syindexanchor{least-negative-normalized-short-float}
 @cindex least-negative-normalized-short-float
-@syindex most-negative-single-float
+@syindexanchor{most-negative-single-float}
 @cindex most-negative-single-float
-@syindex least-negative-single-float
+@syindexanchor{least-negative-single-float}
 @cindex least-negative-single-float
-@syindex least-negative-normalized-single-float
+@syindexanchor{least-negative-normalized-single-float}
 @cindex least-negative-normalized-single-float
-@syindex most-negative-double-float
+@syindexanchor{most-negative-double-float}
 @cindex most-negative-double-float
-@syindex least-negative-double-float
+@syindexanchor{least-negative-double-float}
 @cindex least-negative-double-float
-@syindex least-negative-normalized-double-float
+@syindexanchor{least-negative-normalized-double-float}
 @cindex least-negative-normalized-double-float
-@syindex most-negative-long-float
+@syindexanchor{most-negative-long-float}
 @cindex most-negative-long-float
-@syindex least-negative-long-float
+@syindexanchor{least-negative-long-float}
 @cindex least-negative-long-float
-@syindex least-negative-normalized-long-float
+@syindexanchor{least-negative-normalized-long-float}
 @cindex least-negative-normalized-long-float
 
 
@@ -5828,21 +5828,21 @@ for the float format implied by its name.
 
 @node short-float-epsilon; short-float-negative-epsilon; single-float-epsilon+
 @subsection short-float-epsilon, short-float-negative-epsilon, single-float-epsilon, single-float-negative-epsilon, double-float-epsilon, double-float-negative-epsilon, long-float-epsilon, long-float-negative-epsilon (Constant Variable)
-@syindex short-float-epsilon
+@syindexanchor{short-float-epsilon}
 @cindex short-float-epsilon
-@syindex short-float-negative-epsilon
+@syindexanchor{short-float-negative-epsilon}
 @cindex short-float-negative-epsilon
-@syindex single-float-epsilon
+@syindexanchor{single-float-epsilon}
 @cindex single-float-epsilon
-@syindex single-float-negative-epsilon
+@syindexanchor{single-float-negative-epsilon}
 @cindex single-float-negative-epsilon
-@syindex double-float-epsilon
+@syindexanchor{double-float-epsilon}
 @cindex double-float-epsilon
-@syindex double-float-negative-epsilon
+@syindexanchor{double-float-negative-epsilon}
 @cindex double-float-negative-epsilon
-@syindex long-float-epsilon
+@syindexanchor{long-float-epsilon}
 @cindex long-float-epsilon
-@syindex long-float-negative-epsilon
+@syindexanchor{long-float-negative-epsilon}
 @cindex long-float-negative-epsilon
 
 
@@ -5872,7 +5872,7 @@ expression is @term{true} when evaluated:
 
 @node arithmetic-error
 @subsection arithmetic-error (Condition Type)
-@syindex arithmetic-error
+@syindexanchor{arithmetic-error}
 @cindex arithmetic-error
 
 
@@ -5900,9 +5900,9 @@ the functions @coderef{arithmetic-error-operation} and
 
 @node arithmetic-error-operands; arithmetic-error-operation
 @subsection arithmetic-error-operands, arithmetic-error-operation (Function)
-@syindex arithmetic-error-operands
+@syindexanchor{arithmetic-error-operands}
 @cindex arithmetic-error-operands
-@syindex arithmetic-error-operation
+@syindexanchor{arithmetic-error-operation}
 @cindex arithmetic-error-operation
 @anchor{arithmetic-error-operands}
 @anchor{arithmetic-error-operation}
@@ -5940,7 +5940,7 @@ the offending operation in the offending call that signaled the @param{condition
 
 @node division-by-zero
 @subsection division-by-zero (Condition Type)
-@syindex division-by-zero
+@syindexanchor{division-by-zero}
 @cindex division-by-zero
 
 
@@ -5960,7 +5960,7 @@ occur because of division by zero.
 
 @node floating-point-invalid-operation
 @subsection floating-point-invalid-operation (Condition Type)
-@syindex floating-point-invalid-operation
+@syindexanchor{floating-point-invalid-operation}
 @cindex floating-point-invalid-operation
 
 
@@ -5988,7 +5988,7 @@ depend on its being @term{signaled}.
 
 @node floating-point-inexact
 @subsection floating-point-inexact (Condition Type)
-@syindex floating-point-inexact
+@syindexanchor{floating-point-inexact}
 @cindex floating-point-inexact
 
 
@@ -6016,7 +6016,7 @@ depend on its being @term{signaled}.
 
 @node floating-point-overflow
 @subsection floating-point-overflow (Condition Type)
-@syindex floating-point-overflow
+@syindexanchor{floating-point-overflow}
 @cindex floating-point-overflow
 
 
@@ -6036,7 +6036,7 @@ conditions that occur because of floating-point overflow.
 
 @node floating-point-underflow
 @subsection floating-point-underflow (Condition Type)
-@syindex floating-point-underflow
+@syindexanchor{floating-point-underflow}
 @cindex floating-point-underflow
 
 

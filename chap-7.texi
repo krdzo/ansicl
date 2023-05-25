@@ -1869,7 +1869,7 @@ The inheritance of methods is described in detail in
 
 @node function-keywords
 @subsection function-keywords (Standard Generic Function)
-@syindex function-keywords
+@syindexanchor{function-keywords}
 @cindex function-keywords
 
 
@@ -1933,7 +1933,7 @@ had been specified in the @param{method} definition.
 
 @node ensure-generic-function
 @subsection ensure-generic-function (Function)
-@syindex ensure-generic-function
+@syindexanchor{ensure-generic-function}
 @cindex ensure-generic-function
 
 
@@ -2036,7 +2036,7 @@ an error @oftype{error} is signaled.
 
 @node allocate-instance
 @subsection allocate-instance (Standard Generic Function)
-@syindex allocate-instance
+@syindexanchor{allocate-instance}
 @cindex allocate-instance
 
 
@@ -2090,7 +2090,7 @@ This capability might be added by the @term{Metaobject Protocol}.
 
 @node reinitialize-instance
 @subsection reinitialize-instance (Standard Generic Function)
-@syindex reinitialize-instance
+@syindexanchor{reinitialize-instance}
 @cindex reinitialize-instance
 
 
@@ -2161,7 +2161,7 @@ which that @term{method} is applicable.
 
 @node shared-initialize (Standard Generic Function)
 @subsection shared-initialize (Standard Generic Function)
-@syindex shared-initialize
+@syindexanchor{shared-initialize}
 @cindex shared-initialize
 
 
@@ -2284,7 +2284,7 @@ effects other than a performance improvement.
 
 @node update-instance-for-different-class
 @subsection update-instance-for-different-class (Standard Generic Function)
-@syindex update-instance-for-different-class
+@syindexanchor{update-instance-for-different-class}
 @cindex update-instance-for-different-class
 
 
@@ -2390,7 +2390,7 @@ ignored by @coderef{change-class}.
 
 @node update-instance-for-redefined-class
 @subsection update-instance-for-redefined-class (Standard Generic Function)
-@syindex update-instance-for-redefined-class
+@syindexanchor{update-instance-for-redefined-class}
 @cindex update-instance-for-redefined-class
 
 
@@ -2542,7 +2542,7 @@ for all @term{classes} for which that @term{method} is applicable.
 
 @node change-class
 @subsection change-class (Standard Generic Function)
-@syindex change-class
+@syindexanchor{change-class}
 @cindex change-class
 
 
@@ -2660,7 +2660,7 @@ violated.  This implies that a programmer must not use
 
 @node slot-boundp
 @subsection slot-boundp (Function)
-@syindex slot-boundp
+@syindexanchor{slot-boundp}
 @cindex slot-boundp
 
 
@@ -2722,7 +2722,7 @@ those @term{slots} that have not already been bound.
 
 @node slot-exists-p
 @subsection slot-exists-p (Function)
-@syindex slot-exists-p
+@syindexanchor{slot-exists-p}
 @cindex slot-exists-p
 
 
@@ -2761,7 +2761,7 @@ a @term{slot} named @param{slot-name}.
 
 @node slot-makunbound
 @subsection slot-makunbound (Function)
-@syindex slot-makunbound
+@syindexanchor{slot-makunbound}
 @cindex slot-makunbound
 
 
@@ -2816,7 +2816,7 @@ for @term{conditions} and @term{structures} is not specified.
 
 @node slot-missing
 @subsection slot-missing (Standard Generic Function)
-@syindex slot-missing
+@syindexanchor{slot-missing}
 @cindex slot-missing
 
 
@@ -2912,7 +2912,7 @@ defining methods on the metaclass for @coderef{slot-missing}.
 
 @node slot-unbound
 @subsection slot-unbound (Standard Generic Function)
-@syindex slot-unbound
+@syindexanchor{slot-unbound}
 @cindex slot-unbound
 
 
@@ -2975,7 +2975,7 @@ or if @coderef{slot-makunbound} has been called on the @term{slot}.
 
 @node slot-value
 @subsection slot-value (Function)
-@syindex slot-value
+@syindexanchor{slot-value}
 @cindex slot-value
 
 
@@ -3079,7 +3079,7 @@ Implementations may optimize @coderef{slot-value} by compiling it inline.
 
 @node method-qualifiers
 @subsection method-qualifiers (Standard Generic Function)
-@syindex method-qualifiers
+@syindexanchor{method-qualifiers}
 @cindex method-qualifiers
 
 
@@ -3117,7 +3117,7 @@ Returns a @term{list} of the @term{qualifiers} of the @param{method}.
 
 @node no-applicable-method
 @subsection no-applicable-method (Standard Generic Function)
-@syindex no-applicable-method
+@syindexanchor{no-applicable-method}
 @cindex no-applicable-method
 
 
@@ -3159,7 +3159,7 @@ The default @term{method} signals an error @oftype{error}.
 
 @node no-next-method
 @subsection no-next-method (Standard Generic Function)
-@syindex no-next-method
+@syindexanchor{no-next-method}
 @cindex no-next-method
 
 
@@ -3204,7 +3204,7 @@ signals an error @oftype{error}. @editornote{KMP: perhaps control-error??}
 
 @node remove-method
 @subsection remove-method (Standard Generic Function)
-@syindex remove-method
+@syindexanchor{remove-method}
 @cindex remove-method
 
 
@@ -3239,7 +3239,7 @@ is not one of the @term{methods} on the @param{generic-function}.
 
 @node make-instance
 @subsection make-instance (Standard Generic Function)
-@syindex make-instance
+@syindexanchor{make-instance}
 @cindex make-instance
 
 
@@ -3292,7 +3292,7 @@ been declared as valid, an error @oftype{error} is signaled.
 
 @node make-instances-obsolete
 @subsection make-instances-obsolete (Standard Generic Function)
-@syindex make-instances-obsolete
+@syindexanchor{make-instances-obsolete}
 @cindex make-instances-obsolete
 
 
@@ -3339,7 +3339,7 @@ If the second of the above @term{methods} is selected, that
 
 @node make-load-form
 @subsection make-load-form (Standard Generic Function)
-@syindex make-load-form
+@syindexanchor{make-load-form}
 @cindex make-load-form
 
 
@@ -3638,7 +3638,7 @@ for @coderef{make-load-form}.
 
 @node make-load-form-saving-slots
 @subsection make-load-form-saving-slots (Function)
-@syindex make-load-form-saving-slots
+@syindexanchor{make-load-form-saving-slots}
 @cindex make-load-form-saving-slots
 
 
@@ -3706,7 +3706,7 @@ might actually be used.
 
 @node with-accessors
 @subsection with-accessors (Macro)
-@syindex with-accessors
+@syindexanchor{with-accessors}
 @cindex with-accessors
 
 
@@ -3798,7 +3798,7 @@ A @coderef{with-accessors} expression of the form:
 
 @node with-slots
 @subsection with-slots (Macro)
-@syindex with-slots
+@syindexanchor{with-slots}
 @cindex with-slots
 
 
@@ -3900,7 +3900,7 @@ A @coderef{with-slots} expression of the form:
 
 @node defclass
 @subsection defclass (Macro)
-@syindex defclass
+@syindexanchor{defclass}
 @cindex defclass
 
 
@@ -4239,7 +4239,7 @@ or a slot option that is not implemented locally.
 
 @node defgeneric
 @subsection defgeneric (Macro)
-@syindex defgeneric
+@syindexanchor{defgeneric}
 @cindex defgeneric
 
 
@@ -4499,7 +4499,7 @@ it observes an option that is not implemented locally.
 
 @node defmethod
 @subsection defmethod (Macro)
-@syindex defmethod
+@syindexanchor{defmethod}
 @cindex defmethod
 
 
@@ -4676,7 +4676,7 @@ an error @oftype{error} is signaled.
 
 @node find-class
 @subsection find-class (Accessor)
-@syindex find-class
+@syindexanchor{find-class}
 @cindex find-class
 
 
@@ -4742,7 +4742,7 @@ If there is no such @term{class} and @param{errorp} is @term{true},
 
 @node next-method-p
 @subsection next-method-p (Local Function)
-@syindex next-method-p
+@syindexanchor{next-method-p}
 @cindex next-method-p
 
 
@@ -4766,7 +4766,7 @@ whether a next @term{method} exists.
 Whether or not @coderef{next-method-p} is @term{fbound} in the
 @term{global environment} is @term{implementation-dependent};
 however, the restrictions on redefinition and @term{shadowing} of
-@coderef{next-method-p} are the same as for @term{symbols} in the @coderef{COMMON-LISP} @term{package}
+@coderef{next-method-p} are the same as for @term{symbols} in the @code{COMMON-LISP} @term{package}
 which are @term{fbound} in the @term{global environment}.
 The consequences of attempting to use @coderef{next-method-p} outside
 of a @term{method-defining form} are undefined.
@@ -4780,9 +4780,9 @@ of a @term{method-defining form} are undefined.
 
 @node call-method; make-method
 @subsection call-method, make-method (Local Macro)
-@syindex call-method
+@syindexanchor{call-method}
 @cindex call-method
-@syindex make-method
+@syindexanchor{make-method}
 @cindex make-method
 @anchor{call-method}
 
@@ -4817,7 +4817,7 @@ an @term{effective method} @term{form}.
 Whether or not @coderef{call-method} is @term{fbound} in the
 @term{global environment} is @term{implementation-dependent};
 however, the restrictions on redefinition and @term{shadowing} of
-@coderef{call-method} are the same as for @term{symbols} in the @coderef{COMMON-LISP} @term{package}
+@coderef{call-method} are the same as for @term{symbols} in the @code{COMMON-LISP} @term{package}
 which are @term{fbound} in the @term{global environment}.
 The consequences of attempting to use @coderef{call-method} outside
 of an @term{effective method} @term{form} are undefined.
@@ -4876,7 +4876,7 @@ available to @param{method} returns @nil{}.
 
 @node call-next-method
 @subsection call-next-method (Local Function)
-@syindex call-next-method
+@syindexanchor{call-next-method}
 @cindex call-next-method
 
 
@@ -4932,7 +4932,7 @@ returned by the @term{next method}.
 Whether or not @coderef{call-next-method} is @term{fbound} in the
 @term{global environment} is @term{implementation-dependent};
 however, the restrictions on redefinition and @term{shadowing} of
-@coderef{call-next-method} are the same as for @term{symbols} in the @coderef{COMMON-LISP} @term{package}
+@coderef{call-next-method} are the same as for @term{symbols} in the @code{COMMON-LISP} @term{package}
 which are @term{fbound} in the @term{global environment}.
 The consequences of attempting to use @coderef{call-next-method} outside
 of a @term{method-defining form} are undefined.
@@ -4970,7 +4970,7 @@ the semantics of @coderef{call-next-method}.
 
 @node compute-applicable-methods
 @subsection compute-applicable-methods (Standard Generic Function)
-@syindex compute-applicable-methods
+@syindexanchor{compute-applicable-methods}
 @cindex compute-applicable-methods
 
 
@@ -5012,7 +5012,7 @@ See @ref{Method Selection and Combination}.
 
 @node define-method-combination
 @subsection define-method-combination (Macro)
-@syindex define-method-combination
+@syindexanchor{define-method-combination}
 @cindex define-method-combination
 
 
@@ -5588,7 +5588,7 @@ arguments are options for that type.
 
 @node find-method
 @subsection find-method (Standard Generic Function)
-@syindex find-method
+@syindexanchor{find-method}
 @cindex find-method
 
 
@@ -5677,7 +5677,7 @@ If there is no such @term{method} and @param{errorp} is @term{true},
 
 @node add-method
 @subsection add-method (Standard Generic Function)
-@syindex add-method
+@syindexanchor{add-method}
 @cindex add-method
 
 
@@ -5727,7 +5727,7 @@ another @term{generic function}, an error @oftype{error} is signaled.
 
 @node initialize-instance (Standard Generic Function)
 @subsection initialize-instance (Standard Generic Function)
-@syindex initialize-instance
+@syindexanchor{initialize-instance}
 @cindex initialize-instance
 
 
@@ -5779,7 +5779,7 @@ not interfere with the default behavior of @coderef{initialize-instance}.
 
 @node class-name
 @subsection class-name (Standard Generic Function)
-@syindex class-name
+@syindexanchor{class-name}
 @cindex class-name
 
 
@@ -5817,7 +5817,7 @@ The name of an anonymous @term{class} is @nil{}.
 
 @node setf class-name
 @subsection (setf class-name) (Standard Generic Function)
-@syindex (setf class-name)
+@syindexanchor{(setf class-name)}
 @cindex (setf class-name)
 
 
@@ -5851,7 +5851,7 @@ a @param{class} object.
 
 @node class-of
 @subsection class-of (Function)
-@syindex class-of
+@syindexanchor{class-of}
 @cindex class-of
 
 
@@ -5895,7 +5895,7 @@ a @term{direct instance}.
 
 @node unbound-slot
 @subsection unbound-slot (Condition Type)
-@syindex unbound-slot
+@syindexanchor{unbound-slot}
 @cindex unbound-slot
 
 
@@ -5925,7 +5925,7 @@ The name of the cell (see @coderef{cell-error}) is the name of the slot.
 
 @node unbound-slot-instance
 @subsection unbound-slot-instance (Function)
-@syindex unbound-slot-instance
+@syindexanchor{unbound-slot-instance}
 @cindex unbound-slot-instance
 
 

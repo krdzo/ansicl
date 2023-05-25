@@ -2291,13 +2291,8 @@ described in @ref{Contagion in Numeric Operations}.
 
 @f{#C(@param{real} @param{imag})} is equivalent to
 @f{#.(complex (quote @param{real}) (quote @param{imag}))},
-<<<<<<< HEAD
-except that @f{#C} is not affected by @code{*read-eval*}.
-See the @term{function} @ref{complex (Function)}.
-=======
 except that @f{#C} is not affected by @coderef{*read-eval*}.
-See the @term{function} @ref{complex-f, complex (Function)}.
->>>>>>> 1c1515f (Change @code to @coderef)
+See the @term{function} @ref{complex (Function)}.
 
 @Thenextfigure{}@spc{}contains examples of the use of @tt{#C}.
 

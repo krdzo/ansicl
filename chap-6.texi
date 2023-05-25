@@ -2155,9 +2155,9 @@ extensions to @coderef{loop}.
 
 @node do; do*
 @subsection do, do* (Macro)
-@syindex do
+@syindexanchor{do}
 @cindex do
-@syindex do*
+@syindexanchor{do*}
 @cindex do*
 @anchor{do}
 
@@ -2423,7 +2423,7 @@ the @coderef{let} and @coderef{psetq}, respectively.
 
 @node dotimes
 @subsection dotimes (Macro)
-@syindex dotimes
+@syindexanchor{dotimes}
 @cindex dotimes
 
 
@@ -2545,7 +2545,7 @@ Here is an example of the use of @f{dotimes} in processing strings:
 
 @node dolist
 @subsection dolist (Macro)
-@syindex dolist
+@syindexanchor{dolist}
 @cindex dolist
 
 
@@ -2638,7 +2638,7 @@ to transfer control to a statement labeled by a @param{tag}.
 
 @node loop
 @subsection loop (Macro)
-@syindex loop
+@syindexanchor{loop}
 @cindex loop
 
 
@@ -2779,7 +2779,7 @@ in the following way:
 
 @node loop-finish
 @subsection loop-finish (Local Macro)
-@syindex loop-finish
+@syindexanchor{loop-finish}
 @cindex loop-finish
 
 
@@ -2855,7 +2855,7 @@ Transfers control.
 Whether or not @coderef{loop-finish} is @term{fbound} in the
 @term{global environment} is @term{implementation-dependent};
 however, the restrictions on redefinition and @term{shadowing} of
-@coderef{loop-finish} are the same as for @term{symbols} in the @coderef{COMMON-LISP} @term{package}
+@coderef{loop-finish} are the same as for @term{symbols} in the @code{COMMON-LISP} @term{package}
 which are @term{fbound} in the @term{global environment}.
 The consequences of attempting to use @coderef{loop-finish} outside
 of @coderef{loop} are undefined.

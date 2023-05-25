@@ -68,7 +68,7 @@ to the creation of and inquiry about @term{symbols}.
 
 @node symbol
 @subsection symbol (System Class)
-@syindex symbol
+@syindexanchor{symbol}
 @cindex symbol
 
 
@@ -209,7 +209,7 @@ on a lexical @term{function} definition.
 
 @node keyword
 @subsection keyword (Type)
-@syindex keyword
+@syindexanchor{keyword}
 @cindex keyword
 
 
@@ -241,7 +241,7 @@ of the @code{KEYWORD} @term{package}.
 
 @node symbolp
 @subsection symbolp (Function)
-@syindex symbolp
+@syindexanchor{symbolp}
 @cindex symbolp
 
 
@@ -287,7 +287,7 @@ of the @code{KEYWORD} @term{package}.
 
 @node keywordp
 @subsection keywordp (Function)
-@syindex keywordp
+@syindexanchor{keywordp}
 @cindex keywordp
 
 
@@ -331,7 +331,7 @@ of the @code{KEYWORD} @term{package}.
 
 @node make-symbol
 @subsection make-symbol (Function)
-@syindex make-symbol
+@syindexanchor{make-symbol}
 @cindex make-symbol
 
 
@@ -390,7 +390,7 @@ and the program interface to interning symbols is case-sensitive.
 
 @node copy-symbol
 @subsection copy-symbol (Function)
-@syindex copy-symbol
+@syindexanchor{copy-symbol}
 @cindex copy-symbol
 
 
@@ -471,7 +471,7 @@ be @term{identical} to the given @param{symbol}'s @term{name}.
 
 @node gensym
 @subsection gensym (Function)
-@syindex gensym
+@syindexanchor{gensym}
 @cindex gensym
 
 
@@ -552,7 +552,7 @@ of the @param{new-symbol}'s @term{name}, consider using @coderef{make-symbol} in
 
 @node *gensym-counter*
 @subsection *gensym-counter* (Variable)
-@syindex *gensym-counter*
+@syindexanchor{*gensym-counter*}
 @cindex *gensym-counter*
 
 
@@ -587,7 +587,7 @@ explicitly @term{binding} @coderef{*gensym-counter*} is now stylistically prefer
 
 @node gentemp
 @subsection gentemp (Function)
-@syindex gentemp
+@syindexanchor{gentemp}
 @cindex gentemp
 
 
@@ -682,7 +682,7 @@ another day for some other purpose.
 
 @node symbol-function
 @subsection symbol-function (Accessor)
-@syindex symbol-function
+@syindexanchor{symbol-function}
 @cindex symbol-function
 
 
@@ -786,7 +786,7 @@ However, @coderef{fdefinition} accepts arguments other than just @term{symbols}.
 
 @node symbol-name
 @subsection symbol-name (Function)
-@syindex symbol-name
+@syindexanchor{symbol-name}
 @cindex symbol-name
 
 
@@ -821,7 +821,7 @@ The consequences are undefined if @param{name} is ever modified.
 
 @node symbol-package
 @subsection symbol-package (Function)
-@syindex symbol-package
+@syindexanchor{symbol-package}
 @cindex symbol-package
 
 
@@ -885,7 +885,7 @@ Returns the @term{home package} of @param{symbol}.
 
 @node symbol-plist
 @subsection symbol-plist (Accessor)
-@syindex symbol-plist
+@syindexanchor{symbol-plist}
 @cindex symbol-plist
 
 
@@ -936,7 +936,7 @@ established and depended upon by unrelated programs in the same @term{Lisp image
 
 @node symbol-value
 @subsection symbol-value (Accessor)
-@syindex symbol-value
+@syindexanchor{symbol-value}
 @cindex symbol-value
 
 
@@ -1016,7 +1016,7 @@ on an attempt to @term{write} its @term{value}.)
 
 @node get
 @subsection get (Accessor)
-@syindex get
+@syindexanchor{get}
 @cindex get
 
 
@@ -1125,7 +1125,7 @@ one whose value is @param{default}.  However, see @coderef{get-properties}.
 
 @node remprop
 @subsection remprop (Function)
-@syindex remprop
+@syindexanchor{remprop}
 @cindex remprop
 
 
@@ -1217,7 +1217,7 @@ establish the @term{property}.
 
 @node boundp
 @subsection boundp (Function)
-@syindex boundp
+@syindexanchor{boundp}
 @cindex boundp
 
 
@@ -1267,7 +1267,7 @@ are ignored.
 
 @node makunbound
 @subsection makunbound (Function)
-@syindex makunbound
+@syindexanchor{makunbound}
 @cindex makunbound
 
 
@@ -1310,7 +1310,7 @@ The @term{value cell} of @param{symbol} is modified.
 
 @node set
 @subsection set (Function)
-@syindex set
+@syindexanchor{set}
 @cindex set
 
 
@@ -1389,7 +1389,7 @@ The function @coderef{set} is deprecated.
 
 @node unbound-variable
 @subsection unbound-variable (Condition Type)
-@syindex unbound-variable
+@syindexanchor{unbound-variable}
 @cindex unbound-variable
 
 

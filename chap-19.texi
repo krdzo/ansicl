@@ -957,7 +957,7 @@ The null string, @f{""}, is not a valid value for any component of a @term{logic
 
 @node pathname (System Class)
 @subsection pathname (System Class)
-@syindex pathname
+@syindexanchor{pathname}
 @cindex pathname
 
 
@@ -974,7 +974,7 @@ There are two kinds of @term{pathnames}---@term{physical pathnames} and
 
 @node logical-pathname (System Class)
 @subsection logical-pathname (System Class)
-@syindex logical-pathname
+@syindexanchor{logical-pathname-}
 @cindex logical-pathname
 
 
@@ -1002,7 +1002,7 @@ and that has component values that are @term{implementation-independent}.
 
 @node pathname (Function)
 @subsection pathname (Function)
-@syindex pathname
+@syindexanchor{pathname}
 @cindex pathname
 
 
@@ -1081,7 +1081,7 @@ a @term{logical pathname} is returned.
 
 @node make-pathname
 @subsection make-pathname (Function)
-@syindex make-pathname
+@syindexanchor{make-pathname}
 @cindex make-pathname
 
 
@@ -1222,7 +1222,7 @@ See @ref{UNSPECIFIC as a Component Value}.
 
 @node pathnamep
 @subsection pathnamep (Function)
-@syindex pathnamep
+@syindexanchor{pathnamep}
 @cindex pathnamep
 
 
@@ -1265,17 +1265,17 @@ See @ref{UNSPECIFIC as a Component Value}.
 
 @node pathname-host; pathname-device; pathname-directory; pathname-name; path+
 @subsection pathname-host, pathname-device, pathname-directory, pathname-name, pathname-type, pathname-version (Function)
-@syindex pathname-host
+@syindexanchor{pathname-host}
 @cindex pathname-host
-@syindex pathname-device
+@syindexanchor{pathname-device}
 @cindex pathname-device
-@syindex pathname-directory
+@syindexanchor{pathname-directory}
 @cindex pathname-directory
-@syindex pathname-name
+@syindexanchor{pathname-name}
 @cindex pathname-name
-@syindex pathname-type
+@syindexanchor{pathname-type}
 @cindex pathname-type
-@syindex pathname-version
+@syindexanchor{pathname-version}
 @cindex pathname-version
 @anchor{pathname-host}
 
@@ -1411,7 +1411,7 @@ Should signal an error @oftype{type-error} if its first argument is not a @term{
 
 @node load-logical-pathname-translations
 @subsection load-logical-pathname-translations (Function)
-@syindex load-logical-pathname-translations
+@syindexanchor{load-logical-pathname-translations}
 @cindex load-logical-pathname-translations
 
 
@@ -1477,7 +1477,7 @@ definition of a @param{host} is to be found in a file called
 
 @node logical-pathname-translations
 @subsection logical-pathname-translations (Accessor)
-@syindex logical-pathname-translations
+@syindexanchor{logical-pathname-translations}
 @cindex logical-pathname-translations
 
 
@@ -1672,7 +1672,7 @@ for example to specify additional translation rules or options.
 
 @node logical-pathname (Function)
 @subsection logical-pathname (Function)
-@syindex logical-pathname
+@syindexanchor{logical-pathname}
 @cindex logical-pathname
 
 
@@ -1725,7 +1725,7 @@ Signals an error @oftype{type-error} if @param{pathspec} isn't supplied correctl
 
 @node *default-pathname-defaults*
 @subsection *default-pathname-defaults* (Variable)
-@syindex *default-pathname-defaults*
+@syindexanchor{*default-pathname-defaults*}
 @cindex *default-pathname-defaults*
 
 
@@ -1765,15 +1765,15 @@ The @term{implementation}.
 
 @node namestring; file-namestring; directory-namestring; host-namestring; eno+
 @subsection namestring, file-namestring, directory-namestring, host-namestring, enough-namestring (Function)
-@syindex namestring
+@syindexanchor{namestring}
 @cindex namestring
-@syindex file-namestring
+@syindexanchor{file-namestring}
 @cindex file-namestring
-@syindex directory-namestring
+@syindexanchor{directory-namestring}
 @cindex directory-namestring
-@syindex host-namestring
+@syindexanchor{host-namestring}
 @cindex host-namestring
-@syindex enough-namestring
+@syindexanchor{enough-namestring}
 @cindex enough-namestring
 @anchor{namestring}
 
@@ -1888,7 +1888,7 @@ by concatenating some of the three shorter @term{namestrings} in some order.
 
 @node parse-namestring
 @subsection parse-namestring (Function)
-@syindex parse-namestring
+@syindexanchor{parse-namestring}
 @cindex parse-namestring
 
 
@@ -2048,7 +2048,7 @@ an error @oftype{error} is signaled.
 
 @node wild-pathname-p
 @subsection wild-pathname-p (Function)
-@syindex wild-pathname-p
+@syindexanchor{wild-pathname-p}
 @cindex wild-pathname-p
 
 
@@ -2121,7 +2121,7 @@ See @ref{WILD as a Component Value}@spc{}and @ref{Restrictions on Wildcard Pathn
 
 @node pathname-match-p
 @subsection pathname-match-p (Function)
-@syindex pathname-match-p
+@syindexanchor{pathname-match-p}
 @cindex pathname-match-p
 
 
@@ -2167,7 +2167,7 @@ or @term{stream associated with a file} an error @oftype{type-error} is signaled
 
 @node translate-logical-pathname
 @subsection translate-logical-pathname (Function)
-@syindex translate-logical-pathname
+@syindexanchor{translate-logical-pathname}
 @cindex translate-logical-pathname
 
 
@@ -2254,7 +2254,7 @@ If no translation matches, an error @oftype{file-error} is signaled.
 
 @node translate-pathname
 @subsection translate-pathname (Function)
-@syindex translate-pathname
+@syindexanchor{translate-pathname}
 @cindex translate-pathname
 
 
@@ -2426,7 +2426,7 @@ the result.
 
 @node merge-pathnames
 @subsection merge-pathnames (Function)
-@syindex merge-pathnames
+@syindexanchor{merge-pathnames}
 @cindex merge-pathnames
 
 

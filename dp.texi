@@ -9,8 +9,13 @@
 @include dph.texi
 @end ifnotinfo
 
+@macro syindexanchor {arg}
+@syindex \arg\
+@anchor{s-\arg\}
+@end macro
+
 @macro coderef {arg}
-@code{\arg\}
+@code{@ref{s-\arg\, \arg\}}
 @end macro
 
 @macro spc {}

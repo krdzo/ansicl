@@ -16,7 +16,7 @@
 
 @node defstruct
 @subsection defstruct (Macro)
-@syindex defstruct
+@syindexanchor{defstruct}
 @cindex defstruct
 
 
@@ -1151,7 +1151,7 @@ some other @term{implementation-dependent} mechanism known to that
 
 @node copy-structure
 @subsection copy-structure (Function)
-@syindex copy-structure
+@syindexanchor{copy-structure}
 @cindex copy-structure
 
 
