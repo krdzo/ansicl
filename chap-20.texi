@@ -183,7 +183,7 @@ where all files have numeric versions.
 
 @node directory
 @subsection directory (Function)
-@syindexanchor{directory}
+@syindexanchor{directory, REF}
 @cindex directory
 
 
@@ -244,7 +244,7 @@ by the @term{implementation}.
 
 @node probe-file
 @subsection probe-file (Function)
-@syindexanchor{probe-file}
+@syindexanchor{probe-file, REF}
 @cindex probe-file
 
 
@@ -295,7 +295,7 @@ if the @term{file system} cannot perform the requested operation.
 
 @node ensure-directories-exist
 @subsection ensure-directories-exist (Function)
-@syindexanchor{ensure-directories-exist}
+@syindexanchor{ensure-directories-exist, REF}
 @cindex ensure-directories-exist
 
 
@@ -352,7 +352,7 @@ within the @term{file system}.
 
 @node truename
 @subsection truename (Function)
-@syindexanchor{truename}
+@syindexanchor{truename, REF}
 @cindex truename
 
 
@@ -434,7 +434,7 @@ performed by the @term{file system}.
 
 @node file-author
 @subsection file-author (Function)
-@syindexanchor{file-author}
+@syindexanchor{file-author, REF}
 @cindex file-author
 
 
@@ -483,7 +483,7 @@ if the @term{file system} cannot perform the requested operation.
 
 @node file-write-date
 @subsection file-write-date (Function)
-@syindexanchor{file-write-date}
+@syindexanchor{file-write-date, REF}
 @cindex file-write-date
 
 
@@ -538,7 +538,7 @@ if the @term{file system} cannot perform the requested operation.
 
 @node rename-file
 @subsection rename-file (Function)
-@syindexanchor{rename-file}
+@syindexanchor{rename-file, REF}
 @cindex rename-file
 
 
@@ -621,7 +621,7 @@ An error @oftype{file-error} might be signaled if @param{filespec} is @term{wild
 
 @node delete-file
 @subsection delete-file (Function)
-@syindexanchor{delete-file}
+@syindexanchor{delete-file, REF}
 @cindex delete-file
 
 
@@ -686,7 +686,7 @@ An error @oftype{file-error} might be signaled if @param{filespec} is @term{wild
 
 @node file-error
 @subsection file-error (Condition Type)
-@syindexanchor{file-error}
+@syindexanchor{file-error, REF}
 @cindex file-error
 
 
@@ -716,7 +716,7 @@ by @thefunction{file-error-pathname}.
 
 @node file-error-pathname
 @subsection file-error-pathname (Function)
-@syindexanchor{file-error-pathname}
+@syindexanchor{file-error-pathname, REF}
 @cindex file-error-pathname
 
 

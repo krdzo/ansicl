@@ -2155,9 +2155,9 @@ extensions to @coderef{loop}.
 
 @node do; do*
 @subsection do, do* (Macro)
-@syindexanchor{do}
+@syindexanchor{do, REF}
 @cindex do
-@syindexanchor{do*}
+@syindexanchor{do*, REF}
 @cindex do*
 @anchor{do}
 
@@ -2423,7 +2423,7 @@ the @coderef{let} and @coderef{psetq}, respectively.
 
 @node dotimes
 @subsection dotimes (Macro)
-@syindexanchor{dotimes}
+@syindexanchor{dotimes, REF}
 @cindex dotimes
 
 
@@ -2545,7 +2545,7 @@ Here is an example of the use of @f{dotimes} in processing strings:
 
 @node dolist
 @subsection dolist (Macro)
-@syindexanchor{dolist}
+@syindexanchor{dolist, REF}
 @cindex dolist
 
 
@@ -2638,7 +2638,7 @@ to transfer control to a statement labeled by a @param{tag}.
 
 @node loop
 @subsection loop (Macro)
-@syindexanchor{loop}
+@syindexanchor{loop, REF}
 @cindex loop
 
 
@@ -2779,7 +2779,7 @@ in the following way:
 
 @node loop-finish
 @subsection loop-finish (Local Macro)
-@syindexanchor{loop-finish}
+@syindexanchor{loop-finish, REF}
 @cindex loop-finish
 
 

@@ -1242,7 +1242,7 @@ class named @coderef{t}.
 
 @node nil (Type)
 @subsection nil (Type)
-@syindexanchor{nil}
+@syindexanchor{nil, T}
 @cindex nil
 
 
@@ -1264,7 +1264,7 @@ not @thetype{nil}.
 
 @node boolean
 @subsection boolean (Type)
-@syindexanchor{boolean}
+@syindexanchor{boolean, REF}
 @cindex boolean
 
 
@@ -1302,7 +1302,7 @@ even for a @term{generalized boolean} when no better choice presents itself.
 
 @node function (System Class)
 @subsection function (System Class)
-@syindexanchor{function}
+@syindexanchor{function, SC}
 @cindex function
 
 
@@ -1472,7 +1472,7 @@ they are both @tt{function} declarations, the declarations combine similarly.
 
 @node compiled-function
 @subsection compiled-function (Type)
-@syindexanchor{compiled-function}
+@syindexanchor{compiled-function, REF}
 @cindex compiled-function
 
 
@@ -1501,7 +1501,7 @@ Other @term{functions} might also be @oftype{compiled-function}.
 
 @node generic-function
 @subsection generic-function (System Class)
-@syindexanchor{generic-function}
+@syindexanchor{generic-function, REF}
 @cindex generic-function
 
 
@@ -1531,7 +1531,7 @@ and can be given a global or a local name.
 
 @node standard-generic-function
 @subsection standard-generic-function (System Class)
-@syindexanchor{standard-generic-function}
+@syindexanchor{standard-generic-function, REF}
 @cindex standard-generic-function
 
 
@@ -1554,7 +1554,7 @@ and
 
 @node class
 @subsection class (System Class)
-@syindexanchor{class}
+@syindexanchor{class, REF}
 @cindex class
 
 
@@ -1573,7 +1573,7 @@ directed acyclic graph of @term{classes}, its @term{slots}, and its options.
 
 @node built-in-class
 @subsection built-in-class (System Class)
-@syindexanchor{built-in-class}
+@syindexanchor{built-in-class, REF}
 @cindex built-in-class
 
 
@@ -1602,7 +1602,7 @@ in @term{methods}.
 
 @node structure-class
 @subsection structure-class (System Class)
-@syindexanchor{structure-class}
+@syindexanchor{structure-class, REF}
 @cindex structure-class
 
 
@@ -1621,7 +1621,7 @@ are @instsofclass{structure-class}.
 
 @node standard-class
 @subsection standard-class (System Class)
-@syindexanchor{standard-class}
+@syindexanchor{standard-class, REF}
 @cindex standard-class
 
 
@@ -1639,7 +1639,7 @@ defined by @coderef{defclass}.
 
 @node method
 @subsection method (System Class)
-@syindexanchor{method}
+@syindexanchor{method, REF}
 @cindex method
 
 
@@ -1674,7 +1674,7 @@ method combination.
 
 @node standard-method
 @subsection standard-method (System Class)
-@syindexanchor{standard-method}
+@syindexanchor{standard-method, REF}
 @cindex standard-method
 
 
@@ -1694,7 +1694,7 @@ method combination.
 
 @node structure-object
 @subsection structure-object (Class)
-@syindexanchor{structure-object}
+@syindexanchor{structure-object, REF}
 @cindex structure-object
 
 
@@ -1721,7 +1721,7 @@ that is defined by @coderef{defstruct}.
 
 @node standard-object
 @subsection standard-object (Class)
-@syindexanchor{standard-object}
+@syindexanchor{standard-object, REF}
 @cindex standard-object
 
 
@@ -1738,7 +1738,7 @@ and is a @term{superclass} of every @term{class} that is an @term{instance} of
 
 @node method-combination
 @subsection method-combination (System Class)
-@syindexanchor{method-combination}
+@syindexanchor{method-combination, REF}
 @cindex method-combination
 
 
@@ -1759,7 +1759,7 @@ with that @term{type}.
 
 @node t (System Class)
 @subsection t (System Class)
-@syindexanchor{t}
+@syindexanchor{t, SC}
 @cindex t
 
 
@@ -1775,7 +1775,7 @@ including itself. Every @term{object} is @oftype{t}.
 
 @node satisfies
 @subsection satisfies (Type Specifier)
-@syindexanchor{satisfies}
+@syindexanchor{satisfies, REF}
 @cindex satisfies
 
 
@@ -1813,7 +1813,7 @@ The symbol @coderef{satisfies} is not valid as a @term{type specifier}.
 
 @node member (Type Specifier)
 @subsection member (Type Specifier)
-@syindexanchor{member}
+@syindexanchor{member, TS}
 @cindex member
 
 
@@ -1849,7 +1849,7 @@ and, specifically, it is not an abbreviation for either @f{(member)} or @f{(memb
 
 @node not (Type Specifier)
 @subsection not (Type Specifier)
-@syindexanchor{not}
+@syindexanchor{not, TS}
 @cindex not
 
 
@@ -1876,7 +1876,7 @@ The symbol @coderef{not} is not valid as a @term{type specifier}.
 
 @node and (Type Specifier)
 @subsection and (Type Specifier)
-@syindexanchor{and}
+@syindexanchor{and, TS}
 @cindex and
 
 
@@ -1906,7 +1906,7 @@ and, specifically, it is not an abbreviation for @f{(and)}.
 
 @node or (Type Specifier)
 @subsection or (Type Specifier)
-@syindexanchor{or}
+@syindexanchor{or, TS}
 @cindex or
 
 
@@ -1939,7 +1939,7 @@ and, specifically, it is not an abbreviation for @f{(or)}.
 
 @node values (Type Specifier)
 @subsection values (Type Specifier)
-@syindexanchor{values}
+@syindexanchor{values, TS}
 @cindex values
 
 
@@ -1978,7 +1978,7 @@ and, specifically, it is not an abbreviation for @f{(values)}.
 
 @node eql (Type Specifier)
 @subsection eql (Type Specifier)
-@syindexanchor{eql}
+@syindexanchor{eql, TS}
 @cindex eql
 
 
@@ -2007,7 +2007,7 @@ The @term{symbol} @t{eql} is not valid as an @term{atomic type specifier}.
 
 @node coerce
 @subsection coerce (Function)
-@syindexanchor{coerce}
+@syindexanchor{coerce, REF}
 @cindex coerce
 
 
@@ -2183,7 +2183,7 @@ are not provided because of rounding problems.
 
 @node deftype
 @subsection deftype (Macro)
-@syindexanchor{deftype}
+@syindexanchor{deftype, REF}
 @cindex deftype
 
 
@@ -2283,7 +2283,7 @@ this @term{type} in declarations and/or signal a warning.
 
 @node subtypep
 @subsection subtypep (Function)
-@syindexanchor{subtypep}
+@syindexanchor{subtypep, REF}
 @cindex subtypep
 
 
@@ -2536,7 +2536,7 @@ as well as @term{type} @coderef{float}.
 
 @node type-of
 @subsection type-of (Function)
-@syindexanchor{type-of}
+@syindexanchor{type-of, REF}
 @cindex type-of
 
 
@@ -2673,7 +2673,7 @@ a portable value.
 
 @node typep
 @subsection typep (Function)
-@syindexanchor{typep}
+@syindexanchor{typep, REF}
 @cindex typep
 
 
@@ -2806,7 +2806,7 @@ of @coderef{deftype} information at runtime.
 
 @node type-error
 @subsection type-error (Condition Type)
-@syindexanchor{type-error}
+@syindexanchor{type-error, REF}
 @cindex type-error
 
 
@@ -2832,9 +2832,9 @@ and are @term{accessed} by the functions
 
 @node type-error-datum; type-error-expected-type
 @subsection type-error-datum, type-error-expected-type (Function)
-@syindexanchor{type-error-datum}
+@syindexanchor{type-error-datum, REF}
 @cindex type-error-datum
-@syindexanchor{type-error-expected-type}
+@syindexanchor{type-error-expected-type, REF}
 @cindex type-error-expected-type
 @anchor{type-error-datum}
 @anchor{type-error-expected-type}
@@ -2890,7 +2890,7 @@ offending datum in the @term{situation} represented by the @param{condition}.
 
 @node simple-type-error
 @subsection simple-type-error (Condition Type)
-@syindexanchor{simple-type-error}
+@syindexanchor{simple-type-error, REF}
 @cindex simple-type-error
 
 

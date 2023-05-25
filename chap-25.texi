@@ -327,7 +327,7 @@ the possibility of fractional seconds.
 
 @node decode-universal-time
 @subsection decode-universal-time (Function)
-@syindexanchor{decode-universal-time}
+@syindexanchor{decode-universal-time, REF}
 @cindex decode-universal-time
 
 
@@ -385,7 +385,7 @@ savings time is in effect for any given session.
 
 @node encode-universal-time
 @subsection encode-universal-time (function)
-@syindexanchor{encode-universal-time}
+@syindexanchor{encode-universal-time, REF}
 @cindex encode-universal-time
 
 
@@ -427,9 +427,9 @@ If @param{time-zone} is supplied, no adjustment for daylight savings time is per
 
 @node get-universal-time; get-decoded-time
 @subsection get-universal-time, get-decoded-time (Function)
-@syindexanchor{get-universal-time}
+@syindexanchor{get-universal-time, REF}
 @cindex get-universal-time
-@syindexanchor{get-decoded-time}
+@syindexanchor{get-decoded-time, REF}
 @cindex get-decoded-time
 @anchor{get-universal-time}
 @anchor{get-decoded-time}
@@ -504,7 +504,7 @@ to interactively set the correct time.
 
 @node sleep
 @subsection sleep (Function)
-@syindexanchor{sleep}
+@syindexanchor{sleep, REF}
 @cindex sleep
 
 
@@ -552,9 +552,9 @@ The granularity of the scheduler.
 
 @node apropos; apropos-list
 @subsection apropos, apropos-list (Function)
-@syindexanchor{apropos}
+@syindexanchor{apropos, REF}
 @cindex apropos
-@syindexanchor{apropos-list}
+@syindexanchor{apropos-list, REF}
 @cindex apropos-list
 
 
@@ -609,7 +609,7 @@ in any @term{packages} being searched.
 
 @node describe
 @subsection describe (Function)
-@syindexanchor{describe}
+@syindexanchor{describe, REF}
 @cindex describe
 
 
@@ -668,7 +668,7 @@ for @term{objects} having user-defined @term{classes}.
 
 @node describe-object
 @subsection describe-object (Standard Generic Function)
-@syindexanchor{describe-object}
+@syindexanchor{describe-object, REF}
 @cindex describe-object
 
 
@@ -760,9 +760,9 @@ in all of their @term{methods}.  @coderef{describe} takes care of that.
 
 @node trace; untrace
 @subsection trace, untrace (Macro)
-@syindexanchor{trace}
+@syindexanchor{trace, REF}
 @cindex trace
-@syindexanchor{untrace}
+@syindexanchor{untrace, REF}
 @cindex untrace
 @anchor{trace}
 
@@ -864,7 +864,7 @@ other than the current @term{implementation}.
 
 @node step
 @subsection step (Macro)
-@syindexanchor{step}
+@syindexanchor{step, REF}
 @cindex step
 
 
@@ -916,7 +916,7 @@ commands.
 
 @node time (Macro)
 @subsection time (Macro)
-@syindexanchor{time}
+@syindexanchor{time, REF}
 @cindex time
 
 
@@ -980,7 +980,7 @@ interpreting timing results, see @GabrielBenchmarks{}.
 
 @node internal-time-units-per-second
 @subsection internal-time-units-per-second (Constant Variable)
-@syindexanchor{internal-time-units-per-second}
+@syindexanchor{internal-time-units-per-second, REF}
 @cindex internal-time-units-per-second
 
 
@@ -1003,7 +1003,7 @@ These units form the basis of the Internal Time format representation.
 
 @node get-internal-real-time
 @subsection get-internal-real-time (Function)
-@syindexanchor{get-internal-real-time}
+@syindexanchor{get-internal-real-time, REF}
 @cindex get-internal-real-time
 
 
@@ -1034,7 +1034,7 @@ The time base affects the result magnitude.
 
 @node get-internal-run-time
 @subsection get-internal-run-time (Function)
-@syindexanchor{get-internal-run-time}
+@syindexanchor{get-internal-run-time, REF}
 @cindex get-internal-run-time
 
 
@@ -1076,7 +1076,7 @@ this measurement as well.
 
 @node disassemble
 @subsection disassemble (Function)
-@syindexanchor{disassemble}
+@syindexanchor{disassemble, REF}
 @cindex disassemble
 
 
@@ -1126,9 +1126,9 @@ it is first compiled but the result of this implicit compilation is not installe
 
 @node documentation; setf documentation
 @subsection documentation, (setf documentation) (Standard Generic Function)
-@syindexanchor{documentation}
+@syindexanchor{documentation, REF}
 @cindex documentation
-@syindexanchor{(setf documentation)}
+@syindexanchor{(setf documentation), REF}
 @cindex (setf documentation)
 @anchor{documentation}
 
@@ -1371,7 +1371,7 @@ Implementors wishing to provide such support are encouraged to consult the
 
 @node room
 @subsection room (Function)
-@syindexanchor{room}
+@syindexanchor{room, REF}
 @cindex room
 
 
@@ -1410,7 +1410,7 @@ Output to @term{standard output}.
 
 @node ed
 @subsection ed (Function)
-@syindexanchor{ed}
+@syindexanchor{ed, REF}
 @cindex ed
 
 
@@ -1464,7 +1464,7 @@ is a @term{designator} for a @term{wild} @term{pathname}.
 
 @node inspect
 @subsection inspect (Function)
-@syindexanchor{inspect}
+@syindexanchor{inspect, REF}
 @cindex inspect
 
 
@@ -1508,7 +1508,7 @@ of commands.
 
 @node dribble
 @subsection dribble (Function)
-@syindexanchor{dribble}
+@syindexanchor{dribble, REF}
 @cindex dribble
 
 
@@ -1573,7 +1573,7 @@ its effect cannot be relied upon when used in a program.
 
 @node - (Variable)
 @subsection - (Variable)
-@syindexanchor{-}
+@syindexanchor{-, V}
 @cindex -
 
 
@@ -1613,11 +1613,11 @@ the @term{Lisp read-eval-print loop}.
 
 @node +; ++; +++
 @subsection +, ++, +++ (Variable)
-@syindexanchor{+}
+@syindexanchor{+, V}
 @cindex +
-@syindexanchor{++}
+@syindexanchor{++, REF}
 @cindex ++
-@syindexanchor{+++}
+@syindexanchor{+++, REF}
 @cindex +++
 
 
@@ -1667,11 +1667,11 @@ recently @term{evaluated}.
 
 @node *; **; ***
 @subsection *, **, *** (Variable)
-@syindexanchor{*}
+@syindexanchor{*, V}
 @cindex *
-@syindexanchor{**}
+@syindexanchor{**, REF}
 @cindex **
-@syindexanchor{***}
+@syindexanchor{***, REF}
 @cindex ***
 
 
@@ -1739,11 +1739,11 @@ are not updated.
 
 @node /; //; ///
 @subsection /, //, /// (Variable)
-@syindexanchor{/}
+@syindexanchor{/, V}
 @cindex /
-@syindexanchor{//}
+@syindexanchor{//, REF}
 @cindex //
-@syindexanchor{///}
+@syindexanchor{///, REF}
 @cindex ///
 
 
@@ -1792,9 +1792,9 @@ are not updated.
 
 @node lisp-implementation-type; lisp-implementation-version
 @subsection lisp-implementation-type, lisp-implementation-version (Function)
-@syindexanchor{lisp-implementation-type}
+@syindexanchor{lisp-implementation-type, REF}
 @cindex lisp-implementation-type
-@syindexanchor{lisp-implementation-version}
+@syindexanchor{lisp-implementation-version, REF}
 @cindex lisp-implementation-version
 
 
@@ -1841,9 +1841,9 @@ of a @term{string}.
 
 @node short-site-name; long-site-name
 @subsection short-site-name, long-site-name (Function)
-@syindexanchor{short-site-name}
+@syindexanchor{short-site-name, REF}
 @cindex short-site-name
-@syindexanchor{long-site-name}
+@syindexanchor{long-site-name, REF}
 @cindex long-site-name
 
 
@@ -1885,7 +1885,7 @@ and the installation/configuration process.
 
 @node machine-instance
 @subsection machine-instance (Function)
-@syindexanchor{machine-instance}
+@syindexanchor{machine-instance, REF}
 @cindex machine-instance
 
 
@@ -1926,7 +1926,7 @@ and the @term{implementation}.
 
 @node machine-type
 @subsection machine-type (Function)
-@syindexanchor{machine-type}
+@syindexanchor{machine-type, REF}
 @cindex machine-type
 
 
@@ -1964,7 +1964,7 @@ The implementation.
 
 @node machine-version
 @subsection machine-version (Function)
-@syindexanchor{machine-version}
+@syindexanchor{machine-version, REF}
 @cindex machine-version
 
 
@@ -2000,9 +2000,9 @@ and the @term{implementation}.
 
 @node software-type; software-version
 @subsection software-type, software-version (Function)
-@syindexanchor{software-type}
+@syindexanchor{software-type, REF}
 @cindex software-type
-@syindexanchor{software-version}
+@syindexanchor{software-version, REF}
 @cindex software-version
 
 
@@ -2044,7 +2044,7 @@ This information should be of use to maintainers of the @term{implementation}.
 
 @node user-homedir-pathname
 @subsection user-homedir-pathname (Function)
-@syindexanchor{user-homedir-pathname}
+@syindexanchor{user-homedir-pathname, REF}
 @cindex user-homedir-pathname
 
 

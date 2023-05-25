@@ -557,7 +557,7 @@ and external encoding schemes supported are documented.
 
 @node character (System Class)
 @subsection character (System Class)
-@syindexanchor{character}
+@syindexanchor{character, SC}
 @cindex character
 
 
@@ -582,7 +582,7 @@ form an @term{exhaustive partition} of @thetype{character}.
 
 @node base-char
 @subsection base-char (Type)
-@syindexanchor{base-char}
+@syindexanchor{base-char, REF}
 @cindex base-char
 
 
@@ -641,7 +641,7 @@ having 8-bit encodings.  In such an implementation,
 
 @node standard-char
 @subsection standard-char (Type)
-@syindexanchor{standard-char}
+@syindexanchor{standard-char, REF}
 @cindex standard-char
 
 
@@ -668,7 +668,7 @@ Any @term{character} that is not @term{simple} is not a @term{standard character
 
 @node extended-char
 @subsection extended-char (Type)
-@syindexanchor{extended-char}
+@syindexanchor{extended-char, REF}
 @cindex extended-char
 
 
@@ -693,29 +693,29 @@ in @term{implementations} in which all @term{characters} are @oftype{base-char}.
 
 @node char=; char/=; char<; char>; char<=; char>=; char-equal; char-not-equal+
 @subsection char=, char/=, char<, char>, char<=, char>=, char-equal, char-not-equal, char-lessp, char-greaterp, char-not-greaterp, char-not-lessp (Function)
-@syindexanchor{char=}
+@syindexanchor{char=, REF}
 @cindex char=
-@syindexanchor{char/=}
+@syindexanchor{char/=, REF}
 @cindex char/=
-@syindexanchor{char<}
+@syindexanchor{char<, REF}
 @cindex char<
-@syindexanchor{char>}
+@syindexanchor{char>, REF}
 @cindex char>
-@syindexanchor{char<=}
+@syindexanchor{char<=, REF}
 @cindex char<=
-@syindexanchor{char>=}
+@syindexanchor{char>=, REF}
 @cindex char>=
-@syindexanchor{char-equal}
+@syindexanchor{char-equal, REF}
 @cindex char-equal
-@syindexanchor{char-not-equal}
+@syindexanchor{char-not-equal, REF}
 @cindex char-not-equal
-@syindexanchor{char-lessp}
+@syindexanchor{char-lessp, REF}
 @cindex char-lessp
-@syindexanchor{char-greaterp}
+@syindexanchor{char-greaterp, REF}
 @cindex char-greaterp
-@syindexanchor{char-not-greaterp}
+@syindexanchor{char-not-greaterp, REF}
 @cindex char-not-greaterp
-@syindexanchor{char-not-lessp}
+@syindexanchor{char-not-lessp, REF}
 @cindex char-not-lessp
 @anchor{char=}
 @anchor{char-equal}
@@ -899,7 +899,7 @@ implies an ordering for @term{standard characters} such that
 
 @node character (Function)
 @subsection character (Function)
-@syindexanchor{character}
+@syindexanchor{character, F}
 @cindex character
 
 
@@ -947,7 +947,7 @@ Returns the @term{character} denoted by the @param{character} @term{designator}.
 
 @node characterp
 @subsection characterp (Function)
-@syindexanchor{characterp}
+@syindexanchor{characterp, REF}
 @cindex characterp
 
 
@@ -993,7 +993,7 @@ Returns the @term{character} denoted by the @param{character} @term{designator}.
 
 @node alpha-char-p
 @subsection alpha-char-p (Function)
-@syindexanchor{alpha-char-p}
+@syindexanchor{alpha-char-p, REF}
 @cindex alpha-char-p
 
 
@@ -1041,7 +1041,7 @@ of any special syntax which might have been enabled in the @term{current readtab
 
 @node alphanumericp
 @subsection alphanumericp (Function)
-@syindexanchor{alphanumericp}
+@syindexanchor{alphanumericp, REF}
 @cindex alphanumericp
 
 
@@ -1100,7 +1100,7 @@ and @f{0} through @f{9} are alphanumeric characters.
 
 @node digit-char
 @subsection digit-char (Function)
-@syindexanchor{digit-char}
+@syindexanchor{digit-char, REF}
 @cindex digit-char
 
 
@@ -1155,7 +1155,7 @@ If @param{weight} is greater than or equal to @param{radix},
 
 @node digit-char-p
 @subsection digit-char-p (Function)
-@syindexanchor{digit-char-p}
+@syindexanchor{digit-char-p, REF}
 @cindex digit-char-p
 
 
@@ -1219,7 +1219,7 @@ Digits are @term{graphic} @term{characters}.
 
 @node graphic-char-p
 @subsection graphic-char-p (Function)
-@syindexanchor{graphic-char-p}
+@syindexanchor{graphic-char-p, REF}
 @cindex graphic-char-p
 
 
@@ -1260,7 +1260,7 @@ Digits are @term{graphic} @term{characters}.
 
 @node standard-char-p
 @subsection standard-char-p (Function)
-@syindexanchor{standard-char-p}
+@syindexanchor{standard-char-p, REF}
 @cindex standard-char-p
 
 
@@ -1296,9 +1296,9 @@ Digits are @term{graphic} @term{characters}.
 
 @node char-upcase; char-downcase
 @subsection char-upcase, char-downcase (Function)
-@syindexanchor{char-upcase}
+@syindexanchor{char-upcase, REF}
 @cindex char-upcase
-@syindexanchor{char-downcase}
+@syindexanchor{char-downcase, REF}
 @cindex char-downcase
 @anchor{char-upcase}
 @anchor{char-downcase}
@@ -1377,11 +1377,11 @@ under @coderef{char-equal}.
 
 @node upper-case-p; lower-case-p; both-case-p
 @subsection upper-case-p, lower-case-p, both-case-p (Function)
-@syindexanchor{upper-case-p}
+@syindexanchor{upper-case-p, REF}
 @cindex upper-case-p
-@syindexanchor{lower-case-p}
+@syindexanchor{lower-case-p, REF}
 @cindex lower-case-p
-@syindexanchor{both-case-p}
+@syindexanchor{both-case-p, REF}
 @cindex both-case-p
 @anchor{upper-case-p}
 
@@ -1438,7 +1438,7 @@ These functions test the case of a given @param{character}.
 
 @node char-code
 @subsection char-code (Function)
-@syindexanchor{char-code}
+@syindexanchor{char-code, REF}
 @cindex char-code
 
 
@@ -1477,7 +1477,7 @@ These functions test the case of a given @param{character}.
 
 @node char-int
 @subsection char-int (Function)
-@syindexanchor{char-int}
+@syindexanchor{char-int, REF}
 @cindex char-int
 
 
@@ -1523,7 +1523,7 @@ for characters @i{c1} and @i{c2}.
 
 @node code-char
 @subsection code-char (Function)
-@syindexanchor{code-char}
+@syindexanchor{code-char, REF}
 @cindex code-char
 
 
@@ -1565,7 +1565,7 @@ The @term{implementation}'s character encoding.
 
 @node char-code-limit
 @subsection char-code-limit (Constant Variable)
-@syindexanchor{char-code-limit}
+@syindexanchor{char-code-limit, REF}
 @cindex char-code-limit
 
 
@@ -1592,7 +1592,7 @@ number of @term{characters} supported by the @term{implementation}.
 
 @node char-name
 @subsection char-name (Function)
-@syindexanchor{char-name}
+@syindexanchor{char-name, REF}
 @cindex char-name
 
 
@@ -1669,7 +1669,7 @@ as ``@f{#@bsl{}}'' followed by the their @term{name}; see @ref{Printing Characte
 
 @node name-char
 @subsection name-char (Function)
-@syindexanchor{name-char}
+@syindexanchor{name-char, REF}
 @cindex name-char
 
 

@@ -68,7 +68,7 @@ to the creation of and inquiry about @term{symbols}.
 
 @node symbol
 @subsection symbol (System Class)
-@syindexanchor{symbol}
+@syindexanchor{symbol, REF}
 @cindex symbol
 
 
@@ -209,7 +209,7 @@ on a lexical @term{function} definition.
 
 @node keyword
 @subsection keyword (Type)
-@syindexanchor{keyword}
+@syindexanchor{keyword, REF}
 @cindex keyword
 
 
@@ -241,7 +241,7 @@ of the @code{KEYWORD} @term{package}.
 
 @node symbolp
 @subsection symbolp (Function)
-@syindexanchor{symbolp}
+@syindexanchor{symbolp, REF}
 @cindex symbolp
 
 
@@ -287,7 +287,7 @@ of the @code{KEYWORD} @term{package}.
 
 @node keywordp
 @subsection keywordp (Function)
-@syindexanchor{keywordp}
+@syindexanchor{keywordp, REF}
 @cindex keywordp
 
 
@@ -331,7 +331,7 @@ of the @code{KEYWORD} @term{package}.
 
 @node make-symbol
 @subsection make-symbol (Function)
-@syindexanchor{make-symbol}
+@syindexanchor{make-symbol, REF}
 @cindex make-symbol
 
 
@@ -390,7 +390,7 @@ and the program interface to interning symbols is case-sensitive.
 
 @node copy-symbol
 @subsection copy-symbol (Function)
-@syindexanchor{copy-symbol}
+@syindexanchor{copy-symbol, REF}
 @cindex copy-symbol
 
 
@@ -471,7 +471,7 @@ be @term{identical} to the given @param{symbol}'s @term{name}.
 
 @node gensym
 @subsection gensym (Function)
-@syindexanchor{gensym}
+@syindexanchor{gensym, REF}
 @cindex gensym
 
 
@@ -552,7 +552,7 @@ of the @param{new-symbol}'s @term{name}, consider using @coderef{make-symbol} in
 
 @node *gensym-counter*
 @subsection *gensym-counter* (Variable)
-@syindexanchor{*gensym-counter*}
+@syindexanchor{*gensym-counter*, REF}
 @cindex *gensym-counter*
 
 
@@ -587,7 +587,7 @@ explicitly @term{binding} @coderef{*gensym-counter*} is now stylistically prefer
 
 @node gentemp
 @subsection gentemp (Function)
-@syindexanchor{gentemp}
+@syindexanchor{gentemp, REF}
 @cindex gentemp
 
 
@@ -682,7 +682,7 @@ another day for some other purpose.
 
 @node symbol-function
 @subsection symbol-function (Accessor)
-@syindexanchor{symbol-function}
+@syindexanchor{symbol-function, REF}
 @cindex symbol-function
 
 
@@ -786,7 +786,7 @@ However, @coderef{fdefinition} accepts arguments other than just @term{symbols}.
 
 @node symbol-name
 @subsection symbol-name (Function)
-@syindexanchor{symbol-name}
+@syindexanchor{symbol-name, REF}
 @cindex symbol-name
 
 
@@ -821,7 +821,7 @@ The consequences are undefined if @param{name} is ever modified.
 
 @node symbol-package
 @subsection symbol-package (Function)
-@syindexanchor{symbol-package}
+@syindexanchor{symbol-package, REF}
 @cindex symbol-package
 
 
@@ -885,7 +885,7 @@ Returns the @term{home package} of @param{symbol}.
 
 @node symbol-plist
 @subsection symbol-plist (Accessor)
-@syindexanchor{symbol-plist}
+@syindexanchor{symbol-plist, REF}
 @cindex symbol-plist
 
 
@@ -936,7 +936,7 @@ established and depended upon by unrelated programs in the same @term{Lisp image
 
 @node symbol-value
 @subsection symbol-value (Accessor)
-@syindexanchor{symbol-value}
+@syindexanchor{symbol-value, REF}
 @cindex symbol-value
 
 
@@ -1016,7 +1016,7 @@ on an attempt to @term{write} its @term{value}.)
 
 @node get
 @subsection get (Accessor)
-@syindexanchor{get}
+@syindexanchor{get, REF}
 @cindex get
 
 
@@ -1125,7 +1125,7 @@ one whose value is @param{default}.  However, see @coderef{get-properties}.
 
 @node remprop
 @subsection remprop (Function)
-@syindexanchor{remprop}
+@syindexanchor{remprop, REF}
 @cindex remprop
 
 
@@ -1217,7 +1217,7 @@ establish the @term{property}.
 
 @node boundp
 @subsection boundp (Function)
-@syindexanchor{boundp}
+@syindexanchor{boundp, REF}
 @cindex boundp
 
 
@@ -1267,7 +1267,7 @@ are ignored.
 
 @node makunbound
 @subsection makunbound (Function)
-@syindexanchor{makunbound}
+@syindexanchor{makunbound, REF}
 @cindex makunbound
 
 
@@ -1310,7 +1310,7 @@ The @term{value cell} of @param{symbol} is modified.
 
 @node set
 @subsection set (Function)
-@syindexanchor{set}
+@syindexanchor{set, REF}
 @cindex set
 
 
@@ -1389,7 +1389,7 @@ The function @coderef{set} is deprecated.
 
 @node unbound-variable
 @subsection unbound-variable (Condition Type)
-@syindexanchor{unbound-variable}
+@syindexanchor{unbound-variable, REF}
 @cindex unbound-variable
 
 

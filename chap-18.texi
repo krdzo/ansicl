@@ -222,7 +222,7 @@ tests.
 
 @node hash-table
 @subsection hash-table (System Class)
-@syindexanchor{hash-table}
+@syindexanchor{hash-table, REF}
 @cindex hash-table
 
 
@@ -250,7 +250,7 @@ is required to use any particular technique to implement the mapping.
 
 @node make-hash-table
 @subsection make-hash-table (Function)
-@syindexanchor{make-hash-table}
+@syindexanchor{make-hash-table, REF}
 @cindex make-hash-table
 
 
@@ -341,7 +341,7 @@ is permitted to ignore them.
 
 @node hash-table-p
 @subsection hash-table-p (Function)
-@syindexanchor{hash-table-p}
+@syindexanchor{hash-table-p, REF}
 @cindex hash-table-p
 
 
@@ -379,7 +379,7 @@ is permitted to ignore them.
 
 @node hash-table-count
 @subsection hash-table-count (Function)
-@syindexanchor{hash-table-count}
+@syindexanchor{hash-table-count, REF}
 @cindex hash-table-count
 
 
@@ -442,7 +442,7 @@ using @coderef{hash-table-count} is probably much faster:
 
 @node hash-table-rehash-size
 @subsection hash-table-rehash-size (Function)
-@syindexanchor{hash-table-rehash-size}
+@syindexanchor{hash-table-rehash-size, REF}
 @cindex hash-table-rehash-size
 
 
@@ -499,7 +499,7 @@ the actual amount by which the @param{hash-table} will grow upon rehash is
 
 @node hash-table-rehash-threshold
 @subsection hash-table-rehash-threshold (Function)
-@syindexanchor{hash-table-rehash-threshold}
+@syindexanchor{hash-table-rehash-threshold, REF}
 @cindex hash-table-rehash-threshold
 
 
@@ -543,7 +543,7 @@ state of the @param{hash-table}.
 
 @node hash-table-size
 @subsection hash-table-size (Function)
-@syindexanchor{hash-table-size}
+@syindexanchor{hash-table-size, REF}
 @cindex hash-table-size
 
 
@@ -577,7 +577,7 @@ with state corresponding to the current state of the @param{hash-table}.
 
 @node hash-table-test
 @subsection hash-table-test (Function)
-@syindexanchor{hash-table-test}
+@syindexanchor{hash-table-test, REF}
 @cindex hash-table-test
 
 
@@ -613,7 +613,7 @@ Returns the test used for comparing @term{keys} in @param{hash-table}.
 
 @node gethash
 @subsection gethash (Accessor)
-@syindexanchor{gethash}
+@syindexanchor{gethash, REF}
 @cindex gethash
 
 
@@ -687,7 +687,7 @@ from the presence of an entry that has a value of @param{default}.
 
 @node remhash
 @subsection remhash (Function)
-@syindexanchor{remhash}
+@syindexanchor{remhash, REF}
 @cindex remhash
 
 
@@ -726,7 +726,7 @@ The @param{hash-table} is modified.
 
 @node maphash
 @subsection maphash (Function)
-@syindexanchor{maphash}
+@syindexanchor{maphash, REF}
 @cindex maphash
 
 
@@ -794,7 +794,7 @@ None, other than any which might be done by the @param{function}.
 
 @node with-hash-table-iterator
 @subsection with-hash-table-iterator (Macro)
-@syindexanchor{with-hash-table-iterator}
+@syindexanchor{with-hash-table-iterator, REF}
 @cindex with-hash-table-iterator
 
 
@@ -901,7 +901,7 @@ returned @term{false} as its @term{primary value}.
 
 @node clrhash
 @subsection clrhash (Function)
-@syindexanchor{clrhash}
+@syindexanchor{clrhash, REF}
 @cindex clrhash
 
 
@@ -938,7 +938,7 @@ The @param{hash-table} is modified.
 
 @node sxhash
 @subsection sxhash (Function)
-@syindexanchor{sxhash}
+@syindexanchor{sxhash, REF}
 @cindex sxhash
 
 

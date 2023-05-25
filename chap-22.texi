@@ -3263,7 +3263,7 @@ all following clauses).
 
 @node copy-pprint-dispatch
 @subsection copy-pprint-dispatch (Function)
-@syindexanchor{copy-pprint-dispatch}
+@syindexanchor{copy-pprint-dispatch, REF}
 @cindex copy-pprint-dispatch
 
 
@@ -3293,7 +3293,7 @@ is not a @term{pprint dispatch table}.
 
 @node formatter
 @subsection formatter (Macro)
-@syindexanchor{formatter}
+@syindexanchor{formatter, REF}
 @cindex formatter
 
 
@@ -3351,7 +3351,7 @@ is not a valid @term{format string}.
 
 @node pprint-dispatch
 @subsection pprint-dispatch (Function)
-@syindexanchor{pprint-dispatch}
+@syindexanchor{pprint-dispatch, REF}
 @cindex pprint-dispatch
 
 
@@ -3412,7 +3412,7 @@ Should signal an error @oftype{type-error} if @term{table} is neither a
 
 @node pprint-exit-if-list-exhausted
 @subsection pprint-exit-if-list-exhausted (Local Macro)
-@syindexanchor{pprint-exit-if-list-exhausted}
+@syindexanchor{pprint-exit-if-list-exhausted, REF}
 @cindex pprint-exit-if-list-exhausted
 
 
@@ -3456,11 +3456,11 @@ contains it are undefined.
 
 @node pprint-fill; pprint-linear; pprint-tabular
 @subsection pprint-fill, pprint-linear, pprint-tabular (Function)
-@syindexanchor{pprint-fill}
+@syindexanchor{pprint-fill, REF}
 @cindex pprint-fill
-@syindexanchor{pprint-linear}
+@syindexanchor{pprint-linear, REF}
 @cindex pprint-linear
-@syindexanchor{pprint-tabular}
+@syindexanchor{pprint-tabular, REF}
 @cindex pprint-tabular
 @anchor{pprint-fill}
 
@@ -3578,7 +3578,7 @@ through to a @formatdirective{:T} nested within an iteration over a list.
 
 @node pprint-indent
 @subsection pprint-indent (Function)
-@syindexanchor{pprint-indent}
+@syindexanchor{pprint-indent, REF}
 @cindex pprint-indent
 
 
@@ -3638,7 +3638,7 @@ than @kwd{block} or @kwd{current}.
 
 @node pprint-logical-block
 @subsection pprint-logical-block (Macro)
-@syindexanchor{pprint-logical-block}
+@syindexanchor{pprint-logical-block, REF}
 @cindex pprint-logical-block
 
 
@@ -3785,7 +3785,7 @@ the body @param{forms} of the @coderef{pprint-logical-block} @term{form}.)
 
 @node pprint-newline
 @subsection pprint-newline (Function)
-@syindexanchor{pprint-newline}
+@syindexanchor{pprint-newline, REF}
 @cindex pprint-newline
 
 
@@ -3926,7 +3926,7 @@ is not one of @kwd{linear}, @kwd{fill}, @kwd{miser}, or @kwd{mandatory}.
 
 @node pprint-pop
 @subsection pprint-pop (Local Macro)
-@syindexanchor{pprint-pop}
+@syindexanchor{pprint-pop, REF}
 @cindex pprint-pop
 
 
@@ -4034,7 +4034,7 @@ before calling @coderef{pprint-pop}.
 
 @node pprint-tab
 @subsection pprint-tab (Function)
-@syindexanchor{pprint-tab}
+@syindexanchor{pprint-tab, REF}
 @cindex pprint-tab
 
 
@@ -4087,7 +4087,7 @@ An error is signaled if @param{kind} is not one of @kwd{line},
 
 @node print-object
 @subsection print-object (Standard Generic Function)
-@syindexanchor{print-object}
+@syindexanchor{print-object, REF}
 @cindex print-object
 
 
@@ -4242,7 +4242,7 @@ but is an intermediate @term{stream} that implements part of the printer.
 
 @node print-unreadable-object
 @subsection print-unreadable-object (Macro)
-@syindexanchor{print-unreadable-object}
+@syindexanchor{print-unreadable-object, REF}
 @cindex print-unreadable-object
 
 
@@ -4308,7 +4308,7 @@ signals an error @oftype{print-not-readable} without printing anything.
 
 @node set-pprint-dispatch
 @subsection set-pprint-dispatch (Function)
-@syindexanchor{set-pprint-dispatch}
+@syindexanchor{set-pprint-dispatch, REF}
 @cindex set-pprint-dispatch
 
 
@@ -4381,15 +4381,15 @@ The @param{cdr-type} can be omitted in which case it defaults to @t{t}.
 
 @node write; prin1; print; pprint; princ
 @subsection write, prin1, print, pprint, princ (Function)
-@syindexanchor{write}
+@syindexanchor{write, REF}
 @cindex write
-@syindexanchor{prin1}
+@syindexanchor{prin1, REF}
 @cindex prin1
-@syindexanchor{print}
+@syindexanchor{print, REF}
 @cindex print
-@syindexanchor{pprint}
+@syindexanchor{pprint, REF}
 @cindex pprint
-@syindexanchor{princ}
+@syindexanchor{princ, REF}
 @cindex princ
 @anchor{write}
 
@@ -4550,11 +4550,11 @@ output is to be sent.
 
 @node write-to-string; prin1-to-string; princ-to-string
 @subsection write-to-string, prin1-to-string, princ-to-string (Function)
-@syindexanchor{write-to-string}
+@syindexanchor{write-to-string, REF}
 @cindex write-to-string
-@syindexanchor{prin1-to-string}
+@syindexanchor{prin1-to-string, REF}
 @cindex prin1-to-string
-@syindexanchor{princ-to-string}
+@syindexanchor{princ-to-string, REF}
 @cindex princ-to-string
 @anchor{write-to-string}
 
@@ -4648,7 +4648,7 @@ are the same as those for @coderef{write}.
 
 @node *print-array*
 @subsection *print-array* (Variable)
-@syindexanchor{*print-array*}
+@syindexanchor{*print-array*, REF}
 @cindex *print-array*
 
 
@@ -4682,9 +4682,9 @@ The @term{implementation}.
 
 @node *print-base*; *print-radix*
 @subsection *print-base*, *print-radix* (Variable)
-@syindexanchor{*print-base*}
+@syindexanchor{*print-base*, REF}
 @cindex *print-base*
-@syindexanchor{*print-radix*}
+@syindexanchor{*print-radix*, REF}
 @cindex *print-radix*
 
 
@@ -4762,7 +4762,7 @@ Might be @term{bound} by @coderef{format}, and @coderef{write}, @coderef{write-t
 
 @node *print-case*
 @subsection *print-case* (Variable)
-@syindexanchor{*print-case*}
+@syindexanchor{*print-case*, REF}
 @cindex *print-case*
 
 
@@ -4833,7 +4833,7 @@ a ``word'' is the same as for @coderef{string-capitalize}.
 
 @node *print-circle*
 @subsection *print-circle* (Variable)
-@syindexanchor{*print-circle*}
+@syindexanchor{*print-circle*, REF}
 @cindex *print-circle*
 
 
@@ -4902,7 +4902,7 @@ set to @nil{}@spc{}may lead to looping behavior and failure to terminate.
 
 @node *print-escape*
 @subsection *print-escape* (Variable)
-@syindexanchor{*print-escape*}
+@syindexanchor{*print-escape*, REF}
 @cindex *print-escape*
 
 
@@ -4955,7 +4955,7 @@ see @ref{Default Print-Object Methods}.
 
 @node *print-gensym*
 @subsection *print-gensym* (Variable)
-@syindexanchor{*print-gensym*}
+@syindexanchor{*print-gensym*, REF}
 @cindex *print-gensym*
 
 
@@ -4991,9 +4991,9 @@ if and only if @thevalueof{*print-gensym*} is @term{true}.
 
 @node *print-level*; *print-length*
 @subsection *print-level*, *print-length* (Variable)
-@syindexanchor{*print-level*}
+@syindexanchor{*print-level*, REF}
 @cindex *print-level*
-@syindexanchor{*print-length*}
+@syindexanchor{*print-length*, REF}
 @cindex *print-length*
 @anchor{*print-length*}
 
@@ -5090,7 +5090,7 @@ the printing of @term{symbols}, @term{strings}, and @term{bit vectors}.
 
 @node *print-lines*
 @subsection *print-lines* (Variable)
-@syindexanchor{*print-lines*}
+@syindexanchor{*print-lines*, REF}
 @cindex *print-lines*
 
 
@@ -5140,7 +5140,7 @@ detected later and no such error will be signaled.
 
 @node *print-miser-width*
 @subsection *print-miser-width* (Variable)
-@syindexanchor{*print-miser-width*}
+@syindexanchor{*print-miser-width*, REF}
 @cindex *print-miser-width*
 
 
@@ -5163,7 +5163,7 @@ printing a substructure is less than or equal to this many @term{ems}.
 
 @node *print-pprint-dispatch*
 @subsection *print-pprint-dispatch* (Variable)
-@syindexanchor{*print-pprint-dispatch*}
+@syindexanchor{*print-pprint-dispatch*, REF}
 @cindex *print-pprint-dispatch*
 
 
@@ -5203,7 +5203,7 @@ output.  For details, see @ref{Pretty Print Dispatch Tables}.
 
 @node *print-pretty*
 @subsection *print-pretty* (Variable)
-@syindexanchor{*print-pretty*}
+@syindexanchor{*print-pretty*, REF}
 @cindex *print-pretty*
 
 
@@ -5276,7 +5276,7 @@ is @term{false}.
 
 @node *print-readably*
 @subsection *print-readably* (Variable)
-@syindexanchor{*print-readably*}
+@syindexanchor{*print-readably*, REF}
 @cindex *print-readably*
 
 
@@ -5394,7 +5394,7 @@ or signal an error @oftype{print-not-readable}.
 
 @node *print-right-margin*
 @subsection *print-right-margin* (Variable)
-@syindexanchor{*print-right-margin*}
+@syindexanchor{*print-right-margin*, REF}
 @cindex *print-right-margin*
 
 
@@ -5427,7 +5427,7 @@ requiring the language to provide support for fonts.
 
 @node print-not-readable
 @subsection print-not-readable (Condition Type)
-@syindexanchor{print-not-readable}
+@syindexanchor{print-not-readable, REF}
 @cindex print-not-readable
 
 
@@ -5455,7 +5455,7 @@ The object which could not be printed is initialized by
 
 @node print-not-readable-object
 @subsection print-not-readable-object (Function)
-@syindexanchor{print-not-readable-object}
+@syindexanchor{print-not-readable-object, REF}
 @cindex print-not-readable-object
 
 @subsubheading Syntax:
@@ -5481,7 +5481,7 @@ in the situation represented by @param{condition}.
 
 @node format
 @subsection format (Function)
-@syindexanchor{format}
+@syindexanchor{format, REF}
 @cindex format
 
 

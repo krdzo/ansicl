@@ -54,7 +54,7 @@ for which the @term{element type} of the @term{string} does not include that @te
 
 @node string (System Class)
 @subsection string (System Class)
-@syindexanchor{string}
+@syindexanchor{string, SC}
 @cindex string
 
 
@@ -101,7 +101,7 @@ that is, the set of @term{strings} of size @param{size}.
 
 @node base-string
 @subsection base-string (Type)
-@syindexanchor{base-string}
+@syindexanchor{base-string, REF}
 @cindex base-string
 
 
@@ -143,7 +143,7 @@ that is, the set of @term{base strings} of size @param{size}.
 
 @node simple-string
 @subsection simple-string (Type)
-@syindexanchor{simple-string}
+@syindexanchor{simple-string, REF}
 @cindex simple-string
 
 
@@ -185,7 +185,7 @@ This denotes the union of all @term{types}
 
 @node simple-base-string
 @subsection simple-base-string (Type)
-@syindexanchor{simple-base-string}
+@syindexanchor{simple-base-string, REF}
 @cindex simple-base-string
 
 
@@ -227,7 +227,7 @@ that is, the set of @term{simple base strings} of size @param{size}.
 
 @node simple-string-p
 @subsection simple-string-p (Function)
-@syindexanchor{simple-string-p}
+@syindexanchor{simple-string-p, REF}
 @cindex simple-string-p
 
 
@@ -263,9 +263,9 @@ that is, the set of @term{simple base strings} of size @param{size}.
 
 @node char; schar
 @subsection char, schar (Accessor)
-@syindexanchor{char}
+@syindexanchor{char, REF}
 @cindex char
-@syindexanchor{schar}
+@syindexanchor{schar, REF}
 @cindex schar
 @anchor{char}
 @anchor{schar}
@@ -332,7 +332,7 @@ specified by @param{index}.
 
 @node string (Function)
 @subsection string (Function)
-@syindexanchor{string}
+@syindexanchor{string, F}
 @cindex string
 
 
@@ -393,17 +393,17 @@ or @coderef{format} (with a first argument of @nil{}) can be used to get a
 
 @node string-upcase; string-downcase; string-capitalize; nstring-upcase; nstr+
 @subsection string-upcase, string-downcase, string-capitalize, nstring-upcase, nstring-downcase, nstring-capitalize (Function)
-@syindexanchor{string-upcase}
+@syindexanchor{string-upcase, REF}
 @cindex string-upcase
-@syindexanchor{string-downcase}
+@syindexanchor{string-downcase, REF}
 @cindex string-downcase
-@syindexanchor{string-capitalize}
+@syindexanchor{string-capitalize, REF}
 @cindex string-capitalize
-@syindexanchor{nstring-upcase}
+@syindexanchor{nstring-upcase, REF}
 @cindex nstring-upcase
-@syindexanchor{nstring-downcase}
+@syindexanchor{nstring-downcase, REF}
 @cindex nstring-downcase
-@syindexanchor{nstring-capitalize}
+@syindexanchor{nstring-capitalize, REF}
 @cindex nstring-capitalize
 
 
@@ -528,11 +528,11 @@ as @param{string}.
 
 @node string-trim; string-left-trim; string-right-trim
 @subsection string-trim, string-left-trim, string-right-trim (Function)
-@syindexanchor{string-trim}
+@syindexanchor{string-trim, REF}
 @cindex string-trim
-@syindexanchor{string-left-trim}
+@syindexanchor{string-left-trim, REF}
 @cindex string-left-trim
-@syindexanchor{string-right-trim}
+@syindexanchor{string-right-trim, REF}
 @cindex string-right-trim
 
 
@@ -586,29 +586,29 @@ The @term{implementation}.
 
 @node string=; string/=; string<; string>; string<=; string>=; string-equal; +
 @subsection string=, string/=, string<, string>, string<=, string>=, string-equal, string-not-equal, string-lessp, string-greaterp, string-not-greaterp, string-not-lessp (Function)
-@syindexanchor{string=}
+@syindexanchor{string=, REF}
 @cindex string=
-@syindexanchor{string/=}
+@syindexanchor{string/=, REF}
 @cindex string/=
-@syindexanchor{string<}
+@syindexanchor{string<, REF}
 @cindex string<
-@syindexanchor{string>}
+@syindexanchor{string>, REF}
 @cindex string>
-@syindexanchor{string<=}
+@syindexanchor{string<=, REF}
 @cindex string<=
-@syindexanchor{string>=}
+@syindexanchor{string>=, REF}
 @cindex string>=
-@syindexanchor{string-equal}
+@syindexanchor{string-equal, REF}
 @cindex string-equal
-@syindexanchor{string-not-equal}
+@syindexanchor{string-not-equal, REF}
 @cindex string-not-equal
-@syindexanchor{string-lessp}
+@syindexanchor{string-lessp, REF}
 @cindex string-lessp
-@syindexanchor{string-greaterp}
+@syindexanchor{string-greaterp, REF}
 @cindex string-greaterp
-@syindexanchor{string-not-greaterp}
+@syindexanchor{string-not-greaterp, REF}
 @cindex string-not-greaterp
-@syindexanchor{string-not-lessp}
+@syindexanchor{string-not-lessp, REF}
 @cindex string-not-lessp
 @anchor{string=}
 @anchor{string-equal}
@@ -779,7 +779,7 @@ for comparing characters.
 
 @node stringp
 @subsection stringp (Function)
-@syindexanchor{stringp}
+@syindexanchor{stringp, REF}
 @cindex stringp
 
 
@@ -820,7 +820,7 @@ for comparing characters.
 
 @node make-string
 @subsection make-string (Function)
-@syindexanchor{make-string}
+@syindexanchor{make-string, REF}
 @cindex make-string
 
 

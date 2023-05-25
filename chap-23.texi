@@ -232,7 +232,7 @@ occurred between @term{objects} rather than within the middle of one.
 
 @node readtable
 @subsection readtable (System Class)
-@syindexanchor{readtable}
+@syindexanchor{readtable, REF}
 @cindex readtable
 
 
@@ -262,7 +262,7 @@ can have syntax descriptions in the @term{readtable}.
 
 @node copy-readtable
 @subsection copy-readtable (Function)
-@syindexanchor{copy-readtable}
+@syindexanchor{copy-readtable, REF}
 @cindex copy-readtable
 
 
@@ -339,7 +339,7 @@ locally bind the readtable to a copy of itself, as in:
 
 @node make-dispatch-macro-character
 @subsection make-dispatch-macro-character (Function)
-@syindexanchor{make-dispatch-macro-character}
+@syindexanchor{make-dispatch-macro-character, REF}
 @cindex make-dispatch-macro-character
 
 
@@ -391,9 +391,9 @@ The @param{readtable} is altered.
 
 @node read; read-preserving-whitespace
 @subsection read, read-preserving-whitespace (Function)
-@syindexanchor{read}
+@syindexanchor{read, REF}
 @cindex read
-@syindexanchor{read-preserving-whitespace}
+@syindexanchor{read-preserving-whitespace, REF}
 @cindex read-preserving-whitespace
 @anchor{read}
 @anchor{read-preserving-whitespace}
@@ -565,7 +565,7 @@ is signaled at the end of file.
 
 @node read-delimited-list
 @subsection read-delimited-list (Function)
-@syindexanchor{read-delimited-list}
+@syindexanchor{read-delimited-list, REF}
 @cindex read-delimited-list
 
 
@@ -698,7 +698,7 @@ explicitly.
 
 @node read-from-string
 @subsection read-from-string (Function)
-@syindexanchor{read-from-string}
+@syindexanchor{read-from-string, REF}
 @cindex read-from-string
 
 
@@ -785,7 +785,7 @@ the @param{position} might count the simulated delimiter.
 
 @node readtable-case
 @subsection readtable-case (Accessor)
-@syindexanchor{readtable-case}
+@syindexanchor{readtable-case, REF}
 @cindex readtable-case
 
 
@@ -831,7 +831,7 @@ See @ref{Examples of Effect of Readtable Case on the Lisp Reader}@spc{}and @ref{
 
 @node readtablep
 @subsection readtablep (Function)
-@syindexanchor{readtablep}
+@syindexanchor{readtablep, REF}
 @cindex readtablep
 
 
@@ -868,9 +868,9 @@ See @ref{Examples of Effect of Readtable Case on the Lisp Reader}@spc{}and @ref{
 
 @node set-dispatch-macro-character; get-dispatch-macro-character
 @subsection set-dispatch-macro-character, get-dispatch-macro-character (Function)
-@syindexanchor{set-dispatch-macro-character}
+@syindexanchor{set-dispatch-macro-character, REF}
 @cindex set-dispatch-macro-character
-@syindexanchor{get-dispatch-macro-character}
+@syindexanchor{get-dispatch-macro-character, REF}
 @cindex get-dispatch-macro-character
 @anchor{set-dispatch-macro-character}
 
@@ -976,9 +976,9 @@ dispatch character before specifying its sub-characters.
 
 @node set-macro-character; get-macro-character
 @subsection set-macro-character, get-macro-character (Function)
-@syindexanchor{set-macro-character}
+@syindexanchor{set-macro-character, REF}
 @cindex set-macro-character
-@syindexanchor{get-macro-character}
+@syindexanchor{get-macro-character, REF}
 @cindex get-macro-character
 @anchor{set-macro-character}
 
@@ -1069,7 +1069,7 @@ The @param{readtable} is modified.
 
 @node set-syntax-from-char
 @subsection set-syntax-from-char (Function)
-@syindexanchor{set-syntax-from-char}
+@syindexanchor{set-syntax-from-char, REF}
 @cindex set-syntax-from-char
 
 
@@ -1145,7 +1145,7 @@ For further information, see @ref{Constituent Traits}.
 
 @node with-standard-io-syntax
 @subsection with-standard-io-syntax (Macro)
-@syindexanchor{with-standard-io-syntax}
+@syindexanchor{with-standard-io-syntax, REF}
 @cindex with-standard-io-syntax
 
 
@@ -1219,7 +1219,7 @@ behavior.  The values for the variables specified by this standard are listed in
 
 @node *read-base*
 @subsection *read-base* (Variable)
-@syindexanchor{*read-base*}
+@syindexanchor{*read-base*, REF}
 @cindex *read-base*
 
 
@@ -1271,7 +1271,7 @@ Altering the input radix can be useful when reading data files in special format
 
 @node *read-default-float-format*
 @subsection *read-default-float-format* (Variable)
-@syindexanchor{*read-default-float-format*}
+@syindexanchor{*read-default-float-format*, REF}
 @cindex *read-default-float-format*
 
 
@@ -1316,7 +1316,7 @@ choice of @term{exponent markers} when printing floating-point numbers.
 
 @node *read-eval*
 @subsection *read-eval* (Variable)
-@syindexanchor{*read-eval*}
+@syindexanchor{*read-eval*, REF}
 @cindex *read-eval*
 
 
@@ -1349,7 +1349,7 @@ or signals an error @oftype{print-not-readable}.
 
 @node *read-suppress*
 @subsection *read-suppress* (Variable)
-@syindexanchor{*read-suppress*}
+@syindexanchor{*read-suppress*, REF}
 @cindex *read-suppress*
 
 
@@ -1472,7 +1472,7 @@ value would ordinarily be required.
 
 @node *readtable*
 @subsection *readtable* (Variable)
-@syindexanchor{*readtable*}
+@syindexanchor{*readtable*, REF}
 @cindex *readtable*
 
 
@@ -1519,7 +1519,7 @@ and can also influence the @term{Lisp printer} (@eg{} see the @term{function} @r
 
 @node reader-error
 @subsection reader-error (Condition Type)
-@syindexanchor{reader-error}
+@syindexanchor{reader-error, REF}
 @cindex reader-error
 
 

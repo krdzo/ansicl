@@ -267,7 +267,7 @@ returns a @term{generalized boolean} representing @term{false}.
 
 @node sequence
 @subsection sequence (System Class)
-@syindexanchor{sequence}
+@syindexanchor{sequence, REF}
 @cindex sequence
 
 
@@ -293,7 +293,7 @@ when given @term{sequences} represented as @term{vectors}.
 
 @node copy-seq
 @subsection copy-seq (Function)
-@syindexanchor{copy-seq}
+@syindexanchor{copy-seq, REF}
 @cindex copy-seq
 
 
@@ -348,7 +348,7 @@ However, the programmer intent is typically very different in these two cases.
 
 @node elt
 @subsection elt (Accessor)
-@syindexanchor{elt}
+@syindexanchor{elt, REF}
 @cindex elt
 
 
@@ -400,7 +400,7 @@ elements that are beyond the @term{vector}'s @term{fill pointer}.
 
 @node fill
 @subsection fill (Function)
-@syindexanchor{fill}
+@syindexanchor{fill, REF}
 @cindex fill
 
 
@@ -458,7 +458,7 @@ with @param{item}.
 
 @node make-sequence
 @subsection make-sequence (Function)
-@syindexanchor{make-sequence}
+@syindexanchor{make-sequence, REF}
 @cindex make-sequence
 
 
@@ -539,7 +539,7 @@ the number of elements and @param{size} is different from that number.
 
 @node subseq
 @subsection subseq (Accessor)
-@syindexanchor{subseq}
+@syindexanchor{subseq, REF}
 @cindex subseq
 
 
@@ -613,7 +613,7 @@ are not modified in the operation.
 
 @node map
 @subsection map (Function)
-@syindexanchor{map}
+@syindexanchor{map, REF}
 @cindex map
 
 
@@ -708,7 +708,7 @@ is different from that number.
 
 @node map-into
 @subsection map-into (Function)
-@syindexanchor{map-into}
+@syindexanchor{map-into, REF}
 @cindex map-into
 
 
@@ -795,7 +795,7 @@ arguments, while @coderef{map} requires at least three arguments.
 
 @node reduce
 @subsection reduce (Function)
-@syindexanchor{reduce}
+@syindexanchor{reduce, REF}
 @cindex reduce
 
 
@@ -893,11 +893,11 @@ This is the only case where the
 
 @node count; count-if; count-if-not
 @subsection count, count-if, count-if-not (Function)
-@syindexanchor{count}
+@syindexanchor{count, REF}
 @cindex count
-@syindexanchor{count-if}
+@syindexanchor{count-if, REF}
 @cindex count-if
-@syindexanchor{count-if-not}
+@syindexanchor{count-if-not, REF}
 @cindex count-if-not
 
 
@@ -977,7 +977,7 @@ The @kwd{test-not} @term{argument} is deprecated.
 
 @node length
 @subsection length (Function)
-@syindexanchor{length}
+@syindexanchor{length, REF}
 @cindex length
 
 
@@ -1023,9 +1023,9 @@ the active length as specified by the @term{fill pointer} is returned.
 
 @node reverse; nreverse
 @subsection reverse, nreverse (Function)
-@syindexanchor{reverse}
+@syindexanchor{reverse, REF}
 @cindex reverse
-@syindexanchor{nreverse}
+@syindexanchor{nreverse, REF}
 @cindex nreverse
 @anchor{reverse}
 @anchor{nreverse}
@@ -1101,9 +1101,9 @@ modify the argument @param{sequence}, or both.
 
 @node sort; stable-sort
 @subsection sort, stable-sort (Function)
-@syindexanchor{sort}
+@syindexanchor{sort, REF}
 @cindex sort
-@syindexanchor{stable-sort}
+@syindexanchor{stable-sort, REF}
 @cindex stable-sort
 @anchor{sort}
 @anchor{stable-sort}
@@ -1250,11 +1250,11 @@ and might or might not be @term{identical} to @param{sequence}.
 
 @node find; find-if; find-if-not
 @subsection find, find-if, find-if-not (Function)
-@syindexanchor{find}
+@syindexanchor{find, REF}
 @cindex find
-@syindexanchor{find-if}
+@syindexanchor{find-if, REF}
 @cindex find-if
-@syindexanchor{find-if-not}
+@syindexanchor{find-if-not, REF}
 @cindex find-if-not
 @anchor{find}
 
@@ -1341,11 +1341,11 @@ The @kwd{test-not} @term{argument} is deprecated.
 
 @node position; position-if; position-if-not
 @subsection position, position-if, position-if-not (Function)
-@syindexanchor{position}
+@syindexanchor{position, REF}
 @cindex position
-@syindexanchor{position-if}
+@syindexanchor{position-if, REF}
 @cindex position-if
-@syindexanchor{position-if-not}
+@syindexanchor{position-if-not, REF}
 @cindex position-if-not
 @anchor{position}
 
@@ -1425,7 +1425,7 @@ The @kwd{test-not} @term{argument} is deprecated.
 
 @node search
 @subsection search (Function)
-@syindexanchor{search}
+@syindexanchor{search, REF}
 @cindex search
 
 
@@ -1499,7 +1499,7 @@ The @kwd{test-not} @term{argument} is deprecated.
 
 @node mismatch
 @subsection mismatch (Function)
-@syindexanchor{mismatch}
+@syindexanchor{mismatch, REF}
 @cindex mismatch
 
 
@@ -1581,7 +1581,7 @@ The @kwd{test-not} @term{argument} is deprecated.
 
 @node replace
 @subsection replace (Function)
-@syindexanchor{replace}
+@syindexanchor{replace, REF}
 @cindex replace
 
 
@@ -1660,17 +1660,17 @@ The @param{sequence-1} is modified.
 
 @node substitute; substitute-if; substitute-if-not; nsubstitute; nsubstitute-+
 @subsection substitute, substitute-if, substitute-if-not, nsubstitute, nsubstitute-if, nsubstitute-if-not (Function)
-@syindexanchor{substitute}
+@syindexanchor{substitute, REF}
 @cindex substitute
-@syindexanchor{substitute-if}
+@syindexanchor{substitute-if, REF}
 @cindex substitute-if
-@syindexanchor{substitute-if-not}
+@syindexanchor{substitute-if-not, REF}
 @cindex substitute-if-not
-@syindexanchor{nsubstitute}
+@syindexanchor{nsubstitute, REF}
 @cindex nsubstitute
-@syindexanchor{nsubstitute-if}
+@syindexanchor{nsubstitute-if, REF}
 @cindex nsubstitute-if
-@syindexanchor{nsubstitute-if-not}
+@syindexanchor{nsubstitute-if-not, REF}
 @cindex nsubstitute-if-not
 @anchor{substitute}
 @anchor{nsubstitute}
@@ -1853,7 +1853,7 @@ some implementations:
 
 @node concatenate
 @subsection concatenate (Function)
-@syindexanchor{concatenate}
+@syindexanchor{concatenate, REF}
 @cindex concatenate
 
 
@@ -1931,7 +1931,7 @@ is different from that number.
 
 @node merge
 @subsection merge (Function)
-@syindexanchor{merge}
+@syindexanchor{merge, REF}
 @cindex merge
 
 
@@ -2054,17 +2054,17 @@ is different from that number.
 
 @node remove; remove-if; remove-if-not; delete; delete-if; delete-if-not
 @subsection remove, remove-if, remove-if-not, delete, delete-if, delete-if-not (Function)
-@syindexanchor{remove}
+@syindexanchor{remove, REF}
 @cindex remove
-@syindexanchor{remove-if}
+@syindexanchor{remove-if, REF}
 @cindex remove-if
-@syindexanchor{remove-if-not}
+@syindexanchor{remove-if-not, REF}
 @cindex remove-if-not
-@syindexanchor{delete}
+@syindexanchor{delete, REF}
 @cindex delete
-@syindexanchor{delete-if}
+@syindexanchor{delete-if, REF}
 @cindex delete-if
-@syindexanchor{delete-if-not}
+@syindexanchor{delete-if-not, REF}
 @cindex delete-if-not
 
 
@@ -2259,9 +2259,9 @@ The functions @coderef{delete-if-not} and @coderef{remove-if-not} are deprecated
 
 @node remove-duplicates; delete-duplicates
 @subsection remove-duplicates, delete-duplicates (Function)
-@syindexanchor{remove-duplicates}
+@syindexanchor{remove-duplicates, REF}
 @cindex remove-duplicates
-@syindexanchor{delete-duplicates}
+@syindexanchor{delete-duplicates, REF}
 @cindex delete-duplicates
 
 
