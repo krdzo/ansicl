@@ -430,7 +430,7 @@ or @coderef{proclaim}).
 
 
 @item Defining a @term{setf expander} for it
-(via @coderef{defsetf} or @coderef{define-setf-method}).
+(via @coderef{defsetf} or @code{define-setf-method}).
 
 @item Defining, undefining, or binding its @term{setf function name}.
 
@@ -612,7 +612,7 @@ initially present in that @term{implementation} but not specified in this specif
 
 @subsubheading Class Precedence List:
 @coderef{package},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -634,7 +634,7 @@ to @term{symbols}; see @ref{Package Concepts}.
 
 @subsubheading Syntax:
 
-@DefunWithValues{export, symbols @opt{} package, @coderef{t}}
+@DefunWithValues{export, symbols @opt{} package, @code{t}}
 
 @subsubheading Arguments and Values:
 
@@ -942,7 +942,7 @@ Whether or how the @term{list} is ordered is
 
 @subsubheading Syntax:
 
-@DefunWithValues{import, symbols @opt{} package, @coderef{t}}
+@DefunWithValues{import, symbols @opt{} package, @code{t}}
 
 @subsubheading Arguments and Values:
 
@@ -1012,7 +1012,7 @@ Current state of the package system.
 
 @coderef{import} signals a @term{correctable} error @oftype{package-error}
 if any of the @param{symbols} to be @term{imported} has the @term{same} @term{name}
-(under @coderef{string=}) as some distinct @term{symbol} (under @coderef{eql})
+(under @coderef{string=}) as some distinct @term{symbol} (under @code{eql})
 already @term{accessible} in the @param{package}, even if the conflict is
 with a @term{shadowing symbol} of the @param{package}.
 
@@ -1114,7 +1114,7 @@ conflicts with any existing package names.
 
 @subsubheading Syntax:
 
-@DefunWithValues{shadow, symbol-names @opt{} package, @coderef{t}}
+@DefunWithValues{shadow, symbol-names @opt{} package, @code{t}}
 
 @subsubheading Arguments and Values:
 
@@ -1197,7 +1197,7 @@ in @param{package}, but by inheritance, the inherited symbol becomes
 
 @subsubheading Syntax:
 
-@DefunWithValues{shadowing-import, symbols @opt{} package, @coderef{t}}
+@DefunWithValues{shadowing-import, symbols @opt{} package, @code{t}}
 
 @subsubheading Arguments and Values:
 
@@ -1612,7 +1612,7 @@ have distinct names.
 
 @subsubheading Examples:
 
-The following function should return @coderef{t}@spc{}on any @term{package}, and signal
+The following function should return @code{t}@spc{}on any @term{package}, and signal
 an error if the usage of @coderef{with-package-iterator} does not agree
 with the corresponding usage of @coderef{do-symbols}.
 
@@ -1684,7 +1684,7 @@ has returned @term{false} as its @term{primary value}.
 
 @subsubheading Syntax:
 
-@DefunWithValues{unexport, symbols @opt{} package, @coderef{t}}
+@DefunWithValues{unexport, symbols @opt{} package, @code{t}}
 
 @subsubheading Arguments and Values:
 
@@ -1864,7 +1864,7 @@ An error @oftype{package-error} is signaled if the specified @term{package} does
 
 @subsubheading Syntax:
 
-@DefunWithValues{unuse-package, packages-to-unuse @opt{} package, @coderef{t}}
+@DefunWithValues{unuse-package, packages-to-unuse @opt{} package, @code{t}}
 
 @subsubheading Arguments and Values:
 
@@ -1919,7 +1919,7 @@ Current state of the package system.
 
 @subsubheading Syntax:
 
-@DefunWithValues{use-package, packages-to-use @opt{} package, @coderef{t}}
+@DefunWithValues{use-package, packages-to-use @opt{} package, @code{t}}
 
 @subsubheading Arguments and Values:
 
@@ -2791,10 +2791,10 @@ Whatever @term{package} @term{object} is currently
 
 @subsubheading Class Precedence List:
 @coderef{package-error},
-@coderef{error},
+@code{error},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 

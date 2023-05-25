@@ -28,7 +28,7 @@ which a given @term{object} belongs, even though that @term{object}
 must belong to one or more other @term{types} as well.
 (For example, every @term{object} is @oftype{t},
 but @coderef{type-of} always returns a @term{type specifier}
-for a @term{type} more specific than @coderef{t}.)
+for a @term{type} more specific than @code{t}.)
 
 @term{Objects}, not @term{variables}, have @term{types}.
 Normally, any @term{variable} can have any @term{object} as its @term{value}.
@@ -108,9 +108,9 @@ that are particularly relevant to the @CLOS{}.
 
 @item
 @Thetypes{cons}, @coderef{symbol}, @coderef{array}, @coderef{number},
-@coderef{character}, @coderef{hash-table},
-@coderef{function},
-@coderef{readtable}, @coderef{package}, @coderef{pathname}, @coderef{stream},
+@code{character}, @coderef{hash-table},
+@code{function},
+@coderef{readtable}, @coderef{package}, @code{pathname}, @coderef{stream},
 @coderef{random-state}, @coderef{condition}, @coderef{restart},
 and any single other @term{type} created by @coderef{defstruct},
 @coderef{define-condition},
@@ -118,7 +118,7 @@ or @coderef{defclass} are @term{pairwise} @term{disjoint},
 except for type relations explicitly established by specifying
 @term{superclasses} in @coderef{defclass}
 or @coderef{define-condition}
-or the @kwd{include} option of @coderef{destruct}.
+or the @kwd{include} option of @code{destruct}.
 
 
 
@@ -505,8 +505,8 @@ The @term{class precedence list} and its computation is discussed
 in @ref{Determining the Class Precedence List}.
 
 @term{classes} are organized into a directed acyclic graph.
-There are two distinguished @term{classes}, named @coderef{t} and @coderef{standard-object}.
-The @term{class} named @coderef{t} has no @term{superclasses}.
+There are two distinguished @term{classes}, named @code{t} and @coderef{standard-object}.
+The @term{class} named @code{t} has no @term{superclasses}.
 It is a @term{superclass} of every @term{class} except itself.
 The @term{class} named @coderef{standard-object} is an @term{instance} of
 @theclass{standard-class} and is a @term{superclass} of
@@ -866,7 +866,7 @@ food, standard-object, t}@mat{@rcurly{}}; @mat{R}@tie{}@mat{=} @mat{@lcurly{}}@t
 standard-object), (standard-object, t)}@mat{@rcurly{}}.
 
 The classes @f{spice}, @f{food}, @coderef{standard-object}, and
-@coderef{t} are added in that order, and the @term{class precedence list}
+@code{t} are added in that order, and the @term{class precedence list}
 is @f{(pie apple fruit cinnamon spice food standard-object t)}.
 
 It is possible to write a set of @term{class} definitions that cannot be
@@ -1201,7 +1201,7 @@ they do not violate the type relationships and disjointness
 requirements specified by this standard.
 A standard @term{class} defined with no direct @term{superclasses} is guaranteed to
 be disjoint from all of the @term{classes} in the table, except for the
-class named @coderef{t}.
+class named @code{t}.
 
 @node Types and Classes Dictionary
 @section Types and Classes Dictionary
@@ -1272,7 +1272,7 @@ not @thetype{nil}.
 
 @coderef{boolean},
 @coderef{symbol},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1308,8 +1308,8 @@ even for a @term{generalized boolean} when no better choice presents itself.
 
 
 @subsubheading Class Precedence List:
-@coderef{function},
-@coderef{t}
+@code{function},
+@code{t}
 
 @subsubheading Description:
 
@@ -1348,7 +1348,7 @@ Specializing.
 @editornote{Sandra: Still need clarification about what happens if the
 number of arguments doesn't match the FUNCTION type declaration.}
 
-The list form of the @coderef{function} @term{type-specifier}
+The list form of the @code{function} @term{type-specifier}
 can be used only for declaration and not for discrimination.
 Every element of this @term{type} is
 a @term{function} that accepts arguments of the
@@ -1370,7 +1370,7 @@ as must be supplied in the actual arguments of a
 call.
 This is usually a @term{symbol} in the @code{KEYWORD} @term{package} but can be any @term{symbol}.
 When @keyref{key} is given in a
-@coderef{function} @term{type specifier} @term{lambda list},
+@code{function} @term{type specifier} @term{lambda list},
 the @term{keyword parameters} given
 are exhaustive unless @keyref{allow-other-keys} is also present.
 @keyref{allow-other-keys} is an indication
@@ -1384,7 +1384,7 @@ the @term{type} of @thefunction{make-list} could be declared as follows:
 @end lisp
 
 
-The @param{value-type} can be a @coderef{values}
+The @param{value-type} can be a @code{values}
 @term{type specifier} in order to indicate the
 @term{types} of @term{multiple values}.
 
@@ -1480,8 +1480,8 @@ they are both @tt{function} declarations, the declarations combine similarly.
 @subsubheading Supertypes:
 
 @coderef{compiled-function},
-@coderef{function},
-@coderef{t}
+@code{function},
+@code{t}
 
 @subsubheading Description:
 
@@ -1508,8 +1508,8 @@ Other @term{functions} might also be @oftype{compiled-function}.
 @subsubheading Class Precedence List:
 
 @coderef{generic-function},
-@coderef{function},
-@coderef{t}
+@code{function},
+@code{t}
 
 @subsubheading Description:
 
@@ -1538,8 +1538,8 @@ and can be given a global or a local name.
 @subsubheading Class Precedence List:
 @coderef{standard-generic-function},
 @coderef{generic-function},
-@coderef{function},
-@coderef{t}
+@code{function},
+@code{t}
 
 @subsubheading Description:
 
@@ -1561,7 +1561,7 @@ and
 @subsubheading Class Precedence List:
 @coderef{class},
 @coderef{standard-object},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1581,7 +1581,7 @@ directed acyclic graph of @term{classes}, its @term{slots}, and its options.
 @coderef{built-in-class},
 @coderef{class},
 @coderef{standard-object},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1611,7 +1611,7 @@ in @term{methods}.
 @coderef{structure-class},
 @coderef{class},
 @coderef{standard-object},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1629,7 +1629,7 @@ are @instsofclass{structure-class}.
 @coderef{standard-class},
 @coderef{class},
 @coderef{standard-object},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1645,7 +1645,7 @@ defined by @coderef{defclass}.
 
 @subsubheading Class Precedence List:
 @coderef{method},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1682,7 +1682,7 @@ method combination.
 @coderef{standard-method},
 @coderef{method},
 @coderef{standard-object},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1701,7 +1701,7 @@ method combination.
 @subsubheading Class Precedence List:
 
 @coderef{structure-object},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1727,7 +1727,7 @@ that is defined by @coderef{defstruct}.
 
 @subsubheading Class Precedence List:
 @coderef{standard-object},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1744,7 +1744,7 @@ and is a @term{superclass} of every @term{class} that is an @term{instance} of
 
 @subsubheading Class Precedence List:
 @coderef{method-combination},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1764,7 +1764,7 @@ with that @term{type}.
 
 
 @subsubheading Class Precedence List:
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 The set of all @term{objects}.
@@ -1832,7 +1832,7 @@ Combining.
 @subsubheading Compound Type Specifier Description:
 
 This denotes the set containing the named @param{objects}. An
-@term{object} is of this @term{type} if and only if it is @coderef{eql}
+@term{object} is of this @term{type} if and only if it is @code{eql}
 to one of the specified @param{objects}.
 
 The @term{type specifiers} @f{(member)} and @nil{}@spc{}are equivalent.
@@ -1871,7 +1871,7 @@ This denotes the set of all @term{objects} that are not of the @term{type} @para
 
 The argument is required, and cannot be @t{*}.
 
-The symbol @coderef{not} is not valid as a @term{type specifier}.
+The symbol @code{not} is not valid as a @term{type specifier}.
 
 
 @node and (Type Specifier)
@@ -1899,7 +1899,7 @@ determined by the intersection of the @param{typespecs}.
 
 @t{*} is not permitted as an argument.
 
-The @term{type specifiers} @f{(and)} and @coderef{t}@spc{}are equivalent.
+The @term{type specifiers} @f{(and)} and @code{t}@spc{}are equivalent.
 The symbol @t{and} is not valid as a @term{type specifier},
 and, specifically, it is not an abbreviation for @f{(and)}.
 
@@ -1933,7 +1933,7 @@ Also, the value returned by @coderef{position} is an @objectoftype{(or null (int
 @t{*} is not permitted as an argument.
 
 The @term{type specifiers} @f{(or)} and @nil{}@spc{}are equivalent.
-The symbol @coderef{or} is not valid as a @term{type specifier};
+The symbol @code{or} is not valid as a @term{type specifier};
 and, specifically, it is not an abbreviation for @f{(or)}.
 
 
@@ -1962,7 +1962,7 @@ Specializing.
 @subsubheading Compound Type Specifier Description:
 
 This @term{type specifier} can be used only as the @param{value-type} in a
-@coderef{function} @term{type specifier} or a @coderef{the}
+@code{function} @term{type specifier} or a @coderef{the}
 @term{special form}.  It is used to specify individual @term{types}
 when @term{multiple values} are involved.
 The @keyref{optional} and @keyref{rest} markers can appear in the @param{value-type} list;
@@ -2043,34 +2043,34 @@ according to the following rules:
 
 
 
-If the @param{result-type} is a @term{recognizable subtype} of @coderef{list},
+If the @param{result-type} is a @term{recognizable subtype} of @code{list},
 and the @term{object} is a @term{sequence},
 then the @param{result} is a @term{list}
 that has the @term{same} @term{elements} as @param{object}.
 
-If the @param{result-type} is a @term{recognizable subtype} of @coderef{vector},
+If the @param{result-type} is a @term{recognizable subtype} of @code{vector},
 and the @term{object} is a @term{sequence},
 then the @param{result} is a @term{vector}
 that has the @term{same} @term{elements} as @param{object}.
 If @param{result-type} is a specialized @term{type},
 the @param{result} has an @term{actual array element type} that is the result of
 @term{upgrading} the element type part of that @term{specialized} @term{type}.
-If no element type is specified, the element type defaults to @coderef{t}.
+If no element type is specified, the element type defaults to @code{t}.
 If the @term{implementation} cannot determine the element type, an error is signaled.
 
 
-@item @id{@coderef{character}}
+@item @id{@code{character}}
 
 
-If the @param{result-type} is @coderef{character}
+If the @param{result-type} is @code{character}
 and the @term{object} is a @term{character designator},
 the @param{result} is the @term{character} it denotes.
 
 
-@item @id{@coderef{complex}}
+@item @id{@code{complex}}
 
 
-If the @param{result-type} is @coderef{complex}
+If the @param{result-type} is @code{complex}
 and the @term{object} is a @term{real},
 then the @param{result} is obtained by constructing a @term{complex}
 whose real part is the @term{object} and
@@ -2082,10 +2082,10 @@ than a @term{complex}; see @ref{Rule of Canonical Representation for Complex Rat
 So, for example, @f{(coerce 3 'complex)} is permissible,
 but will return @f{3}, which is not a @term{complex}.)
 
-@item @id{@coderef{float}}
+@item @id{@code{float}}
 
 
-If the @param{result-type} is any of @coderef{float},
+If the @param{result-type} is any of @code{float},
 @coderef{short-float},
 @coderef{single-float},
 @coderef{double-float},
@@ -2095,26 +2095,26 @@ and the @term{object} is a
 then the @param{result} is a @term{float} of @term{type} @param{result-type}
 which is equal in sign and magnitude to the @term{object} to whatever degree of
 representational precision is permitted by that @term{float} representation.
-(If the @param{result-type} is @coderef{float}
+(If the @param{result-type} is @code{float}
 and @param{object} is not already a @term{float},
 then the @param{result} is a @term{single float}.)
 
-@item @id{@coderef{function}}
+@item @id{@code{function}}
 
 
-If the @param{result-type} is @coderef{function},
+If the @param{result-type} is @code{function},
 and @param{object} is any
 @term{function name}
 that is @term{fbound}
 but that is globally defined neither as a @term{macro name} nor as a @term{special operator},
 then the @param{result} is the @term{functional value} of @param{object}.
 
-If the @param{result-type} is @coderef{function},
+If the @param{result-type} is @code{function},
 and @param{object} is a @term{lambda expression},
 then the @param{result} is a @term{closure} of @param{object}
 in the @term{null lexical environment}.
 
-@item @id{@coderef{t}}
+@item @id{@code{t}}
 
 
 Any @param{object} can be @term{coerced} to an @term{object} @oftype{t}.
@@ -2158,7 +2158,7 @@ If a coercion is not possible, an error @oftype{type-error} is signaled.
 
 An error
 @oftype{error} is signaled
-if the @param{result-type} is @coderef{function} but
+if the @param{result-type} is @code{function} but
 @param{object} is a @term{symbol} that is not @term{fbound} or
 if the @term{symbol} names a @term{macro} or a @term{special operator}.
 
@@ -2242,7 +2242,7 @@ are nested within the expansion.
 
 The consequences are undefined if the result of fully expanding a
 @term{type specifier} contains any circular structure, except within
-the @term{objects} referred to by @coderef{member} and @coderef{eql}
+the @term{objects} referred to by @code{member} and @code{eql}
 @term{type specifiers}.
 
 @param{Documentation} is attached to @param{name} as a @term{documentation string}
@@ -2347,15 +2347,15 @@ that might result.
 @coderef{subtypep} is permitted to return the
 @term{values} @term{false} and @term{false} only when at least
 one argument involves one of these @term{type specifiers}:
-@coderef{and},
-@coderef{eql},
-the list form of @coderef{function},
-@coderef{member},
-@coderef{not},
-@coderef{or},
+@code{and},
+@code{eql},
+the list form of @code{function},
+@code{member},
+@code{not},
+@code{or},
 @coderef{satisfies},
 or
-@coderef{values}.
+@code{values}.
 (A @term{type specifier} `involves' such a @term{symbol} if,
 after being @term{type expanded},
 it contains that @term{symbol} in a position that would call for
@@ -2521,7 +2521,7 @@ That implies that the following set of tests are also true:
 @subsubheading Notes:
 
 The small differences between the @coderef{subtypep} specification for
-the @coderef{array} and @coderef{complex} types are necessary because there
+the @coderef{array} and @code{complex} types are necessary because there
 is no creation function for @term{complexes} which allows
 the specification of the resultant part type independently of
 the actual types of the parts.  Thus in the case of @thetype{complex},
@@ -2530,7 +2530,7 @@ can be a member of more than one @term{type}.
 For example, @f{17} is of @term{type} @f{(mod 18)}
 as well as @term{type} @f{(mod 256)} and @term{type} @coderef{integer};
 and @f{2.3f5} is @oftype{single-float}
-as well as @term{type} @coderef{float}.
+as well as @term{type} @code{float}.
 
 
 
@@ -2585,7 +2585,7 @@ For all @param{objects}, @f{(typep @param{object} (type-of @param{object}))}
 returns @term{true}.
 Implicit in this is that @term{type specifiers} which are
 not valid for use with @coderef{typep}, such as the @term{list} form of the
-@coderef{function} @term{type specifier}, are never returned by @coderef{type-of}.
+@code{function} @term{type specifier}, are never returned by @coderef{type-of}.
 
 @item
 The @term{type} returned by @coderef{type-of} is always a @term{recognizable subtype}
@@ -2812,10 +2812,10 @@ of @coderef{deftype} information at runtime.
 
 @subsubheading Class Precedence List:
 @coderef{type-error},
-@coderef{error},
+@code{error},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -2899,10 +2899,10 @@ offending datum in the @term{situation} represented by the @param{condition}.
 @coderef{simple-type-error},
 @coderef{simple-condition},
 @coderef{type-error},
-@coderef{error},
+@code{error},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 

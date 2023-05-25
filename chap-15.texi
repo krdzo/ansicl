@@ -125,7 +125,7 @@ meaning that each @term{element} must be of a restricted @term{type}.
 
 The phrasing ``an @term{array} @term{specialized} to @term{type} @metavar{type}''
 is sometimes used to emphasize the @term{element type} of an @term{array}.
-This phrasing is tolerated even when the @metavar{type} is @coderef{t},
+This phrasing is tolerated even when the @metavar{type} is @code{t},
 even though an @term{array} @term{specialized} to @term{type} @term{t}
 is a @term{general} @term{array}, not a @term{specialized} @term{array}.
 
@@ -191,7 +191,7 @@ will @term{upgrade} a given @term{type}.
 @subsubsection Required Kinds of Specialized Arrays
 
 @term{Vectors} whose @term{elements} are restricted to @term{type}
-@coderef{character} or a @term{subtype} of @coderef{character}
+@code{character} or a @term{subtype} of @code{character}
 are called
 @cindex string
 @dfn{strings}.
@@ -225,7 +225,7 @@ see instead @ref{Strings, Chapter 16 (Strings)}.
 
 
 @term{Vectors} whose @term{elements} are restricted to @term{type}
-@coderef{bit} are called
+@code{bit} are called
 @cindex bit vector
 @dfn{bit vectors}.
 @term{Bit vectors} are @oftype{bit-vector}.
@@ -296,7 +296,7 @@ see instead @ref{Strings, Chapter 16 (Strings)}.
 
 @subsubheading Class Precedence List:
 @coderef{array},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -401,7 +401,7 @@ other @term{objects}.
 
 @coderef{simple-array},
 @coderef{array},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -468,10 +468,10 @@ that can result from giving @param{type-specifier} as the
 
 
 @subsubheading Class Precedence List:
-@coderef{vector},
+@code{vector},
 @coderef{array},
 @coderef{sequence},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -530,8 +530,8 @@ is equivalent to the @term{type} @f{(array @param{e} (@param{s}))}.
 The type @f{(vector bit)} has the name @coderef{bit-vector}.
 
 The union of all @term{types} @f{(vector @mat{C})},
-where @mat{C} is any @term{subtype} of @coderef{character},
-has the name @coderef{string}.
+where @mat{C} is any @term{subtype} of @code{character},
+has the name @code{string}.
 
 @tt{(vector *)} refers to all @term{vectors}
 regardless of element type, @tt{(vector @param{type-specifier})}
@@ -548,11 +548,11 @@ that can result from giving @param{type-specifier} as the
 @subsubheading Supertypes:
 
 @coderef{simple-vector},
-@coderef{vector},
+@code{vector},
 @coderef{simple-array},
 @coderef{array},
 @coderef{sequence},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -591,10 +591,10 @@ This is the same as @tt{(simple-array t (@param{size}))}.
 
 @subsubheading Class Precedence List:
 @coderef{bit-vector},
-@coderef{vector},
+@code{vector},
 @coderef{array},
 @coderef{sequence},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -637,11 +637,11 @@ that is, the set of @term{bit vectors} of size @param{size}.
 
 @coderef{simple-bit-vector},
 @coderef{bit-vector},
-@coderef{vector},
+@code{vector},
 @coderef{simple-array},
 @coderef{array},
 @coderef{sequence},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -688,7 +688,7 @@ that is, the set of @term{simple bit vectors} of size @param{size}.
 @param{dimensions}---a @term{designator} for a @term{list} of @term{valid array dimensions}.
 
 @param{element-type}---a @term{type specifier}.
-@Default{@coderef{t}}
+@Default{@code{t}}
 
 @param{initial-element}---an @term{object}.
 
@@ -698,7 +698,7 @@ that is, the set of @term{simple bit vectors} of size @param{size}.
 @Default{@nil{}}
 
 @param{fill-pointer}---a @term{valid fill pointer} for the @term{array} to be created,
-or @coderef{t}@spc{}or @nil{}.
+or @code{t}@spc{}or @nil{}.
 @Default{@nil{}}
 
 @param{displaced-to}---an @term{array} or @nil{}.
@@ -776,7 +776,7 @@ the array is @term{actually adjustable}).
 If @param{fill-pointer} is @term{non-nil},
 the @term{array} must be one-dimensional;
 that is, the @term{array} must be a @term{vector}.
-If @param{fill-pointer} is @coderef{t},
+If @param{fill-pointer} is @code{t},
 the length of the @term{vector} is used to initialize the @term{fill pointer}.
 If @param{fill-pointer} is an @term{integer},
 it becomes the initial @term{fill pointer} for the @term{vector}.
@@ -959,7 +959,7 @@ the rank of @param{array}.  Otherwise, @term{array} is zero-dimensional and
 @param{initial-element} or @param{displaced-to} is given.
 
 @param{fill-pointer}---a @term{valid fill pointer} for the
-@term{array} to be created, or @coderef{t}, or @nil{}.
+@term{array} to be created, or @code{t}, or @nil{}.
 @Default{@nil{}}
 
 @param{displaced-to}---an @term{array} or @nil{}.
@@ -995,7 +995,7 @@ If @param{initial-contents} is supplied, it is treated as for
 
 If @param{fill-pointer} is an @term{integer},
 it becomes the @term{fill pointer} for the resulting @term{array}.
-If @param{fill-pointer} is the symbol @coderef{t},
+If @param{fill-pointer} is the symbol @code{t},
 it indicates that the size of the resulting @term{array}
 should be used as the @term{fill pointer}.
 If @param{fill-pointer} is @nil{},
@@ -1924,11 +1924,11 @@ The @param{typespec} is a @term{subtype} of
 (and possibly @term{type equivalent} to)
 the @param{upgraded-typespec}.
 
-If @param{typespec} is @coderef{bit},
+If @param{typespec} is @code{bit},
 the result is @term{type equivalent} to @f{bit}.
 If @param{typespec} is @coderef{base-char},
 the result is @term{type equivalent} to @f{base-char}.
-If @param{typespec} is @coderef{character},
+If @param{typespec} is @code{character},
 the result is @term{type equivalent} to @f{character}.
 
 The purpose of @coderef{upgraded-array-element-type} is to reveal how
@@ -2163,7 +2163,7 @@ The @term{vector} is initialized to contain the @param{objects}.
 
 @subsubheading Notes:
 
-@coderef{vector} is analogous to @coderef{list}.
+@code{vector} is analogous to @code{list}.
 
 @lisp
  (vector a@ssso{} a@ssst{} ... a@sssn{})
@@ -2382,7 +2382,7 @@ have a @term{fill pointer}.
 
 @subsubheading Arguments and Values:
 
-@param{bit-array}---for @coderef{bit},  a @term{bit array};
+@param{bit-array}---for @code{bit},  a @term{bit array};
 for @coderef{sbit}, a @term{simple bit array}.
 
 @param{subscripts}---a @term{list} of @term{valid array indices}
@@ -2392,7 +2392,7 @@ for the @param{bit-array}.
 
 @subsubheading Description:
 
-@coderef{bit} and @coderef{sbit} @term{access} the @param{bit-array}
+@code{bit} and @coderef{sbit} @term{access} the @param{bit-array}
 @term{element} specified by @param{subscripts}.
 
 These @term{functions} ignore the @term{fill pointer} when @term{accessing} @term{elements}.
@@ -2419,11 +2419,11 @@ These @term{functions} ignore the @term{fill pointer} when @term{accessing} @ter
 
 @subsubheading Notes:
 
-@coderef{bit} and @coderef{sbit} are like @coderef{aref}
+@code{bit} and @coderef{sbit} are like @coderef{aref}
 except that they require @param{arrays} to be
 a @term{bit array} and a @term{simple bit array}, respectively.
 
-@coderef{bit} and @coderef{sbit}, unlike @coderef{char} and @coderef{schar},
+@code{bit} and @coderef{sbit}, unlike @coderef{char} and @coderef{schar},
 allow the first argument to be an @term{array} of any @term{rank}.
 
 
@@ -2473,7 +2473,7 @@ allow the first argument to be an @term{array} of any @term{rank}.
 
 @param{bit-array}, @param{bit-array1}, @param{bit-array2}---a @term{bit array}.
 
-@param{Opt-arg}---a @term{bit array}, or @coderef{t}, or @nil{}.
+@param{Opt-arg}---a @term{bit array}, or @code{t}, or @nil{}.
 @Default{@nil{}}
 
 @param{Bit-array}, @param{bit-array1}, @param{bit-array2}, and @param{opt-arg}
@@ -2497,7 +2497,7 @@ with all the bits inverted.
 
 If @param{opt-arg} is of type @f{(array bit)} the contents of the
 result are destructively placed into @param{opt-arg}.
-If @param{opt-arg} is the symbol @coderef{t},
+If @param{opt-arg} is the symbol @code{t},
 @param{bit-array} or @param{bit-array1} is replaced with the result;
 if @param{opt-arg} is @nil{}@spc{}or omitted, a new @term{array} is created
 to contain the result.

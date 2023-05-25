@@ -347,10 +347,10 @@ value will be @oftype{single-float}
 part of the true mathematical result is zero) or @f{(complex single-float)}.
 
 Float substitutability applies neither to the rational @term{functions}
-@coderef{+},
-@coderef{-},
-@coderef{*},
-and @coderef{/}
+@code{+},
+@code{-},
+@code{*},
+and @code{/}
 nor to the related @term{operators}
 @coderef{1+},
 @coderef{1-},
@@ -407,7 +407,7 @@ The following rules apply to floating point computations.
 
 When @term{rationals} and @term{floats} are combined by a numerical function,
 the @term{rational} is first converted to a @term{float} of the same format.
-For @term{functions} such as @coderef{+} that take more than two arguments,
+For @term{functions} such as @code{+} that take more than two arguments,
 it is permitted that part of the operation be carried out exactly using
 @term{rationals} and the rest be done using floating-point arithmetic.
 
@@ -516,9 +516,9 @@ which is the real part.
 This rule does not apply to @term{complex} numbers whose parts
 are @term{floats}.
 For example, @f{#C(5 0)} and @f{5} are not @term{different} @term{objects} in @clisp{}
-(they are always the @term{same} under @coderef{eql});
+(they are always the @term{same} under @code{eql});
 @f{#C(5.0 0.0)} and @f{5.0} are always @term{different} @term{objects} in @clisp{}
-(they are never the @term{same} under @coderef{eql},
+(they are never the @term{same} under @code{eql},
 although they are the @term{same} under @coderef{equalp} and @coderef{=}).
 
 @node Examples of Rule of Canonical Representation for Complex Rationals
@@ -756,19 +756,19 @@ This denotes the absence of an upper bound on the interval.
 
 @subsubheading Class Precedence List:
 @coderef{number},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
 @Thetype{number} contains @term{objects} which represent
 mathematical numbers.
-The @term{types} @coderef{real} and @coderef{complex} are @term{disjoint}
+The @term{types} @coderef{real} and @code{complex} are @term{disjoint}
 @term{subtypes} of @coderef{number}.
 
 @Thefunction{=} tests for numerical equality.
 @Thefunction{eql}, when its arguments are both @term{numbers},
 tests that they have both the same @term{type} and numerical value.
-Two @term{numbers} that are the @term{same} under @coderef{eql} or @coderef{=}
+Two @term{numbers} that are the @term{same} under @code{eql} or @coderef{=}
 are not necessarily the @term{same} under @coderef{eq}.
 
 @subsubheading Notes:
@@ -788,9 +788,9 @@ computer languages, and various issues of time and space efficiency.
 
 
 @subsubheading Class Precedence List:
-@coderef{complex},
+@code{complex},
 @coderef{number},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -829,7 +829,7 @@ real part and imaginary part are each of type
 @f{(upgraded-complex-part-type @param{typespec})}.
 This @term{type} encompasses those @term{complexes}
 that can result by giving numbers of @term{type} @param{typespec}
-to @coderef{complex}.
+to @code{complex}.
 
 @tt{(complex @param{type-specifier})}
 refers to all @term{complexes} that can result from giving
@@ -863,7 +863,7 @@ and which can be obtained by @tt{(COERCE @mat{n} 'COMPLEX)}.
 @subsubheading Class Precedence List:
 @coderef{real},
 @coderef{number},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -873,7 +873,7 @@ numbers (@eg{} irrational numbers) that do not have an exact representation
 in @clisp{}.  Only @term{reals} can be ordered using the
 @coderef{<}, @coderef{>}, @coderef{<=}, and @coderef{>=} functions.
 
-The @term{types} @coderef{rational} and @coderef{float} are @term{disjoint}
+The @term{types} @code{rational} and @code{float} are @term{disjoint}
 @subtypesof{real}.
 
 @realtypespec{real}
@@ -886,10 +886,10 @@ The @term{types} @coderef{rational} and @coderef{float} are @term{disjoint}
 
 
 @subsubheading Class Precedence List:
-@coderef{float},
+@code{float},
 @coderef{real},
 @coderef{number},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -963,31 +963,31 @@ or the @term{complex} @f{#C(1.0 0.0)}.
 
 @coderef{short-float}:
 @coderef{short-float},
-@coderef{float},
+@code{float},
 @coderef{real},
 @coderef{number},
-@coderef{t}
+@code{t}
 
 @coderef{single-float}:
 @coderef{single-float},
-@coderef{float},
+@code{float},
 @coderef{real},
 @coderef{number},
-@coderef{t}
+@code{t}
 
 @coderef{double-float}:
 @coderef{double-float},
-@coderef{float},
+@code{float},
 @coderef{real},
 @coderef{number},
-@coderef{t}
+@code{t}
 
 @coderef{long-float}:
 @coderef{long-float},
-@coderef{float},
+@code{float},
 @coderef{real},
 @coderef{number},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1099,10 +1099,10 @@ that are on the interval specified by the @term{interval designators}.
 
 
 @subsubheading Class Precedence List:
-@coderef{rational},
+@code{rational},
 @coderef{real},
 @coderef{number},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1123,10 +1123,10 @@ are @term{disjoint} @subtypesof{rational}.
 
 @subsubheading Class Precedence List:
 @coderef{ratio},
-@coderef{rational},
+@code{rational},
 @coderef{real},
 @coderef{number},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1150,10 +1150,10 @@ and of which the denominator is positive and greater than one.
 
 @subsubheading Class Precedence List:
 @coderef{integer},
-@coderef{rational},
+@code{rational},
 @coderef{real},
 @coderef{number},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1178,7 +1178,7 @@ where @i{lower} and @i{upper}
 are @coderef{most-negative-fixnum} and @coderef{most-positive-fixnum}, respectively,
 is also called @coderef{fixnum}.
 
-The @term{type} @f{(integer 0 1)} is also called @coderef{bit}.
+The @term{type} @f{(integer 0 1)} is also called @code{bit}.
 The @term{type} @f{(integer 0 *)} is also called @coderef{unsigned-byte}.
 
 @node signed-byte
@@ -1191,10 +1191,10 @@ The @term{type} @f{(integer 0 *)} is also called @coderef{unsigned-byte}.
 
 @coderef{signed-byte},
 @coderef{integer},
-@coderef{rational},
+@code{rational},
 @coderef{real},
 @coderef{number},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1233,10 +1233,10 @@ as @thetype{integer}.
 @coderef{unsigned-byte},
 @coderef{signed-byte},
 @coderef{integer},
-@coderef{rational},
+@code{rational},
 @coderef{real},
 @coderef{number},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1268,7 +1268,7 @@ the type @f{(integer 0 *)}, the set of non-negative @term{integers}.
 
 @subsubheading Notes:
 
-The @term{type} @f{(unsigned-byte 1)} is also called @coderef{bit}.
+The @term{type} @f{(unsigned-byte 1)} is also called @code{bit}.
 
 
 @node mod (Type Specifier)
@@ -1300,7 +1300,7 @@ where @mat{@hbox{@param{m}}=@hbox{@param{n}}-1}.
 
 The argument is required, and cannot be @t{*}.
 
-The symbol @coderef{mod} is not valid as a @term{type specifier}.
+The symbol @code{mod} is not valid as a @term{type specifier}.
 
 
 @node bit (Type)
@@ -1311,14 +1311,14 @@ The symbol @coderef{mod} is not valid as a @term{type specifier}.
 
 @subsubheading Supertypes:
 
-@coderef{bit},
+@code{bit},
 @coderef{unsigned-byte},
 @coderef{signed-byte},
 @coderef{integer},
-@coderef{rational},
+@code{rational},
 @coderef{real},
 @coderef{number},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1336,10 +1336,10 @@ and @f{(unsigned-byte 1)}.
 
 @coderef{fixnum},
 @coderef{integer},
-@coderef{rational},
+@code{rational},
 @coderef{real},
 @coderef{number},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1361,10 +1361,10 @@ The @term{type} @coderef{fixnum} is required to be a supertype of
 
 @coderef{bignum},
 @coderef{integer},
-@coderef{rational},
+@code{rational},
 @coderef{real},
 @coderef{number},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1499,10 +1499,10 @@ Might signal @coderef{arithmetic-error} if otherwise unable to fulfill its contr
 
 @subsubheading Notes:
 
-@coderef{=} differs from @coderef{eql} in that
+@coderef{=} differs from @code{eql} in that
 @f{(= 0.0 -0.0)} is always true,
 because @coderef{=} compares the mathematical values of its operands,
-whereas @coderef{eql} compares the representational values, so to speak.
+whereas @code{eql} compares the representational values, so to speak.
 
 
 @node max; min
@@ -3141,10 +3141,10 @@ The implementation.
 
 @subsubheading Description:
 
-@coderef{mod} and @coderef{rem} are generalizations of the modulus
+@code{mod} and @coderef{rem} are generalizations of the modulus
 and remainder functions respectively.
 
-@coderef{mod} performs the operation @coderef{floor}
+@code{mod} performs the operation @coderef{floor}
 on @param{number} and @param{divisor}
 and returns the remainder of the @coderef{floor} operation.
 
@@ -3152,7 +3152,7 @@ and returns the remainder of the @coderef{floor} operation.
 on @param{number} and @param{divisor}
 and returns the remainder of the @coderef{truncate} operation.
 
-@coderef{mod} and @coderef{rem} are
+@code{mod} and @coderef{rem} are
 the modulus and remainder functions
 when @param{number} and @param{divisor} are @term{integers}.
 
@@ -3181,7 +3181,7 @@ when @param{number} and @param{divisor} are @term{integers}.
 
 @subsubheading Notes:
 
-The result of @coderef{mod} is either zero or a
+The result of @code{mod} is either zero or a
 @term{real}
 with the same sign as @param{divisor}.
 
@@ -3353,7 +3353,7 @@ but it is potentially more efficient.
 
 @subsubheading Class Precedence List:
 @coderef{random-state},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -3386,7 +3386,7 @@ is @term{implementation-dependent}.
 
 @subsubheading Arguments and Values:
 
-@param{state}---a @term{random state}, or @nil{}, or @coderef{t}.
+@param{state}---a @term{random state}, or @nil{}, or @code{t}.
 @Default{@nil{}}
 
 @param{new-state}---a @term{random state} @term{object}.
@@ -3400,7 +3400,7 @@ If @param{state} is a @term{random state} @term{object},
 the @param{new-state} is a @term{copy}@sub{5} of that @term{object}.
 If @param{state} is @nil{},
 the @param{new-state} is a @term{copy}@sub{5} of the @term{current random state}.
-If @param{state} is @coderef{t},
+If @param{state} is @code{t},
 the @param{new-state} is a @term{fresh} @term{random state} @term{object}
 that has been randomly initialized by some means.
 
@@ -3429,7 +3429,7 @@ that has been randomly initialized by some means.
 
 @subsubheading Exceptional Situations:
 
-@Shouldchecktype{state, a @term{random state}\, or @nil{}\, or @coderef{t}}
+@Shouldchecktype{state, a @term{random state}\, or @nil{}\, or @code{t}}
 
 @subsubheading See Also:
 
@@ -3695,13 +3695,13 @@ imaginary part is equal to the sine of @param{radians}.
 
 @subsubheading Description:
 
-@coderef{complex} returns a @term{number}
+@code{complex} returns a @term{number}
 whose real      part is @param{realpart}
 and whose imaginary part is @param{imagpart}.
 
 If @param{realpart} is a @term{rational}
 and @param{imagpart} is the @term{rational} number zero,
-the result of @coderef{complex} is @param{realpart}, a @term{rational}.
+the result of @code{complex} is @param{realpart}, a @term{rational}.
 Otherwise, the result is a @term{complex}.
 
 If either @param{realpart} or @param{imagpart} is a @term{float},
@@ -4105,20 +4105,20 @@ and @coderef{denominator} returns 1.
 
 @subsubheading Description:
 
-@coderef{rational} and @coderef{rationalize} convert
+@code{rational} and @coderef{rationalize} convert
 @term{reals}
 to @term{rationals}.
 
 If @param{number} is already @term{rational}, it is returned.
 
 If @param{number} is a @term{float},
-@coderef{rational} returns a @term{rational}
+@code{rational} returns a @term{rational}
 that is mathematically equal in value to the @term{float}.
 @coderef{rationalize} returns a @term{rational} that
 approximates the @term{float} to the accuracy of
 the underlying floating-point representation.
 
-@coderef{rational} assumes that the @term{float} is completely accurate.
+@code{rational} assumes that the @term{float} is completely accurate.
 
 @coderef{rationalize} assumes that the
 @term{float} is accurate only to the precision of the
@@ -5613,7 +5613,7 @@ and
 
 @subsubheading Description:
 
-@coderef{float} converts a
+@code{float} converts a
 @term{real}
 number to a @term{float}.
 
@@ -5878,10 +5878,10 @@ expression is @term{true} when evaluated:
 
 @subsubheading Class Precedence List:
 @coderef{arithmetic-error},
-@coderef{error},
+@code{error},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -5947,10 +5947,10 @@ the offending operation in the offending call that signaled the @param{condition
 @subsubheading Class Precedence List:
 @coderef{division-by-zero},
 @coderef{arithmetic-error},
-@coderef{error},
+@code{error},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -5968,10 +5968,10 @@ occur because of division by zero.
 @subsubheading Class Precedence List:
 @coderef{floating-point-invalid-operation},
 @coderef{arithmetic-error},
-@coderef{error},
+@code{error},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -5996,10 +5996,10 @@ depend on its being @term{signaled}.
 @subsubheading Class Precedence List:
 @coderef{floating-point-inexact},
 @coderef{arithmetic-error},
-@coderef{error},
+@code{error},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -6023,10 +6023,10 @@ depend on its being @term{signaled}.
 @subsubheading Class Precedence List:
 @coderef{floating-point-overflow},
 @coderef{arithmetic-error},
-@coderef{error},
+@code{error},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -6043,10 +6043,10 @@ conditions that occur because of floating-point overflow.
 @subsubheading Class Precedence List:
 @coderef{floating-point-underflow},
 @coderef{arithmetic-error},
-@coderef{error},
+@code{error},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 

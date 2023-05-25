@@ -59,18 +59,18 @@ for which the @term{element type} of the @term{string} does not include that @te
 
 
 @subsubheading Class Precedence List:
-@coderef{string},
-@coderef{vector},
+@code{string},
+@code{vector},
 @coderef{array},
 @coderef{sequence},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
 A @term{string} is a @term{specialized} @term{vector}
 whose @term{elements} are @oftypes{character}.
 When used as a @term{type specifier} for object creation,
-@coderef{string} means @f{(vector character)}.
+@code{string} means @f{(vector character)}.
 
 
 @subsubheading Compound Type Specifier Kind:
@@ -90,7 +90,7 @@ or the @term{symbol} @t{*}.
 
 This denotes the union of all @term{types}
 @f{(array @i{c} (@param{size}))}
-for all @term{subtypes} @i{c} of @coderef{character};
+for all @term{subtypes} @i{c} of @code{character};
 that is, the set of @term{strings} of size @param{size}.
 
 @subsubheading See Also:
@@ -109,11 +109,11 @@ that is, the set of @term{strings} of size @param{size}.
 @subsubheading Supertypes:
 
 @coderef{base-string},
-@coderef{string},
-@coderef{vector},
+@code{string},
+@code{vector},
 @coderef{array},
 @coderef{sequence},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -150,12 +150,12 @@ that is, the set of @term{base strings} of size @param{size}.
 @subsubheading Supertypes:
 
 @coderef{simple-string},
-@coderef{string},
-@coderef{vector},
+@code{string},
+@code{vector},
 @coderef{simple-array},
 @coderef{array},
 @coderef{sequence},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -181,7 +181,7 @@ or the @term{symbol} @t{*}.
 
 This denotes the union of all @term{types}
 @tt{(simple-array @i{c} (@param{size}))} for all @term{subtypes} @i{c} of
-@coderef{character}; that is, the set of @term{simple strings} of size @param{size}.
+@code{character}; that is, the set of @term{simple strings} of size @param{size}.
 
 @node simple-base-string
 @subsection simple-base-string (Type)
@@ -194,12 +194,12 @@ This denotes the union of all @term{types}
 @coderef{simple-base-string},
 @coderef{base-string},
 @coderef{simple-string},
-@coderef{string},
-@coderef{vector},
+@code{string},
+@code{vector},
 @coderef{simple-array},
 @coderef{array},
 @coderef{sequence},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -358,7 +358,7 @@ Returns a @term{string} described by @param{x}; specifically:
 If @param{x} is a @term{character},
 then a @term{string} containing that one @term{character} is returned.
 @item
-@coderef{string} might perform additional, @term{implementation-defined} conversions.
+@code{string} might perform additional, @term{implementation-defined} conversions.
 @end itemize
 
 
@@ -836,7 +836,7 @@ for comparing characters.
 @Default{@term{implementation-dependent}}
 
 @param{element-type}---a @term{type specifier}.
-@Default{@coderef{character}}
+@Default{@code{character}}
 
 @param{string}---a @term{simple string}.
 

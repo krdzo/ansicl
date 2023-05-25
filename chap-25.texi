@@ -643,7 +643,7 @@ from descriptions of the argument @param{object}.
 
 The actual act of describing the object is implemented by @coderef{describe-object}.
 @coderef{describe} exists as an interface primarily to manage argument defaulting (including
-conversion of arguments @coderef{t}@spc{}and @nil{}@spc{}into @term{stream} @term{objects}) and to inhibit
+conversion of arguments @code{t}@spc{}and @nil{}@spc{}into @term{stream} @term{objects}) and to inhibit
 any return values from @coderef{describe-object}.
 
 @coderef{describe} is not intended to be an interactive function.  In a
@@ -1156,27 +1156,27 @@ documentation (@var{x} @coderef{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symb
 
 documentation (@var{x} @coderef{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
-documentation (@var{x} @coderef{list}) (@var{doc-type} @f{(eql 'list)}) list
+documentation (@var{x} @code{list}) (@var{doc-type} @f{(eql 'list)}) list
 
-documentation (@var{x} @coderef{list}) (@var{doc-type} @f{(eql 'list)}) list
+documentation (@var{x} @code{list}) (@var{doc-type} @f{(eql 'list)}) list
 
-documentation (@var{x} @coderef{function}) (@var{doc-type} @f{(eql 'function)}) function
+documentation (@var{x} @code{function}) (@var{doc-type} @f{(eql 'function)}) function
 
-documentation (@var{x} @coderef{function}) (@var{doc-type} @f{(eql 'function)}) function
-
-(setf documentation) @var{new-value} (@var{x} @coderef{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
+documentation (@var{x} @code{function}) (@var{doc-type} @f{(eql 'function)}) function
 
 (setf documentation) @var{new-value} (@var{x} @coderef{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
 (setf documentation) @var{new-value} (@var{x} @coderef{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
-(setf documentation) @var{new-value} (@var{x} @coderef{list}) (@var{doc-type} @f{(eql 'list)}) list
+(setf documentation) @var{new-value} (@var{x} @coderef{symbol}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
-(setf documentation) @var{new-value} (@var{x} @coderef{list}) (@var{doc-type} @f{(eql 'list)}) list
+(setf documentation) @var{new-value} (@var{x} @code{list}) (@var{doc-type} @f{(eql 'list)}) list
 
-(setf documentation) @var{new-value} (@var{x} @coderef{function}) (@var{doc-type} @f{(eql 'function)}) function
+(setf documentation) @var{new-value} (@var{x} @code{list}) (@var{doc-type} @f{(eql 'list)}) list
 
-(setf documentation) @var{new-value} (@var{x} @coderef{function}) (@var{doc-type} @f{(eql 'function)}) function
+(setf documentation) @var{new-value} (@var{x} @code{function}) (@var{doc-type} @f{(eql 'function)}) function
+
+(setf documentation) @var{new-value} (@var{x} @code{function}) (@var{doc-type} @f{(eql 'function)}) function
 
 
 
@@ -1381,7 +1381,7 @@ Implementors wishing to provide such support are encouraged to consult the
 
 @subsubheading Arguments and Values:
 
-@param{x}---one of @coderef{t}, @nil{}, or @kwd{default}.
+@param{x}---one of @code{t}, @nil{}, or @kwd{default}.
 
 @subsubheading Description:
 

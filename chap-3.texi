@@ -351,7 +351,7 @@ using @coderef{defconstant} is permitted; see the @term{macro} @ref{defconstant}
 
 @term{Keywords},
 @term{symbols} defined by @clisp{}@spc{}or the @term{implementation}
-as constant (such as @nil{}, @coderef{t}, and @coderef{pi}),
+as constant (such as @nil{}, @code{t}, and @coderef{pi}),
 and @term{symbols} declared as constant using @coderef{defconstant}
 are @term{constant variables}.
 
@@ -780,7 +780,7 @@ In the code fragment
 
 the function @f{(lambda (x) (+ x 2))} contains no references to any outside
 object. In this case, the same @term{closure} might be returned
-for all evaluations of the @coderef{function} @term{form}.
+for all evaluations of the @code{function} @term{form}.
 
 
 @node Shadowing
@@ -852,7 +852,7 @@ refers to the outer outstanding @term{exit point}
 inner one (here@ssst{}).
 It
 refers to that @term{exit point} textually visible at the point of
-execution of @coderef{function}
+execution of @code{function}
 (here abbreviated by the @f{#'} syntax) that resulted
 in creation of the @term{function} @term{object} actually invoked by
 @coderef{funcall}.
@@ -872,7 +872,7 @@ returned from has nothing to do with its
 being innermost or outermost; rather,
 it depends on the lexical environment
 that is packaged up with a @term{lambda expression} when
-@coderef{function} is executed.
+@code{function} is executed.
 
 
 @node Extent
@@ -1027,8 +1027,8 @@ A @term{constant variable} is not itself a @term{literal object}.
 The term @newterm{coalesce} is defined as follows.
 Suppose @f{A} and @f{B} are two @term{literal constants} in the @term{source code},
 and that @f{A'} and @f{B'} are the corresponding @term{objects} in the @term{compiled code}.
-If @f{A'} and @f{B'} are @coderef{eql} but
-@f{A} and @f{B} are not @coderef{eql}, then it is said
+If @f{A'} and @f{B'} are @code{eql} but
+@f{A} and @f{B} are not @code{eql}, then it is said
 that @f{A} and @f{B} have been coalesced by the compiler.
 
 The term @newterm{minimal compilation} refers to actions the compiler
@@ -1771,7 +1771,7 @@ indicated for that @term{type}.
 Two @term{numbers} @mat{S} and @mat{C} are @term{similar} if they are of the same @term{type}
 and represent the same mathematical value.
 
-@item @id{@coderef{character}}
+@item @id{@code{character}}
 
 
 
@@ -1827,7 +1827,7 @@ assuming equivalent @param{limit} @term{arguments} in each case.
 it cannot be used directly as an @term{argument} to @coderef{random}
 because @coderef{random} would perform a side effect.)
 
-@item @id{@coderef{cons}}
+@item @id{@code{cons}}
 
 
 Two @term{conses}, @mat{S} and @mat{C}, are @term{similar} if
@@ -1869,7 +1869,7 @@ three requirements:
 
 @enumerate 1
 @item  They both have the same test
-(@eg{} they are both @coderef{eql} @term{hash tables}).
+(@eg{} they are both @code{eql} @term{hash tables}).
 
 @item  There is a unique one-to-one correspondence between the keys of
 the two @term{hash tables}, such that the corresponding keys are
@@ -1885,13 +1885,13 @@ the keys of @mat{S} and @mat{C}, the consequences are unspecified.
 A @term{conforming program} cannot use a table such as @mat{S} as an
 @term{externalizable constant}.
 
-@item @id{@coderef{pathname}}
+@item @id{@code{pathname}}
 
 
 Two @term{pathnames} @mat{S} and @mat{C} are @term{similar} if all corresponding
 @term{pathname components} are @term{similar}.
 
-@item @id{@coderef{function}}
+@item @id{@code{function}}
 
 
 @term{Functions} are not @term{externalizable objects}.
@@ -1915,7 +1915,7 @@ calling @coderef{make-load-form} on @mat{S}.
 @node Extensions to Similarity Rules
 @subsubsection Extensions to Similarity Rules
 
-Some @term{objects}, such as @term{streams}, @coderef{readtables}, and @coderef{methods}
+Some @term{objects}, such as @term{streams}, @code{readtables}, and @code{methods}
 are not @term{externalizable objects} under the definition of similarity given above.
 That is, such @term{objects} may not portably appear as @term{literal} @term{objects}
 in @term{code} to be processed by the @term{file compiler}.
@@ -1951,9 +1951,9 @@ they may only be @term{coalesced} if and only if they are @term{identical}.
 
 @term{Objects} containing circular references can
 be @term{externalizable objects}.
-The @term{file compiler} is required to preserve @coderef{eql}ness of
+The @term{file compiler} is required to preserve @code{eql}ness of
 substructures within a @term{file}.
-Preserving @coderef{eql}ness means that subobjects that are
+Preserving @code{eql}ness means that subobjects that are
 the @term{same}
 in the @term{source code} must
 be
@@ -2149,7 +2149,7 @@ In general, an @term{implementation} is free to ignore
 @coderef{notinline}
 @cindex notinline
 ,
-@coderef{safety}
+@code{safety}
 @cindex safety
 ,
 and @coderef{special}
@@ -2166,7 +2166,7 @@ that supports inline functions or @term{compiler macros} in order to disable tho
 An @term{implementation} that does not use inline functions or @term{compiler macros}
 may safely ignore this @term{declaration}.
 
-A @coderef{safety} @term{declaration} that increases the current safety level
+A @code{safety} @term{declaration} that increases the current safety level
 must always be recognized.  An @term{implementation} that always processes
 code as if safety were high may safely ignore this @term{declaration}.
 
@@ -3159,7 +3159,7 @@ If the list being destructured ends
 early, so that it does not have an element to match against this destructuring
 (sub)-pattern, the default form is evaluated and destructured instead.  The
 supplied-p variable receives the value
-@nil{}@spc{}if the default form is used, @coderef{t}@spc{}otherwise.
+@nil{}@spc{}if the default form is used, @code{t}@spc{}otherwise.
 
 @item @id{@keyref{rest}, @keyref{body}}
 
@@ -3256,7 +3256,7 @@ The @keyref{optional}, @keyref{rest}, @keyref{aux},
 The way these @term{lambda list keywords} differ from their
 use in an @term{ordinary lambda list} follows.
 
-Consider this example, which describes how @coderef{destruct} processes
+Consider this example, which describes how @code{destruct} processes
 its @kwd{constructor} option.
 
 @lisp
@@ -3511,7 +3511,7 @@ it is considered @term{safe} if all of the following are
 @item
 For the form @f{(coerce @param{x} 'function)},
 where @param{x} is a @term{lambda expression},
-the value of the @term{optimize quality} @coderef{safety}
+the value of the @term{optimize quality} @code{safety}
 in the global environment at the time the @coderef{coerce}
 is @term{executed} applies to the resulting @term{function}.
 
@@ -3519,13 +3519,13 @@ is @term{executed} applies to the resulting @term{function}.
 
 @item
 For a call to @thefunction{ensure-generic-function}, the value of the
-@term{optimize quality} @coderef{safety} in the @term{environment}
+@term{optimize quality} @code{safety} in the @term{environment}
 @term{object} passed as the @kwd{environment} @term{argument} applies
 to the resulting @term{generic function}.
 
 @item
 For a call to @coderef{compile} with a @term{lambda expression} as the
-@term{argument}, the value of the @term{optimize quality} @coderef{safety}
+@term{argument}, the value of the @term{optimize quality} @code{safety}
 in the @term{global environment} at the time @coderef{compile} is @term{called}
 applies to the resulting @term{compiled function}.
 
@@ -3744,7 +3744,7 @@ are considered @term{destructive}:
 
 Using it as an @term{argument} to @thefunction{random}.
 
-@item @id{@coderef{cons}}
+@item @id{@code{cons}}
 
 
 Changing the @term{car}@sub{1} or @term{cdr}@sub{1} of the @term{cons},
@@ -3813,14 +3813,14 @@ or @term{closing} the @term{stream}.
 @item @id{All other standardized types}
 
 
-[This category includes, for example, @coderef{character},
+[This category includes, for example, @code{character},
 @coderef{condition},
-@coderef{function},
+@code{function},
 @coderef{method-combination},
 @coderef{method},
 @coderef{number},
 @coderef{package},
-@coderef{pathname},
+@code{pathname},
 @coderef{restart},
 and @coderef{symbol}.]
 
@@ -3978,7 +3978,7 @@ is semantically equivalent to the @term{function form}
 
 @subsubheading Description:
 
-Provides a shorthand notation for a @coderef{function} @term{special form}
+Provides a shorthand notation for a @code{function} @term{special form}
 involving a @term{lambda expression} such that:
 
 @lisp
@@ -4064,7 +4064,7 @@ and the @param{name} is returned as the @term{primary value}.
 @term{Literal objects} appearing in code processed by
 the @coderef{compile} function are neither copied nor @term{coalesced}.
 The code resulting from the execution of @coderef{compile}
-references @term{objects} that are @coderef{eql} to the corresponding
+references @term{objects} that are @code{eql} to the corresponding
 @term{objects} in the source code.
 
 @coderef{compile} is permitted, but not required, to @term{establish}
@@ -4147,7 +4147,7 @@ processed by @coderef{eval} are
 not copied nor coalesced. The code resulting from the execution of
 @coderef{eval}
 references @term{objects}
-that are @coderef{eql} to the corresponding @term{objects} in
+that are @code{eql} to the corresponding @term{objects} in
 the source code.
 
 @subsubheading Examples:
@@ -4447,7 +4447,7 @@ until the expression is in the run-time environment; see @ref{Compilation}.
 
 @param{Read-only-p} designates whether the result can be considered a
 @term{constant object}.
-If @coderef{t},
+If @code{t},
 the result is a read-only quantity that can,
 if appropriate to the @term{implementation},
 be copied into read-only space and/or @term{coalesced} with @term{similar}
@@ -4502,7 +4502,7 @@ that are the @term{same} under @coderef{equal} but are not @term{identical}
 are evaluated or compiled,
 their values always come from distinct evaluations of @param{form}.
 Their @term{values} may not be coalesced
-unless @param{read-only-p} is @coderef{t}.
+unless @param{read-only-p} is @code{t}.
 
 @subsubheading Examples:
 
@@ -4718,7 +4718,7 @@ of the actual form is the symbol @coderef{funcall}, then the destructuring of
 the arguments is actually performed using its @term{cddr} instead.
 
 @param{Documentation} is attached as a @term{documentation string}
-to @param{name} (as kind @coderef{compiler-macro})
+to @param{name} (as kind @code{compiler-macro})
 and to the @term{compiler macro function}.
 
 @item Unlike an ordinary @term{macro}, a @term{compiler macro}
@@ -4900,7 +4900,7 @@ are implicitly enclosed in a @term{block} whose name is @param{name}.
 The @param{lambda-list} conforms to the requirements described in @ref{Macro Lambda Lists}.
 
 @param{Documentation} is attached as a @term{documentation string}
-to @param{name} (as kind @coderef{function})
+to @param{name} (as kind @code{function})
 and to the @term{macro function}.
 
 @coderef{defmacro} can be used to redefine a @term{macro} or to replace
@@ -5347,7 +5347,7 @@ is treated as if it were a @coderef{setf}.
 @coderef{psetq} of @param{symbol}
 is treated as if it were a @coderef{psetf}, and
 @coderef{multiple-value-setq}
-is treated as if it were a @coderef{setf} of @coderef{values}.
+is treated as if it were a @coderef{setf} of @code{values}.
 
 A @term{binding} for a @term{symbol macro} can be @term{shadowed}@sub{2}
 by @coderef{let} or @coderef{symbol-macrolet}.
@@ -5438,7 +5438,7 @@ is treated as if it were a @coderef{setf}.
 @coderef{psetq} of a @term{symbol} defined as a symbol macro
 is treated as if it were a @coderef{psetf}, and
 @coderef{multiple-value-setq}
-is treated as if it were a @coderef{setf} of @coderef{values}.
+is treated as if it were a @coderef{setf} of @code{values}.
 
 The use of @coderef{symbol-macrolet} can be shadowed by @coderef{let}.
 In other words, @coderef{symbol-macrolet} only substitutes for occurrences
@@ -6542,7 +6542,7 @@ applies to that local definition and not to the global function definition.
 The lexically apparent bindings of @param{function-names} must not be
 @term{macro} definitions.  (This is because @coderef{ftype} declares the
 functional definition of each @term{function name} to be of a particular
-subtype of @coderef{function}, and @term{macros} do not denote
+subtype of @code{function}, and @term{macros} do not denote
 @term{functions}.)
 
 @coderef{ftype}
@@ -6641,13 +6641,13 @@ the names and meanings of the standard @param{optimize qualities} are shown in
 
 @float Figure,fig3.25
 @cartouche
-@multitable{@coderef{compilation-speed}}{both code size and run-time space}
+@multitable{@code{compilation-speed}}{both code size and run-time space}
 @headitem Name @tab Meaning
-@item @coderef{compilation-speed} @tab speed of the compilation process
-@item @coderef{debug} @tab ease of debugging
-@item @coderef{safety} @tab run-time error checking
-@item @coderef{space} @tab both code size and run-time space
-@item @coderef{speed} @tab speed of the object code
+@item @code{compilation-speed} @tab speed of the compilation process
+@item @code{debug} @tab ease of debugging
+@item @code{safety} @tab run-time error checking
+@item @code{space} @tab both code size and run-time space
+@item @code{speed} @tab speed of the object code
 @end multitable
 @end cartouche
 @caption{Optimize qualities}
@@ -6663,7 +6663,7 @@ neutral value.
 @f{(@param{quality} 3)} can be abbreviated to @param{quality}.
 
 Note that @term{code} which has the optimization @f{(safety 3)},
-or just @coderef{safety},
+or just @code{safety},
 is called @term{safe} @term{code}.
 
 The consequences are unspecified if a @param{quality} appears more than once
@@ -7013,7 +7013,7 @@ are not of the @term{type} specified by @param{value-type}.
 
 @subsubheading Notes:
 
-The @coderef{values} @term{type specifier} can be used to indicate the types
+The @code{values} @term{type specifier} can be used to indicate the types
 of @term{multiple values}:
 
 @lisp
@@ -7113,7 +7113,7 @@ and must be recognized as such by @coderef{constantp}.
 
 @item
 @term{Constant variables}, such as @term{keywords},
-symbols defined by @clisp{}@spc{}as constant (such as @nil{}, @coderef{t}, and @coderef{pi}),
+symbols defined by @clisp{}@spc{}as constant (such as @nil{}, @code{t}, and @coderef{pi}),
 and symbols declared as constant by the user in the indicated @param{environment}
 using @coderef{defconstant}
 are always considered @term{constant forms}

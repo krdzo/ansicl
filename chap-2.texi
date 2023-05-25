@@ -2001,7 +2001,7 @@ Any @param{expression} preceded by @f{#'}
 as in @f{#'@param{expression}},
 is treated by the @term{Lisp reader} as an abbreviation for and parsed identically
 to the @term{expression} @f{(function @param{expression})}.
-See @coderef{function}.  For example,
+See @code{function}.  For example,
 
 @lisp
 (apply #'+ l) @EQ{} (apply (function +) l)

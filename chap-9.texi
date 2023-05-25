@@ -34,7 +34,7 @@ be represented by @term{conditions}, but not all
 Signaling is the process by which a @term{condition} can alter
 the flow of control in a program by raising the
 @term{condition} which can then be @term{handled}.  The functions
-@coderef{error}, @coderef{cerror}, @coderef{signal}, and
+@code{error}, @coderef{cerror}, @coderef{signal}, and
 @coderef{warn} are used to signal @term{conditions}.
 
 The process of signaling involves the selection and invocation of a
@@ -67,7 +67,7 @@ It can decline to @term{handle} the @term{condition}.  It does this by
 simply returning rather than transferring control.
 When this happens, any values returned by the handler are
 ignored and the next most recently established handler is invoked.
-If there is no such handler and the signaling function is @coderef{error}
+If there is no such handler and the signaling function is @code{error}
 or @coderef{cerror}, the debugger is entered in the
 @term{dynamic environment} of the signaler. If there is no such
 handler and the signaling function is either @coderef{signal} or
@@ -79,7 +79,7 @@ handler and the signaling function is either @coderef{signal} or
 It can @term{handle} the @term{condition} by performing a non-local
 transfer of control.  This can be done either primitively by using
 @coderef{go}, @coderef{return}, @coderef{throw} or more
-abstractly by using a function such as @coderef{abort} or
+abstractly by using a function such as @code{abort} or
 @coderef{invoke-restart}.
 
 @item @id{@b{Defer}}
@@ -188,7 +188,7 @@ the @term{value} of @term{condition} @term{slots}.
 
 A @term{serious condition} is a @term{condition} serious
 enough to require interactive intervention if not handled.
-@term{Serious conditions} are typically signaled with @coderef{error} or @coderef{cerror};
+@term{Serious conditions} are typically signaled with @code{error} or @coderef{cerror};
 non-serious @term{conditions} are typically signaled with @coderef{signal} or @coderef{warn}.
 
 
@@ -197,7 +197,7 @@ non-serious @term{conditions} are typically signaled with @coderef{signal} or @c
 @subsection Creating Conditions
 
 The function @coderef{make-condition} can be used to construct
-a @term{condition} @term{object} explicitly.  Functions such as @coderef{error},
+a @term{condition} @term{object} explicitly.  Functions such as @code{error},
 @coderef{cerror}, @coderef{signal}, and @coderef{warn} operate on
 @term{conditions} and might create @term{condition} @term{objects}
 implicitly.  Macros such as @coderef{ccase}, @coderef{ctypecase},
@@ -495,7 +495,7 @@ If there are no applicable handlers for a @term{condition} that
 has been signaled, or if all applicable handlers decline, the
 @term{condition} is unhandled.
 
-The functions @coderef{cerror} and @coderef{error} invoke the
+The functions @coderef{cerror} and @code{error} invoke the
 interactive @term{condition} handler (the debugger) rather than
 return if the @term{condition} being signaled, regardless of
 its @term{type}, is unhandled.  In contrast, @coderef{signal}
@@ -527,7 +527,7 @@ the @term{signaling} of @term{conditions}.
 
 During the @term{dynamic extent} of the @term{signaling} process for
 a particular @term{condition} @term{object},
-@coderef{signaling} the same @term{condition} @term{object} again
+@code{signaling} the same @term{condition} @term{object} again
 is permitted if and only if the @term{situation} represented in both
 cases are the same.
 
@@ -644,9 +644,9 @@ action of the debugger on those values is @term{implementation-defined}.
 @subsubsection Interfaces to Restarts
 
 Some @term{restarts} have functional interfaces,
-such as @coderef{abort}, @coderef{continue},
-@coderef{muffle-warning}, @coderef{store-value}, and
-@coderef{use-value}.
+such as @code{abort}, @code{continue},
+@code{muffle-warning}, @code{store-value}, and
+@code{use-value}.
 They are ordinary functions that use
 @coderef{find-restart} and @coderef{invoke-restart} internally,
 that have the same name as the @term{restarts} they manipulate,
@@ -797,7 +797,7 @@ understanding this material.
 
 @subsubheading Class Precedence List:
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -855,7 +855,7 @@ should be used.
 @subsubheading Class Precedence List:
 @coderef{warning},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -876,7 +876,7 @@ should be used.
 @coderef{style-warning},
 @coderef{warning},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -916,7 +916,7 @@ redirecting or muffling other, more serious warnings.
 @subsubheading Class Precedence List:
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -933,10 +933,10 @@ Signaling a @term{serious condition} does not itself force entry into
 the debugger.   However, except in the unusual situation where the
 programmer can assure that no harm will come from failing to
 @term{handle} a @term{serious condition}, such a @term{condition} is
-usually signaled with @coderef{error} rather than @coderef{signal} in
+usually signaled with @code{error} rather than @coderef{signal} in
 order to assure that the program does not continue without
 @term{handling} the @term{condition}.  (And conversely, it is
-conventional to use @coderef{signal} rather than @coderef{error} to signal
+conventional to use @coderef{signal} rather than @code{error} to signal
 conditions which are not @term{serious conditions}, since normally the
 failure to handle a non-serious condition is not reason enough for the
 debugger to be entered.)
@@ -949,10 +949,10 @@ debugger to be entered.)
 
 
 @subsubheading Class Precedence List:
-@coderef{error},
+@code{error},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -967,10 +967,10 @@ debugger to be entered.)
 
 @subsubheading Class Precedence List:
 @coderef{cell-error},
-@coderef{error},
+@code{error},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1035,10 +1035,10 @@ the @term{name} of the @term{slot} which was being @term{accessed}.
 @subsubheading Class Precedence List:
 
 @coderef{parse-error},
-@coderef{error},
+@code{error},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1062,7 +1062,7 @@ error conditions that are related to parsing.
 @coderef{storage-condition},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1124,7 +1124,7 @@ Evaluated each time an error is to be signaled,
 or not at all if no error is to be signaled.
 
 @param{datum}, @param{arguments}---@term{designators} for a @term{condition}
-of default type @coderef{error}.  (These @term{designators} are the
+of default type @code{error}.  (These @term{designators} are the
 result of evaluating @param{datum-form} and each of the @param{argument-forms}.)
 
 @subsubheading Description:
@@ -1234,11 +1234,11 @@ of default type @coderef{simple-error}.
 
 @subsubheading Description:
 
-@coderef{error} effectively invokes @coderef{signal} on the denoted @term{condition}.
+@code{error} effectively invokes @coderef{signal} on the denoted @term{condition}.
 
 If the @term{condition} is not handled, @f{(invoke-debugger @i{condition})} is done.
-As a consequence of calling @coderef{invoke-debugger}, @coderef{error}
-cannot directly return; the only exit from @coderef{error}
+As a consequence of calling @coderef{invoke-debugger}, @code{error}
+cannot directly return; the only exit from @code{error}
 can come by non-local transfer of control in a handler or by use of
 an interactive debugging command.
 
@@ -1321,7 +1321,7 @@ about writing code like:
 @end lisp
 
 In this scenario, there should be no chance that
-@coderef{error} will return
+@code{error} will return
 and the button will get pushed.
 
 While the meaning of this program is clear and it might be proven `safe'
@@ -1356,9 +1356,9 @@ of default type @coderef{simple-error}.
 
 @subsubheading Description:
 
-@coderef{cerror} effectively invokes @coderef{error} on the
+@coderef{cerror} effectively invokes @code{error} on the
 @term{condition} named by @param{datum}.  As with any function that
-implicitly calls @coderef{error}, if the @term{condition} is not handled,
+implicitly calls @code{error}, if the @term{condition} is not handled,
 @f{(invoke-debugger @i{condition})} is executed.  While signaling is going on,
 and while in the debugger if it is reached, it is possible to continue
 code execution (@ie{} to return from @coderef{cerror}) using @therestart{continue}.
@@ -1657,15 +1657,15 @@ The implementation.
 
 @coderef{simple-error},
 @coderef{simple-condition},
-@coderef{error},
+@code{error},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
 @Thetype{simple-error} consists of @term{conditions} that
-are signaled by @coderef{error} or @coderef{cerror} when a
+are signaled by @code{error} or @coderef{cerror} when a
 @term{format control}
 is supplied as the function's first argument.
 
@@ -1855,7 +1855,7 @@ should, might, or must @term{signal} @term{conditions}.
 @subsubheading Class Precedence List:
 @coderef{simple-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -2050,7 +2050,7 @@ must be @oftype{warning} or an error @oftype{type-error} is signaled.
 @coderef{simple-condition},
 @coderef{warning},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -2227,7 +2227,7 @@ or @nil{}.
 
 When @thevalueof{*debugger-hook*} is @term{non-nil}, it is called prior to
 normal entry into the debugger, either due to a call to @coderef{invoke-debugger}
-or due to automatic entry into the debugger from a call to @coderef{error}
+or due to automatic entry into the debugger from a call to @code{error}
 or @coderef{cerror} with a condition that is not handled.
 The @term{function} may either handle the @term{condition}
 (transfer control) or return normally (allowing the standard debugger to run).
@@ -2302,7 +2302,7 @@ a @term{type specifier}.
 @subsubheading Description:
 
 When @f{(typep @i{condition} *break-on-signals*)} returns @term{true},
-calls to @coderef{signal}, and to other @term{operators} such as @coderef{error}
+calls to @coderef{signal}, and to other @term{operators} such as @code{error}
 that implicitly call @coderef{signal}, enter the debugger prior to
 @term{signaling} the @term{condition}.
 
@@ -2366,7 +2366,7 @@ that are used in code called only incidentally.
 
 @coderef{*break-on-signals*} enables an early entry to the debugger but such an
 entry does not preclude an additional entry to the debugger in the case of
-operations such as @coderef{error} and @coderef{cerror}.
+operations such as @code{error} and @coderef{cerror}.
 
 
 @node handler-bind
@@ -2413,7 +2413,7 @@ If the @term{handler} @term{declines}, the search continues for another @term{ha
 
 If no appropriate @term{handler} is found, other @term{handlers} are sought
 from dynamically enclosing contours.  If no @term{handler} is found outside,
-then @coderef{signal} returns or @coderef{error} enters the debugger.
+then @coderef{signal} returns or @code{error} enters the debugger.
 
 @subsubheading Examples:
 
@@ -2453,7 +2453,7 @@ in the associated function.
 
 Note that ``Foo.'' is not printed because the condition made
 by @coderef{signal} is a @term{simple condition}, which is not @oftype{error},
-so it doesn't trigger the handler for @coderef{error} set up by @f{trap-errors}.
+so it doesn't trigger the handler for @code{error} set up by @f{trap-errors}.
 
 @subsubheading See Also:
 
@@ -2936,7 +2936,7 @@ in the definition of a condition type @f{C} is equivalent to:
 If the value supplied by the argument to @kwd{report} (@param{report-name})
 is a @term{symbol} or a @term{lambda expression},
 it must be acceptable to
-@coderef{function}. @f{(function @param{report-name})}
+@code{function}. @f{(function @param{report-name})}
 is evaluated
 in the current @term{lexical environment}.
 It should return a @term{function}
@@ -3002,7 +3002,7 @@ The @term{readers} @f{peg/hole-mismatch-peg-shape} and @f{peg/hole-mismatch-hole
 apply to objects of this type, as illustrated in the @kwd{report} information.
 
 The following form defines a @term{condition} @term{type} named @f{machine-error}
-which inherits from @coderef{error}:
+which inherits from @code{error}:
 
 @lisp
 (define-condition machine-error
@@ -3138,7 +3138,7 @@ The set of defined @term{condition} @term{types}.
 
 @subsubheading Class Precedence List:
 @coderef{restart},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -3686,7 +3686,7 @@ about how to compute a proper argument list.
 
 
 The @param{value} supplied by @f{:interactive @param{value}}
-must be a suitable argument to @coderef{function}.
+must be a suitable argument to @code{function}.
 @f{(function @param{value})} is evaluated in the current lexical
 environment.  It should return a @term{function} of no arguments which
 returns arguments to be used by
@@ -3705,7 +3705,7 @@ list.
 
 If the @param{value} supplied by @f{:report @param{value}}
 is a @term{lambda expression} or a @term{symbol}, it
-must be acceptable to @coderef{function}.
+must be acceptable to @code{function}.
 @f{(function @param{value})} is evaluated in the current lexical
 environment.  It should return a @term{function} of one
 argument, a @term{stream}, which prints on the @term{stream} a
@@ -3745,7 +3745,7 @@ but no @kwd{report} option is provided.
 
 
 The @param{value} supplied by @f{:test @param{value}}
-must be a suitable argument to @coderef{function}.
+must be a suitable argument to @code{function}.
 @f{(function @param{value})} is evaluated in the current lexical
 environment.  It should return a @term{function} of one @term{argument}, the
 @term{condition}, that
@@ -3756,7 +3756,7 @@ The default for this option is equivalent to @f{(lambda (c) (declare (ignore c))
 
 
 If the @param{restartable-form} is a @term{list} whose @term{car} is any of
-the @term{symbols} @coderef{signal}, @coderef{error}, @coderef{cerror},
+the @term{symbols} @coderef{signal}, @code{error}, @coderef{cerror},
 or @coderef{warn} (or is a @term{macro form} which macroexpands into such a
 @term{list}), then @coderef{with-condition-restarts} is used implicitly
 to associate the indicated @term{restarts} with the @term{condition} to be
@@ -4009,7 +4009,7 @@ in a way that is syntactically more concise.
 @param{results}---in the normal situation,
 the @term{values} returned by the @param{forms};
 in the exceptional situation where the @term{restart} named @param{name} is invoked,
-two values---@nil{}@spc{}and @coderef{t}.
+two values---@nil{}@spc{}and @code{t}.
 
 @subsubheading Description:
 
@@ -4019,7 +4019,7 @@ If the restart designated by @param{name} is not invoked while executing @param{
 all values returned by the last of @param{forms} are returned.
 If the restart designated by @param{name} is invoked,
 control is transferred to @coderef{with-simple-restart},
-which returns two values, @nil{}@spc{}and @coderef{t}.
+which returns two values, @nil{}@spc{}and @code{t}.
 
 If @param{name} is @nil{}, an anonymous restart is established.
 
@@ -4095,7 +4095,7 @@ common uses of @coderef{restart-case}.
 @end lisp
 
 
-Because the second return value is @coderef{t}@spc{}in the exceptional case,
+Because the second return value is @code{t}@spc{}in the exceptional case,
 it is common (but not required) to arrange for the second return value
 in the normal case to be missing or @nil{}@spc{}so that the two situations
 can be distinguished.
@@ -4115,11 +4115,11 @@ None.
 
 The intent of the @t{abort} restart is to allow return to the
 innermost ``command level.''  Implementors are encouraged to make
-sure that there is always a restart named @coderef{abort}
-around any user code so that user code can call @coderef{abort}
+sure that there is always a restart named @code{abort}
+around any user code so that user code can call @code{abort}
 at any time and expect something reasonable to happen;
 exactly what the reasonable thing is may vary somewhat.  Typically,
-in an interactive listener, the invocation of @coderef{abort}
+in an interactive listener, the invocation of @code{abort}
 returns to the @term{Lisp reader} phase of the @term{Lisp read-eval-print loop},
 though in some batch or multi-processing
 situations there may be situations in which having it kill the running
@@ -4354,13 +4354,13 @@ and so on.
 
 If no such @term{restart} exists,
 the functions
-@coderef{continue},
-@coderef{store-value},
-and @coderef{use-value}
+@code{continue},
+@code{store-value},
+and @code{use-value}
 return @nil{}, and
 the functions
-@coderef{abort}
-and @coderef{muffle-warning}
+@code{abort}
+and @code{muffle-warning}
 signal an error @oftype{control-error}.
 
 When @param{condition} is @term{non-nil},

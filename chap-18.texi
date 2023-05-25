@@ -30,7 +30,7 @@ the @term{hash table} is modified.
 @item
 There are four kinds of @term{hash tables}:
 those whose keys are compared with @coderef{eq},
-those whose keys are compared with @coderef{eql},
+those whose keys are compared with @code{eql},
 those whose keys are compared with @coderef{equal}, and
 those whose keys are compared with @coderef{equalp}.
 
@@ -115,7 +115,7 @@ visible modifications of the @term{object}.
 @subsubsection Visible Modification of Objects with respect to EQ and EQL
 
 No @term{standardized} @term{function} is provided that is capable of visibly
-modifying an @term{object} with regard to @coderef{eq} or @coderef{eql}.
+modifying an @term{object} with regard to @coderef{eq} or @code{eql}.
 
 
 @node Visible Modification of Objects with respect to EQUAL
@@ -228,7 +228,7 @@ tests.
 
 @subsubheading Class Precedence List:
 @coderef{hash-table},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -262,10 +262,10 @@ is required to use any particular technique to implement the mapping.
 
 @param{test}---a @term{designator} for one of the @term{functions}
 @coderef{eq},
-@coderef{eql},
+@code{eql},
 @coderef{equal}, or
 @coderef{equalp}.
-@Default{@coderef{eql}}
+@Default{@code{eql}}
 
 @param{size}---a non-negative @term{integer}.
 @Default{@term{implementation-dependent}}
@@ -847,7 +847,7 @@ have @term{distinct} names.
 
 @subsubheading Examples:
 
-The following function should return @coderef{t}@spc{}on any
+The following function should return @code{t}@spc{}on any
 @term{hash table}, and signal
 an error if the usage of @coderef{with-hash-table-iterator} does not agree
 with the corresponding usage of @coderef{maphash}.

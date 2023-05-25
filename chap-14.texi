@@ -236,9 +236,9 @@ if that @term{list} is @term{circular}.
 
 @subsubheading Class Precedence List:
 
-@coderef{list},
+@code{list},
 @coderef{sequence},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -262,8 +262,8 @@ and @term{circular lists}.
 For each @term{element} of a @term{list} there is a @term{cons}.
 The @term{empty list} has no @term{elements} and is not a @term{cons}.
 
-@Thetypes{cons} and @coderef{null} form an @term{exhaustive partition}
-of the @term{type} @coderef{list}.
+@Thetypes{cons} and @code{null} form an @term{exhaustive partition}
+of the @term{type} @code{list}.
 
 @subsubheading See Also:
 
@@ -278,11 +278,11 @@ of the @term{type} @coderef{list}.
 
 
 @subsubheading Class Precedence List:
-@coderef{null},
+@code{null},
 @coderef{symbol},
-@coderef{list},
+@code{list},
 @coderef{sequence},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -302,10 +302,10 @@ which represents the @term{empty list} and can also be notated @empty{}.
 
 
 @subsubheading Class Precedence List:
-@coderef{cons},
-@coderef{list},
+@code{cons},
+@code{list},
 @coderef{sequence},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -354,8 +354,8 @@ it is as if @thetype{t} had been denoted.)
 
 @subsubheading Supertypes:
 
-@coderef{atom},
-@coderef{t}
+@code{atom},
+@code{t}
 
 @subsubheading Description:
 
@@ -404,7 +404,7 @@ and the @term{cdr} of which is @param{object-2}.
 @ref{list}
 
 @subsubheading Notes:
-If @param{object-2} is a @term{list}, @coderef{cons} can be thought of as
+If @param{object-2} is a @term{list}, @code{cons} can be thought of as
 producing a new @term{list} which is like it but has @param{object-1} prepended.
 
 @node consp
@@ -1273,15 +1273,15 @@ The copy created is @coderef{equal} to @param{list}, but not @coderef{eq}.
 
 @subsubheading Description:
 
-@coderef{list} returns a @term{list} containing the supplied @param{objects}.
+@code{list} returns a @term{list} containing the supplied @param{objects}.
 
-@coderef{list*} is like @coderef{list} except that
-the last @term{argument} to @coderef{list} becomes
+@coderef{list*} is like @code{list} except that
+the last @term{argument} to @code{list} becomes
 the @term{car} of the last @term{cons} constructed, while
 the last @term{argument} to @coderef{list*} becomes
 the @term{cdr} of the last @term{cons} constructed.
 Hence, any given call to @coderef{list*} always produces one fewer @term{conses}
-than a call to @coderef{list} with the same number of arguments.
+than a call to @code{list} with the same number of arguments.
 
 If the last @term{argument} to @coderef{list*} is a @term{list},
 the effect is to construct a new @term{list} which is similar, but
@@ -1879,10 +1879,10 @@ when the argument is @term{atomic}.
 
 @subsubheading Notes:
 
-@coderef{null} is intended to be used to test for the @term{empty list}
-whereas @coderef{not} is intended to be used to invert a @term{boolean}
+@code{null} is intended to be used to test for the @term{empty list}
+whereas @code{not} is intended to be used to invert a @term{boolean}
 (or @term{generalized boolean}).
-Operationally, @coderef{null} and @coderef{not} compute the same result;
+Operationally, @code{null} and @code{not} compute the same result;
 which to use is a matter of style.
 
 @lisp
@@ -2311,7 +2311,7 @@ otherwise, it returns @term{false}.
 If @param{object} is the @term{same} as some @term{tail} of @param{list},
 @coderef{ldiff} returns a @term{fresh} @term{list}
 of the @term{elements} of @term{list}
-that precede @coderef{object} in the @term{list structure} of @param{list};
+that precede @code{object} in the @term{list structure} of @param{list};
 otherwise, it returns a @term{copy}@sub{2} of @param{list}.
 
 @subsubheading Examples:
@@ -2551,7 +2551,7 @@ or @nil{}.
 
 @subsubheading Description:
 
-@coderef{member}, @coderef{member-if}, and @coderef{member-if-not} each
+@code{member}, @coderef{member-if}, and @coderef{member-if-not} each
 search @param{list} for @param{item} or for a top-level element that
 @term{satisfies the test}.  The argument to the @param{predicate} function
 is an element of @param{list}.
@@ -2603,10 +2603,10 @@ In the following
 @end lisp
 
 
-the value returned by @coderef{member} is @term{identical} to the portion
+the value returned by @code{member} is @term{identical} to the portion
 of the @term{list} beginning with @f{a}.  Thus @coderef{rplaca} on the
-result of @coderef{member} can be used to alter the part of the @term{list}
-where @f{a} was found (assuming a check has been made that @coderef{member}
+result of @code{member} can be used to alter the part of the @term{list}
+where @f{a} was found (assuming a check has been made that @code{member}
 did not return @nil{}).
 
 
@@ -2695,7 +2695,7 @@ applying @param{function} are not accumulated;
 @coderef{maplist} respectively, except that the results of
 applying @param{function} are combined
 into a @term{list} by the use of @coderef{nconc}
-rather than @coderef{list}.
+rather than @code{list}.
 That is,
 
 @lisp
@@ -3427,7 +3427,7 @@ to determine whether they @term{satisfy the test}.
 The first argument to the @kwd{test} or @kwd{test-not}
 function is an element of @param{list-1}; the second argument is an
 element of @param{list-2}.
-If @kwd{test} or @kwd{test-not} is not supplied, @coderef{eql}
+If @kwd{test} or @kwd{test-not} is not supplied, @code{eql}
 is used.
 It is an error if @kwd{test} and @kwd{test-not} are supplied in
 the same function call.
@@ -3531,7 +3531,7 @@ or @nil{}.
 
 Tests whether @param{item} is the same as an existing element of @param{list}.
 If the @param{item} is not an existing element,
-@coderef{adjoin} adds it to @param{list} (as if by @coderef{cons})
+@coderef{adjoin} adds it to @param{list} (as if by @code{cons})
 and returns the resulting @term{list};
 otherwise, nothing is added and the original @param{list} is returned.
 

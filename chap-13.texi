@@ -80,7 +80,7 @@ The following figures contain lists of @term{defined names} applicable to
 @subsubsection Character Scripts
 
 A @term{script} is one of possibly several sets that form an @term{exhaustive partition}
-of the type @coderef{character}.
+of the type @code{character}.
 
 The number of such sets and boundaries between them is @term{implementation-defined}.
 @clisp{}@spc{}does not require these sets to be @term{types}, but an @term{implementation}
@@ -326,7 +326,7 @@ are @term{digits} with weight @f{15}.
 @node Identity of Characters
 @subsection Identity of Characters
 
-Two @term{characters} that are @coderef{eql}, @coderef{char=}, or @coderef{char-equal}
+Two @term{characters} that are @code{eql}, @coderef{char=}, or @coderef{char-equal}
 are not necessarily @coderef{eq}.
 
 
@@ -562,8 +562,8 @@ and external encoding schemes supported are documented.
 
 
 @subsubheading Class Precedence List:
-@coderef{character},
-@coderef{t}
+@code{character},
+@code{t}
 
 @subsubheading Description:
 
@@ -590,8 +590,8 @@ form an @term{exhaustive partition} of @thetype{character}.
 @subsubheading Supertypes:
 
 @coderef{base-char},
-@coderef{character},
-@coderef{t}
+@code{character},
+@code{t}
 
 @subsubheading Description:
 
@@ -601,7 +601,7 @@ An @term{implementation} can support additional @subtypesof{character}
 (besides the ones listed in this standard)
 that might or might not be @supertypesof{base-char}.
 In addition, an @term{implementation} can define @coderef{base-char}
-to be the @term{same} @term{type} as @coderef{character}.
+to be the @term{same} @term{type} as @code{character}.
 
 @term{Base characters} are distinguished in the following respects:
 
@@ -650,8 +650,8 @@ having 8-bit encodings.  In such an implementation,
 
 @coderef{standard-char},
 @coderef{base-char},
-@coderef{character},
-@coderef{t}
+@code{character},
+@code{t}
 
 @subsubheading Description:
 
@@ -676,8 +676,8 @@ Any @term{character} that is not @term{simple} is not a @term{standard character
 @subsubheading Supertypes:
 
 @coderef{extended-char},
-@coderef{character},
-@coderef{t}
+@code{character},
+@code{t}
 
 @subsubheading Description:
 
@@ -881,7 +881,7 @@ as @term{characters}, but in some sense on the basis of a lower level
 implementation characteristic.
 If @f{(eq c1 c2)} is @term{true},
 then @f{(char= c1 c2)} is also true.
-@coderef{eql} and @coderef{equal}
+@code{eql} and @coderef{equal}
 compare @term{characters} in the same
 way that @coderef{char=} does.
 

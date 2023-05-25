@@ -627,7 +627,7 @@ An error @oftype{file-error} might be signaled if @param{filespec} is @term{wild
 
 @subsubheading Syntax:
 
-@DefunWithValues{delete-file, filespec, @coderef{t}}
+@DefunWithValues{delete-file, filespec, @code{t}}
 
 @subsubheading Arguments and Values:
 
@@ -692,10 +692,10 @@ An error @oftype{file-error} might be signaled if @param{filespec} is @term{wild
 
 @subsubheading Class Precedence List:
 @coderef{file-error},
-@coderef{error},
+@code{error},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 

@@ -402,7 +402,7 @@ The second argument to @coderef{shared-initialize} may be one of the following:
 @item It can be a (possibly empty) @term{list} of @term{slot} names,
 which specifies the set of those @term{slot} names.
 
-@item It can be the symbol @coderef{t}, which specifies the set of all of the @term{slots}.
+@item It can be the symbol @code{t}, which specifies the set of all of the @term{slots}.
 @end itemize
 
 
@@ -491,7 +491,7 @@ whose @term{parameter specializer} is @theclass{standard-object}.  This
 the @term{slots} according to the initialization arguments and the
 @kwd{initform} forms for the @term{slots}; the generic function
 @coderef{shared-initialize} is called with the following arguments: the @term{instance},
-@coderef{t}, and the defaulted initialization arguments.
+@code{t}, and the defaulted initialization arguments.
 
 Note that @coderef{initialize-instance} provides the
 @term{defaulted initialization argument list} in its call to @coderef{shared-initialize},
@@ -796,7 +796,7 @@ When a @term{slot} does not have a value, the @term{slot} is said to be
 the @term{generic function} @coderef{slot-unbound} is invoked. The
 system-supplied primary @term{method}
 for @coderef{slot-unbound}
-on @term{class} @coderef{t} signals an error.
+on @term{class} @code{t} signals an error.
 If @coderef{slot-unbound} returns, its @term{primary value}
 is used that time as the @term{value} of the @term{slot}.
 
@@ -1489,7 +1489,7 @@ the class precedence list of the class of the argument.
 
 If just one of a pair of corresponding @term{parameter specializers} is @tt{(eql @i{object})},
 the @term{method} with that @term{parameter specializer} precedes the
-other @term{method}.  If both @term{parameter specializers} are @coderef{eql}
+other @term{method}.  If both @term{parameter specializers} are @code{eql}
 @term{expressions}, the
 specializers must agree (otherwise the two @term{methods} would
 not both have been applicable to this argument).
@@ -2177,7 +2177,7 @@ which that @term{method} is applicable.
 
 @param{instance}---an @term{object}.
 
-@param{slot-names}---a @term{list} or @coderef{t}.
+@param{slot-names}---a @term{list} or @code{t}.
 
 @param{initargs}---a @term{list} of @term{keyword/value pairs}
 (of initialization argument @term{names} and @term{values}).
@@ -2237,7 +2237,7 @@ The rules mentioned in @ref{Rules for Initialization Arguments} are obeyed.
 The @param{slots-names} argument specifies the @term{slots} that are to be
 initialized according to their @kwd{initform} forms if no
 initialization arguments apply.  It can be a @term{list} of slot @term{names},
-which specifies the set of those slot @term{names}; or it can be the @term{symbol} @coderef{t},
+which specifies the set of those slot @term{names}; or it can be the @term{symbol} @code{t},
 which specifies the set of all of the @term{slots}.
 
 
@@ -2578,7 +2578,7 @@ If in the old @term{class} there is any @term{slot} of the
 same name as a local @term{slot} in the @param{new-class},
 the value of that @term{slot} is retained.  This means that if
 the @term{slot} has a value, the value returned by @coderef{slot-value}
-after @coderef{change-class} is invoked is @coderef{eql} to the
+after @coderef{change-class} is invoked is @code{eql} to the
 value returned by @coderef{slot-value} before @coderef{change-class} is
 invoked.  Similarly, if the @term{slot} was unbound, it remains
 unbound.  The other @term{slots} are initialized as described in
@@ -4367,7 +4367,7 @@ implementation can extend the @CLOS{}@spc{}to recognize other qualities.
 A simple implementation that has only one method selection technique
 and ignores @coderef{optimize} @term{declaration specifiers} is valid.
 
-The @coderef{special}, @coderef{ftype}, @coderef{function}, @coderef{inline},
+The @coderef{special}, @coderef{ftype}, @code{function}, @coderef{inline},
 @coderef{notinline}, and @coderef{declaration} declarations are not permitted.
 Individual implementations can extend the @t{declare} option to
 support additional declarations.
@@ -4578,7 +4578,7 @@ specialized.  If @i{parameter-specializer-name} is a @term{symbol} it names a
 @term{class}; if it is a @term{list},
 it is of the form @f{(eql @param{eql-specializer-form})}.  The parameter
 specializer name @f{(eql @param{eql-specializer-form})} indicates
-that the corresponding argument must be @coderef{eql} to the @term{object} that
+that the corresponding argument must be @code{eql} to the @term{object} that
 is the value of @param{eql-specializer-form} for the @term{method} to be applicable.
 The @param{eql-specializer-form} is evaluated at the time
 that the expansion of the @coderef{defmethod} macro is evaluated.
@@ -4613,11 +4613,11 @@ The expansion of the @coderef{defmethod} macro ``refers to'' each
 specialized parameter (see the description of @coderef{ignore}
 within the description of @t{declare}).
 This includes parameters that
-have an explicit @term{parameter specializer name} of @coderef{t}.  This means
+have an explicit @term{parameter specializer name} of @code{t}.  This means
 that a compiler warning does not occur if the body of the @term{method} does
 not refer to a specialized parameter, while a warning might occur
 if the body of the @term{method} does not refer to an unspecialized parameter.
-For this reason, a parameter that specializes on @coderef{t}@spc{}is not quite synonymous
+For this reason, a parameter that specializes on @code{t}@spc{}is not quite synonymous
 with an unspecialized parameter in this context.
 
 Declarations at the head of the method body that apply to the
@@ -5112,7 +5112,7 @@ exactly one applicable method and it is a primary method, that method
 serves as the effective method and @param{operator} is not called.
 This optimization avoids the need to create a new effective method and
 avoids the overhead of a @term{function} call.  This option is designed to be
-used with operators such as @coderef{progn}, @coderef{and}, @coderef{+}, and
+used with operators such as @coderef{progn}, @code{and}, @code{+}, and
 @coderef{max}.
 
 @item
@@ -5300,7 +5300,7 @@ the effective method form consists entirely of an invocation of
 the @coderef{call-method} macro whose first @term{subform} is a method object and
 whose second @term{subform} is @nil{}@spc{}or unsupplied.  Each
 @coderef{define-method-combination} body is responsible for stripping off
-redundant invocations of @coderef{progn}, @coderef{and},
+redundant invocations of @coderef{progn}, @code{and},
 @coderef{multiple-value-prog1}, and the like, if this optimization is desired.
 
 
@@ -5755,7 +5755,7 @@ The system-supplied primary @term{method} on @coderef{initialize-instance}
 initializes the @term{slots} of the @param{instance} with values according
 to the @param{initargs} and the @kwd{initform} forms of the @term{slots}.
 It does this by calling the generic function @coderef{shared-initialize}
-with the following arguments: the @param{instance}, @coderef{t}@spc{}(this indicates
+with the following arguments: the @param{instance}, @code{t}@spc{}(this indicates
 that all @term{slots} for which no initialization arguments are provided
 should be initialized according to their @kwd{initform} forms), and
 the @param{initargs}.
@@ -5903,10 +5903,10 @@ a @term{direct instance}.
 @subsubheading Class Precedence List:
 @coderef{unbound-slot},
 @coderef{cell-error},
-@coderef{error},
+@code{error},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 

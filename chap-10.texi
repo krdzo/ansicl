@@ -74,7 +74,7 @@ to the creation of and inquiry about @term{symbols}.
 
 @subsubheading Class Precedence List:
 @coderef{symbol},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -217,7 +217,7 @@ on a lexical @term{function} definition.
 
 @coderef{keyword},
 @coderef{symbol},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -1114,7 +1114,7 @@ left-to-right evaluation rules, but its @term{value} is ignored.
 
 @term{Numbers} and @term{characters} are not recommended for use
 as @param{indicators} in portable code since @coderef{get} tests
-with @coderef{eq} rather than @coderef{eql}, and consequently
+with @coderef{eq} rather than @code{eql}, and consequently
 the effect of using such @param{indicators} is
 @term{implementation-dependent}.
 
@@ -1207,7 +1207,7 @@ The @term{property list} of @param{symbol} is modified.
 
 @term{Numbers} and @term{characters} are not recommended for use as
 @param{indicators} in portable code since @coderef{remprop} tests with
-@coderef{eq} rather than @coderef{eql}, and consequently the effect of
+@coderef{eq} rather than @code{eql}, and consequently the effect of
 using such @param{indicators} is @term{implementation-dependent}.
 Of course, if you've gotten as far as needing to remove such a
 @term{property}, you don't have much choice---the time to have been
@@ -1396,10 +1396,10 @@ The function @coderef{set} is deprecated.
 @subsubheading Class Precedence List:
 @coderef{unbound-variable},
 @coderef{cell-error},
-@coderef{error},
+@code{error},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 

@@ -238,7 +238,7 @@ occurred between @term{objects} rather than within the middle of one.
 
 @subsubheading Class Precedence List:
 @coderef{readtable},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -345,7 +345,7 @@ locally bind the readtable to a copy of itself, as in:
 
 @subsubheading Syntax:
 
-@DefunWithValues{make-dispatch-macro-character, char @opt{} non-terminating-p readtable, @coderef{t}}
+@DefunWithValues{make-dispatch-macro-character, char @opt{} non-terminating-p readtable, @code{t}}
 
 @subsubheading Arguments and Values:
 
@@ -879,7 +879,7 @@ See @ref{Examples of Effect of Readtable Case on the Lisp Reader}@spc{}and @ref{
 
 @DefunWithValues{get-dispatch-macro-character, disp-char sub-char @opt{} readtable, function}
 
-@DefunWithValues{set-dispatch-macro-character, disp-char sub-char new-function @opt{} readtable, @coderef{t}}
+@DefunWithValues{set-dispatch-macro-character, disp-char sub-char new-function @opt{} readtable, @code{t}}
 
 @subsubheading Arguments and Values:
 
@@ -987,7 +987,7 @@ dispatch character before specifying its sub-characters.
 
 @DefunWithValues{get-macro-character, char @opt{} readtable, function\, non-terminating-p}
 
-@DefunWithValues{set-macro-character, char new-function @opt{} non-terminating-p readtable, @coderef{t}}
+@DefunWithValues{set-macro-character, char new-function @opt{} non-terminating-p readtable, @code{t}}
 
 @subsubheading Arguments and Values:
 
@@ -1075,7 +1075,7 @@ The @param{readtable} is modified.
 
 @subsubheading Syntax:
 
-@DefunWithValues{set-syntax-from-char, to-char from-char @opt{} to-readtable from-readtable, @coderef{t}}
+@DefunWithValues{set-syntax-from-char, to-char from-char @opt{} to-readtable from-readtable, @code{t}}
 
 @subsubheading Arguments and Values:
 
@@ -1175,12 +1175,12 @@ behavior.  The values for the variables specified by this standard are listed in
 @multitable{@coderef{*read-default-float-format*}}{The @term{standard pprint dispatch table}}
 @headitem Variable @tab Value
 @item @coderef{*package*} @tab The @code{CL-USER} @term{package}
-@item @coderef{*print-array*} @tab @coderef{t}
+@item @coderef{*print-array*} @tab @code{t}
 @item @coderef{*print-base*} @tab @f{10}
 @item @coderef{*print-case*} @tab @kwd{upcase}
 @item @coderef{*print-circle*} @tab @nil{}
-@item @coderef{*print-escape*} @tab @coderef{t}
-@item @coderef{*print-gensym*} @tab @coderef{t}
+@item @coderef{*print-escape*} @tab @code{t}
+@item @coderef{*print-gensym*} @tab @code{t}
 @item @coderef{*print-length*} @tab @nil{}
 @item @coderef{*print-level*} @tab @nil{}
 @item @coderef{*print-lines*} @tab @nil{}
@@ -1188,11 +1188,11 @@ behavior.  The values for the variables specified by this standard are listed in
 @item @coderef{*print-pprint-dispatch*} @tab The @term{standard pprint dispatch table}
 @item @coderef{*print-pretty*} @tab @nil{}
 @item @coderef{*print-radix*} @tab @nil{}
-@item @coderef{*print-readably*} @tab @coderef{t}
+@item @coderef{*print-readably*} @tab @code{t}
 @item @coderef{*print-right-margin*} @tab @nil{}
 @item @coderef{*read-base*} @tab @f{10}
 @item @coderef{*read-default-float-format*} @tab @coderef{single-float}
-@item @coderef{*read-eval*} @tab @coderef{t}
+@item @coderef{*read-eval*} @tab @code{t}
 @item @coderef{*read-suppress*} @tab @nil{}
 @item @coderef{*readtable*} @tab The @term{standard readtable}
 @end multitable
@@ -1528,10 +1528,10 @@ and can also influence the @term{Lisp printer} (@eg{} see the @term{function} @r
 @coderef{reader-error},
 @coderef{parse-error},
 @coderef{stream-error},
-@coderef{error},
+@code{error},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 

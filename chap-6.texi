@@ -286,12 +286,12 @@ An @loopref{until} clause is equivalent to the expression
 The @loopref{always} construct takes one @term{form} and
 terminates the @coderef{loop} if the @term{form} ever evaluates to @term{false};
 in this case, the @coderef{loop} @term{form} returns @nil{}.
-Otherwise, it provides a default return value of @coderef{t}.
+Otherwise, it provides a default return value of @code{t}.
 
 The @loopref{never} construct takes one @term{form} and
 terminates the @coderef{loop} if the @term{form} ever evaluates to @term{true};
 in this case, the @coderef{loop} @term{form} returns @nil{}.
-Otherwise, it provides a default return value of @coderef{t}.
+Otherwise, it provides a default return value of @code{t}.
 
 The @loopref{thereis} construct takes one @term{form} and
 terminates the @coderef{loop} if the @term{form} ever evaluates to
@@ -426,7 +426,7 @@ loop body.
 The @param{d-type-spec} argument is used for destructuring.
 If the
 @param{d-type-spec} argument consists solely of @thetype{fixnum},
-@coderef{float}, @coderef{t}, or @nil{}, the @loopref{of-type} keyword is optional.
+@code{float}, @code{t}, or @nil{}, the @loopref{of-type} keyword is optional.
 The @loopref{of-type} construct is optional in these cases to provide backwards
 compatibility; thus, the following two expressions are the same:
 
@@ -856,7 +856,7 @@ end of the @term{list} is reached.
 In the @i{for-as-on-list} subclause, the @loopref{for} or @loopref{as}
 construct iterates over
 a @term{list}. It checks for the
-end of the @term{list} as if by using @coderef{atom}.
+end of the @term{list} as if by using @code{atom}.
 The variable @param{var} is bound to the successive tails of the
 @term{list} in
 @param{form1}.  At the end of each iteration, the function @param{step-fun}
@@ -1158,8 +1158,8 @@ a loop.  The variables are initialized one time only.
 If the optional @param{type-spec} argument is supplied for the variable
 @param{var}, but there is no related expression to be evaluated, @param{var}
 is initialized to an appropriate default value for its @term{type}.
-For example, for the types @coderef{t}, @coderef{number},
-and @coderef{float},
+For example, for the types @code{t}, @coderef{number},
+and @code{float},
 the default values are @nil{}, @f{0}, and @f{0.0} respectively.
 The consequences are undefined if a
 @param{type-spec} argument is supplied for @param{var} if
@@ -1587,7 +1587,7 @@ constructs behave like the @loopref{while} and @loopref{until} constructs.
 The @loopref{always} construct takes one @term{form} and terminates the
 @coderef{loop}
 if the @term{form} ever evaluates to @nil{}; in this case, it returns
-@nil{}.  Otherwise, it provides a default return value of @coderef{t}.
+@nil{}.  Otherwise, it provides a default return value of @code{t}.
 If the value of the supplied @term{form} is never @nil{}, some other construct
 can terminate the iteration.
 
@@ -1597,7 +1597,7 @@ the value of the supplied @param{form} is @term{non-nil}; the @coderef{loop} ret
 If the value of the supplied @param{form} is always  @nil{}, some other
 construct can terminate the iteration.
 Unless some other clause contributes
-a return value, the default value returned is @coderef{t}.
+a return value, the default value returned is @code{t}.
 
 The @loopref{thereis} construct terminates iteration the first time that the
 value of the supplied @param{form} is @term{non-nil}; the @coderef{loop} returns the
@@ -1652,7 +1652,7 @@ constructs:
 
 @itemize @bullet{}
 @item The @loopref{until} construct does not return
-@coderef{t}@spc{}or @nil{}@spc{}based on the value of the supplied @param{form}.
+@code{t}@spc{}or @nil{}@spc{}based on the value of the supplied @param{form}.
 
 @item
 The @loopref{until} construct
@@ -2679,7 +2679,7 @@ The ``extended'' @coderef{loop} @term{form}:
 @auxbnf{for-as-hash, @param{var} @brac{@param{type-spec}} @loopref{being} @curly{@loopref{each} | @loopref{the}} @CR{} @lcurly{}@curly{@loopref{hash-key} | @loopref{hash-keys}} @curly{@loopref{in} | @loopref{of}} @param{hash-table} @CR{} @xcurly{}@brac{@loopref{using} @paren{@loopref{hash-value} @param{other-var}}} | @CR{} @xcurly{}@curly{@loopref{hash-value} | @loopref{hash-values}} @curly{@loopref{in} | @loopref{of}} @param{hash-table} @CR{} @xcurly{}@brac{@loopref{using} @paren{@loopref{hash-key} @param{other-var}}}@rcurly{}}
 @auxbnf{for-as-package, @param{var} @brac{@param{type-spec}} @loopref{being} @curly{@loopref{each} | @loopref{the}} @CR{} @lcurly{}@loopref{symbol} | @loopref{symbols} |@CR{} @xcurly{}@loopref{present-symbol} | @loopref{present-symbols} |@CR{} @xcurly{}@loopref{external-symbol} | @loopref{external-symbols}@rcurly{} @CR{} @brac{@curly{@loopref{in} | @loopref{of}} @param{package}}}
 @auxbnf{type-spec, @down{simple-type-spec} | @down{destructured-type-spec}}
-@auxbnf{simple-type-spec, @coderef{fixnum} | @coderef{float} | @coderef{t} | @coderef{nil}}
+@auxbnf{simple-type-spec, @coderef{fixnum} | @code{float} | @code{t} | @code{nil}}
 @auxbnf{destructured-type-spec, @loopref{of-type} @param{d-type-spec}}
 @auxbnf{d-type-spec, @param{type-specifier} | @f{(@param{d-type-spec} . @param{d-type-spec})}}
 @auxbnf{var, @down{d-var-spec}}
@@ -2795,7 +2795,7 @@ an extended
 to terminate that @term{form} ``normally.''
 That is, it transfers control to the loop epilogue
 of the lexically innermost extended @coderef{loop} @term{form}.
-This permits execution of any @coderef{finally} clause (for effect)
+This permits execution of any @code{finally} clause (for effect)
 and
 the return of
 any accumulated result.

@@ -593,7 +593,7 @@ For example:
 @node VALUES Forms as Places
 @subsubsection VALUES Forms as Places
 
-A @coderef{values} @term{form} can be used as a @term{place},
+A @code{values} @term{form} can be used as a @term{place},
 provided that each of its @term{subforms} is also a @term{place} form.
 
 A form such as
@@ -617,7 +617,7 @@ left-to-right order.
 @end enumerate
 
 
-The storing form in the @term{setf expansion} of @coderef{values}
+The storing form in the @term{setf expansion} of @code{values}
 returns as @term{multiple values}@sub{2} the values of the store
 variables in step 2.  That is, the number of values returned is the
 same as the number of @term{place} forms.  This may be more or fewer
@@ -670,7 +670,7 @@ by the concatenation of @param{subscripts} and @param{more-subscripts}
 (@ie{} the same @term{element} which would be @term{read} by the call to
 @term{apply} if it were not part of a @coderef{setf} @term{form})
 is changed to have the @term{value} given by @param{new-element}.
-For these usages, the function name (@coderef{aref}, @coderef{bit}, or @coderef{sbit})
+For these usages, the function name (@coderef{aref}, @code{bit}, or @coderef{sbit})
 must refer to the global function definition, rather than a locally defined
 @term{function}.
 
@@ -1053,7 +1053,7 @@ around the body @param{forms}
 of the @term{function} defined.
 
 @param{Documentation} is attached as a @term{documentation string}
-to @param{name} (as kind @coderef{function})
+to @param{name} (as kind @code{function})
 and to the @term{function} @term{object}.
 
 Evaluating @coderef{defun} causes @param{function-name} to be a global name
@@ -1664,7 +1664,7 @@ interpretation of the function position that normally occurs.
 
 @subsubheading Description:
 
-The @term{value} of @coderef{function} is the @term{functional value} of @param{name}
+The @term{value} of @code{function} is the @term{functional value} of @param{name}
 in the current @term{lexical environment}.
 
 If @param{name} is a @term{function name}, the functional definition of that name
@@ -1680,10 +1680,10 @@ is returned.  In situations where a @term{closure} over the same set of
 @term{bindings} might be produced more than once, the various resulting
 @term{closures} might or might not be @coderef{eq}.
 
-It is an error to use @coderef{function} on a @term{function name}
+It is an error to use @code{function} on a @term{function name}
 that does not denote a @term{function} in the lexical environment in
-which the @coderef{function} form appears.
-Specifically, it is an error to use @coderef{function} on a @term{symbol}
+which the @code{function} form appears.
+Specifically, it is an error to use @code{function} on a @term{symbol}
 that denotes a @term{macro} or @term{special form}.
 An implementation may choose not to signal this error for
 performance reasons, but implementations are forbidden from
@@ -1702,7 +1702,7 @@ The result of @f{(adder 3)} is a function that adds @f{3} to its argument:
  (funcall add3 5) @EV{} 8
 @end lisp
 
-This works because @coderef{function} creates a @term{closure} of
+This works because @code{function} creates a @term{closure} of
 the @term{lambda expression} that is able to refer to the @term{value} @f{3}
 of the variable @f{x} even after control has returned from the function @f{adder}.
 
@@ -1752,7 +1752,7 @@ The @term{primary value}, @param{lambda-expression},
 is @param{function}'s defining @term{lambda expression},
 or @nil{}@spc{}if the information is not available.  The @term{lambda expression}
 may have been pre-processed in some ways, but it should remain a suitable
-argument to @coderef{compile} or @coderef{function}.
+argument to @coderef{compile} or @code{function}.
 Any @term{implementation} may legitimately return @nil{}
 as the @param{lambda-expression} of any @param{function}.
 
@@ -1767,7 +1767,7 @@ as the @param{closure-p} of any @param{function}.
 The @term{tertiary value}, @param{name},
 is the ``name'' of @param{function}.
 The name is intended for debugging only and is not necessarily one that would
-be valid for use as a name in @coderef{defun} or @coderef{function}, for example.
+be valid for use as a name in @coderef{defun} or @code{function}, for example.
 By convention, @nil{}@spc{}is used to mean that @param{function} has no name.
 Any @term{implementation} may legitimately return @nil{}
 as the @param{name} of any @param{function}.
@@ -2056,7 +2056,7 @@ only take place when @coderef{defconstant} appears as a
 The consequences are undefined if there are any
 @term{bindings}
 of the variable named by @param{name} at the time @coderef{defconstant}
-is executed or if the value is not @coderef{eql} to the value of
+is executed or if the value is not @code{eql} to the value of
 @param{initial-value}.
 
 The consequences are undefined when constant @term{symbols} are rebound
@@ -2208,7 +2208,7 @@ is just a seed that we are never likely to want to reset to something else
 once something has been grown from it.  As such, we have used @coderef{defvar}
 to avoid having the @f{*interesting-numbers*} information reset if the file is
 loaded a second time.  It is true that the two calls to
-@coderef{define-interesting-number} here would be reprocessed, but
+@code{define-interesting-number} here would be reprocessed, but
 if there were additional calls in another file, they would not be and that
 information would be lost.  On the other hand, consider the following code:
 
@@ -2902,11 +2902,11 @@ tags have dynamic @term{scope} while
 
 @coderef{go} transfers control to the point in the body
 of an enclosing @coderef{tagbody} form labeled by a
-tag @coderef{eql} to @param{tag}.
+tag @code{eql} to @param{tag}.
 If there is no such @param{tag}  in the body, the
 bodies of lexically containing @coderef{tagbody} @term{forms}
 (if any) are examined as well.
-If several tags are @coderef{eql}
+If several tags are @code{eql}
 to @param{tag}, control is transferred to
 whichever matching @param{tag}
 is contained in the innermost @coderef{tagbody} form that
@@ -3126,7 +3126,7 @@ The @param{statements} in a @coderef{tagbody} are @term{evaluated} in order
 from left to right, and their @term{values} are discarded.  If at any time
 there are no remaining @param{statements}, @coderef{tagbody} returns @nil{}.
 However, if @f{(go @param{tag})} is @term{evaluated}, control jumps to the
-part of the body labeled with the @param{tag}.  (Tags are compared with @coderef{eql}.)
+part of the body labeled with the @param{tag}.  (Tags are compared with @code{eql}.)
 
 A @param{tag} established by @coderef{tagbody} has @term{lexical scope}
 and has @term{dynamic extent}.  Once @coderef{tagbody} has been exited,
@@ -3569,10 +3569,10 @@ and the @term{empty list}.
 
 @subsubheading Notes:
 
-@coderef{not} is intended to be used to invert the `truth value' of a @term{boolean}
+@code{not} is intended to be used to invert the `truth value' of a @term{boolean}
 (or @term{generalized boolean})
-whereas @coderef{null} is intended to be used to test for the @term{empty list}.
-Operationally, @coderef{not} and @coderef{null} compute the same result;
+whereas @code{null} is intended to be used to test for the @term{empty list}.
+Operationally, @code{not} and @code{null} compute the same result;
 which to use is a matter of style.
 
 
@@ -3592,10 +3592,10 @@ The @term{boolean} representing true,
 and the canonical @term{generalized boolean} representing true.
 Although any @term{object}
 other than @nil{}@spc{}is considered @term{true},
-@coderef{t}@spc{}is generally used when there is no special reason
+@code{t}@spc{}is generally used when there is no special reason
 to prefer one such @term{object} over another.
 
-The @term{symbol} @coderef{t}@spc{}is also sometimes used for other purposes as well.
+The @term{symbol} @code{t}@spc{}is also sometimes used for other purposes as well.
 For example,
 as the @term{name} of a @term{class},
 as a @term{designator} (@eg{} a @term{stream designator})
@@ -3704,11 +3704,11 @@ The effect is that @clisp{}@spc{}makes no guarantee that @coderef{eq}
 is true even when both its arguments are ``the same thing'' if
 that thing is a @term{character} or @term{number}.
 
-Most @clisp{}@spc{}@term{operators} use @coderef{eql} rather than
-@coderef{eq} to compare objects, or else they default to @coderef{eql}
+Most @clisp{}@spc{}@term{operators} use @code{eql} rather than
+@coderef{eq} to compare objects, or else they default to @code{eql}
 and only use @coderef{eq} if specifically requested to do so.
 However, the following @term{operators} are defined to use @coderef{eq}
-rather than @coderef{eql} in a way that cannot be overridden by the
+rather than @code{eql} in a way that cannot be overridden by the
 @term{code} which employs them:
 
 
@@ -3746,7 +3746,7 @@ rather than @coderef{eql} in a way that cannot be overridden by the
 
 @subsubheading Description:
 
-The value of @coderef{eql} is @term{true} of two objects, @param{x} and
+The value of @code{eql} is @term{true} of two objects, @param{x} and
 @param{y}, in the folowing cases:
 
 @enumerate 1
@@ -3758,7 +3758,7 @@ same character.
 @end enumerate
 
 
-Otherwise the value of @coderef{eql} is @term{false}.
+Otherwise the value of @code{eql} is @term{false}.
 
 If an implementation supports positive and negative zeros as @term{distinct} values,
 then @f{(eql 0.0 -0.0)} returns @term{false}.
@@ -3808,31 +3808,31 @@ might be true.
 
 @subsubheading Notes:
 
-@coderef{eql} is the same as @coderef{eq}, except that if the
+@code{eql} is the same as @coderef{eq}, except that if the
 arguments are @term{characters} or @term{numbers}
 of the same type then their
-values are compared.  Thus @coderef{eql} tells whether two @term{objects}
+values are compared.  Thus @code{eql} tells whether two @term{objects}
 are conceptually the same, whereas @coderef{eq} tells whether two
 @term{objects} are implementationally identical.  It is for this reason
-that @coderef{eql}, not @coderef{eq}, is the default comparison predicate
+that @code{eql}, not @coderef{eq}, is the default comparison predicate
 for @term{operators} that take @term{sequences}
 as arguments.
 
-@coderef{eql} may not be true of two @term{floats}
+@code{eql} may not be true of two @term{floats}
 even when they represent the same
 value.  @coderef{=} is used to compare
 mathematical values.
 
-Two @term{complex} numbers are considered to be @coderef{eql}
-if their real parts are @coderef{eql}
-and their imaginary parts are @coderef{eql}.
+Two @term{complex} numbers are considered to be @code{eql}
+if their real parts are @code{eql}
+and their imaginary parts are @code{eql}.
 For example, @f{(eql #C(4 5) #C(4 5))} is @term{true} and
 @f{(eql #C(4 5) #C(4.0 5.0))} is @term{false}.
 Note that while @f{(eql #C(5.0 0.0) 5.0)} is @term{false},
 @f{(eql #C(5 0) 5)} is @term{true}.
 In the case of @f{(eql #C(5.0 0.0) 5.0)} the
 two arguments are of different types,
-and so cannot satisfy @coderef{eql}.
+and so cannot satisfy @code{eql}.
 In the case of @f{(eql #C(5 0) 5)},
 @f{#C(5 0)} is not a @term{complex} number, but
 is automatically reduced
@@ -3870,8 +3870,8 @@ Returns @term{true} if @param{x} and @param{y} are structurally similar
 
 @coderef{equal} is @term{true} of two @term{objects}
 if they are @term{symbols} that are @coderef{eq},
-if they are @term{numbers} that are @coderef{eql}, or
-if they are @term{characters} that are @coderef{eql}.
+if they are @term{numbers} that are @code{eql}, or
+if they are @term{characters} that are @code{eql}.
 
 @item @id{@term{Conses}}
 
@@ -3885,7 +3885,7 @@ and the two @term{cdrs} being @coderef{equal}.
 
 Two @term{arrays} are @coderef{equal} only if they are @coderef{eq},
 with one exception:
-@term{strings} and @term{bit vectors} are compared element-by-element (using @coderef{eql}).
+@term{strings} and @term{bit vectors} are compared element-by-element (using @code{eql}).
 If either @param{x} or @param{y} has a @term{fill pointer}, the
 @term{fill pointer} limits
 the number of elements examined by @coderef{equal}.
@@ -3924,8 +3924,8 @@ entries taking priority over lower ones.
 @cartouche
 @multitable{Other @term{object}}{``functionally equivalent''}
 @headitem Type @tab Behavior
-@item @term{number} @tab uses @coderef{eql}
-@item @term{character} @tab uses @coderef{eql}
+@item @term{number} @tab uses @code{eql}
+@item @term{character} @tab uses @code{eql}
 @item @term{cons} @tab descends
 @item @term{bit vector} @tab descends
 @item @term{string} @tab descends
@@ -3940,7 +3940,7 @@ entries taking priority over lower ones.
 @end float
 
 
-Any two @term{objects} that are @coderef{eql} are also @coderef{equal}.
+Any two @term{objects} that are @code{eql} are also @coderef{equal}.
 
 @coderef{equal} may fail to terminate if @param{x} or @param{y} is circular.
 
@@ -4428,19 +4428,19 @@ of the @param{predicate}.
 @param{form}---a @term{form}.
 
 @param{results}---the @term{values} resulting from the evaluation of
-the last @param{form}, or the symbols @nil{}@spc{}or @coderef{t}.
+the last @param{form}, or the symbols @nil{}@spc{}or @code{t}.
 
 @subsubheading Description:
 
-The macro @coderef{and} evaluates each @param{form} one at a time from left to right.
-As soon as any @param{form} evaluates to @nil{}, @coderef{and} returns
+The macro @code{and} evaluates each @param{form} one at a time from left to right.
+As soon as any @param{form} evaluates to @nil{}, @code{and} returns
 @nil{}@spc{}without evaluating the remaining @param{forms}.  If all @param{forms}
-but the last evaluate to @term{true} values, @coderef{and} returns the results
+but the last evaluate to @term{true} values, @code{and} returns the results
 produced by evaluating the last @param{form}.
 
-If no @param{forms} are supplied, @f{(and)} returns @coderef{t}.
+If no @param{forms} are supplied, @f{(and)} returns @code{t}.
 
-@coderef{and} passes back multiple values from the last @term{subform}
+@code{and} passes back multiple values from the last @term{subform}
 but not from subforms other than the last.
 
 @subsubheading Examples:
@@ -4454,7 +4454,7 @@ but not from subforms other than the last.
 
 The above expression prints @f{Foo!} if element @f{n} of @f{a-simple-vector}
 is the symbol @f{foo}, provided also that @f{n} is indeed a valid index
-for @f{a-simple-vector}.  Because @coderef{and} guarantees
+for @f{a-simple-vector}.  Because @code{and} guarantees
 left-to-right testing
 of its parts, @coderef{elt} is not called if @f{n} is out of range.
 
@@ -4640,17 +4640,17 @@ the last @param{form} executed or @nil{}.
 
 @subsubheading Description:
 
-@coderef{or} evaluates each @param{form}, one at a time, from left to right.
+@code{or} evaluates each @param{form}, one at a time, from left to right.
 The evaluation of all @param{forms} terminates when a @param{form} evaluates
 to @term{true} (@ie{} something other than @nil{}).
 
 If the @term{evaluation} of any @param{form} other than the last returns a
-@term{primary value} that is @term{true}, @coderef{or} immediately returns
+@term{primary value} that is @term{true}, @code{or} immediately returns
 that @term{value} (but no additional @term{values}) without evaluating the
 remaining @param{forms}.
 If every @param{form} but the last returns @term{false} as its @term{primary value},
-@coderef{or} returns all @term{values} returned by the last @param{form}.
-If no @param{forms} are supplied, @coderef{or} returns @nil{}.
+@code{or} returns all @term{values} returned by the last @param{form}.
+If no @param{forms} are supplied, @code{or} returns @nil{}.
 
 @subsubheading Examples:
 
@@ -4812,7 +4812,7 @@ Possibly also used later as a @term{place} if no @param{keys} match.
 @param{test-key}---an object produced by evaluating @param{keyform} or @param{keyplace}.
 
 @param{keys}---a @term{designator} for a @term{list} of @term{objects}.
-In the case of @coderef{case}, the @term{symbols} @coderef{t}@spc{}and @t{otherwise} may
+In the case of @coderef{case}, the @term{symbols} @code{t}@spc{}and @t{otherwise} may
 not be used as the @param{keys} @term{designator}.  To refer to these @term{symbols}
 by themselves as @param{keys}, the designators @f{(t)} and @f{(otherwise)}, respectively,
 must be used instead.
@@ -5457,10 +5457,10 @@ See @ref{VALUES Forms as Places}.
 
 @subsubheading Description:
 
-@coderef{values}
+@code{values}
 returns the @param{objects} as @term{multiple values}@sub{2}.
 
-@coderef{setf} of @coderef{values} is used to store the
+@coderef{setf} of @code{values} is used to store the
 @term{multiple values}@sub{2} @param{new-values} into the @param{places}.
 See @ref{VALUES Forms as Places}.
 
@@ -5491,7 +5491,7 @@ exactly one value.  For example, the function
 returns two values because @coderef{floor} returns
 two values.  It may be that the second value makes no sense,
 or that for efficiency reasons it is desired not to compute the
-second value.  @coderef{values} is the standard idiom
+second value.  @code{values} is the standard idiom
 for indicating that only one value is to be returned:
 
 @lisp
@@ -5499,7 +5499,7 @@ for indicating that only one value is to be returned:
    (values (floor (+ x y) y))) @EV{} FOO
 @end lisp
 
-This works because @coderef{values}
+This works because @code{values}
 returns exactly one value for each of
 @param{args}; as for any function call,
 if any of @param{args} produces more than one value, all but the
@@ -5514,7 +5514,7 @@ first are discarded.
 
 @subsubheading Notes:
 
-Since @coderef{values} is a @term{function}, not a @term{macro} or @term{special form},
+Since @code{values} is a @term{function}, not a @term{macro} or @term{special form},
 it receives as @term{arguments} only the @term{primary values} of
 its @term{argument} @term{forms}.
 
@@ -6005,7 +6005,7 @@ The @term{subforms} of the macro calls defined by @coderef{define-modify-macro}
 are evaluated as specified in @ref{Evaluation of Subforms to Places}.
 
 @param{Documentation} is attached as a @term{documentation string}
-to @param{name} (as kind @coderef{function})
+to @param{name} (as kind @code{function})
 and to the @term{macro function}.
 
 If a @coderef{define-modify-macro} @term{form} appears as a @term{top level form},
@@ -6745,10 +6745,10 @@ of each @f{place} twice, whereas @coderef{rotatef} evaluates them once.
 
 @subsubheading Class Precedence List:
 @coderef{control-error},
-@coderef{error},
+@code{error},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -6767,10 +6767,10 @@ dynamically available are @oftype{control-error}.
 
 @subsubheading Class Precedence List:
 @coderef{program-error},
-@coderef{error},
+@code{error},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -6789,10 +6789,10 @@ that is not lexically apparent are @oftype{program-error}.
 @subsubheading Class Precedence List:
 @coderef{undefined-function},
 @coderef{cell-error},
-@coderef{error},
+@code{error},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 

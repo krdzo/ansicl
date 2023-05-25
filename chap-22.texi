@@ -1398,7 +1398,7 @@ The next example specifies a default method for printing lists that do not
 correspond to function calls.  Note that the functions @coderef{pprint-linear},
 @coderef{pprint-fill}, and @coderef{pprint-tabular} are all defined with
 optional @param{colon-p} and @param{at-sign-p} arguments so that they can
-be used as @coderef{pprint dispatch functions} as well as @formatOp{/.../}
+be used as @code{pprint dispatch functions} as well as @formatOp{/.../}
 functions.
 
 @lisp
@@ -1556,12 +1556,12 @@ If @param{destination} is @nil{},
 containing the output from @param{control-string}.
 If @param{destination} is @term{non-nil},
 it must be a @term{string} with a @term{fill pointer},
-a @term{stream}, or the symbol @coderef{t}.
+a @term{stream}, or the symbol @code{t}.
 If @param{destination} is a @term{string} with a @term{fill pointer},
 the output is added to the end of the @term{string}.
 If @param{destination} is a @term{stream},
 the output is sent to that @term{stream}.
-If @param{destination} is @coderef{t},
+If @param{destination} is @code{t},
 the output is sent to @term{standard output}.
 
 In the description of the directives that follows,
@@ -1570,7 +1570,7 @@ refers to the next item of the set of @param{args} to be processed.
 The word or phrase at the beginning of each description is a mnemonic
 for the directive.
 @coderef{format} directives do not bind any of the printer control
-variables (@coderef{*print-...*}) except as specified in the following
+variables (@code{*print-...*}) except as specified in the following
 descriptions.
 Implementations may specify the binding of new, implementation-specific
 printer control variables for each @coderef{format} directive, but they
@@ -1658,7 +1658,7 @@ on the implementation, but on the particular I/O devices in use.
 prints the @term{character} in a way that the @term{Lisp reader} can understand,
 using @f{#@bsl{}} syntax.
 
-@f{@tild{}@@C}  binds @coderef{*print-escape*} to @coderef{t}.
+@f{@tild{}@@C}  binds @coderef{*print-escape*} to @code{t}.
 
 
 @node Tilde Percent: Newline
@@ -2206,7 +2206,7 @@ characters (as by @coderef{prin1} rather than @f{princ}).  The output is
 therefore suitable for input to @coderef{read}.  @f{@tild{}S} accepts
 all the arguments and modifiers that @f{@tild{}A} does.
 
-@f{@tild{}S} binds @coderef{*print-escape*} to @coderef{t}.
+@f{@tild{}S} binds @coderef{*print-escape*} to @code{t}.
 
 
 @node Tilde W: Write
@@ -2857,9 +2857,9 @@ The consequences of using it elsewhere are undefined.
 @cindex P (format directive)
 @cindex Tilde P (format directive)
 
-If @j{arg} is not @coderef{eql}
+If @j{arg} is not @code{eql}
 to the integer @f{1}, a lowercase @f{s} is
-printed; if @j{arg} is @coderef{eql} to @f{1}, nothing is printed.
+printed; if @j{arg} is @code{eql} to @f{1}, nothing is printed.
 If @j{arg} is a floating-point @f{1.0}, the @f{s} is
 printed.
 
@@ -3217,8 +3217,8 @@ but by certain other functions that accept a @term{format control}
 the way @coderef{format} does.  For example, error-signaling functions
 such as @coderef{cerror} accept @term{format controls}.
 
-Note that the meaning of @nil{}@spc{}and @coderef{t}@spc{}as destinations to @coderef{format}
-are different than those of @nil{}@spc{}and @coderef{t}@spc{}as @term{stream designators}.
+Note that the meaning of @nil{}@spc{}and @code{t}@spc{}as destinations to @coderef{format}
+are different than those of @nil{}@spc{}and @code{t}@spc{}as @term{stream designators}.
 
 The @f{@tild{}@hat{}} should appear only at the beginning of a @f{@tild{}<} clause,
 because it aborts the entire clause in which it appears (as well as
@@ -3444,7 +3444,7 @@ of @coderef{pprint-logical-block} are undefined.
 An error is signaled (at macro expansion time or at run time) if
 @coderef{pprint-exit-if-list-exhausted} is used anywhere other than
 lexically within a call on @coderef{pprint-logical-block}.
-Also, the consequences of executing @coderef{pprint-if-list-exhausted} outside
+Also, the consequences of executing @code{pprint-if-list-exhausted} outside
 of the dynamic extent of the @coderef{pprint-logical-block} which lexically
 contains it are undefined.
 
@@ -3908,7 +3908,7 @@ Output to @param{stream}.
 
 @subsubheading Affected By:
 
-@coderef{*print-pretty*}, @coderef{*print-miser*}.
+@coderef{*print-pretty*}, @code{*print-miser*}.
 The presence of containing logical blocks.
 The placement of newlines and conditional newlines.
 
@@ -3993,7 +3993,7 @@ it is not processing a list---@coderef{pprint-pop} can still be used to obtain
 support for @coderef{*print-length*}.
 In this situation, the first and third tests above are disabled and
 @coderef{pprint-pop} always returns @nil{}.
-See @ref{Examples of using the Pretty Printer}---specifically, the @coderef{pprint-vector} example.
+See @ref{Examples of using the Pretty Printer}---specifically, the @code{pprint-vector} example.
 
 Whether or not @coderef{pprint-pop} is @term{fbound} in the
 @term{global environment} is @term{implementation-dependent};
@@ -5385,7 +5385,7 @@ will either output something else or will signal an error (as described above).
 The rules for ``@term{similarity}'' imply that
 @f{#A} or @f{#(}
 syntax cannot be used for @term{arrays} of @term{element type}
-other than @coderef{t}.
+other than @code{t}.
 An implementation will have to use another syntax
 or signal an error @oftype{print-not-readable}.
 
@@ -5433,10 +5433,10 @@ requiring the language to provide support for fonts.
 
 @subsubheading Class Precedence List:
 @coderef{print-not-readable},
-@coderef{error},
+@code{error},
 @coderef{serious-condition},
 @coderef{condition},
-@coderef{t}
+@code{t}
 
 @subsubheading Description:
 
@@ -5492,7 +5492,7 @@ in the situation represented by @param{condition}.
 @subsubheading Arguments and Values:
 
 @param{destination}---@nil{},
-@coderef{t},
+@code{t},
 a @term{stream},
 or a @term{string} with a @term{fill pointer}.
 
@@ -5512,7 +5512,7 @@ by prefix parameters and modifiers, specifies what kind of formatting
 is desired.  Most directives use one or more elements of @param{args} to
 create their output.
 
-If @param{destination} is a @term{string}, a @term{stream}, or @coderef{t},
+If @param{destination} is a @term{string}, a @term{stream}, or @code{t},
 then the @param{result} is @nil{}.  Otherwise, the @param{result} is
 a @term{string} containing the `output.'
 

@@ -283,7 +283,7 @@ an @term{active} @term{handler} for which the associated test returns
 @item @b{apply}  @TransitiveVerb{}@spc{}(a @term{function} to a @term{list})
 to @term{call} the @term{function} with arguments that are the @term{elements}
 of the @term{list}.
-@gexample{Applying the function @coderef{+} to a list of integers returns
+@gexample{Applying the function @code{+} to a list of integers returns
 the sum of the elements of that list.}
 
 @item @b{argument}  @Noun{}
@@ -500,7 +500,7 @@ defined using @term{rest parameters}.)
  @Noun{}@spc{}
 an @term{object} @oftype{boolean};
 that is, one of the following @term{objects}:
-the symbol@tie{}@coderef{t}@spc{}  (representing @term{true}),
+the symbol@tie{}@code{t}@spc{}  (representing @term{true}),
 or the symbol@tie{}@nil{}@spc{}(representing @term{false}).
 See @ref{glos-generalized boolean, generalized boolean}.
 
@@ -601,7 +601,7 @@ to cause the @term{code} represented by that @term{function} to be
 @term{executed} in an @term{environment} where @term{bindings} for
 the @term{values} of its @term{parameters} have been @term{established}
 based on the @term{arguments}.
-@gexample{Calling the function @coderef{+} with the arguments
+@gexample{Calling the function @code{+} with the arguments
 @f{5} and @f{1} yields a value of @f{6}.}
 2. @Noun{}@spc{}a @term{situation} in which a @term{function} is called.
 
@@ -616,7 +616,7 @@ in the @coderef{defclass} form for the new class.}
 @item @b{car}  @Noun{}
 1. a. (of a @term{cons})
 the component of a @term{cons} corresponding to the first
-@term{argument} to @coderef{cons}; the other component is the
+@term{argument} to @code{cons}; the other component is the
 @term{cdr}.
 @gexample{The function @coderef{rplaca} modifies the car of a cons.}
 b. (of a @term{list})
@@ -656,7 +656,7 @@ the @term{cdr} of the @term{cdr} of that @term{object}.
 @item @b{cdr}  @pronounced{@Stress{k\.u}@stress{d@schwa{} r}}, @Noun{}@spc{}
 1. a. (of a @term{cons})
 the component of a @term{cons} corresponding to the second @term{argument}
-to @coderef{cons}; the other component is the @term{car}.
+to @code{cons}; the other component is the @term{car}.
 @gexample{The function @coderef{rplacd} modifies the cdr of a cons.}
 b. (of a @term{list} @mat{L@sub{1}})
 either the @term{list} @mat{L@sub{2}} that contains
@@ -885,7 +885,7 @@ by a @term{compiler macro}.
 a @term{function form} or @term{macro form} whose @term{operator}
 has a definition as a @term{compiler macro},
 or a @coderef{funcall} @term{form} whose first @term{argument} is a
-@coderef{function} @term{form} whose @term{argument} is the @term{name}
+@code{function} @term{form} whose @term{argument} is the @term{name}
 of a @term{function} that has a definition as a @term{compiler macro}.
 
 @item @b{compiler macro function}  @Noun{}@spc{}
@@ -900,7 +900,7 @@ an @term{object} @oftype{complex}.
 
 @item @b{complex float}  @Noun{}
 an @term{object} @oftype{complex} which has a @term{complex part type}
-that is a @term{subtype} of @coderef{float}.
+that is a @term{subtype} of @code{float}.
 A @term{complex float} is a @term{complex},
 but it is not a @term{float}.
 
@@ -912,7 +912,7 @@ and the imaginary part of the @term{complex}.
 
 @item @b{complex rational}  @Noun{}
 an @term{object} @oftype{complex} which has a @term{complex part type}
-that is a @term{subtype} of @coderef{rational}.
+that is a @term{subtype} of @code{rational}.
 A @term{complex rational} is a @term{complex}, but it is not a @term{rational}.
 No @term{complex rational} has an imaginary part of zero because such a
 number is always represented by @clisp{}@spc{}as an @term{object} @oftype{rational};
@@ -1041,7 +1041,7 @@ is a constant object.}
 @item @b{constant variable}  @Noun{}
 a @term{variable}, the @term{value} of which can never change;
 that is, a @term{keyword}@sub{1} or a @term{named constant}.
-@gexample{The symbols @coderef{t}, @nil{}, @kwd{direction}, and
+@gexample{The symbols @code{t}, @nil{}, @kwd{direction}, and
 @coderef{most-positive-fixnum}@spc{}are constant variables.}
 
 @item @b{constituent}  @Noun{}, @Adjective{}
@@ -1190,7 +1190,7 @@ one of the @term{symbols}
 @coderef{declaration},
 @coderef{dynamic-extent},
 @coderef{ftype},
-@coderef{function},
+@code{function},
 @coderef{ignore},
 @coderef{inline},
 @coderef{notinline},
@@ -1638,10 +1638,10 @@ that this number is to be represented as a double float.}
 
 @float Figure,fig26.1
 @cartouche
-@multitable{@f{D} or @f{d}}{@coderef{float} (see @coderef{*read-default-float-format*})}
+@multitable{@f{D} or @f{d}}{@code{float} (see @coderef{*read-default-float-format*})}
 @headitem Marker @tab Meaning
 @item @f{D} or @f{d} @tab @coderef{double-float}
-@item @f{E} or @f{e} @tab @coderef{float} (see @coderef{*read-default-float-format*})
+@item @f{E} or @f{e} @tab @code{float} (see @coderef{*read-default-float-format*})
 @item @f{F} or @f{f} @tab @coderef{single-float}
 @item @f{L} or @f{l} @tab @coderef{long-float}
 @item @f{S} or @f{s} @tab @coderef{short-float}
@@ -2024,7 +2024,7 @@ The evaluator performs @term{functional evaluation}
 implicitly when it encounters a @term{function name}
 or a @term{lambda expression}
 in the @term{car} of a @term{compound form},
-or explicitly when it encounters a @coderef{function} @term{special form}.
+or explicitly when it encounters a @code{function} @term{special form}.
 Neither a use of a @term{symbol} as a @term{function designator} nor a
 use of @thefunction{symbol-function} to extract the @term{functional value}
 of a @term{symbol} is considered a @term{functional evaluation}.
@@ -2058,7 +2058,7 @@ are examples of further compilation.}
 @table @asis
 
 @item @b{general}  @Adjective{}@spc{}(of an @term{array})
-having @term{element type} @coderef{t},
+having @term{element type} @code{t},
 and consequently able to have any @term{object} as an @term{element}.
 
 @item @b{generalized boolean} @anchor{glos-generalized boolean}
@@ -2582,7 +2582,7 @@ link in the chain or a terminating @term{atom}.
 See also @ref{glos-proper list, proper list},
 @term{dotted list},
 or @term{circular list}.
-2. the @term{type} that is the union of @coderef{null} and @coderef{cons}.
+2. the @term{type} that is the union of @code{null} and @code{cons}.
 
 @item @b{list designator}  @Noun{}
 a @term{designator} for a @term{list} of @term{objects}; that is,
@@ -2821,7 +2821,7 @@ having the @term{multiple escape} @term{syntax type}.
 1. more than one @term{value}.
 @gexample{The function @coderef{truncate} returns multiple values.}
 2. a variable number of @term{values}, possibly including zero or one.
-@gexample{The function @coderef{values} returns multiple values.}
+@gexample{The function @code{values} returns multiple values.}
 3. a fixed number of values other than one.
 @gexample{The macro @coderef{multiple-value-bind} is among the few
 operators in @clisp{}@spc{}which can detect and manipulate
@@ -3001,13 +3001,13 @@ defined by the @term{implementation} to be @term{numeric}.
 
 @item @b{object}  @Noun{}@spc{}
 1. any Lisp datum.
-@gexample{The function @coderef{cons} creates an object which refers
+@gexample{The function @code{cons} creates an object which refers
 to two other objects.}
 2. (immediately following the name of a @term{type})
 an @term{object} which is of that @term{type}, used to emphasize that the
 @term{object} is not just a @term{name} for an object of that @term{type}
 but really an @term{element} of the @term{type} in cases where @term{objects}
-of that @term{type} (such as @coderef{function} or @coderef{class}) are commonly
+of that @term{type} (such as @code{function} or @coderef{class}) are commonly
 referred to by @term{name}.
 @gexample{The function @coderef{symbol-function} takes a function name
 and returns a function object.}
@@ -3027,8 +3027,8 @@ having been @term{opened}@sub{1}, but not yet @term{closed}.
 1. a @term{function}, @term{macro}, or @term{special operator}.
 2. a @term{symbol} that names
 such a @term{function}, @term{macro}, or @term{special operator}.
-3. (in a @coderef{function} @term{special form})
-the @term{cadr} of the @coderef{function} @term{special form}, which
+3. (in a @code{function} @term{special form})
+the @term{cadr} of the @code{function} @term{special form}, which
 might be either an @term{operator}@sub{2} or a @term{lambda expression}.
 4. (of a @term{compound form})
 the @term{car} of the @term{compound form}, which might be
@@ -3543,7 +3543,7 @@ pathname if the host file system is Unix.}
 See @ref{glos-absolute, absolute}.
 
 @item @b{repertoire}  @Noun{}, @ISO{}
-a @term{subtype} of @coderef{character}.  See @ref{Character Repertoires}.
+a @term{subtype} of @code{character}.  See @ref{Character Repertoires}.
 
 @item @b{report}  @Noun{}@spc{}(of a @term{condition})
 to @term{call} @thefunction{print-object} on the @term{condition}
@@ -3635,7 +3635,7 @@ the @term{environment} in which a program is @term{executed}.
 @item @b{safe}  @Adjective{}@spc{}
 1. (of @term{code})
 processed in a @term{lexical environment} where the the highest
-@coderef{safety} level (@f{3}) was in effect.
+@code{safety} level (@f{3}) was in effect.
 See @ref{optimize}.
 2. (of a @term{call}) a @term{safe call}.
 
@@ -3653,14 +3653,14 @@ indistinguishable by that @term{predicate}.
 @gexample{The symbol @f{car}, the string @f{"car"}, and the string @f{"CAR"}
 are the @f{same} under @coderef{string-equal}}.
 2. (of @term{objects} if no predicate is implied by context)
-indistinguishable by @coderef{eql}.
+indistinguishable by @code{eql}.
 Note that @coderef{eq} might be capable of distinguishing some
-@term{numbers} and @term{characters} which @coderef{eql} cannot
+@term{numbers} and @term{characters} which @code{eql} cannot
 distinguish, but the nature of such, if any,
 is @term{implementation-dependent}.
 Since @coderef{eq} is used only rarely in this specification,
-@coderef{eql} is the default predicate when none is mentioned explicitly.
-@gexample{The conses returned by two successive calls to @coderef{cons}
+@code{eql} is the default predicate when none is mentioned explicitly.
+@gexample{The conses returned by two successive calls to @code{cons}
 are never the same.}
 3. (of @term{types}) having the same set of @term{elements};
 that is, each @term{type} is a @term{subtype} of the others.
@@ -3701,7 +3701,7 @@ can occur.
 
 @item @b{script}  @Noun{}@spc{}@ISO{}
 one of possibly several sets that form an @term{exhaustive partition}
-of the type @coderef{character}.  See @ref{Character Scripts}.
+of the type @code{character}.  See @ref{Character Scripts}.
 
 @item @b{secondary value}  @Noun{}@spc{}(of @term{values} resulting from the
 @term{evaluation} of a @term{form})
@@ -3875,7 +3875,7 @@ a @term{string} @oftype{simple-string}.
 a @term{vector} @oftype{simple-vector},
 sometimes called a ``@term{simple general vector}.''
 Not all @term{vectors} that are @term{simple} are @term{simple vectors}---only
-those that have @term{element type} @coderef{t}.
+those that have @term{element type} @code{t}.
 
 @item @b{single escape}  @Noun{}, @Adjective{}
 1. @Noun{}@spc{}the @term{syntax type} of a @term{character}
@@ -4011,7 +4011,7 @@ the @term{input} @term{stream} which is the @term{value} of the @term{dynamic va
 @coderef{*standard-input*}.
 
 @item @b{standard method combination}  @Noun{}@spc{}
-the @term{method combination} named @coderef{standard}.
+the @term{method combination} named @code{standard}.
 
 @item @b{standard object}  @Noun{}@spc{}
 an @term{object} that is
@@ -4091,7 +4091,7 @@ or @coderef{make-string-output-stream}.
 a @term{designator} for a @term{stream}; that is,
 an @term{object} that denotes a @term{stream}
 and that is one of:
-@coderef{t}@spc{}(denoting @thevalueof{*terminal-io*}),
+@code{t}@spc{}(denoting @thevalueof{*terminal-io*}),
 @nil{}@spc{}(denoting @thevalueof{*standard-input*}
 for @term{input} @term{stream designators}
 or denoting @thevalueof{*standard-output*}
@@ -4108,7 +4108,7 @@ a @term{variable} whose @term{value} must be a @term{stream}.
 a @term{designator} for a @term{stream variable}; that is,
 a @term{symbol} that denotes a @term{stream variable}
 and that is one of:
-@coderef{t}@spc{}(denoting @coderef{*terminal-io*}),
+@code{t}@spc{}(denoting @coderef{*terminal-io*}),
 @nil{}@spc{}(denoting @coderef{*standard-input*}
 for @term{input} @term{stream variable designators}
 or denoting @coderef{*standard-output*}
@@ -4127,8 +4127,8 @@ a @term{character} (denoting a @term{singleton} @term{string}
 that has the @term{character} as its only @term{element}),
 a @term{symbol} (denoting the @term{string} that is its @term{name}),
 or a @term{string} (denoting itself).
-The intent is that this term be consistent with the behavior of @coderef{string};
-@term{implementations} that extend @coderef{string} must extend the meaning of
+The intent is that this term be consistent with the behavior of @code{string};
+@term{implementations} that extend @code{string} must extend the meaning of
 this term in a compatible way.
 
 @item @b{string equal}  @Adjective{}@spc{}
@@ -4380,7 +4380,7 @@ naturally implies that ``@i{X} is of type @param{S@mat{@subs1{b}}}'' if
 @param{S@mat{@subs1{a}}} is a @term{subtype} of @param{S@mat{@subs1{b}}}.)
 2. (immediately following the name of a @term{type})
 a @term{subtype} of that @term{type}.
-@gexample{The type @coderef{vector} is an array type.}
+@gexample{The type @code{vector} is an array type.}
 
 @item @b{type declaration}  @Noun{}@spc{}
 a @term{declaration} that asserts that every reference to a

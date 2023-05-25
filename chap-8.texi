@@ -69,8 +69,8 @@ even if it would expand into a @term{structure name}.
 @param{structure-name}---a @term{symbol}.
 
 @param{type}---one of the @term{type specifiers}
-@coderef{list},
-@coderef{vector},
+@code{list},
+@code{vector},
 or @f{(vector @param{size})},
 or some other @term{type specifier} defined
 by the @term{implementation} to be appropriate.
@@ -631,7 +631,7 @@ to be recovered from an instance of the structure and allows a reasonable
 predicate for the conceptual type to be defined:
 the automatically defined
 @param{name-p} predicate for the structure operates by first
-checking that its argument is of the proper type (@coderef{list},
+checking that its argument is of the proper type (@code{list},
 @f{(vector t)},
 or whatever) and then checking whether the first component contains
 the appropriate type name.
@@ -798,7 +798,7 @@ the structure.  Its argument must be one of these @term{types}:
 
 
 @table @asis
-@item @id{@coderef{vector}}
+@item @id{@code{vector}}
 
 
 This produces the same result as specifying @tt{(vector t)}.
@@ -820,7 +820,7 @@ element 1 if the structure is @kwd{named}, and element 0 otherwise.
 The structure can be @kwd{named} only if @thetype{symbol}
 is a @term{subtype} of the supplied @param{element-type}.
 
-@item @id{@coderef{list}}
+@item @id{@code{list}}
 
 
 The structure is represented as a @term{list}.
@@ -844,7 +844,7 @@ For example:
 
 
 should make a constructor that builds a @term{list} exactly like the one
-that @coderef{list} produces,
+that @code{list} produces,
 with @tt{quux} as its @term{car}.
 
 If this type is defined:
@@ -923,7 +923,7 @@ The copier function takes an object of the structure type and creates a
 new object of the same  type that is a copy of the first.  The copier
 function creates a new structure with the same component entries
 as the original.  Corresponding components of the two structure instances
-are @coderef{eql}.
+are @code{eql}.
 @end table
 
 
