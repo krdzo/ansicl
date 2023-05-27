@@ -1,3 +1,285 @@
+@node Credits
+@unnumbered Credits
+@editors
+
+Special thanks to Guy L. Steele Jr. and Digital Press for producing @CLtL{},
+and for relaxing copyright restrictions enough to make it possible for that
+document's text to provide an early basis of this work.
+
+@subheading Edit and Review History:
+@multitable @columnfractions 0.15 0.15 0.7
+
+@item 01-Jan-89 @tab Pitman @tab Draft of Chapters 5.1 (conditions).
+@item 01-May-89 @tab Chapman @tab Draft of 1.2--1.6.
+@item 01-May-89 @tab Gabriel @tab Rewrite of Chapters 1.1 and 5.1.
+@item 01-Jun-89 @tab Loosemore @tab Review of Chapter 4.2.
+@item 01-Jun-89 @tab Pitman @tab Review of Glossary
+@item 15-Jun-89 @tab Gabriel @tab Rewrite of Glossary
+@item 16-Jun-89 @tab Margolin @tab Comments on Chapters 2.1--2.4 (types, objects).
+@item 23-Jun-89 @tab Gabriel @tab Rewrite of 4.2.
+@item 07-Jul-89 @tab Moon @tab Review of Chapters 4.1, 4.3
+@item 12-Jul-89 @tab Gabriel @tab Revision of 4.2.
+@item 15-Jul-89 @tab Pitman @tab Review of Glossary
+@item 18-Jul-89 @tab Gray @tab Comments on 5.1
+@item 25-Jul-89 @tab Gabriel @tab Revision of Chapters 1.2--1.6, 2.2
+@item 26-Jul-89 @tab Gabriel @tab Rewrite of 5.1
+@item 26-Jul-89 @tab Gabriel @tab Rewrite of 4.1.
+@item 27-Jul-89 @tab Pitman @tab Revision of 5.1
+@item 27-Jul-89 @tab Gabriel @tab Revision of 5.1
+@item 28-Jul-89 @tab Chapman @tab Draft of 2.2, 3.2, 3.3, 5.4
+@item 28-Jul-89 @tab Gabriel @tab Revision of Glossary.
+@item 01-Oct-89 @tab Margolin @tab Review of Dictionary from Jun-89 draft.
+@item 20-Jan-91 @tab Pitman @tab Draft 8.81 (for X3J13 review). Document X3J13/91-101.
+@item 29-Jan-91 @tab Waters @tab Review of 8.81/Chapter 23 (Printer).
+@item 01-Mar-91 @tab Moon @tab Review of 8.81/Chapter 4 (Evaluation and Compilation).
+@item 01-Mar-91 @tab Barrett @tab Review of 8.81/Chapter 4 (Evaluation and Compilation).
+@item 01-Mar-91 @tab Moon @tab Review of 8.81/Glossary.
+@item 13-Mar-90 @tab Wechsler @tab Review of 8.81/Glossary.
+@item 21-Mar-91 @tab Kerns @tab Review of 8.81/Chapter 1.
+@item 26-Apr-91 @tab Margolin @tab Review of 8.81/Chapters 1--12.
+@item 15-May-91 @tab Barrett @tab Review of 8.81/Chapters 5 (Misc), 11 (Conditions).
+@item 04-Jun-91 @tab Laddaga @tab Review of 9.60/Chapter 20 (Pathnames).
+@item 10-Jun-91 @tab Pitman @tab Draft 9.126 (for X3J13 review). Document X3J13/91-102.
+@item 02-Sep-91 @tab Barrett @tab Review of 9.28/Chapter 4 (Evaluation and Compilation).
+@item 02-Sep-91 @tab Barrett @tab Review of 9.52/Chapter 4 (Evaluation and Compilation).
+@item 15-Sep-91 @tab Barrett @tab Review of 9.126/Chapter 4 (Evaluation and Compilation)
+@item  @tab  @tab @quad{} and Chapter 7 (Evaluation/Compilation).
+@item  @tab  @tab @quad{}(some comments not yet merged)
+@item 18-Sep-91 @tab Wechsler @tab Review of 9.126.
+@item 21-Sep-91 @tab Barrett @tab Review of 10.16/Chapter 7 (Evaluation/Compilation).
+@item  @tab  @tab @quad{}(some comments not yet merged)
+@item 28-Sep-91 @tab Barrett @tab Review of 10.95/Chapter 25 (Printer).
+@item  @tab  @tab @quad{}(some comments not yet merged)
+@item 13-Oct-91 @tab Barrett @tab Review (and help editing) of 10.104/Chapter 4
+@item  @tab  @tab @quad{}(Evaluation and Compilation)
+@item 15-Oct-91 @tab Waters @tab Review of 10.95/Chapter 25 (Printer).
+@item 24-Oct-91 @tab Pitman @tab Draft 10.156 (for X3J13 review). Document X3J13/91-103.
+@item 04-Nov-91 @tab Moon @tab Review of 10.156/Chapter 5 (Data and Control Flow)
+@item  @tab  @tab @quad{} and Chapter 26 (Glossary).
+@item 11-Nov-91 @tab Loosemore @tab Review of 10.156/Chapter 2 (Syntax),
+@item  @tab  @tab @quad{} Chapter 3 (Evaluation and Compilation),
+@item  @tab  @tab @quad{} Chapter 5 (Data and Control Flow),
+and Chapter 8 (Structures).
+@item 02-Dec-91 @tab Barrett @tab Review of 10.156/Chapter 4 (Types and Classes),
+@item  @tab  @tab @quad{} and Chapter 10 (Symbols).
+@item 02-Dec-91 @tab Barrett @tab Review of 10.156/Chapter 3 (Evaluation and Compilation),
+@item  @tab  @tab @quad{} Chapter 6 (Iteration), Chapter 9 (Conditions),
+@item  @tab  @tab @quad{} and Chapter 14 (Conses).
+@item  @tab  @tab @quad{}(some comments not yet merged)
+@item 09-Dec-91 @tab Gabriel @tab Review of 10.156/Chapter 1 (Introduction),
+@item  @tab  @tab @quad{} Chapter 2 (Syntax),
+and Chapter 3 (Evaluation and Compilation).
+@item 09-Dec-91 @tab Ida @tab Light review of 10.156/Chapters 1-5.
+@item 09-Dec-91 @tab Moon @tab Review of 10.156/Chapter 3 (Evaluation and Compilation).
+@item  @tab  @tab @quad{}(some comments not yet merged)
+@item 10-Dec-91 @tab Loosemore @tab Review of 10.156/Chapter 10 (Symbols),
+@item  @tab  @tab @quad{} Chapter 20 (Files), and Chapter 13 (Characters).
+@item 10-Dec-91 @tab Loosemore @tab Review of 10.156/Chapter 14 (Conses).
+@item  @tab  @tab @quad{}(some comments not yet merged)
+@item 10-Dec-91 @tab Laubsch @tab Review of 10.156/Chapters 1 (Introduction),
+@item  @tab  @tab @quad{} Chapter 2 (Syntax), Chapter 3 (Evaluation and Compilation),
+@item  @tab  @tab @quad{} Chapter 4 (Types and Classes),
+Chapter 5 (Data and Control Flow),
+@item  @tab  @tab @quad{} Chapter 7 (Objects), Chapter 11 (Packages),
+@item  @tab  @tab @quad{} Chapter 19 (Filenames), and Chapter 21 (Streams).
+@item 18-Dec-91 @tab Margolin @tab Review of 10.156/Chapter 18 (Hash Tables).
+@item 04-Jan-92 @tab White @tab Review of 10.156/Chapter 6 (Iteration),
+@item  @tab  @tab @quad{} Chapter 11 (Packages), Chapter 18 (Hash Tables),
+@item  @tab  @tab @quad{} and Chapter 23 (Reader).
+@item 04-Jan-92 @tab White @tab Review of 10.156/Chapter 26 (Glossary).
+@item  @tab  @tab @quad{}(some comments not yet merged)
+@item 04-Jan-92 @tab Barrett @tab Review of 10.156/Chapter 18 (Hash Tables) and Chapter 16 (Strings).
+@item 04-Jan-92 @tab Barrett @tab Review of 10.156/Chapter 15 (Arrays) and Chapter 21 (Streams).
+@item  @tab  @tab @quad{}(some comments not yet merged)
+@item 06-Jan-92 @tab Loosemore @tab Review of 10.156/Chapter 16 (Strings),
+@item  @tab  @tab @quad{} Chapter 17 (Sequences), and Chapter 25 (Environment).
+@item 06-Jan-92 @tab Loosemore @tab Review of 10.156/Chapter 21 (Streams) and Chapter 23 (Reader).
+@item  @tab  @tab @quad{}(some comments not yet merged)
+@item 06-Jan-92 @tab Margolin @tab Review of 10.156/Chapter 2 (Syntax).
+@item 07-Jan-92 @tab Margolin @tab Review of 10.156/Chapter 4 (Types and Classes).
+@item 03-Feb-92 @tab Aspinall @tab Review of 10.156/Chapter 12 (Numbers).
+@item 16-Feb-92 @tab Pitman @tab Draft 11.82 (for X3J13 letter ballot). Document X3J13/92-101.
+@item 16-Mar-92 @tab Loosemore @tab Review of 11.82/Chapter 1, 3, 4, 5, 7, 8, 9, 10,
+@item  @tab  @tab @quad{} 11, 12, 18, 22, 23, 24, 25, and 26.
+@item 16-Feb-92 @tab Pitman @tab Draft 12.24 (for X3 consideration). Document X3J13/92-102.
+@item 09-Sep-92 @tab Samson @tab Public Review Comments (#1). Documents X3J13/92-1001 to 92-1003.
+@item 22-Oct-92 @tab Rose, Yen @tab Public Review Comments (#2). Documents X3J13/92-1101 to 92-1103.
+@item 23-Oct-92 @tab Staley @tab Public Review Comments (#3). Documents X3J13/92-1201 to 92-1204.
+@item 09-Nov-92 @tab Barrett @tab Public Review Comments (#4). Documents X3J13/92-3101 to 92-3110.
+@item 11-Nov-92 @tab Moon @tab Public Review Comments (#5). Documents X3J13/92-3201 to 92-3248.
+@item 17-Nov-92 @tab Loosemore @tab Public Review Comments (#6). Documents X3J13/92-1301 to 92-1335.
+@item 23-Nov-92 @tab Margolin @tab Public Review Comments (#7). Documents X3J13/92-1401 to 92-1419.
+@item 23-Nov-92 @tab Withington @tab Public Review Comments (#8a). Documents X3J13/92-1501 to 92-1512.
+@item  @tab  @tab
+@item 23-Nov-92 @tab Feinberg @tab Public Review Comments (#8b). Documents X3J13/92-1601 to 92-1603.
+@item 23-Nov-92 @tab Wechsler @tab Public Review Comments (#8c). Documents X3J13/92-1701 to 92-1703.
+@item 23-Nov-92 @tab Moore @tab Public Review Comments (#9). Documents X3J13/92-1801 to 92-1802.
+@item 23-Nov-92 @tab Flanagan @tab Public Review Comments (#10). Documents X3J13/92-1901 to 92-1910.
+@item 23-Nov-92 @tab Dalton @tab Public Review Comments (#11). Documents X3J13/92-2001 to 92-2012.
+@item 23-Nov-92 @tab Gallagher @tab Public Review Comments (#12). Documents X3J13/92-2101 to 92-2103.
+@item 23-Nov-92 @tab Norvig @tab Public Review Comments (#13). Documents X3J13/92-2201 to 92-2208.
+@item 24-Nov-92 @tab Robertson @tab Public Review Comments (#14). Document X3J13/92-2301.
+@item 23-Nov-92 @tab Kawabe @tab Public Review Comments (#15). Documents X3J13/92-2401 to 92-2403.
+@item 23-Nov-92 @tab Barrett @tab Public Review Comments (#16). Documents X3J13/92-2511 to X3J13/92-2531.
+@item 23-Nov-92 @tab Wertheimer @tab Public Review Comments (#17). Document X3J13/92-2601.
+@item 24-Nov-92 @tab Pitman @tab Public Review Comments (#18). Documents X3J13/92-2701 to 92-2742.
+@item 24-Nov-92 @tab Mato Mira @tab Public Review Comments (#19). Documents X3J13/92-2801 to 92-2805.
+@item 24-Nov-92 @tab Philpot @tab Public Review Comments (#20). Document X3J13/92-2901.
+@item 23-Nov-92 @tab Cerys @tab Public Review Comments (#21). Document X3J13/92-3001.
+@item 30-Aug-93 @tab Pitman @tab Draft 13.65 (for X3J13 consideration). Document X3J13/93-101.
+@item 04-Oct-93 @tab X3J13 @tab Minor fixes to Draft 13.65 before sending to X3.
+@item 05-Oct-93 @tab Pitman @tab Draft 14.10 (for X3 consideration). Document X3J13/93-102.
+@item 08-Nov-93 @tab Dalton @tab ``reply to reply to pr comments''.  Document X3J13/94-311.
+@item 04-Apr-94 @tab Boyer, @tab
+@item  @tab Kaufmann, @tab
+@item  @tab Moore @tab Public Review Comments (#1).  Document X3J13/94-305.
+@item 05-Apr-94 @tab Pitman @tab Public Review Comments (#2).  Document X3J13/94-306.
+@item 14-Mar-94 @tab Schulenburg @tab Public Review Comments (#3).  Document X3J13/94-307.
+@item 04-Apr-94 @tab Shepard @tab Late commentary.  Document X3J13/94-309.
+@item 05-May-94 @tab X3J13 @tab Editorial-only changes to Draft 14.10 in response to comments.
+@item 10-May-94 @tab Pitman @tab Draft @rev{} (for X3 consideration). Document @DocumentNumber{}.
+@end multitable
+
+@goodbreak{}
+
+The following lists of information are almost certainly incomplete, but
+it was felt that it was better to risk publishing incomplete information
+than to fail to acknowledge important contributions by the many people
+and organizations who have contributed to this effort.
+
+Mention here of any individual or organization does not imply
+endorsement of this document by that individual or organization.
+
+@subheading Ad Hoc Group Chairs:
+@multitable @columnfractions 0.5 0.5
+
+@item Charter @tab Ennis, Susan P.
+@item Cleanup @tab Masinter, Larry
+@item  @tab Fahlman, Scott
+@item Compiler @tab Haflich, Steve
+@item  @tab Loosemore, Sandra
+@item Conditions @tab Pitman, Kent M.
+@item Editorial @tab Chapman, Kathy
+@item Graphics @ampers{} Windows @tab Douglas Rand
+@item Iteration @tab White, JonL
+@item Lisp@mat{@sub{1}}/Lisp@mat{@sub{2}} @tab Gabriel, Richard P.
+@item Macros @tab Haflich, Steve
+@item  @tab Pitman, Kent M.
+@item Objects @tab Bobrow, Daniel G.
+@item Presentation of Standard @tab Brown, Gary
+@item Pretty Printer @tab Waters, Richard C.
+@item Public Review @tab Ida, Masayuki
+@item Types @ampers{} Declarations @tab Scherlis, William
+@item Validation @tab Berman, Richard
+@item  @tab Balzer, Bob
+
+@end multitable
+
+@goodbreak{}
+
+@subheading Major Administrative Contributions:
+@multitable @columnfractions 0.5 0.5
+
+@item Steele, Guy L., Jr. @tab Eiron, Hanoch
+@item Zubkoff, Jan L. @tab Haflich, Steve
+@item Gabriel, Richard P. @tab Ida, Masayuki
+@item Masinter, Larry @tab Loeffler, David D.
+@item Loosemore, Sandra @tab Tyson, Mabry
+@item Pitman, Kent M. @tab Whittemore, Susan
+@item Barrett, Kim @tab Woodyatt, Anne
+
+@end multitable
+
+@goodbreak{}
+
+@subheading Major Technical Contributions:
+@multitable @columnfractions 0.33 0.33 0.33
+
+@item Loosemore, Sandra @tab  @tab
+@item Bobrow, Daniel G. @tab Margolin, Barry @tab
+@item Daniels, Andy @tab Moon, David A. @tab
+@item DeMichiel, Linda G. @tab Pitman, Kent M. @tab
+@item Dussud, Patrick H. @tab Perdue, Crispin @tab
+@item Gabriel, Richard P. @tab Steele, Guy L., Jr. @tab
+@item Ida, Masayuki @tab Waters, Richard C. @tab
+@item Kiczales, Gregor @tab White, JonL @tab
+
+@end multitable
+
+@subheading Participating Companies and Organizations:
+@multitable @columnfractions 0.5 0.5
+
+@item LMI @tab
+@item AI Architects @tab Loosemore, Sandra
+@item Amoco Production Co. @tab Lucid, Inc.
+@item Aoyama Gakuin University @tab MCC
+@item Apple Computer @tab MIT
+@item Barrett, Kim @tab MITRE Corporation
+@item Boeing Advanced Technology Center @tab MSC
+@item Carnegie-Mellon University @tab NASA Ames Research Center
+@item Chestnut Software @tab Nihon Symbolics
+@item Computer Sciences @tab National Bureau of Standards
+@item CONTEL @tab Prime Computer
+@item Digital Equipment Corporation @tab Siemens
+@item Evans @ampersand{} Sutherland @tab Southern Illinois University
+@item Encore @tab Sperry
+@item Franz, Inc. @tab SRI
+@item Gigamos @tab Sun Microsystems
+@item GMD @tab Symbolics
+@item Gold Hill @tab Tektronix
+@item Greenblatt, Richard @tab Texas Instruments
+@item Grumman Data Systems Corporation @tab Thinking Machines Corporation
+@item Harlequin, Ltd. @tab Unisys
+@item Hewlett-Packard @tab University of Bath
+@item Honeywell @tab University of Edinburgh
+@item IBM @tab University of Utah
+@item Integrated Inference Machines @tab US Army
+@item International LISP Associates @tab USC/ISI
+@item Johnson Controls @tab Xerox
+
+@end multitable
+
+@subheading Individual Participants:
+@multitable @columnfractions 0.33 0.33 0.33
+
+@item Arbaugh, Bill @tab Hornig, Charles @tab Philipp, Christopher
+@item Balzer, Bob @tab Ida, Masayuki @tab Pierson, Dan
+@item Barrett, Kim @tab Keene, Sonya @tab Pitman, Kent M.
+@item Bartley, David @tab Keller, Shaun @tab Raghavan, B.
+@item Beckerle, Mike @tab Kempf, James @tab Rand, Douglas
+@item Beiser, Paul @tab Kerns, Robert W. @tab Rininger, Jeff
+@item Benson, Eric @tab Kiczales, Gregor @tab Rosenking, Jeff
+@item Berman, Richard @tab Kolb, Dieter @tab Scherlis, William
+@item Bobrow, Daniel G. @tab Koschmann, Timothy @tab Shiota, Eiji
+@item Boelk, Mary @tab Kosinski, Paul @tab Sizer, Andy
+@item Brittain, Skona @tab Larson, Aaron @tab Slater, David
+@item Brown, Gary @tab Latto, Andy @tab Sodan, Angela
+@item Chailloux, Jerome @tab Laubsch, Joachim @tab Soley, Richard
+@item Chapman, Kathy @tab Layer, Kevin @tab St. Clair, Bill
+@item Clinger, Will @tab Linden, Thom @tab Stanhope, Philip
+@item Coffee, Peter C. @tab Loeffler, David D. @tab Steele, Guy L., Jr.
+@item Cugini, John @tab Loosemore, Sandra @tab Tucker, Paul
+@item Curtis, Pavel @tab Magataca, Mituhiro @tab Turba, Thomas
+@item Dabrowski, Christopher @tab Margolin, Barry @tab Unietis, Dave
+@item Daessler, Klaus @tab Masinter, Larry @tab van Roggen, Walter
+@item Dalton, Jeff @tab Mathis, Robert @tab van Roggen, Walter
+@item Daniels, Andy @tab Matthews, Dave @tab Waldrum, Ellen
+@item DeMichiel, Linda G. @tab McCarthy, John @tab Waters, Richard C.
+@item Duggan, Jerry @tab Mikelsons, Martin @tab Wechsler, Allan
+@item Dussud, Patrick H. @tab Moon, David A. @tab Wegman, Mark
+@item Ennis, Susan P. @tab Moore, Timothy @tab Weinreb, Daniel
+@item Fahlman, Scott @tab Nicoud, Stephen @tab White, JonL
+@item Gabriel, Richard P. @tab Nilsson, Jarl @tab Wieland, Alexis
+@item Giansiracusa, Bob @tab O'Dell, Jim @tab Withington, P. Tucker
+@item Gray, David @tab Ohlander, Ron @tab Wright, Whitman
+@item Greenblatt, Richard @tab Padget, Julian @tab York, Bill
+@item Hadden, George D. @tab Palter, Gary @tab Zacharias, Gail
+@item Haflich, Steve @tab Peck, Jeff @tab Zubkoff, Jan L.
+@item Harris, Richard M. @tab Pellegrino, Bob @tab
+
+@end multitable
+
+
 @node Introduction
 @chapter Introduction
 
@@ -827,7 +1109,7 @@ The @term{symbols} that correspond to @clisp{}@spc{}@term{defined names}
 have @term{uppercase} names even though their names generally appear
 in @term{lowercase} in this document.
 
-@node numbers
+@node subsubnumbers
 @subsubsection Numbers
 
 

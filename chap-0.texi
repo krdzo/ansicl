@@ -36,6 +36,7 @@ discrepancies with the hardcopy version to
 @email{jesper.harder@@gmail.com, Jesper Harder}.
 
 @menu
+* Credits::
 * Introduction::
 * Syntax::
 * Evaluation and Compilation::
