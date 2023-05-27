@@ -235,10 +235,9 @@ if that @term{list} is @term{circular}.
 
 
 @subsubheading Class Precedence List:
-
-@code{list},
+@symbolref{list, SC},
 @symbolref{sequence, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -278,11 +277,11 @@ of the @term{type} @code{list}.
 
 
 @subsubheading Class Precedence List:
-@code{null},
+@symbolref{null, SC},
 @symbolref{symbol, SYM},
-@code{list},
+@symbolref{list, SC},
 @symbolref{sequence, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -302,10 +301,10 @@ which represents the @term{empty list} and can also be notated @empty{}.
 
 
 @subsubheading Class Precedence List:
-@code{cons},
-@code{list},
+@symbolref{cons, SC},
+@symbolref{list, SC},
 @symbolref{sequence, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -354,8 +353,8 @@ it is as if @thetype{t} had been denoted.)
 
 @subsubheading Supertypes:
 
-@code{atom},
-@code{t}
+@symbolref{atom, T},
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -404,7 +403,7 @@ and the @term{cdr} of which is @param{object-2}.
 @ref{list}
 
 @subsubheading Notes:
-If @param{object-2} is a @term{list}, @code{cons} can be thought of as
+If @param{object-2} is a @term{list}, @symbolref{cons, SC} can be thought of as
 producing a new @term{list} which is like it but has @param{object-1} prepended.
 
 @node consp
@@ -3531,7 +3530,7 @@ or @nil{}.
 
 Tests whether @param{item} is the same as an existing element of @param{list}.
 If the @param{item} is not an existing element,
-@symbolref{adjoin, SYM} adds it to @param{list} (as if by @code{cons})
+@symbolref{adjoin, SYM} adds it to @param{list} (as if by @symbolref{cons, SC})
 and returns the resulting @term{list};
 otherwise, nothing is added and the original @param{list} is returned.
 

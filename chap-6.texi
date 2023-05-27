@@ -286,12 +286,12 @@ An @loopref{until} clause is equivalent to the expression
 The @loopref{always} construct takes one @term{form} and
 terminates the @symbolref{loop, SYM} if the @term{form} ever evaluates to @term{false};
 in this case, the @symbolref{loop, SYM} @term{form} returns @nil{}.
-Otherwise, it provides a default return value of @code{t}.
+Otherwise, it provides a default return value of @symbolref{t, SC}.
 
 The @loopref{never} construct takes one @term{form} and
 terminates the @symbolref{loop, SYM} if the @term{form} ever evaluates to @term{true};
 in this case, the @symbolref{loop, SYM} @term{form} returns @nil{}.
-Otherwise, it provides a default return value of @code{t}.
+Otherwise, it provides a default return value of @symbolref{t, SC}.
 
 The @loopref{thereis} construct takes one @term{form} and
 terminates the @symbolref{loop, SYM} if the @term{form} ever evaluates to
@@ -426,7 +426,7 @@ loop body.
 The @param{d-type-spec} argument is used for destructuring.
 If the
 @param{d-type-spec} argument consists solely of @thetype{fixnum},
-@code{float}, @code{t}, or @nil{}, the @loopref{of-type} keyword is optional.
+@code{float}, @symbolref{t, SC}, or @nil{}, the @loopref{of-type} keyword is optional.
 The @loopref{of-type} construct is optional in these cases to provide backwards
 compatibility; thus, the following two expressions are the same:
 
@@ -1158,7 +1158,7 @@ a loop.  The variables are initialized one time only.
 If the optional @param{type-spec} argument is supplied for the variable
 @param{var}, but there is no related expression to be evaluated, @param{var}
 is initialized to an appropriate default value for its @term{type}.
-For example, for the types @code{t}, @symbolref{number, SYM},
+For example, for the types @symbolref{t, SC}, @symbolref{number, SYM},
 and @code{float},
 the default values are @nil{}, @f{0}, and @f{0.0} respectively.
 The consequences are undefined if a
@@ -1587,7 +1587,7 @@ constructs behave like the @loopref{while} and @loopref{until} constructs.
 The @loopref{always} construct takes one @term{form} and terminates the
 @symbolref{loop, SYM}
 if the @term{form} ever evaluates to @nil{}; in this case, it returns
-@nil{}.  Otherwise, it provides a default return value of @code{t}.
+@nil{}.  Otherwise, it provides a default return value of @symbolref{t, SC}.
 If the value of the supplied @term{form} is never @nil{}, some other construct
 can terminate the iteration.
 
@@ -1597,7 +1597,7 @@ the value of the supplied @param{form} is @term{non-nil}; the @symbolref{loop, S
 If the value of the supplied @param{form} is always  @nil{}, some other
 construct can terminate the iteration.
 Unless some other clause contributes
-a return value, the default value returned is @code{t}.
+a return value, the default value returned is @symbolref{t, SC}.
 
 The @loopref{thereis} construct terminates iteration the first time that the
 value of the supplied @param{form} is @term{non-nil}; the @symbolref{loop, SYM} returns the
@@ -1652,7 +1652,7 @@ constructs:
 
 @itemize @bullet{}
 @item The @loopref{until} construct does not return
-@code{t}@spc{}or @nil{}@spc{}based on the value of the supplied @param{form}.
+@symbolref{t, SC}@spc{}or @nil{}@spc{}based on the value of the supplied @param{form}.
 
 @item
 The @loopref{until} construct
@@ -2679,7 +2679,7 @@ The ``extended'' @symbolref{loop, SYM} @term{form}:
 @auxbnf{for-as-hash, @param{var} @brac{@param{type-spec}} @loopref{being} @curly{@loopref{each} | @loopref{the}} @CR{} @lcurly{}@curly{@loopref{hash-key} | @loopref{hash-keys}} @curly{@loopref{in} | @loopref{of}} @param{hash-table} @CR{} @xcurly{}@brac{@loopref{using} @paren{@loopref{hash-value} @param{other-var}}} | @CR{} @xcurly{}@curly{@loopref{hash-value} | @loopref{hash-values}} @curly{@loopref{in} | @loopref{of}} @param{hash-table} @CR{} @xcurly{}@brac{@loopref{using} @paren{@loopref{hash-key} @param{other-var}}}@rcurly{}}
 @auxbnf{for-as-package, @param{var} @brac{@param{type-spec}} @loopref{being} @curly{@loopref{each} | @loopref{the}} @CR{} @lcurly{}@loopref{symbol} | @loopref{symbols} |@CR{} @xcurly{}@loopref{present-symbol} | @loopref{present-symbols} |@CR{} @xcurly{}@loopref{external-symbol} | @loopref{external-symbols}@rcurly{} @CR{} @brac{@curly{@loopref{in} | @loopref{of}} @param{package}}}
 @auxbnf{type-spec, @down{simple-type-spec} | @down{destructured-type-spec}}
-@auxbnf{simple-type-spec, @symbolref{fixnum, SYM} | @code{float} | @code{t} | @code{nil}}
+@auxbnf{simple-type-spec, @symbolref{fixnum, SYM} | @code{float} | @symbolref{t, SC} | @code{nil}}
 @auxbnf{destructured-type-spec, @loopref{of-type} @param{d-type-spec}}
 @auxbnf{d-type-spec, @param{type-specifier} | @f{(@param{d-type-spec} . @param{d-type-spec})}}
 @auxbnf{var, @down{d-var-spec}}

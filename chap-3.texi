@@ -351,7 +351,7 @@ using @symbolref{defconstant, SYM} is permitted; see the @term{macro} @ref{defco
 
 @term{Keywords},
 @term{symbols} defined by @clisp{}@spc{}or the @term{implementation}
-as constant (such as @nil{}, @code{t}, and @symbolref{pi, SYM}),
+as constant (such as @nil{}, @symbolref{t, SC}, and @symbolref{pi, SYM}),
 and @term{symbols} declared as constant using @symbolref{defconstant, SYM}
 are @term{constant variables}.
 
@@ -3159,7 +3159,7 @@ If the list being destructured ends
 early, so that it does not have an element to match against this destructuring
 (sub)-pattern, the default form is evaluated and destructured instead.  The
 supplied-p variable receives the value
-@nil{}@spc{}if the default form is used, @code{t}@spc{}otherwise.
+@nil{}@spc{}if the default form is used, @symbolref{t, SC}@spc{}otherwise.
 
 @item @id{@keyref{rest}, @keyref{body}}
 
@@ -4447,7 +4447,7 @@ until the expression is in the run-time environment; see @ref{Compilation}.
 
 @param{Read-only-p} designates whether the result can be considered a
 @term{constant object}.
-If @code{t},
+If @symbolref{t, SC},
 the result is a read-only quantity that can,
 if appropriate to the @term{implementation},
 be copied into read-only space and/or @term{coalesced} with @term{similar}
@@ -4502,7 +4502,7 @@ that are the @term{same} under @symbolref{equal, SYM} but are not @term{identica
 are evaluated or compiled,
 their values always come from distinct evaluations of @param{form}.
 Their @term{values} may not be coalesced
-unless @param{read-only-p} is @code{t}.
+unless @param{read-only-p} is @symbolref{t, SC}.
 
 @subsubheading Examples:
 
@@ -7113,7 +7113,7 @@ and must be recognized as such by @symbolref{constantp, SYM}.
 
 @item
 @term{Constant variables}, such as @term{keywords},
-symbols defined by @clisp{}@spc{}as constant (such as @nil{}, @code{t}, and @symbolref{pi, SYM}),
+symbols defined by @clisp{}@spc{}as constant (such as @nil{}, @symbolref{t, SC}, and @symbolref{pi, SYM}),
 and symbols declared as constant by the user in the indicated @param{environment}
 using @symbolref{defconstant, SYM}
 are always considered @term{constant forms}

@@ -1,6 +1,3 @@
-@macro bglos {arg}
-@b{\arg\} @anchor{glos-\arg\} @anchor{glos-\arg\s} @anchor{glos-\arg\es} @anchor{glos-\arg\d} @anchor{glos-\arg\ed} @anchor{glos-\arg\ing}
-@end macro
 @node Glossary
 @chapter Glossary
 @menu
@@ -170,7 +167,7 @@ when that @term{package} is current, regardless of whether the
 
 @item @bglos{accessor}  @Noun{}
 an @term{operator} that performs an @term{access}.
-See @ref{reader} and @term{writer}.
+See @ref{glos-reader, reader} and @term{writer}.
 
 @item @bglos{active}  @Adjective{}@spc{} @anchor{glos-Active}
 1. (of a @term{handler}, a @term{restart}, or a @term{catch tag})
@@ -185,7 +182,7 @@ all @term{elements} are considered @term{active}.
  @Noun{}@spc{}(of an @term{array})
 a @term{generalized boolean} that is associated with the @term{array},
 representing whether the @term{array} is @term{actually adjustable}.
-See also @ref{expressed adjustability} and @symbolref{adjustable-array-p, SYM}.
+See also @ref{glos-expressed adjustability, expressed adjustability} and @symbolref{adjustable-array-p, SYM}.
 
 @item @bglos{actual argument}  @Noun{}@spc{}@Traditional{}@spc{}
 an @term{argument}.
@@ -423,7 +420,7 @@ being a @term{stream} that has an @term{element type} that is a @subtypeof{integ
 The most fundamental operation on a @term{binary} @term{input} @term{stream}
 is @symbolref{read-byte, SYM} and on a @term{binary} @term{output} @term{stream}
 is @symbolref{write-byte, SYM}.
-See @ref{character}.
+See @ref{glos-character, character}.
 2. (of a @term{file})
 having been created by opening a @term{binary} @term{stream}.
 (It is @term{implementation-dependent} whether this is an detectable aspect
@@ -508,7 +505,7 @@ defined using @term{rest parameters}.)
  @Noun{}@spc{}
 an @term{object} @oftype{boolean};
 that is, one of the following @term{objects}:
-the symbol@tie{}@code{t}@spc{}  (representing @term{true}),
+the symbol@tie{}@symbolref{t, SC}@spc{}  (representing @term{true}),
 or the symbol@tie{}@nil{}@spc{}(representing @term{false}).
 See @ref{glos-generalized boolean}.
 
@@ -525,7 +522,7 @@ when both @mat{O@sub{1}} and @mat{O@sub{2}} are viewed as @term{generalized bool
 1. @Adjective{}@spc{}having an associated denotation in a @term{binding}.
 @gexample{The variables named by a @symbolref{let, SYM} are bound within
 its body.}
-See @ref{unbound}.
+See @ref{glos-unbound, unbound}.
 2. @Adjective{}@spc{}having a local @term{binding} which
 @term{shadows}@sub{2} another.
 @gexample{The variable @symbolref{*print-escape*, SYM} is bound while in
@@ -694,7 +691,7 @@ a. (of a @term{stream})
 having an @term{element type} that is a @subtypeof{character}.
 The most fundamental operation on a @term{character} @term{input} @term{stream}
 is @symbolref{read-char, SYM} and on a @term{character} @term{output} @term{stream}
-is @symbolref{write-char, SYM}. See @ref{binary}.
+is @symbolref{write-char, SYM}. See @ref{glos-binary, binary}.
 b. (of a @term{file})
 having been created by opening a @term{character} @term{stream}.
 (It is @term{implementation-dependent} whether this is an inspectable aspect
@@ -1056,7 +1053,7 @@ is a constant object.}
 @item @bglos{constant variable}  @Noun{} @anchor{glos-Constant variables}
 a @term{variable}, the @term{value} of which can never change;
 that is, a @term{keyword}@sub{1} or a @term{named constant}.
-@gexample{The symbols @code{t}, @nil{}, @kwd{direction}, and
+@gexample{The symbols @symbolref{t, SC}, @nil{}, @kwd{direction}, and
 @symbolref{most-positive-fixnum, SYM}@spc{}are constant variables.}
 
 @item @bglos{constituent}  @Noun{}, @Adjective{} @anchor{glos-Constituent}
@@ -1252,12 +1249,12 @@ a @term{list} of alternating initialization argument @term{names} and
 defaulted, used in the protocol for initializing and reinitializing
 @term{instances} of @term{classes}.
 
-@item @bglos{define-method-combination arguments lambda list}  @Noun{}
+@item @bglos{define-method-combination arguments lambda list}  @Noun{} @anchor{glos-Define-method-combination arguments lambda lists}
 a @term{lambda list} used by the @kwd{arguments} option
 to @symbolref{define-method-combination, SYM}.
 See @ref{Define-method-combination Arguments Lambda Lists}.
 
-@item @bglos{define-modify-macro lambda list}  @Noun{}
+@item @bglos{define-modify-macro lambda list}  @Noun{} @anchor{glos-Define-modify-macro lambda lists}
 a @term{lambda list} used by @symbolref{define-modify-macro, SYM}.
 See @ref{Define-modify-macro Lambda Lists}.
 
@@ -1315,7 +1312,7 @@ capable of modifying some program-visible aspect of one or more
 @term{operator} or that can be obtained directly or indirectly
 from the @term{global environment} by the @term{operator}.
 
-@item @bglos{destructuring lambda list}  @Noun{}
+@item @bglos{destructuring lambda list}  @Noun{} @anchor{glos-Destructuring lambda lists}
 an @term{extended lambda list} used in @symbolref{destructuring-bind, SYM} and
 nested within @term{macro lambda lists}.
 See @ref{Destructuring Lambda Lists}.
@@ -1462,7 +1459,7 @@ the combination of @term{applicable methods} that are executed
 when a @term{generic function} is invoked with a particular sequence
 of @term{arguments}.
 
-@item @bglos{element}  @Noun{}
+@item @bglos{element} @anchor{glos-Elements} @Noun{}
 1. (of a @term{list})
 an @term{object} that is the @term{car} of one of the @term{conses}
 that comprise the @term{list}.
@@ -1913,7 +1910,7 @@ an @term{object} @oftype{float}.
 being a @term{reference} that @term{reads}@sub{1}
 the @term{value} of the @term{binding}.
 
-@item @bglos{form}  @Noun{}
+@item @bglos{form}  @Noun{} @anchor{glos-Forms}
 1. any @term{object} meant to be @term{evaluated}.
 2.    a @term{symbol},
 a @term{compound form},
@@ -2076,7 +2073,7 @@ are examples of further compilation.}
 @table @asis
 
 @item @bglos{general}  @Adjective{}@spc{}(of an @term{array})
-having @term{element type} @code{t},
+having @term{element type} @symbolref{t, SC},
 and consequently able to have any @term{object} as an @term{element}.
 
 @item @bglos{generalized boolean}
@@ -3539,7 +3536,7 @@ or an @term{environment}.
 @term{exit point}, a @term{tag}, or an @term{environment},
 usually by @term{name}.
 
-@item @bglos{registered package}  @Noun{}
+@item @bglos{registered package}  @Noun{} @anchor{glos-Registered packages}
 a @term{package} @term{object} that is installed in the @term{package registry}.
 (Every @term{registered package} has a @term{name} that is a @term{string},
 as well as zero or more @term{string} nicknames.
@@ -3597,7 +3594,7 @@ a @term{non-nil} @term{symbol}
 @term{restart} whose @term{name} is that @term{symbol}),
 or a @term{restart} (denoting itself).
 
-@item @bglos{restart function}  @Noun{}
+@item @bglos{restart function}  @Noun{} @anchor{glos-Restart functions}
 a @term{function} that invokes a @term{restart}, as if by @symbolref{invoke-restart, SYM}.
 The primary purpose of a @term{restart function} is to provide an alternate
 interface. By convention, a @term{restart function} usually has the same name
@@ -3765,7 +3762,7 @@ or an @term{implementation-defined} @term{function}
 that operates on one or more @term{sequences}.
 and that is defined by the @term{implementation} to be a @term{sequence function}.
 
-@item @bglos{sequential}
+@item @bglos{sequential} @anchor{glos-Sequential}
  @Adjective{}@spc{}@Traditional{}@spc{}(of @term{binding} or @i{assignment})
 done in the style of @symbolref{setq, SYM}, @symbolref{let*, SYM}, or @symbolref{do*, SYM};
 that is, interleaving the evaluation of the @term{forms} that produce @term{values}
@@ -3897,7 +3894,7 @@ a @term{string} @oftype{simple-string}.
 a @term{vector} @oftype{simple-vector},
 sometimes called a ``@term{simple general vector}.''
 Not all @term{vectors} that are @term{simple} are @term{simple vectors}---only
-those that have @term{element type} @code{t}.
+those that have @term{element type} @symbolref{t, SC}.
 
 @item @bglos{single escape}  @Noun{}, @Adjective{}
 1. @Noun{}@spc{}the @term{syntax type} of a @term{character}
@@ -4116,7 +4113,7 @@ or @symbolref{make-string-output-stream, SYM}.
 a @term{designator} for a @term{stream}; that is,
 an @term{object} that denotes a @term{stream}
 and that is one of:
-@code{t}@spc{}(denoting @thevalueof{*terminal-io*}),
+@symbolref{t, SC}@spc{}(denoting @thevalueof{*terminal-io*}),
 @nil{}@spc{}(denoting @thevalueof{*standard-input*}
 for @term{input} @term{stream designators}
 or denoting @thevalueof{*standard-output*}
@@ -4133,7 +4130,7 @@ a @term{variable} whose @term{value} must be a @term{stream}.
 a @term{designator} for a @term{stream variable}; that is,
 a @term{symbol} that denotes a @term{stream variable}
 and that is one of:
-@code{t}@spc{}(denoting @symbolref{*terminal-io*, SYM}),
+@symbolref{t, SC}@spc{}(denoting @symbolref{*terminal-io*, SYM}),
 @nil{}@spc{}(denoting @symbolref{*standard-input*, SYM}
 for @term{input} @term{stream variable designators}
 or denoting @symbolref{*standard-output*, SYM}
@@ -4350,7 +4347,7 @@ is in effect.)
 a textual representation for a @term{number} or a @term{symbol}.
 See @ref{Interpretation of Tokens}.
 
-@item @bglos{top level form}  @Noun{}@spc{}
+@item @bglos{top level form}  @Noun{}@spc{} @anchor{glos-Top level forms}
 a @term{form} which is processed specially by @symbolref{compile-file, SYM} for
 the purposes of enabling @term{compile time} @term{evaluation} of that
 @term{form}.

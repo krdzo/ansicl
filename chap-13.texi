@@ -562,8 +562,8 @@ and external encoding schemes supported are documented.
 
 
 @subsubheading Class Precedence List:
-@code{character},
-@code{t}
+@symbolref{character, SC},
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -590,8 +590,8 @@ form an @term{exhaustive partition} of @thetype{character}.
 @subsubheading Supertypes:
 
 @symbolref{base-char, SYM},
-@code{character},
-@code{t}
+@symbolref{character, SC},
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -650,8 +650,8 @@ having 8-bit encodings.  In such an implementation,
 
 @symbolref{standard-char, SYM},
 @symbolref{base-char, SYM},
-@code{character},
-@code{t}
+@symbolref{character, SC},
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -676,8 +676,8 @@ Any @term{character} that is not @term{simple} is not a @term{standard character
 @subsubheading Supertypes:
 
 @symbolref{extended-char, SYM},
-@code{character},
-@code{t}
+@symbolref{character, SC},
+@symbolref{t, SC}
 
 @subsubheading Description:
 

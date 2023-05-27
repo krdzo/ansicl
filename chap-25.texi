@@ -643,7 +643,7 @@ from descriptions of the argument @param{object}.
 
 The actual act of describing the object is implemented by @symbolref{describe-object, SYM}.
 @symbolref{describe, SYM} exists as an interface primarily to manage argument defaulting (including
-conversion of arguments @code{t}@spc{}and @nil{}@spc{}into @term{stream} @term{objects}) and to inhibit
+conversion of arguments @symbolref{t, SC}@spc{}and @nil{}@spc{}into @term{stream} @term{objects}) and to inhibit
 any return values from @symbolref{describe-object, SYM}.
 
 @symbolref{describe, SYM} is not intended to be an interactive function.  In a
@@ -1381,7 +1381,7 @@ Implementors wishing to provide such support are encouraged to consult the
 
 @subsubheading Arguments and Values:
 
-@param{x}---one of @code{t}, @nil{}, or @kwd{default}.
+@param{x}---one of @symbolref{t, SC}, @nil{}, or @kwd{default}.
 
 @subsubheading Description:
 

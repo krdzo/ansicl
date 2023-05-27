@@ -273,7 +273,7 @@ returns a @term{generalized boolean} representing @term{false}.
 
 @subsubheading Class Precedence List:
 @symbolref{sequence, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -490,7 +490,7 @@ then if the implementation can determine the element type specified
 for the @param{result-type}, the element type of the resulting array
 is the result of @term{upgrading} that element type; or, if the
 implementation can determine that the element type is unspecified (or @f{*}),
-the element type of the resulting array is @code{t};
+the element type of the resulting array is @symbolref{t, SC};
 otherwise, an error is signaled.
 
 @subsubheading Examples:
@@ -662,7 +662,7 @@ then if the implementation can determine the element type specified
 for the @param{result-type}, the element type of the resulting array
 is the result of @term{upgrading} that element type; or, if the
 implementation can determine that the element type is unspecified (or @f{*}),
-the element type of the resulting array is @code{t};
+the element type of the resulting array is @symbolref{t, SC};
 otherwise, an error is signaled.
 
 @subsubheading Examples:
@@ -1896,7 +1896,7 @@ then if the implementation can determine the element type specified
 for the @param{result-type}, the element type of the resulting array
 is the result of @term{upgrading} that element type; or, if the
 implementation can determine that the element type is unspecified (or @f{*}),
-the element type of the resulting array is @code{t};
+the element type of the resulting array is @symbolref{t, SC};
 otherwise, an error is signaled.
 
 @subsubheading Examples:
@@ -2011,7 +2011,7 @@ then if the implementation can determine the element type specified
 for the @param{result-type}, the element type of the resulting array
 is the result of @term{upgrading} that element type; or, if the
 implementation can determine that the element type is unspecified (or @f{*}),
-the element type of the resulting array is @code{t};
+the element type of the resulting array is @symbolref{t, SC};
 otherwise, an error is signaled.
 
 @subsubheading Examples:

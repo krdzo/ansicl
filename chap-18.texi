@@ -228,7 +228,7 @@ tests.
 
 @subsubheading Class Precedence List:
 @symbolref{hash-table, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -847,7 +847,7 @@ have @term{distinct} names.
 
 @subsubheading Examples:
 
-The following function should return @code{t}@spc{}on any
+The following function should return @symbolref{t, SC}@spc{}on any
 @term{hash table}, and signal
 an error if the usage of @symbolref{with-hash-table-iterator, SYM} does not agree
 with the corresponding usage of @symbolref{maphash, SYM}.

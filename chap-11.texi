@@ -612,7 +612,7 @@ initially present in that @term{implementation} but not specified in this specif
 
 @subsubheading Class Precedence List:
 @symbolref{package, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -634,7 +634,7 @@ to @term{symbols}; see @ref{Package Concepts}.
 
 @subsubheading Syntax:
 
-@DefunWithValues{export, symbols @opt{} package, @code{t}}
+@DefunWithValues{export, symbols @opt{} package, @symbolref{t, SC}}
 
 @subsubheading Arguments and Values:
 
@@ -942,7 +942,7 @@ Whether or how the @term{list} is ordered is
 
 @subsubheading Syntax:
 
-@DefunWithValues{import, symbols @opt{} package, @code{t}}
+@DefunWithValues{import, symbols @opt{} package, @symbolref{t, SC}}
 
 @subsubheading Arguments and Values:
 
@@ -1114,7 +1114,7 @@ conflicts with any existing package names.
 
 @subsubheading Syntax:
 
-@DefunWithValues{shadow, symbol-names @opt{} package, @code{t}}
+@DefunWithValues{shadow, symbol-names @opt{} package, @symbolref{t, SC}}
 
 @subsubheading Arguments and Values:
 
@@ -1197,7 +1197,7 @@ in @param{package}, but by inheritance, the inherited symbol becomes
 
 @subsubheading Syntax:
 
-@DefunWithValues{shadowing-import, symbols @opt{} package, @code{t}}
+@DefunWithValues{shadowing-import, symbols @opt{} package, @symbolref{t, SC}}
 
 @subsubheading Arguments and Values:
 
@@ -1612,7 +1612,7 @@ have distinct names.
 
 @subsubheading Examples:
 
-The following function should return @code{t}@spc{}on any @term{package}, and signal
+The following function should return @symbolref{t, SC}@spc{}on any @term{package}, and signal
 an error if the usage of @symbolref{with-package-iterator, SYM} does not agree
 with the corresponding usage of @symbolref{do-symbols, SYM}.
 
@@ -1684,7 +1684,7 @@ has returned @term{false} as its @term{primary value}.
 
 @subsubheading Syntax:
 
-@DefunWithValues{unexport, symbols @opt{} package, @code{t}}
+@DefunWithValues{unexport, symbols @opt{} package, @symbolref{t, SC}}
 
 @subsubheading Arguments and Values:
 
@@ -1864,7 +1864,7 @@ An error @oftype{package-error} is signaled if the specified @term{package} does
 
 @subsubheading Syntax:
 
-@DefunWithValues{unuse-package, packages-to-unuse @opt{} package, @code{t}}
+@DefunWithValues{unuse-package, packages-to-unuse @opt{} package, @symbolref{t, SC}}
 
 @subsubheading Arguments and Values:
 
@@ -1919,7 +1919,7 @@ Current state of the package system.
 
 @subsubheading Syntax:
 
-@DefunWithValues{use-package, packages-to-use @opt{} package, @code{t}}
+@DefunWithValues{use-package, packages-to-use @opt{} package, @symbolref{t, SC}}
 
 @subsubheading Arguments and Values:
 
@@ -2791,10 +2791,10 @@ Whatever @term{package} @term{object} is currently
 
 @subsubheading Class Precedence List:
 @symbolref{package-error, SYM},
-@code{error},
+@symbolref{error, CT},
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 

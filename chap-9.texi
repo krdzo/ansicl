@@ -797,7 +797,7 @@ understanding this material.
 
 @subsubheading Class Precedence List:
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -855,7 +855,7 @@ should be used.
 @subsubheading Class Precedence List:
 @symbolref{warning, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -876,7 +876,7 @@ should be used.
 @symbolref{style-warning, SYM},
 @symbolref{warning, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -916,7 +916,7 @@ redirecting or muffling other, more serious warnings.
 @subsubheading Class Precedence List:
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -949,10 +949,10 @@ debugger to be entered.)
 
 
 @subsubheading Class Precedence List:
-@code{error},
+@symbolref{error, CT},
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -967,10 +967,10 @@ debugger to be entered.)
 
 @subsubheading Class Precedence List:
 @symbolref{cell-error, SYM},
-@code{error},
+@symbolref{error, CT},
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1035,10 +1035,10 @@ the @term{name} of the @term{slot} which was being @term{accessed}.
 @subsubheading Class Precedence List:
 
 @symbolref{parse-error, SYM},
-@code{error},
+@symbolref{error, CT},
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1062,7 +1062,7 @@ error conditions that are related to parsing.
 @symbolref{storage-condition, SYM},
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1657,10 +1657,10 @@ The implementation.
 
 @symbolref{simple-error, SYM},
 @symbolref{simple-condition, SYM},
-@code{error},
+@symbolref{error, CT},
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1855,7 +1855,7 @@ should, might, or must @term{signal} @term{conditions}.
 @subsubheading Class Precedence List:
 @symbolref{simple-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -2050,7 +2050,7 @@ must be @oftype{warning} or an error @oftype{type-error} is signaled.
 @symbolref{simple-condition, SYM},
 @symbolref{warning, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -3138,7 +3138,7 @@ The set of defined @term{condition} @term{types}.
 
 @subsubheading Class Precedence List:
 @symbolref{restart, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -4009,7 +4009,7 @@ in a way that is syntactically more concise.
 @param{results}---in the normal situation,
 the @term{values} returned by the @param{forms};
 in the exceptional situation where the @term{restart} named @param{name} is invoked,
-two values---@nil{}@spc{}and @code{t}.
+two values---@nil{}@spc{}and @symbolref{t, SC}.
 
 @subsubheading Description:
 
@@ -4019,7 +4019,7 @@ If the restart designated by @param{name} is not invoked while executing @param{
 all values returned by the last of @param{forms} are returned.
 If the restart designated by @param{name} is invoked,
 control is transferred to @symbolref{with-simple-restart, SYM},
-which returns two values, @nil{}@spc{}and @code{t}.
+which returns two values, @nil{}@spc{}and @symbolref{t, SC}.
 
 If @param{name} is @nil{}, an anonymous restart is established.
 
@@ -4095,7 +4095,7 @@ common uses of @symbolref{restart-case, SYM}.
 @end lisp
 
 
-Because the second return value is @code{t}@spc{}in the exceptional case,
+Because the second return value is @symbolref{t, SC}@spc{}in the exceptional case,
 it is common (but not required) to arrange for the second return value
 in the normal case to be missing or @nil{}@spc{}so that the two situations
 can be distinguished.

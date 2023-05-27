@@ -1556,12 +1556,12 @@ If @param{destination} is @nil{},
 containing the output from @param{control-string}.
 If @param{destination} is @term{non-nil},
 it must be a @term{string} with a @term{fill pointer},
-a @term{stream}, or the symbol @code{t}.
+a @term{stream}, or the symbol @symbolref{t, SC}.
 If @param{destination} is a @term{string} with a @term{fill pointer},
 the output is added to the end of the @term{string}.
 If @param{destination} is a @term{stream},
 the output is sent to that @term{stream}.
-If @param{destination} is @code{t},
+If @param{destination} is @symbolref{t, SC},
 the output is sent to @term{standard output}.
 
 In the description of the directives that follows,
@@ -1658,7 +1658,7 @@ on the implementation, but on the particular I/O devices in use.
 prints the @term{character} in a way that the @term{Lisp reader} can understand,
 using @f{#@bsl{}} syntax.
 
-@f{@tild{}@@C}  binds @symbolref{*print-escape*, SYM} to @code{t}.
+@f{@tild{}@@C}  binds @symbolref{*print-escape*, SYM} to @symbolref{t, SC}.
 
 
 @node Tilde Percent: Newline
@@ -2206,7 +2206,7 @@ characters (as by @symbolref{prin1, SYM} rather than @f{princ}).  The output is
 therefore suitable for input to @symbolref{read, SYM}.  @f{@tild{}S} accepts
 all the arguments and modifiers that @f{@tild{}A} does.
 
-@f{@tild{}S} binds @symbolref{*print-escape*, SYM} to @code{t}.
+@f{@tild{}S} binds @symbolref{*print-escape*, SYM} to @symbolref{t, SC}.
 
 
 @node Tilde W: Write
@@ -3217,8 +3217,8 @@ but by certain other functions that accept a @term{format control}
 the way @symbolref{format, SYM} does.  For example, error-signaling functions
 such as @symbolref{cerror, SYM} accept @term{format controls}.
 
-Note that the meaning of @nil{}@spc{}and @code{t}@spc{}as destinations to @symbolref{format, SYM}
-are different than those of @nil{}@spc{}and @code{t}@spc{}as @term{stream designators}.
+Note that the meaning of @nil{}@spc{}and @symbolref{t, SC}@spc{}as destinations to @symbolref{format, SYM}
+are different than those of @nil{}@spc{}and @symbolref{t, SC}@spc{}as @term{stream designators}.
 
 The @f{@tild{}@hat{}} should appear only at the beginning of a @f{@tild{}<} clause,
 because it aborts the entire clause in which it appears (as well as
@@ -5385,7 +5385,7 @@ will either output something else or will signal an error (as described above).
 The rules for ``@term{similarity}'' imply that
 @f{#A} or @f{#(}
 syntax cannot be used for @term{arrays} of @term{element type}
-other than @code{t}.
+other than @symbolref{t, SC}.
 An implementation will have to use another syntax
 or signal an error @oftype{print-not-readable}.
 
@@ -5433,10 +5433,10 @@ requiring the language to provide support for fonts.
 
 @subsubheading Class Precedence List:
 @symbolref{print-not-readable, SYM},
-@code{error},
+@symbolref{error, CT},
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -5492,7 +5492,7 @@ in the situation represented by @param{condition}.
 @subsubheading Arguments and Values:
 
 @param{destination}---@nil{},
-@code{t},
+@symbolref{t, SC},
 a @term{stream},
 or a @term{string} with a @term{fill pointer}.
 
@@ -5512,7 +5512,7 @@ by prefix parameters and modifiers, specifies what kind of formatting
 is desired.  Most directives use one or more elements of @param{args} to
 create their output.
 
-If @param{destination} is a @term{string}, a @term{stream}, or @code{t},
+If @param{destination} is a @term{string}, a @term{stream}, or @symbolref{t, SC},
 then the @param{result} is @nil{}.  Otherwise, the @param{result} is
 a @term{string} containing the `output.'
 

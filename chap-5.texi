@@ -3592,10 +3592,10 @@ The @term{boolean} representing true,
 and the canonical @term{generalized boolean} representing true.
 Although any @term{object}
 other than @nil{}@spc{}is considered @term{true},
-@code{t}@spc{}is generally used when there is no special reason
+@symbolref{t, SC}@spc{}is generally used when there is no special reason
 to prefer one such @term{object} over another.
 
-The @term{symbol} @code{t}@spc{}is also sometimes used for other purposes as well.
+The @term{symbol} @symbolref{t, SC}@spc{}is also sometimes used for other purposes as well.
 For example,
 as the @term{name} of a @term{class},
 as a @term{designator} (@eg{} a @term{stream designator})
@@ -4428,7 +4428,7 @@ of the @param{predicate}.
 @param{form}---a @term{form}.
 
 @param{results}---the @term{values} resulting from the evaluation of
-the last @param{form}, or the symbols @nil{}@spc{}or @code{t}.
+the last @param{form}, or the symbols @nil{}@spc{}or @symbolref{t, SC}.
 
 @subsubheading Description:
 
@@ -4438,7 +4438,7 @@ As soon as any @param{form} evaluates to @nil{}, @code{and} returns
 but the last evaluate to @term{true} values, @code{and} returns the results
 produced by evaluating the last @param{form}.
 
-If no @param{forms} are supplied, @f{(and)} returns @code{t}.
+If no @param{forms} are supplied, @f{(and)} returns @symbolref{t, SC}.
 
 @code{and} passes back multiple values from the last @term{subform}
 but not from subforms other than the last.
@@ -4812,7 +4812,7 @@ Possibly also used later as a @term{place} if no @param{keys} match.
 @param{test-key}---an object produced by evaluating @param{keyform} or @param{keyplace}.
 
 @param{keys}---a @term{designator} for a @term{list} of @term{objects}.
-In the case of @symbolref{case, SYM}, the @term{symbols} @code{t}@spc{}and @t{otherwise} may
+In the case of @symbolref{case, SYM}, the @term{symbols} @symbolref{t, SC}@spc{}and @t{otherwise} may
 not be used as the @param{keys} @term{designator}.  To refer to these @term{symbols}
 by themselves as @param{keys}, the designators @f{(t)} and @f{(otherwise)}, respectively,
 must be used instead.
@@ -6745,10 +6745,10 @@ of each @f{place} twice, whereas @symbolref{rotatef, SYM} evaluates them once.
 
 @subsubheading Class Precedence List:
 @symbolref{control-error, SYM},
-@code{error},
+@symbolref{error, CT},
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -6767,10 +6767,10 @@ dynamically available are @oftype{control-error}.
 
 @subsubheading Class Precedence List:
 @symbolref{program-error, SYM},
-@code{error},
+@symbolref{error, CT},
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -6789,10 +6789,10 @@ that is not lexically apparent are @oftype{program-error}.
 @subsubheading Class Precedence List:
 @symbolref{undefined-function, SYM},
 @symbolref{cell-error, SYM},
-@code{error},
+@symbolref{error,CT},
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 

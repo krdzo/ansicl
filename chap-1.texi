@@ -1744,7 +1744,7 @@ by the @term{method} @term{signature}.
 @b{F} has two @term{required parameters}:
 @param{x}, which must be a @term{generalized instance} of the @term{class} @param{class};
 and @param{y}, which can  be any @term{object}
-(@ie{} a @term{generalized instance} of the @term{class} @code{t}).
+(@ie{} a @term{generalized instance} of the @term{class} @symbolref{t, SC}).
 In addition, there is an @term{optional parameter} @param{z} and a
 @term{keyword parameter} @param{k}.  This @term{signature} also indicates that this
 method on @f{F} is a @term{primary method} and has no @term{qualifiers}.

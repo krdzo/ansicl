@@ -28,7 +28,7 @@ which a given @term{object} belongs, even though that @term{object}
 must belong to one or more other @term{types} as well.
 (For example, every @term{object} is @oftype{t},
 but @symbolref{type-of, SYM} always returns a @term{type specifier}
-for a @term{type} more specific than @code{t}.)
+for a @term{type} more specific than @symbolref{t, SC}.)
 
 @term{Objects}, not @term{variables}, have @term{types}.
 Normally, any @term{variable} can have any @term{object} as its @term{value}.
@@ -505,8 +505,8 @@ The @term{class precedence list} and its computation is discussed
 in @ref{Determining the Class Precedence List}.
 
 @term{classes} are organized into a directed acyclic graph.
-There are two distinguished @term{classes}, named @code{t} and @symbolref{standard-object, SYM}.
-The @term{class} named @code{t} has no @term{superclasses}.
+There are two distinguished @term{classes}, named @symbolref{t, SC} and @symbolref{standard-object, SYM}.
+The @term{class} named @symbolref{t, SC} has no @term{superclasses}.
 It is a @term{superclass} of every @term{class} except itself.
 The @term{class} named @symbolref{standard-object, SYM} is an @term{instance} of
 @theclass{standard-class} and is a @term{superclass} of
@@ -866,7 +866,7 @@ food, standard-object, t}@mat{@rcurly{}}; @mat{R}@tie{}@mat{=} @mat{@lcurly{}}@t
 standard-object), (standard-object, t)}@mat{@rcurly{}}.
 
 The classes @f{spice}, @f{food}, @symbolref{standard-object, SYM}, and
-@code{t} are added in that order, and the @term{class precedence list}
+@symbolref{t, SC} are added in that order, and the @term{class precedence list}
 is @f{(pie apple fruit cinnamon spice food standard-object t)}.
 
 It is possible to write a set of @term{class} definitions that cannot be
@@ -1201,7 +1201,7 @@ they do not violate the type relationships and disjointness
 requirements specified by this standard.
 A standard @term{class} defined with no direct @term{superclasses} is guaranteed to
 be disjoint from all of the @term{classes} in the table, except for the
-class named @code{t}.
+class named @symbolref{t, SC}.
 
 @node Types and Classes Dictionary
 @section Types and Classes Dictionary
@@ -1272,7 +1272,7 @@ not @thetype{nil}.
 
 @symbolref{boolean, SYM},
 @symbolref{symbol, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1308,8 +1308,8 @@ even for a @term{generalized boolean} when no better choice presents itself.
 
 
 @subsubheading Class Precedence List:
-@code{function},
-@code{t}
+@symbolref{function, SC},
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1480,8 +1480,8 @@ they are both @tt{function} declarations, the declarations combine similarly.
 @subsubheading Supertypes:
 
 @symbolref{compiled-function, SYM},
-@code{function},
-@code{t}
+@symbolref{function, SC},
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1508,8 +1508,8 @@ Other @term{functions} might also be @oftype{compiled-function}.
 @subsubheading Class Precedence List:
 
 @symbolref{generic-function, SYM},
-@code{function},
-@code{t}
+@symbolref{function, SC},
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1538,8 +1538,8 @@ and can be given a global or a local name.
 @subsubheading Class Precedence List:
 @symbolref{standard-generic-function, SYM},
 @symbolref{generic-function, SYM},
-@code{function},
-@code{t}
+@symbolref{function, SC},
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1561,7 +1561,7 @@ and
 @subsubheading Class Precedence List:
 @symbolref{class, SYM},
 @symbolref{standard-object, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1581,7 +1581,7 @@ directed acyclic graph of @term{classes}, its @term{slots}, and its options.
 @symbolref{built-in-class, SYM},
 @symbolref{class, SYM},
 @symbolref{standard-object, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1607,11 +1607,10 @@ in @term{methods}.
 
 
 @subsubheading Class Precedence List:
-
 @symbolref{structure-class, SYM},
 @symbolref{class, SYM},
 @symbolref{standard-object, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1629,7 +1628,7 @@ are @instsofclass{structure-class}.
 @symbolref{standard-class, SYM},
 @symbolref{class, SYM},
 @symbolref{standard-object, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1645,7 +1644,7 @@ defined by @symbolref{defclass, SYM}.
 
 @subsubheading Class Precedence List:
 @symbolref{method, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1682,7 +1681,7 @@ method combination.
 @symbolref{standard-method, SYM},
 @symbolref{method, SYM},
 @symbolref{standard-object, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1701,7 +1700,7 @@ method combination.
 @subsubheading Class Precedence List:
 
 @symbolref{structure-object, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1727,7 +1726,7 @@ that is defined by @symbolref{defstruct, SYM}.
 
 @subsubheading Class Precedence List:
 @symbolref{standard-object, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1744,7 +1743,7 @@ and is a @term{superclass} of every @term{class} that is an @term{instance} of
 
 @subsubheading Class Precedence List:
 @symbolref{method-combination, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1764,7 +1763,7 @@ with that @term{type}.
 
 
 @subsubheading Class Precedence List:
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 The set of all @term{objects}.
@@ -1899,7 +1898,7 @@ determined by the intersection of the @param{typespecs}.
 
 @t{*} is not permitted as an argument.
 
-The @term{type specifiers} @f{(and)} and @code{t}@spc{}are equivalent.
+The @term{type specifiers} @f{(and)} and @symbolref{t, SC}@spc{}are equivalent.
 The symbol @t{and} is not valid as a @term{type specifier},
 and, specifically, it is not an abbreviation for @f{(and)}.
 
@@ -2055,7 +2054,7 @@ that has the @term{same} @term{elements} as @param{object}.
 If @param{result-type} is a specialized @term{type},
 the @param{result} has an @term{actual array element type} that is the result of
 @i{upgrading} the element type part of that @term{specialized} @term{type}.
-If no element type is specified, the element type defaults to @code{t}.
+If no element type is specified, the element type defaults to @symbolref{t, SC}.
 If the @term{implementation} cannot determine the element type, an error is signaled.
 
 
@@ -2114,7 +2113,7 @@ and @param{object} is a @term{lambda expression},
 then the @param{result} is a @term{closure} of @param{object}
 in the @term{null lexical environment}.
 
-@item @id{@code{t}}
+@item @id{@symbolref{t, SC}}
 
 
 Any @param{object} can be @term{coerced} to an @term{object} @oftype{t}.
@@ -2812,10 +2811,10 @@ of @symbolref{deftype, SYM} information at runtime.
 
 @subsubheading Class Precedence List:
 @symbolref{type-error, SYM},
-@code{error},
+@symbolref{error, CT},
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -2899,10 +2898,10 @@ offending datum in the @term{situation} represented by the @param{condition}.
 @symbolref{simple-type-error, SYM},
 @symbolref{simple-condition, SYM},
 @symbolref{type-error, SYM},
-@code{error},
+@symbolref{error, CT},
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 

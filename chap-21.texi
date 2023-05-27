@@ -432,7 +432,7 @@ until the time it is @term{closed}.
 
 @subsubheading Class Precedence List:
 @symbolref{stream, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -461,7 +461,7 @@ For more complete information, see @ref{Stream Concepts}.
 
 @symbolref{broadcast-stream, SYM},
 @symbolref{stream, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -486,7 +486,7 @@ it is necessary to describe their return value specifically:
 @item
 @symbolref{stream-element-type, SYM} returns
 the value from the last component stream,
-or @code{t} if there are no component streams.
+or @symbolref{t, SC} if there are no component streams.
 
 @item
 @symbolref{fresh-line, SYM} returns
@@ -560,7 +560,7 @@ the value is @term{implementation-dependent}.
 
 @symbolref{concatenated-stream, SYM},
 @symbolref{stream, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -598,7 +598,7 @@ remaining @term{input} @term{streams} from which to obtain such data.
 
 @symbolref{echo-stream, SYM},
 @symbolref{stream, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -630,7 +630,7 @@ is @term{implementation-dependent}.
 
 @symbolref{file-stream, SYM},
 @symbolref{stream, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -657,7 +657,7 @@ implicitly by @term{functions} such as @symbolref{load, SYM} that process @term{
 
 @symbolref{string-stream, SYM},
 @symbolref{stream, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -686,7 +686,7 @@ a @subtypeof{character}.
 
 @symbolref{synonym-stream, SYM},
 @symbolref{stream, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -718,7 +718,7 @@ then the @term{stream} will operate on the new @term{value} of the @term{variabl
 
 @symbolref{two-way-stream, SYM},
 @symbolref{stream, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1091,7 +1091,7 @@ an @term{integer} of the @term{stream element type} of @term{stream}.
 
 @subsubheading Arguments and Values:
 
-@param{peek-type}---a @term{character} or @code{t}@spc{}or @nil{}.
+@param{peek-type}---a @term{character} or @symbolref{t, SC}@spc{}or @nil{}.
 
 @param{input-stream}---@term{input} @term{stream designator}.
 @Default{@term{standard input}}
@@ -1122,7 +1122,7 @@ If @param{peek-type} is not supplied or @nil{},
 @param{input-stream}.
 The next time input is done from @param{input-stream}, the character will still
 be there.
-If @param{peek-type} is @code{t},
+If @param{peek-type} is @symbolref{t, SC},
 then @symbolref{peek-char, SYM} skips over @term{whitespace}@sub{2} @term{characters},
 but not comments,
 and then performs the peeking operation on the next
@@ -2551,7 +2551,7 @@ See the @term{function} @ref{open}.
 @param{abort}---a @term{generalized boolean}.
 @Default{@term{false}}
 
-@param{result}---@code{t}@spc{}if the @param{stream} was @term{open} at the time it was
+@param{result}---@symbolref{t, SC}@spc{}if the @param{stream} was @term{open} at the time it was
 received as an @term{argument},
 or @term{implementation-dependent} otherwise.
 
@@ -3876,10 +3876,10 @@ is @term{implementation-defined}.
 
 @subsubheading Class Precedence List:
 @symbolref{stream-error, SYM},
-@code{error},
+@symbolref{error, CT},
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -3940,10 +3940,10 @@ Returns the offending @term{stream} of a @term{condition} @oftype{stream-error}.
 @subsubheading Class Precedence List:
 @symbolref{end-of-file, SYM},
 @symbolref{stream-error, SYM},
-@code{error},
+@symbolref{error, CT},
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 

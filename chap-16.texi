@@ -59,11 +59,11 @@ for which the @term{element type} of the @term{string} does not include that @te
 
 
 @subsubheading Class Precedence List:
-@code{string},
-@code{vector},
+@symbolref{string, SC}
+@symbolref{vector, SC},
 @symbolref{array, SYM},
 @symbolref{sequence, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -109,11 +109,11 @@ that is, the set of @term{strings} of size @param{size}.
 @subsubheading Supertypes:
 
 @symbolref{base-string, SYM},
-@code{string},
-@code{vector},
+@symbolref{string, SC},
+@symbolref{vector, SC},
 @symbolref{array, SYM},
 @symbolref{sequence, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -150,12 +150,12 @@ that is, the set of @term{base strings} of size @param{size}.
 @subsubheading Supertypes:
 
 @symbolref{simple-string, SYM},
-@code{string},
-@code{vector},
+@symbolref{string, SC},
+@symbolref{vector, SC},
 @symbolref{simple-array, SYM},
 @symbolref{array, SYM},
 @symbolref{sequence, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -194,12 +194,12 @@ This denotes the union of all @term{types}
 @symbolref{simple-base-string, SYM},
 @symbolref{base-string, SYM},
 @symbolref{simple-string, SYM},
-@code{string},
-@code{vector},
+@symbolref{string, SC},
+@symbolref{vector, SC},
 @symbolref{simple-array, SYM},
 @symbolref{array, SYM},
 @symbolref{sequence, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 

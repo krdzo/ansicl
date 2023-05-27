@@ -74,7 +74,7 @@ to the creation of and inquiry about @term{symbols}.
 
 @subsubheading Class Precedence List:
 @symbolref{symbol, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -217,7 +217,7 @@ on a lexical @term{function} definition.
 
 @symbolref{keyword, SYM},
 @symbolref{symbol, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1396,10 +1396,10 @@ The function @symbolref{set, SYM} is deprecated.
 @subsubheading Class Precedence List:
 @symbolref{unbound-variable, SYM},
 @symbolref{cell-error, SYM},
-@code{error},
+@symbolref{error, CT},
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 

@@ -756,7 +756,7 @@ This denotes the absence of an upper bound on the interval.
 
 @subsubheading Class Precedence List:
 @symbolref{number, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -788,9 +788,9 @@ computer languages, and various issues of time and space efficiency.
 
 
 @subsubheading Class Precedence List:
-@code{complex},
+@symbolref{complex, SC},
 @symbolref{number, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -863,7 +863,7 @@ and which can be obtained by @tt{(COERCE @mat{n} 'COMPLEX)}.
 @subsubheading Class Precedence List:
 @symbolref{real, SYM},
 @symbolref{number, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -886,10 +886,10 @@ The @term{types} @code{rational} and @code{float} are @term{disjoint}
 
 
 @subsubheading Class Precedence List:
-@code{float},
+@symbolref{float, SC},
 @symbolref{real, SYM},
 @symbolref{number, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -963,31 +963,31 @@ or the @term{complex} @f{#C(1.0 0.0)}.
 
 @symbolref{short-float, SYM}:
 @symbolref{short-float, SYM},
-@code{float},
+@symbolref{float, SC},
 @symbolref{real, SYM},
 @symbolref{number, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @symbolref{single-float, SYM}:
 @symbolref{single-float, SYM},
-@code{float},
+@symbolref{float, SC},
 @symbolref{real, SYM},
 @symbolref{number, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @symbolref{double-float, SYM}:
 @symbolref{double-float, SYM},
-@code{float},
+@symbolref{float, SC},
 @symbolref{real, SYM},
 @symbolref{number, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @symbolref{long-float, SYM}:
 @symbolref{long-float, SYM},
-@code{float},
+@symbolref{float, SC},
 @symbolref{real, SYM},
 @symbolref{number, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1099,10 +1099,10 @@ that are on the interval specified by the @term{interval designators}.
 
 
 @subsubheading Class Precedence List:
-@code{rational},
+@symbolref{rational, SC},
 @symbolref{real, SYM},
 @symbolref{number, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1123,10 +1123,10 @@ are @term{disjoint} @subtypesof{rational}.
 
 @subsubheading Class Precedence List:
 @symbolref{ratio, SYM},
-@code{rational},
+@symbolref{rational, SC},
 @symbolref{real, SYM},
 @symbolref{number, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1150,10 +1150,10 @@ and of which the denominator is positive and greater than one.
 
 @subsubheading Class Precedence List:
 @symbolref{integer, SYM},
-@code{rational},
+@symbolref{rational, SC},
 @symbolref{real, SYM},
 @symbolref{number, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1191,10 +1191,10 @@ The @term{type} @f{(integer 0 *)} is also called @symbolref{unsigned-byte, SYM}.
 
 @symbolref{signed-byte, SYM},
 @symbolref{integer, SYM},
-@code{rational},
+@symbolref{rational, SC},
 @symbolref{real, SYM},
 @symbolref{number, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1233,10 +1233,10 @@ as @thetype{integer}.
 @symbolref{unsigned-byte, SYM},
 @symbolref{signed-byte, SYM},
 @symbolref{integer, SYM},
-@code{rational},
+@symbolref{rational, SC},
 @symbolref{real, SYM},
 @symbolref{number, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1311,14 +1311,14 @@ The symbol @code{mod} is not valid as a @term{type specifier}.
 
 @subsubheading Supertypes:
 
-@code{bit},
+@symbolref{bit, T},
 @symbolref{unsigned-byte, SYM},
 @symbolref{signed-byte, SYM},
 @symbolref{integer, SYM},
-@code{rational},
+@symbolref{rational, SC},
 @symbolref{real, SYM},
 @symbolref{number, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1336,10 +1336,10 @@ and @f{(unsigned-byte 1)}.
 
 @symbolref{fixnum, SYM},
 @symbolref{integer, SYM},
-@code{rational},
+@symbolref{rational, SC},
 @symbolref{real, SYM},
 @symbolref{number, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -1361,10 +1361,10 @@ The @term{type} @symbolref{fixnum, SYM} is required to be a supertype of
 
 @symbolref{bignum, SYM},
 @symbolref{integer, SYM},
-@code{rational},
+@symbolref{rational, SC},
 @symbolref{real, SYM},
 @symbolref{number, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -3353,7 +3353,7 @@ but it is potentially more efficient.
 
 @subsubheading Class Precedence List:
 @symbolref{random-state, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -3386,7 +3386,7 @@ is @term{implementation-dependent}.
 
 @subsubheading Arguments and Values:
 
-@param{state}---a @term{random state}, or @nil{}, or @code{t}.
+@param{state}---a @term{random state}, or @nil{}, or @symbolref{t, SC}.
 @Default{@nil{}}
 
 @param{new-state}---a @term{random state} @term{object}.
@@ -3400,7 +3400,7 @@ If @param{state} is a @term{random state} @term{object},
 the @param{new-state} is a @term{copy}@sub{5} of that @term{object}.
 If @param{state} is @nil{},
 the @param{new-state} is a @term{copy}@sub{5} of the @term{current random state}.
-If @param{state} is @code{t},
+If @param{state} is @symbolref{t, SC},
 the @param{new-state} is a @term{fresh} @term{random state} @term{object}
 that has been randomly initialized by some means.
 
@@ -3429,7 +3429,7 @@ that has been randomly initialized by some means.
 
 @subsubheading Exceptional Situations:
 
-@Shouldchecktype{state, a @term{random state}\, or @nil{}\, or @code{t}}
+@Shouldchecktype{state, a @term{random state}\, or @nil{}\, or @symbolref{t, SC}}
 
 @subsubheading See Also:
 
@@ -5878,10 +5878,10 @@ expression is @term{true} when evaluated:
 
 @subsubheading Class Precedence List:
 @symbolref{arithmetic-error, SYM},
-@code{error},
+@symbolref{error, CT},
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -5947,10 +5947,10 @@ the offending operation in the offending call that signaled the @param{condition
 @subsubheading Class Precedence List:
 @symbolref{division-by-zero, SYM},
 @symbolref{arithmetic-error, SYM},
-@code{error},
+@symbolref{error, CT},
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -5968,10 +5968,10 @@ occur because of division by zero.
 @subsubheading Class Precedence List:
 @symbolref{floating-point-invalid-operation, SYM},
 @symbolref{arithmetic-error, SYM},
-@code{error},
+@symbolref{error, CT},
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -5996,10 +5996,10 @@ depend on its being @term{signaled}.
 @subsubheading Class Precedence List:
 @symbolref{floating-point-inexact, SYM},
 @symbolref{arithmetic-error, SYM},
-@code{error},
+@symbolref{error, CT},
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -6023,10 +6023,10 @@ depend on its being @term{signaled}.
 @subsubheading Class Precedence List:
 @symbolref{floating-point-overflow, SYM},
 @symbolref{arithmetic-error, SYM},
-@code{error},
+@symbolref{error, CT},
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -6043,10 +6043,10 @@ conditions that occur because of floating-point overflow.
 @subsubheading Class Precedence List:
 @symbolref{floating-point-underflow, SYM},
 @symbolref{arithmetic-error, SYM},
-@code{error},
+@symbolref{error, CT},
 @symbolref{serious-condition, SYM},
 @symbolref{condition, SYM},
-@code{t}
+@symbolref{t, SC}
 
 @subsubheading Description:
 

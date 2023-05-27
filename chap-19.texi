@@ -962,8 +962,8 @@ The null string, @f{""}, is not a valid value for any component of a @term{logic
 
 
 @subsubheading Class Precedence List:
-@code{pathname},
-@code{t}
+@symbolref{pathname, SC},
+@symbolref{t, SC}
 
 @subsubheading Description:
 
@@ -980,10 +980,9 @@ There are two kinds of @term{pathnames}---@term{physical pathnames} and
 
 
 @subsubheading Class Precedence List:
-
 @symbolref{logical-pathname, SYM},
-@code{pathname},
-@code{t}
+@symbolref{pathname, SC},
+@symbolref{t, SC}
 
 @subsubheading Description:
 

@@ -37,7 +37,7 @@
 @end macro
 
 @macro bglos {arg}
-@b{\arg\} @anchor{glos-\arg\}
+@b{\arg\} @anchor{glos-\arg\} @anchor{glos-\arg\s} @anchor{glos-\arg\es} @anchor{glos-\arg\d} @anchor{glos-\arg\ed} @anchor{glos-\arg\ing}
 @end macro
 
 @macro spc {}
@@ -603,7 +603,7 @@ otherwise, returns @term{false}.
 @end macro
 
 @macro StrictPredicate {arg1, arg2}
-Returns @code{t} if @var{\arg1\} is \arg2\; otherwise, returns @code{nil}.
+Returns @symbolref{t, SC} if @var{\arg1\} is \arg2\; otherwise, returns @code{nil}.
 @end macro
 
 @macro Lazychecktype {arg1, arg2}
@@ -735,19 +735,19 @@ For details, @ref{Satisfying a Two-Argument Test}
 @end macro
 
 @macro Theloopconstruct {arg}
-The @code{loop} @loopref{\arg\} construct
+The @symbolref{loop, SYM} @loopref{\arg\} construct
 @end macro
 
 @macro theloopconstruct {arg}
-the @code{loop} @loopref{\arg\} construct
+the @symbolref{loop, SYM} @loopref{\arg\} construct
 @end macro
 
 @macro Theloopkeyword {arg}
-The @code{loop} @loopref{\arg\} keyword
+The @symbolref{loop, SYM} @loopref{\arg\} keyword
 @end macro
 
 @macro theloopkeyword {arg}
-the @code{loop} @loopref{\arg\} keyword
+the @symbolref{loop, SYM} @loopref{\arg\} keyword
 @end macro
 
 @macro SETFof {arg}
