@@ -938,8 +938,8 @@ Event 4 occurs at the end of the transfer of control.
 @end menu
 
 @node apply
-@subsection apply (Function)
 @syindexanchor{apply, SYM}
+@subsection apply (Function)
 @cindex apply
 
 
@@ -1011,8 +1011,8 @@ see @ref{APPLY Forms as Places}.
 
 
 @node defun
-@subsection defun (Macro)
 @syindexanchor{defun, SYM}
+@subsection defun (Macro)
 @cindex defun
 
 
@@ -1134,8 +1134,8 @@ about the function definition is recorded.
 
 
 @node fdefinition
-@subsection fdefinition (Accessor)
 @syindexanchor{fdefinition, SYM}
+@subsection fdefinition (Accessor)
 @cindex fdefinition
 
 
@@ -1199,8 +1199,8 @@ or @term{special form}.
 
 
 @node fboundp
-@subsection fboundp (Function)
 @syindexanchor{fboundp, SYM}
+@subsection fboundp (Function)
 @cindex fboundp
 
 
@@ -1271,8 +1271,8 @@ Defining a @term{setf expander} @param{F} does not cause the @term{setf function
 
 
 @node fmakunbound
-@subsection fmakunbound (Function)
 @syindexanchor{fmakunbound, SYM}
+@subsection fmakunbound (Function)
 @cindex fmakunbound
 
 
@@ -1318,12 +1318,12 @@ The consequences are undefined if @param{name} is a @term{special operator}.
 
 
 @node flet; labels; macrolet
-@subsection flet, labels, macrolet (Special Operator)
 @syindexanchor{flet, SYM}
-@cindex flet
 @syindexanchor{labels, SYM}
-@cindex labels
 @syindexanchor{macrolet, SYM}
+@subsection flet, labels, macrolet (Special Operator)
+@cindex flet
+@cindex labels
 @cindex macrolet
 @anchor{flet}
 @anchor{labels}
@@ -1580,8 +1580,8 @@ See @ref{File Compilation}.
 
 
 @node funcall
-@subsection funcall (Function)
 @syindexanchor{funcall, SYM}
+@subsection funcall (Function)
 @cindex funcall
 
 
@@ -1646,8 +1646,8 @@ interpretation of the function position that normally occurs.
 
 
 @node function (Special Operator)
-@subsection function (Special Operator)
 @syindexanchor{function, SO}
+@subsection function (Special Operator)
 @cindex function
 
 
@@ -1724,8 +1724,8 @@ for @tt{(function @param{name})}.
 
 
 @node function-lambda-expression
-@subsection function-lambda-expression (Function)
 @syindexanchor{function-lambda-expression, SYM}
+@subsection function-lambda-expression (Function)
 @cindex function-lambda-expression
 
 
@@ -1829,8 +1829,8 @@ or @symbolref{eval, SYM} (as opposed to being created by @term{loading} a @term{
 
 
 @node functionp
-@subsection functionp (Function)
 @syindexanchor{functionp, SYM}
+@subsection functionp (Function)
 @cindex functionp
 
 
@@ -1874,8 +1874,8 @@ or @symbolref{eval, SYM} (as opposed to being created by @term{loading} a @term{
 
 
 @node compiled-function-p
-@subsection compiled-function-p (Function)
 @syindexanchor{compiled-function-p, SYM}
+@subsection compiled-function-p (Function)
 @cindex compiled-function-p
 
 
@@ -1928,8 +1928,8 @@ or @symbolref{eval, SYM} (as opposed to being created by @term{loading} a @term{
 
 
 @node call-arguments-limit
-@subsection call-arguments-limit (Constant Variable)
 @syindexanchor{call-arguments-limit, SYM}
+@subsection call-arguments-limit (Constant Variable)
 @cindex call-arguments-limit
 
 
@@ -1950,8 +1950,8 @@ may be passed to a @term{function}.
 
 
 @node lambda-list-keywords
-@subsection lambda-list-keywords (Constant Variable)
 @syindexanchor{lambda-list-keywords, SYM}
+@subsection lambda-list-keywords (Constant Variable)
 @cindex lambda-list-keywords
 
 
@@ -1985,8 +1985,8 @@ used only by @term{macro} definition @term{forms}.
 
 
 @node lambda-parameters-limit
-@subsection lambda-parameters-limit (Constant Variable)
 @syindexanchor{lambda-parameters-limit, SYM}
+@subsection lambda-parameters-limit (Constant Variable)
 @cindex lambda-parameters-limit
 
 
@@ -2011,8 +2011,8 @@ Implementors are encouraged to make the @term{value} of
 
 
 @node defconstant
-@subsection defconstant (Macro)
 @syindexanchor{defconstant, SYM}
+@subsection defconstant (Macro)
 @cindex defconstant
 
 
@@ -2108,10 +2108,10 @@ this-is-a-constant @EV{} NEVER-CHANGING
 
 
 @node defparameter; defvar
-@subsection defparameter, defvar (Macro)
 @syindexanchor{defparameter, SYM}
-@cindex defparameter
 @syindexanchor{defvar, SYM}
+@subsection defparameter, defvar (Macro)
+@cindex defparameter
 @cindex defvar
 @anchor{defparameter}
 @anchor{defvar}
@@ -2299,8 +2299,8 @@ record the name of the source file in which the definition occurs.
 
 
 @node destructuring-bind
-@subsection destructuring-bind (Macro)
 @syindexanchor{destructuring-bind, SYM}
+@subsection destructuring-bind (Macro)
 @cindex destructuring-bind
 
 
@@ -2351,10 +2351,10 @@ destructuring pattern, an error @oftype{error} should be signaled.
 
 
 @node let; let*
-@subsection let, let* (Special Operator)
 @syindexanchor{let, SYM}
-@cindex let
 @syindexanchor{let*, SYM}
+@subsection let, let* (Special Operator)
+@cindex let
 @cindex let*
 @anchor{let}
 
@@ -2492,8 +2492,8 @@ declaration.
 
 
 @node progv
-@subsection progv (Special Operator)
 @syindexanchor{progv, SYM}
+@subsection progv (Special Operator)
 @cindex progv
 
 
@@ -2555,8 +2555,8 @@ on the mechanism for @term{binding} @term{dynamic variables}.
 
 
 @node setq
-@subsection setq (Special Form)
 @syindexanchor{setq, SYM}
+@subsection setq (Special Form)
 @cindex setq
 
 
@@ -2632,8 +2632,8 @@ The @term{primary value} of each @param{form} is assigned to the corresponding @
 
 
 @node psetq
-@subsection psetq (Macro)
 @syindexanchor{psetq, SYM}
+@subsection psetq (Macro)
 @cindex psetq
 
 
@@ -2714,8 +2714,8 @@ The values of @param{forms} are assigned to @param{vars}.
 
 
 @node block
-@subsection block (Special Operator)
 @syindexanchor{block, SYM}
+@subsection block (Special Operator)
 @cindex block
 
 
@@ -2778,8 +2778,8 @@ whether by @term{normal return} or @term{explicit return}.
 
 
 @node catch
-@subsection catch (Special Operator)
 @syindexanchor{catch, SYM}
+@subsection catch (Special Operator)
 @cindex catch
 
 
@@ -2885,8 +2885,8 @@ tags have dynamic @term{scope} while
 
 
 @node go
-@subsection go (Special Operator)
 @syindexanchor{go, SYM}
+@subsection go (Special Operator)
 @cindex go
 
 
@@ -2956,8 +2956,8 @@ before the @symbolref{go, SYM} @term{form} is executed.
 
 
 @node return-from
-@subsection return-from (Special Operator)
 @syindexanchor{return-from, SYM}
+@subsection return-from (Special Operator)
 @cindex return-from
 
 
@@ -3051,8 +3051,8 @@ exits normally before the @symbolref{return-from, SYM} @term{form} is attempted.
 
 
 @node return
-@subsection return (Macro)
 @syindexanchor{return, SYM}
+@subsection return (Macro)
 @cindex return
 
 
@@ -3101,8 +3101,8 @@ such @term{forms}.
 
 
 @node tagbody
-@subsection tagbody (Special Operator)
 @syindexanchor{tagbody, SYM}
+@subsection tagbody (Special Operator)
 @cindex tagbody
 
 
@@ -3205,8 +3205,8 @@ The @term{macros} in @thenextfigure{}@spc{}have @i{implicit tagbodies}.
 
 
 @node throw
-@subsection throw (Special Operator)
 @syindexanchor{throw, SYM}
+@subsection throw (Special Operator)
 @cindex throw
 
 
@@ -3313,8 +3313,8 @@ when @term{lexical scope} is sufficient.
 
 
 @node unwind-protect
-@subsection unwind-protect (Special Operator)
 @syindexanchor{unwind-protect, SYM}
+@subsection unwind-protect (Special Operator)
 @cindex unwind-protect
 
 
@@ -3504,8 +3504,8 @@ The correct way to code this is as follows:
 
 
 @node nil (Constant Variable)
-@subsection nil (Constant Variable)
 @syindexanchor{nil, CV}
+@subsection nil (Constant Variable)
 @cindex nil
 
 
@@ -3530,8 +3530,8 @@ and the @term{empty list}.
 
 
 @node not (Function)
-@subsection not (Function)
 @syindexanchor{not, F}
+@subsection not (Function)
 @cindex not
 
 
@@ -3577,8 +3577,8 @@ which to use is a matter of style.
 
 
 @node t (Constant Variable)
-@subsection t (Constant Variable)
 @syindexanchor{t, CV}
+@subsection t (Constant Variable)
 @cindex t
 
 
@@ -3622,8 +3622,8 @@ or as a special symbol for some syntactic reason
 
 
 @node eq
-@subsection eq (Function)
 @syindexanchor{eq, SYM}
+@subsection eq (Function)
 @cindex eq
 
 
@@ -3727,8 +3727,8 @@ rather than @code{eql} in a way that cannot be overridden by the
 
 
 @node eql (Function)
-@subsection eql (Function)
 @syindexanchor{eql, F}
+@subsection eql (Function)
 @cindex eql
 
 
@@ -3840,8 +3840,8 @@ to the @term{integer} @f{5}.
 
 
 @node equal
-@subsection equal (Function)
 @syindexanchor{equal, SYM}
+@subsection equal (Function)
 @cindex equal
 
 
@@ -3987,8 +3987,8 @@ if and only if their printed representations are the same.
 
 
 @node equalp
-@subsection equalp (Function)
 @syindexanchor{equalp, SYM}
+@subsection equalp (Function)
 @cindex equalp
 
 
@@ -4139,8 +4139,8 @@ not appropriate for every application.
 
 
 @node identity
-@subsection identity (Function)
 @syindexanchor{identity, SYM}
+@subsection identity (Function)
 @cindex identity
 
 
@@ -4182,8 +4182,8 @@ or @term{character}.
 
 
 @node complement
-@subsection complement (Function)
 @syindexanchor{complement, SYM}
+@subsection complement (Function)
 @cindex complement
 
 
@@ -4258,8 +4258,8 @@ uses of ``@f{@i{xxx}-if}'' @term{functions} or
 
 
 @node constantly
-@subsection constantly (Function)
 @syindexanchor{constantly, SYM}
+@subsection constantly (Function)
 @cindex constantly
 
 
@@ -4308,14 +4308,14 @@ arguments, that has no side-effects, and that always returns @param{value}.
 
 
 @node every; some; notevery; notany
-@subsection every, some, notevery, notany (Function)
 @syindexanchor{every, SYM}
-@cindex every
 @syindexanchor{some, SYM}
-@cindex some
 @syindexanchor{notevery, SYM}
-@cindex notevery
 @syindexanchor{notany, SYM}
+@subsection every, some, notevery, notany (Function)
+@cindex every
+@cindex some
+@cindex notevery
 @cindex notany
 @anchor{every}
 @anchor{some}
@@ -4414,8 +4414,8 @@ of the @param{predicate}.
 
 
 @node and (Macro)
-@subsection and (Macro)
 @syindexanchor{and, M}
+@subsection and (Macro)
 @cindex and
 
 
@@ -4487,8 +4487,8 @@ of its parts, @symbolref{elt, SYM} is not called if @f{n} is out of range.
 
 
 @node cond
-@subsection cond (Macro)
 @syindexanchor{cond, SYM}
+@subsection cond (Macro)
 @cindex cond
 
 
@@ -4555,8 +4555,8 @@ If no @param{test-form} @term{yields} @term{true}, @nil{}@spc{}is returned.
 
 
 @node if
-@subsection if (Special Operator)
 @syindexanchor{if, SYM}
+@subsection if (Special Operator)
 @cindex if
 
 
@@ -4621,8 +4621,8 @@ Whichever form is selected is then evaluated.
 
 
 @node or (Macro)
-@subsection or (Macro)
 @syindexanchor{or, M}
+@subsection or (Macro)
 @cindex or
 
 
@@ -4678,10 +4678,10 @@ If no @param{forms} are supplied, @code{or} returns @nil{}.
 
 
 @node when; unless
-@subsection when, unless (Macro)
 @syindexanchor{when, SYM}
-@cindex when
 @syindexanchor{unless, SYM}
+@subsection when, unless (Macro)
+@cindex when
 @cindex unless
 @anchor{when}
 @anchor{unless}
@@ -4779,12 +4779,12 @@ and the @symbolref{unless, SYM} @term{form} returns @nil{}.
 
 
 @node case; ccase; ecase
-@subsection case, ccase, ecase (Macro)
 @syindexanchor{case, SYM}
-@cindex case
 @syindexanchor{ccase, SYM}
-@cindex ccase
 @syindexanchor{ecase, SYM}
+@subsection case, ccase, ecase (Macro)
+@cindex case
+@cindex ccase
 @cindex ecase
 @anchor{case}
 @anchor{ccase}
@@ -4964,12 +4964,12 @@ message.
 
 
 @node typecase; ctypecase; etypecase
-@subsection typecase, ctypecase, etypecase (Macro)
 @syindexanchor{typecase, SYM}
-@cindex typecase
 @syindexanchor{ctypecase, SYM}
-@cindex ctypecase
 @syindexanchor{etypecase, SYM}
+@subsection typecase, ctypecase, etypecase (Macro)
+@cindex typecase
+@cindex ctypecase
 @cindex etypecase
 @anchor{typecase}
 @anchor{ctypecase}
@@ -5156,8 +5156,8 @@ message.
 
 
 @node multiple-value-bind
-@subsection multiple-value-bind (Macro)
 @syindexanchor{multiple-value-bind, SYM}
+@subsection multiple-value-bind (Macro)
 @cindex multiple-value-bind
 
 
@@ -5229,8 +5229,8 @@ do not include the @param{values-form}.
 
 
 @node multiple-value-call
-@subsection multiple-value-call (Special Operator)
 @syindexanchor{multiple-value-call, SYM}
+@subsection multiple-value-call (Special Operator)
 @cindex multiple-value-call
 
 
@@ -5277,8 +5277,8 @@ and given as arguments to the @param{function}.
 
 
 @node multiple-value-list
-@subsection multiple-value-list (Macro)
 @syindexanchor{multiple-value-list, SYM}
+@subsection multiple-value-list (Macro)
 @cindex multiple-value-list
 
 
@@ -5321,8 +5321,8 @@ of each other.
 
 
 @node multiple-value-prog1
-@subsection multiple-value-prog1 (Special Operator)
 @syindexanchor{multiple-value-prog1, SYM}
+@subsection multiple-value-prog1 (Special Operator)
 @cindex multiple-value-prog1
 
 
@@ -5362,8 +5362,8 @@ all the values produced by that @term{form}. It then evaluates each
 
 
 @node multiple-value-setq
-@subsection multiple-value-setq (Macro)
 @syindexanchor{multiple-value-setq, SYM}
+@subsection multiple-value-setq (Macro)
 @cindex multiple-value-setq
 
 
@@ -5437,8 +5437,8 @@ See @ref{VALUES Forms as Places}.
 
 
 @node values (Accessor)
-@subsection values (Accessor)
 @syindexanchor{values, A}
+@subsection values (Accessor)
 @cindex values
 
 
@@ -5520,8 +5520,8 @@ its @term{argument} @term{forms}.
 
 
 @node values-list
-@subsection values-list (Function)
 @syindexanchor{values-list, SYM}
+@subsection values-list (Function)
 @cindex values-list
 
 
@@ -5572,8 +5572,8 @@ returns @term{true} for all @term{lists} @param{x}.
 
 
 @node multiple-values-limit
-@subsection multiple-values-limit (Constant Variable)
 @syindexanchor{multiple-values-limit, SYM}
+@subsection multiple-values-limit (Constant Variable)
 @cindex multiple-values-limit
 
 
@@ -5600,8 +5600,8 @@ Implementors are encouraged to make this limit as large as possible.
 
 
 @node nth-value
-@subsection nth-value (Macro)
 @syindexanchor{nth-value, SYM}
+@subsection nth-value (Macro)
 @cindex nth-value
 
 
@@ -5658,10 +5658,10 @@ because, for example, some @term{consing} might be avoided.
 
 
 @node prog; prog*
-@subsection prog, prog* (Macro)
 @syindexanchor{prog, SYM}
-@cindex prog
 @syindexanchor{prog*, SYM}
+@subsection prog, prog* (Macro)
+@cindex prog
 @cindex prog*
 
 
@@ -5804,10 +5804,10 @@ follows:
 
 
 @node prog1; prog2
-@subsection prog1, prog2 (Macro)
 @syindexanchor{prog1, SYM}
-@cindex prog1
 @syindexanchor{prog2, SYM}
+@subsection prog1, prog2 (Macro)
+@cindex prog1
 @cindex prog2
 @anchor{prog1}
 @anchor{prog2}
@@ -5894,8 +5894,8 @@ must be computed before some or all of the side effects happen.
 
 
 @node progn
-@subsection progn (Special Operator)
 @syindexanchor{progn, SYM}
+@subsection progn (Special Operator)
 @cindex progn
 
 
@@ -5950,8 +5950,8 @@ the bodies of various control and conditional @term{forms}
 
 
 @node define-modify-macro
-@subsection define-modify-macro (Macro)
 @syindexanchor{define-modify-macro, SYM}
+@subsection define-modify-macro (Macro)
 @cindex define-modify-macro
 
 
@@ -6038,8 +6038,8 @@ A macro definition is assigned to @param{name}.
 
 
 @node defsetf
-@subsection defsetf (Macro)
 @syindexanchor{defsetf, SYM}
+@subsection defsetf (Macro)
 @cindex defsetf
 
 
@@ -6247,8 +6247,8 @@ and gives the user additional control.
 
 
 @node define-setf-expander
-@subsection define-setf-expander (Macro)
 @syindexanchor{define-setf-expander, SYM}
+@subsection define-setf-expander (Macro)
 @cindex define-setf-expander
 
 
@@ -6382,8 +6382,8 @@ pattern is permitted in @param{lambda-list}.
 
 
 @node get-setf-expansion
-@subsection get-setf-expansion (Function)
 @syindexanchor{get-setf-expansion, SYM}
+@subsection get-setf-expansion (Function)
 @cindex get-setf-expansion
 
 
@@ -6453,10 +6453,10 @@ are expanded into a call to @f{(setf @param{f})}.
 
 
 @node setf; psetf
-@subsection setf, psetf (Macro)
 @syindexanchor{setf, SYM}
-@cindex setf
 @syindexanchor{psetf, SYM}
+@subsection setf, psetf (Macro)
+@cindex setf
 @cindex psetf
 @anchor{setf}
 @anchor{psetf}
@@ -6561,8 +6561,8 @@ see @ref{Kinds of Places}.
 
 
 @node shiftf
-@subsection shiftf (Macro)
 @syindexanchor{shiftf, SYM}
+@subsection shiftf (Macro)
 @cindex shiftf
 
 
@@ -6666,8 +6666,8 @@ For example,
 
 
 @node rotatef
-@subsection rotatef (Macro)
 @syindexanchor{rotatef, SYM}
+@subsection rotatef (Macro)
 @cindex rotatef
 
 
@@ -6738,8 +6738,8 @@ of each @f{place} twice, whereas @symbolref{rotatef, SYM} evaluates them once.
 
 
 @node control-error
-@subsection control-error (Condition Type)
 @syindexanchor{control-error, SYM}
+@subsection control-error (Condition Type)
 @cindex control-error
 
 
@@ -6760,8 +6760,8 @@ dynamically available are @oftype{control-error}.
 
 
 @node program-error
-@subsection program-error (Condition Type)
 @syindexanchor{program-error, SYM}
+@subsection program-error (Condition Type)
 @cindex program-error
 
 
@@ -6781,8 +6781,8 @@ that is not lexically apparent are @oftype{program-error}.
 
 
 @node undefined-function
-@subsection undefined-function (Condition Type)
 @syindexanchor{undefined-function, SYM}
+@subsection undefined-function (Condition Type)
 @cindex undefined-function
 
 

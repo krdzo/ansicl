@@ -156,8 +156,8 @@ in @term{implementation} C, none of the features @f{spice}, @tt{lispm}, or @f{pe
 @end menu
 
 @node compile-file
-@subsection compile-file (Function)
 @syindexanchor{compile-file, SYM}
+@subsection compile-file (Function)
 @cindex compile-file
 
 
@@ -302,8 +302,8 @@ an error @oftype{file-error} is signaled.
 
 
 @node compile-file-pathname
-@subsection compile-file-pathname (Function)
 @syindexanchor{compile-file-pathname, SYM}
+@subsection compile-file-pathname (Function)
 @cindex compile-file-pathname
 
 
@@ -374,8 +374,8 @@ An error @oftype{file-error} might be signaled if either @param{input-file} or
 
 
 @node load
-@subsection load (Function)
 @syindexanchor{load, SYM}
+@subsection load (Function)
 @cindex load
 
 
@@ -554,8 +554,8 @@ An error @oftype{file-error} might be signaled if
 
 
 @node with-compilation-unit
-@subsection with-compilation-unit (Macro)
 @syindexanchor{with-compilation-unit, SYM}
+@subsection with-compilation-unit (Macro)
 @cindex with-compilation-unit
 
 
@@ -631,8 +631,8 @@ use of @symbolref{with-compilation-unit, SYM} might not have any effect.
 
 
 @node *features*
-@subsection *features* (Variable)
 @syindexanchor{*features*, SYM}
+@subsection *features* (Variable)
 @cindex *features*
 
 
@@ -779,10 +779,10 @@ and are hence less likely to be used unwittingly by another @term{implementation
 
 
 @node *compile-file-pathname*; *compile-file-truename*
-@subsection *compile-file-pathname*, *compile-file-truename* (Variable)
 @syindexanchor{*compile-file-pathname*, SYM}
-@cindex *compile-file-pathname*
 @syindexanchor{*compile-file-truename*, SYM}
+@subsection *compile-file-pathname*, *compile-file-truename* (Variable)
+@cindex *compile-file-pathname*
 @cindex *compile-file-truename*
 
 
@@ -828,10 +828,10 @@ The @term{file system}.
 
 
 @node *load-pathname*; *load-truename*
-@subsection *load-pathname*, *load-truename* (Variable)
 @syindexanchor{*load-pathname*, SYM}
-@cindex *load-pathname*
 @syindexanchor{*load-truename*, SYM}
+@subsection *load-pathname*, *load-truename* (Variable)
+@cindex *load-pathname*
 @cindex *load-truename*
 
 
@@ -876,11 +876,11 @@ The @term{file system}.
 
 
 @node *compile-print*; *compile-verbose*
-@subsection *compile-print*, *compile-verbose* (Variable)
 @syindexanchor{*compile-print*, SYM}
-@cindex *compile-print*
 @syindexanchor{*compile-verbose*, SYM}
+@subsection *compile-print*, *compile-verbose* (Variable)
 @cindex *compile-verbose*
+@cindex *compile-print*
 
 
 
@@ -906,11 +906,11 @@ to @symbolref{compile-file, SYM}.
 
 
 @node *load-print*; *load-verbose*
-@subsection *load-print*, *load-verbose* (Variable)
 @syindexanchor{*load-print*, SYM}
-@cindex *load-print*
 @syindexanchor{*load-verbose*, SYM}
+@subsection *load-print*, *load-verbose* (Variable)
 @cindex *load-verbose*
+@cindex *load-print*
 @anchor{*load-verbose*}
 
 
@@ -935,8 +935,8 @@ The initial @term{value} of @symbolref{*load-verbose*, SYM} is @term{implementat
 
 
 @node *modules*
-@subsection *modules* (Variable)
 @syindexanchor{*modules*, SYM}
+@subsection *modules* (Variable)
 @cindex *modules*
 
 
@@ -970,11 +970,11 @@ The variable @symbolref{*modules*, SYM} is deprecated.
 
 
 @node provide; require
-@subsection provide, require (Function)
 @syindexanchor{provide, SYM}
-@cindex provide
 @syindexanchor{require, SYM}
+@subsection provide, require (Function)
 @cindex require
+@cindex provide
 @anchor{provide}
 @anchor{require}
 

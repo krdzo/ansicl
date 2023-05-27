@@ -326,8 +326,8 @@ the possibility of fractional seconds.
 @end menu
 
 @node decode-universal-time
-@subsection decode-universal-time (Function)
 @syindexanchor{decode-universal-time, SYM}
+@subsection decode-universal-time (Function)
 @cindex decode-universal-time
 
 
@@ -384,8 +384,8 @@ savings time is in effect for any given session.
 
 
 @node encode-universal-time
-@subsection encode-universal-time (function)
 @syindexanchor{encode-universal-time, SYM}
+@subsection encode-universal-time (function)
 @cindex encode-universal-time
 
 
@@ -426,10 +426,10 @@ If @param{time-zone} is supplied, no adjustment for daylight savings time is per
 
 
 @node get-universal-time; get-decoded-time
-@subsection get-universal-time, get-decoded-time (Function)
 @syindexanchor{get-universal-time, SYM}
-@cindex get-universal-time
 @syindexanchor{get-decoded-time, SYM}
+@subsection get-universal-time, get-decoded-time (Function)
+@cindex get-universal-time
 @cindex get-decoded-time
 @anchor{get-universal-time}
 @anchor{get-decoded-time}
@@ -503,8 +503,8 @@ to interactively set the correct time.
 
 
 @node sleep
-@subsection sleep (Function)
 @syindexanchor{sleep, SYM}
+@subsection sleep (Function)
 @cindex sleep
 
 
@@ -551,11 +551,11 @@ The granularity of the scheduler.
 
 
 @node apropos; apropos-list
-@subsection apropos, apropos-list (Function)
 @syindexanchor{apropos, SYM}
-@cindex apropos
 @syindexanchor{apropos-list, SYM}
+@subsection apropos, apropos-list (Function)
 @cindex apropos-list
+@cindex apropos
 
 
 @subsubheading Syntax:
@@ -608,8 +608,8 @@ in any @term{packages} being searched.
 
 
 @node describe
-@subsection describe (Function)
 @syindexanchor{describe, SYM}
+@subsection describe (Function)
 @cindex describe
 
 
@@ -667,8 +667,8 @@ for @term{objects} having user-defined @term{classes}.
 
 
 @node describe-object
-@subsection describe-object (Standard Generic Function)
 @syindexanchor{describe-object, SYM}
+@subsection describe-object (Standard Generic Function)
 @cindex describe-object
 
 
@@ -759,10 +759,10 @@ in all of their @term{methods}.  @symbolref{describe, SYM} takes care of that.
 
 
 @node trace; untrace
-@subsection trace, untrace (Macro)
 @syindexanchor{trace, SYM}
-@cindex trace
 @syindexanchor{untrace, SYM}
+@subsection trace, untrace (Macro)
+@cindex trace
 @cindex untrace
 @anchor{trace}
 
@@ -863,8 +863,8 @@ other than the current @term{implementation}.
 
 
 @node step
-@subsection step (Macro)
 @syindexanchor{step, SYM}
+@subsection step (Macro)
 @cindex step
 
 
@@ -915,8 +915,8 @@ commands.
 
 
 @node time (Macro)
-@subsection time (Macro)
 @syindexanchor{time, SYM}
+@subsection time (Macro)
 @cindex time
 
 
@@ -979,8 +979,8 @@ interpreting timing results, see @GabrielBenchmarks{}.
 
 
 @node internal-time-units-per-second
-@subsection internal-time-units-per-second (Constant Variable)
 @syindexanchor{internal-time-units-per-second, SYM}
+@subsection internal-time-units-per-second (Constant Variable)
 @cindex internal-time-units-per-second
 
 
@@ -1002,8 +1002,8 @@ These units form the basis of the Internal Time format representation.
 
 
 @node get-internal-real-time
-@subsection get-internal-real-time (Function)
 @syindexanchor{get-internal-real-time, SYM}
+@subsection get-internal-real-time (Function)
 @cindex get-internal-real-time
 
 
@@ -1033,8 +1033,8 @@ The time base affects the result magnitude.
 
 
 @node get-internal-run-time
-@subsection get-internal-run-time (Function)
 @syindexanchor{get-internal-run-time, SYM}
+@subsection get-internal-run-time (Function)
 @cindex get-internal-run-time
 
 
@@ -1075,8 +1075,8 @@ this measurement as well.
 
 
 @node disassemble
-@subsection disassemble (Function)
 @syindexanchor{disassemble, SYM}
+@subsection disassemble (Function)
 @cindex disassemble
 
 
@@ -1125,10 +1125,10 @@ it is first compiled but the result of this implicit compilation is not installe
 
 
 @node documentation; setf documentation
-@subsection documentation, (setf documentation) (Standard Generic Function)
 @syindexanchor{documentation, SYM}
-@cindex documentation
 @syindexanchor{(setf documentation), SYM}
+@subsection documentation, (setf documentation) (Standard Generic Function)
+@cindex documentation
 @cindex (setf documentation)
 @anchor{documentation}
 
@@ -1370,8 +1370,8 @@ Implementors wishing to provide such support are encouraged to consult the
 
 
 @node room
-@subsection room (Function)
 @syindexanchor{room, SYM}
+@subsection room (Function)
 @cindex room
 
 
@@ -1409,8 +1409,8 @@ Output to @term{standard output}.
 
 
 @node ed
-@subsection ed (Function)
 @syindexanchor{ed, SYM}
+@subsection ed (Function)
 @cindex ed
 
 
@@ -1463,8 +1463,8 @@ is a @term{designator} for a @term{wild} @term{pathname}.
 
 
 @node inspect
-@subsection inspect (Function)
 @syindexanchor{inspect, SYM}
+@subsection inspect (Function)
 @cindex inspect
 
 
@@ -1507,8 +1507,8 @@ of commands.
 
 
 @node dribble
-@subsection dribble (Function)
 @syindexanchor{dribble, SYM}
+@subsection dribble (Function)
 @cindex dribble
 
 
@@ -1572,8 +1572,8 @@ returning only when @f{(dribble)} is done.
 its effect cannot be relied upon when used in a program.
 
 @node - (Variable)
-@subsection - (Variable)
 @syindexanchor{-, V}
+@subsection - (Variable)
 @cindex -
 
 
@@ -1612,13 +1612,13 @@ the @term{Lisp read-eval-print loop}.
 
 
 @node +; ++; +++
-@subsection +, ++, +++ (Variable)
 @syindexanchor{+, V}
-@cindex +
 @syindexanchor{++, SYM}
-@cindex ++
 @syindexanchor{+++, SYM}
+@subsection +, ++, +++ (Variable)
+@cindex +
 @cindex +++
+@cindex ++
 
 
 @subsubheading Value Type:
@@ -1666,13 +1666,13 @@ recently @term{evaluated}.
 
 
 @node *; **; ***
-@subsection *, **, *** (Variable)
 @syindexanchor{*, V}
-@cindex *
 @syindexanchor{**, SYM}
-@cindex **
 @syindexanchor{***, SYM}
+@subsection *, **, *** (Variable)
+@cindex **
 @cindex ***
+@cindex *
 
 
 @subsubheading Value Type:
@@ -1738,13 +1738,13 @@ are not updated.
 
 
 @node /; //; ///
-@subsection /, //, /// (Variable)
 @syindexanchor{/, V}
-@cindex /
 @syindexanchor{//, SYM}
-@cindex //
 @syindexanchor{///, SYM}
+@subsection /, //, /// (Variable)
+@cindex //
 @cindex ///
+@cindex /
 
 
 @subsubheading Value Type:
@@ -1791,11 +1791,11 @@ are not updated.
 
 
 @node lisp-implementation-type; lisp-implementation-version
-@subsection lisp-implementation-type, lisp-implementation-version (Function)
 @syindexanchor{lisp-implementation-type, SYM}
-@cindex lisp-implementation-type
 @syindexanchor{lisp-implementation-version, SYM}
+@subsection lisp-implementation-type, lisp-implementation-version (Function)
 @cindex lisp-implementation-version
+@cindex lisp-implementation-type
 
 
 @subsubheading Syntax:
@@ -1840,10 +1840,10 @@ of a @term{string}.
 
 
 @node short-site-name; long-site-name
-@subsection short-site-name, long-site-name (Function)
 @syindexanchor{short-site-name, SYM}
-@cindex short-site-name
 @syindexanchor{long-site-name, SYM}
+@subsection short-site-name, long-site-name (Function)
+@cindex short-site-name
 @cindex long-site-name
 
 
@@ -1884,8 +1884,8 @@ and the installation/configuration process.
 
 
 @node machine-instance
-@subsection machine-instance (Function)
 @syindexanchor{machine-instance, SYM}
+@subsection machine-instance (Function)
 @cindex machine-instance
 
 
@@ -1925,8 +1925,8 @@ and the @term{implementation}.
 
 
 @node machine-type
-@subsection machine-type (Function)
 @syindexanchor{machine-type, SYM}
+@subsection machine-type (Function)
 @cindex machine-type
 
 
@@ -1963,8 +1963,8 @@ The implementation.
 
 
 @node machine-version
-@subsection machine-version (Function)
 @syindexanchor{machine-version, SYM}
+@subsection machine-version (Function)
 @cindex machine-version
 
 
@@ -1999,10 +1999,10 @@ and the @term{implementation}.
 
 
 @node software-type; software-version
-@subsection software-type, software-version (Function)
 @syindexanchor{software-type, SYM}
-@cindex software-type
 @syindexanchor{software-version, SYM}
+@subsection software-type, software-version (Function)
+@cindex software-type
 @cindex software-version
 
 
@@ -2043,8 +2043,8 @@ This information should be of use to maintainers of the @term{implementation}.
 
 
 @node user-homedir-pathname
-@subsection user-homedir-pathname (Function)
 @syindexanchor{user-homedir-pathname, SYM}
+@subsection user-homedir-pathname (Function)
 @cindex user-homedir-pathname
 
 

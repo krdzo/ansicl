@@ -289,8 +289,8 @@ see instead @ref{Strings, Chapter 16 (Strings)}.
 @end menu
 
 @node array
-@subsection array (System Class)
 @syindexanchor{array, SYM}
+@subsection array (System Class)
 @cindex array
 
 
@@ -392,8 +392,8 @@ that are specialized to hold precisely @term{characters} and no
 other @term{objects}.
 
 @node simple-array
-@subsection simple-array (Type)
 @syindexanchor{simple-array, SYM}
+@subsection simple-array (Type)
 @cindex simple-array
 
 
@@ -462,8 +462,8 @@ that can result from giving @param{type-specifier} as the
 @kwd{element-type} argument to @symbolref{make-array, SYM}.
 
 @node vector (System Class)
-@subsection vector (System Class)
 @syindexanchor{vector, SC}
+@subsection vector (System Class)
 @cindex vector
 
 
@@ -540,8 +540,8 @@ that can result from giving @param{type-specifier} as the
 @kwd{element-type} argument to @symbolref{make-array, SYM}.
 
 @node simple-vector
-@subsection simple-vector (Type)
 @syindexanchor{simple-vector, SYM}
+@subsection simple-vector (Type)
 @cindex simple-vector
 
 
@@ -584,8 +584,8 @@ or the @term{symbol} @t{*}.
 This is the same as @tt{(simple-array t (@param{size}))}.
 
 @node bit-vector
-@subsection bit-vector (System Class)
 @syindexanchor{bit-vector, SYM}
+@subsection bit-vector (System Class)
 @cindex bit-vector
 
 
@@ -628,8 +628,8 @@ that is, the set of @term{bit vectors} of size @param{size}.
 @ref{Required Kinds of Specialized Arrays}
 
 @node simple-bit-vector
-@subsection simple-bit-vector (Type)
 @syindexanchor{simple-bit-vector, SYM}
+@subsection simple-bit-vector (Type)
 @cindex simple-bit-vector
 
 
@@ -674,8 +674,8 @@ that is, the set of @term{simple bit vectors} of size @param{size}.
 
 
 @node make-array
-@subsection make-array (Function)
 @syindexanchor{make-array, SYM}
+@subsection make-array (Function)
 @cindex make-array
 
 
@@ -928,8 +928,8 @@ that is not a @term{simple array}.
 
 
 @node adjust-array
-@subsection adjust-array (Function)
 @syindexanchor{adjust-array, SYM}
+@subsection adjust-array (Function)
 @cindex adjust-array
 
 
@@ -1188,8 +1188,8 @@ and @term{non-nil} but @param{array} has no @term{fill pointer}.
 
 
 @node adjustable-array-p
-@subsection adjustable-array-p (Function)
 @syindexanchor{adjustable-array-p, SYM}
+@subsection adjustable-array-p (Function)
 @cindex adjustable-array-p
 
 
@@ -1232,8 +1232,8 @@ Should signal an error @oftype{type-error} if its argument is not an @term{array
 
 
 @node aref
-@subsection aref (Accessor)
 @syindexanchor{aref, SYM}
+@subsection aref (Accessor)
 @cindex aref
 
 
@@ -1296,8 +1296,8 @@ refers to element (2, 1) of the array.
 
 
 @node array-dimension
-@subsection array-dimension (Function)
 @syindexanchor{array-dimension, SYM}
+@subsection array-dimension (Function)
 @cindex array-dimension
 
 
@@ -1341,8 +1341,8 @@ None.
 
 
 @node array-dimensions
-@subsection array-dimensions (Function)
 @syindexanchor{array-dimensions, SYM}
+@subsection array-dimensions (Function)
 @cindex array-dimensions
 
 
@@ -1381,8 +1381,8 @@ Should signal an error @oftype{type-error} if its argument is not an @term{array
 
 
 @node array-element-type
-@subsection array-element-type (Function)
 @syindexanchor{array-element-type, SYM}
+@subsection array-element-type (Function)
 @cindex array-element-type
 
 
@@ -1439,8 +1439,8 @@ Should signal an error @oftype{type-error} if its argument is not an @term{array
 
 
 @node array-has-fill-pointer-p
-@subsection array-has-fill-pointer-p (Function)
 @syindexanchor{array-has-fill-pointer-p, SYM}
+@subsection array-has-fill-pointer-p (Function)
 @cindex array-has-fill-pointer-p
 
 
@@ -1487,8 +1487,8 @@ is such an array.
 
 
 @node array-displacement
-@subsection array-displacement (Function)
 @syindexanchor{array-displacement, SYM}
+@subsection array-displacement (Function)
 @cindex array-displacement
 
 
@@ -1550,8 +1550,8 @@ whether @symbolref{array-displacement, SYM} returns a @term{non-nil}
 
 
 @node array-in-bounds-p
-@subsection array-in-bounds-p (Function)
 @syindexanchor{array-in-bounds-p, SYM}
+@subsection array-in-bounds-p (Function)
 @cindex array-in-bounds-p
 
 
@@ -1599,8 +1599,8 @@ that @term{fill pointer} is ignored.)
 
 
 @node array-rank
-@subsection array-rank (Function)
 @syindexanchor{array-rank, SYM}
+@subsection array-rank (Function)
 @cindex array-rank
 
 
@@ -1638,8 +1638,8 @@ Should signal an error @oftype{type-error} if its argument is not an @term{array
 
 
 @node array-row-major-index
-@subsection array-row-major-index (Function)
 @syindexanchor{array-row-major-index, SYM}
+@subsection array-row-major-index (Function)
 @cindex array-row-major-index
 
 
@@ -1697,8 +1697,8 @@ with no error-checking, is
 
 
 @node array-total-size
-@subsection array-total-size (Function)
 @syindexanchor{array-total-size, SYM}
+@subsection array-total-size (Function)
 @cindex array-total-size
 
 
@@ -1753,8 +1753,8 @@ zero-dimensional @term{array} is one.
 
 
 @node arrayp
-@subsection arrayp (Function)
 @syindexanchor{arrayp, SYM}
+@subsection arrayp (Function)
 @cindex arrayp
 
 
@@ -1797,8 +1797,8 @@ zero-dimensional @term{array} is one.
 
 
 @node fill-pointer
-@subsection fill-pointer (Accessor)
 @syindexanchor{fill-pointer, SYM}
+@subsection fill-pointer (Accessor)
 @cindex fill-pointer
 
 
@@ -1847,8 +1847,8 @@ There is no @term{operator} that will remove a @term{vector}'s @term{fill pointe
 
 
 @node row-major-aref
-@subsection row-major-aref (Accessor)
 @syindexanchor{row-major-aref, SYM}
+@subsection row-major-aref (Accessor)
 @cindex row-major-aref
 
 
@@ -1895,8 +1895,8 @@ which is referred to by the given @param{index}.
 
 
 @node upgraded-array-element-type
-@subsection upgraded-array-element-type (Function)
 @syindexanchor{upgraded-array-element-type, SYM}
+@subsection upgraded-array-element-type (Function)
 @cindex upgraded-array-element-type
 
 
@@ -1957,8 +1957,8 @@ optional @param{environment} @term{argument},
 
 
 @node array-dimension-limit
-@subsection array-dimension-limit (Constant Variable)
 @syindexanchor{array-dimension-limit, SYM}
+@subsection array-dimension-limit (Constant Variable)
 @cindex array-dimension-limit
 
 
@@ -1979,8 +1979,8 @@ The upper exclusive bound on each individual @term{dimension} of an @term{array}
 
 
 @node array-rank-limit
-@subsection array-rank-limit (Constant Variable)
 @syindexanchor{array-rank-limit, SYM}
+@subsection array-rank-limit (Constant Variable)
 @cindex array-rank-limit
 
 
@@ -2001,8 +2001,8 @@ The upper exclusive bound on the @term{rank} of an @term{array}.
 
 
 @node array-total-size-limit
-@subsection array-total-size-limit (Constant Variable)
 @syindexanchor{array-total-size-limit, SYM}
+@subsection array-total-size-limit (Constant Variable)
 @cindex array-total-size-limit
 
 
@@ -2029,8 +2029,8 @@ will be the smallest of these possible limits.
 
 
 @node simple-vector-p
-@subsection simple-vector-p (Function)
 @syindexanchor{simple-vector-p, SYM}
+@subsection simple-vector-p (Function)
 @cindex simple-vector-p
 
 
@@ -2070,8 +2070,8 @@ will be the smallest of these possible limits.
 
 
 @node svref
-@subsection svref (Accessor)
 @syindexanchor{svref, SYM}
+@subsection svref (Accessor)
 @cindex svref
 
 
@@ -2125,8 +2125,8 @@ except that it requires its first argument to be a @term{simple vector}.
 
 
 @node vector (Function)
-@subsection vector (Function)
 @syindexanchor{vector, F}
+@subsection vector (Function)
 @cindex vector
 
 
@@ -2174,8 +2174,8 @@ The @term{vector} is initialized to contain the @param{objects}.
 
 
 @node vector-pop
-@subsection vector-pop (Function)
 @syindexanchor{vector-pop, SYM}
+@subsection vector-pop (Function)
 @cindex vector-pop
 
 
@@ -2229,10 +2229,10 @@ If the @term{fill pointer} is zero, @symbolref{vector-pop, SYM} signals an error
 
 
 @node vector-push; vector-push-extend
-@subsection vector-push, vector-push-extend (Function)
 @syindexanchor{vector-push, SYM}
-@cindex vector-push
 @syindexanchor{vector-push-extend, SYM}
+@subsection vector-push, vector-push-extend (Function)
+@cindex vector-push
 @cindex vector-push-extend
 @anchor{vector-push}
 @anchor{vector-push-extend}
@@ -2326,8 +2326,8 @@ have a @term{fill pointer}.
 
 
 @node vectorp
-@subsection vectorp (Function)
 @syindexanchor{vectorp, SYM}
+@subsection vectorp (Function)
 @cindex vectorp
 
 
@@ -2364,11 +2364,11 @@ have a @term{fill pointer}.
 
 
 @node bit; sbit
-@subsection bit, sbit (Accessor)
 @syindexanchor{bit, A}
-@cindex bit
 @syindexanchor{sbit, SYM}
+@subsection bit, sbit (Accessor)
 @cindex sbit
+@cindex bit
 @anchor{bit}
 @anchor{sbit}
 
@@ -2428,28 +2428,28 @@ allow the first argument to be an @term{array} of any @term{rank}.
 
 
 @node bit-and; bit-andc1; bit-andc2; bit-eqv; bit-ior; bit-nand; bit-nor; bit+
-@subsection bit-and, bit-andc1, bit-andc2, bit-eqv, bit-ior, bit-nand, bit-nor, bit-not, bit-orc1, bit-orc2, bit-xor (Function)
 @syindexanchor{bit-and, SYM}
-@cindex bit-and
 @syindexanchor{bit-andc1, SYM}
-@cindex bit-andc1
 @syindexanchor{bit-andc2, SYM}
-@cindex bit-andc2
 @syindexanchor{bit-eqv, SYM}
-@cindex bit-eqv
 @syindexanchor{bit-ior, SYM}
-@cindex bit-ior
 @syindexanchor{bit-nand, SYM}
-@cindex bit-nand
 @syindexanchor{bit-nor, SYM}
-@cindex bit-nor
 @syindexanchor{bit-not, SYM}
-@cindex bit-not
 @syindexanchor{bit-orc1, SYM}
-@cindex bit-orc1
 @syindexanchor{bit-orc2, SYM}
-@cindex bit-orc2
 @syindexanchor{bit-xor, SYM}
+@subsection bit-and, bit-andc1, bit-andc2, bit-eqv, bit-ior, bit-nand, bit-nor, bit-not, bit-orc1, bit-orc2, bit-xor (Function)
+@cindex bit-and
+@cindex bit-andc1
+@cindex bit-andc2
+@cindex bit-eqv
+@cindex bit-ior
+@cindex bit-nand
+@cindex bit-nor
+@cindex bit-not
+@cindex bit-orc1
+@cindex bit-orc2
 @cindex bit-xor
 
 
@@ -2543,8 +2543,8 @@ performed by each of the @term{functions}.
 
 
 @node bit-vector-p
-@subsection bit-vector-p (Function)
 @syindexanchor{bit-vector-p, SYM}
+@subsection bit-vector-p (Function)
 @cindex bit-vector-p
 
 
@@ -2586,8 +2586,8 @@ performed by each of the @term{functions}.
 
 
 @node simple-bit-vector-p
-@subsection simple-bit-vector-p (Function)
 @syindexanchor{simple-bit-vector-p, SYM}
+@subsection simple-bit-vector-p (Function)
 @cindex simple-bit-vector-p
 
 

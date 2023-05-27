@@ -788,8 +788,8 @@ understanding this material.
 @end menu
 
 @node condition
-@subsection condition (Condition Type)
 @syindexanchor{condition, SYM}
+@subsection condition (Condition Type)
 @cindex condition
 
 
@@ -847,8 +847,8 @@ should be used.
 
 
 @node warning
-@subsection warning (Condition Type)
 @syindexanchor{warning, SYM}
+@subsection warning (Condition Type)
 @cindex warning
 
 
@@ -867,8 +867,8 @@ should be used.
 
 
 @node style-warning
-@subsection style-warning (Condition Type)
 @syindexanchor{style-warning, SYM}
+@subsection style-warning (Condition Type)
 @cindex style-warning
 
 
@@ -908,8 +908,8 @@ redirecting or muffling other, more serious warnings.
 
 
 @node serious-condition
-@subsection serious-condition (Condition Type)
 @syindexanchor{serious-condition, SYM}
+@subsection serious-condition (Condition Type)
 @cindex serious-condition
 
 
@@ -943,8 +943,8 @@ debugger to be entered.)
 
 
 @node error (Condition Type)
-@subsection error (Condition Type)
 @syindexanchor{error, CT}
+@subsection error (Condition Type)
 @cindex error
 
 
@@ -960,8 +960,8 @@ debugger to be entered.)
 
 
 @node cell-error
-@subsection cell-error (Condition Type)
 @syindexanchor{cell-error, SYM}
+@subsection cell-error (Condition Type)
 @cindex cell-error
 
 
@@ -985,8 +985,8 @@ and is @term{accessed} by @thefunction{cell-error-name}.
 
 
 @node cell-error-name
-@subsection cell-error-name (Function)
 @syindexanchor{cell-error-name, SYM}
+@subsection cell-error-name (Function)
 @cindex cell-error-name
 
 
@@ -1026,8 +1026,8 @@ the @term{name} of the @term{slot} which was being @term{accessed}.
 
 
 @node parse-error
-@subsection parse-error (Condition Type)
 @syindexanchor{parse-error, SYM}
+@subsection parse-error (Condition Type)
 @cindex parse-error
 
 
@@ -1053,8 +1053,8 @@ error conditions that are related to parsing.
 
 
 @node storage-condition
-@subsection storage-condition (Condition Type)
 @syindexanchor{storage-condition, SYM}
+@subsection storage-condition (Condition Type)
 @cindex storage-condition
 
 
@@ -1100,8 +1100,8 @@ rather than an error in a @term{program},
 
 
 @node assert
-@subsection assert (Macro)
 @syindexanchor{assert, SYM}
+@subsection assert (Macro)
 @cindex assert
 
 
@@ -1218,8 +1218,8 @@ should be made available for the user's perusal.  If the user gives the
 The details of this depend on the implementation's style of user interface.
 
 @node error (Function)
-@subsection error (Function)
 @syindexanchor{error, F}
+@subsection error (Function)
 @cindex error
 
 
@@ -1336,8 +1336,8 @@ effects hinted at by this example.
 
 
 @node cerror
-@subsection cerror (Function)
 @syindexanchor{cerror, SYM}
+@subsection cerror (Function)
 @cindex cerror
 
 
@@ -1505,8 +1505,8 @@ useful in the @param{continue-format-control} in order to ignore the
 
 
 @node check-type
-@subsection check-type (Macro)
 @syindexanchor{check-type, SYM}
+@subsection check-type (Macro)
 @cindex check-type
 
 
@@ -1648,8 +1648,8 @@ The implementation.
 
 
 @node simple-error
-@subsection simple-error (Condition Type)
 @syindexanchor{simple-error, SYM}
+@subsection simple-error (Condition Type)
 @cindex simple-error
 
 
@@ -1671,8 +1671,8 @@ is supplied as the function's first argument.
 
 
 @node invalid-method-error
-@subsection invalid-method-error (Function)
 @syindexanchor{invalid-method-error, SYM}
+@subsection invalid-method-error (Function)
 @cindex invalid-method-error
 
 
@@ -1723,8 +1723,8 @@ The debugger might be entered.
 
 
 @node method-combination-error
-@subsection method-combination-error (Function)
 @syindexanchor{method-combination-error, SYM}
+@subsection method-combination-error (Function)
 @cindex method-combination-error
 
 
@@ -1766,8 +1766,8 @@ The debugger might be entered.
 
 
 @node signal
-@subsection signal (Function)
 @syindexanchor{signal, SYM}
+@subsection signal (Function)
 @cindex signal
 
 
@@ -1847,8 +1847,8 @@ should, might, or must @term{signal} @term{conditions}.
 
 
 @node simple-condition
-@subsection simple-condition (Condition Type)
 @syindexanchor{simple-condition, SYM}
+@subsection simple-condition (Condition Type)
 @cindex simple-condition
 
 
@@ -1878,10 +1878,10 @@ If format arguments are not supplied to @symbolref{make-condition, SYM},
 
 
 @node simple-condition-format-control; simple-condition-format-arguments
-@subsection simple-condition-format-control, simple-condition-format-arguments (Function)
 @syindexanchor{simple-condition-format-control, SYM}
-@cindex simple-condition-format-control
 @syindexanchor{simple-condition-format-arguments, SYM}
+@subsection simple-condition-format-control, simple-condition-format-arguments (Function)
+@cindex simple-condition-format-control
 @cindex simple-condition-format-arguments
 @anchor{simple-condition-format-control}
 @anchor{simple-condition-format-arguments}
@@ -1930,8 +1930,8 @@ needed to process the @param{condition}'s @term{format control}.
 
 
 @node warn
-@subsection warn (Function)
 @syindexanchor{warn, SYM}
+@subsection warn (Function)
 @cindex warn
 
 
@@ -2039,8 +2039,8 @@ must be @oftype{warning} or an error @oftype{type-error} is signaled.
 
 
 @node simple-warning
-@subsection simple-warning (Condition Type)
 @syindexanchor{simple-warning, SYM}
+@subsection simple-warning (Condition Type)
 @cindex simple-warning
 
 
@@ -2061,8 +2061,8 @@ is supplied as the function's first argument.
 
 
 @node invoke-debugger
-@subsection invoke-debugger (Function)
 @syindexanchor{invoke-debugger, SYM}
+@subsection invoke-debugger (Function)
 @cindex invoke-debugger
 
 
@@ -2120,8 +2120,8 @@ and the debugger is entered.
 
 
 @node break
-@subsection break (Function)
 @syindexanchor{break, SYM}
+@subsection break (Function)
 @cindex break
 
 
@@ -2207,8 +2207,8 @@ than the conventional debugger.
 
 
 @node *debugger-hook*
-@subsection *debugger-hook* (Variable)
 @syindexanchor{*debugger-hook*, SYM}
+@subsection *debugger-hook* (Variable)
 @cindex *debugger-hook*
 
 
@@ -2286,8 +2286,8 @@ can be handled using the same interactive facility.
 
 
 @node *break-on-signals*
-@subsection *break-on-signals* (Variable)
 @syindexanchor{*break-on-signals*, SYM}
+@subsection *break-on-signals* (Variable)
 @cindex *break-on-signals*
 
 
@@ -2370,8 +2370,8 @@ operations such as @code{error} and @symbolref{cerror, SYM}.
 
 
 @node handler-bind
-@subsection handler-bind (Macro)
 @syindexanchor{handler-bind, SYM}
+@subsection handler-bind (Macro)
 @cindex handler-bind
 
 
@@ -2461,8 +2461,8 @@ so it doesn't trigger the handler for @code{error} set up by @f{trap-errors}.
 
 
 @node handler-case
-@subsection handler-case (Macro)
 @syindexanchor{handler-case, SYM}
+@subsection handler-case (Macro)
 @cindex handler-case
 
 
@@ -2635,8 +2635,8 @@ is approximately equivalent to:
 
 
 @node ignore-errors
-@subsection ignore-errors (Macro)
 @syindexanchor{ignore-errors, SYM}
+@subsection ignore-errors (Macro)
 @cindex ignore-errors
 
 
@@ -2712,8 +2712,8 @@ that the two situations can be distinguished.
 
 
 @node define-condition
-@subsection define-condition (Macro)
 @syindexanchor{define-condition, SYM}
+@subsection define-condition (Macro)
 @cindex define-condition
 
 
@@ -3077,8 +3077,8 @@ report this type of condition.
 
 
 @node make-condition
-@subsection make-condition (Function)
 @syindexanchor{make-condition, SYM}
+@subsection make-condition (Function)
 @cindex make-condition
 
 
@@ -3131,8 +3131,8 @@ The set of defined @term{condition} @term{types}.
 
 
 @node restart
-@subsection restart (System Class)
 @syindexanchor{restart, SYM}
+@subsection restart (System Class)
 @cindex restart
 
 
@@ -3152,8 +3152,8 @@ relative to the scope of the binding @term{form} which @term{establishes} it.
 
 
 @node compute-restarts
-@subsection compute-restarts (Function)
 @syindexanchor{compute-restarts, SYM}
+@subsection compute-restarts (Function)
 @cindex compute-restarts
 
 
@@ -3246,8 +3246,8 @@ Existing restarts.
 
 
 @node find-restart
-@subsection find-restart (Function)
 @syindexanchor{find-restart, SYM}
+@subsection find-restart (Function)
 @cindex find-restart
 
 
@@ -3322,8 +3322,8 @@ can probably be used to simulate the desired effect.
 
 
 @node invoke-restart
-@subsection invoke-restart (Function)
 @syindexanchor{invoke-restart, SYM}
+@subsection invoke-restart (Function)
 @cindex invoke-restart
 
 
@@ -3391,8 +3391,8 @@ are non-essential ``syntactic sugar.''
 
 
 @node invoke-restart-interactively
-@subsection invoke-restart-interactively (Function)
 @syindexanchor{invoke-restart-interactively, SYM}
+@subsection invoke-restart-interactively (Function)
 @cindex invoke-restart-interactively
 
 
@@ -3482,8 +3482,8 @@ tools.
 
 
 @node restart-bind
-@subsection restart-bind (Macro)
 @syindexanchor{restart-bind, SYM}
+@subsection restart-bind (Macro)
 @cindex restart-bind
 
 
@@ -3603,8 +3603,8 @@ generality is really needed.
 
 
 @node restart-case
-@subsection restart-case (Macro)
 @syindexanchor{restart-case, SYM}
+@subsection restart-case (Macro)
 @cindex restart-case
 
 
@@ -3894,8 +3894,8 @@ they occur but not actually signal errors.
 
 
 @node restart-name
-@subsection restart-name (Function)
 @syindexanchor{restart-name, SYM}
+@subsection restart-name (Function)
 @cindex restart-name
 
 
@@ -3937,8 +3937,8 @@ or @nil{}@spc{}if the @param{restart} is not named.
 
 
 @node with-condition-restarts
-@subsection with-condition-restarts (Macro)
 @syindexanchor{with-condition-restarts, SYM}
+@subsection with-condition-restarts (Macro)
 @cindex with-condition-restarts
 
 
@@ -3987,8 +3987,8 @@ in a way that is syntactically more concise.
 
 
 @node with-simple-restart
-@subsection with-simple-restart (Macro)
 @syindexanchor{with-simple-restart, SYM}
+@subsection with-simple-restart (Macro)
 @cindex with-simple-restart
 
 
@@ -4102,8 +4102,8 @@ can be distinguished.
 
 
 @node abort (Restart)
-@subsection abort (Restart)
 @syindexanchor{abort, R}
+@subsection abort (Restart)
 @cindex abort
 
 
@@ -4134,8 +4134,8 @@ process is more appropriate.
 
 
 @node continue (Restart)
-@subsection continue (Restart)
 @syindexanchor{continue, R}
+@subsection continue (Restart)
 @cindex continue
 
 
@@ -4177,8 +4177,8 @@ with a name that more directly suits the particular application.
 
 
 @node muffle-warning (Restart)
-@subsection muffle-warning (Restart)
 @syindexanchor{muffle-warning, R}
+@subsection muffle-warning (Restart)
 @cindex muffle-warning
 
 
@@ -4236,8 +4236,8 @@ that a warning has already been dealt with and that no further action is warrant
 
 
 @node store-value (Restart)
-@subsection store-value (Restart)
 @syindexanchor{store-value, R}
+@subsection store-value (Restart)
 @cindex store-value
 
 
@@ -4282,8 +4282,8 @@ be stored permanently.
 
 
 @node use-value (Restart)
-@subsection use-value (Restart)
 @syindexanchor{use-value, R}
+@subsection use-value (Restart)
 @cindex use-value
 
 
@@ -4307,17 +4307,17 @@ where the handler may wish to supply a replacement datum for one-time use.
 
 
 @node abort; continue; muffle-warning; store-value; use-value
-@subsection abort, continue, muffle-warning, store-value, use-value (Function)
 @syindexanchor{abort, F}
-@cindex abort
 @syindexanchor{continue, F}
-@cindex continue
 @syindexanchor{muffle-warning, F}
-@cindex muffle-warning
 @syindexanchor{store-value, F}
-@cindex store-value
 @syindexanchor{use-value, F}
+@subsection abort, continue, muffle-warning, store-value, use-value (Function)
+@cindex abort
+@cindex muffle-warning
+@cindex store-value
 @cindex use-value
+@cindex continue
 @anchor{abort}
 @anchor{continue}
 @anchor{muffle-warning}

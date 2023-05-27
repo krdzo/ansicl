@@ -3898,8 +3898,8 @@ itself.
 @end menu
 
 @node lambda (Symbol)
-@subsection lambda (Symbol)
 @syindexanchor{lambda, S}
+@subsection lambda (Symbol)
 @cindex lambda
 
 
@@ -3955,8 +3955,8 @@ is semantically equivalent to the @term{function form}
 
 
 @node lambda (Macro)
-@subsection lambda (Macro)
 @syindexanchor{lambda, M}
+@subsection lambda (Macro)
 @cindex lambda
 
 
@@ -4012,8 +4012,8 @@ This macro could be implemented by:
 
 
 @node compile
-@subsection compile (Function)
 @syindexanchor{compile, SYM}
+@subsection compile (Function)
 @cindex compile
 
 
@@ -4118,8 +4118,8 @@ see @ref{Exceptional Situations in the Compiler}.
 
 
 @node eval
-@subsection eval (Function)
 @syindexanchor{eval, SYM}
+@subsection eval (Function)
 @cindex eval
 
 
@@ -4194,8 +4194,8 @@ in any @term{function form},
 
 
 @node eval-when
-@subsection eval-when (Special Operator)
 @syindexanchor{eval-when, SYM}
+@subsection eval-when (Special Operator)
 @cindex eval-when
 
 
@@ -4423,8 +4423,8 @@ when the definition of @f{bar} is not a @term{top level form}.
 
 
 @node load-time-value
-@subsection load-time-value (Special Operator)
 @syindexanchor{load-time-value, SYM}
+@subsection load-time-value (Special Operator)
 @cindex load-time-value
 
 
@@ -4570,8 +4570,8 @@ to make that object read-only.
 
 
 @node quote
-@subsection quote (Special Operator)
 @syindexanchor{quote, SYM}
+@subsection quote (Special Operator)
 @cindex quote
 
 
@@ -4633,8 +4633,8 @@ they become data rather than program.
 
 
 @node compiler-macro-function
-@subsection compiler-macro-function (Accessor)
 @syindexanchor{compiler-macro-function, SYM}
+@subsection compiler-macro-function (Accessor)
 @cindex compiler-macro-function
 
 
@@ -4671,8 +4671,8 @@ in a use of @SETFof{compiler-macro-function}.
 
 
 @node define-compiler-macro
-@subsection define-compiler-macro (Macro)
 @syindexanchor{define-compiler-macro, SYM}
+@subsection define-compiler-macro (Macro)
 @cindex define-compiler-macro
 
 
@@ -4853,8 +4853,8 @@ and data abstraction.
 
 
 @node defmacro
-@subsection defmacro (Macro)
 @syindexanchor{defmacro, SYM}
+@subsection defmacro (Macro)
 @cindex defmacro
 
 
@@ -5050,8 +5050,8 @@ would be a valid call for the second definition but not for the first.
 
 
 @node macro-function
-@subsection macro-function (Accessor)
 @syindexanchor{macro-function, SYM}
+@subsection macro-function (Accessor)
 @cindex macro-function
 
 
@@ -5139,10 +5139,10 @@ definition, whether as a @term{macro} or as a
 
 
 @node macroexpand; macroexpand-1
-@subsection macroexpand, macroexpand-1 (Function)
 @syindexanchor{macroexpand, SYM}
-@cindex macroexpand
+@subsection macroexpand, macroexpand-1 (Function)
 @syindexanchor{macroexpand-1, SYM}
+@cindex macroexpand
 @cindex macroexpand-1
 @anchor{macroexpand}
 @anchor{macroexpand-1}
@@ -5299,8 +5299,8 @@ due to the semantics or implementation of the @term{macro function}.
 
 
 @node define-symbol-macro
-@subsection define-symbol-macro (Macro)
 @syindexanchor{define-symbol-macro, SYM}
+@subsection define-symbol-macro (Macro)
 @cindex define-symbol-macro
 
 
@@ -5384,8 +5384,8 @@ an error @oftype{program-error} is signaled.
 
 
 @node symbol-macrolet
-@subsection symbol-macrolet (Special Operator)
 @syindexanchor{symbol-macrolet, SYM}
+@subsection symbol-macrolet (Special Operator)
 @cindex symbol-macrolet
 
 
@@ -5487,8 +5487,8 @@ See @ref{File Compilation}.
 
 
 @node *macroexpand-hook*
-@subsection *macroexpand-hook* (Variable)
 @syindexanchor{*macroexpand-hook*, SYM}
+@subsection *macroexpand-hook* (Variable)
 @cindex *macroexpand-hook*
 
 
@@ -5558,8 +5558,8 @@ value from their own.
 
 
 @node proclaim
-@subsection proclaim (Function)
 @syindexanchor{proclaim, SYM}
+@subsection proclaim (Function)
 @cindex proclaim
 
 
@@ -5652,8 +5652,8 @@ Since @symbolref{proclaim, SYM} @term{forms} are ordinary @term{function forms},
 
 
 @node declaim
-@subsection declaim (Macro)
 @syindexanchor{declaim, SYM}
+@subsection declaim (Macro)
 @cindex declaim
 
 
@@ -5686,8 +5686,8 @@ not the compile-time side-effects of a @symbolref{declaim, SYM} persist after th
 
 
 @node declare
-@subsection declare (Symbol)
 @syindexanchor{declare, SYM}
+@subsection declare (Symbol)
 @cindex declare
 
 
@@ -5823,10 +5823,10 @@ declare expressions.}
 
 
 @node ignore; ignorable
-@subsection ignore, ignorable (Declaration)
 @syindexanchor{ignore, SYM}
-@cindex ignore
+@subsection ignore, ignorable (Declaration)
 @syindexanchor{ignorable, SYM}
+@cindex ignore
 @cindex ignorable
 @anchor{ignore}
 @anchor{ignorable}
@@ -5914,8 +5914,8 @@ for such a @term{variable} @param{v} has unspecified consequences.
 
 
 @node dynamic-extent
-@subsection dynamic-extent (Declaration)
 @syindexanchor{dynamic-extent, SYM}
+@subsection dynamic-extent (Declaration)
 @cindex dynamic-extent
 
 
@@ -6137,8 +6137,8 @@ It is permissible for an implementation to simply ignore this declaration.
 
 
 @node type
-@subsection type (Declaration)
 @syindexanchor{type, SYM}
+@subsection type (Declaration)
 @cindex type
 
 
@@ -6377,10 +6377,10 @@ consider writing something like this instead:
 
 
 @node inline; notinline
-@subsection inline, notinline (Declaration)
 @syindexanchor{inline, SYM}
-@cindex inline
+@subsection inline, notinline (Declaration)
 @syindexanchor{notinline, SYM}
+@cindex inline
 @cindex notinline
 @anchor{inline}
 @anchor{notinline}
@@ -6500,8 +6500,8 @@ Such declarations in other contexts are @term{free declarations}.
 
 
 @node ftype
-@subsection ftype (Declaration)
 @syindexanchor{ftype, SYM}
+@subsection ftype (Declaration)
 @cindex ftype
 
 
@@ -6563,8 +6563,8 @@ Such declarations in other contexts are @term{free declarations}.
 
 
 @node declaration
-@subsection declaration (Declaration)
 @syindexanchor{declaration, SYM}
+@subsection declaration (Declaration)
 @cindex declaration
 
 
@@ -6606,8 +6606,8 @@ compiler or other program processor.
 
 
 @node optimize
-@subsection optimize (Declaration)
 @syindexanchor{optimize, SYM}
+@subsection optimize (Declaration)
 @cindex optimize
 
 
@@ -6701,8 +6701,8 @@ be a @term{free declaration}.  For more information, see @ref{Declaration Scope}
 
 
 @node special
-@subsection special (Declaration)
 @syindexanchor{special, SYM}
+@subsection special (Declaration)
 @cindex special
 
 
@@ -6866,8 +6866,8 @@ always @symbolref{special, SYM}.
 
 
 @node locally
-@subsection locally (Special Operator)
 @syindexanchor{locally, SYM}
+@subsection locally (Special Operator)
 @cindex locally
 
 
@@ -6943,8 +6943,8 @@ are also processed as @term{top level forms}.  See @ref{File Compilation}.
 
 
 @node the
-@subsection the (Special Operator)
 @syindexanchor{the, SYM}
+@subsection the (Special Operator)
 @cindex the
 
 
@@ -7030,8 +7030,8 @@ is then analyzed.
 
 
 @node special-operator-p
-@subsection special-operator-p (Function)
 @syindexanchor{special-operator-p, SYM}
+@subsection special-operator-p (Function)
 @cindex special-operator-p
 
 
@@ -7072,8 +7072,8 @@ finally declared a misnomer and changed, since it returned true for
 
 
 @node constantp
-@subsection constantp (Function)
 @syindexanchor{constantp, SYM}
+@subsection constantp (Function)
 @cindex constantp
 
 

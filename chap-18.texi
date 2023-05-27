@@ -221,8 +221,8 @@ tests.
 @end menu
 
 @node hash-table
-@subsection hash-table (System Class)
 @syindexanchor{hash-table, SYM}
+@subsection hash-table (System Class)
 @cindex hash-table
 
 
@@ -249,8 +249,8 @@ is required to use any particular technique to implement the mapping.
 
 
 @node make-hash-table
-@subsection make-hash-table (Function)
 @syindexanchor{make-hash-table, SYM}
+@subsection make-hash-table (Function)
 @cindex make-hash-table
 
 
@@ -340,8 +340,8 @@ is permitted to ignore them.
 
 
 @node hash-table-p
-@subsection hash-table-p (Function)
 @syindexanchor{hash-table-p, SYM}
+@subsection hash-table-p (Function)
 @cindex hash-table-p
 
 
@@ -378,8 +378,8 @@ is permitted to ignore them.
 
 
 @node hash-table-count
-@subsection hash-table-count (Function)
 @syindexanchor{hash-table-count, SYM}
+@subsection hash-table-count (Function)
 @cindex hash-table-count
 
 
@@ -441,8 +441,8 @@ using @symbolref{hash-table-count, SYM} is probably much faster:
 
 
 @node hash-table-rehash-size
-@subsection hash-table-rehash-size (Function)
 @syindexanchor{hash-table-rehash-size, SYM}
+@subsection hash-table-rehash-size (Function)
 @cindex hash-table-rehash-size
 
 
@@ -498,8 +498,8 @@ the actual amount by which the @param{hash-table} will grow upon rehash is
 
 
 @node hash-table-rehash-threshold
-@subsection hash-table-rehash-threshold (Function)
 @syindexanchor{hash-table-rehash-threshold, SYM}
+@subsection hash-table-rehash-threshold (Function)
 @cindex hash-table-rehash-threshold
 
 
@@ -542,8 +542,8 @@ state of the @param{hash-table}.
 
 
 @node hash-table-size
-@subsection hash-table-size (Function)
 @syindexanchor{hash-table-size, SYM}
+@subsection hash-table-size (Function)
 @cindex hash-table-size
 
 
@@ -576,8 +576,8 @@ with state corresponding to the current state of the @param{hash-table}.
 
 
 @node hash-table-test
-@subsection hash-table-test (Function)
 @syindexanchor{hash-table-test, SYM}
+@subsection hash-table-test (Function)
 @cindex hash-table-test
 
 
@@ -612,8 +612,8 @@ Returns the test used for comparing @term{keys} in @param{hash-table}.
 
 
 @node gethash
-@subsection gethash (Accessor)
 @syindexanchor{gethash, SYM}
+@subsection gethash (Accessor)
 @cindex gethash
 
 
@@ -686,8 +686,8 @@ from the presence of an entry that has a value of @param{default}.
 
 
 @node remhash
-@subsection remhash (Function)
 @syindexanchor{remhash, SYM}
+@subsection remhash (Function)
 @cindex remhash
 
 
@@ -725,8 +725,8 @@ The @param{hash-table} is modified.
 
 
 @node maphash
-@subsection maphash (Function)
 @syindexanchor{maphash, SYM}
+@subsection maphash (Function)
 @cindex maphash
 
 
@@ -793,8 +793,8 @@ None, other than any which might be done by the @param{function}.
 
 
 @node with-hash-table-iterator
-@subsection with-hash-table-iterator (Macro)
 @syindexanchor{with-hash-table-iterator, SYM}
+@subsection with-hash-table-iterator (Macro)
 @cindex with-hash-table-iterator
 
 
@@ -900,8 +900,8 @@ returned @term{false} as its @term{primary value}.
 
 
 @node clrhash
-@subsection clrhash (Function)
 @syindexanchor{clrhash, SYM}
+@subsection clrhash (Function)
 @cindex clrhash
 
 
@@ -937,8 +937,8 @@ The @param{hash-table} is modified.
 
 
 @node sxhash
-@subsection sxhash (Function)
 @syindexanchor{sxhash, SYM}
+@subsection sxhash (Function)
 @cindex sxhash
 
 

@@ -229,8 +229,8 @@ if that @term{list} is @term{circular}.
 @end menu
 
 @node list (System Class)
-@subsection list (System Class)
 @syindexanchor{list, SC}
+@subsection list (System Class)
 @cindex list
 
 
@@ -271,8 +271,8 @@ of the @term{type} @code{list}.
 
 
 @node null (System Class)
-@subsection null (System Class)
 @syindexanchor{null, SC}
+@subsection null (System Class)
 @cindex null
 
 
@@ -295,8 +295,8 @@ which represents the @term{empty list} and can also be notated @empty{}.
 @ref{Printing Symbols}
 
 @node cons (System Class)
-@subsection cons (System Class)
 @syindexanchor{cons, SC}
+@subsection cons (System Class)
 @cindex cons
 
 
@@ -346,8 +346,8 @@ it is as if @thetype{t} had been denoted.)
 @ref{Printing Lists and Conses}
 
 @node atom (Type)
-@subsection atom (Type)
 @syindexanchor{atom, T}
+@subsection atom (Type)
 @cindex atom
 
 
@@ -362,8 +362,8 @@ It is equivalent to @tt{(not cons)}.
 
 
 @node cons (Function)
-@subsection cons (Function)
 @syindexanchor{cons, F}
+@subsection cons (Function)
 @cindex cons
 
 
@@ -407,8 +407,8 @@ If @param{object-2} is a @term{list}, @symbolref{cons, SC} can be thought of as
 producing a new @term{list} which is like it but has @param{object-1} prepended.
 
 @node consp
-@subsection consp (Function)
 @syindexanchor{consp, SYM}
+@subsection consp (Function)
 @cindex consp
 
 
@@ -453,8 +453,8 @@ The @term{empty list} is not a @term{cons}, so
 
 
 @node atom (Function)
-@subsection atom (Function)
 @syindexanchor{atom, F}
+@subsection atom (Function)
 @cindex atom
 
 
@@ -492,10 +492,10 @@ The @term{empty list} is not a @term{cons}, so
 
 
 @node rplaca; rplacd
-@subsection rplaca, rplacd (Function)
 @syindexanchor{rplaca, SYM}
-@cindex rplaca
 @syindexanchor{rplacd, SYM}
+@subsection rplaca, rplacd (Function)
+@cindex rplaca
 @cindex rplacd
 @anchor{rplaca}
 
@@ -547,66 +547,66 @@ The @param{cons} is modified.
 
 
 @node car; cdr; caar; cadr; cdar; cddr; caaar; caadr; cadar; caddr; cdaar; cd+
-@subsection car, cdr, caar, cadr, cdar, cddr, caaar, caadr, cadar, caddr, cdaar, cdadr, cddar, cdddr, caaaar, caaadr, caadar, caaddr, cadaar, cadadr, caddar, cadddr, cdaaar, cdaadr, cdadar, cdaddr, cddaar, cddadr, cdddar, cddddr (Accessor)
 @syindexanchor{car, SYM}
-@cindex car
 @syindexanchor{cdr, SYM}
-@cindex cdr
 @syindexanchor{caar, SYM}
-@cindex caar
 @syindexanchor{cadr, SYM}
-@cindex cadr
 @syindexanchor{cdar, SYM}
-@cindex cdar
 @syindexanchor{cddr, SYM}
-@cindex cddr
-@syindexanchor{caaar, SYM}
-@cindex caaar
-@syindexanchor{caadr, SYM}
-@cindex caadr
-@syindexanchor{cadar, SYM}
-@cindex cadar
-@syindexanchor{caddr, SYM}
-@cindex caddr
-@syindexanchor{cdaar, SYM}
-@cindex cdaar
-@syindexanchor{cdadr, SYM}
-@cindex cdadr
-@syindexanchor{cddar, SYM}
-@cindex cddar
-@syindexanchor{cdddr, SYM}
-@cindex cdddr
 @syindexanchor{caaaar, SYM}
-@cindex caaaar
 @syindexanchor{caaadr, SYM}
-@cindex caaadr
+@syindexanchor{caaar, SYM}
 @syindexanchor{caadar, SYM}
-@cindex caadar
 @syindexanchor{caaddr, SYM}
-@cindex caaddr
+@syindexanchor{caadr, SYM}
 @syindexanchor{cadaar, SYM}
-@cindex cadaar
 @syindexanchor{cadadr, SYM}
-@cindex cadadr
+@syindexanchor{cadar, SYM}
 @syindexanchor{caddar, SYM}
-@cindex caddar
 @syindexanchor{cadddr, SYM}
-@cindex cadddr
+@syindexanchor{caddr, SYM}
 @syindexanchor{cdaaar, SYM}
-@cindex cdaaar
 @syindexanchor{cdaadr, SYM}
-@cindex cdaadr
+@syindexanchor{cdaar, SYM}
 @syindexanchor{cdadar, SYM}
-@cindex cdadar
 @syindexanchor{cdaddr, SYM}
-@cindex cdaddr
+@syindexanchor{cdadr, SYM}
 @syindexanchor{cddaar, SYM}
-@cindex cddaar
 @syindexanchor{cddadr, SYM}
-@cindex cddadr
+@syindexanchor{cddar, SYM}
 @syindexanchor{cdddar, SYM}
-@cindex cdddar
 @syindexanchor{cddddr, SYM}
+@syindexanchor{cdddr, SYM}
+@subsection car, cdr, caar, cadr, cdar, cddr, caaar, caadr, cadar, caddr, cdaar, cdadr, cddar, cdddr, caaaar, caaadr, caadar, caaddr, cadaar, cadadr, caddar, cadddr, cdaaar, cdaadr, cdadar, cdaddr, cddaar, cddadr, cdddar, cddddr (Accessor)
+@cindex car
+@cindex caaaar
+@cindex caaadr
+@cindex caaar
+@cindex caadar
+@cindex caaddr
+@cindex caadr
+@cindex caar
+@cindex cadaar
+@cindex cadadr
+@cindex cadar
+@cindex caddar
+@cindex cadddr
+@cindex caddr
+@cindex cadr
+@cindex cdaaar
+@cindex cdaadr
+@cindex cdaar
+@cindex cdadar
+@cindex cdaddr
+@cindex cdadr
+@cindex cdar
+@cindex cddaar
+@cindex cddadr
+@cindex cddar
+@cindex cdddar
+@cindex cdddr
+@cindex cddr
+@cindex cdr
 @cindex cddddr
 @anchor{car}
 @anchor{cdr}
@@ -777,8 +777,8 @@ and the @term{cdr} of a @term{cons} can be altered by using @symbolref{rplacd, S
 
 
 @node copy-tree
-@subsection copy-tree (Function)
 @syindexanchor{copy-tree, SYM}
+@subsection copy-tree (Function)
 @cindex copy-tree
 
 
@@ -837,10 +837,10 @@ are copied recursively, stopping only when non-@term{conses} are encountered.
 
 
 @node sublis; nsublis
-@subsection sublis, nsublis (Function)
 @syindexanchor{sublis, SYM}
-@cindex sublis
 @syindexanchor{nsublis, SYM}
+@subsection sublis, nsublis (Function)
+@cindex sublis
 @cindex nsublis
 
 
@@ -958,18 +958,18 @@ some implementations:
 
 
 @node subst; subst-if; subst-if-not; nsubst; nsubst-if; nsubst-if-not
-@subsection subst, subst-if, subst-if-not, nsubst, nsubst-if, nsubst-if-not (Function)
 @syindexanchor{subst, SYM}
-@cindex subst
 @syindexanchor{subst-if, SYM}
-@cindex subst-if
 @syindexanchor{subst-if-not, SYM}
-@cindex subst-if-not
 @syindexanchor{nsubst, SYM}
-@cindex nsubst
 @syindexanchor{nsubst-if, SYM}
-@cindex nsubst-if
 @syindexanchor{nsubst-if-not, SYM}
+@subsection subst, subst-if, subst-if-not, nsubst, nsubst-if, nsubst-if-not (Function)
+@cindex subst
+@cindex subst-if
+@cindex subst-if-not
+@cindex nsubst
+@cindex nsubst-if
 @cindex nsubst-if-not
 @anchor{subst}
 @anchor{nsubst}
@@ -1112,8 +1112,8 @@ One possible definition of @symbolref{subst, SYM}:
 
 
 @node tree-equal
-@subsection tree-equal (Function)
 @syindexanchor{tree-equal, SYM}
+@subsection tree-equal (Function)
 @cindex tree-equal
 
 
@@ -1189,8 +1189,8 @@ The @kwd{test-not} parameter is deprecated.
 
 
 @node copy-list
-@subsection copy-list (Function)
 @syindexanchor{copy-list, SYM}
+@subsection copy-list (Function)
 @cindex copy-list
 
 
@@ -1249,10 +1249,10 @@ The copy created is @symbolref{equal, SYM} to @param{list}, but not @symbolref{e
 
 
 @node list; list*
-@subsection list, list* (Function)
 @syindexanchor{list, F}
-@cindex list
 @syindexanchor{list*, SYM}
+@subsection list, list* (Function)
+@cindex list
 @cindex list*
 @anchor{list}
 
@@ -1322,8 +1322,8 @@ that @param{object} is returned, regardless of whether or not it is a @term{list
 
 
 @node list-length
-@subsection list-length (Function)
 @syindexanchor{list-length, SYM}
+@subsection list-length (Function)
 @cindex list-length
 
 
@@ -1392,8 +1392,8 @@ Returns @nil{}@spc{}if @param{list} is a @term{circular list}.
 
 
 @node listp
-@subsection listp (Function)
 @syindexanchor{listp, SYM}
+@subsection listp (Function)
 @cindex listp
 
 
@@ -1437,8 +1437,8 @@ it returns @term{true} for any kind of @term{list}.
 
 
 @node make-list
-@subsection make-list (Function)
 @syindexanchor{make-list, SYM}
+@subsection make-list (Function)
 @cindex make-list
 
 
@@ -1481,8 +1481,8 @@ each of the @term{elements} of which is @param{initial-element}.
 
 
 @node push
-@subsection push (Macro)
 @syindexanchor{push, SYM}
+@subsection push (Macro)
 @cindex push
 
 
@@ -1544,8 +1544,8 @@ before @param{place}.
 
 
 @node pop
-@subsection pop (Macro)
 @syindexanchor{pop, SYM}
+@subsection pop (Macro)
 @cindex pop
 
 
@@ -1605,26 +1605,26 @@ three times, while @symbolref{pop, SYM} evaluates them only once.
 
 
 @node first; second; third; fourth; fifth; sixth; seventh; eighth; ninth; ten+
-@subsection first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth (Accessor)
 @syindexanchor{first, SYM}
-@cindex first
 @syindexanchor{second, SYM}
-@cindex second
 @syindexanchor{third, SYM}
-@cindex third
 @syindexanchor{fourth, SYM}
-@cindex fourth
-@syindexanchor{fifth, SYM}
-@cindex fifth
-@syindexanchor{sixth, SYM}
-@cindex sixth
-@syindexanchor{seventh, SYM}
-@cindex seventh
-@syindexanchor{eighth, SYM}
-@cindex eighth
 @syindexanchor{ninth, SYM}
-@cindex ninth
 @syindexanchor{tenth, SYM}
+@syindexanchor{fifth, SYM}
+@syindexanchor{sixth, SYM}
+@syindexanchor{seventh, SYM}
+@syindexanchor{eighth, SYM}
+@subsection first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth (Accessor)
+@cindex first
+@cindex second
+@cindex third
+@cindex fourth
+@cindex fifth
+@cindex sixth
+@cindex seventh
+@cindex eighth
+@cindex ninth
 @cindex tenth
 @anchor{first}
 
@@ -1727,8 +1727,8 @@ as opposed to the zero-origin numbering used by @symbolref{nth, SYM}:
 
 
 @node nth
-@subsection nth (Accessor)
 @syindexanchor{nth, SYM}
+@subsection nth (Accessor)
 @cindex nth
 
 
@@ -1787,8 +1787,8 @@ Specifically,
 
 
 @node endp
-@subsection endp (Function)
 @syindexanchor{endp, SYM}
+@subsection endp (Function)
 @cindex endp
 
 
@@ -1841,8 +1841,8 @@ when the argument is @term{atomic}.
 
 
 @node null (Function)
-@subsection null (Function)
 @syindexanchor{null, F}
+@subsection null (Function)
 @cindex null
 
 
@@ -1891,8 +1891,8 @@ which to use is a matter of style.
 
 
 @node nconc
-@subsection nconc (Function)
 @syindexanchor{nconc, SYM}
+@subsection nconc (Function)
 @cindex nconc
 
 
@@ -1973,8 +1973,8 @@ The @param{lists} are modified rather than copied.
 
 
 @node append
-@subsection append (Function)
 @syindexanchor{append, SYM}
+@subsection append (Function)
 @cindex append
 
 
@@ -2021,10 +2021,10 @@ or is returned directly if there are no preceding
 
 
 @node revappend; nreconc
-@subsection revappend, nreconc (Function)
 @syindexanchor{revappend, SYM}
-@cindex revappend
 @syindexanchor{nreconc, SYM}
+@subsection revappend, nreconc (Function)
+@cindex revappend
 @cindex nreconc
 
 
@@ -2120,10 +2120,10 @@ achieving the same effect:
 
 
 @node butlast; nbutlast
-@subsection butlast, nbutlast (Function)
 @syindexanchor{butlast, SYM}
-@cindex butlast
 @syindexanchor{nbutlast, SYM}
+@subsection butlast, nbutlast (Function)
+@cindex butlast
 @cindex nbutlast
 @anchor{butlast}
 
@@ -2197,8 +2197,8 @@ the @term{cons} @param{n}+1 from the end of the @param{list} to @nil{}.
 
 
 @node last
-@subsection last (Function)
 @syindexanchor{last, SYM}
+@subsection last (Function)
 @cindex last
 
 
@@ -2278,10 +2278,10 @@ The following code could be used to define @symbolref{last, SYM}.
 
 
 @node ldiff; tailp
-@subsection ldiff, tailp (Function)
 @syindexanchor{ldiff, SYM}
-@cindex ldiff
 @syindexanchor{tailp, SYM}
+@subsection ldiff, tailp (Function)
+@cindex ldiff
 @cindex tailp
 
 
@@ -2400,8 +2400,8 @@ and @symbolref{ldiff, SYM} could be defined by:
 
 
 @node nthcdr
-@subsection nthcdr (Function)
 @syindexanchor{nthcdr, SYM}
+@subsection nthcdr (Function)
 @cindex nthcdr
 
 
@@ -2456,8 +2456,8 @@ see the @term{function} @ref{cdr}.
 
 
 @node rest
-@subsection rest (Accessor)
 @syindexanchor{rest, SYM}
+@subsection rest (Accessor)
 @cindex rest
 
 
@@ -2510,12 +2510,12 @@ rather than as a @term{cons}.
 
 
 @node member; member-if; member-if-not
-@subsection member, member-if, member-if-not (Function)
 @syindexanchor{member, F}
-@cindex member
 @syindexanchor{member-if, SYM}
-@cindex member-if
 @syindexanchor{member-if-not, SYM}
+@subsection member, member-if, member-if-not (Function)
+@cindex member-if
+@cindex member
 @cindex member-if-not
 @anchor{member}
 
@@ -2610,18 +2610,18 @@ did not return @nil{}).
 
 
 @node mapc; mapcar; mapcan; mapl; maplist; mapcon
-@subsection mapc, mapcar, mapcan, mapl, maplist, mapcon (Function)
 @syindexanchor{mapc, SYM}
-@cindex mapc
 @syindexanchor{mapcar, SYM}
-@cindex mapcar
 @syindexanchor{mapcan, SYM}
-@cindex mapcan
 @syindexanchor{mapl, SYM}
-@cindex mapl
 @syindexanchor{maplist, SYM}
-@cindex maplist
 @syindexanchor{mapcon, SYM}
+@subsection mapc, mapcar, mapcan, mapl, maplist, mapcon (Function)
+@cindex mapc
+@cindex mapcar
+@cindex mapcan
+@cindex mapl
+@cindex maplist
 @cindex mapcon
 
 
@@ -2760,8 +2760,8 @@ this is a standard @Lisp{}@spc{}idiom using @symbolref{mapcan, SYM}.
 
 
 @node acons
-@subsection acons (Function)
 @syindexanchor{acons, SYM}
+@subsection acons (Function)
 @cindex acons
 
 
@@ -2813,12 +2813,12 @@ the @term{cdr} of which is @param{datum}.
 
 
 @node assoc; assoc-if; assoc-if-not
-@subsection assoc, assoc-if, assoc-if-not (Function)
 @syindexanchor{assoc, SYM}
-@cindex assoc
 @syindexanchor{assoc-if, SYM}
-@cindex assoc-if
 @syindexanchor{assoc-if-not, SYM}
+@subsection assoc, assoc-if, assoc-if-not (Function)
+@cindex assoc
+@cindex assoc-if
 @cindex assoc-if-not
 @anchor{assoc}
 
@@ -2985,8 +2985,8 @@ by the @param{alist} continue to be shared.
 
 
 @node pairlis
-@subsection pairlis (Function)
 @syindexanchor{pairlis, SYM}
+@subsection pairlis (Function)
 @cindex pairlis
 
 
@@ -3058,12 +3058,12 @@ or
 
 
 @node rassoc; rassoc-if; rassoc-if-not
-@subsection rassoc, rassoc-if, rassoc-if-not (Function)
 @syindexanchor{rassoc, SYM}
-@cindex rassoc
 @syindexanchor{rassoc-if, SYM}
-@cindex rassoc-if
 @syindexanchor{rassoc-if-not, SYM}
+@subsection rassoc, rassoc-if, rassoc-if-not (Function)
+@cindex rassoc
+@cindex rassoc-if
 @cindex rassoc-if-not
 @anchor{rassoc}
 
@@ -3158,8 +3158,8 @@ See the @term{function} @ref{assoc}.
 
 
 @node get-properties
-@subsection get-properties (Function)
 @syindexanchor{get-properties, SYM}
+@subsection get-properties (Function)
 @cindex get-properties
 
 
@@ -3212,8 +3212,8 @@ are all @nil{}.
 
 
 @node getf
-@subsection getf (Accessor)
 @syindexanchor{getf, SYM}
+@subsection getf (Accessor)
 @cindex getf
 
 
@@ -3318,8 +3318,8 @@ syntactically valid for the @term{write} situation as well. For example,
 
 
 @node remf
-@subsection remf (Macro)
 @syindexanchor{remf, SYM}
+@subsection remf (Macro)
 @cindex remf
 
 
@@ -3376,11 +3376,11 @@ The property list stored in @param{place} is modified.
 
 
 @node intersection; nintersection
-@subsection intersection, nintersection (Function)
 @syindexanchor{intersection, SYM}
-@cindex intersection
 @syindexanchor{nintersection, SYM}
+@subsection intersection, nintersection (Function)
 @cindex nintersection
+@cindex intersection
 @anchor{intersection}
 
 
@@ -3499,8 +3499,8 @@ it should not be used in for-effect-only
 positions in portable code.
 
 @node adjoin
-@subsection adjoin (Function)
 @syindexanchor{adjoin, SYM}
+@subsection adjoin (Function)
 @cindex adjoin
 
 
@@ -3571,8 +3571,8 @@ The @kwd{test-not} parameter is deprecated.
 
 
 @node pushnew
-@subsection pushnew (Macro)
 @syindexanchor{pushnew, SYM}
+@subsection pushnew (Macro)
 @cindex pushnew
 
 
@@ -3675,11 +3675,11 @@ and @f{item} is evaluated before @f{place}.
 
 
 @node set-difference; nset-difference
-@subsection set-difference, nset-difference (Function)
 @syindexanchor{set-difference, SYM}
-@cindex set-difference
 @syindexanchor{nset-difference, SYM}
+@subsection set-difference, nset-difference (Function)
 @cindex nset-difference
+@cindex set-difference
 @anchor{set-difference}
 
 
@@ -3791,10 +3791,10 @@ The @kwd{test-not} parameter is deprecated.
 
 
 @node set-exclusive-or; nset-exclusive-or
-@subsection set-exclusive-or, nset-exclusive-or (Function)
 @syindexanchor{set-exclusive-or, SYM}
-@cindex set-exclusive-or
 @syindexanchor{nset-exclusive-or, SYM}
+@subsection set-exclusive-or, nset-exclusive-or (Function)
+@cindex set-exclusive-or
 @cindex nset-exclusive-or
 
 
@@ -3894,8 +3894,8 @@ positions in portable code.
 
 
 @node subsetp
-@subsection subsetp (Function)
 @syindexanchor{subsetp, SYM}
+@subsection subsetp (Function)
 @cindex subsetp
 
 
@@ -3972,11 +3972,11 @@ The @kwd{test-not} parameter is deprecated.
 
 
 @node union; nunion
-@subsection union, nunion (Function)
 @syindexanchor{union, SYM}
-@cindex union
 @syindexanchor{nunion, SYM}
+@subsection union, nunion (Function)
 @cindex nunion
+@cindex union
 @anchor{union}
 
 

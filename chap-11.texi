@@ -605,8 +605,8 @@ initially present in that @term{implementation} but not specified in this specif
 @end menu
 
 @node package
-@subsection package (System Class)
 @syindexanchor{package, SYM}
+@subsection package (System Class)
 @cindex package
 
 
@@ -627,8 +627,8 @@ to @term{symbols}; see @ref{Package Concepts}.
 
 
 @node export
-@subsection export (Function)
 @syindexanchor{export, SYM}
+@subsection export (Function)
 @cindex export
 
 
@@ -736,8 +736,8 @@ to interactively specify whether that @term{symbol} should be @term{imported}.
 
 
 @node find-symbol
-@subsection find-symbol (Function)
 @syindexanchor{find-symbol, SYM}
+@subsection find-symbol (Function)
 @cindex find-symbol
 
 
@@ -838,8 +838,8 @@ except that it never creates a new @term{symbol}.
 
 
 @node find-package
-@subsection find-package (Function)
 @syindexanchor{find-package, SYM}
+@subsection find-package (Function)
 @cindex find-package
 
 
@@ -890,8 +890,8 @@ The set of @term{packages} created by the @term{implementation}.
 
 
 @node find-all-symbols
-@subsection find-all-symbols (Function)
 @syindexanchor{find-all-symbols, SYM}
+@subsection find-all-symbols (Function)
 @cindex find-all-symbols
 
 
@@ -935,8 +935,8 @@ Whether or how the @term{list} is ordered is
 
 
 @node import
-@subsection import (Function)
 @syindexanchor{import, SYM}
+@subsection import (Function)
 @cindex import
 
 
@@ -1022,8 +1022,8 @@ with a @term{shadowing symbol} of the @param{package}.
 
 
 @node list-all-packages
-@subsection list-all-packages (Function)
 @syindexanchor{list-all-packages, SYM}
+@subsection list-all-packages (Function)
 @cindex list-all-packages
 
 
@@ -1059,8 +1059,8 @@ all @term{registered packages}.
 
 
 @node rename-package
-@subsection rename-package (Function)
 @syindexanchor{rename-package, SYM}
+@subsection rename-package (Function)
 @cindex rename-package
 
 
@@ -1107,8 +1107,8 @@ conflicts with any existing package names.
 
 
 @node shadow
-@subsection shadow (Function)
 @syindexanchor{shadow, SYM}
+@subsection shadow (Function)
 @cindex shadow
 
 
@@ -1190,8 +1190,8 @@ in @param{package}, but by inheritance, the inherited symbol becomes
 
 
 @node shadowing-import
-@subsection shadowing-import (Function)
 @syindexanchor{shadowing-import, SYM}
+@subsection shadowing-import (Function)
 @cindex shadowing-import
 
 
@@ -1257,8 +1257,8 @@ Current state of the package system.
 
 
 @node delete-package
-@subsection delete-package (Function)
 @syindexanchor{delete-package, SYM}
+@subsection delete-package (Function)
 @cindex delete-package
 
 
@@ -1409,8 +1409,8 @@ there been no @term{packages} that used it.
 
 
 @node make-package
-@subsection make-package (Function)
 @syindexanchor{make-package, SYM}
+@subsection make-package (Function)
 @cindex make-package
 
 
@@ -1483,8 +1483,8 @@ appropriate to use @symbolref{defpackage, SYM} rather than @symbolref{make-packa
 
 
 @node with-package-iterator
-@subsection with-package-iterator (Macro)
 @syindexanchor{with-package-iterator, SYM}
+@subsection with-package-iterator (Macro)
 @cindex with-package-iterator
 
 
@@ -1677,8 +1677,8 @@ has returned @term{false} as its @term{primary value}.
 
 
 @node unexport
-@subsection unexport (Function)
 @syindexanchor{unexport, SYM}
+@subsection unexport (Function)
 @cindex unexport
 
 
@@ -1741,8 +1741,8 @@ or the @code{COMMON-LISP} @term{package}.
 
 
 @node unintern
-@subsection unintern (Function)
 @syindexanchor{unintern, SYM}
+@subsection unintern (Function)
 @cindex unintern
 
 
@@ -1815,8 +1815,8 @@ In this case @symbolref{unintern, SYM} will signal an error.
 
 
 @node in-package
-@subsection in-package (Macro)
 @syindexanchor{in-package, SYM}
+@subsection in-package (Macro)
 @cindex in-package
 
 
@@ -1857,8 +1857,8 @@ An error @oftype{package-error} is signaled if the specified @term{package} does
 
 
 @node unuse-package
-@subsection unuse-package (Function)
 @syindexanchor{unuse-package, SYM}
+@subsection unuse-package (Function)
 @cindex unuse-package
 
 
@@ -1912,8 +1912,8 @@ Current state of the package system.
 
 
 @node use-package
-@subsection use-package (Function)
 @syindexanchor{use-package, SYM}
+@subsection use-package (Function)
 @cindex use-package
 
 
@@ -1987,8 +1987,8 @@ so no problem results from the apparent circularity.
 
 
 @node defpackage
-@subsection defpackage (Macro)
 @syindexanchor{defpackage, SYM}
+@subsection defpackage (Macro)
 @cindex defpackage
 
 
@@ -2264,12 +2264,12 @@ option in implementations that do not support it.
 
 
 @node do-symbols; do-external-symbols; do-all-symbols
-@subsection do-symbols, do-external-symbols, do-all-symbols (Macro)
 @syindexanchor{do-symbols, SYM}
-@cindex do-symbols
-@syindexanchor{do-external-symbols, SYM}
-@cindex do-external-symbols
 @syindexanchor{do-all-symbols, SYM}
+@syindexanchor{do-external-symbols, SYM}
+@subsection do-symbols, do-external-symbols, do-all-symbols (Macro)
+@cindex do-symbols
+@cindex do-external-symbols
 @cindex do-all-symbols
 
 
@@ -2383,8 +2383,8 @@ Any @param{tag} in the body is treated as with @symbolref{tagbody, SYM}.
 
 
 @node intern
-@subsection intern (Function)
 @syindexanchor{intern, SYM}
+@subsection intern (Function)
 @cindex intern
 
 
@@ -2484,8 +2484,8 @@ if there is already an @term{accessible} @term{symbol} with the name given.
 
 
 @node package-name
-@subsection package-name (Function)
 @syindexanchor{package-name, SYM}
+@subsection package-name (Function)
 @cindex package-name
 
 
@@ -2529,8 +2529,8 @@ is a @term{package} @term{object} that has no name (see the @term{function} @ref
 
 
 @node package-nicknames
-@subsection package-nicknames (Function)
 @syindexanchor{package-nicknames, SYM}
+@subsection package-nicknames (Function)
 @cindex package-nicknames
 
 
@@ -2564,8 +2564,8 @@ for @param{package}, not including the name of @param{package}.
 
 
 @node package-shadowing-symbols
-@subsection package-shadowing-symbols (Function)
 @syindexanchor{package-shadowing-symbols, SYM}
+@subsection package-shadowing-symbols (Function)
 @cindex package-shadowing-symbols
 
 
@@ -2613,8 +2613,8 @@ Whether the list of @param{symbols} is @term{fresh} is @term{implementation-depe
 
 
 @node package-use-list
-@subsection package-use-list (Function)
 @syindexanchor{package-use-list, SYM}
+@subsection package-use-list (Function)
 @cindex package-use-list
 
 
@@ -2652,8 +2652,8 @@ Returns a @term{list} of other @term{packages} used by @param{package}.
 
 
 @node package-used-by-list
-@subsection package-used-by-list (Function)
 @syindexanchor{package-used-by-list, SYM}
+@subsection package-used-by-list (Function)
 @cindex package-used-by-list
 
 
@@ -2692,8 +2692,8 @@ of other @term{packages} that use @param{package}.
 
 
 @node packagep
-@subsection packagep (Function)
 @syindexanchor{packagep, SYM}
+@subsection packagep (Function)
 @cindex packagep
 
 
@@ -2728,8 +2728,8 @@ of other @term{packages} that use @param{package}.
 
 
 @node *package*
-@subsection *package* (Variable)
 @syindexanchor{*package*, SYM}
+@subsection *package* (Variable)
 @cindex *package*
 
 
@@ -2784,8 +2784,8 @@ Whatever @term{package} @term{object} is currently
 
 
 @node package-error
-@subsection package-error (Condition Type)
 @syindexanchor{package-error, SYM}
+@subsection package-error (Condition Type)
 @cindex package-error
 
 
@@ -2811,8 +2811,8 @@ and is @term{accessed} by @thefunction{package-error-package}.
 
 
 @node package-error-package
-@subsection package-error-package (Function)
 @syindexanchor{package-error-package, SYM}
+@subsection package-error-package (Function)
 @cindex package-error-package
 
 

@@ -556,8 +556,8 @@ and external encoding schemes supported are documented.
 @end menu
 
 @node character (System Class)
-@subsection character (System Class)
 @syindexanchor{character, SC}
+@subsection character (System Class)
 @cindex character
 
 
@@ -581,8 +581,8 @@ form an @term{exhaustive partition} of @thetype{character}.
 @ref{Printing Characters}
 
 @node base-char
-@subsection base-char (Type)
 @syindexanchor{base-char, SYM}
+@subsection base-char (Type)
 @cindex base-char
 
 
@@ -640,8 +640,8 @@ having 8-bit encodings.  In such an implementation,
 
 
 @node standard-char
-@subsection standard-char (Type)
 @syindexanchor{standard-char, SYM}
+@subsection standard-char (Type)
 @cindex standard-char
 
 
@@ -667,8 +667,8 @@ Any @term{character} that is not @term{simple} is not a @term{standard character
 @ref{Standard Characters}
 
 @node extended-char
-@subsection extended-char (Type)
 @syindexanchor{extended-char, SYM}
+@subsection extended-char (Type)
 @cindex extended-char
 
 
@@ -692,30 +692,30 @@ in @term{implementations} in which all @term{characters} are @oftype{base-char}.
 
 
 @node char=; char/=; char<; char>; char<=; char>=; char-equal; char-not-equal+
-@subsection char=, char/=, char<, char>, char<=, char>=, char-equal, char-not-equal, char-lessp, char-greaterp, char-not-greaterp, char-not-lessp (Function)
 @syindexanchor{char=, SYM}
-@cindex char=
 @syindexanchor{char/=, SYM}
-@cindex char/=
 @syindexanchor{char<, SYM}
-@cindex char<
 @syindexanchor{char>, SYM}
-@cindex char>
 @syindexanchor{char<=, SYM}
-@cindex char<=
 @syindexanchor{char>=, SYM}
-@cindex char>=
 @syindexanchor{char-equal, SYM}
-@cindex char-equal
 @syindexanchor{char-not-equal, SYM}
-@cindex char-not-equal
 @syindexanchor{char-lessp, SYM}
-@cindex char-lessp
 @syindexanchor{char-greaterp, SYM}
-@cindex char-greaterp
 @syindexanchor{char-not-greaterp, SYM}
-@cindex char-not-greaterp
 @syindexanchor{char-not-lessp, SYM}
+@subsection char=, char/=, char<, char>, char<=, char>=, char-equal, char-not-equal, char-lessp, char-greaterp, char-not-greaterp, char-not-lessp (Function)
+@cindex char=
+@cindex char/=
+@cindex char<
+@cindex char>
+@cindex char<=
+@cindex char>=
+@cindex char-equal
+@cindex char-not-equal
+@cindex char-lessp
+@cindex char-greaterp
+@cindex char-not-greaterp
 @cindex char-not-lessp
 @anchor{char=}
 @anchor{char-equal}
@@ -898,8 +898,8 @@ implies an ordering for @term{standard characters} such that
 
 
 @node character (Function)
-@subsection character (Function)
 @syindexanchor{character, F}
+@subsection character (Function)
 @cindex character
 
 
@@ -946,8 +946,8 @@ Returns the @term{character} denoted by the @param{character} @term{designator}.
 
 
 @node characterp
-@subsection characterp (Function)
 @syindexanchor{characterp, SYM}
+@subsection characterp (Function)
 @cindex characterp
 
 
@@ -992,8 +992,8 @@ Returns the @term{character} denoted by the @param{character} @term{designator}.
 
 
 @node alpha-char-p
-@subsection alpha-char-p (Function)
 @syindexanchor{alpha-char-p, SYM}
+@subsection alpha-char-p (Function)
 @cindex alpha-char-p
 
 
@@ -1040,8 +1040,8 @@ of any special syntax which might have been enabled in the @term{current readtab
 
 
 @node alphanumericp
-@subsection alphanumericp (Function)
 @syindexanchor{alphanumericp, SYM}
+@subsection alphanumericp (Function)
 @cindex alphanumericp
 
 
@@ -1099,8 +1099,8 @@ and @f{0} through @f{9} are alphanumeric characters.
 
 
 @node digit-char
-@subsection digit-char (Function)
 @syindexanchor{digit-char, SYM}
+@subsection digit-char (Function)
 @cindex digit-char
 
 
@@ -1154,8 +1154,8 @@ If @param{weight} is greater than or equal to @param{radix},
 
 
 @node digit-char-p
-@subsection digit-char-p (Function)
 @syindexanchor{digit-char-p, SYM}
+@subsection digit-char-p (Function)
 @cindex digit-char-p
 
 
@@ -1218,8 +1218,8 @@ Digits are @term{graphic} @term{characters}.
 
 
 @node graphic-char-p
-@subsection graphic-char-p (Function)
 @syindexanchor{graphic-char-p, SYM}
+@subsection graphic-char-p (Function)
 @cindex graphic-char-p
 
 
@@ -1259,8 +1259,8 @@ Digits are @term{graphic} @term{characters}.
 
 
 @node standard-char-p
-@subsection standard-char-p (Function)
 @syindexanchor{standard-char-p, SYM}
+@subsection standard-char-p (Function)
 @cindex standard-char-p
 
 
@@ -1295,10 +1295,10 @@ Digits are @term{graphic} @term{characters}.
 
 
 @node char-upcase; char-downcase
-@subsection char-upcase, char-downcase (Function)
 @syindexanchor{char-upcase, SYM}
-@cindex char-upcase
 @syindexanchor{char-downcase, SYM}
+@subsection char-upcase, char-downcase (Function)
+@cindex char-upcase
 @cindex char-downcase
 @anchor{char-upcase}
 @anchor{char-downcase}
@@ -1376,12 +1376,12 @@ under @symbolref{char-equal, SYM}.
 
 
 @node upper-case-p; lower-case-p; both-case-p
-@subsection upper-case-p, lower-case-p, both-case-p (Function)
 @syindexanchor{upper-case-p, SYM}
-@cindex upper-case-p
 @syindexanchor{lower-case-p, SYM}
-@cindex lower-case-p
 @syindexanchor{both-case-p, SYM}
+@subsection upper-case-p, lower-case-p, both-case-p (Function)
+@cindex lower-case-p
+@cindex upper-case-p
 @cindex both-case-p
 @anchor{upper-case-p}
 
@@ -1437,8 +1437,8 @@ These functions test the case of a given @param{character}.
 
 
 @node char-code
-@subsection char-code (Function)
 @syindexanchor{char-code, SYM}
+@subsection char-code (Function)
 @cindex char-code
 
 
@@ -1476,8 +1476,8 @@ These functions test the case of a given @param{character}.
 
 
 @node char-int
-@subsection char-int (Function)
 @syindexanchor{char-int, SYM}
+@subsection char-int (Function)
 @cindex char-int
 
 
@@ -1522,8 +1522,8 @@ for characters @i{c1} and @i{c2}.
 
 
 @node code-char
-@subsection code-char (Function)
 @syindexanchor{code-char, SYM}
+@subsection code-char (Function)
 @cindex code-char
 
 
@@ -1564,8 +1564,8 @@ The @term{implementation}'s character encoding.
 
 
 @node char-code-limit
-@subsection char-code-limit (Constant Variable)
 @syindexanchor{char-code-limit, SYM}
+@subsection char-code-limit (Constant Variable)
 @cindex char-code-limit
 
 
@@ -1591,8 +1591,8 @@ number of @term{characters} supported by the @term{implementation}.
 
 
 @node char-name
-@subsection char-name (Function)
 @syindexanchor{char-name, SYM}
+@subsection char-name (Function)
 @cindex char-name
 
 
@@ -1668,8 +1668,8 @@ as ``@f{#@bsl{}}'' followed by the their @term{name}; see @ref{Printing Characte
 
 
 @node name-char
-@subsection name-char (Function)
 @syindexanchor{name-char, SYM}
+@subsection name-char (Function)
 @cindex name-char
 
 

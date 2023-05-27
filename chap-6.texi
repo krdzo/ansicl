@@ -2154,10 +2154,10 @@ extensions to @symbolref{loop, SYM}.
 @end menu
 
 @node do; do*
-@subsection do, do* (Macro)
 @syindexanchor{do, SYM}
-@cindex do
 @syindexanchor{do*, SYM}
+@subsection do, do* (Macro)
+@cindex do
 @cindex do*
 @anchor{do}
 
@@ -2422,8 +2422,8 @@ the @symbolref{let, SYM} and @symbolref{psetq, SYM}, respectively.
 
 
 @node dotimes
-@subsection dotimes (Macro)
 @syindexanchor{dotimes, SYM}
+@subsection dotimes (Macro)
 @cindex dotimes
 
 
@@ -2544,8 +2544,8 @@ Here is an example of the use of @f{dotimes} in processing strings:
 
 
 @node dolist
-@subsection dolist (Macro)
 @syindexanchor{dolist, SYM}
+@subsection dolist (Macro)
 @cindex dolist
 
 
@@ -2637,8 +2637,8 @@ to transfer control to a statement labeled by a @param{tag}.
 
 
 @node loop
-@subsection loop (Macro)
 @syindexanchor{loop, SYM}
+@subsection loop (Macro)
 @cindex loop
 
 
@@ -2778,8 +2778,8 @@ in the following way:
 
 
 @node loop-finish
-@subsection loop-finish (Local Macro)
 @syindexanchor{loop-finish, SYM}
+@subsection loop-finish (Local Macro)
 @cindex loop-finish
 
 

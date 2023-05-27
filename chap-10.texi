@@ -67,8 +67,8 @@ to the creation of and inquiry about @term{symbols}.
 @end menu
 
 @node symbol
-@subsection symbol (System Class)
 @syindexanchor{symbol, SYM}
+@subsection symbol (System Class)
 @cindex symbol
 
 
@@ -208,8 +208,8 @@ on a lexical @term{function} definition.
 
 
 @node keyword
-@subsection keyword (Type)
 @syindexanchor{keyword, SYM}
+@subsection keyword (Type)
 @cindex keyword
 
 
@@ -240,8 +240,8 @@ of the @code{KEYWORD} @term{package}.
 
 
 @node symbolp
-@subsection symbolp (Function)
 @syindexanchor{symbolp, SYM}
+@subsection symbolp (Function)
 @cindex symbolp
 
 
@@ -286,8 +286,8 @@ of the @code{KEYWORD} @term{package}.
 
 
 @node keywordp
-@subsection keywordp (Function)
 @syindexanchor{keywordp, SYM}
+@subsection keywordp (Function)
 @cindex keywordp
 
 
@@ -330,8 +330,8 @@ of the @code{KEYWORD} @term{package}.
 
 
 @node make-symbol
-@subsection make-symbol (Function)
 @syindexanchor{make-symbol, SYM}
+@subsection make-symbol (Function)
 @cindex make-symbol
 
 
@@ -389,8 +389,8 @@ and the program interface to interning symbols is case-sensitive.
 
 
 @node copy-symbol
-@subsection copy-symbol (Function)
 @syindexanchor{copy-symbol, SYM}
+@subsection copy-symbol (Function)
 @cindex copy-symbol
 
 
@@ -470,8 +470,8 @@ be @term{identical} to the given @param{symbol}'s @term{name}.
 
 
 @node gensym
-@subsection gensym (Function)
 @syindexanchor{gensym, SYM}
+@subsection gensym (Function)
 @cindex gensym
 
 
@@ -551,8 +551,8 @@ of the @param{new-symbol}'s @term{name}, consider using @symbolref{make-symbol, 
 
 
 @node *gensym-counter*
-@subsection *gensym-counter* (Variable)
 @syindexanchor{*gensym-counter*, SYM}
+@subsection *gensym-counter* (Variable)
 @cindex *gensym-counter*
 
 
@@ -586,8 +586,8 @@ The ability to pass a numeric argument to @symbolref{gensym, SYM} has been depre
 explicitly @term{binding} @symbolref{*gensym-counter*, SYM} is now stylistically preferred.
 
 @node gentemp
-@subsection gentemp (Function)
 @syindexanchor{gentemp, SYM}
+@subsection gentemp (Function)
 @cindex gentemp
 
 
@@ -681,8 +681,8 @@ another day for some other purpose.
 
 
 @node symbol-function
-@subsection symbol-function (Accessor)
 @syindexanchor{symbol-function, SYM}
+@subsection symbol-function (Accessor)
 @cindex symbol-function
 
 
@@ -785,8 +785,8 @@ However, @symbolref{fdefinition, SYM} accepts arguments other than just @term{sy
 
 
 @node symbol-name
-@subsection symbol-name (Function)
 @syindexanchor{symbol-name, SYM}
+@subsection symbol-name (Function)
 @cindex symbol-name
 
 
@@ -820,8 +820,8 @@ The consequences are undefined if @param{name} is ever modified.
 
 
 @node symbol-package
-@subsection symbol-package (Function)
 @syindexanchor{symbol-package, SYM}
+@subsection symbol-package (Function)
 @cindex symbol-package
 
 
@@ -884,8 +884,8 @@ Returns the @term{home package} of @param{symbol}.
 
 
 @node symbol-plist
-@subsection symbol-plist (Accessor)
 @syindexanchor{symbol-plist, SYM}
+@subsection symbol-plist (Accessor)
 @cindex symbol-plist
 
 
@@ -935,8 +935,8 @@ established and depended upon by unrelated programs in the same @term{Lisp image
 
 
 @node symbol-value
-@subsection symbol-value (Accessor)
 @syindexanchor{symbol-value, SYM}
+@subsection symbol-value (Accessor)
 @cindex symbol-value
 
 
@@ -1015,8 +1015,8 @@ on an attempt to @term{write} its @term{value}.)
 
 
 @node get
-@subsection get (Accessor)
 @syindexanchor{get, SYM}
+@subsection get (Accessor)
 @cindex get
 
 
@@ -1124,8 +1124,8 @@ one whose value is @param{default}.  However, see @symbolref{get-properties, SYM
 
 
 @node remprop
-@subsection remprop (Function)
 @syindexanchor{remprop, SYM}
+@subsection remprop (Function)
 @cindex remprop
 
 
@@ -1216,8 +1216,8 @@ establish the @term{property}.
 
 
 @node boundp
-@subsection boundp (Function)
 @syindexanchor{boundp, SYM}
+@subsection boundp (Function)
 @cindex boundp
 
 
@@ -1266,8 +1266,8 @@ are ignored.
 
 
 @node makunbound
-@subsection makunbound (Function)
 @syindexanchor{makunbound, SYM}
+@subsection makunbound (Function)
 @cindex makunbound
 
 
@@ -1309,8 +1309,8 @@ The @term{value cell} of @param{symbol} is modified.
 
 
 @node set
-@subsection set (Function)
 @syindexanchor{set, SYM}
+@subsection set (Function)
 @cindex set
 
 
@@ -1388,8 +1388,8 @@ The function @symbolref{set, SYM} is deprecated.
 
 
 @node unbound-variable
-@subsection unbound-variable (Condition Type)
 @syindexanchor{unbound-variable, SYM}
+@subsection unbound-variable (Condition Type)
 @cindex unbound-variable
 
 
