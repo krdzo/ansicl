@@ -28,12 +28,8 @@
 @node Top
 @top ANSI Common Lisp
 
-This is a Texinfo version@footnote{The converter is available
-from @uref{http://purl.org/harder/dpans.html}} of the draft
-ANSI Common Lisp standard.  Some font information has been lost
-in the conversion, and errors may have been introduced.  Report
-discrepancies with the hardcopy version to
-@email{jesper.harder@@gmail.com, Jesper Harder}.
+This is a Texinfo version of the draft
+ANSI Common Lisp standard.
 
 @menu
 * Credits::
