@@ -342,7 +342,7 @@ see @Moonual{} or @Pitmanual{}.
 
 Interlisp introduced many ideas into Lisp programming environments and
 methodology. One of the Interlisp ideas that influenced @clisp{}@spc{}was an iteration
-construct implemented by Warren Teitelman that inspired the @symbolref{loop}
+construct implemented by Warren Teitelman that inspired the @symbolref{loop, SYM}
 macro used both on the Lisp Machines and in MacLisp, and now in @clisp{}.
 For further information about Interlisp,
 see @InterlispManual{}.
@@ -1032,7 +1032,7 @@ non-interactive model are @term{implementation-defined}.
 For example, @term{conforming implementations} are permitted to differ in issues
 of how interactive input is terminated.  For example, @thefunction{read}
 terminates when the final delimiter is typed on a non-interactive stream.
-In some @term{implementations}, an interactive call to @symbolref{read} returns
+In some @term{implementations}, an interactive call to @symbolref{read, SYM} returns
 as soon as the final delimiter is typed, even if that delimiter is not a @term{newline}.
 In other @term{implementations}, a final @term{newline} is always required.
 In still other @term{implementations}, there might be a command which ``activates''
@@ -1140,7 +1140,7 @@ so a period that follows a reference to a @term{symbol} at the end of
 a sentence in this document should always be interpreted as a period
 and never as part of the @term{symbol}'s @term{name}.
 For example, within this document, a sentence such as
-``This sample sentence refers to the symbol @symbolref{car}.''
+``This sample sentence refers to the symbol @symbolref{car, SYM}.''
 refers to a symbol whose name is @f{"CAR"} (with three letters),
 and never to a four-letter symbol @f{"CAR."}
 
@@ -1229,7 +1229,7 @@ might be used multiple times, it is @term{implementation-dependent}
 whether the @term{object} is coerced only once or whether the coercion occurs
 each time the @term{object} must be used.
 
-For example, @symbolref{mapcar} receives a @term{function designator} as an argument,
+For example, @symbolref{mapcar, SYM} receives a @term{function designator} as an argument,
 and its description is written as if this were simply a function.  In fact, it
 is @term{implementation-dependent} whether the @term{function designator} is
 coerced right away or whether it is carried around internally in the form that
@@ -1317,7 +1317,7 @@ This means that an error is signaled in both safe and unsafe code.
 @term{Conforming code} may rely on the fact that the error is signaled
 in both safe and unsafe code.  Every implementation is required to
 detect the error in both safe and unsafe code. For example, ``an error
-is signaled if @symbolref{unexport} is given a @term{symbol}
+is signaled if @symbolref{unexport, SYM} is given a @term{symbol}
 not @term{accessible} in the @term{current package}.''
 
 If an explicit error type is not specified, the default is @code{error}.
@@ -1350,7 +1350,7 @@ when failing to signal it might lead to incorrect results.
 In @term{unsafe} @term{code}, the consequences are undefined.
 
 For example, defining that
-``@symbolref{find} should be prepared to signal an error @oftype{type-error}
+``@symbolref{find, SYM} should be prepared to signal an error @oftype{type-error}
 if its second @term{argument} is not a @term{proper list}''
 does not imply that an error is always signaled.  The @term{form}
 
@@ -1399,7 +1399,7 @@ Implementations are permitted to specify the consequences of this
 situation. No @term{conforming code} may depend on the results or effects of
 this situation, and all @term{conforming code} is required to treat the
 results and effects of this situation as unpredictable but harmless.
-For example, ``if the second argument to @symbolref{shared-initialize}
+For example, ``if the second argument to @symbolref{shared-initialize, SYM}
 specifies a name that does not correspond to any @term{slots}
 @term{accessible} in the @term{object}, the results are unspecified.''
 
@@ -1417,7 +1417,7 @@ stated requirement is not met and no specific consequence is
 explicitly stated.  An implementation is permitted to signal an error
 in this case.
 
-For example: ``Once a name has been declared by @symbolref{defconstant}
+For example: ``Once a name has been declared by @symbolref{defconstant, SYM}
 to be constant, any further assignment or binding of that
 variable has undefined consequences.''
 
@@ -1428,7 +1428,7 @@ variable has undefined consequences.''
 
 This means that the situation has undefined consequences;
 however, if an error is signaled, it is of the specified @term{type}.
-For example, ``@symbolref{open} might signal an error @oftype{file-error}.''
+For example, ``@symbolref{open, SYM} might signal an error @oftype{file-error}.''
 
 @item @id{@b{The return values are unspecified}}
 
@@ -1475,7 +1475,7 @@ Implementations are required to document each such extension. All
 @term{conforming code} is required to treat the syntax as meaningless. The
 standard might disallow certain extensions while allowing others. For
 example, ``no implementation is free to extend the syntax of
-@symbolref{defclass}.''
+@symbolref{defclass, SYM}.''
 
 @item @id{@b{A warning might be issued}}
 
@@ -1581,8 +1581,8 @@ It is permissible for other (@term{implementation-defined}) @term{classes}
 to appear in the @term{implementation}'s @term{class precedence list} for the @term{class}.
 
 It is permissible for
-either @symbolref{standard-object}
-or @symbolref{structure-object}
+either @symbolref{standard-object, SYM}
+or @symbolref{structure-object, SYM}
 to appear in the @term{implementation}'s @term{class precedence list};
 for details, see @ref{Type Relationships}.
 
@@ -2073,7 +2073,7 @@ in order to restrict the context in which the declaration may appear.
 
 A given ``Declaration'' might appear in
 a @term{declaration} (@ie{} a @t{declare} @term{expression}),
-a @term{proclamation} (@ie{} a @symbolref{declaim} or @symbolref{proclaim} @term{form}),
+a @term{proclamation} (@ie{} a @symbolref{declaim, SYM} or @symbolref{proclaim, SYM} @term{form}),
 or both.
 
 
@@ -2288,7 +2288,7 @@ However, this program might or might not work, depending on whether the
 presence of the feature @f{ACME} really implies that a function named
 @f{acme:initialize-something} is present in the environment.  In effect,
 using @f{#+} or @f{#-} in a @term{conforming program} means that the variable
-@symbolref{*features*}
+@symbolref{*features*, SYM}
 @cindex *features*
 becomes just one more piece of input data to that
 program.  Like any other data coming into a program, the programmer
@@ -2358,10 +2358,10 @@ Unsolicited output, such as garbage collection notifications and
 autoload heralds, should not go directly to the @term{stream}
 that is the value of a @term{stream} variable defined in this
 standard, but can go indirectly to @term{terminal I/O} by using a
-@term{synonym stream} to @symbolref{*terminal-io*}.
+@term{synonym stream} to @symbolref{*terminal-io*, SYM}.
 
-Progress reports from such functions as @symbolref{load} and
-@symbolref{compile} are considered solicited, and are not covered by
+Progress reports from such functions as @symbolref{load, SYM} and
+@symbolref{compile, SYM} are considered solicited, and are not covered by
 this prohibition.
 
 
@@ -2433,7 +2433,7 @@ The @term{functions} in @thenextfigure{}@spc{}are deprecated.
 @node Deprecated Argument Conventions
 @subsection Deprecated Argument Conventions
 
-The ability to pass a numeric @term{argument} to @symbolref{gensym} has been deprecated.
+The ability to pass a numeric @term{argument} to @symbolref{gensym, SYM} has been deprecated.
 
 @Thekeyarg{test-not} to the @term{functions} in @thenextfigure{}@spc{}are deprecated.
 
@@ -2459,13 +2459,13 @@ The ability to pass a numeric @term{argument} to @symbolref{gensym} has been dep
 
 
 The use of the situation names @t{compile}, @t{load}, and @t{eval}
-in @symbolref{eval-when} is deprecated.
+in @symbolref{eval-when, SYM} is deprecated.
 
 
 @node Deprecated Variables
 @subsection Deprecated Variables
 
-The @term{variable} @symbolref{*modules*} is deprecated.
+The @term{variable} @symbolref{*modules*, SYM} is deprecated.
 
 
 @node Deprecated Reader Syntax

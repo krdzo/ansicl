@@ -43,8 +43,8 @@ that are potentially useful with any kind of @term{stream}.
 
 
 Other operations are only meaningful on certain @term{stream} @term{types}.
-For example, @symbolref{read-char} is only defined for @term{character} @term{streams}
-and @symbolref{read-byte} is only defined for @term{binary} @term{streams}.
+For example, @symbolref{read-char, SYM} is only defined for @term{character} @term{sequences}
+and @symbolref{read-byte, SYM} is only defined for @term{binary} @term{sequences}.
 
 @node Abstract Classifications of streams
 @subsubsection Abstract Classifications of Streams
@@ -57,7 +57,7 @@ A @term{stream}, whether a @term{character} @term{stream} or a @term{binary} @te
 can be an @newterm{input} @newterm{stream} (source of data),
 an @newterm{output} @newterm{stream} (sink for data),
 both,
-or (@eg{} when ``@f{:direction :probe}'' is given to @symbolref{open}) neither.
+or (@eg{} when ``@f{:direction :probe}'' is given to @symbolref{open, SYM}) neither.
 
 @Thenextfigure{}@spc{}shows @term{operators} relating to
 @term{input} @term{streams}.
@@ -101,7 +101,7 @@ or (@eg{} when ``@f{:direction :probe}'' is given to @symbolref{open}) neither.
 
 A @term{stream} that is both an @term{input} @term{stream} and an @term{output} @term{stream}
 is called a @newterm{bidirectional} @newterm{stream}.
-See the @term{functions} @ref{input-stream-p} and @symbolref{output-stream-p}.
+See the @term{functions} @ref{input-stream-p} and @symbolref{output-stream-p, SYM}.
 
 Any of the @term{operators} listed in @ref{InputStreamOps, Figure 21.2}@spc{}or @ref{OutputStreamOps, Figure 21.3}
 can be used with @term{bidirectional} @term{streams}.  In addition, @thenextfigure{}
@@ -171,7 +171,7 @@ input depending on the prompt.
 The program is expected to prompt for input and support ``normal input editing''.
 
 @item
-@symbolref{read-char} might wait for the user to type something before returning
+@symbolref{read-char, SYM} might wait for the user to type something before returning
 instead of immediately returning a character or end-of-file.
 @end itemize
 
@@ -197,11 +197,11 @@ Some @term{streams}, called
 @dfn{file streams}, provide access to @term{files}.
 An @term{object} @ofclass{file-stream} is used to represent a @term{file stream}.
 
-The basic operation for opening a @term{file} is @symbolref{open},
+The basic operation for opening a @term{file} is @symbolref{open, SYM},
 which typically returns a @term{file stream}
 (see its dictionary entry for details).
-The basic operation for closing a @term{stream} is @symbolref{close}.
-The macro @symbolref{with-open-file} is useful
+The basic operation for closing a @term{stream} is @symbolref{close, SYM}.
+The macro @symbolref{with-open-file, SYM} is useful
 to express the common idiom of opening a @term{file}
 for the duration of a given body of @term{code},
 and assuring that the resulting @term{stream} is closed upon exit from that body.
@@ -217,25 +217,25 @@ about these subclasses.
 
 @float Figure,fig21.5
 @cartouche
-@multitable{@symbolref{concatenated-stream}}{@symbolref{two-way-stream-output-stream}}
+@multitable{@symbolref{concatenated-stream, SYM}}{@symbolref{two-way-stream-output-stream, SYM}}
 @headitem Class @tab Related Operators
-@item @symbolref{broadcast-stream} @tab @symbolref{make-broadcast-stream}
-@item  @tab @symbolref{broadcast-stream-streams}
-@item @symbolref{concatenated-stream} @tab @symbolref{make-concatenated-stream}
-@item  @tab @symbolref{concatenated-stream-streams}
-@item @symbolref{echo-stream} @tab @symbolref{make-echo-stream}
-@item  @tab @symbolref{echo-stream-input-stream}
-@item  @tab @symbolref{echo-stream-output-stream}
-@item @symbolref{string-stream} @tab @symbolref{make-string-input-stream}
-@item  @tab @symbolref{with-input-from-string}
-@item  @tab @symbolref{make-string-output-stream}
-@item  @tab @symbolref{with-output-to-string}
-@item  @tab @symbolref{get-output-stream-string}
-@item @symbolref{synonym-stream} @tab @symbolref{make-synonym-stream}
-@item  @tab @symbolref{synonym-stream-symbol}
-@item @symbolref{two-way-stream} @tab @symbolref{make-two-way-stream}
-@item  @tab @symbolref{two-way-stream-input-stream}
-@item  @tab @symbolref{two-way-stream-output-stream}
+@item @symbolref{broadcast-stream, SYM} @tab @symbolref{make-broadcast-stream, SYM}
+@item  @tab @symbolref{broadcast-stream-streams, SYM}
+@item @symbolref{concatenated-stream, SYM} @tab @symbolref{make-concatenated-stream, SYM}
+@item  @tab @symbolref{concatenated-stream-streams, SYM}
+@item @symbolref{echo-stream, SYM} @tab @symbolref{make-echo-stream, SYM}
+@item  @tab @symbolref{echo-stream-input-stream, SYM}
+@item  @tab @symbolref{echo-stream-output-stream, SYM}
+@item @symbolref{string-stream, SYM} @tab @symbolref{make-string-input-stream, SYM}
+@item  @tab @symbolref{with-input-from-string, SYM}
+@item  @tab @symbolref{make-string-output-stream, SYM}
+@item  @tab @symbolref{with-output-to-string, SYM}
+@item  @tab @symbolref{get-output-stream-string, SYM}
+@item @symbolref{synonym-stream, SYM} @tab @symbolref{make-synonym-stream, SYM}
+@item  @tab @symbolref{synonym-stream-symbol, SYM}
+@item @symbolref{two-way-stream, SYM} @tab @symbolref{make-two-way-stream, SYM}
+@item  @tab @symbolref{two-way-stream-input-stream, SYM}
+@item  @tab @symbolref{two-way-stream-output-stream, SYM}
 @end multitable
 @end cartouche
 @caption{Defined Names related to Specialized Streams}
@@ -263,15 +263,15 @@ the @term{value} of any of these @term{variables} is not an @term{open} @term{st
 
 @float Figure,StandardizedStreamVars
 @cartouche
-@multitable{@term{standard output}}{@symbolref{*standard-output*}}
+@multitable{@term{standard output}}{@symbolref{*standard-output*, SYM}}
 @headitem Glossary Term @tab Variable Name
-@item @term{debug I/O} @tab @symbolref{*debug-io*}
-@item @term{error output} @tab @symbolref{*error-output*}
-@item @term{query I/O} @tab @symbolref{*query-io*}
-@item @term{standard input} @tab @symbolref{*standard-input*}
-@item @term{standard output} @tab @symbolref{*standard-output*}
-@item @term{terminal I/O} @tab @symbolref{*terminal-io*}
-@item @term{trace output} @tab @symbolref{*trace-output*}
+@item @term{debug I/O} @tab @symbolref{*debug-io*, SYM}
+@item @term{error output} @tab @symbolref{*error-output*, SYM}
+@item @term{query I/O} @tab @symbolref{*query-io*, SYM}
+@item @term{standard input} @tab @symbolref{*standard-input*, SYM}
+@item @term{standard output} @tab @symbolref{*standard-output*, SYM}
+@item @term{terminal I/O} @tab @symbolref{*terminal-io*, SYM}
+@item @term{trace output} @tab @symbolref{*trace-output*, SYM}
 @end multitable
 @end cartouche
 @caption{Standardized Stream Variables}
@@ -284,7 +284,7 @@ ending in ``@f{-output*}'' if they must be @term{output} @term{streams},
 or ending in ``@f{-io*}''     if they must be @term{bidirectional} @term{streams}.
 
 User programs may @term{assign} or @term{bind} any @term{standardized} @term{stream variable}
-except @symbolref{*terminal-io*}.
+except @symbolref{*terminal-io*, SYM}.
 
 
 @node Stream Arguments to Standardized Functions
@@ -431,7 +431,7 @@ until the time it is @term{closed}.
 
 
 @subsubheading Class Precedence List:
-@symbolref{stream},
+@symbolref{stream, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -459,8 +459,8 @@ For more complete information, see @ref{Stream Concepts}.
 
 @subsubheading Class Precedence List:
 
-@symbolref{broadcast-stream},
-@symbolref{stream},
+@symbolref{broadcast-stream, SYM},
+@symbolref{stream, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -475,7 +475,7 @@ then all output to the @term{broadcast stream} is discarded.)
 The set of operations that may be performed on a @term{broadcast stream}
 is the intersection of those for its associated @term{output} @term{streams}.
 
-Some output operations (@eg{} @symbolref{fresh-line}) return @term{values} based on the
+Some output operations (@eg{} @symbolref{fresh-line, SYM}) return @term{values} based on the
 state of the @term{stream} at the time of the operation.
 Since these @term{values} might differ for each of the @i{component streams},
 it is necessary to describe their return value specifically:
@@ -484,49 +484,49 @@ it is necessary to describe their return value specifically:
 @itemize @bullet{}
 
 @item
-@symbolref{stream-element-type} returns
+@symbolref{stream-element-type, SYM} returns
 the value from the last component stream,
 or @code{t} if there are no component streams.
 
 @item
-@symbolref{fresh-line} returns
+@symbolref{fresh-line, SYM} returns
 the value from the last component stream,
 or @nil{}@spc{}if there are no component streams.
 
 @item
 The functions
-@symbolref{file-length},
-@symbolref{file-position},
-@symbolref{file-string-length},
-and @symbolref{stream-external-format}
+@symbolref{file-length, SYM},
+@symbolref{file-position, SYM},
+@symbolref{file-string-length, SYM},
+and @symbolref{stream-external-format, SYM}
 return the value from the last component stream;
 if there are no component streams,
-@symbolref{file-length} and @symbolref{file-position} return @f{0},
-@symbolref{file-string-length} returns @f{1},
-and @symbolref{stream-external-format} returns @kwd{default}.
+@symbolref{file-length, SYM} and @symbolref{file-position, SYM} return @f{0},
+@symbolref{file-string-length, SYM} returns @f{1},
+and @symbolref{stream-external-format, SYM} returns @kwd{default}.
 
 @item
-The functions @symbolref{streamp} and @symbolref{output-stream-p}
+The functions @symbolref{streamp, SYM} and @symbolref{output-stream-p, SYM}
 always return @term{true} for @term{broadcast streams}.
 
 @item
-The functions @symbolref{open-stream-p} tests whether the @term{broadcast stream}
+The functions @symbolref{open-stream-p, SYM} tests whether the @term{broadcast stream}
 is @term{open}@sub{2}, not whether its component streams are @term{open}.
 
 @item
-The functions @symbolref{input-stream-p} and @symbolref{interactive-stream-p}
+The functions @symbolref{input-stream-p, SYM} and @symbolref{interactive-stream-p, SYM}
 return an @term{implementation-defined}, @term{generalized boolean} value.
 
 @item
 For the input operations
-@symbolref{clear-input}
-@symbolref{listen},
-@symbolref{peek-char},
-@symbolref{read-byte},
-@symbolref{read-char-no-hang},
-@symbolref{read-char},
-@symbolref{read-line},
-and @symbolref{unread-char},
+@symbolref{clear-input, SYM}
+@symbolref{listen, SYM},
+@symbolref{peek-char, SYM},
+@symbolref{read-byte, SYM},
+@symbolref{read-char-no-hang, SYM},
+@symbolref{read-char, SYM},
+@symbolref{read-line, SYM},
+and @symbolref{unread-char, SYM},
 the consequences are undefined if the indicated operation is performed.
 However, an @term{implementation} is permitted
 to define such a behavior as an @term{implementation-dependent} extension.
@@ -558,8 +558,8 @@ the value is @term{implementation-dependent}.
 
 @subsubheading Class Precedence List:
 
-@symbolref{concatenated-stream},
-@symbolref{stream},
+@symbolref{concatenated-stream, SYM},
+@symbolref{stream, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -596,8 +596,8 @@ remaining @term{input} @term{streams} from which to obtain such data.
 
 @subsubheading Class Precedence List:
 
-@symbolref{echo-stream},
-@symbolref{stream},
+@symbolref{echo-stream, SYM},
+@symbolref{stream, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -628,16 +628,16 @@ is @term{implementation-dependent}.
 
 @subsubheading Class Precedence List:
 
-@symbolref{file-stream},
-@symbolref{stream},
+@symbolref{file-stream, SYM},
+@symbolref{stream, SYM},
 @code{t}
 
 @subsubheading Description:
 
 An @term{object} @oftype{file-stream} is a @term{stream} the direct
 source or sink of which is a @term{file}.  Such a @term{stream} is
-created explicitly by @symbolref{open} and @symbolref{with-open-file}, and
-implicitly by @term{functions} such as @symbolref{load} that process @term{files}.
+created explicitly by @symbolref{open, SYM} and @symbolref{with-open-file, SYM}, and
+implicitly by @term{functions} such as @symbolref{load, SYM} that process @term{files}.
 
 
 @subsubheading See Also:
@@ -655,8 +655,8 @@ implicitly by @term{functions} such as @symbolref{load} that process @term{files
 
 @subsubheading Class Precedence List:
 
-@symbolref{string-stream},
-@symbolref{stream},
+@symbolref{string-stream, SYM},
+@symbolref{stream, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -684,8 +684,8 @@ a @subtypeof{character}.
 
 @subsubheading Class Precedence List:
 
-@symbolref{synonym-stream},
-@symbolref{stream},
+@symbolref{synonym-stream, SYM},
+@symbolref{stream, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -716,8 +716,8 @@ then the @term{stream} will operate on the new @term{value} of the @term{variabl
 
 @subsubheading Class Precedence List:
 
-@symbolref{two-way-stream},
-@symbolref{stream},
+@symbolref{two-way-stream, SYM},
+@symbolref{stream, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -846,12 +846,12 @@ and sends    its output to   an associated @term{output} @term{stream}.
 
 @Predicate{stream, an @term{open} @term{stream}}
 
-@term{Streams} are open until they have been explicitly closed with @symbolref{close},
+@term{Streams} are open until they have been explicitly closed with @symbolref{close, SYM},
 or until they are implicitly closed due to exit from a
-@symbolref{with-output-to-string},
-@symbolref{with-open-file},
-@symbolref{with-input-from-string},  or
-@symbolref{with-open-stream} @term{form}.
+@symbolref{with-output-to-string, SYM},
+@symbolref{with-open-file, SYM},
+@symbolref{with-input-from-string, SYM},  or
+@symbolref{with-open-stream, SYM} @term{form}.
 
 @subsubheading Examples:
 
@@ -862,7 +862,7 @@ or until they are implicitly closed due to exit from a
 
 @subsubheading Affected By:
 
-@symbolref{close}.
+@symbolref{close, SYM}.
 
 @subsubheading Exceptional Situations:
 
@@ -888,12 +888,12 @@ or until they are implicitly closed due to exit from a
 
 @subsubheading Description:
 
-@symbolref{stream-element-type} returns a @term{type specifier} that
+@symbolref{stream-element-type, SYM} returns a @term{type specifier} that
 indicates the @term{types} of @term{objects} that may be read from
 or written to @param{stream}.
 
-@term{Streams} created by @symbolref{open} have an @term{element type}
-restricted to @symbolref{integer} or a @subtypeof{character}.
+@term{Streams} created by @symbolref{open, SYM} have an @term{element type}
+restricted to @symbolref{integer, SYM} or a @subtypeof{character}.
 
 @subsubheading Examples:
 
@@ -941,7 +941,7 @@ restricted to @symbolref{integer} or a @subtypeof{character}.
 
 @TypePredicate{object, stream}
 
-@symbolref{streamp} is unaffected by whether @param{object},
+@symbolref{streamp, SYM} is unaffected by whether @param{object},
 if it is a @term{stream}, is @term{open} or closed.
 
 @subsubheading Examples:
@@ -985,7 +985,7 @@ or the @param{eof-value}.
 
 @subsubheading Description:
 
-@symbolref{read-byte} reads and returns one byte from @param{stream}.
+@symbolref{read-byte, SYM} reads and returns one byte from @param{stream}.
 
 If an @term{end of file}@sub{2} occurs and @param{eof-error-p} is @term{false},
 the @param{eof-value} is returned.
@@ -1043,7 +1043,7 @@ of @term{stream}.
 
 @subsubheading Description:
 
-@symbolref{write-byte} writes one byte, @param{byte}, to @param{stream}.
+@symbolref{write-byte, SYM} writes one byte, @param{byte}, to @param{stream}.
 
 @subsubheading Examples:
 
@@ -1109,7 +1109,7 @@ an @term{integer} of the @term{stream element type} of @term{stream}.
 
 @subsubheading Description:
 
-@symbolref{peek-char} obtains the next character in @param{input-stream}
+@symbolref{peek-char, SYM} obtains the next character in @param{input-stream}
 without actually reading it, thus leaving the character
 to be read at a later time.  It can
 also be used to skip over and discard intervening
@@ -1117,22 +1117,22 @@ characters in the @param{input-stream}
 until a particular character is found.
 
 If @param{peek-type} is not supplied or @nil{},
-@symbolref{peek-char} returns the next character to be read from
+@symbolref{peek-char, SYM} returns the next character to be read from
 @param{input-stream}, without actually removing it from
 @param{input-stream}.
 The next time input is done from @param{input-stream}, the character will still
 be there.
 If @param{peek-type} is @code{t},
-then @symbolref{peek-char} skips over @term{whitespace}@sub{2} @term{characters},
+then @symbolref{peek-char, SYM} skips over @term{whitespace}@sub{2} @term{characters},
 but not comments,
 and then performs the peeking operation on the next
 character.
 The last character examined, the one that starts an @term{object},
 is not removed from @param{input-stream}.
 If @param{peek-type} is a @term{character},
-then @symbolref{peek-char} skips
+then @symbolref{peek-char, SYM} skips
 over input characters until a character that
-is @symbolref{char=} to that @term{character} is found;
+is @symbolref{char=, SYM} to that @term{character} is found;
 that character is left in @param{input-stream}.
 
 If an @term{end of file}@sub{2} occurs and @param{eof-error-p} is @term{false},
@@ -1143,9 +1143,9 @@ If an @term{end of file}@sub{2} occurs and @param{eof-error-p} is @term{false},
 When @param{input-stream} is an @term{echo stream},
 characters that are only peeked at are not echoed. In the
 case that @param{peek-type} is not @nil{},
-the characters that are passed by @symbolref{peek-char}
-are treated as if by @symbolref{read-char},
-and so are echoed unless they have been marked otherwise by @symbolref{unread-char}.
+the characters that are passed by @symbolref{peek-char, SYM}
+are treated as if by @symbolref{read-char, SYM},
+and so are echoed unless they have been marked otherwise by @symbolref{unread-char, SYM}.
 
 @subsubheading Examples:
 @lisp
@@ -1161,9 +1161,9 @@ and so are echoed unless they have been marked otherwise by @symbolref{unread-ch
 
 @subsubheading Affected By:
 
-@symbolref{*readtable*},
-@symbolref{*standard-input*},
-@symbolref{*terminal-io*}.
+@symbolref{*readtable*, SYM},
+@symbolref{*standard-input*, SYM},
+@symbolref{*terminal-io*, SYM}.
 
 @subsubheading Exceptional Situations:
 
@@ -1208,16 +1208,16 @@ an error @oftype{end-of-file} is signaled.
 
 @subsubheading Description:
 
-@symbolref{read-char} returns the next @term{character} from @param{input-stream}.
+@symbolref{read-char, SYM} returns the next @term{character} from @param{input-stream}.
 
 When @param{input-stream} is an @param{echo stream},
 the character is echoed on @param{input-stream} the first time the character is
 seen.
-Characters that are not echoed by @symbolref{read-char}
+Characters that are not echoed by @symbolref{read-char, SYM}
 are those that were
-put there by @symbolref{unread-char}
+put there by @symbolref{unread-char, SYM}
 and hence are assumed to have been echoed
-already by a previous call to @symbolref{read-char}.
+already by a previous call to @symbolref{read-char, SYM}.
 
 @mat{ }@ExplainRecursiveP{}
 
@@ -1237,8 +1237,8 @@ If an @term{end of file}@sub{2} occurs and @param{eof-error-p} is @term{false},
 
 @subsubheading Affected By:
 
-@symbolref{*standard-input*},
-@symbolref{*terminal-io*}.
+@symbolref{*standard-input*, SYM},
+@symbolref{*terminal-io*, SYM}.
 
 @subsubheading Exceptional Situations:
 
@@ -1254,7 +1254,7 @@ an error @oftype{end-of-file} is signaled.
 @ref{read}
 
 @subsubheading Notes:
-The corresponding output function is @symbolref{write-char}.
+The corresponding output function is @symbolref{write-char, SYM}.
 
 
 @node read-char-no-hang
@@ -1285,9 +1285,9 @@ The corresponding output function is @symbolref{write-char}.
 
 @subsubheading Description:
 
-@symbolref{read-char-no-hang} returns a character
+@symbolref{read-char-no-hang, SYM} returns a character
 from @param{input-stream} if such a character is available.  If no character
-is available, @symbolref{read-char-no-hang} returns @nil{}.
+is available, @symbolref{read-char-no-hang, SYM} returns @nil{}.
 
 @mat{ }@ExplainRecursiveP{}
 
@@ -1321,8 +1321,8 @@ If an @term{end of file}@sub{2} occurs and @param{eof-error-p} is @term{false},
 
 @subsubheading Affected By:
 
-@symbolref{*standard-input*},
-@symbolref{*terminal-io*}.
+@symbolref{*standard-input*, SYM},
+@symbolref{*terminal-io*, SYM}.
 
 @subsubheading Exceptional Situations:
 
@@ -1336,7 +1336,7 @@ an error @oftype{end-of-file} is signaled .
 
 @subsubheading Notes:
 
-@symbolref{read-char-no-hang} is exactly like @symbolref{read-char}, except
+@symbolref{read-char-no-hang, SYM} is exactly like @symbolref{read-char, SYM}, except
 that if it would be necessary to wait in order to get a character (as
 from a keyboard), @nil{}@spc{}is immediately returned without waiting.
 
@@ -1363,12 +1363,12 @@ from a keyboard), @nil{}@spc{}is immediately returned without waiting.
 
 @subsubheading Description:
 
-@symbolref{terpri} outputs a @term{newline} to @param{output-stream}.
+@symbolref{terpri, SYM} outputs a @term{newline} to @param{output-stream}.
 
-@symbolref{fresh-line} is similar to @symbolref{terpri} but outputs a @term{newline}
+@symbolref{fresh-line, SYM} is similar to @symbolref{terpri, SYM} but outputs a @term{newline}
 only if the @param{output-stream} is not already at the start of a line.
 If for some reason this cannot be determined, then a @term{newline} is output anyway.
-@symbolref{fresh-line} returns @term{true} if it outputs a @term{newline};
+@symbolref{fresh-line, SYM} returns @term{true} if it outputs a @term{newline};
 otherwise it returns @term{false}.
 
 @subsubheading Examples:
@@ -1398,8 +1398,8 @@ The @param{output-stream} is modified.
 
 @subsubheading Affected By:
 
-@symbolref{*standard-output*},
-@symbolref{*terminal-io*}.
+@symbolref{*standard-output*, SYM},
+@symbolref{*terminal-io*, SYM}.
 
 @subsubheading Exceptional Situations:
 
@@ -1408,7 +1408,7 @@ None.
 
 @subsubheading Notes:
 
-@symbolref{terpri} is identical in effect to
+@symbolref{terpri, SYM} is identical in effect to
 
 @lisp
  (write-char #@bsl{}Newline output-stream)
@@ -1436,30 +1436,30 @@ must be the last @term{character} that was read from @param{input-stream}.
 
 @subsubheading Description:
 
-@symbolref{unread-char} places @param{character} back onto the front of
+@symbolref{unread-char, SYM} places @param{character} back onto the front of
 @param{input-stream} so that it will again be the next character
 in @param{input-stream}.
 
 When @param{input-stream} is an @term{echo stream},
 no attempt is made to undo any echoing of the character that might already
 have been done on @param{input-stream}. However, characters placed on
-@param{input-stream} by @symbolref{unread-char} are marked in such a way
-as to inhibit later re-echo by @symbolref{read-char}.
+@param{input-stream} by @symbolref{unread-char, SYM} are marked in such a way
+as to inhibit later re-echo by @symbolref{read-char, SYM}.
 
-It is an error to invoke @symbolref{unread-char}
+It is an error to invoke @symbolref{unread-char, SYM}
 twice consecutively on the same @term{stream}
-without an intervening call to @symbolref{read-char}
+without an intervening call to @symbolref{read-char, SYM}
 (or some other input operation which implicitly reads characters)
 on that @term{stream}.
 
-Invoking @symbolref{peek-char} or @symbolref{read-char} commits all previous characters.
-The consequences of invoking @symbolref{unread-char}
+Invoking @symbolref{peek-char, SYM} or @symbolref{read-char, SYM} commits all previous characters.
+The consequences of invoking @symbolref{unread-char, SYM}
 on any character preceding that which is returned by
-@symbolref{peek-char} (including those passed over by
-@symbolref{peek-char} that has a @term{non-nil} @param{peek-type})
+@symbolref{peek-char, SYM} (including those passed over by
+@symbolref{peek-char, SYM} that has a @term{non-nil} @param{peek-type})
 are unspecified.
 In particular, the consequences of
-invoking @symbolref{unread-char} after @symbolref{peek-char}
+invoking @symbolref{unread-char, SYM} after @symbolref{peek-char, SYM}
 are unspecified.
 
 @subsubheading Examples:
@@ -1478,8 +1478,8 @@ are unspecified.
 
 @subsubheading Affected By:
 
-@symbolref{*standard-input*},
-@symbolref{*terminal-io*}.
+@symbolref{*standard-input*, SYM},
+@symbolref{*terminal-io*, SYM}.
 
 @subsubheading See Also:
 
@@ -1489,7 +1489,7 @@ are unspecified.
 
 @subsubheading Notes:
 
-@symbolref{unread-char} is intended to be an efficient mechanism for allowing
+@symbolref{unread-char, SYM} is intended to be an efficient mechanism for allowing
 the @term{Lisp reader} and other parsers to perform one-character lookahead
 in @param{input-stream}.
 
@@ -1513,7 +1513,7 @@ in @param{input-stream}.
 
 @subsubheading Description:
 
-@symbolref{write-char} outputs @param{character} to @param{output-stream}.
+@symbolref{write-char, SYM} outputs @param{character} to @param{output-stream}.
 
 @subsubheading Examples:
 @lisp
@@ -1534,8 +1534,8 @@ The @param{output-stream} is modified.
 
 @subsubheading Affected By:
 
-@symbolref{*standard-output*},
-@symbolref{*terminal-io*}.
+@symbolref{*standard-output*, SYM},
+@symbolref{*terminal-io*, SYM}.
 
 @subsubheading See Also:
 
@@ -1611,8 +1611,8 @@ the @term{end of file} for @param{input-stream}
 
 @subsubheading Affected By:
 
-@symbolref{*standard-input*},
-@symbolref{*terminal-io*}.
+@symbolref{*standard-input*, SYM},
+@symbolref{*terminal-io*, SYM}.
 
 @subsubheading Exceptional Situations:
 
@@ -1625,7 +1625,7 @@ an error is signaled if @param{eof-error-p} is @term{true}.
 
 @subsubheading Notes:
 
-The corresponding output function is @symbolref{write-line}.
+The corresponding output function is @symbolref{write-line, SYM}.
 
 
 @node write-string; write-line
@@ -1655,10 +1655,10 @@ The corresponding output function is @symbolref{write-line}.
 
 @subsubheading Description:
 
-@symbolref{write-string} writes the @term{characters} of
+@symbolref{write-string, SYM} writes the @term{characters} of
 the subsequence of @param{string} @term{bounded} by @param{start} and @param{end}
 to @param{output-stream}.
-@symbolref{write-line} does the same thing,
+@symbolref{write-line, SYM} does the same thing,
 but then outputs a newline afterwards.
 
 @subsubheading Examples:
@@ -1681,8 +1681,8 @@ but then outputs a newline afterwards.
 
 @subsubheading Affected By:
 
-@symbolref{*standard-output*},
-@symbolref{*terminal-io*}.
+@symbolref{*standard-output*, SYM},
+@symbolref{*terminal-io*, SYM}.
 
 @subsubheading See Also:
 
@@ -1690,7 +1690,7 @@ but then outputs a newline afterwards.
 
 @subsubheading Notes:
 
-@symbolref{write-line} and @symbolref{write-string} return @param{string},
+@symbolref{write-line, SYM} and @symbolref{write-string, SYM} return @param{string},
 not the substring @term{bounded} by @param{start} and @param{end}.
 
 @lisp
@@ -1772,7 +1772,7 @@ the @param{stream} is not a member of the @term{element type} of the
 
 @subsubheading Notes:
 
-@symbolref{read-sequence} is identical in effect to iterating over the indicated
+@symbolref{read-sequence, SYM} is identical in effect to iterating over the indicated
 subsequence and reading one @term{element} at a time from @param{stream} and
 storing it into @param{sequence}, but may be more efficient than the
 equivalent loop.  An efficient implementation is more likely to exist
@@ -1799,7 +1799,7 @@ for the case where the @param{sequence} is a @term{vector} with the same
 
 @subsubheading Description:
 
-@symbolref{write-sequence} writes the @term{elements} of the subsequence
+@symbolref{write-sequence, SYM} writes the @term{elements} of the subsequence
 of @param{sequence} @term{bounded} by @param{start} and @param{end} to
 @param{stream}.
 
@@ -1835,7 +1835,7 @@ Might signal an error @oftype{type-error} if an @term{element} of the
 
 @subsubheading Notes:
 
-@symbolref{write-sequence} is identical in effect to iterating over the indicated
+@symbolref{write-sequence, SYM} is identical in effect to iterating over the indicated
 subsequence and writing one @term{element} at a time to @param{stream}, but
 may be more efficient than the equivalent loop.  An efficient implementation
 is more likely to exist for the case where the @param{sequence} is a
@@ -1861,7 +1861,7 @@ is more likely to exist for the case where the @param{sequence} is a
 
 @subsubheading Description:
 
-@symbolref{file-length} returns the length of @param{stream},
+@symbolref{file-length, SYM} returns the length of @param{stream},
 or @nil{}@spc{}if the length cannot be determined.
 
 For a binary file, the length is measured in units of
@@ -1916,26 +1916,26 @@ the @term{element type} of the @param{stream}.
 Returns or changes the current position within a @param{stream}.
 
 When @param{position-spec} is not supplied,
-@symbolref{file-position} returns the current @term{file position} in the @param{stream},
+@symbolref{file-position, SYM} returns the current @term{file position} in the @param{stream},
 or @nil{}@spc{}if this cannot be determined.
 
 When @param{position-spec} is supplied,
 the @term{file position} in @param{stream} is set to that @term{file position} (if possible).
-@symbolref{file-position} returns @term{true}
+@symbolref{file-position, SYM} returns @term{true}
 if the repositioning is performed successfully,
 or @term{false} if it is not.
 
-An @term{integer} returned by @symbolref{file-position} of one argument
+An @term{integer} returned by @symbolref{file-position, SYM} of one argument
 should be acceptable as @param{position-spec} for use with the same file.
 
 For a character file,
-performing a single @symbolref{read-char} or @symbolref{write-char} operation
+performing a single @symbolref{read-char, SYM} or @symbolref{write-char, SYM} operation
 may cause the file position to be increased by more than 1 because of
 character-set translations (such as translating between the @clisp{}
 @f{#@bsl{}Newline} character and an external ASCII
 carriage-return/line-feed sequence) and other aspects of the
-implementation.  For a binary file, every @symbolref{read-byte}
-or @symbolref{write-byte}
+implementation.  For a binary file, every @symbolref{read-byte, SYM}
+or @symbolref{write-byte, SYM}
 operation increases the file position by 1.
 
 @subsubheading Examples:
@@ -1982,7 +1982,7 @@ the @term{file position} in the @param{stream} might be moved.
 
 @subsubheading Affected By:
 
-The value returned by @symbolref{file-position} increases monotonically
+The value returned by @symbolref{file-position, SYM} increases monotonically
 as input or output operations are performed.
 
 @subsubheading Exceptional Situations:
@@ -2005,7 +2005,7 @@ file position as, for example,
 This is a valid encoding because it increases monotonically as
 each character is read or written, though not necessarily by 1 at
 each step.  An @term{integer} might then be considered ``inappropriate''
-as @param{position-spec} to @symbolref{file-position} if, when decoded into
+as @param{position-spec} to @symbolref{file-position, SYM} if, when decoded into
 record number and character number, it turned out that the
 supplied record was too short for the specified character number.
 
@@ -2031,7 +2031,7 @@ supplied record was too short for the specified character number.
 
 @subsubheading Description:
 
-@symbolref{file-string-length} returns the difference between what
+@symbolref{file-string-length, SYM} returns the difference between what
 @f{(file-position @param{stream})} would be after writing
 @param{object} and its current value, or @nil{}@spc{}if this cannot be determined.
 
@@ -2089,13 +2089,13 @@ or @nil{}@spc{}when @param{direction} is @kwd{probe}}
 
 @subsubheading Description:
 
-@symbolref{open} creates, opens, and returns a @term{file stream}
+@symbolref{open, SYM} creates, opens, and returns a @term{file stream}
 that is connected to the file specified by @param{filespec}.
 @param{Filespec} is the name of the file to be opened.
 If the @param{filespec} @term{designator} is a @term{stream},
 that @term{stream} is not closed first or otherwise affected.
 
-The keyword arguments to @symbolref{open} specify the characteristics
+The keyword arguments to @symbolref{open, SYM} specify the characteristics
 of the @term{file stream} that is returned, and how to handle errors.
 
 If @param{direction} is @kwd{input}
@@ -2107,7 +2107,7 @@ that has a version greater than that of any other file in the file system
 whose other pathname components are the same as those of @param{filespec}.
 
 An implementation is required to recognize all of
-the @symbolref{open} keyword options
+the @symbolref{open, SYM} keyword options
 and to do something reasonable in the context of the host operating
 system.
 For example, if a file system does not support distinct file
@@ -2147,7 +2147,7 @@ Causes the creation of a @term{bidirectional} @term{file stream}.
 
 Causes the creation of a ``no-directional'' @term{file stream};
 in effect, the @term{file stream} is created
-and then closed prior to being returned by @symbolref{open}.
+and then closed prior to being returned by @symbolref{open, SYM}.
 @end table
 
 
@@ -2167,7 +2167,7 @@ possibly based on the @term{file}.
 already exists.
 If @param{direction} is @kwd{input}, not supplied, or @kwd{probe},
 @param{if-exists} is ignored.
-These are the results of @symbolref{open} as modified by @param{if-exists}:
+These are the results of @symbolref{open, SYM} as modified by @param{if-exists}:
 
 
 @table @asis
@@ -2233,7 +2233,7 @@ instead, @nil{}@spc{}is returned to indicate failure.
 @param{if-does-not-exist}
 specifies the action to be taken if
 a file of name @param{filespec} does not already exist.
-These are the results of @symbolref{open} as modified by @param{if-does-not-exist}:
+These are the results of @symbolref{open, SYM} as modified by @param{if-does-not-exist}:
 
 
 @table @asis
@@ -2266,7 +2266,7 @@ This option selects an @term{external file format} for the @term{file}:
 The only @term{standardized} value for this option is @kwd{default},
 although @term{implementations} are permitted to define additional
 @term{external file formats} and @term{implementation-dependent} values
-returned by @symbolref{stream-external-format} can also be used by @term{conforming programs}.
+returned by @symbolref{stream-external-format, SYM} can also be used by @term{conforming programs}.
 
 The @param{external-format} is meaningful for
 any kind of @term{file stream} whose @term{element type}
@@ -2284,7 +2284,7 @@ as the file system's ambassador to the @Lisp{}@spc{}environment;
 operations on the @term{file stream} are reflected by operations on the file
 in the file system.
 
-A file can be deleted, renamed, or destructively modified by @symbolref{open}.
+A file can be deleted, renamed, or destructively modified by @symbolref{open, SYM}.
 
 For information about opening relative pathnames,
 see @ref{Merging Pathnames}.
@@ -2359,18 +2359,18 @@ should work compatibly.
 @subsubheading Notes:
 
 
-@symbolref{open} does not automatically close the file when an abnormal
+@symbolref{open, SYM} does not automatically close the file when an abnormal
 exit occurs.
 
 When @param{element-type} is a @term{subtype} of @code{character},
-@symbolref{read-char} and/or @symbolref{write-char} can be
+@symbolref{read-char, SYM} and/or @symbolref{write-char, SYM} can be
 used on the resulting @term{file stream}.
 
 When @param{element-type} is a @term{subtype} of @term{integer},
-@symbolref{read-byte} and/or @symbolref{write-byte} can be used on the resulting @term{file stream}.
+@symbolref{read-byte, SYM} and/or @symbolref{write-byte, SYM} can be used on the resulting @term{file stream}.
 
 When @param{element-type} is @kwd{default},
-the @term{type} can be determined by using @symbolref{stream-element-type}.
+the @term{type} can be determined by using @symbolref{stream-element-type, SYM}.
 
 
 @node stream-external-format
@@ -2444,21 +2444,21 @@ to other @term{implementations}.
 
 @subsubheading Description:
 
-@symbolref{with-open-file} uses @symbolref{open} to create a @term{file stream}
+@symbolref{with-open-file, SYM} uses @symbolref{open, SYM} to create a @term{file stream}
 to @term{file} named by @param{filespec}.
 @param{Filespec} is the name of the file to be opened.
-@param{Options} are used as keyword arguments to @symbolref{open}.
+@param{Options} are used as keyword arguments to @symbolref{open, SYM}.
 
 The @term{stream} @term{object} to which the @param{stream} @term{variable}
 is @term{bound} has @term{dynamic extent};
 its @term{extent} ends when the @term{form} is exited.
 
-@symbolref{with-open-file} evaluates the @param{forms} as an @term{implicit progn}
+@symbolref{with-open-file, SYM} evaluates the @param{forms} as an @term{implicit progn}
 with @param{stream} bound to
-the value returned by @symbolref{open}.
+the value returned by @symbolref{open, SYM}.
 
 When control leaves the body, either normally or abnormally (such as by
-use of @symbolref{throw}), the file is automatically closed.  If a new
+use of @symbolref{throw, SYM}), the file is automatically closed.  If a new
 output file is being written, and control leaves abnormally, the file is
 aborted and the file system is left, so far as possible, as if the file
 had never been opened.
@@ -2557,7 +2557,7 @@ or @term{implementation-dependent} otherwise.
 
 @subsubheading Description:
 
-@symbolref{close} closes @param{stream}.
+@symbolref{close, SYM} closes @param{stream}.
 Closing a @term{stream} means
 that it may no longer be used in input or output operations.
 The act of @i{closing} a @term{file stream}
@@ -2576,20 +2576,20 @@ but in that case the @param{result} is @term{implementation-dependent}.
 
 After @param{stream} is closed, it is still possible to perform
 the following query operations upon it:
-@symbolref{streamp}, @code{pathname}, @symbolref{truename},
-@symbolref{merge-pathnames}, @symbolref{pathname-host}, @symbolref{pathname-device},
-@symbolref{pathname-directory},@symbolref{pathname-name},
-@symbolref{pathname-type}, @symbolref{pathname-version}, @symbolref{namestring},
-@symbolref{file-namestring}, @symbolref{directory-namestring},
-@symbolref{host-namestring}, @symbolref{enough-namestring}, @symbolref{open},
-@symbolref{probe-file}, and @symbolref{directory}.
+@symbolref{streamp, SYM}, @code{pathname}, @symbolref{truename, SYM},
+@symbolref{merge-pathnames, SYM}, @symbolref{pathname-host, SYM}, @symbolref{pathname-device, SYM},
+@symbolref{pathname-directory, SYM},@symbolref{pathname-name, SYM},
+@symbolref{pathname-type, SYM}, @symbolref{pathname-version, SYM}, @symbolref{namestring, SYM},
+@symbolref{file-namestring, SYM}, @symbolref{directory-namestring, SYM},
+@symbolref{host-namestring, SYM}, @symbolref{enough-namestring, SYM}, @symbolref{open, SYM},
+@symbolref{probe-file, SYM}, and @symbolref{directory, SYM}.
 
-The effect of @symbolref{close} on a @term{constructed stream} is
+The effect of @symbolref{close, SYM} on a @term{constructed stream} is
 to close the argument @param{stream} only.
 There is no effect on the @term{constituents} of @term{composite streams}.
 
-For a @term{stream} created with @symbolref{make-string-output-stream},
-the result of @symbolref{get-output-stream-string} is unspecified after @symbolref{close}.
+For a @term{stream} created with @symbolref{make-string-output-stream, SYM},
+the result of @symbolref{get-output-stream-string, SYM} is unspecified after @symbolref{close, SYM}.
 
 @subsubheading Examples:
 
@@ -2637,14 +2637,14 @@ might be deleted.
 
 @subsubheading Description:
 
-@symbolref{with-open-stream} performs a series of operations on
+@symbolref{with-open-stream, SYM} performs a series of operations on
 @param{stream}, returns a value, and then closes the @param{stream}.
 
 @param{Var} is bound to the value of @param{stream},
 and then @param{forms} are executed
 as an @term{implicit progn}.
 @param{stream}
-is automatically closed on exit from @symbolref{with-open-stream},
+is automatically closed on exit from @symbolref{with-open-stream, SYM},
 no matter whether the exit is normal or abnormal.
 The @param{stream} has @term{dynamic extent};
 its @term{extent} ends when the @term{form} is exited.
@@ -2693,9 +2693,9 @@ Returns @term{true} if
 there is a character immediately available from @param{input-stream};
 otherwise, returns @term{false}.
 On a non-interactive @param{input-stream},
-@symbolref{listen} returns @term{true} except when at @term{end of file}@sub{1}.
-If an @term{end of file} is encountered, @symbolref{listen} returns @term{false}.
-@symbolref{listen} is intended to be used
+@symbolref{listen, SYM} returns @term{true} except when at @term{end of file}@sub{1}.
+If an @term{end of file} is encountered, @symbolref{listen, SYM} returns @term{false}.
+@symbolref{listen, SYM} is intended to be used
 when @param{input-stream} obtains characters
 from an interactive device such as a keyboard.
 
@@ -2712,7 +2712,7 @@ from an interactive device such as a keyboard.
 
 @subsubheading Affected By:
 
-@symbolref{*standard-input*}
+@symbolref{*standard-input*, SYM}
 
 @subsubheading See Also:
 
@@ -2739,8 +2739,8 @@ from an interactive device such as a keyboard.
 
 Clears any available input from @param{input-stream}.
 
-If @symbolref{clear-input} does not make sense for @param{input-stream},
-then @symbolref{clear-input} does nothing.
+If @symbolref{clear-input, SYM} does not make sense for @param{input-stream},
+then @symbolref{clear-input, SYM} does nothing.
 
 @subsubheading Examples:
 @lisp
@@ -2785,7 +2785,7 @@ The @param{input-stream} is modified.
 
 @subsubheading Affected By:
 
-@symbolref{*standard-input*}
+@symbolref{*standard-input*, SYM}
 
 @subsubheading Exceptional Situations:
 
@@ -2820,17 +2820,17 @@ The @param{input-stream} is modified.
 
 @subsubheading Description:
 
-@symbolref{finish-output}, @symbolref{force-output}, and @symbolref{clear-output}
+@symbolref{finish-output, SYM}, @symbolref{force-output, SYM}, and @symbolref{clear-output, SYM}
 exercise control over the internal handling of buffered stream output.
 
-@symbolref{finish-output} attempts to ensure that any buffered output
+@symbolref{finish-output, SYM} attempts to ensure that any buffered output
 sent to @param{output-stream} has reached its destination, and then returns.
 
-@symbolref{force-output} initiates the emptying of any
+@symbolref{force-output, SYM} initiates the emptying of any
 internal buffers but does not wait for completion
 or acknowledgment to return.
 
-@symbolref{clear-output} attempts to abort any
+@symbolref{clear-output, SYM} attempts to abort any
 outstanding output operation in progress in order
 to allow as little output as possible
 to continue to the destination.
@@ -2854,7 +2854,7 @@ The precise actions of these @term{functions} are @term{implementation-dependent
 
 @subsubheading Affected By:
 
-@symbolref{*standard-output*}
+@symbolref{*standard-output*, SYM}
 
 @subsubheading Exceptional Situations:
 
@@ -2892,21 +2892,21 @@ These functions ask a question and parse a response from the user.
 They return @term{true} if the answer is affirmative,
 or @term{false} if the answer is negative.
 
-@symbolref{y-or-n-p} is for asking the user a question whose answer is either
+@symbolref{y-or-n-p, SYM} is for asking the user a question whose answer is either
 ``yes'' or ``no.''
 It is intended that the reply require
 the user to answer a yes-or-no question with a single
 character.
-@symbolref{yes-or-no-p} is also for asking the user a question
+@symbolref{yes-or-no-p, SYM} is also for asking the user a question
 whose answer is either ``Yes'' or ``No.''
 It is intended that the reply require
 the user to take more action than just a single keystroke, such as typing
 the full word @f{yes} or @f{no} followed by a newline.
 
-@symbolref{y-or-n-p} types out a message (if supplied), reads an answer
+@symbolref{y-or-n-p, SYM} types out a message (if supplied), reads an answer
 in some @term{implementation-dependent} manner (intended to be short and simple,
 such as reading a single character such as @f{Y} or @f{N}).
-@symbolref{yes-or-no-p} types out a message (if supplied),
+@symbolref{yes-or-no-p, SYM} types out a message (if supplied),
 attracts the user's attention (for example, by ringing
 the terminal's bell),
 and reads an answer
@@ -2914,10 +2914,10 @@ in some @term{implementation-dependent} manner (intended to be multiple characte
 such as @f{YES} or @f{NO}).
 
 If @param{format-control} is supplied and not @nil{},
-then a @symbolref{fresh-line} operation is performed; then
+then a @symbolref{fresh-line, SYM} operation is performed; then
 a message is printed as if @param{format-control} and @param{arguments}
-were given to @symbolref{format}.
-In any case, @symbolref{yes-or-no-p} and @symbolref{y-or-n-p} will provide
+were given to @symbolref{format, SYM}.
+In any case, @symbolref{yes-or-no-p, SYM} and @symbolref{y-or-n-p, SYM} will provide
 a prompt such as ``@f{(Y or N)}'' or ``@f{(Yes or No)}'' if appropriate.
 
 All input and output are performed using @term{query I/O}.
@@ -2943,7 +2943,7 @@ Output to and input from @term{query I/O} will occur.
 
 @subsubheading Affected By:
 
-@symbolref{*query-io*}.
+@symbolref{*query-io*, SYM}.
 
 @subsubheading See Also:
 
@@ -2951,7 +2951,7 @@ Output to and input from @term{query I/O} will occur.
 
 @subsubheading Notes:
 
-@symbolref{yes-or-no-p} and @symbolref{yes-or-no-p} do not add question marks
+@symbolref{yes-or-no-p, SYM} and @symbolref{yes-or-no-p, SYM} do not add question marks
 to the end of the prompt string, so any desired question mark or other
 punctuation should be explicitly included in the text query.
 
@@ -2995,7 +2995,7 @@ Returns a @term{synonym stream} whose @term{synonym stream symbol} is @param{sym
 
 @subsubheading Exceptional Situations:
 
-Should signal @symbolref{type-error} if its argument is not a @term{symbol}.
+Should signal @symbolref{type-error, SYM} if its argument is not a @term{symbol}.
 
 @subsubheading See Also:
 
@@ -3021,7 +3021,7 @@ Should signal @symbolref{type-error} if its argument is not a @term{symbol}.
 
 @subsubheading Description:
 
-Returns the @term{symbol} whose @symbolref{symbol-value} the @param{synonym-stream} is using.
+Returns the @term{symbol} whose @symbolref{symbol-value, SYM} the @param{synonym-stream} is using.
 
 @subsubheading See Also:
 
@@ -3163,10 +3163,10 @@ and  sends its output to   @param{output-stream}.
 
 @subsubheading Description:
 
-@symbolref{two-way-stream-input-stream} returns the @term{stream}
+@symbolref{two-way-stream-input-stream, SYM} returns the @term{stream}
 from which @param{two-way-stream} receives input.
 
-@symbolref{two-way-stream-output-stream} returns the @term{stream}
+@symbolref{two-way-stream-output-stream, SYM} returns the @term{stream}
 to which @param{two-way-stream} sends output.
 
 
@@ -3197,10 +3197,10 @@ to which @param{two-way-stream} sends output.
 
 @subsubheading Description:
 
-@symbolref{echo-stream-input-stream} returns the @term{input} @term{stream}
+@symbolref{echo-stream-input-stream, SYM} returns the @term{input} @term{stream}
 from which @param{echo-stream} receives input.
 
-@symbolref{echo-stream-output-stream} returns the @term{output} @term{stream}
+@symbolref{echo-stream-output-stream, SYM} returns the @term{output} @term{stream}
 to which @param{echo-stream} sends output.
 
 
@@ -3314,7 +3314,7 @@ initially associated with it.
 
 @subsubheading Exceptional Situations:
 
-Should signal @symbolref{type-error} if any argument is not an @term{input} @term{stream}.
+Should signal @symbolref{type-error, SYM} if any argument is not an @term{input} @term{stream}.
 
 @subsubheading See Also:
 
@@ -3343,7 +3343,7 @@ Returns a @term{string} containing, in order, all the @term{characters}
 that have been output to @param{string-output-stream}.
 This operation clears any @term{characters} on @param{string-output-stream},
 so the @param{string} contains only those @term{characters} which have been output
-since the last call to @symbolref{get-output-stream-string}
+since the last call to @symbolref{get-output-stream-string, SYM}
 or since the creation of the @param{string-output-stream},
 whichever occurred most recently.
 
@@ -3366,9 +3366,9 @@ The @param{string-output-stream} is cleared.
 The consequences are undefined if @param{stream-output-string} is @term{closed}.
 
 The consequences are undefined if @param{string-output-stream} is a @term{stream} that
-was not produced by @symbolref{make-string-output-stream}.
+was not produced by @symbolref{make-string-output-stream, SYM}.
 The consequences are undefined if @param{string-output-stream} was
-created implicitly by @symbolref{with-output-to-string} or @symbolref{format}.
+created implicitly by @symbolref{with-output-to-string, SYM} or @symbolref{format, SYM}.
 
 
 @subsubheading See Also:
@@ -3442,7 +3442,7 @@ the @term{string stream} will then be at @term{end of file}.
 
 Returns
 an @term{output} @term{string stream} that accepts @term{characters}
-and makes available (via @symbolref{get-output-stream-string})
+and makes available (via @symbolref{get-output-stream-string, SYM})
 a @term{string} that contains the @term{characters} that were actually output.
 
 The @param{element-type} names the @term{type} of the @term{elements}
@@ -3510,13 +3510,13 @@ a character @term{input} @term{string stream} that supplies
 The body is executed as an @term{implicit progn}.
 
 The @term{input} @term{string stream} is automatically closed on exit from
-@symbolref{with-input-from-string}, no matter whether the exit is normal or abnormal.
+@symbolref{with-input-from-string, SYM}, no matter whether the exit is normal or abnormal.
 The @term{input} @term{string stream} to which the @term{variable} @param{var}
 is @term{bound} has @term{dynamic extent};
 its @term{extent} ends when the @term{form} is exited.
 
 The @param{index} is a pointer within the @param{string} to be advanced.
-If @symbolref{with-input-from-string}
+If @symbolref{with-input-from-string, SYM}
 is exited normally, then @param{index} will have
 as its @term{value}
 the index into the @param{string} indicating the first character not read
@@ -3589,7 +3589,7 @@ the @term{values} returned by the @param{forms}.
 
 @subsubheading Description:
 
-@symbolref{with-output-to-string} creates a
+@symbolref{with-output-to-string, SYM} creates a
 character @term{output} @term{stream}, performs a series of operations
 that may send results to this @term{stream}, and then closes the @term{stream}.
 
@@ -3603,7 +3603,7 @@ All output to that @term{string stream} is saved in a @term{string}.
 
 If @param{string} is supplied, @param{element-type} is ignored,
 and the output is incrementally appended to @param{string} as
-if by use of @symbolref{vector-push-extend}.
+if by use of @symbolref{vector-push-extend, SYM}.
 
 The @term{output} @term{stream}
 is automatically closed on exit from @code{with-output-from-string},
@@ -3616,7 +3616,7 @@ If no @param{string} is provided, then @code{with-output-from-string}
 produces a @term{stream} that accepts characters and returns a @term{string}
 of the indicated @param{element-type}.
 If @param{string} is provided,
-@symbolref{with-output-to-string} returns the results of evaluating the last @param{form}.
+@symbolref{with-output-to-string, SYM} returns the results of evaluating the last @param{form}.
 
 The consequences are undefined if an attempt is made to @term{assign}
 the @term{variable} @param{var}.
@@ -3673,13 +3673,13 @@ directly on the @param{string} during the @term{dynamic extent} of the call.
 
 @subsubheading Value Type:
 
-For @symbolref{*standard-input*}:
+For @symbolref{*standard-input*, SYM}:
 an @term{input} @term{stream}
 
-For @symbolref{*error-output*}, @symbolref{*standard-output*}, and @symbolref{*trace-output*}:
+For @symbolref{*error-output*, SYM}, @symbolref{*standard-output*, SYM}, and @symbolref{*trace-output*, SYM}:
 an @term{output} @term{stream}.
 
-For @symbolref{*debug-io*}, @symbolref{*query-io*}:
+For @symbolref{*debug-io*, SYM}, @symbolref{*query-io*, SYM}:
 a @term{bidirectional} @term{stream}.
 
 @subsubheading Initial Value:
@@ -3691,7 +3691,7 @@ to an @term{I/O customization variables}
 but that might be a @term{generalized synonym stream} to
 the value of some @term{I/O customization variable}.
 The initial value might also be a @term{generalized synonym stream}
-to either the @term{symbol} @symbolref{*terminal-io*} or to the @term{stream}
+to either the @term{symbol} @symbolref{*terminal-io*, SYM} or to the @term{stream}
 that is its @term{value}.
 
 @subsubheading Description:
@@ -3724,7 +3724,7 @@ as a default destination for output when no specific @term{output} @term{stream}
 is explicitly supplied.
 
 @Thevalueof{*trace-output*}, called @term{trace output},
-is the @term{stream} on which traced functions (see @symbolref{trace})
+is the @term{stream} on which traced functions (see @symbolref{trace, SYM})
 and @themacro{time} print their output.
 
 @subsubheading Examples:
@@ -3783,28 +3783,28 @@ the @term{value} of another @term{I/O customization variable}, without
 unduly restricting @term{implementation} flexibility.
 
 It is common for an @term{implementation} to make
-the initial @term{values} of @symbolref{*debug-io*} and @symbolref{*query-io*}
+the initial @term{values} of @symbolref{*debug-io*, SYM} and @symbolref{*query-io*, SYM}
 be the @term{same} @term{stream},
 and to make
-the initial @term{values} of @symbolref{*error-output*} and @symbolref{*standard-output*}
+the initial @term{values} of @symbolref{*error-output*, SYM} and @symbolref{*standard-output*, SYM}
 be the @term{same} @term{stream}.
 
-The functions @symbolref{y-or-n-p} and @symbolref{yes-or-no-p} use @term{query I/O}
+The functions @symbolref{y-or-n-p, SYM} and @symbolref{yes-or-no-p, SYM} use @term{query I/O}
 for their input and output.
 
 In the normal @term{Lisp read-eval-print loop},
 input is read from @term{standard input}.
-Many input functions, including @symbolref{read} and @symbolref{read-char},
+Many input functions, including @symbolref{read, SYM} and @symbolref{read-char, SYM},
 take a @term{stream} argument that defaults to @term{standard input}.
 
 In the normal @term{Lisp read-eval-print loop}, output is sent to @term{standard output}.
-Many output functions, including @symbolref{print} and @symbolref{write-char},
+Many output functions, including @symbolref{print, SYM} and @symbolref{write-char, SYM},
 take a @term{stream} argument that defaults to @term{standard output}.
 
 A program that wants, for example, to divert output to a file should do so by
-@term{binding} @symbolref{*standard-output*}; that way error messages sent to
-@symbolref{*error-output*} can still get to the user by going through
-@symbolref{*terminal-io*} (if @symbolref{*error-output*} is bound to @symbolref{*terminal-io*}),
+@term{binding} @symbolref{*standard-output*, SYM}; that way error messages sent to
+@symbolref{*error-output*, SYM} can still get to the user by going through
+@symbolref{*terminal-io*, SYM} (if @symbolref{*error-output*, SYM} is bound to @symbolref{*terminal-io*, SYM}),
 which is usually what is desired.
 
 
@@ -3835,7 +3835,7 @@ Typically, writing to this @term{stream}
 would cause the output to appear
 on a display screen, for example, and reading from the @term{stream} would
 accept input from a keyboard.  It is intended
-that standard input functions such as @symbolref{read} and @symbolref{read-char},
+that standard input functions such as @symbolref{read, SYM} and @symbolref{read-char, SYM},
 when used with this @term{stream}, cause echoing of the input
 into the output side of the @term{stream}. The means by which this is
 accomplished are @term{implementation-dependent}.
@@ -3875,10 +3875,10 @@ is @term{implementation-defined}.
 
 
 @subsubheading Class Precedence List:
-@symbolref{stream-error},
+@symbolref{stream-error, SYM},
 @code{error},
-@symbolref{serious-condition},
-@symbolref{condition},
+@symbolref{serious-condition, SYM},
+@symbolref{condition, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -3887,7 +3887,7 @@ is @term{implementation-defined}.
 consists of error conditions that are related to receiving input from
 or sending output to a @term{stream}.
 The ``offending stream'' is initialized by
-@theinitkeyarg{stream} to @symbolref{make-condition},
+@theinitkeyarg{stream} to @symbolref{make-condition, SYM},
 and is @term{accessed} by @thefunction{stream-error-stream}.
 
 @subsubheading See Also:
@@ -3938,11 +3938,11 @@ Returns the offending @term{stream} of a @term{condition} @oftype{stream-error}.
 
 
 @subsubheading Class Precedence List:
-@symbolref{end-of-file},
-@symbolref{stream-error},
+@symbolref{end-of-file, SYM},
+@symbolref{stream-error, SYM},
 @code{error},
-@symbolref{serious-condition},
-@symbolref{condition},
+@symbolref{serious-condition, SYM},
+@symbolref{condition, SYM},
 @code{t}
 
 @subsubheading Description:

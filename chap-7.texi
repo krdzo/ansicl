@@ -14,7 +14,7 @@
 @section Object Creation and Initialization
 
 
-The @term{generic function} @symbolref{make-instance} creates and returns a new
+The @term{generic function} @symbolref{make-instance, SYM} creates and returns a new
 @term{instance} of a @term{class}.  The first argument is a @term{class} or
 the @term{name} of a @term{class}, and the remaining arguments form an
 @newterm{initialization argument list}.
@@ -25,9 +25,9 @@ arguments with default values for the unsupplied initialization arguments,
 checking the validity of the initialization arguments, allocating storage
 for the @term{instance}, filling @term{slots} with
 values, and executing user-supplied @term{methods} that perform additional
-initialization.  Each step of @symbolref{make-instance} is implemented by a
+initialization.  Each step of @symbolref{make-instance, SYM} is implemented by a
 @term{generic function} to provide a mechanism for customizing that step.
-In addition, @symbolref{make-instance} is itself a @term{generic function}
+In addition, @symbolref{make-instance, SYM} is itself a @term{generic function}
 and thus also can be customized.
 
 The @OS{}@spc{}specifies system-supplied primary @term{methods} for each step
@@ -40,25 +40,25 @@ mechanisms for controlling initialization:
 
 @item Declaring a @term{symbol} to be an initialization argument
 for a @term{slot}.  An initialization argument is declared by using the
-@kwd{initarg} slot option to @symbolref{defclass}.  This provides a mechanism
-for supplying a value for a @term{slot} in a call to @symbolref{make-instance}.
+@kwd{initarg} slot option to @symbolref{defclass, SYM}.  This provides a mechanism
+for supplying a value for a @term{slot} in a call to @symbolref{make-instance, SYM}.
 
 @item Supplying a default value form for an initialization argument.
 Default value forms for initialization arguments are defined by using the
-@kwd{default-initargs} class option to @symbolref{defclass}.  If an
+@kwd{default-initargs} class option to @symbolref{defclass, SYM}.  If an
 initialization argument is not explicitly provided
-as an argument to @symbolref{make-instance}, the default value form is
-evaluated in the lexical environment of the @symbolref{defclass} form that
+as an argument to @symbolref{make-instance, SYM}, the default value form is
+evaluated in the lexical environment of the @symbolref{defclass, SYM} form that
 defined it, and the resulting value is used as the value of the
 initialization argument.
 
 @item Supplying a default initial value form for a @term{slot}.
 A default initial value form for a @term{slot} is defined by using the
-@kwd{initform} slot option to @symbolref{defclass}.  If no initialization
+@kwd{initform} slot option to @symbolref{defclass, SYM}.  If no initialization
 argument associated with that @term{slot} is given as an argument to
-@symbolref{make-instance} or is defaulted by @kwd{default-initargs}, this
+@symbolref{make-instance, SYM} or is defaulted by @kwd{default-initargs}, this
 default initial value form is evaluated in the lexical environment of
-the @symbolref{defclass} form that defined it, and the resulting value is
+the @symbolref{defclass, SYM} form that defined it, and the resulting value is
 stored in the @term{slot}.  The @kwd{initform} form for a
 @term{local slot} may be used when creating an @term{instance}, when
 updating an @term{instance} to conform to a redefined @term{class},
@@ -67,18 +67,18 @@ different @term{class}. The @kwd{initform} form for a
 @term{shared slot} may be used when defining or re-defining the @term{class}.
 
 @item
-Defining @term{methods} for @symbolref{initialize-instance} and
-@symbolref{shared-initialize}.  The slot-filling behavior described above is
+Defining @term{methods} for @symbolref{initialize-instance, SYM} and
+@symbolref{shared-initialize, SYM}.  The slot-filling behavior described above is
 implemented by a system-supplied primary @term{method} for
-@symbolref{initialize-instance} which invokes @symbolref{shared-initialize}. The
-@term{generic function} @symbolref{shared-initialize} implements the parts of
+@symbolref{initialize-instance, SYM} which invokes @symbolref{shared-initialize, SYM}. The
+@term{generic function} @symbolref{shared-initialize, SYM} implements the parts of
 initialization shared by these four situations: when making an @term{instance},
 when re-initializing an @term{instance}, when updating an @term{instance}
 to conform to a redefined @term{class}, and when updating an @term{instance}
 to conform to the definition of a different @term{class}. The system-supplied
-primary @term{method} for @symbolref{shared-initialize} directly implements the
-slot-filling behavior described above, and @symbolref{initialize-instance}
-simply invokes @symbolref{shared-initialize}.
+primary @term{method} for @symbolref{shared-initialize, SYM} directly implements the
+slot-filling behavior described above, and @symbolref{initialize-instance, SYM}
+simply invokes @symbolref{shared-initialize, SYM}.
 @end itemize
 
 
@@ -114,7 +114,7 @@ As in those lists,
 if an initialization
 argument name appears more than once in an initialization argument list,
 the leftmost occurrence supplies the value and the remaining occurrences
-are ignored.  The arguments to @symbolref{make-instance} (after the first
+are ignored.  The arguments to @symbolref{make-instance, SYM} (after the first
 argument) form an @term{initialization argument list}.
 
 An initialization argument can be associated with a @term{slot}.  If
@@ -128,8 +128,8 @@ replacing any previous value.
 
 An initialization argument can be associated with a @term{method}.  When
 an @term{object} is created and a particular initialization argument is
-supplied, the @term{generic functions} @symbolref{initialize-instance},
-@symbolref{shared-initialize}, and @symbolref{allocate-instance} are called
+supplied, the @term{generic functions} @symbolref{initialize-instance, SYM},
+@symbolref{shared-initialize, SYM}, and @symbolref{allocate-instance, SYM} are called
 with that initialization argument's name and value as a keyword argument
 pair.  If a value for the initialization argument is not supplied in the
 @term{initialization argument list}, the @term{method}'s
@@ -153,7 +153,7 @@ we say that an initialization argument is
 Initialization arguments are checked for validity in each of the four
 situations that use them.  An initialization argument may be valid in
 one situation and not another. For example, the system-supplied
-primary @term{method} for @symbolref{make-instance} defined for
+primary @term{method} for @symbolref{make-instance, SYM} defined for
 @theclass{standard-class} checks the validity of its initialization arguments
 and signals an error if an initialization argument is supplied that is
 not declared as valid in that situation.
@@ -165,7 +165,7 @@ There are two means for declaring initialization arguments valid.
 
 @item
 Initialization arguments that fill @term{slots} are declared as valid
-by the @kwd{initarg} slot option to @symbolref{defclass}.  The
+by the @kwd{initarg} slot option to @symbolref{defclass, SYM}.  The
 @kwd{initarg} slot option is inherited from @term{superclasses}.  Thus
 the set of valid initialization arguments that fill @term{slots} for a
 @term{class} is the union of the initialization arguments that fill
@@ -191,24 +191,24 @@ follows:
 @itemize --
 @item
 Making an @term{instance} of a @term{class}:
-@symbolref{allocate-instance}, @symbolref{initialize-instance}, and
-@symbolref{shared-initialize}.  Initialization arguments declared as valid
+@symbolref{allocate-instance, SYM}, @symbolref{initialize-instance, SYM}, and
+@symbolref{shared-initialize, SYM}.  Initialization arguments declared as valid
 by these @term{methods} are valid when making
 an @term{instance} of a @term{class}.
 
 @item Re-initializing an @term{instance}:
-@symbolref{reinitialize-instance} and @symbolref{shared-initialize}.
+@symbolref{reinitialize-instance, SYM} and @symbolref{shared-initialize, SYM}.
 Initialization arguments declared as valid by these @term{methods} are
 valid when re-initializing an @term{instance}.
 
 @item  Updating an @term{instance} to conform to a redefined @term{class}:
-@symbolref{update-instance-for-redefined-class} and @symbolref{shared-initialize}.
+@symbolref{update-instance-for-redefined-class, SYM} and @symbolref{shared-initialize, SYM}.
 Initialization arguments declared as valid by these @term{methods} are
 valid when updating an @term{instance} to conform to a redefined @term{class}.
 
 @item Updating an @term{instance} to conform to the definition of a
 different @term{class}:
-@symbolref{update-instance-for-different-class} and @symbolref{shared-initialize}.
+@symbolref{update-instance-for-different-class, SYM} and @symbolref{shared-initialize, SYM}.
 Initialization arguments declared as valid by these @term{methods} are
 valid when updating an @term{instance} to conform to the definition
 of a different @term{class}.
@@ -248,13 +248,13 @@ Each @term{form} is the
 default  value form for the corresponding initialization
 argument.  The default  value @term{form} of an initialization
 argument is used and evaluated only if that initialization argument
-does not appear in the arguments to @symbolref{make-instance} and is not
+does not appear in the arguments to @symbolref{make-instance, SYM} and is not
 defaulted by a more specific @term{class}.  The default  value @term{form} is
-evaluated in the lexical environment of the @symbolref{defclass} form that
+evaluated in the lexical environment of the @symbolref{defclass, SYM} form that
 supplied it; the resulting value is used as the initialization
 argument's value.
 
-The initialization arguments supplied to @symbolref{make-instance} are combined
+The initialization arguments supplied to @symbolref{make-instance, SYM} are combined
 with defaulted initialization arguments to produce a
 @term{defaulted initialization argument list}. A
 @term{defaulted initialization argument list}
@@ -274,20 +274,20 @@ for an initialization argument without knowing whether the
 initialization argument initializes a @term{slot}
 or is passed to a @term{method}.
 If that initialization argument is not explicitly supplied in a call
-to @symbolref{make-instance}, the default  value @term{form} is used, just
+to @symbolref{make-instance, SYM}, the default  value @term{form} is used, just
 as if it had been supplied in the call.  In contrast, the
 @kwd{initform} slot option provides a mechanism for the user to give a
 default initial value form for a @term{slot}.  An @kwd{initform} form is
 used to initialize a @term{slot} only if no initialization argument
 associated with that @term{slot} is given as an argument to
-@symbolref{make-instance} or is defaulted by @kwd{default-initargs}.
+@symbolref{make-instance, SYM} or is defaulted by @kwd{default-initargs}.
 
 @cindex order of evaluation
 @cindex evaluation order
 The order of evaluation of default value @term{forms} for initialization
 arguments and the order of evaluation of @kwd{initform} forms are
 undefined.  If the order of evaluation is important,
-@symbolref{initialize-instance} or @symbolref{shared-initialize} @term{methods}
+@symbolref{initialize-instance, SYM} or @symbolref{shared-initialize, SYM} @term{methods}
 should be used
 instead.
 
@@ -325,24 +325,25 @@ the value, even if they have different names.''  And the rest would follow
 from the rules above.}
 
 If two or more initialization arguments that initialize the same
-@term{slot} are given in the arguments to @symbolref{make-instance}, the
-leftmost of these initialization arguments in the @term{initialization
-argument list} supplies the value, even if the initialization arguments
+@term{slot} are given in the arguments to @symbolref{make-instance, SYM}, the
+leftmost of these initialization arguments in the
+@term{initialization argument list}
+supplies the value, even if the initialization arguments
 have different names.
 
 If two or more different initialization arguments that initialize the
 same @term{slot} have default values and none is given explicitly in the
-arguments to @symbolref{make-instance}, the initialization argument that
+arguments to @symbolref{make-instance, SYM}, the initialization argument that
 appears in a @kwd{default-initargs} class option in the most specific
 of the @term{classes} supplies the value. If a single
 @kwd{default-initargs} class option specifies two or more initialization
 arguments that initialize the same @term{slot} and none is given
-explicitly in the arguments to @symbolref{make-instance}, the leftmost in
+explicitly in the arguments to @symbolref{make-instance, SYM}, the leftmost in
 the @kwd{default-initargs} class option supplies the value, and the
 values of the remaining default value @term{forms} are ignored.
 
 Initialization arguments given explicitly in the arguments to
-@symbolref{make-instance} appear to the left of defaulted initialization
+@symbolref{make-instance, SYM} appear to the left of defaulted initialization
 arguments. Suppose that the classes @mat{C@sub{1}} and @mat{C@sub{2}} supply the
 values of defaulted initialization arguments for different @term{slots},
 and suppose that @mat{C@sub{1}} is more specific than @mat{C@sub{2}}; then the
@@ -359,7 +360,7 @@ the @term{defaulted initialization argument list}.
 
 If a @term{slot} has both an @kwd{initform} form and an
 @kwd{initarg} slot option, and the initialization argument is defaulted
-using @kwd{default-initargs} or is supplied to @symbolref{make-instance},
+using @kwd{default-initargs} or is supplied to @symbolref{make-instance, SYM},
 the captured @kwd{initform} form is neither used nor evaluated.
 
 The following is an example of the above rules:
@@ -377,7 +378,7 @@ The following is an example of the above rules:
 @node Shared-Initialize
 @subsection Shared-Initialize
 
-The @term{generic function} @symbolref{shared-initialize} is used to fill the
+The @term{generic function} @symbolref{shared-initialize, SYM} is used to fill the
 @term{slots}
 of an @term{instance}
 using initialization arguments and @kwd{initform}
@@ -394,7 +395,7 @@ specification of a set of @term{names} of @term{slots}
 arguments.  The arguments after the first two must form an
 @term{initialization argument list}.
 
-The second argument to @symbolref{shared-initialize} may be one of the following:
+The second argument to @symbolref{shared-initialize, SYM} may be one of the following:
 
 
 @itemize @bullet{}
@@ -406,7 +407,7 @@ which specifies the set of those @term{slot} names.
 @end itemize
 
 
-There is a system-supplied primary @term{method} for @symbolref{shared-initialize}
+There is a system-supplied primary @term{method} for @symbolref{shared-initialize, SYM}
 whose first @term{parameter specializer} is @theclass{standard-object}.
 This @term{method} behaves as follows on each @term{slot},
 whether shared or local:
@@ -420,7 +421,7 @@ that value is stored
 into the @term{slot}, even if a value has already been stored in the @term{slot}
 before the @term{method} is run.
 The affected @term{slots} are independent of which
-@term{slots} are indicated by the second argument to @symbolref{shared-initialize}.
+@term{slots} are indicated by the second argument to @symbolref{shared-initialize, SYM}.
 
 @item Any @term{slots}
 indicated by the second argument that are still
@@ -429,7 +430,7 @@ unbound at this point are initialized according to their
 that has an @kwd{initform} form,
 that @term{form} is evaluated in the
 lexical environment of its defining
-@symbolref{defclass} form and the result is stored into the @term{slot}.
+@symbolref{defclass, SYM} form and the result is stored into the @term{slot}.
 For example,
 if a @term{before method} stores a value in the
 @term{slot}, the @kwd{initform} form will not be used to supply a value
@@ -442,28 +443,28 @@ in the @term{instance}, the results are unspecified.
 @end itemize
 
 
-The generic function @symbolref{shared-initialize} is called by the
+The generic function @symbolref{shared-initialize, SYM} is called by the
 system-supplied primary @term{methods}
-for @symbolref{reinitialize-instance},
-@symbolref{update-instance-for-different-class},
-@symbolref{update-instance-for-redefined-class}, and
-@symbolref{initialize-instance}.  Thus, @term{methods} can be written for
-@symbolref{shared-initialize} to specify actions that should be taken in all of
+for @symbolref{reinitialize-instance, SYM},
+@symbolref{update-instance-for-different-class, SYM},
+@symbolref{update-instance-for-redefined-class, SYM}, and
+@symbolref{initialize-instance, SYM}.  Thus, @term{methods} can be written for
+@symbolref{shared-initialize, SYM} to specify actions that should be taken in all of
 these contexts.
 
 
 @node Initialize-Instance
 @subsection Initialize-Instance
 
-The @term{generic function} @symbolref{initialize-instance} is called by
-@symbolref{make-instance} to initialize a newly created @term{instance}.
+The @term{generic function} @symbolref{initialize-instance, SYM} is called by
+@symbolref{make-instance, SYM} to initialize a newly created @term{instance}.
 It uses @term{standard method combination}.  @term{Methods} for
-@symbolref{initialize-instance} can be defined in order to perform any
+@symbolref{initialize-instance, SYM} can be defined in order to perform any
 initialization that cannot be achieved
 simply by supplying initial values for @term{slots}.
 
 
-During initialization, @symbolref{initialize-instance} is invoked
+During initialization, @symbolref{initialize-instance, SYM} is invoked
 after the following actions have been taken:
 
 
@@ -482,36 +483,36 @@ are unbound has been created.
 @end itemize
 
 
-The generic function @symbolref{initialize-instance} is called with the
+The generic function @symbolref{initialize-instance, SYM} is called with the
 new @term{instance} and the defaulted initialization arguments.  There is
-a system-supplied primary @term{method} for @symbolref{initialize-instance}
+a system-supplied primary @term{method} for @symbolref{initialize-instance, SYM}
 whose @term{parameter specializer} is @theclass{standard-object}.  This
 @term{method} calls the generic function
-@symbolref{shared-initialize} to fill in
+@symbolref{shared-initialize, SYM} to fill in
 the @term{slots} according to the initialization arguments and the
 @kwd{initform} forms for the @term{slots}; the generic function
-@symbolref{shared-initialize} is called with the following arguments: the @term{instance},
+@symbolref{shared-initialize, SYM} is called with the following arguments: the @term{instance},
 @code{t}, and the defaulted initialization arguments.
 
-Note that @symbolref{initialize-instance} provides the
-@term{defaulted initialization argument list} in its call to @symbolref{shared-initialize},
+Note that @symbolref{initialize-instance, SYM} provides the
+@term{defaulted initialization argument list} in its call to @symbolref{shared-initialize, SYM},
 so the first step performed by the system-supplied primary @term{method} for
-@symbolref{shared-initialize} takes into account both the initialization
-arguments provided in the call to @symbolref{make-instance} and the
+@symbolref{shared-initialize, SYM} takes into account both the initialization
+arguments provided in the call to @symbolref{make-instance, SYM} and the
 @term{defaulted initialization argument list}.
 
-@term{Methods} for @symbolref{initialize-instance} can be defined to specify
+@term{Methods} for @symbolref{initialize-instance, SYM} can be defined to specify
 actions to be taken when an @term{instance} is initialized.
-If only @term{after methods} for @symbolref{initialize-instance} are defined, they will be
+If only @term{after methods} for @symbolref{initialize-instance, SYM} are defined, they will be
 run after the system-supplied primary @term{method} for initialization and
 therefore will not interfere with the default behavior of
-@symbolref{initialize-instance}.
+@symbolref{initialize-instance, SYM}.
 
 The @OS{}@spc{}provides two @term{functions} that are useful in the bodies of
-@symbolref{initialize-instance} methods.  @Thefunction{slot-boundp}
+@symbolref{initialize-instance, SYM} methods.  @Thefunction{slot-boundp}
 returns a @i{generic boolean} value that indicates whether a specified @term{slot} has a
 value; this provides a mechanism for writing @term{after methods} for
-@symbolref{initialize-instance} that initialize @term{slots} only if they have
+@symbolref{initialize-instance, SYM} that initialize @term{slots} only if they have
 not already been initialized.  @Thefunction{slot-makunbound}
 causes the @term{slot} to have no value.
 
@@ -519,7 +520,7 @@ causes the @term{slot} to have no value.
 @node Definitions of Make-Instance and Initialize-Instance
 @subsection Definitions of Make-Instance and Initialize-Instance
 
-The generic function @symbolref{make-instance} behaves as if it were defined as
+The generic function @symbolref{make-instance, SYM} behaves as if it were defined as
 follows, except that certain optimizations are permitted:
 
 @lisp
@@ -535,7 +536,7 @@ follows, except that certain optimizations are permitted:
 
 
 
-The elided code in the definition of @symbolref{make-instance}
+The elided code in the definition of @symbolref{make-instance, SYM}
 augments the @f{initargs} with any @i{defaulted initialization arguments} and
 checks the
 resulting
@@ -543,7 +544,7 @@ initialization arguments to determine whether an initialization
 argument was supplied that neither filled a @term{slot} nor supplied an argument
 to an applicable @term{method}.
 
-The generic function @symbolref{initialize-instance} behaves as if it were
+The generic function @symbolref{initialize-instance, SYM} behaves as if it were
 defined as follows, except that certain optimizations are permitted:
 
 @lisp
@@ -556,21 +557,21 @@ These procedures can be customized.
 
 Customizing at the Programmer Interface level includes using the
 @kwd{initform}, @kwd{initarg}, and @kwd{default-initargs} options to
-@symbolref{defclass}, as well as defining @term{methods}
-for @symbolref{make-instance},
-@symbolref{allocate-instance},
-and @symbolref{initialize-instance}.  It is also possible to define
-@term{methods} for @symbolref{shared-initialize}, which would be invoked by the
-generic functions @symbolref{reinitialize-instance},
-@symbolref{update-instance-for-redefined-class},
-@symbolref{update-instance-for-different-class}, and
-@symbolref{initialize-instance}.
+@symbolref{defclass, SYM}, as well as defining @term{methods}
+for @symbolref{make-instance, SYM},
+@symbolref{allocate-instance, SYM},
+and @symbolref{initialize-instance, SYM}.  It is also possible to define
+@term{methods} for @symbolref{shared-initialize, SYM}, which would be invoked by the
+generic functions @symbolref{reinitialize-instance, SYM},
+@symbolref{update-instance-for-redefined-class, SYM},
+@symbolref{update-instance-for-different-class, SYM}, and
+@symbolref{initialize-instance, SYM}.
 The meta-object level supports additional
 customization.
 
 Implementations are permitted to make certain optimizations to
-@symbolref{initialize-instance} and @symbolref{shared-initialize}.
-The description of @symbolref{shared-initialize} in Chapter@tie{}7 mentions the
+@symbolref{initialize-instance, SYM} and @symbolref{shared-initialize, SYM}.
+The description of @symbolref{shared-initialize, SYM} in Chapter@tie{}7 mentions the
 possible optimizations.
 
 
@@ -587,9 +588,9 @@ structure of the @term{instance} to conform to the definition of the class
 Note that changing the @term{class} of an @term{instance} may cause
 @term{slots} to be added or deleted.  Changing the @term{class} of an
 @term{instance} does not change its identity as defined by the
-@symbolref{eq} function.
+@symbolref{eq, SYM} function.
 
-When @symbolref{change-class} is invoked on an @term{instance}, a two-step
+When @symbolref{change-class, SYM} is invoked on an @term{instance}, a two-step
 updating process takes place.  The first step modifies the structure of
 the @term{instance} by adding new @term{local slots} and discarding
 @term{local slots} that are not specified in the new version of the @term{instance}.
@@ -624,29 +625,29 @@ This first step of the update does not affect the values of any
 
 The second step of the update initializes the newly added @term{slots} and
 performs any other user-defined actions.  This step is implemented by
-the generic function @symbolref{update-instance-for-different-class}.  The
-generic function @symbolref{update-instance-for-different-class} is invoked
-by @symbolref{change-class} after the first step of the update has been
+the generic function @symbolref{update-instance-for-different-class, SYM}.  The
+generic function @symbolref{update-instance-for-different-class, SYM} is invoked
+by @symbolref{change-class, SYM} after the first step of the update has been
 completed.
 
-The generic function @symbolref{update-instance-for-different-class} is
-invoked on arguments computed by @symbolref{change-class}.
+The generic function @symbolref{update-instance-for-different-class, SYM} is
+invoked on arguments computed by @symbolref{change-class, SYM}.
 The first argument passed is a copy of the @term{instance} being updated
 and is an @term{instance} of the class @mat{C@subs{@hbox{@prmseven{from}}}};
-this copy has @term{dynamic extent} within the generic function @symbolref{change-class}.
-The second argument is the @term{instance} as updated so far by @symbolref{change-class}
+this copy has @term{dynamic extent} within the generic function @symbolref{change-class, SYM}.
+The second argument is the @term{instance} as updated so far by @symbolref{change-class, SYM}
 and is an @term{instance} of the class @mat{C@subs{@hbox{@prmseven{to}}}}.
 The remaining arguments are an @term{initialization argument list}.
 
 
 There is a system-supplied primary @term{method} for
-@symbolref{update-instance-for-different-class} that has two parameter
+@symbolref{update-instance-for-different-class, SYM} that has two parameter
 specializers, each of which is @theclass{standard-object}.  First
 this @term{method} checks the validity of initialization arguments and
 signals an error if an initialization argument is supplied that is not
 declared as valid.  (For more information, see @ref{Declaring the Validity of Initialization Arguments}.)
 Then it calls the
-generic function @symbolref{shared-initialize} with the following arguments:
+generic function @symbolref{shared-initialize, SYM} with the following arguments:
 the
 new
 @term{instance}, a list of @term{names} of the newly added
@@ -657,15 +658,15 @@ initialization arguments it received.
 @node Customizing the Change of Class of an Instance
 @subsection Customizing the Change of Class of an Instance
 
-@term{Methods} for @symbolref{update-instance-for-different-class} may be defined
+@term{Methods} for @symbolref{update-instance-for-different-class, SYM} may be defined
 to specify actions to be taken when an @term{instance} is updated.  If only
-@term{after methods} for @symbolref{update-instance-for-different-class} are
+@term{after methods} for @symbolref{update-instance-for-different-class, SYM} are
 defined, they will be run after the system-supplied primary @term{method} for
 initialization and will not interfere with the default behavior of
-@symbolref{update-instance-for-different-class}.
+@symbolref{update-instance-for-different-class, SYM}.
 
 @term{Methods}
-for @symbolref{shared-initialize} may be defined to customize @term{class}
+for @symbolref{shared-initialize, SYM} may be defined to customize @term{class}
 redefinition.  For more information, see @ref{Shared-Initialize}.
 
 
@@ -673,7 +674,7 @@ redefinition.  For more information, see @ref{Shared-Initialize}.
 @node Reinitializing an Instance
 @section Reinitializing an Instance
 
-The generic function @symbolref{reinitialize-instance} may be used to change
+The generic function @symbolref{reinitialize-instance, SYM} may be used to change
 the values of @term{slots} according to initialization arguments.
 
 The process of reinitialization changes the values of some @term{slots} and
@@ -681,21 +682,21 @@ performs any user-defined actions.  It does not modify the structure
 of an @term{instance} to add or delete @term{slots},
 and it does not use any @kwd{initform} forms to initialize @term{slots}.
 
-The generic function @symbolref{reinitialize-instance} may be called
+The generic function @symbolref{reinitialize-instance, SYM} may be called
 directly.  It takes one required argument, the @term{instance}.  It also
 takes any number of initialization arguments to be used by @term{methods} for
-@symbolref{reinitialize-instance} or for @symbolref{shared-initialize}. The
+@symbolref{reinitialize-instance, SYM} or for @symbolref{shared-initialize, SYM}. The
 arguments after the required @term{instance} must form an
 @term{initialization argument list}.
 
 There is a system-supplied primary @term{method} for
-@symbolref{reinitialize-instance} whose @term{parameter specializer} is
+@symbolref{reinitialize-instance, SYM} whose @term{parameter specializer} is
 @theclass{standard-object}.  First this @term{method} checks the validity of
 initialization arguments and signals an error if an initialization
 argument is supplied that is not declared as valid.
 (For more information, see @ref{Declaring the Validity of Initialization Arguments}.)
 Then it calls the generic function
-@symbolref{shared-initialize} with the following arguments: the @term{instance},
+@symbolref{shared-initialize, SYM} with the following arguments: the @term{instance},
 @nil{}, and the initialization arguments it received.
 
 @menu
@@ -704,14 +705,14 @@ Then it calls the generic function
 @node Customizing Reinitialization
 @subsection Customizing Reinitialization
 
-@term{Methods} for @symbolref{reinitialize-instance} may be defined to specify
+@term{Methods} for @symbolref{reinitialize-instance, SYM} may be defined to specify
 actions to be taken when an @term{instance} is updated.  If only
-@term{after methods} for @symbolref{reinitialize-instance} are defined,
+@term{after methods} for @symbolref{reinitialize-instance, SYM} are defined,
 they will be run after the system-supplied primary @term{method} for
 initialization and therefore will not interfere with the default behavior of
-@symbolref{reinitialize-instance}.
+@symbolref{reinitialize-instance, SYM}.
 
-@term{Methods} for @symbolref{shared-initialize} may be defined to customize
+@term{Methods} for @symbolref{shared-initialize, SYM} may be defined to customize
 @term{class} redefinition.  For more information, see @ref{Shared-Initialize}.
 
 
@@ -734,8 +735,8 @@ the @OS{}.  The @term{instances} of the @term{classes} on which those
 
 The @OS{}@spc{}supplies a set of meta-objects, called standard meta-objects.
 These include @theclass{standard-object} and
-@term{instances} of the classes @symbolref{standard-method},
-@symbolref{standard-generic-function}, and @symbolref{method-combination}.
+@term{instances} of the classes @symbolref{standard-method, SYM},
+@symbolref{standard-generic-function, SYM}, and @symbolref{method-combination, SYM}.
 
 
 @itemize @bullet{}
@@ -744,22 +745,22 @@ These include @theclass{standard-object} and
 @item
 @Theclass{standard-method} is the default @term{class} of
 @term{methods} defined by the
-@symbolref{defmethod} and
-@symbolref{defgeneric} @term{forms}.
+@symbolref{defmethod, SYM} and
+@symbolref{defgeneric, SYM} @term{forms}.
 
 @item
 @Theclass{standard-generic-function} is the default @term{class} of
 @term{generic functions} defined by the forms
-@symbolref{defmethod},
-@symbolref{defgeneric},
+@symbolref{defmethod, SYM},
+@symbolref{defgeneric, SYM},
 and
-@symbolref{defclass}.
+@symbolref{defclass, SYM}.
 
-@item The @term{class} named @symbolref{standard-object}
+@item The @term{class} named @symbolref{standard-object, SYM}
 is an @term{instance} of @theclass{standard-class}
 and is a @term{superclass} of every @term{class} that is an
-@term{instance} of @symbolref{standard-class} except itself and
-@symbolref{structure-class}.
+@term{instance} of @symbolref{standard-class, SYM} except itself and
+@symbolref{structure-class, SYM}.
 
 @item Every @term{method} combination object is
 an @term{instance} of a @subclassof{method-combination}.
@@ -793,18 +794,18 @@ valid for use as a variable name.
 When a @term{slot} does not have a value, the @term{slot} is said to be
 @term{unbound}.  When an unbound @term{slot} is read,
 @reviewer{Barmar: from an object whose metaclass is standard-class?}
-the @term{generic function} @symbolref{slot-unbound} is invoked. The
+the @term{generic function} @symbolref{slot-unbound, SYM} is invoked. The
 system-supplied primary @term{method}
-for @symbolref{slot-unbound}
+for @symbolref{slot-unbound, SYM}
 on @term{class} @code{t} signals an error.
-If @symbolref{slot-unbound} returns, its @term{primary value}
+If @symbolref{slot-unbound, SYM} returns, its @term{primary value}
 is used that time as the @term{value} of the @term{slot}.
 
 The default initial value form for a @term{slot} is defined by
 the @kwd{initform} slot option.  When the @kwd{initform} form is used to
 supply a value, it is evaluated in the lexical environment in which
-the @symbolref{defclass} form was evaluated. The @kwd{initform} along with
-the lexical environment in which the @symbolref{defclass} form was evaluated
+the @symbolref{defclass, SYM} form was evaluated. The @kwd{initform} along with
+the lexical environment in which the @symbolref{defclass, SYM} form was evaluated
 is called a @term{captured initialization form}.
 For more details, see @ref{Object Creation and Initialization}.
 
@@ -816,13 +817,13 @@ A @term{shared slot} is defined to be a @term{slot} that is visible to more than
 @term{instance} of a given @term{class} and its @term{subclasses}.
 
 A @term{class} is said to define a @term{slot} with a given @term{name} when
-the @symbolref{defclass} form for that @term{class} contains a @term{slot specifier} with
+the @symbolref{defclass, SYM} form for that @term{class} contains a @term{slot specifier} with
 that @term{name}.  Defining a @term{local slot} does not immediately create
 a @term{slot}; it causes a @term{slot} to be created each time
 an @term{instance} of the @term{class} is created.
 Defining a @term{shared slot} immediately creates a @term{slot}.
 
-The @kwd{allocation} slot option to @symbolref{defclass} controls the kind
+The @kwd{allocation} slot option to @symbolref{defclass, SYM} controls the kind
 of @term{slot} that is defined.  If the value of the @kwd{allocation} slot
 option is @kwd{instance}, a @term{local slot} is created.  If the value of
 @kwd{allocation} is @kwd{class}, a @term{shared slot} is created.
@@ -844,14 +845,14 @@ A detailed explanation of the inheritance of @term{slots} is given in
 @subsection Accessing Slots
 
 @term{Slots} can be @term{accessed} in two ways: by use of the primitive function
-@symbolref{slot-value} and by use of @term{generic functions} generated by
-the @symbolref{defclass} form.
+@symbolref{slot-value, SYM} and by use of @term{generic functions} generated by
+the @symbolref{defclass, SYM} form.
 
 @Thefunction{slot-value} can be used with any of the @term{slot}
-names specified in the @symbolref{defclass} form to @term{access} a specific
+names specified in the @symbolref{defclass, SYM} form to @term{access} a specific
 @term{slot} @term{accessible} in an @term{instance} of the given @term{class}.
 
-The macro @symbolref{defclass} provides syntax for generating @term{methods} to
+The macro @symbolref{defclass, SYM} provides syntax for generating @term{methods} to
 read and write @term{slots}.  If a reader @term{method} is requested,
 a @term{method} is automatically generated for reading the value of the
 @term{slot}, but no @term{method} for storing a value into it is generated.
@@ -861,7 +862,7 @@ for reading its value is generated.  If an accessor @term{method} is
 requested, a @term{method} for reading the value of the @term{slot} and a
 @term{method} for storing a value into the @term{slot} are automatically
 generated.  Reader and writer @term{methods} are implemented using
-@symbolref{slot-value}.
+@symbolref{slot-value, SYM}.
 
 When a reader or writer @term{method} is specified for a @term{slot}, the
 name of the @term{generic function} to which the generated @term{method}
@@ -879,19 +880,19 @@ A @term{generic function} created or modified by supplying @kwd{reader},
 @kwd{writer}, or @kwd{accessor} @term{slot} options can be treated exactly
 as an ordinary @term{generic function}.
 
-Note that @symbolref{slot-value} can be used to read or write the value of a
+Note that @symbolref{slot-value, SYM} can be used to read or write the value of a
 @term{slot} whether or not reader or writer @term{methods} exist for that
-@term{slot}.  When @symbolref{slot-value} is used, no reader or writer
+@term{slot}.  When @symbolref{slot-value, SYM} is used, no reader or writer
 @term{methods} are invoked.
 
-The macro @symbolref{with-slots} can be used to establish a
+The macro @symbolref{with-slots, SYM} can be used to establish a
 @term{lexical environment} in which specified @term{slots} are lexically
-available as if they were variables.  The macro @symbolref{with-slots}
+available as if they were variables.  The macro @symbolref{with-slots, SYM}
 invokes @thefunction{slot-value} to @term{access} the specified @term{slots}.
 
-The macro @symbolref{with-accessors} can be used to establish a lexical
+The macro @symbolref{with-accessors, SYM} can be used to establish a lexical
 environment in which specified @term{slots} are lexically available through
-their accessors as if they were variables.  The macro @symbolref{with-accessors}
+their accessors as if they were variables.  The macro @symbolref{with-accessors, SYM}
 invokes the appropriate accessors to @term{access} the specified @term{slots}.
 
 @node Inheritance of Slots and Slot Options
@@ -983,7 +984,7 @@ defines a @term{slot} named @mat{S}@negthinspace{}, @mat{C@sub{1}}'s
 @term{slot} is not shared
 by @term{instances} of @mat{C@sub{2}} and its @term{subclasses}. When a class
 @mat{C@sub{1}} defines a @term{shared slot}, any subclass @mat{C@sub{2}} of @mat{C@sub{1}} will share this single @term{slot}
-unless the @symbolref{defclass} form for
+unless the @symbolref{defclass, SYM} form for
 @mat{C@sub{2}} specifies a @term{slot} of the same
 @term{name} or there is a @term{superclass}
 of @mat{C@sub{2}} that precedes @mat{C@sub{1}} in the @term{class precedence list} of
@@ -1047,34 +1048,34 @@ the @term{classes} or identities of one or more of the @term{arguments} to the
 @term{Ordinary functions} and @term{generic functions} are called with identical syntax.
 
 @term{Generic functions} are true @term{functions} that can be passed as @term{arguments}
-and used as the first @term{argument} to @symbolref{funcall} and @symbolref{apply}.
+and used as the first @term{argument} to @symbolref{funcall, SYM} and @symbolref{apply, SYM}.
 
 A @term{binding} of a @term{function name} to a @term{generic function}
 can be @term{established} in one of several ways.  It can be
 @term{established} in the @term{global environment} by
-@symbolref{ensure-generic-function},
-@symbolref{defmethod} (implicitly, due to @symbolref{ensure-generic-function})
+@symbolref{ensure-generic-function, SYM},
+@symbolref{defmethod, SYM} (implicitly, due to @symbolref{ensure-generic-function, SYM})
 or
-@symbolref{defgeneric} (also implicitly, due to @symbolref{ensure-generic-function}).
+@symbolref{defgeneric, SYM} (also implicitly, due to @symbolref{ensure-generic-function, SYM}).
 No @term{standardized} mechanism is provided for @term{establishing} a
 @term{binding} of a @term{function name} to a @term{generic function}
 in the @term{lexical environment}.
 
 
 
-When a @symbolref{defgeneric} form is evaluated, one of three actions
-is taken (due to @symbolref{ensure-generic-function}):
+When a @symbolref{defgeneric, SYM} form is evaluated, one of three actions
+is taken (due to @symbolref{ensure-generic-function, SYM}):
 
 
 @itemize @bullet{}
 
 @item If a generic function of the given name already exists,
 the existing generic function object is modified.  Methods specified
-by the current @symbolref{defgeneric} form are added, and any methods in the
-existing generic function that were defined by a previous @symbolref{defgeneric}
-form are removed.  Methods added by the current @symbolref{defgeneric}
-form might replace methods defined by @symbolref{defmethod},
-@symbolref{defclass}, @symbolref{define-condition}, or @symbolref{defstruct}.
+by the current @symbolref{defgeneric, SYM} form are added, and any methods in the
+existing generic function that were defined by a previous @symbolref{defgeneric, SYM}
+form are removed.  Methods added by the current @symbolref{defgeneric, SYM}
+form might replace methods defined by @symbolref{defmethod, SYM},
+@symbolref{defclass, SYM}, @symbolref{define-condition, SYM}, or @symbolref{defstruct, SYM}.
 No other methods in the generic function are affected
 or replaced.
 
@@ -1085,7 +1086,7 @@ or a @term{special operator},
 an error is signaled.
 
 @item Otherwise a generic function is created with the
-methods specified by the method definitions in the @symbolref{defgeneric}
+methods specified by the method definitions in the @symbolref{defgeneric, SYM}
 form.
 @end itemize
 
@@ -1096,7 +1097,7 @@ the @term{type} of @term{method combination} it uses
 or its @term{argument precedence order}.
 These @term{operators} will be referred to as
 ``operators that specify generic function options.''
-The only @term{standardized} @term{operator} in this category is @symbolref{defgeneric}.
+The only @term{standardized} @term{operator} in this category is @symbolref{defgeneric, SYM}.
 
 Some @term{operators} define @term{methods} for a @term{generic function}.
 These @term{operators} will be referred to as
@@ -1118,9 +1119,9 @@ The @term{standardized} @term{method-defining operators} are listed in @thenextf
 @end float
 
 Note that of the @term{standardized} @term{method-defining operators}
-only @symbolref{defgeneric}
+only @symbolref{defgeneric, SYM}
 can specify @term{generic function} options.
-@symbolref{defgeneric} and any @term{implementation-defined} @term{operators}
+@symbolref{defgeneric, SYM} and any @term{implementation-defined} @term{operators}
 that can specify @term{generic function} options
 are also referred to as ``operators that specify generic function options.''
 
@@ -1216,7 +1217,7 @@ defined, not each time the generic function is called.
 
 
 @term{Parameter specializer names} are used in macros intended as the
-user-level interface (@symbolref{defmethod}), while @term{parameter specializers}
+user-level interface (@symbolref{defmethod, SYM}), while @term{parameter specializers}
 are used in the functional interface.
 
 Only required parameters may be specialized, and there must be a
@@ -1263,7 +1264,7 @@ that is one of @kwd{around}, @kwd{before}, or @kwd{after}.
 @term{Methods} with these @term{qualifiers} are called @term{around methods},
 @term{before methods}, and @term{after methods}, respectively.
 When a method combination type is defined using the short form of
-@symbolref{define-method-combination}, @term{primary methods} are
+@symbolref{define-method-combination, SYM}, @term{primary methods} are
 methods qualified with the name of the type of method combination,
 and auxiliary methods have the @term{qualifier} @kwd{around}.
 Thus the terms ``@term{primary method}'' and ``@term{auxiliary method}''
@@ -1292,7 +1293,7 @@ The @term{parameter specializer} @mat{P@subs{1,i}} agrees with @mat{P@subs{2,i}}
 Otherwise @mat{P@subs{1,i}} and @mat{P@subs{2,i}} do not agree.
 
 @item The two @term{lists} of @term{qualifiers} are the @term{same}
-under @symbolref{equal}.
+under @symbolref{equal, SYM}.
 @end enumerate
 
 
@@ -1427,10 +1428,10 @@ combination of the @term{applicable methods} in the @term{generic function}
 that @term{calls} some or all of the @term{methods}.
 
 If a @term{generic function} is called and no @term{methods} are
-@term{applicable}, the @term{generic function} @symbolref{no-applicable-method}
+@term{applicable}, the @term{generic function} @symbolref{no-applicable-method, SYM}
 is invoked, with the @i{results} from that call being used as the
 @i{results} of the call to the original @term{generic function}.  Calling
-@symbolref{no-applicable-method} takes precedence over checking for acceptable
+@symbolref{no-applicable-method, SYM} takes precedence over checking for acceptable
 keyword arguments; see @ref{Keyword Arguments in Generic Functions and Methods}.
 
 When the @term{effective method} has been determined,
@@ -1468,7 +1469,7 @@ This step is described in @ref{Introduction to Methods}.
 To compare the precedence of two methods, their @term{parameter specializers}
 are examined in order.  The default examination order is from left to
 right, but an alternative order may be specified by the
-@kwd{argument-precedence-order} option to @symbolref{defgeneric} or to any of
+@kwd{argument-precedence-order} option to @symbolref{defgeneric, SYM} or to any of
 the other operators that specify generic function options.
 
 The corresponding @term{parameter specializers} from each method are
@@ -1506,10 +1507,10 @@ applicable methods are primary methods---the
 effective method is the most specific method.
 That method can call the next most specific
 method by using @thefunction{call-next-method}.  The method that
-@symbolref{call-next-method} will call is referred to as the
-@newterm{next method}.  The predicate @symbolref{next-method-p} tests whether a next
-method exists.  If @symbolref{call-next-method} is called and there is no
-next most specific method, the generic function @symbolref{no-next-method}
+@symbolref{call-next-method, SYM} will call is referred to as the
+@newterm{next method}.  The predicate @symbolref{next-method-p, SYM} tests whether a next
+method exists.  If @symbolref{call-next-method, SYM} is called and there is no
+next most specific method, the generic function @symbolref{no-next-method, SYM}
 is invoked.
 
 In general, the effective method is some combination of the applicable
@@ -1517,7 +1518,7 @@ methods.  It is described by a @term{form} that contains calls to some or
 all of the applicable methods, returns the value or values that will
 be returned as the value or values of the generic function, and
 optionally makes some of the methods accessible by means of
-@symbolref{call-next-method}.
+@symbolref{call-next-method, SYM}.
 
 The role of each method in the effective method is determined by its
 @term{qualifiers} and the specificity of the method.  A @term{qualifier}
@@ -1531,7 +1532,7 @@ When standard method combination is used together with qualified methods,
 the effective method is produced as described in @ref{Standard Method Combination}.
 
 Another type of method combination can be specified by using the
-@kwd{method-combination} option of @symbolref{defgeneric} or
+@kwd{method-combination} option of @symbolref{defgeneric, SYM} or
 of any of the other operators that specify generic function options.  In
 this way this step of the procedure can be customized.
 
@@ -1577,7 +1578,7 @@ An @term{around method} specifies @term{code} that is to be run instead of other
 @term{applicable methods},
 but which might contain explicit @term{code}
 which calls some of those @term{shadowed} @term{methods}
-(via @symbolref{call-next-method}).
+(via @symbolref{call-next-method, SYM}).
 @end itemize
 
 
@@ -1591,47 +1592,47 @@ The semantics of standard method combination is as follows:
 generic function.
 
 @item Inside the body of an @term{around method},
-@symbolref{call-next-method} can be used to call the @term{next method}.  When the next
+@symbolref{call-next-method, SYM} can be used to call the @term{next method}.  When the next
 method returns, the @term{around method} can execute more code,
 perhaps based on the returned value or values.
-@TheGF{no-next-method} is invoked if @symbolref{call-next-method} is used and
+@TheGF{no-next-method} is invoked if @symbolref{call-next-method, SYM} is used and
 there is no @term{applicable method} to call.  @Thefunction{next-method-p}
 may be used to determine whether a @term{next method} exists.
 
 @item
-If an @term{around method} invokes @symbolref{call-next-method},
+If an @term{around method} invokes @symbolref{call-next-method, SYM},
 the next most specific @term{around method}
 is called, if one is applicable.  If there are no @term{around methods}
-or if @symbolref{call-next-method} is called by the least
+or if @symbolref{call-next-method, SYM} is called by the least
 specific @term{around method}, the other methods are called as
 follows:
 
 @itemize --
 @item All the @term{before methods} are called, in
 most-specific-first order.  Their values are ignored.
-An error is signaled if @symbolref{call-next-method} is used in a
+An error is signaled if @symbolref{call-next-method, SYM} is used in a
 @term{before method}.
 
 @item The most specific primary method is called.  Inside the
-body of a primary method, @symbolref{call-next-method} may be used to call
+body of a primary method, @symbolref{call-next-method, SYM} may be used to call
 the next most specific primary method.  When that method returns, the
 previous primary method can execute more code, perhaps based on the
-returned value or values.  The generic function @symbolref{no-next-method}
-is invoked if @symbolref{call-next-method} is used and there are no more
+returned value or values.  The generic function @symbolref{no-next-method, SYM}
+is invoked if @symbolref{call-next-method, SYM} is used and there are no more
 applicable primary methods.  @Thefunction{next-method-p} may be
-used to determine whether a @term{next method} exists.  If @symbolref{call-next-method}
+used to determine whether a @term{next method} exists.  If @symbolref{call-next-method, SYM}
 is not used, only the most specific @term{primary method} is called.
 
 @item All the @term{after methods} are called in
 most-specific-last order.  Their values are ignored.
-An error is signaled if @symbolref{call-next-method} is used in an
+An error is signaled if @symbolref{call-next-method, SYM} is used in an
 @term{after method}.
 @end itemize
 
 @item If no @term{around methods} were invoked, the most
 specific primary method supplies the value or values returned by the
 generic function.  The value or values returned by the invocation of
-@symbolref{call-next-method} in the least specific @term{around method} are
+@symbolref{call-next-method, SYM} in the least specific @term{around method} are
 those returned by the most specific primary method.
 @end itemize
 
@@ -1655,7 +1656,7 @@ By contrast, all @term{around methods} run before any other methods
 run.  Thus a less specific @term{around method} runs before a more
 specific primary method.
 
-If only primary methods are used and if @symbolref{call-next-method} is not
+If only primary methods are used and if @symbolref{call-next-method, SYM} is not
 used, only the most specific method is invoked; that is, more specific
 methods shadow more general ones.
 
@@ -1663,14 +1664,14 @@ methods shadow more general ones.
 @node Declarative Method Combination
 @subsubsection Declarative Method Combination
 
-The macro @symbolref{define-method-combination} defines new forms of method
+The macro @symbolref{define-method-combination, SYM} defines new forms of method
 combination.  It provides a mechanism for customizing the production
 of the effective method. The default procedure for producing an
 effective method is described in @ref{Determining the Effective Method}.
 There are two forms of
-@symbolref{define-method-combination}.  The short form is a simple facility while
+@symbolref{define-method-combination, SYM}.  The short form is a simple facility while
 the long form is more powerful and more verbose.  The long form
-resembles @symbolref{defmacro} in that the body is an expression that
+resembles @symbolref{defmacro, SYM} in that the body is an expression that
 computes a Lisp form; it provides mechanisms for implementing
 arbitrary control structures within method combination and for
 arbitrary processing of method @term{qualifiers}.
@@ -1683,7 +1684,7 @@ The @CLOS{}@spc{}provides a set of built-in method combination types.  To
 specify that a generic function is to use one of these method
 combination types, the name of the method combination type is given as
 the argument to the @kwd{method-combination} option to
-@symbolref{defgeneric} or to the @kwd{method-combination} option to any of the
+@symbolref{defgeneric, SYM} or to the @kwd{method-combination} option to any of the
 other operators that specify generic function options.
 
 The names of the built-in  method combination types are listed in @thenextfigure{}.
@@ -1717,7 +1718,7 @@ built-in method combination types are called simple built-in method
 combination types.
 
 The simple built-in method combination types act as though they were
-defined by the short form of @symbolref{define-method-combination}.
+defined by the short form of @symbolref{define-method-combination, SYM}.
 They recognize two roles for @term{methods}:
 
 
@@ -1726,14 +1727,14 @@ They recognize two roles for @term{methods}:
 @item An @term{around method} has the keyword symbol
 @kwd{around} as its sole @term{qualifier}.  The meaning of
 @kwd{around} @term{methods} is the same as in standard method combination.
-Use of the functions @symbolref{call-next-method} and @symbolref{next-method-p}
+Use of the functions @symbolref{call-next-method, SYM} and @symbolref{next-method-p, SYM}
 is supported in @term{around methods}.
 
 @item A primary method has the name of the method combination
 type as its sole @term{qualifier}.  For example, the built-in method
 combination type @tt{and} recognizes methods whose sole @term{qualifier} is
 @tt{and}; these are primary methods. Use of the functions
-@symbolref{call-next-method} and @symbolref{next-method-p} is not supported
+@symbolref{call-next-method, SYM} and @symbolref{next-method-p, SYM} is not supported
 in @term{primary methods}.
 @end itemize
 
@@ -1748,18 +1749,18 @@ If there are any @term{around methods}, the most specific @term{around method}
 is called.   It supplies the value or values of the @term{generic function}.
 
 @item Inside the body of an @term{around method}, the function
-@symbolref{call-next-method} can be used to call the @term{next method}.
+@symbolref{call-next-method, SYM} can be used to call the @term{next method}.
 @TheGF{no-next-method} is invoked if
-@symbolref{call-next-method} is used and there is no applicable method to call.
+@symbolref{call-next-method, SYM} is used and there is no applicable method to call.
 @Thefunction{next-method-p} may be used to determine whether a
 @term{next method} exists. When the @term{next method} returns,
 the @term{around method} can execute more code,
 perhaps based on the returned value or values.
 
-@item If an @term{around method} invokes @symbolref{call-next-method},
+@item If an @term{around method} invokes @symbolref{call-next-method, SYM},
 the next most specific @term{around method} is
 called, if one is applicable.  If there are no @term{around methods}
-or if @symbolref{call-next-method} is called by the least specific
+or if @symbolref{call-next-method, SYM} is called by the least specific
 @term{around method}, a Lisp form derived from the name of the built-in
 method combination type and from the list of applicable primary
 methods is evaluated to produce the value of the generic function.
@@ -1924,7 +1925,7 @@ had been specified in the @param{method} definition.
 
 @subsubheading Affected By:
 
-@symbolref{defmethod}
+@symbolref{defmethod, SYM}
 
 @subsubheading See Also:
 
@@ -1946,7 +1947,7 @@ had been specified in the @param{method} definition.
 @param{function-name}---a @term{function name}.
 
 The keyword arguments correspond to the @param{option} arguments of
-@symbolref{defgeneric}, except that the @kwd{method-class} and
+@symbolref{defgeneric, SYM}, except that the @kwd{method-class} and
 @kwd{generic-function-class} arguments can be @term{class} @term{object}s
 as well as names.
 
@@ -1996,7 +1997,7 @@ are no @term{methods}, the value is changed; otherwise an error is signaled.
 If @param{function-name} specifies a @term{generic function} that has a
 different value for the @kwd{generic-function-class} argument and if
 the new generic function class is compatible with the old,
-@symbolref{change-class} is called to change the @term{class} of the
+@symbolref{change-class, SYM} is called to change the @term{class} of the
 @term{generic function};
 otherwise an error is signaled.
 
@@ -2062,18 +2063,18 @@ an error @oftype{error} is signaled.
 
 @subsubheading Description:
 
-The generic function @symbolref{allocate-instance} creates and returns
+The generic function @symbolref{allocate-instance, SYM} creates and returns
 a new instance of the @param{class}, without initializing it.
 When the @param{class} is a @term{standard class}, this means that
 the @term{slots} are @term{unbound}; when the @term{class} is a
 @term{structure class}, this means the @term{slots}' @term{values}
 are unspecified.
 
-The caller of @symbolref{allocate-instance} is expected to have
+The caller of @symbolref{allocate-instance, SYM} is expected to have
 already checked the initialization arguments.
 
-The @term{generic function} @symbolref{allocate-instance} is called by
-@symbolref{make-instance}, as described in
+The @term{generic function} @symbolref{allocate-instance, SYM} is called by
+@symbolref{make-instance, SYM}, as described in
 @ref{Object Creation and Initialization}.
 
 @subsubheading See Also:
@@ -2083,7 +2084,7 @@ The @term{generic function} @symbolref{allocate-instance} is called by
 
 @subsubheading Notes:
 
-The consequences of adding @term{methods} to @symbolref{allocate-instance} is unspecified.
+The consequences of adding @term{methods} to @symbolref{allocate-instance, SYM} is unspecified.
 This capability might be added by the @term{Metaobject Protocol}.
 
 
@@ -2110,15 +2111,15 @@ This capability might be added by the @term{Metaobject Protocol}.
 
 @subsubheading Description:
 
-The @term{generic function} @symbolref{reinitialize-instance} can be used to change
+The @term{generic function} @symbolref{reinitialize-instance, SYM} can be used to change
 the values of @term{local slots} of an @param{instance} according to
 @param{initargs}.
 This @term{generic function} can be called by users.
 
-The system-supplied primary @term{method} for @symbolref{reinitialize-instance}
+The system-supplied primary @term{method} for @symbolref{reinitialize-instance, SYM}
 checks the validity of @param{initargs} and signals an error if
 an @param{initarg} is supplied that is not declared as valid.
-The @term{method} then calls the generic function @symbolref{shared-initialize}
+The @term{method} then calls the generic function @symbolref{shared-initialize, SYM}
 with the following arguments:  the @param{instance},
 @nil{}@spc{}(which means no @term{slots}
 should be initialized according to their initforms), and the
@@ -2130,7 +2131,7 @@ should be initialized according to their initforms), and the
 
 @subsubheading Exceptional Situations:
 
-The system-supplied primary @term{method} for @symbolref{reinitialize-instance}
+The system-supplied primary @term{method} for @symbolref{reinitialize-instance, SYM}
 signals an error if an @param{initarg} is supplied that is not declared as valid.
 
 @subsubheading See Also:
@@ -2148,12 +2149,12 @@ signals an error if an @param{initarg} is supplied that is not declared as valid
 @subsubheading Notes:
 
 @param{Initargs} are declared as valid by using the
-@kwd{initarg} option to @symbolref{defclass}, or by defining
-@term{methods} for @symbolref{reinitialize-instance}
-or @symbolref{shared-initialize}.  The keyword name
+@kwd{initarg} option to @symbolref{defclass, SYM}, or by defining
+@term{methods} for @symbolref{reinitialize-instance, SYM}
+or @symbolref{shared-initialize, SYM}.  The keyword name
 of each keyword parameter specifier in the @term{lambda list} of any
 @term{method}
-defined on @symbolref{reinitialize-instance} or @symbolref{shared-initialize} is
+defined on @symbolref{reinitialize-instance, SYM} or @symbolref{shared-initialize, SYM} is
 declared as a valid initialization argument name for all
 @term{classes} for
 which that @term{method} is applicable.
@@ -2184,25 +2185,25 @@ which that @term{method} is applicable.
 
 @subsubheading Description:
 
-The generic function @symbolref{shared-initialize} is used to fill the
+The generic function @symbolref{shared-initialize, SYM} is used to fill the
 @term{slots}
 of an @param{instance}
 using @param{initargs} and @kwd{initform}
 forms.  It is called when an instance is created, when an instance is
 re-initialized, when an instance is updated to conform to a redefined
 @term{class}, and when an instance is updated to conform to a different
-@term{class}. The generic function @symbolref{shared-initialize} is called by the
-system-supplied primary @term{method} for @symbolref{initialize-instance},
-@symbolref{reinitialize-instance}, @symbolref{update-instance-for-redefined-class}, and
-@symbolref{update-instance-for-different-class}.
+@term{class}. The generic function @symbolref{shared-initialize, SYM} is called by the
+system-supplied primary @term{method} for @symbolref{initialize-instance, SYM},
+@symbolref{reinitialize-instance, SYM}, @symbolref{update-instance-for-redefined-class, SYM}, and
+@symbolref{update-instance-for-different-class, SYM}.
 
-The generic function @symbolref{shared-initialize} takes the following
+The generic function @symbolref{shared-initialize, SYM} takes the following
 arguments: the @param{instance} to be initialized, a specification of a set of
 @param{slot-names} @term{accessible} in that @param{instance},
 and any number of @param{initargs}.
 The arguments after the first two must form an
 @term{initialization argument list}.  The system-supplied primary @term{method} on
-@symbolref{shared-initialize} initializes the @term{slots} with values according to the
+@symbolref{shared-initialize, SYM} initializes the @term{slots} with values according to the
 @param{initargs} and supplied @kwd{initform} forms.  @param{Slot-names}
 indicates which @term{slots} should be initialized according
 to their @kwd{initform} forms if no @param{initargs} are
@@ -2225,7 +2226,7 @@ Any @term{slots} indicated by @param{slot-names} that are still unbound
 at this point are initialized according to their @kwd{initform} forms.
 For any such @term{slot} that has an @kwd{initform} form,
 that @term{form} is evaluated in the lexical environment of its defining
-@symbolref{defclass} @term{form} and the result is stored into the @term{slot}.
+@symbolref{defclass, SYM} @term{form} and the result is stored into the @term{slot}.
 For example, if a @term{before method} stores a value in the @term{slot},
 the @kwd{initform} form will not be used to supply a value for the @term{slot}.
 
@@ -2256,19 +2257,19 @@ which specifies the set of all of the @term{slots}.
 @subsubheading Notes:
 
 @param{Initargs} are declared as valid by using the @kwd{initarg}
-option to @symbolref{defclass}, or by defining
-@term{methods} for @symbolref{shared-initialize}.
+option to @symbolref{defclass, SYM}, or by defining
+@term{methods} for @symbolref{shared-initialize, SYM}.
 The keyword name of each keyword parameter
 specifier in the @term{lambda list} of any @term{method} defined on
-@symbolref{shared-initialize} is declared as a valid @param{initarg}
+@symbolref{shared-initialize, SYM} is declared as a valid @param{initarg}
 name for all @term{classes} for which that @term{method} is applicable.
 
 Implementations are permitted to optimize @kwd{initform} forms that
 neither produce nor depend on side effects, by evaluating these @term{forms}
 and storing them into slots before running any
-@symbolref{initialize-instance} methods, rather than by handling them in the
-primary @symbolref{initialize-instance} method.  (This optimization might
-be implemented by having the @symbolref{allocate-instance} method copy a
+@symbolref{initialize-instance, SYM} methods, rather than by handling them in the
+primary @symbolref{initialize-instance, SYM} method.  (This optimization might
+be implemented by having the @symbolref{allocate-instance, SYM} method copy a
 prototype instance.)
 
 Implementations are permitted to optimize default initial value forms
@@ -2276,7 +2277,7 @@ for @param{initargs} associated with slots by not actually
 creating the complete initialization argument
 @term{list} when the only @term{method}
 that would receive the complete @term{list} is the
-@term{method} on @symbolref{standard-object}.
+@term{method} on @symbolref{standard-object, SYM}.
 In this case default initial value forms can be
 treated like @kwd{initform} forms.  This optimization has no visible
 effects other than a performance improvement.
@@ -2309,49 +2310,49 @@ effects other than a performance improvement.
 
 @subsubheading Description:
 
-The generic function @symbolref{update-instance-for-different-class} is not
+The generic function @symbolref{update-instance-for-different-class, SYM} is not
 intended to be called by programmers.  Programmers may write
 @term{methods} for it.  @Thefunction{update-instance-for-different-class}
 is called only by @thefunction{change-class}.
 
 The system-supplied primary @term{method} on
-@symbolref{update-instance-for-different-class} checks the validity of
+@symbolref{update-instance-for-different-class, SYM} checks the validity of
 @param{initargs} and signals an error if an @param{initarg}
 is supplied that is not declared as valid.  This @term{method} then
 initializes @term{slots} with values according to the @param{initargs},
 and initializes the newly added @term{slots} with values according
 to their @kwd{initform} forms.  It does this by calling the generic
-function @symbolref{shared-initialize} with the following arguments: the
+function @symbolref{shared-initialize, SYM} with the following arguments: the
 instance (@param{current}),
 a list of @term{names} of the newly added @term{slots}, and the @param{initargs}
 it received.  Newly added @term{slots} are those @term{local slots} for which
 no @term{slot} of the same name exists in the @param{previous} class.
 
-@term{Methods} for @symbolref{update-instance-for-different-class} can be defined to
+@term{Methods} for @symbolref{update-instance-for-different-class, SYM} can be defined to
 specify actions to be taken when an @term{instance} is updated.  If only
-@term{after methods} for @symbolref{update-instance-for-different-class} are
+@term{after methods} for @symbolref{update-instance-for-different-class, SYM} are
 defined, they will be run after the system-supplied primary @term{method} for
 initialization and therefore will not interfere with the default
-behavior of @symbolref{update-instance-for-different-class}.
+behavior of @symbolref{update-instance-for-different-class, SYM}.
 
-@term{Methods} on @symbolref{update-instance-for-different-class} can be defined to
-initialize @term{slots} differently from @symbolref{change-class}.  The default
-behavior of @symbolref{change-class} is described in
+@term{Methods} on @symbolref{update-instance-for-different-class, SYM} can be defined to
+initialize @term{slots} differently from @symbolref{change-class, SYM}.  The default
+behavior of @symbolref{change-class, SYM} is described in
 @ref{Changing the Class of an Instance}.
 
-The arguments to @symbolref{update-instance-for-different-class} are
-computed by @symbolref{change-class}.  When @symbolref{change-class} is invoked on
-an @term{instance}, a copy of that @term{instance} is made; @symbolref{change-class} then
+The arguments to @symbolref{update-instance-for-different-class, SYM} are
+computed by @symbolref{change-class, SYM}.  When @symbolref{change-class, SYM} is invoked on
+an @term{instance}, a copy of that @term{instance} is made; @symbolref{change-class, SYM} then
 destructively alters the original @term{instance}. The first argument to
-@symbolref{update-instance-for-different-class}, @param{previous}, is that
+@symbolref{update-instance-for-different-class, SYM}, @param{previous}, is that
 copy; it holds the old @term{slot} values temporarily.  This argument has
-dynamic extent within @symbolref{change-class}; if it is referenced in any
-way once @symbolref{update-instance-for-different-class} returns, the
+dynamic extent within @symbolref{change-class, SYM}; if it is referenced in any
+way once @symbolref{update-instance-for-different-class, SYM} returns, the
 results are undefined.  The second argument to
-@symbolref{update-instance-for-different-class}, @param{current}, is the altered
+@symbolref{update-instance-for-different-class, SYM}, @param{current}, is the altered
 original @term{instance}.
 The intended use of @param{previous} is to extract old @term{slot} values by using
-@symbolref{slot-value} or @symbolref{with-slots} or by invoking
+@symbolref{slot-value, SYM} or @symbolref{with-slots, SYM} or by invoking
 a reader generic function, or to run other @term{methods} that were applicable to
 @term{instances} of
 the original @term{class}.
@@ -2363,7 +2364,7 @@ See the example for @thefunction{change-class}.
 
 @subsubheading Exceptional Situations:
 The system-supplied primary @term{method} on
-@symbolref{update-instance-for-different-class} signals an error if an
+@symbolref{update-instance-for-different-class, SYM} signals an error if an
 initialization argument is supplied that is not declared as valid.
 
 @subsubheading See Also:
@@ -2377,15 +2378,15 @@ initialization argument is supplied that is not declared as valid.
 @subsubheading Notes:
 
 @param{Initargs} are declared as valid by using the @kwd{initarg}
-option to @symbolref{defclass}, or by defining @term{methods}
-for @symbolref{update-instance-for-different-class} or @symbolref{shared-initialize}.
+option to @symbolref{defclass, SYM}, or by defining @term{methods}
+for @symbolref{update-instance-for-different-class, SYM} or @symbolref{shared-initialize, SYM}.
 The keyword name of each keyword parameter specifier in the @term{lambda list} of
-any @term{method} defined on @symbolref{update-instance-for-different-class}
-or @symbolref{shared-initialize} is declared as a valid @param{initarg} name
+any @term{method} defined on @symbolref{update-instance-for-different-class, SYM}
+or @symbolref{shared-initialize, SYM} is declared as a valid @param{initarg} name
 for all @term{classes} for which that @term{method} is applicable.
 
-The value returned by @symbolref{update-instance-for-different-class} is
-ignored by @symbolref{change-class}.
+The value returned by @symbolref{update-instance-for-different-class, SYM} is
+ignored by @symbolref{change-class, SYM}.
 
 
 @node update-instance-for-redefined-class
@@ -2422,33 +2423,33 @@ ignored by @symbolref{change-class}.
 
 @subsubheading Description:
 
-The @term{generic function} @symbolref{update-instance-for-redefined-class}
+The @term{generic function} @symbolref{update-instance-for-redefined-class, SYM}
 is not intended to be called by programmers. Programmers may write
 @term{methods} for it.  The @term{generic function}
-@symbolref{update-instance-for-redefined-class} is called by the mechanism
-activated by @symbolref{make-instances-obsolete}.
+@symbolref{update-instance-for-redefined-class, SYM} is called by the mechanism
+activated by @symbolref{make-instances-obsolete, SYM}.
 
 The system-supplied primary @term{method} on
-@symbolref{update-instance-for-redefined-class} checks the validity of
+@symbolref{update-instance-for-redefined-class, SYM} checks the validity of
 @param{initargs} and signals an error if an @param{initarg}
 is supplied that is not declared as valid.  This @term{method} then
 initializes @term{slots} with values according to the @param{initargs},
 and initializes the newly @param{added-slots} with values according
 to their @kwd{initform} forms.  It does this by calling the generic
-function @symbolref{shared-initialize} with the following arguments:
+function @symbolref{shared-initialize, SYM} with the following arguments:
 the @param{instance},
 a list of names of the newly @param{added-slots} to @param{instance},
 and the @param{initargs}
 it received.  Newly @param{added-slots} are those @term{local slots} for which
 no @term{slot} of the same name exists in the old version of the @term{class}.
 
-When @symbolref{make-instances-obsolete} is invoked or when a @term{class} has been
+When @symbolref{make-instances-obsolete, SYM} is invoked or when a @term{class} has been
 redefined and an @term{instance} is being updated, a @param{property-list} is created
 that captures the slot names and values of all the @param{discarded-slots} with
 values in the original @param{instance}.  The structure of the
 @param{instance} is
 transformed so that it conforms to the current class definition.  The
-arguments to @symbolref{update-instance-for-redefined-class} are this
+arguments to @symbolref{update-instance-for-redefined-class, SYM} are this
 transformed @param{instance}, a list of @param{added-slots} to the
 @param{instance}, a list @param{discarded-slots} from the
 @param{instance}, and the @param{property-list}
@@ -2458,7 +2459,7 @@ discarded @term{slots} are @term{slots} that were local in the old @term{class} 
 shared in the new @term{class}.
 
 
-The value returned by @symbolref{update-instance-for-redefined-class} is ignored.
+The value returned by @symbolref{update-instance-for-redefined-class, SYM} is ignored.
 
 @subsubheading Examples:
 
@@ -2517,7 +2518,7 @@ The value returned by @symbolref{update-instance-for-redefined-class} is ignored
 
 @subsubheading Exceptional Situations:
 The system-supplied primary @term{method} on
-@symbolref{update-instance-for-redefined-class} signals an error if an
+@symbolref{update-instance-for-redefined-class, SYM} signals an error if an
 @param{initarg} is supplied that is not declared as valid.
 
 @subsubheading See Also:
@@ -2531,12 +2532,12 @@ The system-supplied primary @term{method} on
 @subsubheading Notes:
 
 @param{Initargs} are declared as valid by using the @kwd{initarg}
-option to @symbolref{defclass}, or by defining @term{methods} for
-@symbolref{update-instance-for-redefined-class} or @symbolref{shared-initialize}.
+option to @symbolref{defclass, SYM}, or by defining @term{methods} for
+@symbolref{update-instance-for-redefined-class, SYM} or @symbolref{shared-initialize, SYM}.
 The keyword name of each keyword parameter specifier in the @term{lambda list} of
 any @term{method} defined on
-@symbolref{update-instance-for-redefined-class} or
-@symbolref{shared-initialize} is declared as a valid @param{initarg} name
+@symbolref{update-instance-for-redefined-class, SYM} or
+@symbolref{shared-initialize, SYM} is declared as a valid @param{initarg} name
 for all @term{classes} for which that @term{method} is applicable.
 
 
@@ -2570,28 +2571,28 @@ for all @term{classes} for which that @term{method} is applicable.
 
 @subsubheading Description:
 
-The @term{generic function} @symbolref{change-class} changes the
+The @term{generic function} @symbolref{change-class, SYM} changes the
 @term{class} of an @param{instance} to @param{new-class}.
 It destructively modifies and returns the @param{instance}.
 
 If in the old @term{class} there is any @term{slot} of the
 same name as a local @term{slot} in the @param{new-class},
 the value of that @term{slot} is retained.  This means that if
-the @term{slot} has a value, the value returned by @symbolref{slot-value}
-after @symbolref{change-class} is invoked is @code{eql} to the
-value returned by @symbolref{slot-value} before @symbolref{change-class} is
+the @term{slot} has a value, the value returned by @symbolref{slot-value, SYM}
+after @symbolref{change-class, SYM} is invoked is @code{eql} to the
+value returned by @symbolref{slot-value, SYM} before @symbolref{change-class, SYM} is
 invoked.  Similarly, if the @term{slot} was unbound, it remains
 unbound.  The other @term{slots} are initialized as described in
 @ref{Changing the Class of an Instance}.
 
-After completing all other actions, @symbolref{change-class} invokes
-@symbolref{update-instance-for-different-class}.  The
-generic function @symbolref{update-instance-for-different-class} can be used
+After completing all other actions, @symbolref{change-class, SYM} invokes
+@symbolref{update-instance-for-different-class, SYM}.  The
+generic function @symbolref{update-instance-for-different-class, SYM} can be used
 to assign values to slots in the transformed instance.
 See @ref{Initializing Newly Added Local Slots}.
 
 If the second of the above @term{methods} is selected,
-that @term{method} invokes @symbolref{change-class}
+that @term{method} invokes @symbolref{change-class, SYM}
 on @param{instance}, @f{(find-class @param{new-class})},
 and the @param{initargs}.
 
@@ -2643,7 +2644,7 @@ and the @param{initargs}.
 
 @subsubheading Notes:
 
-The generic function @symbolref{change-class} has several semantic
+The generic function @symbolref{change-class, SYM} has several semantic
 difficulties.  First, it performs a destructive operation that can be
 invoked within a @term{method} on an @term{instance} that was used to select that
 @term{method}.
@@ -2653,7 +2654,7 @@ no longer be applicable.  Second, some implementations might use
 compiler optimizations of slot @term{access}, and when the @term{class} of an
 @term{instance} is changed the assumptions the compiler made might be
 violated.  This implies that a programmer must not use
-@symbolref{change-class} inside a @term{method} if any
+@symbolref{change-class, SYM} inside a @term{method} if any
 @term{methods} for that @term{generic function}
 @term{access} any @term{slots}, or the results are undefined.
 
@@ -2685,7 +2686,7 @@ otherwise, returns @term{false}.
 @subsubheading Exceptional Situations:
 
 If no @term{slot} of the @term{name} @param{slot-name} exists in the
-@param{instance}, @symbolref{slot-missing} is called as follows:
+@param{instance}, @symbolref{slot-missing, SYM} is called as follows:
 
 @lisp
  (slot-missing (class-of @i{instance})
@@ -2695,13 +2696,13 @@ If no @term{slot} of the @term{name} @param{slot-name} exists in the
 @end lisp
 
 
-(If @symbolref{slot-missing} is invoked and returns a value,
+(If @symbolref{slot-missing, SYM} is invoked and returns a value,
 a @term{boolean equivalent} to its @term{primary value}
-is returned by @symbolref{slot-boundp}.)
+is returned by @symbolref{slot-boundp, SYM}.)
 
 The specific behavior depends on @param{instance}'s @term{metaclass}.
-An error is never signaled if @param{instance} has @term{metaclass} @symbolref{standard-class}.
-An error is always signaled if @param{instance} has @term{metaclass} @symbolref{built-in-class}.
+An error is never signaled if @param{instance} has @term{metaclass} @symbolref{standard-class, SYM}.
+An error is always signaled if @param{instance} has @term{metaclass} @symbolref{built-in-class, SYM}.
 The consequences are undefined if @param{instance} has any other @term{metaclass}---an error
 might or might not be signaled in this situation.  Note in particular that the behavior
 for @term{conditions} and @term{structures} is not specified.
@@ -2714,7 +2715,7 @@ for @term{conditions} and @term{structures} is not specified.
 @subsubheading Notes:
 
 @Thefunction{slot-boundp} allows for writing
-@term{after methods} on @symbolref{initialize-instance} in order to initialize only
+@term{after methods} on @symbolref{initialize-instance, SYM} in order to initialize only
 those @term{slots} that have not already been bound.
 
 @MentionMetaObjects{slot-boundp, slot-boundp-using-class}
@@ -2746,8 +2747,8 @@ a @term{slot} named @param{slot-name}.
 
 @subsubheading Affected By:
 
-@symbolref{defclass},
-@symbolref{defstruct}
+@symbolref{defclass, SYM},
+@symbolref{defstruct, SYM}
 
 @subsubheading See Also:
 
@@ -2784,7 +2785,7 @@ the unbound state.
 @subsubheading Exceptional Situations:
 
 If no @term{slot} of the name @param{slot-name} exists in the
-@param{instance}, @symbolref{slot-missing} is called as follows:
+@param{instance}, @symbolref{slot-missing, SYM} is called as follows:
 
 @lisp
 (slot-missing (class-of @i{instance})
@@ -2794,12 +2795,12 @@ If no @term{slot} of the name @param{slot-name} exists in the
 @end lisp
 
 
-(Any values returned by @symbolref{slot-missing} in this case are
-ignored by @symbolref{slot-makunbound}.)
+(Any values returned by @symbolref{slot-missing, SYM} in this case are
+ignored by @symbolref{slot-makunbound, SYM}.)
 
 The specific behavior depends on @param{instance}'s @term{metaclass}.
-An error is never signaled if @param{instance} has @term{metaclass} @symbolref{standard-class}.
-An error is always signaled if @param{instance} has @term{metaclass} @symbolref{built-in-class}.
+An error is never signaled if @param{instance} has @term{metaclass} @symbolref{standard-class, SYM}.
+An error is always signaled if @param{instance} has @term{metaclass} @symbolref{built-in-class, SYM}.
 The consequences are undefined if @param{instance} has any other @term{metaclass}---an error
 might or might not be signaled in this situation.  Note in particular that the behavior
 for @term{conditions} and @term{structures} is not specified.
@@ -2839,10 +2840,10 @@ object slot-name}
 @param{slot-name}---a @term{symbol} (the @term{name} of a would-be @term{slot}).
 
 @param{operation}---one of the @term{symbols}
-@symbolref{setf},
-@symbolref{slot-boundp},
-@symbolref{slot-makunbound},
-or @symbolref{slot-value}.
+@symbolref{setf, SYM},
+@symbolref{slot-boundp, SYM},
+@symbolref{slot-makunbound, SYM},
+or @symbolref{slot-value, SYM}.
 
 @param{new-value}---an @term{object}.
 
@@ -2850,29 +2851,29 @@ or @symbolref{slot-value}.
 
 @subsubheading Description:
 
-The generic function @symbolref{slot-missing} is invoked when an attempt is
+The generic function @symbolref{slot-missing, SYM} is invoked when an attempt is
 made to @term{access} a @term{slot} in an @param{object} whose
-@term{metaclass} is @symbolref{standard-class}
+@term{metaclass} is @symbolref{standard-class, SYM}
 and the @term{slot} of the name @param{slot-name}
 is not a @term{name} of a
 @term{slot} in that @term{class}.
 The default @term{method} signals an error.
 
-The generic function @symbolref{slot-missing} is not intended to be called by
+The generic function @symbolref{slot-missing, SYM} is not intended to be called by
 programmers.  Programmers may write @term{methods} for it.
 
-The generic function @symbolref{slot-missing} may be called during
-evaluation of @symbolref{slot-value}, @f{(setf slot-value)},
-@symbolref{slot-boundp}, and @symbolref{slot-makunbound}.  For each
+The generic function @symbolref{slot-missing, SYM} may be called during
+evaluation of @symbolref{slot-value, SYM}, @f{(setf slot-value)},
+@symbolref{slot-boundp, SYM}, and @symbolref{slot-makunbound, SYM}.  For each
 of these operations the corresponding @term{symbol}
 for the @param{operation}
 argument is @t{slot-value}, @t{setf}, @t{slot-boundp},
 and @t{slot-makunbound} respectively.
 
-The optional @param{new-value} argument to @symbolref{slot-missing} is used
+The optional @param{new-value} argument to @symbolref{slot-missing, SYM} is used
 when the operation is attempting to set the value of the @term{slot}.
 
-If @symbolref{slot-missing} returns, its values will be treated as follows:
+If @symbolref{slot-missing, SYM} returns, its values will be treated as follows:
 
 
 @itemize @bullet{}
@@ -2895,7 +2896,7 @@ and all other values will be ignored.
 
 @subsubheading Exceptional Situations:
 
-The default @term{method} on @symbolref{slot-missing}
+The default @term{method} on @symbolref{slot-missing, SYM}
 signals an error @oftype{error}.
 
 @subsubheading See Also:
@@ -2907,7 +2908,7 @@ signals an error @oftype{error}.
 @subsubheading Notes:
 
 The set of arguments (including the @term{class} of the instance) facilitates
-defining methods on the metaclass for @symbolref{slot-missing}.
+defining methods on the metaclass for @symbolref{slot-missing, SYM}.
 
 
 @node slot-unbound
@@ -2938,28 +2939,28 @@ was made to @term{read} the @term{unbound} @term{slot}.
 
 @subsubheading Description:
 
-The generic function @symbolref{slot-unbound} is called when an
+The generic function @symbolref{slot-unbound, SYM} is called when an
 unbound @term{slot} is read in
-an @param{instance} whose metaclass is @symbolref{standard-class}.
+an @param{instance} whose metaclass is @symbolref{standard-class, SYM}.
 The default @term{method} signals an error
 @oftype{unbound-slot}.
 The name slot of the
-@symbolref{unbound-slot} @term{condition} is initialized
+@symbolref{unbound-slot, SYM} @term{condition} is initialized
 to the name of the offending variable, and the instance slot
-of the @symbolref{unbound-slot} @term{condition} is initialized to the offending instance.
+of the @symbolref{unbound-slot, SYM} @term{condition} is initialized to the offending instance.
 
 
-The generic function @symbolref{slot-unbound} is not intended to be called
+The generic function @symbolref{slot-unbound, SYM} is not intended to be called
 by programmers.  Programmers may write @term{methods} for it.
 @Thefunction{slot-unbound} is called only
-indirectly by @symbolref{slot-value}.
+indirectly by @symbolref{slot-value, SYM}.
 
-If @symbolref{slot-unbound} returns,
+If @symbolref{slot-unbound, SYM} returns,
 only the @term{primary value} will be used by the caller,
 and all other values will be ignored.
 
 @subsubheading Exceptional Situations:
-The default @term{method} on @symbolref{slot-unbound}
+The default @term{method} on @symbolref{slot-unbound, SYM}
 signals an error @oftype{unbound-slot}.
 
 @subsubheading See Also:
@@ -2970,7 +2971,7 @@ signals an error @oftype{unbound-slot}.
 
 An unbound @term{slot} may occur if no @kwd{initform} form was
 specified for the @term{slot} and the @term{slot} value has not been set,
-or if @symbolref{slot-makunbound} has been called on the @term{slot}.
+or if @symbolref{slot-makunbound, SYM} has been called on the @term{slot}.
 
 
 @node slot-value
@@ -2995,10 +2996,10 @@ or if @symbolref{slot-makunbound} has been called on the @term{slot}.
 
 @Thefunction{slot-value} returns the @term{value} of the @term{slot}
 named @param{slot-name} in the @param{object}.
-If there is no @term{slot} named @param{slot-name}, @symbolref{slot-missing} is called.
-If the @term{slot} is unbound, @symbolref{slot-unbound} is called.
+If there is no @term{slot} named @param{slot-name}, @symbolref{slot-missing, SYM} is called.
+If the @term{slot} is unbound, @symbolref{slot-unbound, SYM} is called.
 
-The macro @symbolref{setf} can be used with @symbolref{slot-value}
+The macro @symbolref{setf, SYM} can be used with @symbolref{slot-value, SYM}
 to change the value of a @term{slot}.
 
 @subsubheading Examples:
@@ -3027,7 +3028,7 @@ to change the value of a @term{slot}.
 
 If an attempt is made to read a @term{slot} and no @term{slot} of
 the name @param{slot-name} exists in the @param{object},
-@symbolref{slot-missing} is called as follows:
+@symbolref{slot-missing, SYM} is called as follows:
 
 @lisp
  (slot-missing (class-of @i{instance})
@@ -3037,12 +3038,12 @@ the name @param{slot-name} exists in the @param{object},
 @end lisp
 
 
-(If @symbolref{slot-missing} is invoked, its @term{primary value}
-is returned by @symbolref{slot-value}.)
+(If @symbolref{slot-missing, SYM} is invoked, its @term{primary value}
+is returned by @symbolref{slot-value, SYM}.)
 
 If an attempt is made to write a @term{slot} and no @term{slot} of
 the name @param{slot-name} exists in the @param{object},
-@symbolref{slot-missing} is called as follows:
+@symbolref{slot-missing, SYM} is called as follows:
 
 @lisp
  (slot-missing (class-of @i{instance})
@@ -3053,11 +3054,11 @@ the name @param{slot-name} exists in the @param{object},
 @end lisp
 
 
-(If @symbolref{slot-missing} returns in this case, any @term{values} are ignored.)
+(If @symbolref{slot-missing, SYM} returns in this case, any @term{values} are ignored.)
 
 The specific behavior depends on @param{object}'s @term{metaclass}.
-An error is never signaled if @param{object} has @term{metaclass} @symbolref{standard-class}.
-An error is always signaled if @param{object} has @term{metaclass} @symbolref{built-in-class}.
+An error is never signaled if @param{object} has @term{metaclass} @symbolref{standard-class, SYM}.
+An error is always signaled if @param{object} has @term{metaclass} @symbolref{built-in-class, SYM}.
 The consequences are
 unspecified
 if @param{object} has any other @term{metaclass}---an error
@@ -3074,7 +3075,7 @@ for @term{conditions} and @term{structures} is not specified.
 
 @MentionMetaObjects{slot-value, slot-value-using-class}
 
-Implementations may optimize @symbolref{slot-value} by compiling it inline.
+Implementations may optimize @symbolref{slot-value, SYM} by compiling it inline.
 
 
 @node method-qualifiers
@@ -3141,13 +3142,13 @@ on which no @term{applicable method} was found.
 
 @subsubheading Description:
 
-The generic function @symbolref{no-applicable-method} is called when a
+The generic function @symbolref{no-applicable-method, SYM} is called when a
 @term{generic function}
 is invoked
 and no @term{method} on that @term{generic function} is applicable.
 The @term{default method} signals an error.
 
-The generic function @symbolref{no-applicable-method} is not intended
+The generic function @symbolref{no-applicable-method, SYM} is not intended
 to be called by programmers.  Programmers may write @term{methods} for it.
 
 @subsubheading Exceptional Situations:
@@ -3178,15 +3179,15 @@ The default @term{method} signals an error @oftype{error}.
 @param{generic-function}---@term{generic function} to which @param{method} belongs.
 
 @param{method}---@term{method} that contained the call to
-@symbolref{call-next-method} for which there is no next @term{method}.
+@symbolref{call-next-method, SYM} for which there is no next @term{method}.
 
-@param{args}---arguments to @symbolref{call-next-method}.
+@param{args}---arguments to @symbolref{call-next-method, SYM}.
 
 @param{result}---an @term{object}.
 
 @subsubheading Description:
 
-@TheGF{no-next-method} is called by @symbolref{call-next-method}
+@TheGF{no-next-method} is called by @symbolref{call-next-method, SYM}
 when there is no @term{next method}.
 
 @TheGF{no-next-method} is not intended to be called by programmers.
@@ -3194,7 +3195,7 @@ Programmers may write @term{methods} for it.
 
 @subsubheading Exceptional Situations:
 
-The system-supplied @term{method} on @symbolref{no-next-method}
+The system-supplied @term{method} on @symbolref{no-next-method, SYM}
 signals an error @oftype{error}. @editornote{KMP: perhaps control-error??}
 
 @subsubheading See Also:
@@ -3228,7 +3229,7 @@ signals an error @oftype{error}. @editornote{KMP: perhaps control-error??}
 @TheGF{remove-method} removes a @term{method} from @param{generic-function}
 by modifying the @param{generic-function} (if necessary).
 
-@symbolref{remove-method} must not signal an error if the @term{method}
+@symbolref{remove-method, SYM} must not signal an error if the @term{method}
 is not one of the @term{methods} on the @param{generic-function}.
 
 @subsubheading See Also:
@@ -3264,16 +3265,16 @@ or a @term{symbol} that names a @term{class}.
 
 @subsubheading Description:
 
-The @term{generic function} @symbolref{make-instance}
+The @term{generic function} @symbolref{make-instance, SYM}
 creates and returns a new @term{instance} of the given @param{class}.
 
 If the second of the above @term{methods} is selected,
-that @term{method} invokes @symbolref{make-instance} on the arguments
+that @term{method} invokes @symbolref{make-instance, SYM} on the arguments
 @f{(find-class @param{class})} and @param{initargs}.
 
-The initialization arguments are checked within @symbolref{make-instance}.
+The initialization arguments are checked within @symbolref{make-instance, SYM}.
 
-The @term{generic function} @symbolref{make-instance}
+The @term{generic function} @symbolref{make-instance, SYM}
 may be used as described in @ref{Object Creation and Initialization}.
 
 @subsubheading Exceptional Situations:
@@ -3315,10 +3316,10 @@ been declared as valid, an error @oftype{error} is signaled.
 @Thefunction{make-instances-obsolete} has the effect of
 initiating the process of updating the instances of the
 @term{class}. During updating, the generic function
-@symbolref{update-instance-for-redefined-class} will be invoked.
+@symbolref{update-instance-for-redefined-class, SYM} will be invoked.
 
-The generic function @symbolref{make-instances-obsolete} is invoked
-automatically by the system when @symbolref{defclass} has been used to
+The generic function @symbolref{make-instances-obsolete, SYM} is invoked
+automatically by the system when @symbolref{defclass, SYM} has been used to
 redefine an existing standard class and the set of local
 @term{slots} @term{accessible} in an
 instance is changed or the order of @term{slots} in storage is changed.  It
@@ -3326,7 +3327,7 @@ can also be explicitly invoked by the user.
 
 If the second of the above @term{methods} is selected, that
 @term{method} invokes
-@symbolref{make-instances-obsolete} on @f{(find-class @param{class})}.
+@symbolref{make-instances-obsolete, SYM} on @f{(find-class @param{class})}.
 
 @subsubheading Examples:
 
@@ -3370,36 +3371,36 @@ If the second of the above @term{methods} is selected, that
 one or two @term{forms},
 a @param{creation-form}
 and an @param{initialization-form},
-that enable @symbolref{load} to construct an @term{object}
+that enable @symbolref{load, SYM} to construct an @term{object}
 equivalent to @param{object}.
 @param{Environment} is an @term{environment object}
 corresponding to the @term{lexical environment}
 in which the @term{forms} will be processed.
 
-The @term{file compiler} calls @symbolref{make-load-form} to process certain
+The @term{file compiler} calls @symbolref{make-load-form, SYM} to process certain
 @term{classes} of @term{literal} @term{objects}; see @ref{Additional Constraints on Externalizable Objects}.
 
-@term{Conforming programs} may call @symbolref{make-load-form} directly,
+@term{Conforming programs} may call @symbolref{make-load-form, SYM} directly,
 providing @param{object} is a @term{generalized instance} of
-@symbolref{standard-object}, @symbolref{structure-object},
-or @symbolref{condition}.
+@symbolref{standard-object, SYM}, @symbolref{structure-object, SYM},
+or @symbolref{condition, SYM}.
 
 The creation form is a @term{form} that, when evaluated at
-@symbolref{load} time, should return an @term{object} that
+@symbolref{load, SYM} time, should return an @term{object} that
 is equivalent to @param{object}.  The exact meaning of
 equivalent depends on the @term{type} of @term{object}
 and is up to the programmer who defines a @term{method} for
-@symbolref{make-load-form};
+@symbolref{make-load-form, SYM};
 see @ref{Literal Objects in Compiled Files}.
 
-The initialization form is a @term{form} that, when evaluated at @symbolref{load} time,
+The initialization form is a @term{form} that, when evaluated at @symbolref{load, SYM} time,
 should perform further initialization of the @term{object}.
 The value returned by the initialization form is ignored.
-If @symbolref{make-load-form}
+If @symbolref{make-load-form, SYM}
 returns only one value,
 the initialization form is @nil{}, which has no effect.
 If @param{object} appears as a constant in the initialization form,
-at @symbolref{load} time it will be replaced by the equivalent @term{object}
+at @symbolref{load, SYM} time it will be replaced by the equivalent @term{object}
 constructed by the creation form;
 this is how the further initialization gains access to the @term{object}.
 
@@ -3420,7 +3421,7 @@ the initialization form references other @term{objects} that have not been
 referenced earlier in the @term{file} being @term{compiled}, the @term{compiler} ensures
 that all of the referenced @term{objects} have been created before @i{evaluating}
 the referencing @term{form}.  When the referenced @term{object} is of a @term{type} which
-the @term{file compiler} processes using @symbolref{make-load-form},
+the @term{file compiler} processes using @symbolref{make-load-form, SYM},
 this involves @i{evaluating}
 the creation form returned for it.  (This is the reason for the
 prohibition against circular references among creation forms).
@@ -3431,7 +3432,7 @@ initialization form for an @term{object} does not reference any other @term{obje
 not referenced earlier in the @term{file} and processed by
 the @term{file compiler}
 using
-@symbolref{make-load-form}, the initialization form is evaluated immediately after
+@symbolref{make-load-form, SYM}, the initialization form is evaluated immediately after
 the creation form.  If a creation or initialization form @mat{F} does contain
 references to such @term{objects}, the creation forms for those other objects
 are evaluated before @mat{F}, and the initialization forms for those other
@@ -3444,40 +3445,40 @@ While these creation and initialization forms are being evaluated, the
 @term{objects} are possibly in an uninitialized state,
 analogous to the state
 of an @term{object}
-between the time it has been created by @symbolref{allocate-instance}
+between the time it has been created by @symbolref{allocate-instance, SYM}
 and it has been processed fully by
-@symbolref{initialize-instance}.  Programmers
+@symbolref{initialize-instance, SYM}.  Programmers
 writing @term{methods} for
-@symbolref{make-load-form} must take care in manipulating
+@symbolref{make-load-form, SYM} must take care in manipulating
 @term{objects} not to depend on
 @term{slots} that have not yet been initialized.
 
 It is @term{implementation-dependent}
-whether @symbolref{load} calls @symbolref{eval} on the
+whether @symbolref{load, SYM} calls @symbolref{eval, SYM} on the
 @term{forms} or does some
 other operation that has an equivalent effect.  For example, the
 @term{forms} might be translated into different but equivalent
 @term{forms} and
 then evaluated, they might be compiled and the resulting functions
-called by @symbolref{load},
+called by @symbolref{load, SYM},
 or they might be interpreted by a special-purpose
-function different from @symbolref{eval}.
+function different from @symbolref{eval, SYM}.
 All that is required is that the
 effect be equivalent to evaluating the @term{forms}.
 
-The @term{method} @term{specialized} on @symbolref{class} returns a creation
+The @term{method} @term{specialized} on @symbolref{class, SYM} returns a creation
 @term{form} using the @term{name} of the @term{class} if the @term{class} has
 a @term{proper name} in @param{environment}, signaling an error @oftype{error}
 if it does not have a @term{proper name}.  @term{Evaluation} of the creation
 @term{form} uses the @term{name} to find the @term{class} with that
-@term{name}, as if by @term{calling} @symbolref{find-class}.  If a @term{class}
+@term{name}, as if by @term{calling} @symbolref{find-class, SYM}.  If a @term{class}
 with that @term{name} has not been defined, then a @term{class} may be
 computed in an @term{implementation-defined} manner.  If a @term{class}
 cannot be returned as the result of @i{evaluating} the creation
 @term{form}, then an error @oftype{error} is signaled.
 
 Both @term{conforming implementations} and @term{conforming programs} may
-further @term{specialize} @symbolref{make-load-form}.
+further @term{specialize} @symbolref{make-load-form, SYM}.
 
 @subsubheading Examples:
 
@@ -3512,10 +3513,10 @@ reconstructed by using the values of two of its @term{slots}.
 The value of the third @term{slot} is derived from those two values.
 
 @medbreak{}
-Another way to write the @symbolref{make-load-form} @term{method}
-in that example is to use @symbolref{make-load-form-saving-slots}.
+Another way to write the @symbolref{make-load-form, SYM} @term{method}
+in that example is to use @symbolref{make-load-form-saving-slots, SYM}.
 The code it generates might yield a slightly different result
-from the @symbolref{make-load-form} @term{method} shown above,
+from the @symbolref{make-load-form, SYM} @term{method} shown above,
 but the operational effect will be the same.  For example:
 
 @smallbreak{}
@@ -3557,15 +3558,15 @@ have been signaled in that case.
 @medbreak{}
 In the following example, the data structure to be dumped is circular,
 because each parent has a list of its children and each child has a reference
-back to its parent.  If @symbolref{make-load-form} is called on one
+back to its parent.  If @symbolref{make-load-form, SYM} is called on one
 @term{object} in such a structure,  the creation form creates an equivalent
 @term{object} and fills in the children slot, which forces creation of equivalent
 @term{objects} for all of its children, grandchildren, etc.  At this point
 none of the parent @term{slots} have been filled in.
 The initialization form fills in the parent @term{slot}, which forces creation
 of an equivalent @term{object} for the parent if it was not already created.
-Thus the entire tree is recreated at @symbolref{load} time.
-At compile time, @symbolref{make-load-form} is called once for each @term{object}
+Thus the entire tree is recreated at @symbolref{load, SYM} time.
+At compile time, @symbolref{make-load-form, SYM} is called once for each @term{object}
 in the tree.
 All of the creation forms are evaluated,
 in @term{implementation-dependent} order,
@@ -3602,13 +3603,13 @@ simply by reconstructing the @term{slots}' contents.
 @subsubheading Exceptional Situations:
 
 The @term{methods} @term{specialized} on
-@symbolref{standard-object},
-@symbolref{structure-object},
-and @symbolref{condition}
+@symbolref{standard-object, SYM},
+@symbolref{structure-object, SYM},
+and @symbolref{condition, SYM}
 all signal an error @oftype{error}.
 
 It is @term{implementation-dependent} whether @term{calling}
-@symbolref{make-load-form} on a @term{generalized instance} of a
+@symbolref{make-load-form, SYM} on a @term{generalized instance} of a
 @term{system class} signals an error or returns creation and
 initialization @term{forms}.
 
@@ -3623,17 +3624,17 @@ initialization @term{forms}.
 @subsubheading Notes:
 
 The @term{file compiler}
-calls @symbolref{make-load-form} in specific circumstances
+calls @symbolref{make-load-form, SYM} in specific circumstances
 detailed in @ref{Additional Constraints on Externalizable Objects}.
 
 Some @term{implementations} may provide facilities for defining new
 @term{subclasses} of @term{classes} which are specified as
 @term{system classes}.  (Some likely candidates include
-@symbolref{generic-function}, @symbolref{method}, and @symbolref{stream}).  Such
+@symbolref{generic-function, SYM}, @symbolref{method, SYM}, and @symbolref{stream, SYM}).  Such
 @term{implementations} should document how the @term{file compiler} processes
 @term{instances} of such @term{classes} when encountered as
 @term{literal} @term{objects}, and should document any relevant @term{methods}
-for @symbolref{make-load-form}.
+for @symbolref{make-load-form, SYM}.
 
 
 @node make-load-form-saving-slots
@@ -3667,14 +3668,14 @@ Returns @term{forms} that, when @term{evaluated}, will construct an
 that correspond to initialized @term{slots} in @param{object} are
 initialized using the values from @param{object}.  Uninitialized @term{slots}
 in @param{object} are not initialized in the new @term{object}.
-@symbolref{make-load-form-saving-slots} works for any @term{instance} of
-@symbolref{standard-object} or @symbolref{structure-object}.
+@symbolref{make-load-form-saving-slots, SYM} works for any @term{instance} of
+@symbolref{standard-object, SYM} or @symbolref{structure-object, SYM}.
 
 @param{Slot-names} is a @term{list} of the names of the
 @term{slots} to preserve. If @param{slot-names} is not
 supplied, its value is all of the @term{local slots}.
 
-@symbolref{make-load-form-saving-slots} returns two values,
+@symbolref{make-load-form-saving-slots, SYM} returns two values,
 thus it can deal with circular structures.
 Whether the result is useful in an application depends on
 whether the @param{object}'s @term{type} and slot contents
@@ -3692,15 +3693,15 @@ fully capture the application's idea of the @param{object}'s state.
 
 @subsubheading Notes:
 
-@symbolref{make-load-form-saving-slots} can be useful in user-written
-@symbolref{make-load-form} methods.
+@symbolref{make-load-form-saving-slots, SYM} can be useful in user-written
+@symbolref{make-load-form, SYM} methods.
 
 
-When the @term{object} is an @term{instance} of @symbolref{standard-object},
-@symbolref{make-load-form-saving-slots} could return a creation form that
-@term{calls} @symbolref{allocate-instance} and an initialization form that
-contains @term{calls} to @symbolref{setf} of @symbolref{slot-value} and
-@symbolref{slot-makunbound}, though other @term{functions} of similar effect
+When the @term{object} is an @term{instance} of @symbolref{standard-object, SYM},
+@symbolref{make-load-form-saving-slots, SYM} could return a creation form that
+@term{sequences} @symbolref{allocate-instance, SYM} and an initialization form that
+contains @term{sequences} to @symbolref{setf, SYM} of @symbolref{slot-value, SYM} and
+@symbolref{slot-makunbound, SYM}, though other @term{functions} of similar effect
 might actually be used.
 
 
@@ -3736,10 +3737,10 @@ might actually be used.
 Creates a lexical environment in which
 the slots specified by
 @param{slot-entry} are lexically available through their accessors as if
-they were variables.  The macro @symbolref{with-accessors} invokes the
+they were variables.  The macro @symbolref{with-accessors, SYM} invokes the
 appropriate accessors to @param{access} the @term{slots} specified
-by @param{slot-entry}.  Both @symbolref{setf}
-and @symbolref{setq} can be used to set the value of the @term{slot}.
+by @param{slot-entry}.  Both @symbolref{setf, SYM}
+and @symbolref{setq, SYM} can be used to set the value of the @term{slot}.
 
 @subsubheading Examples:
 
@@ -3777,7 +3778,7 @@ and @symbolref{setq} can be used to set the value of the @term{slot}.
 
 @subsubheading Affected By:
 
-@symbolref{defclass}
+@symbolref{defclass, SYM}
 
 @subsubheading Exceptional Situations:
 
@@ -3791,7 +3792,7 @@ of an accessor for the @param{instance}.
 
 @subsubheading Notes:
 
-A @symbolref{with-accessors} expression of the form:
+A @symbolref{with-accessors, SYM} expression of the form:
 
 @withaccessors{}
 
@@ -3827,17 +3828,17 @@ A @symbolref{with-accessors} expression of the form:
 
 @subsubheading Description:
 
-The macro @symbolref{with-slots} @term{establishes} a
+The macro @symbolref{with-slots, SYM} @term{establishes} a
 @term{lexical environment}
 for referring to the @term{slots} in the @param{instance}
 named by the given @param{slot-names}
 as though they were @term{variables}.  Within such a context
 the value of the @term{slot} can be specified by using its slot name, as if
-it were a lexically bound variable.  Both @symbolref{setf} and @symbolref{setq}
+it were a lexically bound variable.  Both @symbolref{setf, SYM} and @symbolref{setq, SYM}
 can be used to set the value of the @term{slot}.
 
-The macro @symbolref{with-slots} translates an appearance of the slot
-name as a @term{variable} into a call to @symbolref{slot-value}.
+The macro @symbolref{with-slots, SYM} translates an appearance of the slot
+name as a @term{variable} into a call to @symbolref{slot-value, SYM}.
 
 @subsubheading Examples:
 
@@ -3877,7 +3878,7 @@ name as a @term{variable} into a call to @symbolref{slot-value}.
 
 @subsubheading Affected By:
 
-@symbolref{defclass}
+@symbolref{defclass, SYM}
 
 @subsubheading Exceptional Situations:
 
@@ -3892,7 +3893,7 @@ of a @term{slot} in the @param{instance}.
 
 @subsubheading Notes:
 
-A @symbolref{with-slots} expression of the form:
+A @symbolref{with-slots, SYM} expression of the form:
 
 @withslots{}
 
@@ -3963,17 +3964,17 @@ a @term{symbol} that is syntactically valid for use as a variable name.
 
 @subsubheading Description:
 
-The macro @symbolref{defclass} defines a new named @term{class}.  It returns
+The macro @symbolref{defclass, SYM} defines a new named @term{class}.  It returns
 the new @term{class} @term{object} as its result.
 
-The syntax of @symbolref{defclass} provides options for specifying
+The syntax of @symbolref{defclass, SYM} provides options for specifying
 initialization arguments for @term{slots}, for specifying default
 initialization values for @term{slots}, and for requesting that
 @term{methods} on specified @term{generic functions} be automatically
 generated for reading and writing the values of @term{slots}.
 No reader or writer functions are defined by default;
 their generation must be explicitly requested.  However,
-@term{slots} can always be @term{accessed} using @symbolref{slot-value}.
+@term{slots} can always be @term{accessed} using @symbolref{slot-value, SYM}.
 
 Defining a new @term{class} also causes a @term{type} of the same name to be
 defined.  The predicate @f{(typep @param{object} @param{class-name})} returns
@@ -3988,9 +3989,9 @@ if the @term{class} of the @param{object} is
 The @param{class-name} argument specifies the @term{proper name}
 of the new @term{class}.
 If a @term{class} with the same @term{proper name} already exists
-and that @term{class} is an @term{instance} of @symbolref{standard-class},
-and if the @symbolref{defclass} form for the definition of the new @term{class}
-specifies a @term{class} of @term{class} @symbolref{standard-class},
+and that @term{class} is an @term{instance} of @symbolref{standard-class, SYM},
+and if the @symbolref{defclass, SYM} form for the definition of the new @term{class}
+specifies a @term{class} of @term{class} @symbolref{standard-class, SYM},
 the existing @term{class} is redefined,
 and instances of it (and its @term{subclasses}) are updated
 to the new definition at the time that they are next @term{accessed}.
@@ -4001,8 +4002,8 @@ Each @param{superclass-name} argument
 specifies a direct @term{superclass} of the new @term{class}.
 If the @term{superclass} list is empty, then the @term{superclass}
 defaults depending on the @term{metaclass},
-with @symbolref{standard-object} being the
-default for @symbolref{standard-class}.
+with @symbolref{standard-object, SYM} being the
+default for @symbolref{standard-class, SYM}.
 
 The new @term{class} will
 inherit @term{slots} and @term{methods}
@@ -4033,7 +4034,7 @@ is to be defined on the generic function named @param{reader-function-name}
 to read the value of the given @term{slot}
 and that an @term{unqualified method} is to be defined on the
 @term{generic function} named @f{(setf @param{reader-function-name})} to be
-used with @symbolref{setf} to modify the value of the @term{slot}.
+used with @symbolref{setf, SYM} to modify the value of the @term{slot}.
 
 @item
 The @kwd{allocation} slot option is used to specify where storage is
@@ -4055,12 +4056,12 @@ the name @param{slot-name} is allocated in each instance of the
 @item
 If @param{allocation-type} is @kwd{class}, a shared
 @term{slot} of the given
-name is allocated in the @term{class} @term{object} created by this @symbolref{defclass}
+name is allocated in the @term{class} @term{object} created by this @symbolref{defclass, SYM}
 form.  The value of the @term{slot} is shared by all
 @term{instances} of the @term{class}.
 If a class @mat{C@sub{1}} defines such a @term{shared slot}, any
 subclass @mat{C@sub{2}} of
-@mat{C@sub{1}} will share this single @term{slot} unless the @symbolref{defclass} form
+@mat{C@sub{1}} will share this single @term{slot} unless the @symbolref{defclass, SYM} form
 for @mat{C@sub{2}} specifies a @term{slot} of the same @term{name} or there is a
 superclass of @mat{C@sub{2}} that precedes @mat{C@sub{1}} in the class precedence
 list of @mat{C@sub{2}} and that defines a @term{slot} of the same @term{name}.
@@ -4071,15 +4072,15 @@ initial value form to be used in the initialization of the @term{slot}.  This
 @term{form} is evaluated every time it is used to initialize the
 @term{slot}.  The
 lexical environment in which this @term{form} is evaluated is the lexical
-environment in which the @symbolref{defclass} form was evaluated.
+environment in which the @symbolref{defclass, SYM} form was evaluated.
 Note that the lexical environment refers both to variables and to
 functions.  For @term{local slots}, the dynamic environment is the dynamic
-environment in which @symbolref{make-instance} is called; for shared
+environment in which @symbolref{make-instance, SYM} is called; for shared
 @term{slots}, the dynamic environment is the dynamic environment in which the
-@symbolref{defclass} form was evaluated.
+@symbolref{defclass, SYM} form was evaluated.
 See @ref{Object Creation and Initialization}.
 
-No implementation is permitted to extend the syntax of @symbolref{defclass}
+No implementation is permitted to extend the syntax of @symbolref{defclass, SYM}
 to allow @f{(@param{slot-name} @param{form})} as an abbreviation for
 @f{(@param{slot-name} :initform @param{form})}.
 @reviewer{Barmar: Can you extend this to mean something else?}
@@ -4089,7 +4090,7 @@ The @kwd{initarg} slot option declares an initialization
 argument named @param{initarg-name} and specifies that this
 initialization argument initializes the given @term{slot}.  If the
 initialization argument has a value in the call to
-@symbolref{initialize-instance}, the value will be stored into the given @term{slot},
+@symbolref{initialize-instance, SYM}, the value will be stored into the given @term{slot},
 and the slot's @kwd{initform} slot option, if any, is not
 evaluated.  If none of the initialization arguments specified for a
 given @term{slot} has a value, the @term{slot} is initialized according to the
@@ -4120,15 +4121,15 @@ The following class options are available:
 The @kwd{default-initargs} class option is followed by a list of
 alternating initialization argument @term{names} and default initial value
 forms.  If any of these initialization arguments does not appear in
-the initialization argument list supplied to @symbolref{make-instance}, the
+the initialization argument list supplied to @symbolref{make-instance, SYM}, the
 corresponding default initial value form is evaluated, and the
 initialization argument @term{name} and the @term{form}'s value are added to the end
 of the initialization argument list before the instance is created;
 see @ref{Object Creation and Initialization}.
 The default initial value form is evaluated each time it is used.  The lexical
 environment in which this @term{form} is evaluated is the lexical environment
-in which the @symbolref{defclass} form was evaluated.  The dynamic
-environment is the dynamic environment in which @symbolref{make-instance}
+in which the @symbolref{defclass, SYM} form was evaluated.  The dynamic
+environment is the dynamic environment in which @symbolref{make-instance, SYM}
 was called.  If an initialization argument @term{name} appears more than once
 in a @kwd{default-initargs} class option, an error is signaled.
 
@@ -4146,14 +4147,14 @@ than the default provided by the system (@theclass{standard-class}).
 @end itemize
 
 
-Note the following rules of @symbolref{defclass} for @term{standard classes}:
+Note the following rules of @symbolref{defclass, SYM} for @term{standard classes}:
 
 
 @itemize @bullet{}
 
 @item
 It is not required that the @term{superclasses} of a @term{class} be defined before
-the @symbolref{defclass} form for that @term{class} is evaluated.
+the @symbolref{defclass, SYM} form for that @term{class} is evaluated.
 
 @item
 All the @term{superclasses} of a @term{class} must be defined before
@@ -4161,7 +4162,7 @@ an @term{instance} of the @term{class} can be made.
 
 @item
 A @term{class} must be defined before it can be used as a parameter
-specializer in a @symbolref{defmethod} form.
+specializer in a @symbolref{defmethod, SYM} form.
 @end itemize
 
 
@@ -4175,7 +4176,7 @@ No class options except @kwd{default-initargs} are inherited.  For a
 detailed description of how @term{slots} and slot options are inherited,
 see @ref{Inheritance of Slots and Slot Options}.
 
-The options to @symbolref{defclass} can be extended.  It is required that
+The options to @symbolref{defclass, SYM} can be extended.  It is required that
 all implementations signal an error if they observe a class option or
 a slot option that is not implemented locally.
 
@@ -4194,14 +4195,14 @@ the @term{slot} can only be @term{accessed} by @thefunction{slot-value}.
 
 
 
-If a @symbolref{defclass} @term{form} appears as a @term{top level form},
+If a @symbolref{defclass, SYM} @term{form} appears as a @term{top level form},
 the @term{compiler} must make the @term{class} @term{name} be recognized as a
-valid @term{type} @term{name} in subsequent declarations (as for @symbolref{deftype})
-and be recognized as a valid @term{class} @term{name} for @symbolref{defmethod}
+valid @term{type} @term{name} in subsequent declarations (as for @symbolref{deftype, SYM})
+and be recognized as a valid @term{class} @term{name} for @symbolref{defmethod, SYM}
 @term{parameter specializers} and for use as the @kwd{metaclass} option of a
-subsequent @symbolref{defclass}.  The @term{compiler} must make
+subsequent @symbolref{defclass, SYM}.  The @term{compiler} must make
 the @term{class} definition
-available to be returned by @symbolref{find-class} when its @param{environment}
+available to be returned by @symbolref{find-class, SYM} when its @param{environment}
 @term{argument} is a value received as the @term{environment parameter} of a @term{macro}.
 
 @subsubheading Exceptional Situations:
@@ -4257,7 +4258,7 @@ or a slot option that is not implemented locally.
 
 @param{generic-function-class}---a @term{non-nil} @term{symbol} naming a @term{class}.
 
-@param{gf-declaration}---an @symbolref{optimize} @term{declaration specifier};
+@param{gf-declaration}---an @symbolref{optimize, SYM} @term{declaration specifier};
 other @term{declaration specifiers} are not permitted.
 
 @param{gf-documentation}---a @term{string}; @noeval{}.
@@ -4275,7 +4276,7 @@ naming a @term{method combination} @term{type}.
 @param{specialized-lambda-list},
 @param{declarations},
 @param{documentation},
-@param{forms}---as per @symbolref{defmethod}.
+@param{forms}---as per @symbolref{defmethod, SYM}.
 
 @param{new-generic}---the @term{generic function} @term{object}.
 
@@ -4287,7 +4288,7 @@ must be used exactly once as a @param{parameter-name}.)
 
 @subsubheading Description:
 
-The macro @symbolref{defgeneric} is used to define a @term{generic function}
+The macro @symbolref{defgeneric, SYM} is used to define a @term{generic function}
 or to specify options and declarations that pertain
 to a @term{generic function} as a whole.
 
@@ -4302,13 +4303,13 @@ an @term{ordinary function},
 a @term{macro}, or a @term{special operator},
 an error is signaled.
 
-The effect of the @symbolref{defgeneric} macro is as if the following three
+The effect of the @symbolref{defgeneric, SYM} macro is as if the following three
 steps were performed: first,
-@term{methods} defined by previous @symbolref{defgeneric} @term{forms} are removed;
+@term{methods} defined by previous @symbolref{defgeneric, SYM} @term{forms} are removed;
 @reviewer{Barmar: Shouldn't this (second) be first?}
-second, @symbolref{ensure-generic-function}
+second, @symbolref{ensure-generic-function, SYM}
 is called; and finally, @term{methods} specified by the current
-@symbolref{defgeneric} @term{form} are added to the @term{generic function}.
+@symbolref{defgeneric, SYM} @term{form} are added to the @term{generic function}.
 
 Each @param{method-description} defines a @term{method} on the @term{generic function}.
 The @term{lambda list} of each @term{method} must be congruent with the
@@ -4318,15 +4319,15 @@ If no @term{method} descriptions are specified and a @term{generic function} of 
 name does not already exist, a @term{generic function} with no
 @term{methods} is created.
 
-The @param{gf-lambda-list} argument of @symbolref{defgeneric} specifies the shape of
+The @param{gf-lambda-list} argument of @symbolref{defgeneric, SYM} specifies the shape of
 @term{lambda lists} for the @term{methods} on this @term{generic function}.
 All @term{methods} on the resulting
 @term{generic function} must have
-@term{lambda lists} that are congruent with this shape.  If a @symbolref{defgeneric}
+@term{lambda lists} that are congruent with this shape.  If a @symbolref{defgeneric, SYM}
 form is evaluated and some
 @term{methods} for that @term{generic function}
 have @term{lambda lists} that are not congruent with that given in
-the @symbolref{defgeneric} form, an error is signaled.  For further details
+the @symbolref{defgeneric, SYM} form, an error is signaled.  For further details
 on method congruence, see @ref{Congruent Lambda-lists for all Methods of a Generic Function}.
 
 The @term{generic function} passes to the
@@ -4356,26 +4357,26 @@ supplied.  If this condition is not met, an error is signaled.
 The @t{declare} option is used to specify declarations that pertain
 to the @term{generic function}.
 
-An @symbolref{optimize} @term{declaration specifier} is allowed.
+An @symbolref{optimize, SYM} @term{declaration specifier} is allowed.
 It specifies whether method selection should be optimized for
 speed or space, but it has no effect on @term{methods}.
-To control how a @term{method} is optimized, an @symbolref{optimize}
-declaration must be placed directly in the @symbolref{defmethod} @term{form}
+To control how a @term{method} is optimized, an @symbolref{optimize, SYM}
+declaration must be placed directly in the @symbolref{defmethod, SYM} @term{form}
 or method description.  The optimization qualities @t{speed} and
 @t{space} are the only qualities this standard requires, but an
 implementation can extend the @CLOS{}@spc{}to recognize other qualities.
 A simple implementation that has only one method selection technique
-and ignores @symbolref{optimize} @term{declaration specifiers} is valid.
+and ignores @symbolref{optimize, SYM} @term{declaration specifiers} is valid.
 
-The @symbolref{special}, @symbolref{ftype}, @code{function}, @symbolref{inline},
-@symbolref{notinline}, and @symbolref{declaration} declarations are not permitted.
+The @symbolref{special, SYM}, @symbolref{ftype, SYM}, @code{function}, @symbolref{inline, SYM},
+@symbolref{notinline, SYM}, and @symbolref{declaration, SYM} declarations are not permitted.
 Individual implementations can extend the @t{declare} option to
 support additional declarations.
 @editornote{KMP: Does ``additional'' mean including special, ftype, etc.?
 Or only other things that are not mentioned here?}
 If an implementation notices a @term{declaration specifier} that it does
 not support and that has not been proclaimed as a non-standard
-@term{declaration identifier} name in a @symbolref{declaration} @term{proclamation},
+@term{declaration identifier} name in a @symbolref{declaration, SYM} @term{proclamation},
 it should issue a warning. @editornote{KMP: The wording of this previous sentence,
 particularly the word ``and'' suggests to me that you can `proclaim declaration'
 of an unsupported declaration (e.g., ftype) in order to suppress the warning.
@@ -4400,7 +4401,7 @@ The @param{class-name} argument is the name of a @term{class} that can be the
 @term{class} of a @term{generic function}.  If @param{function-name} specifies
 an existing @term{generic function} that has a different value for the
 @kwd{generic-function-class} argument and the new generic function
-@term{class} is compatible with the old, @symbolref{change-class} is called
+@term{class} is compatible with the old, @symbolref{change-class, SYM} is called
 to change the @term{class} of the @term{generic function};
 otherwise an error is signaled.
 
@@ -4410,7 +4411,7 @@ this @term{generic function} are to have a different @term{class} from the
 default provided by the system (@theclass{standard-method}).
 The @param{class-name} argument is the name of a @term{class} that is capable
 of being the @term{class} of a @term{method}.
-@reviewer{Barmar: Is @symbolref{change-class} called on existing methods?}
+@reviewer{Barmar: Is @symbolref{change-class, SYM} called on existing methods?}
 
 @item
 The @kwd{method-combination} option is followed by a symbol that
@@ -4418,7 +4419,7 @@ names a type of method combination.  The arguments (if any) that
 follow that symbol depend on the type of method combination.  Note
 that the standard method combination type does not support any
 arguments.  However, all types of method combination defined by the
-short form of @symbolref{define-method-combination} accept an optional
+short form of @symbolref{define-method-combination, SYM} accept an optional
 argument named @param{order}, defaulting to @kwd{most-specific-first},
 where a value of @kwd{most-specific-last} reverses
 the order of the primary @term{methods} without affecting the order of the
@@ -4429,7 +4430,7 @@ auxiliary @term{methods}.
 The @param{method-description} arguments define @term{methods} that will
 be associated with the @term{generic function}.  The @param{method-qualifier}
 and @param{specialized-lambda-list} arguments in a method description
-are the same as for @symbolref{defmethod}.
+are the same as for @symbolref{defmethod, SYM}.
 
 The @param{form} arguments specify the method body.  The body of the
 @term{method} is enclosed in an @term{implicit block}.
@@ -4438,11 +4439,11 @@ the @term{generic function}.  If @param{function-name} is a
 @term{list} of the
 form @tt{(setf @param{symbol})}, the name of the block is @param{symbol}.
 
-Implementations can extend @symbolref{defgeneric} to include other options.
+Implementations can extend @symbolref{defgeneric, SYM} to include other options.
 It is required that an implementation signal an error if
 it observes an option that is not implemented locally.
 
-@symbolref{defgeneric} is not required to perform any compile-time side effects.
+@symbolref{defgeneric, SYM} is not required to perform any compile-time side effects.
 In particular, the @term{methods} are not installed for invocation during
 compilation.  An @term{implementation} may choose to store information about
 the @term{generic function} for the purposes of compile-time error-checking
@@ -4466,9 +4467,9 @@ The @term{lambda list} of each @term{method} specified by a
 by the @param{gf-lambda-list} option, or
 an error @oftype{error} is signaled.
 
-If a @symbolref{defgeneric} form is evaluated and some @term{methods} for
+If a @symbolref{defgeneric, SYM} form is evaluated and some @term{methods} for
 that @term{generic function} have @term{lambda lists} that are not congruent with
-that given in the @symbolref{defgeneric} form,
+that given in the @symbolref{defgeneric, SYM} form,
 an error @oftype{error} is signaled.
 
 A given @param{option} may occur only once,
@@ -4479,10 +4480,10 @@ function class as it already has!}
 If @param{function-name} specifies an existing @term{generic function}
 that has a different value for the @kwd{generic-function-class}
 argument and the new generic function @term{class} is compatible with the
-old, @symbolref{change-class} is called to change the @term{class} of
+old, @symbolref{change-class, SYM} is called to change the @term{class} of
 the @term{generic function}; otherwise an error @oftype{error} is signaled.
 
-Implementations can extend @symbolref{defgeneric} to include other options.
+Implementations can extend @symbolref{defgeneric, SYM} to include other options.
 It is required that an implementation
 signal an error @oftype{program-error} if
 it observes an option that is not implemented locally.
@@ -4530,7 +4531,7 @@ it observes an option that is not implemented locally.
 
 @subsubheading Description:
 
-The macro @symbolref{defmethod} defines a @term{method} on a
+The macro @symbolref{defmethod, SYM} defines a @term{method} on a
 @term{generic function}.
 
 If @tt{(fboundp @i{function-name})} is @nil{}, a
@@ -4544,7 +4545,7 @@ and for the method combination type (the standard method combination type).
 The @term{lambda list} of the @term{generic function} is
 congruent with the @term{lambda list} of the
 @term{method} being defined; if the
-@symbolref{defmethod} form mentions keyword arguments, the @term{lambda list} of
+@symbolref{defmethod, SYM} form mentions keyword arguments, the @term{lambda list} of
 the @term{generic function}
 will mention @tt{&key} (but no keyword
 arguments).  If @i{function-name} names
@@ -4581,7 +4582,7 @@ specializer name @f{(eql @param{eql-specializer-form})} indicates
 that the corresponding argument must be @code{eql} to the @term{object} that
 is the value of @param{eql-specializer-form} for the @term{method} to be applicable.
 The @param{eql-specializer-form} is evaluated at the time
-that the expansion of the @symbolref{defmethod} macro is evaluated.
+that the expansion of the @symbolref{defmethod, SYM} macro is evaluated.
 If no @term{parameter specializer name} is specified for a given
 required parameter, the @term{parameter specializer} defaults to
 @theclass{t}.
@@ -4600,7 +4601,7 @@ on which the @term{method} is defined.
 
 If the @term{generic function} already has a @term{method} that agrees with the
 @term{method} being defined on @term{parameter specializers} and @term{qualifiers},
-@symbolref{defmethod} replaces the existing @term{method} with the one now being
+@symbolref{defmethod, SYM} replaces the existing @term{method} with the one now being
 defined.
 For a definition of agreement in this context.
 see @ref{Agreement on Parameter Specializers and Qualifiers}.
@@ -4609,8 +4610,8 @@ The @term{parameter specializers} are derived from
 the @term{parameter specializer names} as described in
 @ref{Introduction to Methods}.
 
-The expansion of the @symbolref{defmethod} macro ``refers to'' each
-specialized parameter (see the description of @symbolref{ignore}
+The expansion of the @symbolref{defmethod, SYM} macro ``refers to'' each
+specialized parameter (see the description of @symbolref{ignore, SYM}
 within the description of @t{declare}).
 This includes parameters that
 have an explicit @term{parameter specializer name} of @code{t}.  This means
@@ -4625,10 +4626,10 @@ method's @term{lambda variables} are treated as @term{bound declarations}
 whose @term{scope} is the same as the corresponding @term{bindings}.
 
 Declarations at the head of the method body that apply to the
-functional bindings of @symbolref{call-next-method} or @symbolref{next-method-p}
+functional bindings of @symbolref{call-next-method, SYM} or @symbolref{next-method-p, SYM}
 apply to references to those functions within the method body @param{forms}.
-Any outer @term{bindings} of the @term{function names} @symbolref{call-next-method} and
-@symbolref{next-method-p}, and declarations associated with such @term{bindings}
+Any outer @term{bindings} of the @term{function names} @symbolref{call-next-method, SYM} and
+@symbolref{next-method-p, SYM}, and declarations associated with such @term{bindings}
 are @term{shadowed}@sub{2} within the method body @param{forms}.
 
 The @term{scope} of @term{free declarations} at the head of the method body
@@ -4636,7 +4637,7 @@ is the entire method body,
 which includes any implicit local function definitions
 but excludes @term{initialization forms} for the @term{lambda variables}.
 
-@symbolref{defmethod} is not required to perform any compile-time side effects.
+@symbolref{defmethod, SYM} is not required to perform any compile-time side effects.
 In particular, the @term{methods} are not installed for invocation during
 compilation.  An @term{implementation} may choose to store information about
 the @term{generic function} for the purposes of compile-time error-checking
@@ -4711,8 +4712,8 @@ in the @param{environment}.  If there is no such @term{class},
 if @param{errorp} is @term{true}, an error is signaled.
 
 The @term{class} associated with a particular @term{symbol} can be changed by using
-@symbolref{setf} with @symbolref{find-class};
-or, if the new @term{class} given to @symbolref{setf} is @nil{},
+@symbolref{setf, SYM} with @symbolref{find-class, SYM};
+or, if the new @term{class} given to @symbolref{setf, SYM} is @nil{},
 the @term{class} association is removed
 (but the @term{class} @term{object} itself is not affected).
 The results are undefined if the user attempts to change
@@ -4732,7 +4733,7 @@ run-time environment.
 @subsubheading Exceptional Situations:
 
 If there is no such @term{class} and @param{errorp} is @term{true},
-@symbolref{find-class} signals an error @oftype{error}.
+@symbolref{find-class, SYM} signals an error @oftype{error}.
 
 @subsubheading See Also:
 
@@ -4756,19 +4757,19 @@ If there is no such @term{class} and @param{errorp} is @term{true},
 
 @subsubheading Description:
 
-The locally defined function @symbolref{next-method-p} can be used
+The locally defined function @symbolref{next-method-p, SYM} can be used
 within the body @term{forms} (but not the @term{lambda list})
 defined by a @term{method-defining form} to determine
 whether a next @term{method} exists.
 
 @Thefunction{next-method-p} has @term{lexical scope} and @term{indefinite extent}.
 
-Whether or not @symbolref{next-method-p} is @term{fbound} in the
+Whether or not @symbolref{next-method-p, SYM} is @term{fbound} in the
 @term{global environment} is @term{implementation-dependent};
 however, the restrictions on redefinition and @term{shadowing} of
-@symbolref{next-method-p} are the same as for @term{symbols} in the @code{COMMON-LISP} @term{package}
+@symbolref{next-method-p, SYM} are the same as for @term{symbols} in the @code{COMMON-LISP} @term{package}
 which are @term{fbound} in the @term{global environment}.
-The consequences of attempting to use @symbolref{next-method-p} outside
+The consequences of attempting to use @symbolref{next-method-p, SYM} outside
 of a @term{method-defining form} are undefined.
 
 @subsubheading See Also:
@@ -4806,62 +4807,62 @@ or a @term{list} (see below); @noeval{}.
 
 @subsubheading Description:
 
-The macro @symbolref{call-method} is used in method combination.  It hides
+The macro @symbolref{call-method, SYM} is used in method combination.  It hides
 the @term{implementation-dependent} details of how
 @term{methods} are called. The
-macro @symbolref{call-method} has @term{lexical scope} and
+macro @symbolref{call-method, SYM} has @term{lexical scope} and
 can only be used within
 an @term{effective method} @term{form}.
 
 @editornote{KMP: This next paragraph still needs some work.}
-Whether or not @symbolref{call-method} is @term{fbound} in the
+Whether or not @symbolref{call-method, SYM} is @term{fbound} in the
 @term{global environment} is @term{implementation-dependent};
 however, the restrictions on redefinition and @term{shadowing} of
-@symbolref{call-method} are the same as for @term{symbols} in the @code{COMMON-LISP} @term{package}
+@symbolref{call-method, SYM} are the same as for @term{symbols} in the @code{COMMON-LISP} @term{package}
 which are @term{fbound} in the @term{global environment}.
-The consequences of attempting to use @symbolref{call-method} outside
+The consequences of attempting to use @symbolref{call-method, SYM} outside
 of an @term{effective method} @term{form} are undefined.
 
 
-The macro @symbolref{call-method} invokes the specified @term{method},
+The macro @symbolref{call-method, SYM} invokes the specified @term{method},
 supplying it with arguments and with definitions for
-@symbolref{call-next-method} and for @symbolref{next-method-p}.
-If the invocation of @symbolref{call-method} is lexically inside
-of a @symbolref{make-method}, the arguments are those that
+@symbolref{call-next-method, SYM} and for @symbolref{next-method-p, SYM}.
+If the invocation of @symbolref{call-method, SYM} is lexically inside
+of a @symbolref{make-method, SYM}, the arguments are those that
 were supplied to that method.  Otherwise the arguments are
 those that were supplied to the generic function.
 The definitions
-of @symbolref{call-next-method} and @symbolref{next-method-p} rely on
+of @symbolref{call-next-method, SYM} and @symbolref{next-method-p, SYM} rely on
 the specified @param{next-method-list}.
 
 If @param{method} is a @term{list}, the first element of the @term{list}
-must be the symbol @symbolref{make-method} and the second element must be
+must be the symbol @symbolref{make-method, SYM} and the second element must be
 a @term{form}.  Such a @term{list} specifies a @term{method} @term{object}
 whose @term{method} function has a body that is the given @term{form}.
 
 @param{Next-method-list} can contain @term{method} @term{objects} or @term{lists},
-the first element of which must be the symbol @symbolref{make-method} and the
+the first element of which must be the symbol @symbolref{make-method, SYM} and the
 second element of which must be a @term{form}.
 
 
-Those are the only two places where @symbolref{make-method} can be used.
-The @term{form} used with @symbolref{make-method} is evaluated in
+Those are the only two places where @symbolref{make-method, SYM} can be used.
+The @term{form} used with @symbolref{make-method, SYM} is evaluated in
 the @term{null lexical environment} augmented with a local macro definition
-for @symbolref{call-method} and with bindings named by
+for @symbolref{call-method, SYM} and with bindings named by
 symbols not @term{accessible} from the @code{COMMON-LISP-USER} @term{package}.
 
-The @symbolref{call-next-method} function available to @param{method}
+The @symbolref{call-next-method, SYM} function available to @param{method}
 will call the first @term{method} in @param{next-method-list}.
-The @symbolref{call-next-method} function
+The @symbolref{call-next-method, SYM} function
 available in that @term{method}, in turn, will call the second
 @term{method} in @param{next-method-list}, and so on, until
 the list of next @term{methods} is exhausted.
 
 
 If @param{next-method-list} is not supplied, the
-@symbolref{call-next-method} function available to
+@symbolref{call-next-method, SYM} function available to
 @param{method} signals an error @oftype{control-error}
-and the @symbolref{next-method-p} function
+and the @symbolref{next-method-p, SYM} function
 available to @param{method} returns @nil{}.
 
 @subsubheading Examples:
@@ -4898,27 +4899,27 @@ of a @term{method} defined by a @term{method-defining form} to call the
 @term{next method}.
 
 If there is no next @term{method}, the generic function
-@symbolref{no-next-method} is called.
+@symbolref{no-next-method, SYM} is called.
 
 The type of method combination used determines which @term{methods}
-can invoke @symbolref{call-next-method}.  The standard
-@term{method combination} type allows @symbolref{call-next-method}
+can invoke @symbolref{call-next-method, SYM}.  The standard
+@term{method combination} type allows @symbolref{call-next-method, SYM}
 to be used within primary @term{methods} and @term{around methods}.
 For generic functions using a type of method combination defined by
-the short form of @symbolref{define-method-combination},
-@symbolref{call-next-method} can be used in @term{around methods} only.
+the short form of @symbolref{define-method-combination, SYM},
+@symbolref{call-next-method, SYM} can be used in @term{around methods} only.
 
-When @symbolref{call-next-method} is called with no arguments, it passes the
+When @symbolref{call-next-method, SYM} is called with no arguments, it passes the
 current @term{method}'s original arguments to the next @term{method}.  Neither
-argument defaulting, nor using @symbolref{setq}, nor rebinding variables
+argument defaulting, nor using @symbolref{setq, SYM}, nor rebinding variables
 with the same @term{names} as parameters of the @term{method} affects the values
-@symbolref{call-next-method} passes to the @term{method} it calls.
+@symbolref{call-next-method, SYM} passes to the @term{method} it calls.
 
 
-When @symbolref{call-next-method} is called with arguments, the
+When @symbolref{call-next-method, SYM} is called with arguments, the
 @term{next method} is called with those arguments.
 
-If @symbolref{call-next-method} is called with arguments but omits
+If @symbolref{call-next-method, SYM} is called with arguments but omits
 optional arguments, the @term{next method} called defaults those arguments.
 
 
@@ -4929,32 +4930,32 @@ returned by the @term{next method}.
 @term{indefinite extent} and can only be used within the body of a
 @term{method} defined by a @term{method-defining form}.
 
-Whether or not @symbolref{call-next-method} is @term{fbound} in the
+Whether or not @symbolref{call-next-method, SYM} is @term{fbound} in the
 @term{global environment} is @term{implementation-dependent};
 however, the restrictions on redefinition and @term{shadowing} of
-@symbolref{call-next-method} are the same as for @term{symbols} in the @code{COMMON-LISP} @term{package}
+@symbolref{call-next-method, SYM} are the same as for @term{symbols} in the @code{COMMON-LISP} @term{package}
 which are @term{fbound} in the @term{global environment}.
-The consequences of attempting to use @symbolref{call-next-method} outside
+The consequences of attempting to use @symbolref{call-next-method, SYM} outside
 of a @term{method-defining form} are undefined.
 
 @subsubheading Affected By:
 
-@symbolref{defmethod}, @symbolref{call-method}, @symbolref{define-method-combination}.
+@symbolref{defmethod, SYM}, @symbolref{call-method, SYM}, @symbolref{define-method-combination, SYM}.
 
 @subsubheading Exceptional Situations:
 
 
 
-When providing arguments to @symbolref{call-next-method},
+When providing arguments to @symbolref{call-next-method, SYM},
 the following rule must be satisfied or an error @oftype{error}
 should be
 signaled:
 the ordered set of @term{applicable methods} for a changed set of arguments
-for @symbolref{call-next-method} must be the same as the ordered set of
+for @symbolref{call-next-method, SYM} must be the same as the ordered set of
 @term{applicable methods} for the original arguments to the
 @term{generic function}.
 Optimizations of the error checking are possible, but they must not change
-the semantics of @symbolref{call-next-method}.
+the semantics of @symbolref{call-next-method, SYM}.
 
 @subsubheading See Also:
 
@@ -4996,14 +4997,14 @@ the semantics of @symbolref{call-next-method}.
 
 Given a @param{generic-function} and a set of
 @param{function-arguments}, the function
-@symbolref{compute-applicable-methods} returns the set of @term{methods}
+@symbolref{compute-applicable-methods, SYM} returns the set of @term{methods}
 that are applicable for those arguments
 sorted according to precedence order.
 See @ref{Method Selection and Combination}.
 
 @subsubheading Affected By:
 
-@symbolref{defmethod}
+@symbolref{defmethod, SYM}
 
 @subsubheading See Also:
 
@@ -5068,13 +5069,13 @@ or the @term{symbol} @t{*}.
 
 @subsubheading Description:
 
-The macro @symbolref{define-method-combination} is used to define new types
+The macro @symbolref{define-method-combination, SYM} is used to define new types
 of method combination.
 
-There are two forms of @symbolref{define-method-combination}.  The short
+There are two forms of @symbolref{define-method-combination, SYM}.  The short
 form is a simple facility for the cases that are expected
 to be most commonly needed.  The long form is more powerful but more
-verbose.  It resembles @symbolref{defmacro} in that the body is an
+verbose.  It resembles @symbolref{defmacro, SYM} in that the body is an
 expression, usually using backquote, that computes a @term{form}.  Thus
 arbitrary control structures can be implemented.  The long form also
 allows arbitrary processing of method @term{qualifiers}.
@@ -5086,7 +5087,7 @@ allows arbitrary processing of method @term{qualifiers}.
 @item @id{@bf{Short Form}}
 
 
-The short form syntax of @symbolref{define-method-combination} is recognized
+The short form syntax of @symbolref{define-method-combination, SYM} is recognized
 when the second @term{subform} is a @term{non-nil} symbol or is not present.
 When the short form is used, @param{name} is defined as a type of
 method combination that produces a Lisp form
@@ -5112,8 +5113,8 @@ exactly one applicable method and it is a primary method, that method
 serves as the effective method and @param{operator} is not called.
 This optimization avoids the need to create a new effective method and
 avoids the overhead of a @term{function} call.  This option is designed to be
-used with operators such as @symbolref{progn}, @code{and}, @code{+}, and
-@symbolref{max}.
+used with operators such as @symbolref{progn, SYM}, @code{and}, @code{+}, and
+@symbolref{max, SYM}.
 
 @item
 The @kwd{operator} option specifies the @term{name} of the operator.  The
@@ -5138,7 +5139,7 @@ A method with @kwd{around} as its one @term{qualifier} is an auxiliary
 method that behaves the same as an @term{around method} in standard
 method combination.  @Thefunction{call-next-method} can only be
 used in @term{around methods}; it cannot be used in primary methods
-defined by the short form of the @symbolref{define-method-combination} macro.
+defined by the short form of the @symbolref{define-method-combination, SYM} macro.
 
 A method combination procedure defined in this way accepts an optional
 argument named @param{order}, which defaults to
@@ -5155,13 +5156,13 @@ see @ref{Built-in Method Combination Types}.
 @item @id{@bf{Long Form}}
 
 
-The long form syntax of @symbolref{define-method-combination} is recognized
+The long form syntax of @symbolref{define-method-combination, SYM} is recognized
 when the second @term{subform} is a list.
 
 The @param{lambda-list}
 receives any arguments provided after the @term{name} of the method
 combination type in the @kwd{method-combination} option to
-@symbolref{defgeneric}.
+@symbolref{defgeneric, SYM}.
 
 A list of method group specifiers follows.  Each specifier selects a subset
 of the applicable methods to play a particular role, either by matching
@@ -5174,7 +5175,7 @@ that can be used with this type of method combination.
 The @term{car} of each @param{method-group-specifier} is a @term{symbol}
 which @term{names} a @term{variable}.
 During the execution of
-the @term{forms} in the body of @symbolref{define-method-combination}, this
+the @term{forms} in the body of @symbolref{define-method-combination, SYM}, this
 @term{variable} is bound to a list of the @term{methods} in the method group.  The
 @term{methods} in this list occur in the order specified by the
 @kwd{order} option.
@@ -5182,7 +5183,7 @@ the @term{forms} in the body of @symbolref{define-method-combination}, this
 If @param{qualifier-pattern} is a @term{symbol} it must be @t{*}.
 A method matches
 a @param{qualifier-pattern} if the method's
-list of @term{qualifiers} is @symbolref{equal}
+list of @term{qualifiers} is @symbolref{equal, SYM}
 to the @param{qualifier-pattern} (except that the symbol @t{*} in a
 @param{qualifier-pattern} matches anything).  Thus
 a @param{qualifier-pattern} can be one of the
@@ -5239,7 +5240,7 @@ is expected to be concise.  This keyword
 option allows the description of a method @term{qualifier} to be defined in
 the same module that defines the meaning of the
 method @term{qualifier}.  In most cases, @param{format-control} will not contain any
-@symbolref{format} directives, but they are available for generality.
+@symbolref{format, SYM} directives, but they are available for generality.
 If @kwd{description} is not supplied, a default description is generated
 based on the variable name and the @term{qualifier} patterns and on whether
 this method group includes the @term{unqualified methods}.
@@ -5268,8 +5269,8 @@ The use of method group specifiers provides a convenient syntax to
 select methods, to divide them among the possible roles, and to perform the
 necessary error checking.  It is possible to perform further filtering
 of methods in the body @term{forms} by using normal list-processing operations
-and the functions @symbolref{method-qualifiers} and
-@symbolref{invalid-method-error}.  It is permissible to use @symbolref{setq} on the
+and the functions @symbolref{method-qualifiers, SYM} and
+@symbolref{invalid-method-error, SYM}.  It is permissible to use @symbolref{setq, SYM} on the
 variables named in the method group specifiers and to bind additional
 variables.  It is also possible to bypass the method group specifier
 mechanism and do everything in the body @term{forms}.  This is accomplished
@@ -5283,13 +5284,13 @@ The body @param{forms} compute and return the @term{form} that specifies
 how the methods are combined, that is, the effective method.
 The effective method is evaluated in
 the @term{null lexical environment} augmented with a local macro definition
-for @symbolref{call-method} and with bindings named by
+for @symbolref{call-method, SYM} and with bindings named by
 symbols not @term{accessible} from the @code{COMMON-LISP-USER} @term{package}.
 Given a method object in one of the
 @term{lists} produced by the method group
 specifiers and a @term{list} of next methods,
-@symbolref{call-method}
-will invoke the method such that @symbolref{call-next-method} has available
+@symbolref{call-method, SYM}
+will invoke the method such that @symbolref{call-next-method, SYM} has available
 the next methods.
 
 When an effective method has no effect other than to call a single
@@ -5297,11 +5298,11 @@ method, some implementations employ an optimization that uses the
 single method directly as the effective method, thus avoiding the need
 to create a new effective method.  This optimization is active when
 the effective method form consists entirely of an invocation of
-the @symbolref{call-method} macro whose first @term{subform} is a method object and
+the @symbolref{call-method, SYM} macro whose first @term{subform} is a method object and
 whose second @term{subform} is @nil{}@spc{}or unsupplied.  Each
-@symbolref{define-method-combination} body is responsible for stripping off
-redundant invocations of @symbolref{progn}, @code{and},
-@symbolref{multiple-value-prog1}, and the like, if this optimization is desired.
+@symbolref{define-method-combination, SYM} body is responsible for stripping off
+redundant invocations of @symbolref{progn, SYM}, @code{and},
+@symbolref{multiple-value-prog1, SYM}, and the like, if this optimization is desired.
 
 
 
@@ -5314,7 +5315,7 @@ the @term{generic function}.  Each parameter variable defined by
 effective method.  When this @term{form} is evaluated during execution of the
 effective method, its value is the corresponding argument to the
 @term{generic function}; the consequences of using such a @term{form} as
-the @param{place} in a @symbolref{setf} @term{form} are undefined.
+the @param{place} in a @symbolref{setf, SYM} @term{form} are undefined.
 Argument correspondence is computed by dividing the @kwd{arguments} @param{lambda-list}
 and the @term{generic function} @param{lambda-list} into three sections:
 the @term{required parameters},
@@ -5348,7 +5349,7 @@ accesses all of the arguments, not just the keyword/rest @term{arguments}.
 
 
 Erroneous conditions detected by the body should be reported with
-@symbolref{method-combination-error} or @symbolref{invalid-method-error}; these
+@symbolref{method-combination-error, SYM} or @symbolref{invalid-method-error, SYM}; these
 @term{functions}
 add any necessary contextual information to the error message and will
 signal the appropriate error.
@@ -5360,14 +5361,14 @@ the
 Declarations at the head of
 the body are positioned directly inside of @term{bindings} created by the
 @term{lambda list} and outside of the @term{bindings} of the method group variables.
-Thus method group variables cannot be declared in this way.  @symbolref{locally} may be used
+Thus method group variables cannot be declared in this way.  @symbolref{locally, SYM} may be used
 around the body, however.
 
 Within the body @param{forms}, @param{generic-function-symbol}
 is bound to the @term{generic function} @term{object}.
 
 @param{Documentation} is attached as a @term{documentation string}
-to @param{name} (as kind @symbolref{method-combination})
+to @param{name} (as kind @symbolref{method-combination, SYM})
 and to the @term{method combination} @term{object}.
 
 
@@ -5383,23 +5384,23 @@ role and their order matters,
 @reviewer{Barmar: How does the system know when the order matters?}
 an error is signaled.  This happens as
 part of the @term{qualifier} pattern matching in
-@symbolref{define-method-combination}.
+@symbolref{define-method-combination, SYM}.
 @end table
 
 
-If a @symbolref{define-method-combination} @term{form} appears as a
+If a @symbolref{define-method-combination, SYM} @term{form} appears as a
 @term{top level form}, the @term{compiler} must make the
 @term{method combination} @term{name} be recognized as a valid
-@term{method combination} @term{name} in subsequent @symbolref{defgeneric}
+@term{method combination} @term{name} in subsequent @symbolref{defgeneric, SYM}
 @term{forms}.  However, the @term{method combination} is executed
-no earlier than when the @symbolref{define-method-combination} @term{form}
+no earlier than when the @symbolref{define-method-combination, SYM} @term{form}
 is executed, and possibly as late as the time that @term{generic functions}
 that use the @term{method combination} are executed.
 
 @subsubheading Examples:
 
 
-Most examples of the long form of @symbolref{define-method-combination} also
+Most examples of the long form of @symbolref{define-method-combination, SYM} also
 illustrate the use of the related @term{functions} that are provided as part
 of the declarative method combination facility.
 
@@ -5578,7 +5579,7 @@ an error @oftype{error} is signaled.
 @subsubheading Notes:
 
 
-The @kwd{method-combination} option of @symbolref{defgeneric} is used to
+The @kwd{method-combination} option of @symbolref{defgeneric, SYM} is used to
 specify that a @term{generic function} should use a particular method
 combination type.  The first argument to the @kwd{method-combination}
 option is the @term{name} of a method combination type and the remaining
@@ -5617,10 +5618,10 @@ arguments are options for that type.
 
 @subsubheading Description:
 
-The @term{generic function} @symbolref{find-method} takes a @term{generic function}
+The @term{generic function} @symbolref{find-method, SYM} takes a @term{generic function}
 and returns the @term{method} @term{object} that agrees on @term{qualifiers}
 and @term{parameter specializers} with the @param{method-qualifiers} and
-@param{specializers} arguments of @symbolref{find-method}.
+@param{specializers} arguments of @symbolref{find-method, SYM}.
 @param{Method-qualifiers}  contains the
 method @term{qualifiers} for the @term{method}.
 The order of the method @term{qualifiers}
@@ -5636,9 +5637,9 @@ default @term{method} on a given @param{generic-function},
 a @term{list} whose elements are @theclass{t} must be given.
 
 If there is no such @term{method} and @param{errorp} is @term{true},
-@symbolref{find-method} signals an error.
+@symbolref{find-method, SYM} signals an error.
 If there is no such @term{method} and @param{errorp} is @term{false},
-@symbolref{find-method} returns @nil{}.
+@symbolref{find-method, SYM} returns @nil{}.
 
 @subsubheading Examples:
 
@@ -5656,10 +5657,10 @@ If there is no such @term{method} and @param{errorp} is @term{false},
 
 @subsubheading Affected By:
 
-@symbolref{add-method},
-@symbolref{defclass},
-@symbolref{defgeneric},
-@symbolref{defmethod}
+@symbolref{add-method, SYM},
+@symbolref{defclass, SYM},
+@symbolref{defgeneric, SYM},
+@symbolref{defmethod, SYM}
 
 @subsubheading Exceptional Situations:
 
@@ -5668,7 +5669,7 @@ the number of required arguments of the @param{generic-function}, an
 an error @oftype{error} is signaled.
 
 If there is no such @term{method} and @param{errorp} is @term{true},
-@symbolref{find-method} signals an error @oftype{error}.
+@symbolref{find-method, SYM} signals an error @oftype{error}.
 
 @subsubheading See Also:
 
@@ -5698,7 +5699,7 @@ If there is no such @term{method} and @param{errorp} is @term{true},
 
 @subsubheading Description:
 
-The generic function @symbolref{add-method} adds a @term{method}
+The generic function @symbolref{add-method, SYM} adds a @term{method}
 to a @term{generic function}.
 
 If @param{method} agrees with an existing @term{method} of @param{generic-function}
@@ -5747,24 +5748,24 @@ another @term{generic function}, an error @oftype{error} is signaled.
 
 @subsubheading Description:
 
-Called by @symbolref{make-instance} to initialize a newly created @term{instance}.
+Called by @symbolref{make-instance, SYM} to initialize a newly created @term{instance}.
 The generic function is called with the new @param{instance}
 and the @term{defaulted initialization argument list}.
 
-The system-supplied primary @term{method} on @symbolref{initialize-instance}
+The system-supplied primary @term{method} on @symbolref{initialize-instance, SYM}
 initializes the @term{slots} of the @param{instance} with values according
 to the @param{initargs} and the @kwd{initform} forms of the @term{slots}.
-It does this by calling the generic function @symbolref{shared-initialize}
+It does this by calling the generic function @symbolref{shared-initialize, SYM}
 with the following arguments: the @param{instance}, @code{t}@spc{}(this indicates
 that all @term{slots} for which no initialization arguments are provided
 should be initialized according to their @kwd{initform} forms), and
 the @param{initargs}.
 
-Programmers can define @term{methods} for @symbolref{initialize-instance} to
+Programmers can define @term{methods} for @symbolref{initialize-instance, SYM} to
 specify actions to be taken when an instance is initialized.  If only
 @term{after methods} are defined, they will be run after the
 system-supplied primary @term{method} for initialization and therefore will
-not interfere with the default behavior of @symbolref{initialize-instance}.
+not interfere with the default behavior of @symbolref{initialize-instance, SYM}.
 
 @subsubheading See Also:
 
@@ -5901,20 +5902,20 @@ a @term{direct instance}.
 
 
 @subsubheading Class Precedence List:
-@symbolref{unbound-slot},
-@symbolref{cell-error},
+@symbolref{unbound-slot, SYM},
+@symbolref{cell-error, SYM},
 @code{error},
-@symbolref{serious-condition},
-@symbolref{condition},
+@symbolref{serious-condition, SYM},
+@symbolref{condition, SYM},
 @code{t}
 
 @subsubheading Description:
 
 The @term{object} having the unbound slot is initialized by
-@theinitkeyarg{instance} to @symbolref{make-condition},
+@theinitkeyarg{instance} to @symbolref{make-condition, SYM},
 and is @term{accessed} by @thefunction{unbound-slot-instance}.
 
-The name of the cell (see @symbolref{cell-error}) is the name of the slot.
+The name of the cell (see @symbolref{cell-error, SYM}) is the name of the slot.
 
 @subsubheading See Also:
 

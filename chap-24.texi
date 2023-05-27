@@ -15,7 +15,7 @@
 @node Loading
 @subsection Loading
 
-To @symbolref{load} a @term{file} is to treat its contents as @term{code}
+To @symbolref{load, SYM} a @term{file} is to treat its contents as @term{code}
 and @term{execute} that @term{code}.
 The @term{file} may contain @newterm{source code} or @newterm{compiled code}.
 
@@ -169,7 +169,7 @@ in @term{implementation} C, none of the features @f{spice}, @tt{lispm}, or @f{pe
 
 @param{input-file}---a @term{pathname designator}.
 (Default fillers for unspecified components are taken from
-@symbolref{*default-pathname-defaults*}.)
+@symbolref{*default-pathname-defaults*, SYM}.)
 
 @param{output-file}---a @term{pathname designator}.
 @Default{@term{implementation-defined}}
@@ -184,7 +184,7 @@ in @term{implementation} C, none of the features @f{spice}, @tt{lispm}, or @f{pe
 @param{external-format}---an @term{external file format designator}.
 @Default{@kwd{default}}
 
-@param{output-truename}---a @term{pathname} (the @symbolref{truename} of the output @term{file}),
+@param{output-truename}---a @term{pathname} (the @symbolref{truename, SYM} of the output @term{file}),
 or @nil{}.
 
 @param{warnings-p}---a @term{generalized boolean}.
@@ -195,7 +195,7 @@ or @nil{}.
 
 @subsubheading Description:
 
-@symbolref{compile-file} transforms the contents of the file specified
+@symbolref{compile-file, SYM} transforms the contents of the file specified
 by @param{input-file} into @term{implementation-dependent} binary data
 which are placed in the file specified by @param{output-file}.
 
@@ -203,19 +203,19 @@ The @term{file} to which @param{input-file} refers should be a @term{source file
 @param{output-file} can be used to specify an output @term{pathname};
 the actual @term{pathname} of the @term{compiled file}
 to which @term{compiled code} will be output
-is computed as if by calling @symbolref{compile-file-pathname}.
+is computed as if by calling @symbolref{compile-file-pathname, SYM}.
 
 If @param{input-file} or @param{output-file} is a @term{logical pathname},
 it is translated into a @term{physical pathname} as if by calling
-@symbolref{translate-logical-pathname}.
+@symbolref{translate-logical-pathname, SYM}.
 
 If @param{verbose} is @term{true},
-@symbolref{compile-file} prints a message in the form of a comment
+@symbolref{compile-file, SYM} prints a message in the form of a comment
 (@ie{} with a leading @term{semicolon})
 to @term{standard output} indicating what @term{file} is being @term{compiled}
 and other useful information.
 If @param{verbose} is @term{false},
-@symbolref{compile-file} does not print
+@symbolref{compile-file, SYM} does not print
 this information.
 
 If @param{print} is @term{true},
@@ -227,18 +227,18 @@ If @param{print} is @nil{}, no information is printed.
 
 The @param{external-format} specifies the @term{external file format}
 to be used when opening the @term{file}; see the @term{function} @ref{open}.
-@symbolref{compile-file} and @symbolref{load} must cooperate in such a way that
+@symbolref{compile-file, SYM} and @symbolref{load, SYM} must cooperate in such a way that
 the resulting @term{compiled file} can be @term{loaded}
 without specifying an @term{external file format} anew; see the @term{function} @ref{load}.
 
-@symbolref{compile-file} binds @symbolref{*readtable*} and @symbolref{*package*}
+@symbolref{compile-file, SYM} binds @symbolref{*readtable*, SYM} and @symbolref{*package*, SYM}
 to the values they held before processing the file.
 
-@symbolref{*compile-file-truename*} is bound by @symbolref{compile-file}
+@symbolref{*compile-file-truename*, SYM} is bound by @symbolref{compile-file, SYM}
 to hold the @term{truename} of the @term{pathname} of the file being compiled.
 
-@symbolref{*compile-file-pathname*} is bound by @symbolref{compile-file}
-to hold a @term{pathname} denoted by the first argument to @symbolref{compile-file},
+@symbolref{*compile-file-pathname*, SYM} is bound by @symbolref{compile-file, SYM}
+to hold a @term{pathname} denoted by the first argument to @symbolref{compile-file, SYM},
 merged against the defaults;
 that is, @f{(pathname (merge-pathnames @param{input-file}))}.
 
@@ -246,19 +246,19 @@ The compiled @term{functions} contained in the @term{compiled file} become avail
 for use when the @term{compiled file} is @term{loaded} into Lisp.
 Any function definition that is processed by the
 compiler, including @f{#'(lambda ...)} forms and local function
-definitions made by @symbolref{flet}, @symbolref{labels} and @symbolref{defun} forms,
+definitions made by @symbolref{flet, SYM}, @symbolref{labels, SYM} and @symbolref{defun, SYM} forms,
 result in an @term{object} @oftype{compiled-function}.
 
-The @term{primary value} returned by @symbolref{compile-file}, @param{output-truename},
-is the @symbolref{truename} of the output file, or @nil{}@spc{}if the file could not be created.
+The @term{primary value} returned by @symbolref{compile-file, SYM}, @param{output-truename},
+is the @symbolref{truename, SYM} of the output file, or @nil{}@spc{}if the file could not be created.
 
 The @term{secondary value}, @param{warnings-p}, is @term{false}
-if no @term{conditions} @oftype{error} or @symbolref{warning}
+if no @term{conditions} @oftype{error} or @symbolref{warning, SYM}
 were detected by the compiler, and @term{true} otherwise.
 
 The @term{tertiary value}, @param{failure-p}, is @term{false}
-if no @term{conditions} @oftype{error} or @symbolref{warning}
-(other than @symbolref{style-warning})
+if no @term{conditions} @oftype{error} or @symbolref{warning, SYM}
+(other than @symbolref{style-warning, SYM})
 were detected by the compiler, and @term{true} otherwise.
 
 For general information about how @term{files} are processed by the @term{file compiler},
@@ -272,8 +272,8 @@ For information on how to extend the set of @term{externalizable objects},
 see the @term{function} @ref{Additional Constraints on Externalizable Objects}.
 
 @subsubheading Affected By:
-@symbolref{*error-output*},
-@symbolref{*standard-output*}, @symbolref{*compile-verbose*}, @symbolref{*compile-print*}
+@symbolref{*error-output*, SYM},
+@symbolref{*standard-output*, SYM}, @symbolref{*compile-verbose*, SYM}, @symbolref{*compile-print*, SYM}
 
 The computer's file system.
 @subsubheading Exceptional Situations:
@@ -316,7 +316,7 @@ an error @oftype{file-error} is signaled.
 
 @param{input-file}---a @term{pathname designator}.
 (Default fillers for unspecified components are taken from
-@symbolref{*default-pathname-defaults*}.)
+@symbolref{*default-pathname-defaults*, SYM}.)
 
 @param{output-file}---a @term{pathname designator}.
 @Default{@term{implementation-defined}}
@@ -325,7 +325,7 @@ an error @oftype{file-error} is signaled.
 
 @subsubheading Description:
 
-Returns the @term{pathname} that @symbolref{compile-file} would write into,
+Returns the @term{pathname} that @symbolref{compile-file, SYM} would write into,
 if given the same arguments.
 
 The defaults for the @param{output-file}
@@ -340,22 +340,22 @@ If @param{input-file} is a @term{logical pathname} and @param{output-file}
 is unsupplied, the result is a @term{logical pathname}.
 If @param{input-file} is a @term{logical pathname},
 it is translated into a physical pathname as if by calling
-@symbolref{translate-logical-pathname}.
+@symbolref{translate-logical-pathname, SYM}.
 If @param{input-file} is a @term{stream},
 the @term{stream} can be either open or closed.
-@symbolref{compile-file-pathname} returns the same @term{pathname} after a
+@symbolref{compile-file-pathname, SYM} returns the same @term{pathname} after a
 file is closed as it did when the file was open.
 It is an error if @param{input-file} is a @term{stream} that is
-created with @symbolref{make-two-way-stream}, @symbolref{make-echo-stream},
-@symbolref{make-broadcast-stream}, @symbolref{make-concatenated-stream},
-@symbolref{make-string-input-stream}, @symbolref{make-string-output-stream}.
+created with @symbolref{make-two-way-stream, SYM}, @symbolref{make-echo-stream, SYM},
+@symbolref{make-broadcast-stream, SYM}, @symbolref{make-concatenated-stream, SYM},
+@symbolref{make-string-input-stream, SYM}, @symbolref{make-string-output-stream, SYM}.
 
-If an implementation supports additional keyword arguments to @symbolref{compile-file},
-@symbolref{compile-file-pathname} must accept the same arguments.
+If an implementation supports additional keyword arguments to @symbolref{compile-file, SYM},
+@symbolref{compile-file-pathname, SYM} must accept the same arguments.
 
 @subsubheading Examples:
 
-See @symbolref{logical-pathname-translations}.
+See @symbolref{logical-pathname-translations, SYM}.
 
 @subsubheading Exceptional Situations:
 
@@ -386,7 +386,7 @@ An error @oftype{file-error} might be signaled if either @param{input-file} or
 @subsubheading Arguments and Values:
 
 @param{filespec}---a @term{stream}, or a @term{pathname designator}.
-@Default{taken from @symbolref{*default-pathname-defaults*}}
+@Default{taken from @symbolref{*default-pathname-defaults*, SYM}}
 
 @param{verbose}---a @term{generalized boolean}.
 @Default{@thevalueof{*load-verbose*}}
@@ -404,43 +404,43 @@ An error @oftype{file-error} might be signaled if either @param{input-file} or
 
 @subsubheading Description:
 
-@symbolref{load} @term{loads} the @term{file} named by @param{filespec}
+@symbolref{load, SYM} @term{loads} the @term{file} named by @param{filespec}
 into the @Lisp{}@spc{}environment.
 
 The manner in which a @term{source file}
 is distinguished from a @term{compiled file} is @term{implementation-dependent}.
 If the file specification is not complete and both a @term{source file} and a
 @term{compiled file} exist which might match,
-then which of those files @symbolref{load} selects is @term{implementation-dependent}.
+then which of those files @symbolref{load, SYM} selects is @term{implementation-dependent}.
 
 If @param{filespec} is a @term{stream},
-@symbolref{load} determines what kind of @term{stream} it is
+@symbolref{load, SYM} determines what kind of @term{stream} it is
 and loads directly from the @term{stream}.
 If @param{filespec} is a @term{logical pathname},
 it is translated into a @term{physical pathname}
-as if by calling @symbolref{translate-logical-pathname}.
+as if by calling @symbolref{translate-logical-pathname, SYM}.
 
-@symbolref{load} sequentially executes each @term{form} it encounters
+@symbolref{load, SYM} sequentially executes each @term{form} it encounters
 in the @term{file} named by @param{filespec}.
 If the @term{file} is a @term{source file}
 and the @term{implementation} chooses to perform @term{implicit compilation},
-@symbolref{load} must recognize @term{top level forms}
+@symbolref{load, SYM} must recognize @term{top level forms}
 as described in @ref{Processing of Top Level Forms}
 and arrange for each @term{top level form} to be executed
 before beginning @term{implicit compilation} of the next.
-(Note, however, that processing of @symbolref{eval-when} @term{forms}
-by @symbolref{load} is controlled by the @kwd{execute} situation.)
+(Note, however, that processing of @symbolref{eval-when, SYM} @term{forms}
+by @symbolref{load, SYM} is controlled by the @kwd{execute} situation.)
 
 If @param{verbose} is @term{true},
-@symbolref{load} prints a message in the form of a comment
+@symbolref{load, SYM} prints a message in the form of a comment
 (@ie{} with a leading @term{semicolon})
 to @term{standard output} indicating what @term{file} is being @term{loaded}
 and other useful information.
 If @param{verbose} is @term{false},
-@symbolref{load} does not print this information.
+@symbolref{load, SYM} does not print this information.
 
 If @param{print} is @term{true},
-@symbolref{load} incrementally prints information to @term{standard output}
+@symbolref{load, SYM} incrementally prints information to @term{standard output}
 showing the progress of the @term{loading} process.
 For a @term{source file},
 this information might mean printing the @term{values}
@@ -450,24 +450,24 @@ For a @term{compiled file},
 what is printed might not reflect precisely the contents of the @term{source file},
 but some information is generally printed.
 If @param{print} is @term{false},
-@symbolref{load} does not print this information.
+@symbolref{load, SYM} does not print this information.
 
 If the file named by @param{filespec} is successfully loaded,
-@symbolref{load} returns @term{true}.
+@symbolref{load, SYM} returns @term{true}.
 
 @reviewer{Loosemore: What happens if the file cannot be loaded for some reason other
 than that it doesn't exist?} @editornote{KMP: i.e., can it return NIL? must it?}
 
 If the file does not exist,
 the specific action taken depends on @param{if-does-not-exist}:
-if it is @nil{}, @symbolref{load} returns @nil{};
-otherwise, @symbolref{load} signals an error.
+if it is @nil{}, @symbolref{load, SYM} returns @nil{};
+otherwise, @symbolref{load, SYM} signals an error.
 
 The @param{external-format} specifies the @term{external file format}
 to be used when opening the @term{file} (see the @term{function} @ref{open}),
 except that when the @term{file} named by @param{filespec} is a @term{compiled file},
 the @param{external-format} is ignored.
-@symbolref{compile-file} and @symbolref{load} cooperate
+@symbolref{compile-file, SYM} and @symbolref{load, SYM} cooperate
 in an @term{implementation-dependent} way to assure
 the preservation of the @term{similarity} of @term{characters}
 referred to in the @term{source file}
@@ -476,13 +476,13 @@ under a given @term{external file format},
 regardless of the value of @param{external-format}
 at the time the @term{compiled file} is @term{loaded}.
 
-@symbolref{load} binds @symbolref{*readtable*} and @symbolref{*package*}
+@symbolref{load, SYM} binds @symbolref{*readtable*, SYM} and @symbolref{*package*, SYM}
 to the values they held before @term{loading} the file.
 
-@symbolref{*load-truename*} is @term{bound} by @symbolref{load} to hold
+@symbolref{*load-truename*, SYM} is @term{bound} by @symbolref{load, SYM} to hold
 the @term{truename} of the @term{pathname} of the file being @term{loaded}.
 
-@symbolref{*load-pathname*} is @term{bound} by @symbolref{load} to hold
+@symbolref{*load-pathname*, SYM} is @term{bound} by @symbolref{load, SYM} to hold
 a @term{pathname} that represents @param{filespec} merged against the defaults.
 That is, @tt{(pathname (merge-pathnames @param{filespec}))}.
 
@@ -533,7 +533,7 @@ The implementation, and the host computer's file system.
 @subsubheading Exceptional Situations:
 
 If @kwd{if-does-not-exist} is supplied and is @term{true}, or is not supplied,
-@symbolref{load} signals an error @oftype{file-error} if the file named by
+@symbolref{load, SYM} signals an error @oftype{file-error} if the file named by
 @param{filespec} does not exist,
 or if the @term{file system} cannot perform the requested operation.
 
@@ -578,19 +578,19 @@ An error @oftype{file-error} might be signaled if
 @subsubheading Description:
 
 Executes @param{forms} from left to right.
-Within the @term{dynamic environment} of @symbolref{with-compilation-unit},
+Within the @term{dynamic environment} of @symbolref{with-compilation-unit, SYM},
 actions deferred by the compiler until the end of compilation will be
-deferred until the end of the outermost call to @symbolref{with-compilation-unit}.
+deferred until the end of the outermost call to @symbolref{with-compilation-unit, SYM}.
 
 The set of @i{options} permitted may be extended by the implementation,
 but the only @term{standardized} keyword is @kwd{override}.
 
 If nested dynamically only the outer call to
-@symbolref{with-compilation-unit} has any effect unless the value
+@symbolref{with-compilation-unit, SYM} has any effect unless the value
 associated with @kwd{override} is @term{true}, in which case warnings are
 deferred only to the end of the innermost call for which @param{override} is @term{true}.
 
-The function @symbolref{compile-file}
+The function @symbolref{compile-file, SYM}
 provides the effect of
 
 @lisp
@@ -622,7 +622,7 @@ warnings to be deferred to the end of the compilation of several files.
 
 
 Note however that if the implementation does not normally defer any warnings,
-use of @symbolref{with-compilation-unit} might not have any effect.
+use of @symbolref{with-compilation-unit, SYM} might not have any effect.
 
 @subsubheading See Also:
 
@@ -735,7 +735,7 @@ as an official standard, and that the @term{implementation}
 @item @id{@kwd{common-lisp}}
 
 
-This feature must appear in @symbolref{*features*} for any implementation that
+This feature must appear in @symbolref{*features*, SYM} for any implementation that
 has one or more of the features @kwd{x3j13}, @kwd{draft-ansi-cl},
 or @kwd{ansi-cl}.  It is intended that it should also appear in
 implementations which have the features @kwd{cltl1} or @kwd{cltl2},
@@ -798,18 +798,18 @@ and are hence less likely to be used unwittingly by another @term{implementation
 
 @subsubheading Description:
 
-During a call to @symbolref{compile-file},
-@symbolref{*compile-file-pathname*} is @term{bound} to
-the @term{pathname} denoted by the first argument to @symbolref{compile-file},
+During a call to @symbolref{compile-file, SYM},
+@symbolref{*compile-file-pathname*, SYM} is @term{bound} to
+the @term{pathname} denoted by the first argument to @symbolref{compile-file, SYM},
 merged against the defaults;
 that is, it is @term{bound} to @f{(pathname (merge-pathnames @param{input-file}))}.
 During the same time interval,
-@symbolref{*compile-file-truename*} is @term{bound} to
+@symbolref{*compile-file-truename*, SYM} is @term{bound} to
 the @term{truename} of the @term{file} being @term{compiled}.
 
 At other times, the @term{value} of these @term{variables} is @nil{}.
 
-If a @term{break loop} is entered while @symbolref{compile-file} is ongoing,
+If a @term{break loop} is entered while @symbolref{compile-file, SYM} is ongoing,
 it is @term{implementation-dependent} whether these @term{variables} retain
 the @term{values} they had just prior to entering the @term{break loop}
 or whether they are @term{bound} to @nil{}.
@@ -846,18 +846,18 @@ The @term{file system}.
 
 @subsubheading Description:
 
-During a call to @symbolref{load},
-@symbolref{*load-pathname*} is @term{bound} to
-the @term{pathname} denoted by the the first argument to @symbolref{load},
+During a call to @symbolref{load, SYM},
+@symbolref{*load-pathname*, SYM} is @term{bound} to
+the @term{pathname} denoted by the the first argument to @symbolref{load, SYM},
 merged against the defaults;
 that is, it is @term{bound} to @f{(pathname (merge-pathnames @param{filespec}))}.
 During the same time interval,
-@symbolref{*load-truename*} is @term{bound} to
+@symbolref{*load-truename*, SYM} is @term{bound} to
 the @term{truename} of the @term{file} being loaded.
 
 At other times, the @term{value} of these @term{variables} is @nil{}.
 
-If a @term{break loop} is entered while @symbolref{load} is ongoing,
+If a @term{break loop} is entered while @symbolref{load, SYM} is ongoing,
 it is @term{implementation-dependent} whether these @term{variables} retain
 the @term{values} they had just prior to entering the @term{break loop}
 or whether they are @term{bound} to @nil{}.
@@ -895,9 +895,9 @@ a @term{generalized boolean}.
 @subsubheading Description:
 
 @Thevalueof{*compile-print*}   is the default value of @thekeyarg{print}
-to @symbolref{compile-file}.
+to @symbolref{compile-file, SYM}.
 @Thevalueof{*compile-verbose*} is the default value of @thekeyarg{verbose}
-to @symbolref{compile-file}.
+to @symbolref{compile-file, SYM}.
 
 @subsubheading See Also:
 
@@ -920,13 +920,13 @@ a @term{generalized boolean}.
 
 @subsubheading Initial Value:
 
-The initial @term{value} of @symbolref{*load-print*}   is @term{false}.
-The initial @term{value} of @symbolref{*load-verbose*} is @term{implementation-dependent}.
+The initial @term{value} of @symbolref{*load-print*, SYM}   is @term{false}.
+The initial @term{value} of @symbolref{*load-verbose*, SYM} is @term{implementation-dependent}.
 
 @subsubheading Description:
 
-@Thevalueof{*load-print*}   is the default value of @thekeyarg{print}   to @symbolref{load}.
-@Thevalueof{*load-verbose*} is the default value of @thekeyarg{verbose} to @symbolref{load}.
+@Thevalueof{*load-print*}   is the default value of @thekeyarg{print}   to @symbolref{load, SYM}.
+@Thevalueof{*load-verbose*} is the default value of @thekeyarg{verbose} to @symbolref{load, SYM}.
 
 @subsubheading See Also:
 
@@ -956,7 +956,7 @@ that have been loaded into the current @term{Lisp image}.
 
 @subsubheading Affected By:
 
-@symbolref{provide}
+@symbolref{provide, SYM}
 
 @subsubheading See Also:
 
@@ -965,7 +965,7 @@ that have been loaded into the current @term{Lisp image}.
 
 @subsubheading Notes:
 
-The variable @symbolref{*modules*} is deprecated.
+The variable @symbolref{*modules*, SYM} is deprecated.
 
 
 
@@ -996,12 +996,12 @@ for a @term{non-empty} @term{list} of @term{pathname designators}.
 
 @subsubheading Description:
 
-@symbolref{provide} adds the @param{module-name} to the @term{list} held by
-@symbolref{*modules*}, if such a name is not already present.
+@symbolref{provide, SYM} adds the @param{module-name} to the @term{list} held by
+@symbolref{*modules*, SYM}, if such a name is not already present.
 
-@symbolref{require} tests for the presence of the @param{module-name} in the
-@term{list} held by @symbolref{*modules*}.
-If it is present, @symbolref{require} immediately returns.
+@symbolref{require, SYM} tests for the presence of the @param{module-name} in the
+@term{list} held by @symbolref{*modules*, SYM}.
+If it is present, @symbolref{require, SYM} immediately returns.
 Otherwise, an attempt is made to load an appropriate set of @term{files} as follows:
 The @param{pathname-list} argument, if @term{non-nil},
 specifies a list of @term{pathnames} to be loaded in order, from left to right.
@@ -1010,7 +1010,7 @@ an @term{implementation-dependent} mechanism will be invoked in an attempt
 to load the module named @param{module-name};
 if no such module can be loaded, an error @oftype{error} is signaled.
 
-Both functions use @symbolref{string=} to test for the presence of a @param{module-name}.
+Both functions use @symbolref{string=, SYM} to test for the presence of a @param{module-name}.
 
 @subsubheading Examples:
 
@@ -1041,18 +1041,18 @@ Both functions use @symbolref{string=} to test for the presence of a @param{modu
 
 @subsubheading Side Effects:
 
-@symbolref{provide} modifies @symbolref{*modules*}.
+@symbolref{provide, SYM} modifies @symbolref{*modules*, SYM}.
 
 @subsubheading Affected By:
 
-The specific action taken by @symbolref{require} is affected by calls to @symbolref{provide}
+The specific action taken by @symbolref{require, SYM} is affected by calls to @symbolref{provide, SYM}
 (or, in general, any changes to @thevalueof{*modules*}).
 
 @subsubheading Exceptional Situations:
 
 @Shouldchecktype{module-name, a @term{@symbolnamedesignator{}}}
 
-If @symbolref{require} fails to perform the requested operation
+If @symbolref{require, SYM} fails to perform the requested operation
 due to a problem while interacting with the @term{file system},
 an error @oftype{file-error} is signaled.
 
@@ -1066,7 +1066,7 @@ in @param{pathname-list} is a @term{designator} for a @term{wild} @term{pathname
 
 @subsubheading Notes:
 
-The functions @symbolref{provide} and @symbolref{require} are deprecated.
+The functions @symbolref{provide, SYM} and @symbolref{require, SYM} are deprecated.
 
 If a module consists of a single @term{package},
 it is customary for the package and module names to be the same.

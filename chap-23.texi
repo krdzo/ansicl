@@ -110,15 +110,15 @@ an error @oftype{end-of-file} is signaled
 at end of file.  If it is @term{false}, then no error is signaled, and instead
 the function returns @param{eof-value}.
 
-Functions such as @symbolref{read} that read the representation
+Functions such as @symbolref{read, SYM} that read the representation
 of an @term{object} rather than a single
 character always signals an error, regardless of @param{eof-error-p}, if
 the file ends in the middle of an object representation.
 For example, if a file does
 not contain enough right parentheses to balance the left parentheses in
-it, @symbolref{read} signals an error.  If a file ends in a
+it, @symbolref{read, SYM} signals an error.  If a file ends in a
 @term{symbol} or a @term{number}
-immediately followed by end-of-file, @symbolref{read} reads the
+immediately followed by end-of-file, @symbolref{read, SYM} reads the
 @term{symbol} or
 @term{number}
 successfully and when called again will
@@ -128,7 +128,7 @@ successfully reads the last line of a file even if that line
 is terminated by end-of-file rather than the newline character.
 Ignorable text, such as lines containing only @term{whitespace}@sub{2} or comments,
 are not considered to begin an @term{object};
-if @symbolref{read} begins to read an @term{expression} but sees only such
+if @symbolref{read, SYM} begins to read an @term{expression} but sees only such
 ignorable text, it does not consider the file to end in the middle of an @term{object}.
 Thus an @param{eof-error-p} argument controls what happens
 when the file ends between @term{objects}.
@@ -138,7 +138,7 @@ when the file ends between @term{objects}.
 @subsubsection The RECURSIVE-P argument
 
 If @param{recursive-p} is supplied and not @nil{}, it specifies that
-this function call is not an outermost call to @symbolref{read} but an
+this function call is not an outermost call to @symbolref{read, SYM} but an
 embedded call, typically from a @term{reader macro function}.
 It is important to distinguish such recursive calls for three reasons.
 
@@ -164,7 +164,7 @@ If the @term{single-quote} @term{reader macro} were defined in this way:
 
 
 then each call to the @term{single-quote} @term{reader macro function} would establish
-independent contexts for the scope of @symbolref{read} information, including the scope of
+independent contexts for the scope of @symbolref{read, SYM} information, including the scope of
 identifications between markers like ``@f{#3=}'' and ``@f{#3#}''.  However, for
 this expression, the scope was clearly intended to be determined by the outer set
 of parentheses, so such a definition would be incorrect.
@@ -182,17 +182,17 @@ The correct way to define the @term{single-quote}
 @item
 A recursive call does not alter whether the reading process
 is to preserve @term{whitespace}@sub{2} or not (as determined by whether the
-outermost call was to @symbolref{read} or @symbolref{read-preserving-whitespace}).
+outermost call was to @symbolref{read, SYM} or @symbolref{read-preserving-whitespace, SYM}).
 Suppose again that @term{single-quote}
 were to be defined as shown above in the incorrect definition.
-Then a call to @symbolref{read-preserving-whitespace}
+Then a call to @symbolref{read-preserving-whitespace, SYM}
 that read the expression @f{'foo@SpaceChar{}} would fail to preserve the space
 character following the symbol @f{foo} because the @term{single-quote}
-@term{reader macro function} calls @symbolref{read},
-not @symbolref{read-preserving-whitespace},
+@term{reader macro function} calls @symbolref{read, SYM},
+not @symbolref{read-preserving-whitespace, SYM},
 to read the following expression (in this case @f{foo}).
 The correct definition, which passes the value @term{true} for @param{recursive-p}
-to @symbolref{read}, allows the outermost call to determine
+to @symbolref{read, SYM}, allows the outermost call to determine
 whether @term{whitespace}@sub{2} is preserved.
 
 @item
@@ -237,7 +237,7 @@ occurred between @term{objects} rather than within the middle of one.
 
 
 @subsubheading Class Precedence List:
-@symbolref{readtable},
+@symbolref{readtable, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -283,12 +283,12 @@ or else a @term{fresh} @term{readtable}.
 
 @subsubheading Description:
 
-@symbolref{copy-readtable} copies @param{from-readtable}.
+@symbolref{copy-readtable, SYM} copies @param{from-readtable}.
 
 If @param{to-readtable} is @nil{}, a new @term{readtable} is created and returned.
 Otherwise the @term{readtable} specified by @param{to-readtable} is modified and returned.
 
-@symbolref{copy-readtable} copies the setting of @symbolref{readtable-case}.
+@symbolref{copy-readtable, SYM} copies the setting of @symbolref{readtable-case, SYM}.
 
 @subsubheading Examples:
 
@@ -359,7 +359,7 @@ locally bind the readtable to a copy of itself, as in:
 
 @subsubheading Description:
 
-@symbolref{make-dispatch-macro-character} makes @param{char}
+@symbolref{make-dispatch-macro-character, SYM} makes @param{char}
 be a @term{dispatching macro character} in @param{readtable}.
 
 Initially, every @term{character} in the dispatch table
@@ -423,38 +423,38 @@ or the @param{eof-value}.
 
 @subsubheading Description:
 
-@symbolref{read} parses the printed representation of an @term{object}
+@symbolref{read, SYM} parses the printed representation of an @term{object}
 from @param{input-stream} and builds such an @term{object}.
 
-@symbolref{read-preserving-whitespace} is like @symbolref{read} but preserves
+@symbolref{read-preserving-whitespace, SYM} is like @symbolref{read, SYM} but preserves
 any @term{whitespace}@sub{2} @term{character}
 that delimits the printed representation of the @term{object}.
-@symbolref{read-preserving-whitespace} is exactly like @symbolref{read}
-when the @param{recursive-p} @term{argument} to @symbolref{read-preserving-whitespace}
+@symbolref{read-preserving-whitespace, SYM} is exactly like @symbolref{read, SYM}
+when the @param{recursive-p} @term{argument} to @symbolref{read-preserving-whitespace, SYM}
 is @term{true}.
 
-When @symbolref{*read-suppress*} is @term{false},
-@symbolref{read} throws away the delimiting @term{character} required by
+When @symbolref{*read-suppress*, SYM} is @term{false},
+@symbolref{read, SYM} throws away the delimiting @term{character} required by
 certain printed representations if it is a
 @term{whitespace}@sub{2} @term{character};
-but @symbolref{read} preserves the character
-(using @symbolref{unread-char}) if it is
+but @symbolref{read, SYM} preserves the character
+(using @symbolref{unread-char, SYM}) if it is
 syntactically meaningful, because it could be the start of the next expression.
 
 If a file ends in a @term{symbol} or a @term{number}
 immediately followed by an @term{end of file}@sub{1},
-@symbolref{read} reads the @term{symbol} or @term{number} successfully;
+@symbolref{read, SYM} reads the @term{symbol} or @term{number} successfully;
 when called again, it sees the @term{end of file}@sub{1} and
 only then acts according to @param{eof-error-p}.
 If a file contains ignorable text at the end, such
-as blank lines and comments, @symbolref{read}
+as blank lines and comments, @symbolref{read, SYM}
 does not consider it to end in the
 middle of an @term{object}.
 
-If @param{recursive-p} is @term{true}, the call to @symbolref{read} is
+If @param{recursive-p} is @term{true}, the call to @symbolref{read, SYM} is
 expected to be made
 from within some function that itself
-has been called from @symbolref{read} or from a similar input function, rather
+has been called from @symbolref{read, SYM} or from a similar input function, rather
 than from the top level.
 
 
@@ -494,7 +494,7 @@ As an example, consider this @term{reader macro} definition:
 @end lisp
 
 
-Consider now calling @symbolref{read} on this expression:
+Consider now calling @symbolref{read, SYM} on this expression:
 
 @lisp
  (zyedh /usr/games/zork /usr/games/boggle)
@@ -508,10 +508,10 @@ The entire example expression should therefore be read as
  (zyedh (path usr games zork) (path usr games boggle))
 @end lisp
 
-However, if @symbolref{read} had been used instead of
-@symbolref{read-preserving-whitespace}, then after the reading of the symbol
+However, if @symbolref{read, SYM} had been used instead of
+@symbolref{read-preserving-whitespace, SYM}, then after the reading of the symbol
 @f{zork}, the following space would be discarded; the next call
-to @symbolref{peek-char} would see the following @f{/}, and the loop would
+to @symbolref{peek-char, SYM} would see the following @f{/}, and the loop would
 continue, producing this interpretation:
 
 @lisp
@@ -527,24 +527,24 @@ some time later after the @term{symbol} had been read.
 
 @subsubheading Affected By:
 
-@symbolref{*standard-input*},
-@symbolref{*terminal-io*},
-@symbolref{*readtable*},
-@symbolref{*read-default-float-format*},
-@symbolref{*read-base*},
-@symbolref{*read-suppress*},
-@symbolref{*package*},
-@symbolref{*read-eval*}.
+@symbolref{*standard-input*, SYM},
+@symbolref{*terminal-io*, SYM},
+@symbolref{*readtable*, SYM},
+@symbolref{*read-default-float-format*, SYM},
+@symbolref{*read-base*, SYM},
+@symbolref{*read-suppress*, SYM},
+@symbolref{*package*, SYM},
+@symbolref{*read-eval*, SYM}.
 
 @subsubheading Exceptional Situations:
 
-@symbolref{read} signals an error @oftype{end-of-file},
+@symbolref{read, SYM} signals an error @oftype{end-of-file},
 regardless of @param{eof-error-p}, if
 the file ends in the middle of an @term{object} representation.
 For example, if a file does
 not contain enough right parentheses to balance the left parentheses in
-it, @symbolref{read} signals an error.
-This is detected when @symbolref{read} or @symbolref{read-preserving-whitespace}
+it, @symbolref{read, SYM} signals an error.
+This is detected when @symbolref{read, SYM} or @symbolref{read-preserving-whitespace, SYM}
 is called with @param{recursive-p} and @param{eof-error-p} @term{non-nil},
 and end-of-file is reached before the beginning of an @term{object}.
 
@@ -587,17 +587,17 @@ is signaled at the end of file.
 
 @subsubheading Description:
 
-@symbolref{read-delimited-list} reads @term{objects} from @param{input-stream}
+@symbolref{read-delimited-list, SYM} reads @term{objects} from @param{input-stream}
 until the next character after an @term{object}'s
 representation (ignoring @term{whitespace}@sub{2} characters and comments) is @param{char}.
 
-@symbolref{read-delimited-list} looks ahead at each step
+@symbolref{read-delimited-list, SYM} looks ahead at each step
 for the next non-@term{whitespace}@sub{2} @term{character}
-and peeks at it as if with @symbolref{peek-char}.
+and peeks at it as if with @symbolref{peek-char, SYM}.
 If it is @param{char},
 then the @term{character} is consumed and the @term{list} of @term{objects} is returned.
 If it is a @term{constituent} or @term{escape} @term{character},
-then @symbolref{read} is used to read an @term{object},
+then @symbolref{read, SYM} is used to read an @term{object},
 which is added to the end of the @term{list}.
 If it is a @term{macro character},
 its @term{reader macro function} is called;
@@ -606,11 +606,11 @@ that @term{value} is added to the @term{list}.
 The peek-ahead process is then repeated.
 
 If @param{recursive-p} is @term{true},
-this call is expected to be embedded in a higher-level call to @symbolref{read}
+this call is expected to be embedded in a higher-level call to @symbolref{read, SYM}
 or a similar function.
 
 It is an error to reach end-of-file during the operation of
-@symbolref{read-delimited-list}.
+@symbolref{read-delimited-list, SYM}.
 
 The consequences are undefined
 if @param{char} has a @term{syntax type} of @term{whitespace}@sub{2}
@@ -632,7 +632,7 @@ to read as a list of all pairs of the elements @i{a}, @i{b}, @i{c},
 
 This can be done by specifying a macro-character definition for @f{#@lcurly{}}
 that does two things: reads in all the items up to the @f{@rcurly{}},
-and constructs the pairs.  @symbolref{read-delimited-list} performs
+and constructs the pairs.  @symbolref{read-delimited-list, SYM} performs
 the first task.
 
 @lisp
@@ -665,19 +665,19 @@ shown above were not included, then the @f{@rcurly{}} in
 would be considered a constituent character, part of the symbol named
 @f{a@rcurly{}}.  This could be corrected by putting a space before
 the @f{@rcurly{}}, but it is better to call
-@symbolref{set-macro-character}.
+@symbolref{set-macro-character, SYM}.
 
 Giving @f{@rcurly{}} the same
 definition as the standard definition of the character @f{)} has the
 twin benefit of making it terminate tokens for use with
-@symbolref{read-delimited-list} and also making it invalid for use in any
+@symbolref{read-delimited-list, SYM} and also making it invalid for use in any
 other context. Attempting to read a stray @f{@rcurly{}} will signal an error.
 
 @subsubheading Affected By:
 
-@symbolref{*standard-input*},
-@symbolref{*readtable*},
-@symbolref{*terminal-io*}.
+@symbolref{*standard-input*, SYM},
+@symbolref{*readtable*, SYM},
+@symbolref{*terminal-io*, SYM}.
 
 @subsubheading See Also:
 
@@ -688,9 +688,9 @@ other context. Attempting to read a stray @f{@rcurly{}} will signal an error.
 
 @subsubheading Notes:
 
-@symbolref{read-delimited-list} is intended for use in implementing @term{reader macros}.
+@symbolref{read-delimited-list, SYM} is intended for use in implementing @term{reader macros}.
 Usually it is desirable for @param{char} to be a @term{terminating} @term{macro character}
-so that it can be used to delimit tokens; however, @symbolref{read-delimited-list}
+so that it can be used to delimit tokens; however, @symbolref{read-delimited-list, SYM}
 makes no attempt to alter the syntax specified for @param{char} by the current
 readtable.  The caller must make any necessary changes to the readtable syntax
 explicitly.
@@ -733,12 +733,12 @@ one more than the @term{length} of the @param{string}.
 
 Parses the printed representation of an @term{object}
 from the subsequence of @param{string} @term{bounded} by @param{start} and @param{end},
-as if @symbolref{read} had been called on an @term{input} @term{stream}
+as if @symbolref{read, SYM} had been called on an @term{input} @term{stream}
 containing those same @term{characters}.
 
 If @param{preserve-whitespace} is @term{true},
 the operation will preserve @term{whitespace}@sub{2}
-as @symbolref{read-preserving-whitespace} would do.
+as @symbolref{read-preserving-whitespace, SYM} would do.
 
 If an @term{object} is successfully parsed, the @term{primary value}, @param{object},
 is the @term{object} that was parsed.
@@ -826,7 +826,7 @@ See @ref{Examples of Effect of Readtable Case on the Lisp Reader}@spc{}and @ref{
 
 @subsubheading Notes:
 
-@symbolref{copy-readtable} copies the @term{readtable case} of the @param{readtable}.
+@symbolref{copy-readtable, SYM} copies the @term{readtable case} of the @param{readtable}.
 
 
 @node readtablep
@@ -896,13 +896,13 @@ See @ref{Examples of Effect of Readtable Case on the Lisp Reader}@spc{}and @ref{
 
 @subsubheading Description:
 
-@symbolref{set-dispatch-macro-character} causes @param{new-function} to be called
+@symbolref{set-dispatch-macro-character, SYM} causes @param{new-function} to be called
 when @param{disp-char} followed by @param{sub-char} is read.
 If @param{sub-char} is a lowercase letter,
 it is converted to its uppercase equivalent.
 It is an error if @param{sub-char} is one of the ten decimal digits.
 
-@symbolref{set-dispatch-macro-character} installs a @param{new-function} to be called
+@symbolref{set-dispatch-macro-character, SYM} installs a @param{new-function} to be called
 when a particular @term{dispatching macro character} pair is read.
 @param{New-function} is installed as the dispatch function to be
 called  when @param{readtable} is in use and when @param{disp-char} is followed by
@@ -911,14 +911,14 @@ called  when @param{readtable} is in use and when @param{disp-char} is followed 
 For more information about how the @param{new-function} is invoked,
 see @ref{Macro Characters}.
 
-@symbolref{get-dispatch-macro-character} retrieves
+@symbolref{get-dispatch-macro-character, SYM} retrieves
 the dispatch function associated with @param{disp-char} and @param{sub-char}
 in @param{readtable}.
 
-@symbolref{get-dispatch-macro-character} returns the macro-character function
+@symbolref{get-dispatch-macro-character, SYM} returns the macro-character function
 for @param{sub-char} under @param{disp-char}, or @nil{}@spc{}if there is no
 function associated with @param{sub-char}.
-If @param{sub-char} is a decimal digit, @symbolref{get-dispatch-macro-character}
+If @param{sub-char} is a decimal digit, @symbolref{get-dispatch-macro-character, SYM}
 returns @nil{}.
 
 @subsubheading Examples:
@@ -958,7 +958,7 @@ The @param{readtable} is modified.
 
 @subsubheading Affected By:
 
-@symbolref{*readtable*}.
+@symbolref{*readtable*, SYM}.
 
 @subsubheading Exceptional Situations:
 
@@ -971,7 +971,7 @@ a @term{dispatching macro character} in @param{readtable}.
 
 @subsubheading Notes:
 It is necessary
-to use @symbolref{make-dispatch-macro-character} to set up the
+to use @symbolref{make-dispatch-macro-character, SYM} to set up the
 dispatch character before specifying its sub-characters.
 
 @node set-macro-character; get-macro-character
@@ -1006,14 +1006,14 @@ or a @term{designator} for a @term{function} of two @term{arguments}.
 
 @subsubheading Description:
 
-@symbolref{get-macro-character} returns as its @term{primary value}, @param{function},
+@symbolref{get-macro-character, SYM} returns as its @term{primary value}, @param{function},
 the @term{reader macro function} associated with @param{char} in @param{readtable} (if any),
 or else @nil{}@spc{}if @param{char} is not a @term{macro character} in @param{readtable}.
 The @term{secondary value}, @param{non-terminating-p}, is @term{true}
 if @param{char} is a @term{non-terminating} @term{macro character};
 otherwise, it is @term{false}.
 
-@symbolref{set-macro-character} causes @param{char} to be a @term{macro character}
+@symbolref{set-macro-character, SYM} causes @param{char} to be a @term{macro character}
 associated with the @term{reader macro function} @param{new-function}
 (or the @term{designator} for @param{new-function}) in @param{readtable}.
 If @param{non-terminating-p} is @term{true},
@@ -1040,7 +1040,7 @@ in @term{standard syntax}:
 
 
 Here @f{single-quote-reader} reads an @term{object} following the @term{single-quote}
-and returns a @term{list} of @symbolref{quote} and that @term{object}.
+and returns a @term{list} of @symbolref{quote, SYM} and that @term{object}.
 The @param{char} argument is ignored.
 
 The following is a possible definition for the @term{semicolon} @term{reader macro}
@@ -1091,11 +1091,11 @@ The @param{readtable} is modified.
 
 @subsubheading Description:
 
-@symbolref{set-syntax-from-char} makes
+@symbolref{set-syntax-from-char, SYM} makes
 the syntax of @param{to-char}   in @param{to-readtable}    be the same as
 the syntax of @param{from-char} in @param{from-readtable}.
 
-@symbolref{set-syntax-from-char} copies the @term{syntax types} of @param{from-char}.
+@symbolref{set-syntax-from-char, SYM} copies the @term{syntax types} of @param{from-char}.
 If @param{from-char} is a @term{macro character},
 its @term{reader macro function} is copied also.
 If the character is a @term{dispatching macro character},
@@ -1172,29 +1172,29 @@ behavior.  The values for the variables specified by this standard are listed in
 
 @float Figure,fig23.1
 @cartouche
-@multitable{@symbolref{*read-default-float-format*}}{The @term{standard pprint dispatch table}}
+@multitable{@symbolref{*read-default-float-format*, SYM}}{The @term{standard pprint dispatch table}}
 @headitem Variable @tab Value
-@item @symbolref{*package*} @tab The @code{CL-USER} @term{package}
-@item @symbolref{*print-array*} @tab @code{t}
-@item @symbolref{*print-base*} @tab @f{10}
-@item @symbolref{*print-case*} @tab @kwd{upcase}
-@item @symbolref{*print-circle*} @tab @nil{}
-@item @symbolref{*print-escape*} @tab @code{t}
-@item @symbolref{*print-gensym*} @tab @code{t}
-@item @symbolref{*print-length*} @tab @nil{}
-@item @symbolref{*print-level*} @tab @nil{}
-@item @symbolref{*print-lines*} @tab @nil{}
-@item @symbolref{*print-miser-width*} @tab @nil{}
-@item @symbolref{*print-pprint-dispatch*} @tab The @term{standard pprint dispatch table}
-@item @symbolref{*print-pretty*} @tab @nil{}
-@item @symbolref{*print-radix*} @tab @nil{}
-@item @symbolref{*print-readably*} @tab @code{t}
-@item @symbolref{*print-right-margin*} @tab @nil{}
-@item @symbolref{*read-base*} @tab @f{10}
-@item @symbolref{*read-default-float-format*} @tab @symbolref{single-float}
-@item @symbolref{*read-eval*} @tab @code{t}
-@item @symbolref{*read-suppress*} @tab @nil{}
-@item @symbolref{*readtable*} @tab The @term{standard readtable}
+@item @symbolref{*package*, SYM} @tab The @code{CL-USER} @term{package}
+@item @symbolref{*print-array*, SYM} @tab @code{t}
+@item @symbolref{*print-base*, SYM} @tab @f{10}
+@item @symbolref{*print-case*, SYM} @tab @kwd{upcase}
+@item @symbolref{*print-circle*, SYM} @tab @nil{}
+@item @symbolref{*print-escape*, SYM} @tab @code{t}
+@item @symbolref{*print-gensym*, SYM} @tab @code{t}
+@item @symbolref{*print-length*, SYM} @tab @nil{}
+@item @symbolref{*print-level*, SYM} @tab @nil{}
+@item @symbolref{*print-lines*, SYM} @tab @nil{}
+@item @symbolref{*print-miser-width*, SYM} @tab @nil{}
+@item @symbolref{*print-pprint-dispatch*, SYM} @tab The @term{standard pprint dispatch table}
+@item @symbolref{*print-pretty*, SYM} @tab @nil{}
+@item @symbolref{*print-radix*, SYM} @tab @nil{}
+@item @symbolref{*print-readably*, SYM} @tab @code{t}
+@item @symbolref{*print-right-margin*, SYM} @tab @nil{}
+@item @symbolref{*read-base*, SYM} @tab @f{10}
+@item @symbolref{*read-default-float-format*, SYM} @tab @symbolref{single-float, SYM}
+@item @symbolref{*read-eval*, SYM} @tab @code{t}
+@item @symbolref{*read-suppress*, SYM} @tab @nil{}
+@item @symbolref{*readtable*, SYM} @tab The @term{standard readtable}
 @end multitable
 @end cartouche
 @caption{Values of standard control variables}
@@ -1233,7 +1233,7 @@ a @term{radix}.
 
 @subsubheading Description:
 
-Controls the interpretation of tokens by @symbolref{read} as being
+Controls the interpretation of tokens by @symbolref{read, SYM} as being
 @term{integers} or @term{ratios}.
 
 @Thevalueof{*read-base*}, called the @newterm{current input base},
@@ -1242,7 +1242,7 @@ is the radix in which @term{integers} and
 The parsing of other numeric @term{types} (@eg{} @term{floats}) is
 not affected by this option.
 
-The effect of @symbolref{*read-base*} on the reading of any particular
+The effect of @symbolref{*read-base*, SYM} on the reading of any particular
 @term{rational} number can be locally overridden by explicit use of the
 @f{#O}, @f{#X}, @f{#B}, or @tt{#@i{n}R} syntax
 or by a trailing decimal point.
@@ -1278,16 +1278,16 @@ Altering the input radix can be useful when reading data files in special format
 @subsubheading Value Type:
 
 one of the @term{atomic type specifiers}
-@symbolref{short-float},
-@symbolref{single-float},
-@symbolref{double-float},
-or @symbolref{long-float},
+@symbolref{short-float, SYM},
+@symbolref{single-float, SYM},
+@symbolref{double-float, SYM},
+or @symbolref{long-float, SYM},
 or else some other @term{type specifier} defined
 by the @term{implementation} to be acceptable.
 
 @subsubheading Initial Value:
 
-The @term{symbol} @symbolref{single-float}.
+The @term{symbol} @symbolref{single-float, SYM}.
 
 @subsubheading Description:
 
@@ -1296,7 +1296,7 @@ floating-point number that has no @term{exponent marker} or that has
 @f{e} or @f{E} for an @term{exponent marker}.  Other @term{exponent markers}
 explicitly prescribe the floating-point format to be used.
 
-The printer uses @symbolref{*read-default-float-format*} to guide the
+The printer uses @symbolref{*read-default-float-format*, SYM} to guide the
 choice of @term{exponent markers} when printing floating-point numbers.
 
 @subsubheading Examples:
@@ -1340,8 +1340,8 @@ Otherwise, that @term{reader macro} signals an error @oftype{reader-error}.
 
 @subsubheading Notes:
 
-If @symbolref{*read-eval*} is @term{false} and @symbolref{*print-readably*} is @term{true},
-any @term{method} for @symbolref{print-object} that would output a reference
+If @symbolref{*read-eval*, SYM} is @term{false} and @symbolref{*print-readably*, SYM} is @term{true},
+any @term{method} for @symbolref{print-object, SYM} that would output a reference
 to the @f{#.} @term{reader macro} either outputs something different
 or signals an error @oftype{print-not-readable}.
 
@@ -1377,10 +1377,10 @@ If it is @term{false}, the @term{Lisp reader} operates normally.
 
 
 If @thevalueof{*read-suppress*} is @term{true},
-@symbolref{read},
-@symbolref{read-preserving-whitespace},
-@symbolref{read-delimited-list},
-and @symbolref{read-from-string}
+@symbolref{read, SYM},
+@symbolref{read-preserving-whitespace, SYM},
+@symbolref{read-delimited-list, SYM},
+and @symbolref{read-from-string, SYM}
 all return a @term{primary value} of @nil{}@spc{}when they complete successfully;
 however, they continue to parse the representation of an @term{object}
 in the normal way, in order to skip over the @term{object},
@@ -1462,7 +1462,7 @@ interpreted properly.  Such situations as
 
 @term{Programmers} and @term{implementations} that define additional
 @term{macro characters} are strongly encouraged to make them respect
-@symbolref{*read-suppress*} just as @term{standardized} @term{macro characters} do.
+@symbolref{*read-suppress*, SYM} just as @term{standardized} @term{macro characters} do.
 That is, when @thevalueof{*read-suppress*} is @term{true},
 they should ignore type errors when reading a following @term{object}
 and the @term{functions} that implement @term{dispatching macro characters}
@@ -1506,8 +1506,8 @@ and can also influence the @term{Lisp printer} (@eg{} see the @term{function} @r
 
 @subsubheading Affected By:
 
-@symbolref{compile-file},
-@symbolref{load}
+@symbolref{compile-file, SYM},
+@symbolref{load, SYM}
 
 @subsubheading See Also:
 
@@ -1525,12 +1525,12 @@ and can also influence the @term{Lisp printer} (@eg{} see the @term{function} @r
 
 
 @subsubheading Class Precedence List:
-@symbolref{reader-error},
-@symbolref{parse-error},
-@symbolref{stream-error},
+@symbolref{reader-error, SYM},
+@symbolref{parse-error, SYM},
+@symbolref{stream-error, SYM},
 @code{error},
-@symbolref{serious-condition},
-@symbolref{condition},
+@symbolref{serious-condition, SYM},
+@symbolref{condition, SYM},
 @code{t}
 
 @subsubheading Description:

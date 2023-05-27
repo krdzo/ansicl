@@ -34,8 +34,8 @@ be represented by @term{conditions}, but not all
 Signaling is the process by which a @term{condition} can alter
 the flow of control in a program by raising the
 @term{condition} which can then be @term{handled}.  The functions
-@code{error}, @symbolref{cerror}, @symbolref{signal}, and
-@symbolref{warn} are used to signal @term{conditions}.
+@code{error}, @symbolref{cerror, SYM}, @symbolref{signal, SYM}, and
+@symbolref{warn, SYM} are used to signal @term{conditions}.
 
 The process of signaling involves the selection and invocation of a
 @term{handler} from a set of @term{active} @term{handlers}.
@@ -46,7 +46,7 @@ and a @term{handler} will be invoked only on a @term{condition} of the
 @term{handler}'s associated @term{type}.
 
 @term{Active} @term{handlers} are @term{established} dynamically
-(see @symbolref{handler-bind} or @symbolref{handler-case}).
+(see @symbolref{handler-bind, SYM} or @symbolref{handler-case, SYM}).
 @term{Handlers} are invoked in a @term{dynamic environment}
 equivalent to that of the signaler,
 except that the set of @term{active} @term{handlers}
@@ -68,19 +68,19 @@ simply returning rather than transferring control.
 When this happens, any values returned by the handler are
 ignored and the next most recently established handler is invoked.
 If there is no such handler and the signaling function is @code{error}
-or @symbolref{cerror}, the debugger is entered in the
+or @symbolref{cerror, SYM}, the debugger is entered in the
 @term{dynamic environment} of the signaler. If there is no such
-handler and the signaling function is either @symbolref{signal} or
-@symbolref{warn}, the signaling function simply returns@tie{}@nil{}.
+handler and the signaling function is either @symbolref{signal, SYM} or
+@symbolref{warn, SYM}, the signaling function simply returns@tie{}@nil{}.
 
 @item @id{@b{Handle}}
 
 
 It can @term{handle} the @term{condition} by performing a non-local
 transfer of control.  This can be done either primitively by using
-@symbolref{go}, @symbolref{return}, @symbolref{throw} or more
+@symbolref{go, SYM}, @symbolref{return, SYM}, @symbolref{throw, SYM} or more
 abstractly by using a function such as @code{abort} or
-@symbolref{invoke-restart}.
+@symbolref{invoke-restart, SYM}.
 
 @item @id{@b{Defer}}
 
@@ -105,7 +105,7 @@ or forcing entry into the debugger.
 @subsection Condition Types
 
 @Thenextfigure{}@spc{}lists the @term{standardized} @term{condition} @term{types}.
-Additional @term{condition} @term{types} can be defined by using @symbolref{define-condition}.
+Additional @term{condition} @term{types} can be defined by using @symbolref{define-condition, SYM}.
 
 
 
@@ -144,9 +144,9 @@ A @term{condition} inherits the structure of its @term{supertypes}.
 
 The metaclass of @theclass{condition} is not specified.
 @term{Names} of @term{condition} @term{types} may be used to specify
-@term{supertype} relationships in @symbolref{define-condition},
+@term{supertype} relationships in @symbolref{define-condition, SYM},
 but the consequences are not specified if an attempt is made to use
-a @term{condition} @term{type} as a @term{superclass} in a @symbolref{defclass} @term{form}.
+a @term{condition} @term{type} as a @term{superclass} in a @symbolref{defclass, SYM} @term{form}.
 
 @Thenextfigure{}@spc{}shows @term{operators} that
 define @term{condition} @term{types} and creating @term{conditions}.
@@ -188,21 +188,21 @@ the @term{value} of @term{condition} @term{slots}.
 
 A @term{serious condition} is a @term{condition} serious
 enough to require interactive intervention if not handled.
-@term{Serious conditions} are typically signaled with @code{error} or @symbolref{cerror};
-non-serious @term{conditions} are typically signaled with @symbolref{signal} or @symbolref{warn}.
+@term{Serious conditions} are typically signaled with @code{error} or @symbolref{cerror, SYM};
+non-serious @term{conditions} are typically signaled with @symbolref{signal, SYM} or @symbolref{warn, SYM}.
 
 
 
 @node Creating Conditions
 @subsection Creating Conditions
 
-The function @symbolref{make-condition} can be used to construct
+The function @symbolref{make-condition, SYM} can be used to construct
 a @term{condition} @term{object} explicitly.  Functions such as @code{error},
-@symbolref{cerror}, @symbolref{signal}, and @symbolref{warn} operate on
+@symbolref{cerror, SYM}, @symbolref{signal, SYM}, and @symbolref{warn, SYM} operate on
 @term{conditions} and might create @term{condition} @term{objects}
-implicitly.  Macros such as @symbolref{ccase}, @symbolref{ctypecase},
-@symbolref{ecase}, @symbolref{etypecase}, @symbolref{check-type}, and
-@symbolref{assert} might also implicitly create (and @term{signal})
+implicitly.  Macros such as @symbolref{ccase, SYM}, @symbolref{ctypecase, SYM},
+@symbolref{ecase, SYM}, @symbolref{etypecase, SYM}, @symbolref{check-type, SYM}, and
+@symbolref{assert, SYM} might also implicitly create (and @term{signal})
 @term{conditions}.
 
 @node Condition Designators
@@ -277,20 +277,20 @@ can denote equivalent @term{condition} @term{objects}:
 @node Printing Conditions
 @subsection Printing Conditions
 
-If the @kwd{report} argument to @symbolref{define-condition} is used,
+If the @kwd{report} argument to @symbolref{define-condition, SYM} is used,
 a print function is defined that is called whenever
 the defined @term{condition} is printed while @thevalueof{*print-escape*} is @term{false}.
 This function is called the @newterm{condition reporter};
 the text which it outputs is called a @newterm{report message}.
 
-When a @term{condition} is printed and @symbolref{*print-escape*}
+When a @term{condition} is printed and @symbolref{*print-escape*, SYM}
 is @term{false}, the @term{condition reporter} for the @term{condition} is invoked.
 @term{Conditions} are printed automatically by functions such as
-@symbolref{invoke-debugger}, @symbolref{break}, and @symbolref{warn}.
+@symbolref{invoke-debugger, SYM}, @symbolref{break, SYM}, and @symbolref{warn, SYM}.
 
-When @symbolref{*print-escape*} is @term{true}, the @term{object} should print in an
+When @symbolref{*print-escape*, SYM} is @term{true}, the @term{object} should print in an
 abbreviated fashion according to the style of the implementation
-(@eg{} by @symbolref{print-unreadable-object}).  It is not required that a
+(@eg{} by @symbolref{print-unreadable-object, SYM}).  It is not required that a
 @term{condition} can be recreated by reading its printed representation.
 
 No @term{function} is provided for directly @term{accessing}
@@ -432,8 +432,8 @@ is said to be @term{applicable} to a @term{condition} if that
 @term{type specifier}.
 
 @term{Active} @term{handlers} are @term{established} by using
-@symbolref{handler-bind} (or an abstraction based on @symbolref{handler-bind},
-such as @symbolref{handler-case} or @symbolref{ignore-errors}).
+@symbolref{handler-bind, SYM} (or an abstraction based on @symbolref{handler-bind, SYM},
+such as @symbolref{handler-case, SYM} or @symbolref{ignore-errors, SYM}).
 
 @term{Active} @term{handlers} can be @term{established} within the
 dynamic scope of other @term{active} @term{handlers}.
@@ -459,7 +459,7 @@ more recent than @mat{h@sub{2}} if @mat{h@sub{1}} was defined to the left of
 
 
 Once a handler in a handler binding @term{form} (such as
-@symbolref{handler-bind} or @symbolref{handler-case}) has been selected, all
+@symbolref{handler-bind, SYM} or @symbolref{handler-case, SYM}) has been selected, all
 handlers in that @term{form} become inactive for
 the remainder of the signaling process.
 While the selected @term{handler} runs, no other @term{handler} established
@@ -495,10 +495,10 @@ If there are no applicable handlers for a @term{condition} that
 has been signaled, or if all applicable handlers decline, the
 @term{condition} is unhandled.
 
-The functions @symbolref{cerror} and @code{error} invoke the
+The functions @symbolref{cerror, SYM} and @code{error} invoke the
 interactive @term{condition} handler (the debugger) rather than
 return if the @term{condition} being signaled, regardless of
-its @term{type}, is unhandled.  In contrast, @symbolref{signal}
+its @term{type}, is unhandled.  In contrast, @symbolref{signal, SYM}
 returns @nil{}@spc{}if the @term{condition} being signaled,
 regardless of its @term{type}, is unhandled.
 
@@ -539,7 +539,7 @@ This action is permitted because the @term{situation} which the second
 @term{signaling} process is addressing is really the same @term{situation}.
 
 On the other hand, in an @term{implementation} that implemented asynchronous
-keyboard events by interrupting the user process with a call to @symbolref{signal},
+keyboard events by interrupting the user process with a call to @symbolref{signal, SYM},
 it would not be permissible for two distinct asynchronous keyboard events
 to @term{signal} @term{identical} @term{condition} @term{objects}
 at the same time for different
@@ -558,7 +558,7 @@ dynamically, and
 only active @term{restarts}
 can be invoked.  An active
 @term{restart} can be invoked by the user from
-the debugger or by a program by using @symbolref{invoke-restart}.
+the debugger or by a program by using @symbolref{invoke-restart, SYM}.
 
 A @term{restart} contains a
 @term{function} to be @term{called} when the @term{restart} is
@@ -568,19 +568,19 @@ an optional set of interaction information for the debugger to use to
 enable the user to manually invoke a @term{restart}.
 
 The name of a @term{restart} is
-used by @symbolref{invoke-restart}. @term{Restarts} that can be invoked
+used by @symbolref{invoke-restart, SYM}. @term{Restarts} that can be invoked
 only within the debugger do not need names.
 
-@term{Restarts} can be established by using @symbolref{restart-bind},
-@symbolref{restart-case}, and @symbolref{with-simple-restart}.
+@term{Restarts} can be established by using @symbolref{restart-bind, SYM},
+@symbolref{restart-case, SYM}, and @symbolref{with-simple-restart, SYM}.
 A @term{restart} function can itself invoke any other @term{restart}
 that was active at the time of establishment of the @term{restart}
 of which the @term{function} is part.
 
 The @term{restarts} @term{established} by
-a @symbolref{restart-bind} @term{form},
-a @symbolref{restart-case} @term{form},
-or a @symbolref{with-simple-restart} @term{form}
+a @symbolref{restart-bind, SYM} @term{form},
+a @symbolref{restart-case, SYM} @term{form},
+or a @symbolref{with-simple-restart, SYM} @term{form}
 have @term{dynamic extent}
 which extends for the duration of that @term{form}'s execution.
 
@@ -606,7 +606,7 @@ left of @mat{r@sub{2}} in the @term{form} that established them.
 If a @term{restart} is invoked but does not transfer control,
 the values resulting from the @term{restart} function are
 returned by the function that invoked the restart, either
-@symbolref{invoke-restart} or @symbolref{invoke-restart-interactively}.
+@symbolref{invoke-restart, SYM} or @symbolref{invoke-restart-interactively, SYM}.
 
 @node Interactive Use of Restarts
 @subsubsection Interactive Use of Restarts
@@ -621,20 +621,20 @@ is used by a program such as the debugger to
 present a description of the action the @term{restart} will take.
 The report function is specified and established by the
 @kwd{report-function} keyword to
-@symbolref{restart-bind} or the
-@kwd{report} keyword to @symbolref{restart-case}.
+@symbolref{restart-bind, SYM} or the
+@kwd{report} keyword to @symbolref{restart-case, SYM}.
 
 The interactive function, which can be specified using the
 @kwd{interactive-function} keyword to
-@symbolref{restart-bind} or @kwd{interactive} keyword
-to @symbolref{restart-case}, is used when the @term{restart}
+@symbolref{restart-bind, SYM} or @kwd{interactive} keyword
+to @symbolref{restart-case, SYM}, is used when the @term{restart}
 is invoked
 interactively, such as from the debugger, to produce a suitable
 list of arguments.
 
-@symbolref{invoke-restart} invokes the most recently @term{established}
+@symbolref{invoke-restart, SYM} invokes the most recently @term{established}
 @term{restart} whose
-name is the same as the first argument to @symbolref{invoke-restart}.
+name is the same as the first argument to @symbolref{invoke-restart, SYM}.
 If a @term{restart} is invoked interactively by the debugger and  does
 not transfer control but rather returns values, the precise
 action of the debugger on those values is @term{implementation-defined}.
@@ -648,7 +648,7 @@ such as @code{abort}, @code{continue},
 @code{muffle-warning}, @code{store-value}, and
 @code{use-value}.
 They are ordinary functions that use
-@symbolref{find-restart} and @symbolref{invoke-restart} internally,
+@symbolref{find-restart, SYM} and @symbolref{invoke-restart, SYM} internally,
 that have the same name as the @term{restarts} they manipulate,
 and that are provided simply for notational convenience.
 
@@ -680,15 +680,15 @@ and that are provided simply for notational convenience.
 Each @term{restart} has an associated test, which is a function of one
 argument (a @term{condition} or @nil{}) which returns @term{true} if the @term{restart}
 should be visible in the current @term{situation}.  This test is created by
-the @kwd{test-function} option to @symbolref{restart-bind} or
-the @kwd{test} option to @symbolref{restart-case}.
+the @kwd{test-function} option to @symbolref{restart-bind, SYM} or
+the @kwd{test} option to @symbolref{restart-case, SYM}.
 
 
 @node Associating a Restart with a Condition
 @subsubsection Associating a Restart with a Condition
 
 A @term{restart} can be ``associated with'' a @term{condition} explicitly
-by @symbolref{with-condition-restarts}, or implicitly by @symbolref{restart-case}.
+by @symbolref{with-condition-restarts, SYM}, or implicitly by @symbolref{restart-case, SYM}.
 Such an assocation has @term{dynamic extent}.
 
 A single @term{restart} may be associated with several @term{conditions}
@@ -697,7 +697,7 @@ A single @term{condition} may have several associated @term{restarts}
 at the same time.
 
 Active restarts associated with a particular @term{condition} can be detected
-by @term{calling} a @term{function} such as @symbolref{find-restart}, supplying
+by @term{calling} a @term{function} such as @symbolref{find-restart, SYM}, supplying
 that @term{condition} as the @param{condition} @term{argument}.
 Active restarts can also be detected without regard to any associated
 @term{condition} by calling such a function without a @param{condition} @term{argument},
@@ -796,7 +796,7 @@ understanding this material.
 @reviewer{Barrett: I think CONDITION-RESTARTS is not fully integrated.}
 
 @subsubheading Class Precedence List:
-@symbolref{condition},
+@symbolref{condition, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -811,7 +811,7 @@ and one of these @term{types} can be a @term{subtype} of any
 number of the @subtypesof{condition}.
 
 Whether a user-defined @term{condition} @term{type} has @term{slots}
-that are accessible by @symbolref{with-slots} is @term{implementation-dependent}.
+that are accessible by @symbolref{with-slots, SYM} is @term{implementation-dependent}.
 Furthermore, even in an @term{implementation}
 in which user-defined @term{condition} @term{types} would have @term{slots},
 it is @term{implementation-dependent} whether any @term{condition}
@@ -826,21 +826,21 @@ upon by portable code.
 
 @itemize @bullet{}
 @item
-@symbolref{define-condition}, not @symbolref{defclass}, must be used
+@symbolref{define-condition, SYM}, not @symbolref{defclass, SYM}, must be used
 to define new @term{condition} @term{types}.
 
 @item
-@symbolref{make-condition}, not @symbolref{make-instance}, must be used to
+@symbolref{make-condition, SYM}, not @symbolref{make-instance, SYM}, must be used to
 create @term{condition} @term{objects} explicitly.
 
 @item
-The @kwd{report} option of @symbolref{define-condition}, not @symbolref{defmethod}
-for @symbolref{print-object}, must be used to define a condition reporter.
+The @kwd{report} option of @symbolref{define-condition, SYM}, not @symbolref{defmethod, SYM}
+for @symbolref{print-object, SYM}, must be used to define a condition reporter.
 
 @item
-@symbolref{slot-value}, @symbolref{slot-boundp}, @symbolref{slot-makunbound},
-and @symbolref{with-slots} must not be used on @term{condition} @term{objects}.
-Instead, the appropriate accessor functions (defined by @symbolref{define-condition})
+@symbolref{slot-value, SYM}, @symbolref{slot-boundp, SYM}, @symbolref{slot-makunbound, SYM},
+and @symbolref{with-slots, SYM} must not be used on @term{condition} @term{objects}.
+Instead, the appropriate accessor functions (defined by @symbolref{define-condition, SYM})
 should be used.
 @end itemize
 
@@ -853,8 +853,8 @@ should be used.
 
 
 @subsubheading Class Precedence List:
-@symbolref{warning},
-@symbolref{condition},
+@symbolref{warning, SYM},
+@symbolref{condition, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -873,9 +873,9 @@ should be used.
 
 
 @subsubheading Class Precedence List:
-@symbolref{style-warning},
-@symbolref{warning},
-@symbolref{condition},
+@symbolref{style-warning, SYM},
+@symbolref{warning, SYM},
+@symbolref{condition, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -914,8 +914,8 @@ redirecting or muffling other, more serious warnings.
 
 
 @subsubheading Class Precedence List:
-@symbolref{serious-condition},
-@symbolref{condition},
+@symbolref{serious-condition, SYM},
+@symbolref{condition, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -933,10 +933,10 @@ Signaling a @term{serious condition} does not itself force entry into
 the debugger.   However, except in the unusual situation where the
 programmer can assure that no harm will come from failing to
 @term{handle} a @term{serious condition}, such a @term{condition} is
-usually signaled with @code{error} rather than @symbolref{signal} in
+usually signaled with @code{error} rather than @symbolref{signal, SYM} in
 order to assure that the program does not continue without
 @i{handling} the @term{condition}.  (And conversely, it is
-conventional to use @symbolref{signal} rather than @code{error} to signal
+conventional to use @symbolref{signal, SYM} rather than @code{error} to signal
 conditions which are not @term{serious conditions}, since normally the
 failure to handle a non-serious condition is not reason enough for the
 debugger to be entered.)
@@ -950,8 +950,8 @@ debugger to be entered.)
 
 @subsubheading Class Precedence List:
 @code{error},
-@symbolref{serious-condition},
-@symbolref{condition},
+@symbolref{serious-condition, SYM},
+@symbolref{condition, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -966,17 +966,17 @@ debugger to be entered.)
 
 
 @subsubheading Class Precedence List:
-@symbolref{cell-error},
+@symbolref{cell-error, SYM},
 @code{error},
-@symbolref{serious-condition},
-@symbolref{condition},
+@symbolref{serious-condition, SYM},
+@symbolref{condition, SYM},
 @code{t}
 
 @subsubheading Description:
 
 @Thetype{cell-error} consists of error conditions that occur during
 a location @term{access}.   The name of the offending cell is initialized by
-@theinitkeyarg{name} to @symbolref{make-condition},
+@theinitkeyarg{name} to @symbolref{make-condition, SYM},
 and is @term{accessed} by @thefunction{cell-error-name}.
 
 @subsubheading See Also:
@@ -1034,10 +1034,10 @@ the @term{name} of the @term{slot} which was being @term{accessed}.
 
 @subsubheading Class Precedence List:
 
-@symbolref{parse-error},
+@symbolref{parse-error, SYM},
 @code{error},
-@symbolref{serious-condition},
-@symbolref{condition},
+@symbolref{serious-condition, SYM},
+@symbolref{condition, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -1059,9 +1059,9 @@ error conditions that are related to parsing.
 
 
 @subsubheading Class Precedence List:
-@symbolref{storage-condition},
-@symbolref{serious-condition},
-@symbolref{condition},
+@symbolref{storage-condition, SYM},
+@symbolref{serious-condition, SYM},
+@symbolref{condition, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -1079,19 +1079,19 @@ storage exhausted.
 
 @subsubheading Notes:
 
-While some @clisp{}@spc{}operations might signal @symbolref{storage-condition}
+While some @clisp{}@spc{}operations might signal @symbolref{storage-condition, SYM}
 because they are defined to create @term{objects},
 it is unspecified whether operations that are not defined to create
 @term{objects} create them anyway
-and so might also signal @symbolref{storage-condition}.
+and so might also signal @symbolref{storage-condition, SYM}.
 Likewise, the evaluator itself might create @term{objects}
-and so might signal @symbolref{storage-condition}.
+and so might signal @symbolref{storage-condition, SYM}.
 (The natural assumption might be that such
 @term{object} creation is naturally inefficient,
 but even that is @term{implementation-dependent}.)
 In general, the entire question of how storage allocation is done is
 @term{implementation-dependent},
-and so any operation might signal @symbolref{storage-condition} at any time.
+and so any operation might signal @symbolref{storage-condition, SYM} at any time.
 Because such a @term{condition} is indicative of a limitation
 of the @term{implementation}
 or of the @i{image}
@@ -1129,14 +1129,14 @@ result of evaluating @param{datum-form} and each of the @param{argument-forms}.)
 
 @subsubheading Description:
 
-@symbolref{assert} assures that @param{test-form} evaluates to @term{true}.
-If @param{test-form} evaluates to @term{false}, @symbolref{assert} signals a
+@symbolref{assert, SYM} assures that @param{test-form} evaluates to @term{true}.
+If @param{test-form} evaluates to @term{false}, @symbolref{assert, SYM} signals a
 @term{correctable} @term{error} (denoted by @param{datum} and @param{arguments}).
 Continuing from this error using @therestart{continue} makes it possible
 for the user to alter the values of the @param{places} before
-@symbolref{assert} evaluates @param{test-form} again.
+@symbolref{assert, SYM} evaluates @param{test-form} again.
 If the value of @param{test-form} is @term{non-nil},
-@symbolref{assert} returns @nil{}.
+@symbolref{assert, SYM} returns @nil{}.
 
 The @param{places} are @term{generalized references} to data
 upon which @param{test-form} depends,
@@ -1201,7 +1201,7 @@ the missing values are set to @nil{}.
 
 @subsubheading Affected By:
 
-@symbolref{*break-on-signals*}
+@symbolref{*break-on-signals*, SYM}
 
 The set of active @term{condition handlers}.
 
@@ -1230,14 +1230,14 @@ The details of this depend on the implementation's style of user interface.
 @subsubheading Arguments and Values:
 
 @param{datum}, @param{arguments}---@term{designators} for a @term{condition}
-of default type @symbolref{simple-error}.
+of default type @symbolref{simple-error, SYM}.
 
 @subsubheading Description:
 
-@code{error} effectively invokes @symbolref{signal} on the denoted @term{condition}.
+@code{error} effectively invokes @symbolref{signal, SYM} on the denoted @term{condition}.
 
 If the @term{condition} is not handled, @f{(invoke-debugger @i{condition})} is done.
-As a consequence of calling @symbolref{invoke-debugger}, @code{error}
+As a consequence of calling @symbolref{invoke-debugger, SYM}, @code{error}
 cannot directly return; the only exit from @code{error}
 can come by non-local transfer of control in a handler or by use of
 an interactive debugging command.
@@ -1297,7 +1297,7 @@ Program execution might stop, and the debugger might be entered.
 
 Existing handler bindings.
 
-@symbolref{*break-on-signals*}
+@symbolref{*break-on-signals*, SYM}
 
 @Checktypes{@param{datum} and @param{arguments}, @term{designators} for a @term{condition}}
 
@@ -1352,16 +1352,16 @@ effects hinted at by this example.
 @reviewer{Barmar: What is continue-format-control used for??}
 
 @param{datum}, @param{arguments}---@term{designators} for a @term{condition}
-of default type @symbolref{simple-error}.
+of default type @symbolref{simple-error, SYM}.
 
 @subsubheading Description:
 
-@symbolref{cerror} effectively invokes @code{error} on the
+@symbolref{cerror, SYM} effectively invokes @code{error} on the
 @term{condition} named by @param{datum}.  As with any function that
 implicitly calls @code{error}, if the @term{condition} is not handled,
 @f{(invoke-debugger @i{condition})} is executed.  While signaling is going on,
 and while in the debugger if it is reached, it is possible to continue
-code execution (@ie{} to return from @symbolref{cerror}) using @therestart{continue}.
+code execution (@ie{} to return from @symbolref{cerror, SYM}) using @therestart{continue}.
 
 If @param{datum} is a @term{condition}, @param{arguments} can be supplied,
 but are used only in conjunction with the @param{continue-format-control}.
@@ -1480,7 +1480,7 @@ but are used only in conjunction with the @param{continue-format-control}.
 
 @subsubheading Affected By:
 
-@symbolref{*break-on-signals*}.
+@symbolref{*break-on-signals*, SYM}.
 
 Existing handler bindings.
 
@@ -1492,7 +1492,7 @@ Existing handler bindings.
 @subsubheading Notes:
 
 If @param{datum} is a @term{condition} @term{type} rather than a
-@term{string}, the @symbolref{format} directive @tt{ @tild{}*} may be especially
+@term{string}, the @symbolref{format, SYM} directive @tt{ @tild{}*} may be especially
 useful in the @param{continue-format-control} in order to ignore the
 @term{keywords} in the @term{initialization argument list}.  For example:
 
@@ -1524,15 +1524,15 @@ useful in the @param{continue-format-control} in order to ignore the
 
 @subsubheading Description:
 
-@symbolref{check-type} signals a @term{correctable} @term{error}
+@symbolref{check-type, SYM} signals a @term{correctable} @term{error}
 @oftype{type-error} if the contents of @param{place} are not
 of the type @param{typespec}.
 
-@symbolref{check-type} can return only if @therestart{store-value} is invoked,
+@symbolref{check-type, SYM} can return only if @therestart{store-value} is invoked,
 either explicitly from a handler
 or implicitly as one of the options offered by the debugger.
 If @therestart{store-value} is invoked,
-@symbolref{check-type} stores the new value
+@symbolref{check-type, SYM} stores the new value
 that is the argument to the @term{restart} invocation
 (or that is prompted for interactively by the debugger)
 in @param{place} and starts over,
@@ -1556,8 +1556,8 @@ and the desired type.
 An implementation may choose to generate
 a somewhat differently worded error message
 if it recognizes that @param{place} is of a particular form,
-such as one of the arguments to the function that called @symbolref{check-type}.
-@term{string} is allowed because some applications of @symbolref{check-type}
+such as one of the arguments to the function that called @symbolref{check-type, SYM}.
+@term{string} is allowed because some applications of @symbolref{check-type, SYM}
 may require a more specific description of what is wanted
 than can be generated automatically from @param{typespec}.
 
@@ -1629,7 +1629,7 @@ The debugger might be entered.
 
 @subsubheading Affected By:
 
-@symbolref{*break-on-signals*}
+@symbolref{*break-on-signals*, SYM}
 
 The implementation.
 
@@ -1655,17 +1655,17 @@ The implementation.
 
 @subsubheading Class Precedence List:
 
-@symbolref{simple-error},
-@symbolref{simple-condition},
+@symbolref{simple-error, SYM},
+@symbolref{simple-condition, SYM},
 @code{error},
-@symbolref{serious-condition},
-@symbolref{condition},
+@symbolref{serious-condition, SYM},
+@symbolref{condition, SYM},
 @code{t}
 
 @subsubheading Description:
 
 @Thetype{simple-error} consists of @term{conditions} that
-are signaled by @code{error} or @symbolref{cerror} when a
+are signaled by @code{error} or @symbolref{cerror, SYM} when a
 @term{format control}
 is supplied as the function's first argument.
 
@@ -1693,21 +1693,21 @@ is supplied as the function's first argument.
 @Thefunction{invalid-method-error} is used to signal an error @oftype{error}
 when there is an applicable @term{method} whose @term{qualifiers} are not valid for
 the method combination type.  The error message is constructed by
-using the @param{format-control} suitable for @symbolref{format}
+using the @param{format-control} suitable for @symbolref{format, SYM}
 and any @param{args} to it.  Because an
 implementation may need to add additional contextual information to
-the error message, @symbolref{invalid-method-error} should be called only
+the error message, @symbolref{invalid-method-error, SYM} should be called only
 within the dynamic extent of a method combination function.
 
 @Thefunction{invalid-method-error} is called automatically when a
 @term{method} fails to satisfy every @term{qualifier} pattern and predicate in a
-@symbolref{define-method-combination} @term{form}.  A method combination function
+@symbolref{define-method-combination, SYM} @term{form}.  A method combination function
 that imposes additional restrictions should call
-@symbolref{invalid-method-error} explicitly if it encounters a @term{method}
+@symbolref{invalid-method-error, SYM} explicitly if it encounters a @term{method}
 it cannot accept.
 
-Whether @symbolref{invalid-method-error} returns to its caller or exits via
-@symbolref{throw} is @term{implementation-dependent}.
+Whether @symbolref{invalid-method-error, SYM} returns to its caller or exits via
+@symbolref{throw, SYM} is @term{implementation-dependent}.
 
 @subsubheading Side Effects:
 
@@ -1715,7 +1715,7 @@ The debugger might be entered.
 
 @subsubheading Affected By:
 
-@symbolref{*break-on-signals*}
+@symbolref{*break-on-signals*, SYM}
 
 @subsubheading See Also:
 
@@ -1744,13 +1744,13 @@ The debugger might be entered.
 in method combination.
 
 The error message is constructed by using a @param{format-control} suitable
-for @symbolref{format} and any @param{args} to it.  Because an implementation may
+for @symbolref{format, SYM} and any @param{args} to it.  Because an implementation may
 need to add additional contextual information to the error message,
-@symbolref{method-combination-error} should be called only within the
+@symbolref{method-combination-error, SYM} should be called only within the
 dynamic extent of a method combination function.
 
-Whether @symbolref{method-combination-error} returns to its caller or exits
-via @symbolref{throw} is @term{implementation-dependent}.
+Whether @symbolref{method-combination-error, SYM} returns to its caller or exits
+via @symbolref{throw, SYM} is @term{implementation-dependent}.
 
 @subsubheading Side Effects:
 
@@ -1758,7 +1758,7 @@ The debugger might be entered.
 
 @subsubheading Affected By:
 
-@symbolref{*break-on-signals*}
+@symbolref{*break-on-signals*, SYM}
 
 @subsubheading See Also:
 
@@ -1778,12 +1778,12 @@ The debugger might be entered.
 @subsubheading Arguments and Values:
 
 @param{datum}, @param{arguments}---@term{designators} for a @term{condition}
-of default type @symbolref{simple-condition}.
+of default type @symbolref{simple-condition, SYM}.
 
 @subsubheading Description:
 
 @term{Signals} the @term{condition} denoted by the given @param{datum} and @param{arguments}.
-If the @term{condition} is not handled, @symbolref{signal} returns @nil{}.
+If the @term{condition} is not handled, @symbolref{signal, SYM} returns @nil{}.
 
 @subsubheading Examples:
 
@@ -1820,7 +1820,7 @@ Back to Lisp Toplevel
 
 @subsubheading Side Effects:
 
-The debugger might be entered due to @symbolref{*break-on-signals*}.
+The debugger might be entered due to @symbolref{*break-on-signals*, SYM}.
 
 Handlers for the condition being signaled might transfer control.
 
@@ -1828,7 +1828,7 @@ Handlers for the condition being signaled might transfer control.
 
 Existing handler bindings.
 
-@symbolref{*break-on-signals*}
+@symbolref{*break-on-signals*, SYM}
 
 @subsubheading See Also:
 
@@ -1853,22 +1853,22 @@ should, might, or must @term{signal} @term{conditions}.
 
 
 @subsubheading Class Precedence List:
-@symbolref{simple-condition},
-@symbolref{condition},
+@symbolref{simple-condition, SYM},
+@symbolref{condition, SYM},
 @code{t}
 
 @subsubheading Description:
 
 @Thetype{simple-condition} represents @term{conditions} that are
-signaled by @symbolref{signal} whenever a @param{format-control} is
+signaled by @symbolref{signal, SYM} whenever a @param{format-control} is
 supplied as the function's first argument.
 The @term{format control} and @term{format arguments} are initialized with
 @theinitkeyargs{format-control}
-and @kwd{format-arguments} to @symbolref{make-condition}, and are
+and @kwd{format-arguments} to @symbolref{make-condition, SYM}, and are
 @term{accessed} by the @term{functions}
-@symbolref{simple-condition-format-control}
-and @symbolref{simple-condition-format-arguments}.
-If format arguments are not supplied to @symbolref{make-condition},
+@symbolref{simple-condition-format-control, SYM}
+and @symbolref{simple-condition-format-arguments, SYM}.
+If format arguments are not supplied to @symbolref{make-condition, SYM},
 @nil{}@spc{}is used as a default.
 
 @subsubheading See Also:
@@ -1895,7 +1895,7 @@ If format arguments are not supplied to @symbolref{make-condition},
 
 @subsubheading Arguments and Values:
 
-@param{condition}---a @term{condition} of @term{type} @symbolref{simple-condition}.
+@param{condition}---a @term{condition} of @term{type} @symbolref{simple-condition, SYM}.
 
 @param{format-control}---a @term{format control}.
 
@@ -1903,10 +1903,10 @@ If format arguments are not supplied to @symbolref{make-condition},
 
 @subsubheading Description:
 
-@symbolref{simple-condition-format-control} returns the @term{format control} needed to
+@symbolref{simple-condition-format-control, SYM} returns the @term{format control} needed to
 process the @param{condition}'s @term{format arguments}.
 
-@symbolref{simple-condition-format-arguments} returns a @term{list} of @term{format arguments}
+@symbolref{simple-condition-format-arguments, SYM} returns a @term{list} of @term{format arguments}
 needed to process the @param{condition}'s @term{format control}.
 
 @subsubheading Examples:
@@ -1942,7 +1942,7 @@ needed to process the @param{condition}'s @term{format control}.
 @subsubheading Arguments and Values:
 
 @param{datum}, @param{arguments}---@term{designators} for a @term{condition}
-of default type @symbolref{simple-warning}.
+of default type @symbolref{simple-warning, SYM}.
 
 @subsubheading Description:
 
@@ -1959,10 +1959,10 @@ The precise mechanism for warning is as follows:
 @item @id{@bf{The warning condition is signaled}}
 
 
-While the @symbolref{warning} @term{condition} is being signaled,
+While the @symbolref{warning, SYM} @term{condition} is being signaled,
 @therestart{muffle-warning} is established for use by a @term{handler}.
-If invoked, this @term{restart} bypasses further action by @symbolref{warn},
-which in turn causes @symbolref{warn} to immediately return @nil{}.
+If invoked, this @term{restart} bypasses further action by @symbolref{warn, SYM},
+which in turn causes @symbolref{warn, SYM} to immediately return @nil{}.
 
 @item @id{@bf{If no handler for the warning condition is found}}
 
@@ -1970,12 +1970,12 @@ which in turn causes @symbolref{warn} to immediately return @nil{}.
 If no handlers for the warning condition are found,
 or if all such handlers decline,
 then the @term{condition} is reported to @term{error output}
-by @symbolref{warn} in an @term{implementation-dependent} format.
+by @symbolref{warn, SYM} in an @term{implementation-dependent} format.
 
 @item @id{@bf{@nil{}@spc{}is returned}}
 
 
-The value returned by @symbolref{warn} if it returns is @nil{}.
+The value returned by @symbolref{warn, SYM} if it returns is @nil{}.
 @end table
 
 
@@ -2018,8 +2018,8 @@ A warning is issued.  The debugger might be entered.
 
 Existing handler bindings.
 
-@symbolref{*break-on-signals*},
-@symbolref{*error-output*}.
+@symbolref{*break-on-signals*, SYM},
+@symbolref{*error-output*, SYM}.
 
 @subsubheading Exceptional Situations:
 
@@ -2046,16 +2046,16 @@ must be @oftype{warning} or an error @oftype{type-error} is signaled.
 
 @subsubheading Class Precedence List:
 
-@symbolref{simple-warning},
-@symbolref{simple-condition},
-@symbolref{warning},
-@symbolref{condition},
+@symbolref{simple-warning, SYM},
+@symbolref{simple-condition, SYM},
+@symbolref{warning, SYM},
+@symbolref{condition, SYM},
 @code{t}
 
 @subsubheading Description:
 
 @Thetype{simple-warning} represents @term{conditions} that
-are signaled by @symbolref{warn} whenever a
+are signaled by @symbolref{warn, SYM} whenever a
 @term{format control}
 is supplied as the function's first argument.
 
@@ -2076,12 +2076,12 @@ is supplied as the function's first argument.
 
 @subsubheading Description:
 
-@symbolref{invoke-debugger} attempts to enter the debugger with @param{condition}.
+@symbolref{invoke-debugger, SYM} attempts to enter the debugger with @param{condition}.
 
-If @symbolref{*debugger-hook*} is not @nil{}, it should be a @term{function}
+If @symbolref{*debugger-hook*, SYM} is not @nil{}, it should be a @term{function}
 (or the name of a @term{function}) to be called prior to entry to
 the standard debugger.  The @term{function} is called with
-@symbolref{*debugger-hook*} bound to @nil{}, and the @term{function}
+@symbolref{*debugger-hook*, SYM} bound to @nil{}, and the @term{function}
 must accept two arguments: the @param{condition}
 and @thevalueof{*debugger-hook*} prior to binding it to @nil{}.
 If the @term{function} returns normally,
@@ -2106,13 +2106,13 @@ Debug>
 
 @subsubheading Side Effects:
 
-@symbolref{*debugger-hook*} is bound to @nil{},
+@symbolref{*debugger-hook*, SYM} is bound to @nil{},
 program execution is discontinued,
 and the debugger is entered.
 
 @subsubheading Affected By:
 
-@symbolref{*debug-io*} and @symbolref{*debugger-hook*}.
+@symbolref{*debug-io*, SYM} and @symbolref{*debugger-hook*, SYM}.
 
 @subsubheading See Also:
 
@@ -2138,14 +2138,14 @@ and the debugger is entered.
 
 @subsubheading Description:
 
-@symbolref{break} @term{formats} @param{format-control} and @param{format-arguments}
+@symbolref{break, SYM} @term{formats} @param{format-control} and @param{format-arguments}
 and then goes directly into the debugger without allowing any possibility of
 interception by programmed error-handling facilities.
 
 If @therestart{continue} is used while in the debugger,
-@symbolref{break} immediately returns @nil{}@spc{}without taking any unusual recovery action.
+@symbolref{break, SYM} immediately returns @nil{}@spc{}without taking any unusual recovery action.
 
-@symbolref{break} binds @symbolref{*debugger-hook*} to @nil{}@spc{}
+@symbolref{break, SYM} binds @symbolref{*debugger-hook*, SYM} to @nil{}@spc{}
 before attempting to enter the debugger.
 
 @subsubheading Examples:
@@ -2169,7 +2169,7 @@ The debugger is entered.
 
 @subsubheading Affected By:
 
-@symbolref{*debug-io*}.
+@symbolref{*debug-io*, SYM}.
 
 @subsubheading See Also:
 
@@ -2177,21 +2177,21 @@ The debugger is entered.
 
 @subsubheading Notes:
 
-@symbolref{break} is used as a way of inserting temporary debugging
+@symbolref{break, SYM} is used as a way of inserting temporary debugging
 ``breakpoints'' in a program, not as a way of signaling errors.
-For this reason, @symbolref{break} does not take the @param{continue-format-control}
-@term{argument} that @symbolref{cerror} takes.
+For this reason, @symbolref{break, SYM} does not take the @param{continue-format-control}
+@term{argument} that @symbolref{cerror, SYM} takes.
 This and the lack of any possibility of interception by
 @term{condition} @i{handling} are the only program-visible
-differences between @symbolref{break} and @symbolref{cerror}.
+differences between @symbolref{break, SYM} and @symbolref{cerror, SYM}.
 
-The user interface aspects of @symbolref{break} and @symbolref{cerror} are
+The user interface aspects of @symbolref{break, SYM} and @symbolref{cerror, SYM} are
 permitted to vary more widely, in order to accomodate the interface
 needs of the @term{implementation}. For example, it is permissible for a
-@term{Lisp read-eval-print loop} to be entered by @symbolref{break} rather
+@term{Lisp read-eval-print loop} to be entered by @symbolref{break, SYM} rather
 than the conventional debugger.
 
-@symbolref{break} could be defined by:
+@symbolref{break, SYM} could be defined by:
 
 @lisp
  (defun break (&optional (format-control "Break") &rest format-arguments)
@@ -2226,13 +2226,13 @@ or @nil{}.
 @subsubheading Description:
 
 When @thevalueof{*debugger-hook*} is @term{non-nil}, it is called prior to
-normal entry into the debugger, either due to a call to @symbolref{invoke-debugger}
+normal entry into the debugger, either due to a call to @symbolref{invoke-debugger, SYM}
 or due to automatic entry into the debugger from a call to @code{error}
-or @symbolref{cerror} with a condition that is not handled.
+or @symbolref{cerror, SYM} with a condition that is not handled.
 The @term{function} may either handle the @term{condition}
 (transfer control) or return normally (allowing the standard debugger to run).
 To minimize recursive errors while debugging,
-@symbolref{*debugger-hook*} is bound to @nil{}@spc{}by @symbolref{invoke-debugger}
+@symbolref{*debugger-hook*, SYM} is bound to @nil{}@spc{}by @symbolref{invoke-debugger, SYM}
 prior to calling the @term{function}.
 
 @subsubheading Examples:
@@ -2275,12 +2275,12 @@ prior to calling the @term{function}.
 
 @subsubheading Affected By:
 
-@symbolref{invoke-debugger}
+@symbolref{invoke-debugger, SYM}
 
 @subsubheading Notes:
 
 When evaluating code typed in by the user interactively, it is sometimes
-useful to have the hook function bind @symbolref{*debugger-hook*} to the
+useful to have the hook function bind @symbolref{*debugger-hook*, SYM} to the
 @term{function} that was its second argument so that recursive errors
 can be handled using the same interactive facility.
 
@@ -2302,13 +2302,13 @@ a @term{type specifier}.
 @subsubheading Description:
 
 When @f{(typep @i{condition} *break-on-signals*)} returns @term{true},
-calls to @symbolref{signal}, and to other @term{operators} such as @code{error}
-that implicitly call @symbolref{signal}, enter the debugger prior to
+calls to @symbolref{signal, SYM}, and to other @term{operators} such as @code{error}
+that implicitly call @symbolref{signal, SYM}, enter the debugger prior to
 @term{signaling} the @term{condition}.
 
 @Therestart{continue} can be used to continue with the normal
 @term{signaling} process when a break occurs process due to
-@symbolref{*break-on-signals*}.
+@symbolref{*break-on-signals*, SYM}.
 
 @subsubheading Examples:
 
@@ -2354,19 +2354,19 @@ that implicitly call @symbolref{signal}, enter the debugger prior to
 
 @subsubheading Notes:
 
-@symbolref{*break-on-signals*} is intended primarily for use in debugging code that
-does signaling.   When setting @symbolref{*break-on-signals*}, the user is
+@symbolref{*break-on-signals*, SYM} is intended primarily for use in debugging code that
+does signaling.   When setting @symbolref{*break-on-signals*, SYM}, the user is
 encouraged to choose the most restrictive specification that suffices.
-Setting @symbolref{*break-on-signals*} effectively violates the modular handling of
+Setting @symbolref{*break-on-signals*, SYM} effectively violates the modular handling of
 @term{condition} signaling.  In practice, the complete effect of setting
-@symbolref{*break-on-signals*} might be unpredictable in some cases since the user
-might not be aware of the variety or number of calls to @symbolref{signal}
+@symbolref{*break-on-signals*, SYM} might be unpredictable in some cases since the user
+might not be aware of the variety or number of calls to @symbolref{signal, SYM}
 that are used in code called only incidentally.
 
 
-@symbolref{*break-on-signals*} enables an early entry to the debugger but such an
+@symbolref{*break-on-signals*, SYM} enables an early entry to the debugger but such an
 entry does not preclude an additional entry to the debugger in the case of
-operations such as @code{error} and @symbolref{cerror}.
+operations such as @code{error} and @symbolref{cerror, SYM}.
 
 
 @node handler-bind
@@ -2405,7 +2405,7 @@ take a single argument, the @term{condition} being signaled.
 
 If more than one @param{handler} @term{binding} is supplied,
 the @param{handler} @term{bindings} are searched sequentially from
-top to bottom in search of a match (by visual analogy with @symbolref{typecase}).
+top to bottom in search of a match (by visual analogy with @symbolref{typecase, SYM}).
 If an appropriate @term{type} is found,
 the associated handler is run in a @term{dynamic environment} where none of these
 @param{handler} bindings are visible (to avoid recursive errors).
@@ -2413,7 +2413,7 @@ If the @term{handler} @term{declines}, the search continues for another @term{ha
 
 If no appropriate @term{handler} is found, other @term{handlers} are sought
 from dynamically enclosing contours.  If no @term{handler} is found outside,
-then @symbolref{signal} returns or @code{error} enters the debugger.
+then @symbolref{signal, SYM} returns or @code{error} enters the debugger.
 
 @subsubheading Examples:
 
@@ -2452,7 +2452,7 @@ in the associated function.
 
 
 Note that ``Foo.'' is not printed because the condition made
-by @symbolref{signal} is a @term{simple condition}, which is not @oftype{error},
+by @symbolref{signal, SYM} is a @term{simple condition}, which is not @oftype{error},
 so it doesn't trigger the handler for @code{error} set up by @f{trap-errors}.
 
 @subsubheading See Also:
@@ -2496,7 +2496,7 @@ the value of the last @param{form} in that @param{clause} is returned.
 
 @subsubheading Description:
 
-@symbolref{handler-case} executes @param{expression} in a @term{dynamic environment} where
+@symbolref{handler-case, SYM} executes @param{expression} in a @term{dynamic environment} where
 various handlers are active.  Each @i{error-clause} specifies how to
 handle a @term{condition} matching the indicated @param{typespec}.
 A @i{no-error-clause} allows the specification of a particular action
@@ -2541,18 +2541,18 @@ can be written
 @f{(@param{typespec} () @param{form})}.
 
 If there are no @param{forms} in a selected @i{clause}, the case, and therefore
-@symbolref{handler-case}, returns @nil{}.
+@symbolref{handler-case, SYM}, returns @nil{}.
 If execution of @param{expression}
 returns normally and no @i{no-error-clause}
 exists, the values returned by
-@param{expression} are returned by @symbolref{handler-case}.
+@param{expression} are returned by @symbolref{handler-case, SYM}.
 If execution of
 @param{expression} returns normally and a @i{no-error-clause}
 does exist, the values returned are used as arguments to the function
 described by constructing
 @f{(lambda @param{lambda-list} @starparam{form})}
 from the @i{no-error-clause}, and the @term{values} of that function call are
-returned by @symbolref{handler-case}.
+returned by @symbolref{handler-case, SYM}.
 The handlers which were established around the @param{expression} are no longer active at the time of this call.
 
 @subsubheading Examples:
@@ -2655,18 +2655,18 @@ two values are returned: @nil{}@spc{}and the @term{condition}.
 
 @subsubheading Description:
 
-@symbolref{ignore-errors} is used to prevent @term{conditions} @oftype{error}
+@symbolref{ignore-errors, SYM} is used to prevent @term{conditions} @oftype{error}
 from causing entry into the debugger.
 
-Specifically, @symbolref{ignore-errors} @term{executes} @term{forms}
+Specifically, @symbolref{ignore-errors, SYM} @term{executes} @term{forms}
 in a @term{dynamic environment} where a @term{handler} for
 @term{conditions} @oftype{error} has been established;
 if invoked, it @term{handles} such @term{conditions} by
 returning two @term{values}, @nil{}@spc{}and the @term{condition} that was @term{signaled},
-from the @symbolref{ignore-errors} @term{form}.
+from the @symbolref{ignore-errors, SYM} @term{form}.
 
 If a @term{normal return} from the @term{forms} occurs,
-any @term{values} returned are returned by @symbolref{ignore-errors}.
+any @term{values} returned are returned by @symbolref{ignore-errors, SYM}.
 
 @subsubheading Examples:
 
@@ -2811,7 +2811,7 @@ The default if @kwd{allocation} is not supplied is @kwd{instance}.
 
 @subsubheading Description:
 
-@symbolref{define-condition} defines a new condition type called @param{name},
+@symbolref{define-condition, SYM} defines a new condition type called @param{name},
 which is a @term{subtype} of
 the @term{type} or @term{types} named by
 @param{parent-type}.
@@ -2822,7 +2822,7 @@ inherits @term{slots} and @term{methods} from each of its direct
 
 If a slot name/slot form pair is supplied,
 the slot form is a @term{form} that
-can be evaluated by @symbolref{make-condition} to
+can be evaluated by @symbolref{make-condition, SYM} to
 produce a default value when an explicit value is not provided.  If no
 slot form
 is supplied, the contents of the @param{slot}
@@ -2838,7 +2838,7 @@ that might otherwise have been inherited from a @param{parent-type}.  If no
 slot form is supplied, the inherited slot form (if any) is still visible.
 
 Accessors are created according to the same rules as used by
-@symbolref{defclass}.
+@symbolref{defclass, SYM}.
 
 A description of @param{slot-options} follows:
 
@@ -2861,19 +2861,19 @@ initial value form to be used in the initialization of the @term{slot}.  This
 @term{slot}.  The
 @term{lexical environment}
 in which this @term{form} is evaluated is the lexical
-@term{environment} in which the @symbolref{define-condition}
+@term{environment} in which the @symbolref{define-condition, SYM}
 form was evaluated.
 Note that the @term{lexical environment} refers both to variables and to
 @term{functions}.
 For @term{local slots}, the @term{dynamic environment} is the dynamic
 @term{environment}
-in which @symbolref{make-condition} was called; for
+in which @symbolref{make-condition, SYM} was called; for
 @term{shared slots}, the @term{dynamic environment}
 is the @term{dynamic environment} in which the
-@symbolref{define-condition} form was evaluated.
+@symbolref{define-condition, SYM} form was evaluated.
 
 @reviewer{Barmar: Issue CLOS-CONDITIONS doesn't say this.}
-No implementation is permitted to extend the syntax of @symbolref{define-condition}
+No implementation is permitted to extend the syntax of @symbolref{define-condition, SYM}
 to allow @f{(@param{slot-name} @param{form})} as an abbreviation for
 @f{(@param{slot-name} :initform @param{form})}.
 
@@ -2885,7 +2885,7 @@ argument named by its @term{symbol} argument
 and specifies that this
 initialization argument initializes the given @term{slot}.  If the
 initialization argument has a value in the call to
-@symbolref{initialize-instance}, the value is stored into the given @term{slot},
+@symbolref{initialize-instance, SYM}, the value is stored into the given @term{slot},
 and the slot's @kwd{initform} slot option, if any, is not
 evaluated.  If none of the initialization arguments specified for a
 given @term{slot} has a value, the @term{slot} is initialized according to the
@@ -2907,7 +2907,7 @@ does not satisfy the type of the @term{slot} is undefined.
 
 @editornote{KMP: This is an option, not a slot option.}
 
-This option is treated the same as it would be @symbolref{defclass}.
+This option is treated the same as it would be @symbolref{defclass, SYM}.
 
 @item @id{@kwd{documentation}}
 
@@ -2922,8 +2922,8 @@ for the @term{slot}.
 
 @editornote{KMP: This is an option, not a slot option.}
 
-@term{Condition} reporting is mediated through the @symbolref{print-object}
-method for the @term{condition} type in question, with @symbolref{*print-escape*}
+@term{Condition} reporting is mediated through the @symbolref{print-object, SYM}
+method for the @term{condition} type in question, with @symbolref{*print-escape*, SYM}
 always being @nil{}. Specifying @f{(:report @param{report-name})}
 in the definition of a condition type @f{C} is equivalent to:
 
@@ -2945,7 +2945,7 @@ arguments, a @term{condition} and a @term{stream},
 that prints on the @term{stream} a
 description of the @term{condition}.
 This @term{function} is called whenever the
-@term{condition} is printed while @symbolref{*print-escape*} is @nil{}.
+@term{condition} is printed while @symbolref{*print-escape*, SYM} is @nil{}.
 
 If @param{report-name} is a @term{string}, it is a shorthand for
 
@@ -2968,13 +2968,13 @@ The consequences are unspecifed if an attempt is made to @term{read} a
 been given a default value.
 
 The consequences are unspecified if an attempt is made to assign the
-@param{slots} by using @symbolref{setf}.
+@param{slots} by using @symbolref{setf, SYM}.
 
-If a @symbolref{define-condition} @term{form} appears as a @term{top level form},
+If a @symbolref{define-condition, SYM} @term{form} appears as a @term{top level form},
 the @term{compiler} must make @param{name} recognizable as a valid @term{type} name,
 and it must be possible to reference the @term{condition} @term{type} as the
 @param{parent-type} of another @term{condition} @term{type} in a subsequent
-@symbolref{define-condition} @term{form} in the @term{file} being compiled.
+@symbolref{define-condition, SYM} @term{form} in the @term{file} being compiled.
 
 @subsubheading Examples:
 
@@ -2997,7 +2997,7 @@ called @f{blocks-world-error}:
 
 
 The new type has slots @f{peg-shape} and @f{hole-shape},
-so @symbolref{make-condition} accepts @f{:peg-shape} and @f{:hole-shape} keywords.
+so @symbolref{make-condition, SYM} accepts @f{:peg-shape} and @f{:hole-shape} keywords.
 The @term{readers} @f{peg/hole-mismatch-peg-shape} and @f{peg/hole-mismatch-hole-shape}
 apply to objects of this type, as illustrated in the @kwd{report} information.
 
@@ -3088,7 +3088,7 @@ report this type of condition.
 
 @subsubheading Arguments and Values:
 
-@param{type}---a @term{type specifier} (for a @term{subtype} of @symbolref{condition}).
+@param{type}---a @term{type specifier} (for a @term{subtype} of @symbolref{condition, SYM}).
 
 @param{slot-initializations}---an @term{initialization argument list}.
 
@@ -3137,7 +3137,7 @@ The set of defined @term{condition} @term{types}.
 
 
 @subsubheading Class Precedence List:
-@symbolref{restart},
+@symbolref{restart, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -3169,7 +3169,7 @@ relative to the scope of the binding @term{form} which @term{establishes} it.
 
 @subsubheading Description:
 
-@symbolref{compute-restarts} uses the dynamic state of the program to compute
+@symbolref{compute-restarts, SYM} uses the dynamic state of the program to compute
 a @term{list} of the @term{restarts} which are currently active.
 
 The resulting @term{list} is ordered so that the innermost
@@ -3182,17 +3182,17 @@ are those that are associated with a non-empty set of @term{conditions} of
 which the given @param{condition} is not an @term{element}.
 If @param{condition} is @nil{}, all @term{restarts} are considered.
 
-@symbolref{compute-restarts} returns all
+@symbolref{compute-restarts, SYM} returns all
 @term{applicable restarts},
 including anonymous ones, even if some of them have the same name as
-others and would therefore not be found by @symbolref{find-restart}
+others and would therefore not be found by @symbolref{find-restart, SYM}
 when given a @term{symbol} argument.
 
 Implementations are permitted, but not required, to return @term{distinct}
-@term{lists} from repeated calls to @symbolref{compute-restarts} while in
+@term{lists} from repeated calls to @symbolref{compute-restarts, SYM} while in
 the same dynamic environment.
 The consequences are undefined if the @term{list} returned by
-@symbolref{compute-restarts} is every modified.
+@symbolref{compute-restarts, SYM} is every modified.
 
 @subsubheading Examples:
 
@@ -3265,7 +3265,7 @@ Existing restarts.
 
 @subsubheading Description:
 
-@symbolref{find-restart} searches for a particular @term{restart} in the
+@symbolref{find-restart, SYM} searches for a particular @term{restart} in the
 current @term{dynamic environment}.
 
 When @param{condition} is @term{non-nil}, only those @term{restarts}
@@ -3300,7 +3300,7 @@ Otherwise, @nil{}@spc{}is returned.
 
 Existing restarts.
 
-@symbolref{restart-case}, @symbolref{restart-bind}, @symbolref{with-condition-restarts}.
+@symbolref{restart-case, SYM}, @symbolref{restart-bind, SYM}, @symbolref{with-condition-restarts, SYM}.
 
 @subsubheading See Also:
 
@@ -3317,7 +3317,7 @@ Existing restarts.
 Although anonymous restarts have a name of @nil{},
 the consequences are unspecified if @nil{}@spc{}is given as an @param{identifier}.
 Occasionally, programmers lament that @nil{}@spc{}is not permissible as an
-@param{identifier} argument.  In most such cases, @symbolref{compute-restarts}
+@param{identifier} argument.  In most such cases, @symbolref{compute-restarts, SYM}
 can probably be used to simulate the desired effect.
 
 
@@ -3381,12 +3381,12 @@ If @param{restart} is not valid, an error @oftype{control-error} is signaled.
 
 @subsubheading Notes:
 
-The most common use for @symbolref{invoke-restart} is in a @term{handler}.
-It might be used explicitly, or implicitly through @symbolref{invoke-restart-interactively}
+The most common use for @symbolref{invoke-restart, SYM} is in a @term{handler}.
+It might be used explicitly, or implicitly through @symbolref{invoke-restart-interactively, SYM}
 or a @term{restart function}.
 
-@term{Restart functions} call @symbolref{invoke-restart}, not vice versa.  That is,
-@symbolref{invoke-restart} provides primitive functionality, and @term{restart functions}
+@term{Restart functions} call @symbolref{invoke-restart, SYM}, not vice versa.  That is,
+@symbolref{invoke-restart, SYM} provides primitive functionality, and @term{restart functions}
 are non-essential ``syntactic sugar.''
 
 
@@ -3409,24 +3409,24 @@ associated with @param{restart}, if that @term{function} returns.
 
 @subsubheading Description:
 
-@symbolref{invoke-restart-interactively} calls the @term{function} associated
+@symbolref{invoke-restart-interactively, SYM} calls the @term{function} associated
 with @param{restart}, prompting for any necessary arguments.
 If @param{restart} is a name, it must be valid in the current @term{dynamic environment}.
 
-@symbolref{invoke-restart-interactively}
+@symbolref{invoke-restart-interactively, SYM}
 prompts for arguments by executing
 the code provided in the @kwd{interactive} keyword to
-@symbolref{restart-case} or
-@kwd{interactive-function} keyword to @symbolref{restart-bind}.
+@symbolref{restart-case, SYM} or
+@kwd{interactive-function} keyword to @symbolref{restart-bind, SYM}.
 
 If no such options have been supplied in the corresponding
-@symbolref{restart-bind} or @symbolref{restart-case},
+@symbolref{restart-bind, SYM} or @symbolref{restart-case, SYM},
 then the consequences are undefined if the @param{restart} takes
 required arguments.  If the arguments are optional, an argument list of
 @nil{}@spc{}is used.
 
 Once the arguments have been determined,
-@symbolref{invoke-restart-interactively}
+@symbolref{invoke-restart-interactively, SYM}
 executes the following:
 
 @lisp
@@ -3460,7 +3460,7 @@ A non-local transfer of control might be done by the restart.
 
 @subsubheading Affected By:
 
-@symbolref{*query-io*}, active @term{restarts}
+@symbolref{*query-io*, SYM}, active @term{restarts}
 
 @subsubheading Exceptional Situations:
 
@@ -3476,7 +3476,7 @@ is signaled.
 
 @subsubheading Notes:
 
-@symbolref{invoke-restart-interactively} is used internally by the debugger
+@symbolref{invoke-restart-interactively, SYM} is used internally by the debugger
 and may also be useful in implementing other portable, interactive debugging
 tools.
 
@@ -3511,7 +3511,7 @@ tools.
 
 @subsubheading Description:
 
-@symbolref{restart-bind} executes the body of @param{forms}
+@symbolref{restart-bind, SYM} executes the body of @param{forms}
 in a @term{dynamic environment} where @term{restarts} with the given @param{names} are in effect.
 
 If a @param{name} is @nil{}, it indicates an anonymous restart;
@@ -3522,19 +3522,19 @@ are unconditionally evaluated in the current lexical and dynamic environment
 prior to evaluation of the body. Each of these @term{forms} must evaluate to
 a @term{function}.
 
-If @symbolref{invoke-restart} is done on that restart,
+If @symbolref{invoke-restart, SYM} is done on that restart,
 the @term{function} which resulted from evaluating @param{function}
-is called, in the @term{dynamic environment} of the @symbolref{invoke-restart},
-with the @term{arguments} given to @symbolref{invoke-restart}.
+is called, in the @term{dynamic environment} of the @symbolref{invoke-restart, SYM},
+with the @term{arguments} given to @symbolref{invoke-restart, SYM}.
 The @term{function} may either perform a non-local transfer of control or may return normally.
 
 If the restart is invoked interactively from the debugger
-(using @symbolref{invoke-restart-interactively}),
+(using @symbolref{invoke-restart-interactively, SYM}),
 the arguments are defaulted by calling the @term{function}
 which resulted from evaluating @param{interactive-function}.
 That @term{function} may optionally prompt interactively on @term{query I/O},
 and should return a @term{list} of arguments to be used by
-@symbolref{invoke-restart-interactively} when invoking the restart.
+@symbolref{invoke-restart-interactively, SYM} when invoking the restart.
 
 If a restart is invoked interactively but no @param{interactive-function} is used,
 then an argument list of @nil{}@spc{}is used. In that case, the @term{function}
@@ -3547,7 +3547,7 @@ This @term{function} must be a @term{function} of one argument, a @term{stream}.
 It is expected to print a description of the action that the restart takes
 to that @term{stream}.
 This @term{function} is called any time the restart is printed
-while @symbolref{*print-escape*} is @nil{}.
+while @symbolref{*print-escape*, SYM} is @nil{}.
 
 In the case of interactive invocation,
 the result is dependent on the value of @kwd{interactive-function}
@@ -3560,7 +3560,7 @@ as follows.
 
 @param{Value} is evaluated in the current lexical environment and
 should return a @term{function} of no arguments which constructs a
-@term{list} of arguments to be used by @symbolref{invoke-restart-interactively}
+@term{list} of arguments to be used by @symbolref{invoke-restart-interactively, SYM}
 when invoking this restart.  The @term{function} may prompt interactively
 using @term{query I/O} if necessary.
 
@@ -3571,7 +3571,7 @@ using @term{query I/O} if necessary.
 should return a @term{function} of one argument, a @term{stream}, which
 prints on the @term{stream} a summary of the action that this restart
 takes.  This @term{function} is called whenever the restart is
-reported (printed while @symbolref{*print-escape*} is @nil{}).
+reported (printed while @symbolref{*print-escape*, SYM} is @nil{}).
 If no @kwd{report-function} option is provided, the manner in which the
 @term{restart} is reported is @term{implementation-dependent}.
 
@@ -3586,7 +3586,7 @@ returns @term{true} if the restart is to be considered visible.
 
 @subsubheading Affected By:
 
-@symbolref{*query-io*}.
+@symbolref{*query-io*, SYM}.
 
 @subsubheading See Also:
 
@@ -3594,11 +3594,11 @@ returns @term{true} if the restart is to be considered visible.
 
 @subsubheading Notes:
 
-@symbolref{restart-bind} is primarily intended to be used to implement
-@symbolref{restart-case} and  might be useful in implementing other
-macros. Programmers who are uncertain about whether to use @symbolref{restart-case}
-or @symbolref{restart-bind} should prefer @symbolref{restart-case} for the cases where
-it is powerful enough, using @symbolref{restart-bind} only in cases where its full
+@symbolref{restart-bind, SYM} is primarily intended to be used to implement
+@symbolref{restart-case, SYM} and  might be useful in implementing other
+macros. Programmers who are uncertain about whether to use @symbolref{restart-case, SYM}
+or @symbolref{restart-bind, SYM} should prefer @symbolref{restart-case, SYM} for the cases where
+it is powerful enough, using @symbolref{restart-bind, SYM} only in cases where its full
 generality is really needed.
 
 
@@ -3643,40 +3643,40 @@ or @nil{}.
 
 @subsubheading Description:
 
-@symbolref{restart-case} evaluates @param{restartable-form} in a @term{dynamic environment}
+@symbolref{restart-case, SYM} evaluates @param{restartable-form} in a @term{dynamic environment}
 where the clauses have special meanings as points to which control may be transferred.
 If @param{restartable-form} finishes executing and returns any values,
-all values returned are returned by @symbolref{restart-case} and
+all values returned are returned by @symbolref{restart-case, SYM} and
 processing has completed. While @param{restartable-form} is executing, any code may
-transfer control to one of the clauses (see @symbolref{invoke-restart}).
+transfer control to one of the clauses (see @symbolref{invoke-restart, SYM}).
 If a transfer
 occurs, the forms in the body of that clause is evaluated and any values
 returned by the last such form are returned by
-@symbolref{restart-case}.
+@symbolref{restart-case, SYM}.
 In this case, the
 dynamic state is unwound appropriately (so that the restarts established
 around the @param{restartable-form} are no longer active) prior to execution of the
 clause.
 
 If there are no @param{forms}
-in a selected clause, @symbolref{restart-case} returns @nil{}.
+in a selected clause, @symbolref{restart-case, SYM} returns @nil{}.
 
 If @param{case-name} is a @term{symbol}, it names this restart.
 
 It is possible to have more than one clause use the same @param{case-name}.
-In this case, the first clause with that name is found by @symbolref{find-restart}.
-The other clauses are accessible using @symbolref{compute-restarts}.
+In this case, the first clause with that name is found by @symbolref{find-restart, SYM}.
+The other clauses are accessible using @symbolref{compute-restarts, SYM}.
 
 Each @param{arglist} is an @term{ordinary lambda list} to be bound during the
 execution of its corresponding @param{forms}.  These parameters are used
-by the @symbolref{restart-case} clause to receive any necessary data from a call
-to @symbolref{invoke-restart}.
+by the @symbolref{restart-case, SYM} clause to receive any necessary data from a call
+to @symbolref{invoke-restart, SYM}.
 
-By default, @symbolref{invoke-restart-interactively} passes no arguments and
+By default, @symbolref{invoke-restart-interactively, SYM} passes no arguments and
 all arguments must be optional in order to accomodate interactive
 restarting.  However, the arguments need not be optional if the
 @kwd{interactive}
-keyword has been used to inform @symbolref{invoke-restart-interactively}
+keyword has been used to inform @symbolref{invoke-restart-interactively, SYM}
 about how to compute a proper argument list.
 
 @param{Keyword} options have the following meaning.
@@ -3690,8 +3690,8 @@ must be a suitable argument to @code{function}.
 @f{(function @param{value})} is evaluated in the current lexical
 environment.  It should return a @term{function} of no arguments which
 returns arguments to be used by
-@symbolref{invoke-restart-interactively} when it is invoked.
-@symbolref{invoke-restart-interactively}
+@symbolref{invoke-restart-interactively, SYM} when it is invoked.
+@symbolref{invoke-restart-interactively, SYM}
 is called in the dynamic
 environment available prior to any restart attempt, and uses
 @term{query I/O} for user interaction.
@@ -3710,7 +3710,7 @@ must be acceptable to @code{function}.
 environment.  It should return a @term{function} of one
 argument, a @term{stream}, which prints on the @term{stream} a
 description of the restart.  This @term{function} is called
-whenever the restart is printed while @symbolref{*print-escape*} is @nil{}.
+whenever the restart is printed while @symbolref{*print-escape*, SYM} is @nil{}.
 
 If @param{value} is a @term{string}, it is a shorthand for
 
@@ -3722,7 +3722,7 @@ If @param{value} is a @term{string}, it is a shorthand for
 If a named restart is asked to report but no report information has been
 supplied, the name of the restart is used in generating default report text.
 
-When @symbolref{*print-escape*} is @nil{}, the
+When @symbolref{*print-escape*, SYM} is @nil{}, the
 printer uses the report information for
 a restart.  For example, a debugger might announce the action of typing
 a ``continue'' command by:
@@ -3756,9 +3756,9 @@ The default for this option is equivalent to @f{(lambda (c) (declare (ignore c))
 
 
 If the @param{restartable-form} is a @term{list} whose @term{car} is any of
-the @term{symbols} @symbolref{signal}, @code{error}, @symbolref{cerror},
-or @symbolref{warn} (or is a @term{macro form} which macroexpands into such a
-@term{list}), then @symbolref{with-condition-restarts} is used implicitly
+the @term{symbols} @symbolref{signal, SYM}, @code{error}, @symbolref{cerror, SYM},
+or @symbolref{warn, SYM} (or is a @term{macro form} which macroexpands into such a
+@term{list}), then @symbolref{with-condition-restarts, SYM} is used implicitly
 to associate the indicated @term{restarts} with the @term{condition} to be
 signaled.
 
@@ -3981,7 +3981,7 @@ the @param{condition}.  See @ref{Associating a Restart with a Condition}.
 @subsubheading Notes:
 
 Usually this @term{macro} is not used explicitly in code,
-since @symbolref{restart-case} handles most of the common cases
+since @symbolref{restart-case, SYM} handles most of the common cases
 in a way that is syntactically more concise.
 
 
@@ -4013,12 +4013,12 @@ two values---@nil{}@spc{}and @code{t}.
 
 @subsubheading Description:
 
-@symbolref{with-simple-restart} establishes a restart.
+@symbolref{with-simple-restart, SYM} establishes a restart.
 
 If the restart designated by @param{name} is not invoked while executing @param{forms},
 all values returned by the last of @param{forms} are returned.
 If the restart designated by @param{name} is invoked,
-control is transferred to @symbolref{with-simple-restart},
+control is transferred to @symbolref{with-simple-restart, SYM},
 which returns two values, @nil{}@spc{}and @code{t}.
 
 If @param{name} is @nil{}, an anonymous restart is established.
@@ -4078,10 +4078,10 @@ COMPUTE-POWER-OF-2
 
 @subsubheading Notes:
 
-@symbolref{with-simple-restart} is shorthand for one of the most
-common uses of @symbolref{restart-case}.
+@symbolref{with-simple-restart, SYM} is shorthand for one of the most
+common uses of @symbolref{restart-case, SYM}.
 
-@symbolref{with-simple-restart} could be defined by:
+@symbolref{with-simple-restart, SYM} could be defined by:
 
 @lisp
  (defmacro with-simple-restart ((restart-name format-control
@@ -4147,7 +4147,7 @@ None.
 
 @Therestart{continue} is generally part of protocols where there is
 a single ``obvious'' way to continue, such as in
-@symbolref{break} and @symbolref{cerror}.  Some
+@symbolref{break, SYM} and @symbolref{cerror, SYM}.  Some
 user-defined protocols may also wish to incorporate it for similar reasons.
 In general, however, it is more reliable to design a special purpose restart
 with a name that more directly suits the particular application.
@@ -4188,8 +4188,8 @@ None.
 
 @subsubheading Description:
 
-This @term{restart} is established by @symbolref{warn} so that @term{handlers}
-of @symbolref{warning} @term{conditions} have a way to tell @symbolref{warn}
+This @term{restart} is established by @symbolref{warn, SYM} so that @term{handlers}
+of @symbolref{warning, SYM} @term{conditions} have a way to tell @symbolref{warn, SYM}
 that a warning has already been dealt with and that no further action is warranted.
 
 @subsubheading Examples:
@@ -4248,8 +4248,8 @@ a value to use instead (on an ongoing basis).
 @subsubheading Description:
 
 @Therestart{store-value} is generally used by @term{handlers}
-trying to recover from errors of @term{types} such as @symbolref{cell-error}
-or @symbolref{type-error}, which may wish to supply a replacement datum to
+trying to recover from errors of @term{types} such as @symbolref{cell-error, SYM}
+or @symbolref{type-error, SYM}, which may wish to supply a replacement datum to
 be stored permanently.
 
 @subsubheading Examples:
@@ -4294,7 +4294,7 @@ a value to use instead (once).
 @subsubheading Description:
 
 @Therestart{use-value} is generally used by @term{handlers} trying
-to recover from errors of @term{types} such as @symbolref{cell-error},
+to recover from errors of @term{types} such as @symbolref{cell-error, SYM},
 where the handler may wish to supply a replacement datum for one-time use.
 
 @subsubheading See Also:

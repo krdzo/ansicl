@@ -73,7 +73,7 @@ to the creation of and inquiry about @term{symbols}.
 
 
 @subsubheading Class Precedence List:
-@symbolref{symbol},
+@symbolref{symbol, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -145,10 +145,10 @@ associating named attributes with that @term{symbol}.
 The operations for adding and removing entries are @term{destructive}
 to the @term{property list}.  @clisp{}@spc{}provides @term{operators} both for
 direct manipulation of @term{property list} @term{objects}
-(@eg{} see @symbolref{getf}, @symbolref{remf}, and @symbolref{symbol-plist})
+(@eg{} see @symbolref{getf, SYM}, @symbolref{remf, SYM}, and @symbolref{symbol-plist, SYM})
 and for implicit manipulation of a @term{symbol}'s @term{property list}
 by reference to the @term{symbol}
-(@eg{} see @symbolref{get} and @symbolref{remprop}).
+(@eg{} see @symbolref{get, SYM} and @symbolref{remprop, SYM}).
 The @term{property list} associated with a @term{fresh} @term{symbol} is
 initially @term{null}.
 
@@ -175,8 +175,8 @@ If the @term{symbol} is the @term{name} of a @term{function} in the @term{global
 the @term{function cell} contains the @term{function},
 and can be @term{accessed} by @thefunction{symbol-function}.
 If the @term{symbol} is the @term{name} of either
-a @term{macro} in the @term{global environment} (see @symbolref{macro-function})
-or a @term{special operator} (see @symbolref{special-operator-p}),
+a @term{macro} in the @term{global environment} (see @symbolref{macro-function, SYM})
+or a @term{special operator} (see @symbolref{special-operator-p, SYM}),
 the @term{symbol} is @term{fbound},
 and can be @term{accessed} by @thefunction{symbol-function},
 but the @term{object} which the @term{function cell}
@@ -215,8 +215,8 @@ on a lexical @term{function} definition.
 
 @subsubheading Supertypes:
 
-@symbolref{keyword},
-@symbolref{symbol},
+@symbolref{keyword, SYM},
+@symbolref{symbol, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -347,7 +347,7 @@ of the @code{KEYWORD} @term{package}.
 
 @subsubheading Description:
 
-@symbolref{make-symbol} creates and returns a @term{fresh}, @term{uninterned}
+@symbolref{make-symbol, SYM} creates and returns a @term{fresh}, @term{uninterned}
 @term{symbol} whose @term{name} is the given @param{name}.
 The @param{new-symbol} is neither @term{bound} nor @term{fbound}
 and has a @term{null} @term{property list}.
@@ -381,7 +381,7 @@ subsequent attempt is made to alter that @term{string}.
 
 @subsubheading Notes:
 
-No attempt is made by @symbolref{make-symbol} to convert the case
+No attempt is made by @symbolref{make-symbol, SYM} to convert the case
 of the @term{name} to uppercase.  The only case conversion which ever
 occurs for @term{symbols} is done by the @term{Lisp reader}.
 The program interface to @term{symbol} creation retains case,
@@ -409,8 +409,8 @@ and the program interface to interning symbols is case-sensitive.
 
 @subsubheading Description:
 
-@symbolref{copy-symbol} returns a @term{fresh}, @term{uninterned} @term{symbol},
-the @term{name} of which is @symbolref{string=} to and possibly the @term{same} as
+@symbolref{copy-symbol, SYM} returns a @term{fresh}, @term{uninterned} @term{symbol},
+the @term{name} of which is @symbolref{string=, SYM} to and possibly the @term{same} as
 the @term{name} of the given @param{symbol}.
 
 If @param{copy-properties} is @term{false},
@@ -489,8 +489,8 @@ be @term{identical} to the given @param{symbol}'s @term{name}.
 @subsubheading Description:
 
 Creates and returns a @term{fresh}, @term{uninterned} @term{symbol},
-as if by calling @symbolref{make-symbol}.  (The only difference between
-@symbolref{gensym} and @symbolref{make-symbol} is in how the @param{new-symbol}'s
+as if by calling @symbolref{make-symbol, SYM}.  (The only difference between
+@symbolref{gensym, SYM} and @symbolref{make-symbol, SYM} is in how the @param{new-symbol}'s
 @term{name} is determined.)
 
 The @term{name} of the @param{new-symbol} is the concatenation
@@ -499,14 +499,14 @@ a suffix, which is the decimal representation of a number that
 defaults to @thevalueof{*gensym-counter*}.
 
 If @param{x} is supplied, and is a @term{string}, then that @term{string}
-is used as a prefix instead of @f{"G"} for this call to @symbolref{gensym} only.
+is used as a prefix instead of @f{"G"} for this call to @symbolref{gensym, SYM} only.
 
 If @param{x} is supplied, and is an @term{integer}, then that @term{integer},
 instead of @thevalueof{*gensym-counter*}, is used as the suffix
-for this call to @symbolref{gensym} only.
+for this call to @symbolref{gensym, SYM} only.
 
 If and only if no explicit suffix is supplied,
-@symbolref{*gensym-counter*} is incremented after it is used.
+@symbolref{*gensym-counter*, SYM} is incremented after it is used.
 
 @subsubheading Examples:
 
@@ -524,11 +524,11 @@ If and only if no explicit suffix is supplied,
 
 @subsubheading Side Effects:
 
-Might increment @symbolref{*gensym-counter*}.
+Might increment @symbolref{*gensym-counter*, SYM}.
 
 @subsubheading Affected By:
 
-@symbolref{*gensym-counter*}
+@symbolref{*gensym-counter*, SYM}
 
 @subsubheading Exceptional Situations:
 
@@ -541,13 +541,13 @@ Might increment @symbolref{*gensym-counter*}.
 
 @subsubheading Notes:
 
-The ability to pass a numeric argument to @symbolref{gensym} has been deprecated;
-explicitly @term{binding} @symbolref{*gensym-counter*} is now stylistically preferred.
+The ability to pass a numeric argument to @symbolref{gensym, SYM} has been deprecated;
+explicitly @term{binding} @symbolref{*gensym-counter*, SYM} is now stylistically preferred.
 (The somewhat baroque conventions for the optional argument are historical
 in nature, and supported primarily for compatibility with older dialects
 of @Lisp{}.   In modern code, it is recommended that the only kind of argument
 used be a string prefix.  In general, though, to obtain more flexible control
-of the @param{new-symbol}'s @term{name}, consider using @symbolref{make-symbol} instead.)
+of the @param{new-symbol}'s @term{name}, consider using @symbolref{make-symbol, SYM} instead.)
 
 
 @node *gensym-counter*
@@ -569,12 +569,12 @@ a non-negative @term{integer}.
 A number which will be used in constructing the @term{name} of
 the next @term{symbol} generated by @thefunction{gensym}.
 
-@symbolref{*gensym-counter*} can be either @term{assigned} or @term{bound}
+@symbolref{*gensym-counter*, SYM} can be either @term{assigned} or @term{bound}
 at any time, but its value must always be a non-negative @term{integer}.
 
 @subsubheading Affected By:
 
-@symbolref{gensym}.
+@symbolref{gensym, SYM}.
 
 @subsubheading See Also:
 
@@ -582,8 +582,8 @@ at any time, but its value must always be a non-negative @term{integer}.
 
 @subsubheading Notes:
 
-The ability to pass a numeric argument to @symbolref{gensym} has been deprecated;
-explicitly @term{binding} @symbolref{*gensym-counter*} is now stylistically preferred.
+The ability to pass a numeric argument to @symbolref{gensym, SYM} has been deprecated;
+explicitly @term{binding} @symbolref{*gensym-counter*, SYM} is now stylistically preferred.
 
 @node gentemp
 @subsection gentemp (Function)
@@ -607,7 +607,7 @@ explicitly @term{binding} @symbolref{*gensym-counter*} is now stylistically pref
 
 @subsubheading Description:
 
-@symbolref{gentemp} creates and returns a @term{fresh} @term{symbol},
+@symbolref{gentemp, SYM} creates and returns a @term{fresh} @term{symbol},
 @term{interned} in the indicated @param{package}.
 The @term{symbol} is guaranteed to be one that was not previously
 @term{accessible} in @param{package}.
@@ -616,7 +616,7 @@ It is neither @term{bound} nor @term{fbound}, and has a @term{null}
 
 The @term{name} of the @param{new-symbol} is the concatenation
 of the @param{prefix} and a suffix, which is taken from an internal
-counter used only by @symbolref{gentemp}.  (If a @term{symbol} by that name
+counter used only by @symbolref{gentemp, SYM}.  (If a @term{symbol} by that name
 is already @term{accessible} in @param{package}, the counter is incremented as
 many times as is necessary to produce a @term{name} that is not already the
 @term{name} of a @term{symbol} @term{accessible} in @param{package}.)
@@ -657,24 +657,24 @@ the current state of the @param{package}.
 
 @subsubheading Notes:
 
-The function @symbolref{gentemp} is deprecated.
+The function @symbolref{gentemp, SYM} is deprecated.
 
 If @param{package} is the @code{KEYWORD} @term{package},
 the result is an @term{external symbol} of @param{package}.
 Otherwise, the result is an @term{internal symbol} of @param{package}.
 
-The @symbolref{gentemp} internal counter is independent of
-@symbolref{*gensym-counter*}, the counter used by @symbolref{gensym}.
-There is no provision for accessing the @symbolref{gentemp} internal counter.
+The @symbolref{gentemp, SYM} internal counter is independent of
+@symbolref{*gensym-counter*, SYM}, the counter used by @symbolref{gensym, SYM}.
+There is no provision for accessing the @symbolref{gentemp, SYM} internal counter.
 
-Just because @symbolref{gentemp} creates a @term{symbol} which did not
+Just because @symbolref{gentemp, SYM} creates a @term{symbol} which did not
 previously exist does not mean that such a @term{symbol} might not be
 seen in the future (@eg{} in a data file---perhaps even created by the
 same program in another session).  As such, this symbol is not truly
 unique in the same sense as a @term{gensym} would be.  In particular,
 programs which do automatic code generation should be careful not to
 attach global attributes to such generated @term{symbols} (@eg{}
-@symbolref{special} @term{declarations}) and then write them into a file
+@symbolref{special, SYM} @term{declarations}) and then write them into a file
 because such global attributes might, in a different session, end up
 applying to other @term{symbols} that were automatically generated on
 another day for some other purpose.
@@ -750,13 +750,13 @@ a @term{function} @term{object} is returned.
 
 @subsubheading Affected By:
 
-@symbolref{defun}
+@symbolref{defun, SYM}
 
 @subsubheading Exceptional Situations:
 
 @Shouldchecktype{symbol, a @term{symbol}}
 
-Should signal @symbolref{undefined-function} if @param{symbol} is not @term{fbound}
+Should signal @symbolref{undefined-function, SYM} if @param{symbol} is not @term{fbound}
 and an attempt is made to @term{read} its definition.  (No such error is signaled
 on an attempt to @term{write} its definition.)
 
@@ -768,12 +768,12 @@ on an attempt to @term{write} its definition.)
 @ref{special-operator-p}
 
 @subsubheading Notes:
-@symbolref{symbol-function} cannot @term{access} the value of a lexical function name
-produced by @symbolref{flet} or @symbolref{labels}; it can @term{access} only
+@symbolref{symbol-function, SYM} cannot @term{access} the value of a lexical function name
+produced by @symbolref{flet, SYM} or @symbolref{labels, SYM}; it can @term{access} only
 the global function value.
 
-@symbolref{setf} may be used with
-@symbolref{symbol-function} to replace a global function
+@symbolref{setf, SYM} may be used with
+@symbolref{symbol-function, SYM} to replace a global function
 definition when the @term{symbol}'s function definition
 does not represent a @term{special operator}.
 
@@ -781,7 +781,7 @@ does not represent a @term{special operator}.
 (symbol-function @param{symbol}) @EQ{} (fdefinition @param{symbol})
 @end lisp
 
-However, @symbolref{fdefinition} accepts arguments other than just @term{symbols}.
+However, @symbolref{fdefinition, SYM} accepts arguments other than just @term{symbols}.
 
 
 @node symbol-name
@@ -802,7 +802,7 @@ However, @symbolref{fdefinition} accepts arguments other than just @term{symbols
 
 @subsubheading Description:
 
-@symbolref{symbol-name} returns the @term{name} of @param{symbol}.
+@symbolref{symbol-name, SYM} returns the @term{name} of @param{symbol}.
 The consequences are undefined if @param{name} is ever modified.
 
 @subsubheading Examples:
@@ -870,9 +870,9 @@ Returns the @term{home package} of @param{symbol}.
 
 @subsubheading Affected By:
 
-@symbolref{import},
-@symbolref{intern},
-@symbolref{unintern}
+@symbolref{import, SYM},
+@symbolref{intern, SYM},
+@symbolref{unintern, SYM}
 
 @subsubheading Exceptional Situations:
 
@@ -929,7 +929,7 @@ Returns the @term{home package} of @param{symbol}.
 
 @subsubheading Notes:
 
-The use of @symbolref{setf} should be avoided, since a @term{symbol}'s
+The use of @symbolref{setf, SYM} should be avoided, since a @term{symbol}'s
 @term{property list} is a global resource that can contain information
 established and depended upon by unrelated programs in the same @term{Lisp image}.
 
@@ -992,15 +992,15 @@ established and depended upon by unrelated programs in the same @term{Lisp image
 
 @subsubheading Affected By:
 
-@symbolref{makunbound},
-@symbolref{set},
-@symbolref{setq}
+@symbolref{makunbound, SYM},
+@symbolref{set, SYM},
+@symbolref{setq, SYM}
 
 @subsubheading Exceptional Situations:
 
 @Shouldchecktype{symbol, a @term{symbol}}
 
-Should signal @symbolref{unbound-variable} if @param{symbol} is @term{unbound}
+Should signal @symbolref{unbound-variable, SYM} if @param{symbol} is @term{unbound}
 and an attempt is made to @term{read} its @term{value}.  (No such error is signaled
 on an attempt to @term{write} its @term{value}.)
 
@@ -1010,8 +1010,8 @@ on an attempt to @term{write} its @term{value}.)
 
 @subsubheading Notes:
 
-@symbolref{symbol-value} can be used to get the value of a @term{constant variable}.
-@symbolref{symbol-value} cannot @term{access} the value of a @term{lexical variable}.
+@symbolref{symbol-value, SYM} can be used to get the value of a @term{constant variable}.
+@symbolref{symbol-value, SYM} cannot @term{access} the value of a @term{lexical variable}.
 
 
 @node get
@@ -1042,22 +1042,22 @@ otherwise, the specified @param{default}.
 
 @subsubheading Description:
 
-@symbolref{get} finds a @term{property}
+@symbolref{get, SYM} finds a @term{property}
 on the @term{property list}@sub{2} of @param{symbol}
 whose @term{property indicator} is @term{identical} to @param{indicator},
 and returns its corresponding @term{property value}.
 If there are multiple @term{properties}@sub{1} with that @term{property indicator},
-@symbolref{get} uses the first such @term{property}.
+@symbolref{get, SYM} uses the first such @term{property}.
 If there is no @term{property} with that @term{property indicator},
 @param{default} is returned.
 
-@symbolref{setf} of @symbolref{get} may be used to associate a new @term{object}
+@symbolref{setf, SYM} of @symbolref{get, SYM} may be used to associate a new @term{object}
 with an existing indicator already on the @param{symbol}'s @term{property list},
 or to create a new assocation if none exists.
 If there are multiple @term{properties}@sub{1} with that @term{property indicator},
-@symbolref{setf} of @symbolref{get} associates the @param{new-value}
+@symbolref{setf, SYM} of @symbolref{get, SYM} associates the @param{new-value}
 with the first such @term{property}.
-When a @symbolref{get} @term{form} is used as a @symbolref{setf} @param{place},
+When a @symbolref{get, SYM} @term{form} is used as a @symbolref{setf, SYM} @param{place},
 any @param{default} which is supplied is evaluated according to normal
 left-to-right evaluation rules, but its @term{value} is ignored.
 
@@ -1113,13 +1113,13 @@ left-to-right evaluation rules, but its @term{value} is ignored.
 
 
 @term{Numbers} and @term{characters} are not recommended for use
-as @param{indicators} in portable code since @symbolref{get} tests
-with @symbolref{eq} rather than @code{eql}, and consequently
+as @param{indicators} in portable code since @symbolref{get, SYM} tests
+with @symbolref{eq, SYM} rather than @code{eql}, and consequently
 the effect of using such @param{indicators} is
 @term{implementation-dependent}.
 
-There is no way using @symbolref{get} to distinguish an absent property from
-one whose value is @param{default}.  However, see @symbolref{get-properties}.
+There is no way using @symbolref{get, SYM} to distinguish an absent property from
+one whose value is @param{default}.  However, see @symbolref{get-properties, SYM}.
 
 
 
@@ -1143,19 +1143,19 @@ one whose value is @param{default}.  However, see @symbolref{get-properties}.
 
 @subsubheading Description:
 
-@symbolref{remprop} removes from the @term{property list}@sub{2} of @param{symbol}
+@symbolref{remprop, SYM} removes from the @term{property list}@sub{2} of @param{symbol}
 a @term{property}@sub{1} with a @term{property indicator}
 @term{identical} to @param{indicator}.
 If there are multiple @term{properties}@sub{1} with the @term{identical} key,
-@symbolref{remprop} only removes the first such @term{property}.
-@symbolref{remprop} returns @term{false} if no such @term{property} was found,
+@symbolref{remprop, SYM} only removes the first such @term{property}.
+@symbolref{remprop, SYM} returns @term{false} if no such @term{property} was found,
 or @term{true} if a property was found.
 
 The @term{property indicator}
 and the corresponding @term{property value}
 are removed in an undefined order
 by destructively splicing the property list.
-The permissible side-effects correspond to those permitted for @symbolref{remf},
+The permissible side-effects correspond to those permitted for @symbolref{remf, SYM},
 such that:
 
 @lisp
@@ -1206,12 +1206,12 @@ The @term{property list} of @param{symbol} is modified.
 @subsubheading Notes:
 
 @term{Numbers} and @term{characters} are not recommended for use as
-@param{indicators} in portable code since @symbolref{remprop} tests with
-@symbolref{eq} rather than @code{eql}, and consequently the effect of
+@param{indicators} in portable code since @symbolref{remprop, SYM} tests with
+@symbolref{eq, SYM} rather than @code{eql}, and consequently the effect of
 using such @param{indicators} is @term{implementation-dependent}.
 Of course, if you've gotten as far as needing to remove such a
 @term{property}, you don't have much choice---the time to have been
-thinking about this was when you used @symbolref{setf} of @symbolref{get} to
+thinking about this was when you used @symbolref{setf, SYM} of @symbolref{get, SYM} to
 establish the @term{property}.
 
 
@@ -1326,7 +1326,7 @@ The @term{value cell} of @param{symbol} is modified.
 
 @subsubheading Description:
 
-@symbolref{set} changes the contents of the @term{value cell} of @term{symbol}
+@symbolref{set, SYM} changes the contents of the @term{value cell} of @term{symbol}
 to the given @term{value}.
 
 @lisp
@@ -1382,9 +1382,9 @@ The @term{value} of @param{symbol} is changed.
 
 @subsubheading Notes:
 
-The function @symbolref{set} is deprecated.
+The function @symbolref{set, SYM} is deprecated.
 
-@symbolref{set} cannot change the value of a @term{lexical variable}.
+@symbolref{set, SYM} cannot change the value of a @term{lexical variable}.
 
 
 @node unbound-variable
@@ -1394,11 +1394,11 @@ The function @symbolref{set} is deprecated.
 
 
 @subsubheading Class Precedence List:
-@symbolref{unbound-variable},
-@symbolref{cell-error},
+@symbolref{unbound-variable, SYM},
+@symbolref{cell-error, SYM},
 @code{error},
-@symbolref{serious-condition},
-@symbolref{condition},
+@symbolref{serious-condition, SYM},
+@symbolref{condition, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -1406,7 +1406,7 @@ The function @symbolref{set} is deprecated.
 @Thetype{unbound-variable} consists of @term{error} @term{conditions}
 that represent attempts to @term{read} the @term{value} of an @term{unbound variable}.
 
-The name of the cell (see @symbolref{cell-error}) is the @term{name} of the
+The name of the cell (see @symbolref{cell-error, SYM}) is the @term{name} of the
 @term{variable} that was @term{unbound}.
 
 @subsubheading See Also:

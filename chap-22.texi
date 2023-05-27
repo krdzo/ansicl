@@ -21,13 +21,13 @@
 
 @clisp{}@spc{}provides a representation of most @term{objects} in the form
 of printed text called the printed representation.
-Functions such as @symbolref{print} take an @term{object}
+Functions such as @symbolref{print, SYM} take an @term{object}
 and send the characters of its printed representation to a @term{stream}.
 The collection of routines that does this is known as the (@clisp{}) printer.
 
 Reading a printed representation
 typically
-produces an @term{object} that is @symbolref{equal} to the
+produces an @term{object} that is @symbolref{equal, SYM} to the
 originally printed @term{object}.
 
 @node Multiple Possible Textual Representations
@@ -58,7 +58,7 @@ from the point of view of the @term{Lisp reader},
 wherever @term{whitespace} is permissible in a textual representation,
 any number of @term{spaces} and @term{newlines} can appear in @term{standard syntax}.
 
-When a function such as @symbolref{print} produces a printed representation,
+When a function such as @symbolref{print, SYM} produces a printed representation,
 it must choose
 from among many possible textual representations.
 In most cases, it chooses a
@@ -121,12 +121,12 @@ many of the individual aspects controlled by the other
 is especially important.
 
 One of the many effects of making @thevalueof{*print-readably*} be @term{true}
-is that the @term{Lisp printer} behaves as if @symbolref{*print-escape*} were also @term{true}.
+is that the @term{Lisp printer} behaves as if @symbolref{*print-escape*, SYM} were also @term{true}.
 For notational convenience, we say that
-if the value of either @symbolref{*print-readably*} or @symbolref{*print-escape*} is @term{true},
+if the value of either @symbolref{*print-readably*, SYM} or @symbolref{*print-escape*, SYM} is @term{true},
 then @newterm{printer escaping} is ``enabled'';
 and we say that
-if the values of both @symbolref{*print-readably*} and @symbolref{*print-escape*} are @term{false},
+if the values of both @symbolref{*print-readably*, SYM} and @symbolref{*print-escape*, SYM} are @term{false},
 then @term{printer escaping} is ``disabled''.
 
 
@@ -144,7 +144,7 @@ printing is controlled by the @term{current pprint dispatch table};
 see @ref{Pretty Print Dispatch Tables}.
 
 Otherwise (if @thevalueof{*print-pretty*} is @term{false}),
-the object's @symbolref{print-object} method is used;
+the object's @symbolref{print-object, SYM} method is used;
 see @ref{Default Print-Object Methods}.
 
 
@@ -152,7 +152,7 @@ see @ref{Default Print-Object Methods}.
 @subsection Default Print-Object Methods
 
 This section describes the default behavior of
-@symbolref{print-object} methods for the @term{standardized} @term{types}.
+@symbolref{print-object, SYM} methods for the @term{standardized} @term{types}.
 
 @node Printing Numbers
 @subsubsection Printing Numbers
@@ -163,7 +163,7 @@ This section describes the default behavior of
 
 @term{Integers} are printed in the radix specified by the @term{current output base}
 in positional notation, most significant digit first.
-If appropriate, a radix specifier can be printed; see @symbolref{*print-radix*}.
+If appropriate, a radix specifier can be printed; see @symbolref{*print-radix*, SYM}.
 If an @term{integer} is negative, a minus sign is printed and then the
 absolute value of the @term{integer} is printed.
 The @term{integer} zero is represented
@@ -184,10 +184,10 @@ the absolute value of the numerator is printed, as for an @term{integer};
 then a @f{/}; then the denominator.  The numerator and denominator are
 both printed in the radix specified by the @term{current output base};
 they are obtained as if by
-@symbolref{numerator} and @symbolref{denominator}, and so @term{ratios}
+@symbolref{numerator, SYM} and @symbolref{denominator, SYM}, and so @term{ratios}
 are printed in reduced form (lowest terms).
 If appropriate, a radix specifier can be printed; see
-@symbolref{*print-radix*}.
+@symbolref{*print-radix*, SYM}.
 If the ratio is negative, a minus sign is printed before the numerator.
 
 For related information about the syntax of a @term{ratio},
@@ -205,11 +205,11 @@ followed by the fractional part of the number;
 there is always at least one
 digit on each side of the decimal point.
 If the sign of the number
-(as determined by @symbolref{float-sign})
+(as determined by @symbolref{float-sign, SYM})
 is negative, then a minus sign is printed before the number.
 If the format of the number
 does not match that specified by
-@symbolref{*read-default-float-format*}, then the @term{exponent marker} for
+@symbolref{*read-default-float-format*, SYM}, then the @term{exponent marker} for
 that format and the digit @f{0} are also printed.
 For example, the base of the natural logarithms as a @term{short float}
 might be printed as @f{2.71828S0}.
@@ -222,7 +222,7 @@ before the decimal point and at least one digit after the decimal point.
 Next the @term{exponent marker} for the format is printed,
 except that
 if the format of the number matches that specified by
-@symbolref{*read-default-float-format*}, then the @term{exponent marker} @f{E}
+@symbolref{*read-default-float-format*, SYM}, then the @term{exponent marker} @f{E}
 is used.
 Finally, the power of ten by which the fraction must be multiplied
 to equal the original number is printed as a decimal integer.
@@ -281,7 +281,7 @@ For details about the @f{#@bsl{}} @term{reader macro}, see @ref{Sharpsign Backsl
 When @term{printer escaping} is disabled,
 only the characters of the @term{symbol}'s @term{name} are output
 (but the case in which to print characters in the @term{name} is
-controlled by @symbolref{*print-case*};
+controlled by @symbolref{*print-case*, SYM};
 see @ref{Effect of Readtable Case on the Lisp Printer}).
 
 The remainder of this section @spc{}applies only
@@ -290,8 +290,8 @@ when @term{printer escaping} is enabled.
 When printing a @term{symbol}, the printer inserts enough
 @term{single escape} and/or @term{multiple escape}
 characters (@term{backslashes} and/or @term{vertical-bars}) so that if
-@symbolref{read} were called with the same @symbolref{*readtable*} and
-with @symbolref{*read-base*} bound to the @term{current output base}, it
+@symbolref{read, SYM} were called with the same @symbolref{*readtable*, SYM} and
+with @symbolref{*read-base*, SYM} bound to the @term{current output base}, it
 would return the same @term{symbol} (if it is not
 @term{apparently uninterned}) or an @term{uninterned} @term{symbol}
 with the same @term{print name} (otherwise).
@@ -309,7 +309,7 @@ For information about how the @term{Lisp reader} parses @term{symbols},
 see @ref{Sharpsign Colon}.
 
 @nil{}@spc{}might be printed as @f{()}
-when @symbolref{*print-pretty*} is @term{true}
+when @symbolref{*print-pretty*, SYM} is @term{true}
 and @term{printer escaping} is enabled.
 
 @node Package Prefixes for Symbols
@@ -325,14 +325,14 @@ it is @term{accessible} in the @term{current package}, it is printed without any
 
 A @term{symbol} that is @term{apparently uninterned} is printed
 preceded by ``@f{#:}''
-if @symbolref{*print-gensym*} is @term{true} and @term{printer escaping} is enabled;
-if @symbolref{*print-gensym*} is @term{false} or @term{printer escaping} is disabled,
+if @symbolref{*print-gensym*, SYM} is @term{true} and @term{printer escaping} is enabled;
+if @symbolref{*print-gensym*, SYM} is @term{false} or @term{printer escaping} is disabled,
 then the @term{symbol} is printed without a prefix,
 as if it were in the @term{current package}.
 
 Because the @f{#:} syntax does not intern the
 following symbol, it is necessary to use circular-list syntax
-if @symbolref{*print-circle*} is @term{true} and
+if @symbolref{*print-circle*, SYM} is @term{true} and
 the same uninterned symbol appears several times in an expression
 to be printed.  For example, the result of
 
@@ -340,8 +340,8 @@ to be printed.  For example, the result of
  (let ((x (make-symbol "FOO"))) (list x x))
 @end lisp
 
-would be printed as @f{(#:foo #:foo)} if @symbolref{*print-circle*}
-were @term{false}, but as @f{(#1=#:foo #1#)} if @symbolref{*print-circle*}
+would be printed as @f{(#:foo #:foo)} if @symbolref{*print-circle*, SYM}
+were @term{false}, but as @f{(#1=#:foo #1#)} if @symbolref{*print-circle*, SYM}
 were @term{true}.
 
 A summary of the preceding package prefix rules follows:
@@ -397,7 +397,7 @@ in the following ways:
 
 When the @term{readtable case} is @kwd{upcase},
 @term{uppercase} @term{characters}
-are printed in the case specified by @symbolref{*print-case*}, and
+are printed in the case specified by @symbolref{*print-case*, SYM}, and
 @term{lowercase} @term{characters} are printed in their own case.
 
 @item @id{@kwd{downcase}}
@@ -406,7 +406,7 @@ are printed in the case specified by @symbolref{*print-case*}, and
 When the @term{readtable case} is @kwd{downcase},
 @term{uppercase} @term{characters} are printed in their own case, and
 @term{lowercase} @term{characters}
-are printed in the case specified by @symbolref{*print-case*}.
+are printed in the case specified by @symbolref{*print-case*, SYM}.
 
 @item @id{@kwd{preserve}}
 
@@ -425,7 +425,7 @@ Mixed-case symbol names are printed as is.
 
 
 The rules for escaping @term{alphabetic} @term{characters} in symbol names are affected by
-the @symbolref{readtable-case}
+the @symbolref{readtable-case, SYM}
 if @term{printer escaping} is enabled.
 @term{Alphabetic} @term{characters} are escaped as follows:
 
@@ -532,7 +532,7 @@ The characters of the @term{string} are output in order.
 If @term{printer escaping} is enabled,
 a @term{double-quote} is output before and after, and all
 @term{double-quotes} and @term{single escapes} are preceded by @term{backslash}.
-The printing of @term{strings} is not affected by @symbolref{*print-array*}.
+The printing of @term{strings} is not affected by @symbolref{*print-array*, SYM}.
 Only the @term{active} @term{elements} of the @term{string} are printed.
 
 For information on how the @term{Lisp reader} parses @term{strings},
@@ -572,9 +572,9 @@ and the @term{cdr} of @mat{x} are printed.
 @end enumerate
 
 
-Actually, the above algorithm is only used when @symbolref{*print-pretty*}
-is @term{false}.  When @symbolref{*print-pretty*} is @term{true} (or
-when @symbolref{pprint} is used),
+Actually, the above algorithm is only used when @symbolref{*print-pretty*, SYM}
+is @term{false}.  When @symbolref{*print-pretty*, SYM} is @term{true} (or
+when @symbolref{pprint, SYM} is used),
 additional @term{whitespace}@sub{1}
 may replace the use of a single @term{space},
 and a more elaborate algorithm with similar goals but more presentational
@@ -592,8 +592,8 @@ always prints such a @term{cons} in the second form.
  (a b (c d) e)
 @end lisp
 
-The printing of @term{conses} is affected by @symbolref{*print-level*},
-@symbolref{*print-length*}, and @symbolref{*print-circle*}.
+The printing of @term{conses} is affected by @symbolref{*print-level*, SYM},
+@symbolref{*print-length*, SYM}, and @symbolref{*print-circle*, SYM}.
 
 @goodbreak{}
 Following are examples of printed representations of @term{lists}:
@@ -625,7 +625,7 @@ see @ref{Left-Parenthesis}.
 @subsubsection Printing Bit Vectors
 
 A @term{bit vector} is printed as @f{#*} followed by the bits of the @term{bit vector}
-in order.  If @symbolref{*print-array*} is @term{false}, then the @term{bit vector} is
+in order.  If @symbolref{*print-array*, SYM} is @term{false}, then the @term{bit vector} is
 printed in a format (using @f{#<}) that is concise but not readable.
 Only the @term{active} @term{elements} of the @term{bit vector} are printed.
 
@@ -638,8 +638,8 @@ see @ref{Sharpsign Asterisk}.
 @node Printing Other Vectors
 @subsubsection Printing Other Vectors
 
-If @symbolref{*print-array*} is @term{true}
-and @symbolref{*print-readably*} is @term{false},
+If @symbolref{*print-array*, SYM} is @term{true}
+and @symbolref{*print-readably*, SYM} is @term{false},
 any
 @term{vector}
 other than a @term{string} or @term{bit vector} is printed using
@@ -650,21 +650,21 @@ The printed representation of a non-zero-length @term{vector} begins with @f{#(}
 Following that, the first element of the @term{vector} is printed.
 If there are any other elements, they are printed in turn, with
 each such additional element preceded by
-a @term{space} if @symbolref{*print-pretty*} is @term{false},
-or @term{whitespace}@sub{1} if @symbolref{*print-pretty*} is @term{true}.
+a @term{space} if @symbolref{*print-pretty*, SYM} is @term{false},
+or @term{whitespace}@sub{1} if @symbolref{*print-pretty*, SYM} is @term{true}.
 A @term{right-parenthesis} after the last element
 terminates the printed representation of the @term{vector}.
 The printing of @term{vectors}
-is affected by @symbolref{*print-level*} and @symbolref{*print-length*}.
+is affected by @symbolref{*print-level*, SYM} and @symbolref{*print-length*, SYM}.
 If the @term{vector} has a @term{fill pointer},
 then only those elements below
 the @term{fill pointer} are printed.
 
-If both @symbolref{*print-array*} and @symbolref{*print-readably*} are @term{false},
+If both @symbolref{*print-array*, SYM} and @symbolref{*print-readably*, SYM} are @term{false},
 the @term{vector} is not printed as described above,
 but in a format (using @f{#<}) that is concise but not readable.
 
-If @symbolref{*print-readably*} is @term{true},
+If @symbolref{*print-readably*, SYM} is @term{true},
 the @term{vector} prints in an @term{implementation-defined} manner;
 see the @term{variable} @ref{*print-readably*}.
 
@@ -674,8 +674,8 @@ see @ref{Sharpsign Left-Parenthesis}.
 @node Printing Other Arrays
 @subsubsection Printing Other Arrays
 
-If  @symbolref{*print-array*} is @term{true}
-and @symbolref{*print-readably*} is @term{false},
+If  @symbolref{*print-array*, SYM} is @term{true}
+and @symbolref{*print-readably*, SYM} is @term{false},
 any
 @term{array} other than a @term{vector} is printed
 using @f{#}@f{n}@f{A} format.
@@ -683,7 +683,7 @@ Let @f{n} be the @term{rank} of the @term{array}.
 Then @f{#} is printed, then @f{n} as a decimal integer,
 then @f{A}, then @f{n} open parentheses.
 Next the @term{elements} are scanned in row-major order,
-using @symbolref{write} on each @term{element},
+using @symbolref{write, SYM} on each @term{element},
 and separating @term{elements} from each other with @term{whitespace}@sub{1}.
 The array's dimensions are numbered 0 to @f{n}-1 from left to right,
 and are enumerated with the rightmost index changing fastest.
@@ -709,21 +709,21 @@ If @f{j} < @f{n}-1, then an open parenthesis is printed.
 
 
 This causes the contents to be printed in a format suitable for
-@kwd{initial-contents} to @symbolref{make-array}.
+@kwd{initial-contents} to @symbolref{make-array, SYM}.
 The lists effectively printed by this procedure are subject to
-truncation by @symbolref{*print-level*} and @symbolref{*print-length*}.
+truncation by @symbolref{*print-level*, SYM} and @symbolref{*print-length*, SYM}.
 
 If the @term{array}
 is of a specialized @term{type}, containing bits or characters,
 then the innermost lists generated by the algorithm given above can instead
 be printed using bit-vector or string syntax, provided that these innermost
-lists would not be subject to truncation by @symbolref{*print-length*}.
+lists would not be subject to truncation by @symbolref{*print-length*, SYM}.
 
-If both @symbolref{*print-array*} and @symbolref{*print-readably*} are @term{false},
+If both @symbolref{*print-array*, SYM} and @symbolref{*print-readably*, SYM} are @term{false},
 then the @term{array} is printed
 in a format (using @f{#<}) that is concise but not readable.
 
-If @symbolref{*print-readably*} is @term{true},
+If @symbolref{*print-readably*, SYM} is @term{true},
 the @term{array} prints in an @term{implementation-defined} manner;
 see the @term{variable} @ref{*print-readably*}.
 In particular,
@@ -757,13 +757,13 @@ see @ref{Sharpsign A}.
 A specific syntax for printing @term{objects} @oftype{random-state} is
 not specified. However, every @term{implementation}
 must arrange to print a @term{random state} @term{object} in such a way that,
-within the same implementation, @symbolref{read}
+within the same implementation, @symbolref{read, SYM}
 can construct from the printed representation a copy of the
 @term{random state}
-object as if the copy had been made by @symbolref{make-random-state}.
+object as if the copy had been made by @symbolref{make-random-state, SYM}.
 
 If the type @term{random state} is effectively implemented
-by using the machinery for @symbolref{defstruct},
+by using the machinery for @symbolref{defstruct, SYM},
 the usual structure syntax can then be used for printing
 @term{random state}
 objects; one might look something like
@@ -780,12 +780,12 @@ where the components are @term{implementation-dependent}.
 
 When @term{printer escaping} is enabled,
 the syntax @f{#P"..."} is how a
-@term{pathname} is printed by @symbolref{write} and the other functions herein described.
+@term{pathname} is printed by @symbolref{write, SYM} and the other functions herein described.
 The @f{"..."} is the namestring representation of the pathname.
 
 
 When @term{printer escaping} is disabled,
-@symbolref{write} writes a @term{pathname} @i{P}
+@symbolref{write, SYM} writes a @term{pathname} @i{P}
 by writing @f{(namestring @i{P})} instead.
 
 For information on how the @term{Lisp reader} parses @term{pathnames},
@@ -797,8 +797,8 @@ see @ref{Sharpsign P}.
 
 By default, a @term{structure} of type @mat{S} is printed using @f{#S} syntax.
 This behavior can be customized by specifying a @kwd{print-function}
-or @kwd{print-object} option to the @symbolref{defstruct} @term{form} that defines @mat{S},
-or by writing a @symbolref{print-object} @term{method}
+or @kwd{print-object} option to the @symbolref{defstruct, SYM} @term{form} that defines @mat{S},
+or by writing a @symbolref{print-object, SYM} @term{method}
 that is @term{specialized} for @term{objects} of type @mat{S}.
 
 Different structures might print out in different ways;
@@ -928,8 +928,8 @@ to achieve an arbitrary degree of aesthetic control.
 
 By providing direct access to the mechanisms within the pretty printer
 that make dynamic decisions about layout, the macros and functions
-@symbolref{pprint-logical-block}, @symbolref{pprint-newline}, and
-@symbolref{pprint-indent} make it possible to specify pretty printing
+@symbolref{pprint-logical-block, SYM}, @symbolref{pprint-newline, SYM}, and
+@symbolref{pprint-indent, SYM} make it possible to specify pretty printing
 layout rules as a part of any function that produces output.  They also
 make it very easy for the detection of circularity and sharing, and
 abbreviation based on length and nesting depth to be supported by the
@@ -960,8 +960,8 @@ logical blocks are indicated by ``@f{<}'' and ``@f{>}'' respectively.
 The output as a whole is a logical block and the outermost section.  This
 section is indicated by the @f{0}'s on the second line of Figure 1.  Logical
 blocks nested within the output are specified by the macro
-@symbolref{pprint-logical-block}.  Conditional newline positions are specified
-by calls to @symbolref{pprint-newline}.  Each conditional newline defines
+@symbolref{pprint-logical-block, SYM}.  Conditional newline positions are specified
+by calls to @symbolref{pprint-newline, SYM}.  Each conditional newline defines
 two sections (one before it and one after it) and is associated with a
 third (the section immediately containing it).
 
@@ -1070,18 +1070,18 @@ A @newterm{pprint dispatch table} is a mapping from keys to pairs of values.
 Each key is a @term{type specifier}.
 The values associated with a key are
 a ``function'' (specifically, a @term{function designator} or @nil{})
-and a ``numerical priority'' (specifically, a @symbolref{real}).
+and a ``numerical priority'' (specifically, a @symbolref{real, SYM}).
 Basic insertion and retrieval is done based on the keys with the equality
-of keys being tested by @symbolref{equal}.
+of keys being tested by @symbolref{equal, SYM}.
 
-When @symbolref{*print-pretty*} is @term{true},
-the @newterm{current pprint dispatch table} (in @symbolref{*print-pprint-dispatch*})
+When @symbolref{*print-pretty*, SYM} is @term{true},
+the @newterm{current pprint dispatch table} (in @symbolref{*print-pprint-dispatch*, SYM})
 controls how @term{objects} are printed.
 The information in this table takes precedence over
 all other mechanisms for specifying how to print @term{objects}.
 In particular, it
 has priority over
-user-defined @symbolref{print-object} @term{methods}
+user-defined @symbolref{print-object, SYM} @term{methods}
 because the @term{current pprint dispatch table} is consulted first.
 
 The function is chosen from the @term{current pprint dispatch table}
@@ -1093,10 +1093,10 @@ it is @term{implementation-dependent} which is used.
 However, if there is no
 information in the table
 about how to @term{pretty print} a particular kind of @term{object},
-a @term{function} is invoked which uses @symbolref{print-object} to print the @term{object}.
-The value of @symbolref{*print-pretty*} is still @term{true}
+a @term{function} is invoked which uses @symbolref{print-object, SYM} to print the @term{object}.
+The value of @symbolref{*print-pretty*, SYM} is still @term{true}
 when this function is @term{called},
-and individual methods for @symbolref{print-object} might still elect to
+and individual methods for @symbolref{print-object, SYM} might still elect to
 produce output in a special format conditional on @thevalueof{*print-pretty*}.
 
 
@@ -1108,7 +1108,7 @@ margins.
 The column where the output begins is taken as the left margin.
 If the current column cannot be determined at the time output begins,
 the left margin is assumed to be zero.
-The right margin is controlled by @symbolref{*print-right-margin*}.
+The right margin is controlled by @symbolref{*print-right-margin*, SYM}.
 
 
 
@@ -1117,7 +1117,7 @@ The right margin is controlled by @symbolref{*print-right-margin*}.
 
 As an example of the interaction of logical blocks, conditional newlines,
 and indentation, consider the function @f{simple-pprint-defun} below.  This
-function prints out lists whose @term{cars} are @symbolref{defun} in the
+function prints out lists whose @term{cars} are @symbolref{defun, SYM} in the
 standard way assuming that the list has exactly length @f{4}.
 
 @lisp
@@ -1173,7 +1173,7 @@ function name.
 @end lisp
 
 
-If @symbolref{*print-miser-width*} were greater than or equal to 14, the example
+If @symbolref{*print-miser-width*, SYM} were greater than or equal to 14, the example
 output above would have been as follows, because all indentation changes
 are ignored in miser mode and line breaks are inserted at
 miser-style conditional newlines.
@@ -1189,7 +1189,7 @@ miser-style conditional newlines.
 
 As an example of a per-line prefix, consider that evaluating the following
 produces the output shown with a line width of @f{20} and
-@symbolref{*print-miser-width*} of @nil{}.
+@symbolref{*print-miser-width*, SYM} of @nil{}.
 
 @lisp
  (pprint-logical-block (*standard-output* nil :per-line-prefix ";;; ")
@@ -1202,15 +1202,15 @@ produces the output shown with a line width of @f{20} and
 
 
 As a more complex (and realistic) example, consider the function @f{pprint-let}
-below.  This specifies how to print a @symbolref{let} @term{form} in the traditional
+below.  This specifies how to print a @symbolref{let, SYM} @term{form} in the traditional
 style.  It is more complex than the example above, because it has to deal with
 nested structure.  Also, unlike the example above it contains complete code to
-readably print any possible list that begins with the @term{symbol} @symbolref{let}.
-The outermost @symbolref{pprint-logical-block} @term{form} handles the printing of
+readably print any possible list that begins with the @term{symbol} @symbolref{let, SYM}.
+The outermost @symbolref{pprint-logical-block, SYM} @term{form} handles the printing of
 the input list as a whole and specifies that parentheses should be printed in the
-output.  The second @symbolref{pprint-logical-block} @term{form} handles the list
+output.  The second @symbolref{pprint-logical-block, SYM} @term{form} handles the list
 of binding pairs.  Each pair in the list is itself printed by the innermost
-@symbolref{pprint-logical-block}.  (A @symbolref{loop} @term{form} is used instead of
+@symbolref{pprint-logical-block, SYM}.  (A @symbolref{loop, SYM} @term{form} is used instead of
 merely decomposing the pair into two @term{objects} so that readable output will
 be produced no matter whether the list corresponding to the pair has one element,
 two elements, or (being malformed) has more than two elements.)
@@ -1219,8 +1219,8 @@ fill-style conditional newline
 @cindex fill-style conditional newline
 are placed after
 each pair except the last.  The loop at the end of the topmost
-@symbolref{pprint-logical-block} @term{form} prints out the forms in the body
-of the @symbolref{let} @term{form} separated by spaces and
+@symbolref{pprint-logical-block, SYM} @term{form} prints out the forms in the body
+of the @symbolref{let, SYM} @term{form} separated by spaces and
 linear-style conditional newlines.
 
 @lisp
@@ -1248,8 +1248,8 @@ linear-style conditional newlines.
 @end lisp
 
 
-Suppose that one evaluates the following with @symbolref{*print-level*} being 4,
-and @symbolref{*print-circle*} being @term{true}.
+Suppose that one evaluates the following with @symbolref{*print-level*, SYM} being 4,
+and @symbolref{*print-circle*, SYM} being @term{true}.
 
 @lisp
  (pprint-let *standard-output*
@@ -1286,7 +1286,7 @@ fill-style conditional newlines separating the binding pairs.
 @end lisp
 
 
-Suppose that the line length is further reduced to @f{22} and @symbolref{*print-length*} is
+Suppose that the line length is further reduced to @f{22} and @symbolref{*print-length*, SYM} is
 set to @f{3}. In this situation, line breaks are inserted after both the first
 and second binding pairs.  In addition, the second binding pair is itself
 broken across two lines.  Clause (b) of the description of fill-style
@@ -1335,7 +1335,7 @@ Evaluating the following with a line length of 15 produces the output shown.
 As examples of the convenience of specifying pretty printing with
 @term{format strings}, consider that the functions @f{simple-pprint-defun}
 and @f{pprint-let} used as examples above can be compactly defined as follows.
-(The function @f{pprint-vector} cannot be defined using @symbolref{format}
+(The function @f{pprint-vector} cannot be defined using @symbolref{format, SYM}
 because the data structure it traverses is not a list.)
 
 @lisp
@@ -1348,7 +1348,7 @@ because the data structure it traverses is not a list.)
 
 
 In the following example, the first @term{form} restores
-@symbolref{*print-pprint-dispatch*} to the equivalent of its initial value.
+@symbolref{*print-pprint-dispatch*, SYM} to the equivalent of its initial value.
 The next two forms then set up a special way to pretty print ratios.
 Note that the more specific @term{type specifier} has to be associated
 with a higher priority.
@@ -1379,7 +1379,7 @@ for printing quoted objects using @term{single-quote}.  Note
 the care taken to ensure that data lists that happen to begin
 with @t{quote} will be printed readably.  The second form
 specifies that lists beginning with the symbol @f{my-let}
-should print the same way that lists beginning with @symbolref{let}
+should print the same way that lists beginning with @symbolref{let, SYM}
 print when the initial @term{pprint dispatch table} is in effect.
 
 @lisp
@@ -1395,8 +1395,8 @@ print when the initial @term{pprint dispatch table} is in effect.
 
 
 The next example specifies a default method for printing lists that do not
-correspond to function calls.  Note that the functions @symbolref{pprint-linear},
-@symbolref{pprint-fill}, and @symbolref{pprint-tabular} are all defined with
+correspond to function calls.  Note that the functions @symbolref{pprint-linear, SYM},
+@symbolref{pprint-fill, SYM}, and @symbolref{pprint-tabular, SYM} are all defined with
 optional @param{colon-p} and @param{at-sign-p} arguments so that they can
 be used as @code{pprint dispatch functions} as well as @formatOp{/.../}
 functions.
@@ -1429,13 +1429,13 @@ user defined data structure.
 The pretty printing function for the structure @f{family} specifies how to
 adjust the layout of the output so that it can fit aesthetically into
 a variety of line widths.  In addition, it obeys
-the printer control variables @symbolref{*print-level*},
-@symbolref{*print-length*}, @symbolref{*print-lines*},
-@symbolref{*print-circle*}
-and @symbolref{*print-escape*},
+the printer control variables @symbolref{*print-level*, SYM},
+@symbolref{*print-length*, SYM}, @symbolref{*print-lines*, SYM},
+@symbolref{*print-circle*, SYM}
+and @symbolref{*print-escape*, SYM},
 and can tolerate several different kinds of malformity in the data structure.
 The output below shows what is printed out with a right margin of @f{25},
-@symbolref{*print-pretty*} being @term{true}, @symbolref{*print-escape*} being @term{false},
+@symbolref{*print-pretty*, SYM} being @term{true}, @symbolref{*print-escape*, SYM} being @term{false},
 and a malformed @f{kids} list.
 
 @lisp
@@ -1450,15 +1450,15 @@ and a malformed @f{kids} list.
 
 
 Note that a pretty printing function for a structure is different from
-the structure's @symbolref{print-object} @term{method}.
+the structure's @symbolref{print-object, SYM} @term{method}.
 While
-@symbolref{print-object} @term{methods}
+@symbolref{print-object, SYM} @term{methods}
 are permanently associated with a structure,
 pretty printing functions are stored in
 @term{pprint dispatch tables} and can be rapidly changed to reflect
 different printing needs.  If there is no pretty printing function for
 a structure in the current @term{pprint dispatch table},
-its @symbolref{print-object} @term{method}
+its @symbolref{print-object, SYM} @term{method}
 is used instead.
 
 
@@ -1478,22 +1478,22 @@ understanding this material.
 @editornote{KMP: This is transplanted from FORMAT and will need a bit of work before
 it looks good standing alone. Bear with me.}
 
-@symbolref{format} is useful for producing nicely formatted text, producing
-good-looking messages, and so on.  @symbolref{format} can generate and return
+@symbolref{format, SYM} is useful for producing nicely formatted text, producing
+good-looking messages, and so on.  @symbolref{format, SYM} can generate and return
 a @term{string} or output to @param{destination}.
 
-The @param{control-string} argument to @symbolref{format} is actually a @term{format control}.
+The @param{control-string} argument to @symbolref{format, SYM} is actually a @term{format control}.
 That is, it can be either a @term{format string} or a @term{function},
 for example a @term{function} returned
-by the @symbolref{formatter} @term{macro}.
+by the @symbolref{formatter, SYM} @term{macro}.
 
 If it is a @term{function}, the @term{function} is called with the appropriate
-output stream as its first argument and the data arguments to @symbolref{format}
+output stream as its first argument and the data arguments to @symbolref{format, SYM}
 as its remaining arguments.  The function should perform whatever output is
 necessary and return the unused tail of the arguments (if any).
 
-The compilation process performed by @symbolref{formatter} produces a @term{function}
-that would do with its @term{arguments} as the @symbolref{format} interpreter
+The compilation process performed by @symbolref{formatter, SYM} produces a @term{function}
+that would do with its @term{arguments} as the @symbolref{format, SYM} interpreter
 would do with those @term{arguments}.
 
 The remainder of this section describes what happens if the @param{control-string}
@@ -1502,7 +1502,7 @@ is a @term{format string}.
 @param{Control-string} is composed of simple text (@term{characters})
 and embedded directives.
 
-@symbolref{format} writes the simple text as is;
+@symbolref{format, SYM} writes the simple text as is;
 each embedded directive specifies further text output
 that is to appear at the corresponding point within the simple text.
 Most directives use one or more elements of @param{args} to
@@ -1522,7 +1522,7 @@ in decimal radix in five columns with leading zeros,
 or @f{@tild{}5,'*d} to get leading asterisks.
 
 In place of a prefix parameter to a directive, @f{V} (or @f{v}) can be used.
-In this case, @symbolref{format} takes an argument from @param{args} as a parameter to
+In this case, @symbolref{format, SYM} takes an argument from @param{args} as a parameter to
 the directive.  The argument should be an @term{integer} or @term{character}.
 If the @param{arg} used by a @f{V} parameter is @nil{},
 the effect is as if the parameter had been omitted.
@@ -1550,9 +1550,9 @@ Examples of @term{format strings}:
 @end float
 
 
-@symbolref{format} sends the output to @param{destination}.
+@symbolref{format, SYM} sends the output to @param{destination}.
 If @param{destination} is @nil{},
-@symbolref{format} creates and returns a @term{string}
+@symbolref{format, SYM} creates and returns a @term{string}
 containing the output from @param{control-string}.
 If @param{destination} is @term{non-nil},
 it must be a @term{string} with a @term{fill pointer},
@@ -1569,13 +1569,13 @@ the term @j{arg} in general
 refers to the next item of the set of @param{args} to be processed.
 The word or phrase at the beginning of each description is a mnemonic
 for the directive.
-@symbolref{format} directives do not bind any of the printer control
+@symbolref{format, SYM} directives do not bind any of the printer control
 variables (@code{*print-...*}) except as specified in the following
 descriptions.
 Implementations may specify the binding of new, implementation-specific
-printer control variables for each @symbolref{format} directive, but they
+printer control variables for each @symbolref{format, SYM} directive, but they
 may neither bind any standard printer control variables not
-specified in description of a @symbolref{format}
+specified in description of a @symbolref{format, SYM}
 directive nor fail to bind
 any standard printer control variables as specified in the
 description.
@@ -1608,9 +1608,9 @@ it is printed
 according to the modifier flags.
 
 @f{@tild{}C} prints the @term{character}
-as if by using @symbolref{write-char} if it is a @term{simple} @term{character}.
+as if by using @symbolref{write-char, SYM} if it is a @term{simple} @term{character}.
 @term{Characters} that are not @term{simple}
-are not necessarily printed as if by @symbolref{write-char},
+are not necessarily printed as if by @symbolref{write-char, SYM},
 but are displayed in an @term{implementation-defined}, abbreviated format.
 For example,
 
@@ -1624,7 +1624,7 @@ For example,
 but other @term{characters} are ``spelled out.''  The intent is that this
 is a ``pretty'' format for printing characters.
 For @term{simple} @term{characters} that are not @term{printing},
-what is spelled out is the @term{name} of the @term{character} (see @symbolref{char-name}).
+what is spelled out is the @term{name} of the @term{character} (see @symbolref{char-name, SYM}).
 For @term{characters} that are not @term{simple} and not @term{printing},
 what is spelled out is @term{implementation-defined}.
 For example,
@@ -1658,7 +1658,7 @@ on the implementation, but on the particular I/O devices in use.
 prints the @term{character} in a way that the @term{Lisp reader} can understand,
 using @f{#@bsl{}} syntax.
 
-@f{@tild{}@@C}  binds @symbolref{*print-escape*} to @code{t}.
+@f{@tild{}@@C}  binds @symbolref{*print-escape*, SYM} to @code{t}.
 
 
 @node Tilde Percent: Newline
@@ -1680,7 +1680,7 @@ No @j{arg} is used.
 Unless it can be determined that the output stream
 is already at the beginning of a line,
 this outputs a newline.
-@f{@tild{}@j{n}@ampers{}} calls @symbolref{fresh-line}
+@f{@tild{}@j{n}@ampers{}} calls @symbolref{fresh-line, SYM}
 and then outputs @j{n}@minussign{} 1 newlines.
 @f{@tild{}0@ampers{}} does nothing.
 
@@ -1751,13 +1751,13 @@ For example:
 
 If and only if the first parameter, @j{n}, is supplied,
 @f{@tild{}R} binds
-@symbolref{*print-escape*} to @term{false},
-@symbolref{*print-radix*} to @term{false},
-@symbolref{*print-base*} to @j{n},
-and @symbolref{*print-readably*} to @term{false}.
+@symbolref{*print-escape*, SYM} to @term{false},
+@symbolref{*print-radix*, SYM} to @term{false},
+@symbolref{*print-base*, SYM} to @j{n},
+and @symbolref{*print-readably*, SYM} to @term{false}.
 
 If and only if no parameters are supplied,
-@f{@tild{}R} binds @symbolref{*print-base*} to @f{10}.
+@f{@tild{}R} binds @symbolref{*print-base*, SYM} to @f{10}.
 
 
 @node Tilde D: Decimal
@@ -1795,10 +1795,10 @@ Thus the most general form of @f{@tild{}D} is
 @f{@tild{}@j{mincol},@j{padchar},@j{commachar},@j{comma-interval}D}.
 
 @f{@tild{}D} binds
-@symbolref{*print-escape*} to @term{false},
-@symbolref{*print-radix*} to @term{false},
-@symbolref{*print-base*} to @f{10},
-and @symbolref{*print-readably*} to @term{false}.
+@symbolref{*print-escape*, SYM} to @term{false},
+@symbolref{*print-radix*, SYM} to @term{false},
+@symbolref{*print-base*, SYM} to @f{10},
+and @symbolref{*print-readably*, SYM} to @term{false}.
 
 
 @node Tilde B: Binary
@@ -1811,10 +1811,10 @@ instead of decimal.  The full form is therefore
 @f{@tild{}@j{mincol},@j{padchar},@j{commachar},@j{comma-interval}B}.
 
 @f{@tild{}B} binds
-@symbolref{*print-escape*} to @term{false},
-@symbolref{*print-radix*} to @term{false},
-@symbolref{*print-base*} to @f{2},
-and @symbolref{*print-readably*} to @term{false}.
+@symbolref{*print-escape*, SYM} to @term{false},
+@symbolref{*print-radix*, SYM} to @term{false},
+@symbolref{*print-base*, SYM} to @f{2},
+and @symbolref{*print-readably*, SYM} to @term{false}.
 
 
 @node Tilde O: Octal
@@ -1827,10 +1827,10 @@ instead of decimal.  The full form is therefore
 @f{@tild{}@j{mincol},@j{padchar},@j{commachar},@j{comma-interval}O}.
 
 @f{@tild{}O} binds
-@symbolref{*print-escape*} to @term{false},
-@symbolref{*print-radix*} to @term{false},
-@symbolref{*print-base*} to @f{8},
-and @symbolref{*print-readably*} to @term{false}.
+@symbolref{*print-escape*, SYM} to @term{false},
+@symbolref{*print-radix*, SYM} to @term{false},
+@symbolref{*print-base*, SYM} to @f{8},
+and @symbolref{*print-readably*, SYM} to @term{false}.
 
 
 @node Tilde X: Hexadecimal
@@ -1843,10 +1843,10 @@ This is just like @f{@tild{}D} but prints in hexadecimal radix
 @f{@tild{}@j{mincol},@j{padchar},@j{commachar},@j{comma-interval}X}.
 
 @f{@tild{}X} binds
-@symbolref{*print-escape*} to @term{false},
-@symbolref{*print-radix*} to @term{false},
-@symbolref{*print-base*} to @f{16},
-and @symbolref{*print-readably*} to @term{false}.
+@symbolref{*print-escape*, SYM} to @term{false},
+@symbolref{*print-radix*, SYM} to @term{false},
+@symbolref{*print-base*, SYM} to @f{16},
+and @symbolref{*print-readably*, SYM} to @term{false}.
 
 
 
@@ -1913,7 +1913,7 @@ fraction to be printed is zero, then a single zero digit should
 appear after the decimal point if permitted by the width constraint.
 
 If both @j{w} and @j{d} are omitted, then the effect is to print
-the value using ordinary free-format output; @symbolref{prin1} uses this format
+the value using ordinary free-format output; @symbolref{prin1, SYM} uses this format
 for any number whose magnitude is either zero or between
 @mat{10^-3} (inclusive) and @mat{10^7} (exclusive).
 
@@ -1941,8 +1941,8 @@ then it is printed using the format directive @f{@tild{}@j{w}D},
 thereby printing it in decimal radix and a minimum field width of @j{w}.
 
 @f{@tild{}F} binds
-@symbolref{*print-escape*} to @term{false}
-and @symbolref{*print-readably*} to @term{false}.
+@symbolref{*print-escape*, SYM} to @term{false}
+and @symbolref{*print-readably*, SYM} to @term{false}.
 
 
 @node Tilde E: Exponential Floating-Point
@@ -1991,9 +1991,9 @@ either @f{6.37E+2} or @f{6.38E+2}.
 Following the digit sequence, the exponent is printed.
 First the character parameter @j{exponentchar} is printed; if this
 parameter is omitted, then the @term{exponent marker} that
-@symbolref{prin1} would use is printed, as determined from the
+@symbolref{prin1, SYM} would use is printed, as determined from the
 type of the @term{float} and the current value of
-@symbolref{*read-default-float-format*}.
+@symbolref{*read-default-float-format*, SYM}.
 Next, either a plus sign or a minus sign
 is printed, followed by @j{e} digits representing the power of
 ten by which the printed fraction must be multiplied
@@ -2030,13 +2030,13 @@ using the smallest number of digits necessary to represent its value.
 
 If all of @j{w}, @j{d}, and @j{e} are omitted, then the effect is to print
 the value using ordinary free-format exponential-notation output;
-@symbolref{prin1} uses
+@symbolref{prin1, SYM} uses
 a similar
 format for any non-zero number whose magnitude
 is less than @mat{10^-3} or greater than or equal to @mat{10^7}.
 The only difference is that the @f{@tild{}E}
 directive always prints a plus or minus sign in front of the
-exponent, while @symbolref{prin1} omits the plus sign if the exponent is
+exponent, while @symbolref{prin1, SYM} omits the plus sign if the exponent is
 non-negative.
 
 If @j{arg} is a @term{rational}
@@ -2056,8 +2056,8 @@ then it is printed using the format directive @f{@tild{}@j{w}D},
 thereby printing it in decimal radix and a minimum field width of @j{w}.
 
 @f{@tild{}E} binds
-@symbolref{*print-escape*} to @term{false}
-and @symbolref{*print-readably*} to @term{false}.
+@symbolref{*print-escape*, SYM} to @term{false}
+and @symbolref{*print-readably*, SYM} to @term{false}.
 
 
 @node Tilde G: General Floating-Point
@@ -2097,8 +2097,8 @@ or @f{@tild{}E} directive if and only if one was supplied to the
 @f{@tild{}G} directive.
 
 @f{@tild{}G} binds
-@symbolref{*print-escape*} to @term{false}
-and @symbolref{*print-readably*} to @term{false}.
+@symbolref{*print-escape*, SYM} to @term{false}
+and @symbolref{*print-readably*, SYM} to @term{false}.
 
 
 @node Tilde Dollarsign: Monetary Floating-Point
@@ -2153,8 +2153,8 @@ If @j{arg} is a @term{complex} number or some non-numeric
 then it is printed using the format directive @f{@tild{}@j{w}D},
 thereby printing it in decimal radix and a minimum field width of @j{w}.
 
-@f{@tild{}@dollar{}} binds @symbolref{*print-escape*} to @term{false}
-and @symbolref{*print-readably*} to @term{false}.
+@f{@tild{}@dollar{}} binds @symbolref{*print-escape*, SYM} to @term{false}
+and @symbolref{*print-readably*, SYM} to @term{false}.
 
 
 
@@ -2169,7 +2169,7 @@ and @symbolref{*print-readably*} to @term{false}.
 
 An @j{arg}, any @term{object},
 is printed without escape characters
-(as by @symbolref{princ}).  If @j{arg} is a @term{string},
+(as by @symbolref{princ, SYM}).  If @j{arg} is a @term{string},
 its @term{characters}
 will be output verbatim.
 If @j{arg} is @nil{}@spc{}it will be printed as @nil{};
@@ -2192,8 +2192,8 @@ at a time until the total width is at least @j{mincol}.
 The defaults are @f{0} for @j{mincol} and @j{minpad}, @f{1} for @j{colinc},
 and the space character for @j{padchar}.
 
-@f{@tild{}A} binds @symbolref{*print-escape*} to @term{false},
-and @symbolref{*print-readably*} to @term{false}.
+@f{@tild{}A} binds @symbolref{*print-escape*, SYM} to @term{false},
+and @symbolref{*print-readably*, SYM} to @term{false}.
 
 
 @node Tilde S: Standard
@@ -2202,11 +2202,11 @@ and @symbolref{*print-readably*} to @term{false}.
 @cindex Tilde S (format directive)
 
 This is just like @f{@tild{}A}, but @j{arg} is printed with escape
-characters (as by @symbolref{prin1} rather than @f{princ}).  The output is
-therefore suitable for input to @symbolref{read}.  @f{@tild{}S} accepts
+characters (as by @symbolref{prin1, SYM} rather than @f{princ}).  The output is
+therefore suitable for input to @symbolref{read, SYM}.  @f{@tild{}S} accepts
 all the arguments and modifiers that @f{@tild{}A} does.
 
-@f{@tild{}S} binds @symbolref{*print-escape*} to @code{t}.
+@f{@tild{}S} binds @symbolref{*print-escape*, SYM} to @code{t}.
 
 
 @node Tilde W: Write
@@ -2215,11 +2215,11 @@ all the arguments and modifiers that @f{@tild{}A} does.
 @cindex Tilde W (format directive)
 
 An argument, any @term{object}, is printed obeying every printer control
-variable (as by @symbolref{write}).  In addition, @f{@tild{}W} interacts correctly with depth
+variable (as by @symbolref{write, SYM}).  In addition, @f{@tild{}W} interacts correctly with depth
 abbreviation, by not resetting the depth counter to zero.  @f{@tild{}W} does not
-accept parameters.  If given the @term{colon} modifier, @f{@tild{}W} binds @symbolref{*print-pretty*}
-to @term{true}.  If given the @term{at-sign} modifier, @f{@tild{}W} binds @symbolref{*print-level*}
-and @symbolref{*print-length*} to @nil{}.
+accept parameters.  If given the @term{colon} modifier, @f{@tild{}W} binds @symbolref{*print-pretty*, SYM}
+to @term{true}.  If given the @term{at-sign} modifier, @f{@tild{}W} binds @symbolref{*print-level*, SYM}
+and @symbolref{*print-length*, SYM} to @nil{}.
 
 @f{@tild{}W} provides automatic support for the detection of circularity and
 sharing.  If @thevalueof{*print-circle*} is not @nil{}@spc{}and @f{@tild{}W} is applied
@@ -2253,14 +2253,14 @@ Without any modifiers, @f{@tild{}_} is the same as @f{(pprint-newline :linear)}.
 @f{@tild{}<...@tild{}:>}
 
 If @f{@tild{}:>} is used to terminate a @f{@tild{}<...@tild{}>},
-the directive is equivalent to a call to @symbolref{pprint-logical-block}.
+the directive is equivalent to a call to @symbolref{pprint-logical-block, SYM}.
 The argument corresponding to the @f{@tild{}<...@tild{}:>} directive is treated in
-the same way as the @term{list} argument to @symbolref{pprint-logical-block},
+the same way as the @term{list} argument to @symbolref{pprint-logical-block, SYM},
 thereby providing automatic support for non-@term{list} arguments and
 the detection of circularity, sharing, and depth abbreviation.
 The portion of the @param{control-string} nested within the @f{@tild{}<...@tild{}:>}
 specifies the @kwd{prefix} (or @kwd{per-line-prefix}), @kwd{suffix},
-and body of the @symbolref{pprint-logical-block}.
+and body of the @symbolref{pprint-logical-block, SYM}.
 
 The @param{control-string} portion enclosed by @f{@tild{}<...@tild{}:>} can be divided
 into segments @f{@tild{}<@param{prefix}@tild{};@param{body}@tild{};@param{suffix}@tild{}:>}
@@ -2280,12 +2280,12 @@ the @param{prefix} and @param{suffix} default to @f{"("} and @f{")"}
 The body segment can be any arbitrary @term{format string}.
 This @term{format string} is applied to the elements of the list
 corresponding to the @f{@tild{}<...@tild{}:>} directive as a whole.
-Elements are extracted from this list using @symbolref{pprint-pop},
+Elements are extracted from this list using @symbolref{pprint-pop, SYM},
 thereby providing automatic support for malformed lists, and the detection
 of circularity, sharing, and length abbreviation.
-Within the body segment, @f{@tild{}@hat{}} acts like @symbolref{pprint-exit-if-list-exhausted}.
+Within the body segment, @f{@tild{}@hat{}} acts like @symbolref{pprint-exit-if-list-exhausted, SYM}.
 
-@f{@tild{}<...@tild{}:>} supports a feature not supported by @symbolref{pprint-logical-block}.
+@f{@tild{}<...@tild{}:>} supports a feature not supported by @symbolref{pprint-logical-block, SYM}.
 If @f{@tild{}:@@>} is used to terminate the directive (@ie{} @f{@tild{}<...@tild{}:@@>}),
 then a fill-style conditional newline is automatically inserted after each
 group of blanks immediately contained in the body (except for blanks
@@ -2361,9 +2361,9 @@ The function should print the argument appropriately.
 Any values returned by the function are ignored.
 
 The three @term{functions}
-@symbolref{pprint-linear},
-@symbolref{pprint-fill},
-and @symbolref{pprint-tabular}
+@symbolref{pprint-linear, SYM},
+@symbolref{pprint-fill, SYM},
+and @symbolref{pprint-tabular, SYM}
 are specifically designed so that they can be called by @f{@tild{}/.../}
 (@ie{} @f{@tild{}/pprint-linear/}, @f{@tild{}/pprint-fill/}, and @f{@tild{}/pprint-tabular/}).
 In particular they take @term{colon} and @term{at-sign} arguments.
@@ -2390,16 +2390,16 @@ are output if the cursor is already at or beyond column @j{colnum}.
 
 If for some reason the current absolute column position cannot be determined
 by direct inquiry,
-@symbolref{format}
+@symbolref{format, SYM}
 may be able to deduce the current column position by noting
 that certain directives (such as @f{@tild{}@percent{}}, or @f{@tild{}@ampers{}},
 or @f{@tild{}A}
 with the argument being a string containing a newline) cause
 the column position to be reset to zero, and counting the number of characters
-emitted since that point.  If that fails, @symbolref{format}
+emitted since that point.  If that fails, @symbolref{format, SYM}
 may attempt a
 similar deduction on the riskier assumption that the destination was
-at column zero when @symbolref{format}
+at column zero when @symbolref{format, SYM}
 was invoked.  If even this heuristic fails
 or is implementationally inconvenient, at worst
 the @f{@tild{}T} operation will simply output two spaces.
@@ -2454,7 +2454,7 @@ than @j{mincol}, then the width used is @j{mincol}+@j{k}*@j{colinc}
 for the smallest possible non-negative integer value @j{k}.
 @j{colinc} defaults to @f{1}, and @j{mincol} defaults to @f{0}.
 
-Note that @j{str} may include @symbolref{format} directives.
+Note that @j{str} may include @symbolref{format, SYM} directives.
 All the clauses in @j{str} are processed in order;
 it is the resulting pieces of text that are justified.
 
@@ -2500,10 +2500,10 @@ the preceding example use a line width of 50, one would write
  "~%;; ~@lbr{}@spc{}~<~%;; ~1,50:; ~S~>~@hat{}@spc{},~@rbr{} @spc{}.~%"
 @end lisp
 
-If the second argument is not supplied, then @symbolref{format} uses the
+If the second argument is not supplied, then @symbolref{format, SYM} uses the
 line width of the @param{destination} output stream.
 If this cannot be determined (for example, when producing a
-@term{string} result), then @symbolref{format} uses @f{72} as the line length.
+@term{string} result), then @symbolref{format, SYM} uses @f{72} as the line length.
 
 See also @ref{Tilde Less-Than-Sign Logical Block}.
 
@@ -2643,7 +2643,7 @@ The consequences of using it elsewhere are undefined.
 
 This is an iteration construct.  The argument should be a @term{list},
 which is used as a set of arguments
-as if for a recursive call to @symbolref{format}.
+as if for a recursive call to @symbolref{format, SYM}.
 The @term{string} @j{str} is used repeatedly as the control string.
 Each iteration can absorb as many elements of the @term{list} as it likes
 as arguments;
@@ -2810,7 +2810,7 @@ is subject to case conversion.
 With no flags, every @term{uppercase} @term{character}
 is converted to the corresponding @term{lowercase} @term{character}.
 
-@f{@tild{}:(} capitalizes all words, as if by @symbolref{string-capitalize}.
+@f{@tild{}:(} capitalizes all words, as if by @symbolref{string-capitalize, SYM}.
 
 @f{@tild{}@@(}
 capitalizes just the first word and forces the rest to lower
@@ -2942,7 +2942,7 @@ may be used only if the command it would terminate is
 The entire iteration process is terminated if and only if the sublist that is
 supplying the arguments for the current iteration step is the last sublist in
 the case of @f{@tild{}:@lbr{} },
-or the last @symbolref{format}
+or the last @symbolref{format, SYM}
 argument in the case of @f{@tild{}:@@@lbr{}  }.
 @f{@tild{}:@hat{}} is not
 equivalent to @f{@tild{}#:@hat{}};
@@ -3212,12 +3212,12 @@ Scale factor  7: | 3141590.E-06|
 @node Notes about FORMAT
 @subsection Notes about FORMAT
 
-Formatted output is performed not only by @symbolref{format},
+Formatted output is performed not only by @symbolref{format, SYM},
 but by certain other functions that accept a @term{format control}
-the way @symbolref{format} does.  For example, error-signaling functions
-such as @symbolref{cerror} accept @term{format controls}.
+the way @symbolref{format, SYM} does.  For example, error-signaling functions
+such as @symbolref{cerror, SYM} accept @term{format controls}.
 
-Note that the meaning of @nil{}@spc{}and @code{t}@spc{}as destinations to @symbolref{format}
+Note that the meaning of @nil{}@spc{}and @code{t}@spc{}as destinations to @symbolref{format, SYM}
 are different than those of @nil{}@spc{}and @code{t}@spc{}as @term{stream designators}.
 
 The @f{@tild{}@hat{}} should appear only at the beginning of a @f{@tild{}<} clause,
@@ -3282,7 +3282,7 @@ all following clauses).
 
 Creates and returns a copy of the specified @param{table},
 or of @thevalueof{*print-pprint-dispatch*} if no @param{table} is specified,
-or of the initial @term{value} of @symbolref{*print-pprint-dispatch*} if @nil{}@spc{}is specified.
+or of the initial @term{value} of @symbolref{*print-pprint-dispatch*, SYM} if @nil{}@spc{}is specified.
 
 @subsubheading Exceptional Situations:
 
@@ -3381,7 +3381,7 @@ selecting the highest priority function associated with any of these
 @term{type specifiers}.  If there is more than one highest priority function,
 an arbitrary choice is made.  If no @term{type specifiers} match the
 @param{object}, a function is returned that prints @param{object}
-using @symbolref{print-object}.
+using @symbolref{print-object, SYM}.
 
 The @term{secondary value}, @param{found-p}, is @term{true} if a matching
 @term{type specifier} was found in @param{table}, or @term{false} otherwise.
@@ -3427,25 +3427,25 @@ Tests whether or not the @param{list} passed to
 the @i{lexically current logical block}
 has been exhausted; see @ref{Dynamic Control of the Arrangement of Output}.
 If this @param{list} has been
-reduced to @nil{}, @symbolref{pprint-exit-if-list-exhausted} terminates the execution
+reduced to @nil{}, @symbolref{pprint-exit-if-list-exhausted, SYM} terminates the execution
 of the @i{lexically current logical block} except for the printing
-of the suffix.  Otherwise @symbolref{pprint-exit-if-list-exhausted} returns @nil{}.
+of the suffix.  Otherwise @symbolref{pprint-exit-if-list-exhausted, SYM} returns @nil{}.
 
-Whether or not @symbolref{pprint-exit-if-list-exhausted} is @term{fbound} in the
+Whether or not @symbolref{pprint-exit-if-list-exhausted, SYM} is @term{fbound} in the
 @term{global environment} is @term{implementation-dependent};
 however, the restrictions on redefinition and @term{shadowing} of
-@symbolref{pprint-exit-if-list-exhausted} are the same as for @term{symbols} in the @code{COMMON-LISP} @term{package}
+@symbolref{pprint-exit-if-list-exhausted, SYM} are the same as for @term{symbols} in the @code{COMMON-LISP} @term{package}
 which are @term{fbound} in the @term{global environment}.
-The consequences of attempting to use @symbolref{pprint-exit-if-list-exhausted} outside
-of @symbolref{pprint-logical-block} are undefined.
+The consequences of attempting to use @symbolref{pprint-exit-if-list-exhausted, SYM} outside
+of @symbolref{pprint-logical-block, SYM} are undefined.
 
 @subsubheading Exceptional Situations:
 
 An error is signaled (at macro expansion time or at run time) if
-@symbolref{pprint-exit-if-list-exhausted} is used anywhere other than
-lexically within a call on @symbolref{pprint-logical-block}.
+@symbolref{pprint-exit-if-list-exhausted, SYM} is used anywhere other than
+lexically within a call on @symbolref{pprint-logical-block, SYM}.
 Also, the consequences of executing @code{pprint-if-list-exhausted} outside
-of the dynamic extent of the @symbolref{pprint-logical-block} which lexically
+of the dynamic extent of the @symbolref{pprint-logical-block, SYM} which lexically
 contains it are undefined.
 
 @subsubheading See Also:
@@ -3489,17 +3489,17 @@ contains it are undefined.
 
 @subsubheading Description:
 
-The functions @symbolref{pprint-fill}, @symbolref{pprint-linear}, and
-@symbolref{pprint-tabular} specify particular ways of @term{pretty printing}
+The functions @symbolref{pprint-fill, SYM}, @symbolref{pprint-linear, SYM}, and
+@symbolref{pprint-tabular, SYM} specify particular ways of @term{pretty printing}
 a @term{list} to @param{stream}.
 Each function prints parentheses around the output if and only
 if @param{colon-p} is @term{true}.
 Each function ignores its @param{at-sign-p} argument.
 (Both arguments are included even though only one is needed
 so that these functions can be used via @formatOp{/.../}
-and as @symbolref{set-pprint-dispatch} functions, as well as directly.)
+and as @symbolref{set-pprint-dispatch, SYM} functions, as well as directly.)
 Each function handles abbreviation and the detection of circularity
-and sharing correctly, and uses @symbolref{write} to print @param{object}
+and sharing correctly, and uses @symbolref{write, SYM} to print @param{object}
 when it is a @term{non-list}.
 
 If @param{object} is a @term{list} and
@@ -3522,7 +3522,7 @@ or with each @term{element} on a separate line.
 as possible on each line.
 
 @item
-@Thefunction{pprint-tabular} is the same as @symbolref{pprint-fill}
+@Thefunction{pprint-tabular} is the same as @symbolref{pprint-fill, SYM}
 except that it prints the @term{elements} so that they line up in columns.
 The @param{tabsize} specifies the column spacing in @term{ems},
 which is the total spacing from the leading edge of one column to
@@ -3571,7 +3571,7 @@ The cursor position on the indicated @term{stream}, if it can be determined.
 
 
 Note that it would have been inconvenient to specify this function
-using @symbolref{format}, because of the need to pass its @param{tabsize} argument
+using @symbolref{format, SYM}, because of the need to pass its @param{tabsize} argument
 through to a @formatdirective{:T} nested within an iteration over a list.
 
 
@@ -3591,19 +3591,19 @@ through to a @formatdirective{:T} nested within an iteration over a list.
 
 @param{relative-to}---either @kwd{block} or @kwd{current}.
 
-@param{n}---a @symbolref{real}.
+@param{n}---a @symbolref{real, SYM}.
 
 @param{stream}---an @term{output} @term{stream designator}.
 @Default{@term{standard output}}
 
 @subsubheading Description:
 
-@symbolref{pprint-indent} specifies the indentation to use in a logical block on @term{stream}.
+@symbolref{pprint-indent, SYM} specifies the indentation to use in a logical block on @term{stream}.
 If @param{stream} is a @term{pretty printing stream}
 and @thevalueof{*print-pretty*} is @term{true},
-@symbolref{pprint-indent} sets the indentation in the innermost
+@symbolref{pprint-indent, SYM} sets the indentation in the innermost
 dynamically enclosing logical block;
-otherwise, @symbolref{pprint-indent} has no effect.
+otherwise, @symbolref{pprint-indent, SYM} has no effect.
 
 @param{N} specifies the indentation in
 @term{ems}.  If @param{relative-to} is @kwd{block}, the indentation is set
@@ -3621,7 +3621,7 @@ one of these limits is treated
 the same as an attempt to move to that limit.
 Changes in indentation caused by @param{pprint-indent}
 do not take effect until after the next line break.  In addition, in
-miser mode all calls to @symbolref{pprint-indent} are ignored, forcing the lines
+miser mode all calls to @symbolref{pprint-indent, SYM} are ignored, forcing the lines
 corresponding to the logical block to line up under the first character in
 the block.
 
@@ -3678,9 +3678,9 @@ that @term{variable} is @term{bound} to a @term{pretty printing stream}
 that supports decisions about the arrangement of output
 and then forwards the output to the destination stream.
 All the standard printing functions
-(@eg{} @symbolref{write},
-@symbolref{princ},
-and @symbolref{terpri})
+(@eg{} @symbolref{write, SYM},
+@symbolref{princ, SYM},
+and @symbolref{terpri, SYM})
 can be used to print output to the @term{pretty printing stream}.
 All and only the output sent to this @term{pretty printing stream}
 is treated as being in the logical block.
@@ -3699,16 +3699,16 @@ The @param{object} is
 normally
 a @term{list} that the body @param{forms} are responsible for printing.
 If @param{object} is not a @term{list},
-it is printed using @symbolref{write}.
+it is printed using @symbolref{write, SYM}.
 (This makes it easier to write printing functions that are robust
 in the face of malformed arguments.)
-If @symbolref{*print-circle*}
+If @symbolref{*print-circle*, SYM}
 is @term{non-nil} and @param{object} is a circular (or shared) reference to a @term{cons},
 then an appropriate ``@f{#@i{n}#}'' marker is printed.  (This
 makes it easy to write printing functions that provide full support
-for circularity and sharing abbreviation.)  If @symbolref{*print-level*} is not
+for circularity and sharing abbreviation.)  If @symbolref{*print-level*, SYM} is not
 @nil{}@spc{}and the logical block is at a dynamic nesting depth of greater
-than @symbolref{*print-level*} in logical blocks, ``@f{#}'' is printed.
+than @symbolref{*print-level*, SYM} in logical blocks, ``@f{#}'' is printed.
 (This makes easy to write printing functions that provide full support for depth
 abbreviation.)
 
@@ -3719,19 +3719,19 @@ along with the printing of the @kwd{prefix} and @kwd{suffix}.
 then the first two tests above can be turned off by supplying @nil{}@spc{}for
 the @param{object} argument.)
 
-In addition to the @param{object} argument of @symbolref{pprint-logical-block},
-the arguments of the standard printing functions (such as @symbolref{write},
-@symbolref{print}, @symbolref{prin1}, and @symbolref{pprint}, as well as the arguments
+In addition to the @param{object} argument of @symbolref{pprint-logical-block, SYM},
+the arguments of the standard printing functions (such as @symbolref{write, SYM},
+@symbolref{print, SYM}, @symbolref{prin1, SYM}, and @symbolref{pprint, SYM}, as well as the arguments
 of the standard @term{format directives} such as @formatOp{A}, @formatOp{S},
 (and @formatOp{W}) are all checked (when necessary) for circularity and sharing.
 However, such checking is not applied to the arguments of the
-functions @symbolref{write-line}, @symbolref{write-string}, and @symbolref{write-char}
-or to the literal text output by @symbolref{format}.  A consequence of this is
+functions @symbolref{write-line, SYM}, @symbolref{write-string, SYM}, and @symbolref{write-char, SYM}
+or to the literal text output by @symbolref{format, SYM}.  A consequence of this is
 that you must use one of the latter functions if you want to print some
 literal text in the output that is not supposed to be checked for circularity
 or sharing.
 
-The body @param{forms} of a @symbolref{pprint-logical-block} @term{form}
+The body @param{forms} of a @symbolref{pprint-logical-block, SYM} @term{form}
 must not perform any side-effects on the surrounding environment; for
 example, no @term{variables} must be assigned which have not been
 @term{bound} within its scope.
@@ -3740,7 +3740,7 @@ example, no @term{variables} must be assigned which have not been
 
 @subsubheading Affected By:
 
-@symbolref{*print-circle*}, @symbolref{*print-level*}.
+@symbolref{*print-circle*, SYM}, @symbolref{*print-level*, SYM}.
 
 @subsubheading Exceptional Situations:
 
@@ -3750,7 +3750,7 @@ to a @term{string}.
 
 An error is signaled if @kwd{prefix} and @kwd{pre-line-prefix} are both used.
 
-@symbolref{pprint-logical-block} and the @term{pretty printing stream} it creates
+@symbolref{pprint-logical-block, SYM} and the @term{pretty printing stream} it creates
 have @term{dynamic extent}.  The consequences are undefined if, outside
 of this extent, output is attempted to the @term{pretty printing stream} it creates.
 
@@ -3767,8 +3767,8 @@ sent directly to the underlying destination stream.
 
 One reason for using @themacro{pprint-logical-block} when @thevalueof{*print-pretty*}
 is @nil{}@spc{}would be to allow it to perform checking for @term{dotted lists},
-as well as (in conjunction with @symbolref{pprint-pop})
-checking for @symbolref{*print-level*} or @symbolref{*print-length*} being exceeded.
+as well as (in conjunction with @symbolref{pprint-pop, SYM})
+checking for @symbolref{*print-level*, SYM} or @symbolref{*print-length*, SYM} being exceeded.
 
 Detection of circularity and sharing is supported by the @term{pretty printer}
 by in essence performing requested output twice.  On the first pass,
@@ -3776,9 +3776,9 @@ circularities and sharing are detected and the actual outputting of characters
 is suppressed.  On the second pass, the appropriate ``@f{#@param{n}=}''
 and ``@f{#@param{n}#}'' markers are inserted and characters are output.
 This is why the restriction on side-effects is necessary.
-Obeying this restriction is facilitated by using @symbolref{pprint-pop},
-instead of an ordinary @symbolref{pop} when traversing a list being printed by
-the body @param{forms} of the @symbolref{pprint-logical-block} @term{form}.)
+Obeying this restriction is facilitated by using @symbolref{pprint-pop, SYM},
+instead of an ordinary @symbolref{pop, SYM} when traversing a list being printed by
+the body @param{forms} of the @symbolref{pprint-logical-block, SYM} @term{form}.)
 
 
 
@@ -3807,7 +3807,7 @@ If @param{stream} is a @term{pretty printing stream}
 and @thevalueof{*print-pretty*} is @term{true},
 a line break is inserted in the output
 when the appropriate condition below is satisfied;
-otherwise, @symbolref{pprint-newline} has no effect.
+otherwise, @symbolref{pprint-newline, SYM} has no effect.
 
 @param{Kind} specifies the style of conditional newline.
 This @term{parameter} is treated as follows:
@@ -3844,7 +3844,7 @@ but only when miser style is in effect.
 Miser style is in effect for a logical block if and only if
 the starting position of the logical block
 is less than or equal to
-@symbolref{*print-miser-width*} @term{ems} from the right margin.
+@symbolref{*print-miser-width*, SYM} @term{ems} from the right margin.
 
 @item @id{@kwd{fill}}
 
@@ -3886,16 +3886,16 @@ from the output and indentation is introduced at the beginning of the next line.
 By default, the indentation causes the following line to begin
 in the same horizontal position
 as the first character in the immediately containing logical block.
-(The indentation can be changed via @symbolref{pprint-indent}.)
+(The indentation can be changed via @symbolref{pprint-indent, SYM}.)
 
 There are a variety of ways unconditional newlines can be introduced into
-the output (@ie{} via @symbolref{terpri} or by printing a string containing a newline
+the output (@ie{} via @symbolref{terpri, SYM} or by printing a string containing a newline
 character).  As with mandatory conditional newlines, this prevents any of
 the containing @term{sections} from being printed on one line.  In general, when
 an unconditional newline is encountered, it is printed out without
 suppression of the preceding blanks and without any indentation following
 it.  However, if a per-line prefix has been specified (see
-@symbolref{pprint-logical-block}), this prefix will always be printed no matter
+@symbolref{pprint-logical-block, SYM}), this prefix will always be printed no matter
 how a newline originates.
 
 @subsubheading Examples:
@@ -3908,7 +3908,7 @@ Output to @param{stream}.
 
 @subsubheading Affected By:
 
-@symbolref{*print-pretty*}, @code{*print-miser*}.
+@symbolref{*print-pretty*, SYM}, @code{*print-miser*}.
 The presence of containing logical blocks.
 The placement of newlines and conditional newlines.
 
@@ -3944,10 +3944,10 @@ or @nil{}.
 @subsubheading Description:
 
 Pops one @term{element} from the @term{list} being printed
-in the @i{lexically current logical block}, obeying @symbolref{*print-length*}
-and @symbolref{*print-circle*} as described below.
+in the @i{lexically current logical block}, obeying @symbolref{*print-length*, SYM}
+and @symbolref{*print-circle*, SYM} as described below.
 
-Each time @symbolref{pprint-pop} is called, it pops the next value off the
+Each time @symbolref{pprint-pop, SYM} is called, it pops the next value off the
 @term{list} passed to the @i{lexically current logical block} and returns it.
 However, before doing this, it performs three tests:
 
@@ -3962,18 +3962,18 @@ is printed followed by the remaining `list.'
 are robust in the face of malformed arguments.)
 
 @item
-If @symbolref{*print-length*} is @term{non-nil},
-and @symbolref{pprint-pop} has already been called @symbolref{*print-length*} times
+If @symbolref{*print-length*, SYM} is @term{non-nil},
+and @symbolref{pprint-pop, SYM} has already been called @symbolref{*print-length*, SYM} times
 within the immediately containing logical block,
 ``@f{...}''
 @cindex Dot Dot Dot
 @cindex ...
 is printed.
 (This makes it easy to write printing functions that properly handle
-@symbolref{*print-length*}.)
+@symbolref{*print-length*, SYM}.)
 
 @item
-If @symbolref{*print-circle*} is
+If @symbolref{*print-circle*, SYM} is
 @term{non-nil}, and the remaining list is a circular (or shared) reference,
 then ``@f{. }'' is printed followed by an appropriate
 ``@f{#@i{n}#}''
@@ -3985,23 +3985,23 @@ marker.
 
 If either of the three conditions above occurs, the indicated output is
 printed on the @term{pretty printing stream} created by the immediately containing
-@symbolref{pprint-logical-block} and the execution of the immediately containing
-@symbolref{pprint-logical-block} is terminated except for the printing of the suffix.
+@symbolref{pprint-logical-block, SYM} and the execution of the immediately containing
+@symbolref{pprint-logical-block, SYM} is terminated except for the printing of the suffix.
 
-If @symbolref{pprint-logical-block} is given a `list' argument of @nil{}---because
-it is not processing a list---@symbolref{pprint-pop} can still be used to obtain
-support for @symbolref{*print-length*}.
+If @symbolref{pprint-logical-block, SYM} is given a `list' argument of @nil{}---because
+it is not processing a list---@symbolref{pprint-pop, SYM} can still be used to obtain
+support for @symbolref{*print-length*, SYM}.
 In this situation, the first and third tests above are disabled and
-@symbolref{pprint-pop} always returns @nil{}.
+@symbolref{pprint-pop, SYM} always returns @nil{}.
 See @ref{Examples of using the Pretty Printer}---specifically, the @code{pprint-vector} example.
 
-Whether or not @symbolref{pprint-pop} is @term{fbound} in the
+Whether or not @symbolref{pprint-pop, SYM} is @term{fbound} in the
 @term{global environment} is @term{implementation-dependent};
 however, the restrictions on redefinition and @term{shadowing} of
-@symbolref{pprint-pop} are the same as for @term{symbols} in the @code{COMMON-LISP} @term{package}
+@symbolref{pprint-pop, SYM} are the same as for @term{symbols} in the @code{COMMON-LISP} @term{package}
 which are @term{fbound} in the @term{global environment}.
-The consequences of attempting to use @symbolref{pprint-pop} outside
-of @symbolref{pprint-logical-block} are undefined.
+The consequences of attempting to use @symbolref{pprint-pop, SYM} outside
+of @symbolref{pprint-logical-block, SYM} are undefined.
 
 @subsubheading Side Effects:
 
@@ -4010,16 +4010,16 @@ to the @term{pretty printing stream} associated with the lexically current logic
 
 @subsubheading Affected By:
 
-@symbolref{*print-length*}, @symbolref{*print-circle*}.
+@symbolref{*print-length*, SYM}, @symbolref{*print-circle*, SYM}.
 
 @subsubheading Exceptional Situations:
 
 An error is signaled (either at macro expansion time or at run time)
-if a usage of @symbolref{pprint-pop} occurs where there is no lexically
-containing @symbolref{pprint-logical-block} @term{form}.
+if a usage of @symbolref{pprint-pop, SYM} occurs where there is no lexically
+containing @symbolref{pprint-logical-block, SYM} @term{form}.
 
-The consequences are undefined if @symbolref{pprint-pop} is executed outside
-of the @term{dynamic extent} of this @symbolref{pprint-logical-block}.
+The consequences are undefined if @symbolref{pprint-pop, SYM} is executed outside
+of the @term{dynamic extent} of this @symbolref{pprint-logical-block, SYM}.
 
 @subsubheading See Also:
 
@@ -4027,8 +4027,8 @@ of the @term{dynamic extent} of this @symbolref{pprint-logical-block}.
 
 @subsubheading Notes:
 
-It is frequently a good idea to call @symbolref{pprint-exit-if-list-exhausted}
-before calling @symbolref{pprint-pop}.
+It is frequently a good idea to call @symbolref{pprint-exit-if-list-exhausted, SYM}
+before calling @symbolref{pprint-pop, SYM}.
 
 
 
@@ -4060,7 +4060,7 @@ Specifies tabbing to @param{stream} as performed by the standard @formatdirectiv
 If @param{stream} is a @term{pretty printing stream} and
 @thevalueof{*print-pretty*} is @term{true},
 tabbing is performed;
-otherwise, @symbolref{pprint-tab} has no effect.
+otherwise, @symbolref{pprint-tab, SYM} has no effect.
 
 The arguments @param{colnum} and @param{colinc} correspond to the two
 @param{parameters} to @formatOp{T} and are in terms of @term{ems}.
@@ -4119,92 +4119,92 @@ In addition, each @term{implementation} must provide
 @term{methods} on enough other @term{classes}
 so as to ensure that there is always an applicable @term{method}.
 Implementations are free to add @term{methods} for other @term{classes}.
-Users may write @term{methods} for @symbolref{print-object} for their own
+Users may write @term{methods} for @symbolref{print-object, SYM} for their own
 @term{classes} if they do not wish to inherit an
 @term{implementation-dependent} @term{method}.
 
 The @term{method} on @theclass{structure-object} prints the object in the
 default @f{#S} notation; see @ref{Printing Structures}.
 
-@term{Methods} on @symbolref{print-object} are responsible for implementing
+@term{Methods} on @symbolref{print-object, SYM} are responsible for implementing
 their part of the semantics of the @term{printer control variables}, as follows:
 
 
 @table @asis
 
 
-@item @id{@symbolref{*print-readably*}}
+@item @id{@symbolref{*print-readably*, SYM}}
 
 
-All methods for @symbolref{print-object} must obey @symbolref{*print-readably*}.
+All methods for @symbolref{print-object, SYM} must obey @symbolref{*print-readably*, SYM}.
 This includes both user-defined methods and @term{implementation-defined} methods.
 Readable printing of @term{structures} and @term{standard objects}
-is controlled by their @symbolref{print-object} method,
-not by their @symbolref{make-load-form} @term{method}.
+is controlled by their @symbolref{print-object, SYM} method,
+not by their @symbolref{make-load-form, SYM} @term{method}.
 @term{Similarity} for these @term{objects} is application dependent
 and hence is defined to be whatever these @term{methods} do;
 see @ref{Similarity of Literal Objects}.
 
 
-@item @id{@symbolref{*print-escape*}}
+@item @id{@symbolref{*print-escape*, SYM}}
 
 
-Each @term{method} must implement @symbolref{*print-escape*}.
+Each @term{method} must implement @symbolref{*print-escape*, SYM}.
 
-@item @id{@symbolref{*print-pretty*}}
+@item @id{@symbolref{*print-pretty*, SYM}}
 
 
 The @term{method} may wish to perform specialized line breaking
 or other output conditional on @thevalueof{*print-pretty*}.
 For further information,
-see (for example) the @term{macro} @symbolref{pprint-fill}.
+see (for example) the @term{macro} @symbolref{pprint-fill, SYM}.
 See also @ref{Examples of using the Pretty Printer}.
 
-@item @id{@symbolref{*print-length*}}
+@item @id{@symbolref{*print-length*, SYM}}
 
 
 @term{Methods} that produce output of indefinite length must obey
-@symbolref{*print-length*}.
+@symbolref{*print-length*, SYM}.
 For further information,
-see (for example) the @term{macros} @symbolref{pprint-logical-block}
-and @symbolref{pprint-pop}.
+see (for example) the @term{macros} @symbolref{pprint-logical-block, SYM}
+and @symbolref{pprint-pop, SYM}.
 See also @ref{Examples of using the Pretty Printer}.
 
-@item @id{@symbolref{*print-level*}}
+@item @id{@symbolref{*print-level*, SYM}}
 
 
-The printer takes care of @symbolref{*print-level*} automatically,
+The printer takes care of @symbolref{*print-level*, SYM} automatically,
 provided that each @term{method} handles exactly one level of structure and
-calls @symbolref{write} (or an equivalent @term{function}) recursively if
+calls @symbolref{write, SYM} (or an equivalent @term{function}) recursively if
 there are more structural levels.  The printer's decision of whether an
 @term{object} has components (and therefore should not be printed when the
-printing depth is not less than @symbolref{*print-level*}) is
+printing depth is not less than @symbolref{*print-level*, SYM}) is
 @term{implementation-dependent}.  In some implementations its
-@symbolref{print-object} @term{method} is not called;
+@symbolref{print-object, SYM} @term{method} is not called;
 in others the @term{method} is called,
 and the determination that the @term{object} has components is based on what
 it tries to write to the @param{stream}.
 
-@item @id{@symbolref{*print-circle*}}
+@item @id{@symbolref{*print-circle*, SYM}}
 
 
 When @thevalueof{*print-circle*} is @term{true},
 a user-defined
-@symbolref{print-object} @term{method}
+@symbolref{print-object, SYM} @term{method}
 can print @term{objects} to the supplied @term{stream}
-using @symbolref{write},
-@symbolref{prin1},
-@symbolref{princ},
-or @symbolref{format}
+using @symbolref{write, SYM},
+@symbolref{prin1, SYM},
+@symbolref{princ, SYM},
+or @symbolref{format, SYM}
 and expect circularities to be detected
 and printed using the @f{#@i{n}#} syntax.
 If a user-defined
-@symbolref{print-object} @term{method}
+@symbolref{print-object, SYM} @term{method}
 prints to a @term{stream} other than the one
 that was supplied, then circularity detection starts over for that
-@term{stream}.  See @symbolref{*print-circle*}.
+@term{stream}.  See @symbolref{*print-circle*, SYM}.
 
-@item @id{@symbolref{*print-base*}, @symbolref{*print-radix*}, @symbolref{*print-case*},  @symbolref{*print-gensym*}, and @symbolref{*print-array*}}
+@item @id{@symbolref{*print-base*, SYM}, @symbolref{*print-radix*, SYM}, @symbolref{*print-case*, SYM},  @symbolref{*print-gensym*, SYM}, and @symbolref{*print-array*, SYM}}
 
 
 These @term{printer control variables} apply to specific types of @term{objects}
@@ -4214,12 +4214,12 @@ and are handled by the @term{methods} for those @term{objects}.
 
 If these rules are not obeyed, the results are undefined.
 
-In general, the printer and the @symbolref{print-object} methods should not
+In general, the printer and the @symbolref{print-object, SYM} methods should not
 rebind the print control variables as they operate recursively through the
 structure, but this is @term{implementation-dependent}.
 
 In some implementations the @param{stream} argument passed to a
-@symbolref{print-object} @term{method} is not the original @term{stream},
+@symbolref{print-object, SYM} @term{method} is not the original @term{stream},
 but is an intermediate @term{stream} that implements part of the printer.
 @term{methods} should therefore not depend on the identity of this @term{stream}.
 
@@ -4301,7 +4301,7 @@ and the identity.
 
 @subsubheading Exceptional Situations:
 
-If @symbolref{*print-readably*} is @term{true}, @symbolref{print-unreadable-object}
+If @symbolref{*print-readably*, SYM} is @term{true}, @symbolref{print-unreadable-object, SYM}
 signals an error @oftype{print-not-readable} without printing anything.
 
 
@@ -4323,7 +4323,7 @@ signals an error @oftype{print-not-readable} without printing anything.
 
 @param{function}---a @term{function}, a @term{function name}, or @nil{}.
 
-@param{priority}---a @symbolref{real}.
+@param{priority}---a @symbolref{real, SYM}.
 @Default{@f{0}}
 
 @param{table}---a @term{pprint dispatch table}.
@@ -4335,11 +4335,11 @@ Installs an entry into the @term{pprint dispatch table} which is @param{table}.
 
 @param{Type-specifier}
 is the @term{key}
-of the entry.  The first action of @symbolref{set-pprint-dispatch} is to remove any
+of the entry.  The first action of @symbolref{set-pprint-dispatch, SYM} is to remove any
 pre-existing entry associated with @param{type-specifier}.  This guarantees that
 there will never be two entries associated with the same @term{type specifier}
 in a given @term{pprint dispatch table}.  Equality of @term{type specifiers} is
-tested by @symbolref{equal}.
+tested by @symbolref{equal, SYM}.
 
 Two values are associated with each @term{type specifier} in a
 @term{pprint dispatch table}: a @param{function} and a @param{priority}.
@@ -4347,7 +4347,7 @@ The @param{function} must accept two arguments: the @term{stream} to which outpu
 is sent and the @term{object} to be printed.  The @param{function} should
 @term{pretty print} the @term{object} to the @param{stream}.  The @param{function}
 can assume that object satisfies the @term{type} given by @term{type specifier}.
-The @param{function} must obey @symbolref{*print-readably*}.
+The @param{function} must obey @symbolref{*print-readably*, SYM}.
 Any values returned by the @param{function} are ignored.
 
 @param{Priority} is a priority to resolve conflicts
@@ -4355,11 +4355,11 @@ when an object matches more than one entry.
 
 It is permissible for @param{function} to be @nil{}.  In this situation,
 there will be no @param{type-specifier} entry in @param{table} after
-@symbolref{set-pprint-dispatch} returns.
+@symbolref{set-pprint-dispatch, SYM} returns.
 
 @subsubheading Exceptional Situations:
 
-An error is signaled if @param{priority} is not a @symbolref{real}.
+An error is signaled if @param{priority} is not a @symbolref{real, SYM}.
 
 @subsubheading Notes:
 
@@ -4415,82 +4415,82 @@ The @param{cdr-type} can be omitted in which case it defaults to @t{t}.
 
 @subsubheading Description:
 
-@symbolref{write}, @symbolref{prin1}, @symbolref{princ}, @symbolref{print}, and @symbolref{pprint}
+@symbolref{write, SYM}, @symbolref{prin1, SYM}, @symbolref{princ, SYM}, @symbolref{print, SYM}, and @symbolref{pprint, SYM}
 write the printed representation of @param{object} to @param{output-stream}.
 
-@symbolref{write} is the general entry point to the @term{Lisp printer}.
+@symbolref{write, SYM} is the general entry point to the @term{Lisp printer}.
 For each explicitly supplied @term{keyword parameter} named in @thenextfigure{},
 the corresponding @term{printer control variable} is dynamically bound to its @term{value}
 while printing goes on;
 for each @term{keyword parameter} in @thenextfigure{}@spc{}that is not explicitly supplied,
 the value of the corresponding @term{printer control variable} is the same as it was
-at the time @symbolref{write} was invoked.
+at the time @symbolref{write, SYM} was invoked.
 Once the appropriate @term{bindings} are @term{established},
 the @term{object} is output by the @term{Lisp printer}.
 
 
 @float Figure,fig22.7
 @cartouche
-@multitable{@param{pprint-dispatch}}{@symbolref{*print-pprint-dispatch*}}
+@multitable{@param{pprint-dispatch}}{@symbolref{*print-pprint-dispatch*, SYM}}
 @headitem Parameter @tab Corresponding Dynamic Variable
-@item @param{array} @tab @symbolref{*print-array*}
-@item @param{base} @tab @symbolref{*print-base*}
-@item @param{case} @tab @symbolref{*print-case*}
-@item @param{circle} @tab @symbolref{*print-circle*}
-@item @param{escape} @tab @symbolref{*print-escape*}
-@item @param{gensym} @tab @symbolref{*print-gensym*}
-@item @param{length} @tab @symbolref{*print-length*}
-@item @param{level} @tab @symbolref{*print-level*}
-@item @param{lines} @tab @symbolref{*print-lines*}
-@item @param{miser-width} @tab @symbolref{*print-miser-width*}
-@item @param{pprint-dispatch} @tab @symbolref{*print-pprint-dispatch*}
-@item @param{pretty} @tab @symbolref{*print-pretty*}
-@item @param{radix} @tab @symbolref{*print-radix*}
-@item @param{readably} @tab @symbolref{*print-readably*}
-@item @param{right-margin} @tab @symbolref{*print-right-margin*}
+@item @param{array} @tab @symbolref{*print-array*, SYM}
+@item @param{base} @tab @symbolref{*print-base*, SYM}
+@item @param{case} @tab @symbolref{*print-case*, SYM}
+@item @param{circle} @tab @symbolref{*print-circle*, SYM}
+@item @param{escape} @tab @symbolref{*print-escape*, SYM}
+@item @param{gensym} @tab @symbolref{*print-gensym*, SYM}
+@item @param{length} @tab @symbolref{*print-length*, SYM}
+@item @param{level} @tab @symbolref{*print-level*, SYM}
+@item @param{lines} @tab @symbolref{*print-lines*, SYM}
+@item @param{miser-width} @tab @symbolref{*print-miser-width*, SYM}
+@item @param{pprint-dispatch} @tab @symbolref{*print-pprint-dispatch*, SYM}
+@item @param{pretty} @tab @symbolref{*print-pretty*, SYM}
+@item @param{radix} @tab @symbolref{*print-radix*, SYM}
+@item @param{readably} @tab @symbolref{*print-readably*, SYM}
+@item @param{right-margin} @tab @symbolref{*print-right-margin*, SYM}
 @end multitable
 @end cartouche
 @caption{Argument correspondences for the WRITE function.}
 @end float
 
 
-@symbolref{prin1}, @symbolref{princ}, @symbolref{print}, and @symbolref{pprint} implicitly
+@symbolref{prin1, SYM}, @symbolref{princ, SYM}, @symbolref{print, SYM}, and @symbolref{pprint, SYM} implicitly
 @term{bind} certain print parameters to particular values.  The remaining parameter
 values are taken from
-@symbolref{*print-array*},
-@symbolref{*print-base*},
-@symbolref{*print-case*},
-@symbolref{*print-circle*},
-@symbolref{*print-escape*},
-@symbolref{*print-gensym*},
-@symbolref{*print-length*},
-@symbolref{*print-level*},
-@symbolref{*print-lines*},
-@symbolref{*print-miser-width*},
-@symbolref{*print-pprint-dispatch*},
-@symbolref{*print-pretty*},
-@symbolref{*print-radix*},
-and @symbolref{*print-right-margin*}.
+@symbolref{*print-array*, SYM},
+@symbolref{*print-base*, SYM},
+@symbolref{*print-case*, SYM},
+@symbolref{*print-circle*, SYM},
+@symbolref{*print-escape*, SYM},
+@symbolref{*print-gensym*, SYM},
+@symbolref{*print-length*, SYM},
+@symbolref{*print-level*, SYM},
+@symbolref{*print-lines*, SYM},
+@symbolref{*print-miser-width*, SYM},
+@symbolref{*print-pprint-dispatch*, SYM},
+@symbolref{*print-pretty*, SYM},
+@symbolref{*print-radix*, SYM},
+and @symbolref{*print-right-margin*, SYM}.
 
-@symbolref{prin1} produces output suitable for input to @symbolref{read}.
-It binds @symbolref{*print-escape*} to @term{true}.
+@symbolref{prin1, SYM} produces output suitable for input to @symbolref{read, SYM}.
+It binds @symbolref{*print-escape*, SYM} to @term{true}.
 
-@symbolref{princ} is just like @symbolref{prin1} except that the
+@symbolref{princ, SYM} is just like @symbolref{prin1, SYM} except that the
 output has no @term{escape} @term{characters}.
-It binds @symbolref{*print-escape*}   to @term{false}
-and @symbolref{*print-readably*} to @term{false}.
-The general rule is that output from @symbolref{princ} is intended to look
-good to people, while output from @symbolref{prin1} is intended to
-be acceptable to @symbolref{read}.
+It binds @symbolref{*print-escape*, SYM}   to @term{false}
+and @symbolref{*print-readably*, SYM} to @term{false}.
+The general rule is that output from @symbolref{princ, SYM} is intended to look
+good to people, while output from @symbolref{prin1, SYM} is intended to
+be acceptable to @symbolref{read, SYM}.
 
-@symbolref{print} is just like @symbolref{prin1}
+@symbolref{print, SYM} is just like @symbolref{prin1, SYM}
 except that the printed representation
 of @param{object} is preceded by a newline
 and followed by a space.
 
-@symbolref{pprint} is just like @symbolref{print} except that the trailing
+@symbolref{pprint, SYM} is just like @symbolref{print, SYM} except that the trailing
 space is omitted and
-@param{object} is printed with the @symbolref{*print-pretty*} flag @term{non-nil}
+@param{object} is printed with the @symbolref{*print-pretty*, SYM} flag @term{non-nil}
 to produce pretty output.
 
 @param{Output-stream} specifies the @term{stream} to which
@@ -4498,19 +4498,19 @@ output is to be sent.
 
 @subsubheading Affected By:
 
-@symbolref{*standard-output*},
-@symbolref{*terminal-io*},
-@symbolref{*print-escape*},
-@symbolref{*print-radix*},
-@symbolref{*print-base*},
-@symbolref{*print-circle*},
-@symbolref{*print-pretty*},
-@symbolref{*print-level*},
-@symbolref{*print-length*},
-@symbolref{*print-case*},
-@symbolref{*print-gensym*},
-@symbolref{*print-array*},
-@symbolref{*read-default-float-format*}.
+@symbolref{*standard-output*, SYM},
+@symbolref{*terminal-io*, SYM},
+@symbolref{*print-escape*, SYM},
+@symbolref{*print-radix*, SYM},
+@symbolref{*print-base*, SYM},
+@symbolref{*print-circle*, SYM},
+@symbolref{*print-pretty*, SYM},
+@symbolref{*print-level*, SYM},
+@symbolref{*print-length*, SYM},
+@symbolref{*print-case*, SYM},
+@symbolref{*print-gensym*, SYM},
+@symbolref{*print-array*, SYM},
+@symbolref{*read-default-float-format*, SYM}.
 
 @subsubheading See Also:
 
@@ -4519,7 +4519,7 @@ output is to be sent.
 
 @subsubheading Notes:
 
-@Thefunctions{prin1} and @symbolref{print} do not bind @symbolref{*print-readably*}.
+@Thefunctions{prin1} and @symbolref{print, SYM} do not bind @symbolref{*print-readably*, SYM}.
 
 @lisp
  (prin1 object output-stream)
@@ -4577,31 +4577,31 @@ output is to be sent.
 
 @subsubheading Description:
 
-@symbolref{write-to-string}, @symbolref{prin1-to-string}, and @symbolref{princ-to-string}
+@symbolref{write-to-string, SYM}, @symbolref{prin1-to-string, SYM}, and @symbolref{princ-to-string, SYM}
 are used to create a @term{string} consisting of the printed representation
 of @param{object}.
-@param{Object} is effectively printed as if by @symbolref{write},
-@symbolref{prin1}, or @symbolref{princ}, respectively,
+@param{Object} is effectively printed as if by @symbolref{write, SYM},
+@symbolref{prin1, SYM}, or @symbolref{princ, SYM}, respectively,
 and the @term{characters} that would be output are made
 into a @term{string}.
 
-@symbolref{write-to-string} is the general output function.
+@symbolref{write-to-string, SYM} is the general output function.
 It has the ability to specify all the parameters applicable
 to the printing of @param{object}.
 
-@symbolref{prin1-to-string} acts like @symbolref{write-to-string} with
+@symbolref{prin1-to-string, SYM} acts like @symbolref{write-to-string, SYM} with
 @f{:escape t}, that is, escape characters are written where appropriate.
 
-@symbolref{princ-to-string} acts like @symbolref{write-to-string} with
+@symbolref{princ-to-string, SYM} acts like @symbolref{write-to-string, SYM} with
 @f{:escape nil :readably nil}.
 Thus no @term{escape} @term{characters} are written.
 
-All other keywords that would be specified to @symbolref{write-to-string}
-are default values when @symbolref{prin1-to-string}
-or @symbolref{princ-to-string} is invoked.
+All other keywords that would be specified to @symbolref{write-to-string, SYM}
+are default values when @symbolref{prin1-to-string, SYM}
+or @symbolref{princ-to-string, SYM} is invoked.
 
-The meanings and defaults for the keyword arguments to @symbolref{write-to-string}
-are the same as those for @symbolref{write}.
+The meanings and defaults for the keyword arguments to @symbolref{write-to-string, SYM}
+are the same as those for @symbolref{write, SYM}.
 
 @subsubheading Examples:
 
@@ -4613,17 +4613,17 @@ are the same as those for @symbolref{write}.
 
 @subsubheading Affected By:
 
-@symbolref{*print-escape*},
-@symbolref{*print-radix*},
-@symbolref{*print-base*},
-@symbolref{*print-circle*},
-@symbolref{*print-pretty*},
-@symbolref{*print-level*},
-@symbolref{*print-length*},
-@symbolref{*print-case*},
-@symbolref{*print-gensym*},
-@symbolref{*print-array*},
-@symbolref{*read-default-float-format*}.
+@symbolref{*print-escape*, SYM},
+@symbolref{*print-radix*, SYM},
+@symbolref{*print-base*, SYM},
+@symbolref{*print-circle*, SYM},
+@symbolref{*print-pretty*, SYM},
+@symbolref{*print-level*, SYM},
+@symbolref{*print-length*, SYM},
+@symbolref{*print-case*, SYM},
+@symbolref{*print-gensym*, SYM},
+@symbolref{*print-array*, SYM},
+@symbolref{*read-default-float-format*, SYM}.
 
 @subsubheading See Also:
 
@@ -4690,17 +4690,17 @@ The @term{implementation}.
 
 @subsubheading Value Type:
 
-@symbolref{*print-base*}---a @term{radix}.
-@symbolref{*print-radix*}---a @term{generalized boolean}.
+@symbolref{*print-base*, SYM}---a @term{radix}.
+@symbolref{*print-radix*, SYM}---a @term{generalized boolean}.
 
 @subsubheading Initial Value:
 
-The initial @term{value} of @symbolref{*print-base*} is @f{10}.
-The initial @term{value} of @symbolref{*print-radix*} is @term{false}.
+The initial @term{value} of @symbolref{*print-base*, SYM} is @f{10}.
+The initial @term{value} of @symbolref{*print-radix*, SYM} is @term{false}.
 
 @subsubheading Description:
 
-@symbolref{*print-base*} and @symbolref{*print-radix*} control the printing
+@symbolref{*print-base*, SYM} and @symbolref{*print-radix*, SYM} control the printing
 of @term{rationals}.
 @Thevalueof{*print-base*} is called the @newterm{current output base}.
 
@@ -4711,7 +4711,7 @@ the alphabet are used to represent digits above @f{9}.
 If @thevalueof{*print-radix*} is @term{true},
 the printer will print a radix specifier to indicate the @term{radix}
 in which it is printing a @term{rational} number.  The radix specifier
-is always printed using lowercase letters.  If @symbolref{*print-base*}
+is always printed using lowercase letters.  If @symbolref{*print-base*, SYM}
 is @f{2}, @f{8}, or @f{16}, then the radix specifier used is @f{#b},
 @f{#o}, or @f{#x}, respectively.  For @term{integers}, base ten is
 indicated by a trailing decimal point instead of a leading radix
@@ -4751,7 +4751,7 @@ specifier; for @term{ratios}, @f{#10r} is used.
 
 @subsubheading Affected By:
 
-Might be @term{bound} by @symbolref{format}, and @symbolref{write}, @symbolref{write-to-string}.
+Might be @term{bound} by @symbolref{format, SYM}, and @symbolref{write, SYM}, @symbolref{write-to-string, SYM}.
 
 @subsubheading See Also:
 
@@ -4780,8 +4780,8 @@ The @term{symbol} @kwd{upcase}.
 which to print any uppercase characters in the names of @term{symbols}
 when vertical-bar syntax is not used.
 
-@symbolref{*print-case*} has an effect at all times when @thevalueof{*print-escape*}
-is @term{false}. @symbolref{*print-case*} also has an effect when
+@symbolref{*print-case*, SYM} has an effect at all times when @thevalueof{*print-escape*}
+is @term{false}. @symbolref{*print-case*, SYM} also has an effect when
 @thevalueof{*print-escape*} is @term{true} unless inside an escape context
 (@ie{} unless between @term{vertical-bars} or after a @term{slash}).
 
@@ -4816,11 +4816,11 @@ is @term{false}. @symbolref{*print-case*} also has an effect when
 
 @subsubheading Notes:
 
-@symbolref{read} normally converts lowercase characters appearing
+@symbolref{read, SYM} normally converts lowercase characters appearing
 in @term{symbols} to corresponding uppercase characters,
 so that internally print names normally contain only uppercase characters.
 
-If @symbolref{*print-escape*} is @term{true},
+If @symbolref{*print-escape*, SYM} is @term{true},
 lowercase characters in the @term{name} of a @term{symbol}
 are always printed in lowercase, and
 are preceded by a single escape character
@@ -4828,8 +4828,8 @@ or enclosed by multiple escape characters;
 uppercase characters in the @term{name} of a @term{symbol}
 are printed in upper case, in lower case, or in mixed case
 so as to capitalize words, according to the value of
-@symbolref{*print-case*}.  The convention for what constitutes
-a ``word'' is the same as for @symbolref{string-capitalize}.
+@symbolref{*print-case*, SYM}.  The convention for what constitutes
+a ``word'' is the same as for @symbolref{string-capitalize, SYM}.
 
 @node *print-circle*
 @subsection *print-circle* (Variable)
@@ -4862,13 +4862,13 @@ and to use @f{#@i{n}=} and @f{#@i{n}#}
 syntax to indicate the circularities or shared components.
 
 If @term{true}, a user-defined
-@symbolref{print-object} @term{method}
+@symbolref{print-object, SYM} @term{method}
 can print
-@term{objects} to the supplied @term{stream} using @symbolref{write}, @symbolref{prin1},
-@symbolref{princ}, or @symbolref{format} and expect circularities and sharing
+@term{objects} to the supplied @term{stream} using @symbolref{write, SYM}, @symbolref{prin1, SYM},
+@symbolref{princ, SYM}, or @symbolref{format, SYM} and expect circularities and sharing
 to be detected and printed using the @f{#@i{n}#} syntax.
 If a user-defined
-@symbolref{print-object} @term{method}
+@symbolref{print-object, SYM} @term{method}
 prints to a @term{stream} other than the one
 that was supplied, then circularity detection starts over for that @term{stream}.
 
@@ -4895,7 +4895,7 @@ when the @term{Lisp reader} would automatically assure sharing without it
 
 @subsubheading Notes:
 
-An attempt to print a circular structure with @symbolref{*print-circle*}
+An attempt to print a circular structure with @symbolref{*print-circle*, SYM}
 set to @nil{}@spc{}may lead to looping behavior and failure to terminate.
 
 
@@ -4921,8 +4921,8 @@ escape characters and @term{package prefixes} are not output
 when an expression is printed.
 
 If @term{true}, an attempt is made to print an @term{expression}
-in such a way that it can be read again to produce an @symbolref{equal} @term{expression}.
-(This is only a guideline; not a requirement.  See @symbolref{*print-readably*}.)
+in such a way that it can be read again to produce an @symbolref{equal, SYM} @term{expression}.
+(This is only a guideline; not a requirement.  See @symbolref{*print-readably*, SYM}.)
 
 For more specific details of how @thevalueof{*print-escape*}
 affects the printing of certain @term{types},
@@ -4941,7 +4941,7 @@ see @ref{Default Print-Object Methods}.
 
 @subsubheading Affected By:
 
-@symbolref{princ}, @symbolref{prin1}, @symbolref{format}
+@symbolref{princ, SYM}, @symbolref{prin1, SYM}, @symbolref{format, SYM}
 
 @subsubheading See Also:
 
@@ -4949,8 +4949,8 @@ see @ref{Default Print-Object Methods}.
 
 @subsubheading Notes:
 
-@symbolref{princ} effectively binds @symbolref{*print-escape*} to @term{false}.
-@symbolref{prin1} effectively binds @symbolref{*print-escape*} to @term{true}.
+@symbolref{princ, SYM} effectively binds @symbolref{*print-escape*, SYM} to @term{false}.
+@symbolref{prin1, SYM} effectively binds @symbolref{*print-escape*, SYM} to @term{true}.
 
 
 @node *print-gensym*
@@ -5008,7 +5008,7 @@ a non-negative @term{integer}, or @nil{}.
 
 @subsubheading Description:
 
-@symbolref{*print-level*} controls how many levels deep a nested @term{object} will print.
+@symbolref{*print-level*, SYM} controls how many levels deep a nested @term{object} will print.
 If it is @term{false}, then no control is exercised.
 Otherwise, it is an @term{integer} indicating the maximum level to be printed.
 An @term{object} to be printed is at level @f{0};
@@ -5018,7 +5018,7 @@ If an @term{object} to be recursively printed has components
 and is at a level equal to or greater than @thevalueof{*print-level*},
 then the @term{object} is printed as ``@f{#}''.
 
-@symbolref{*print-length*} controls how many elements at a given level are printed.
+@symbolref{*print-length*, SYM} controls how many elements at a given level are printed.
 If it is @term{false}, there is no limit to the number of components printed.
 Otherwise, it is an @term{integer} indicating the maximum number of @term{elements}
 of an @term{object} to be printed.  If exceeded, the printer will print
@@ -5026,7 +5026,7 @@ of an @term{object} to be printed.  If exceeded, the printer will print
 if the @term{list} contains exactly as many @term{elements} as @thevalueof{*print-length*},
 the terminating @term{atom} is printed rather than printing ``@f{...}''
 
-@symbolref{*print-level*} and @symbolref{*print-length*} affect the printing
+@symbolref{*print-level*, SYM} and @symbolref{*print-length*, SYM} affect the printing
 of an any @term{object} printed with a list-like syntax.  They do not affect
 the printing of @term{symbols}, @term{strings}, and @term{bit vectors}.
 
@@ -5176,7 +5176,7 @@ a @term{pprint dispatch table}.
 
 @term{implementation-dependent}, but the initial entries all use a
 special class of priorities that have the property that they are less
-than every priority that can be specified using @symbolref{set-pprint-dispatch},
+than every priority that can be specified using @symbolref{set-pprint-dispatch, SYM},
 so that the initial contents of any entry can be overridden.
 
 @subsubheading Description:
@@ -5192,11 +5192,11 @@ The @term{pprint dispatch table} which currently controls the @term{pretty print
 
 The intent is that the initial @term{value} of this @term{variable} should
 cause `traditional' @term{pretty printing} of @term{code}.
-In general, however, you can put a value in @symbolref{*print-pprint-dispatch*}
+In general, however, you can put a value in @symbolref{*print-pprint-dispatch*, SYM}
 that makes pretty-printed output look exactly like non-pretty-printed output.
-Setting @symbolref{*print-pretty*} to @term{true}
+Setting @symbolref{*print-pretty*, SYM} to @term{true}
 just causes the functions contained in the @term{current pprint dispatch table}
-to have priority over normal @symbolref{print-object} methods;
+to have priority over normal @symbolref{print-object, SYM} methods;
 it has no magic way of enforcing that those functions actually produce pretty
 output.  For details, see @ref{Pretty Print Dispatch Tables}.
 
@@ -5230,7 +5230,7 @@ the @term{pretty printer} is used, and the @term{Lisp printer} will endeavor
 to insert extra @term{whitespace}@sub{1} where appropriate to make @term{expressions}
 more readable.
 
-@symbolref{*print-pretty*} has an effect even when @thevalueof{*print-escape*}
+@symbolref{*print-pretty*, SYM} has an effect even when @thevalueof{*print-escape*}
 is @term{false}.
 
 @subsubheading Examples:
@@ -5290,7 +5290,7 @@ a @term{generalized boolean}.
 
 @subsubheading Description:
 
-If @symbolref{*print-readably*} is @term{true},
+If @symbolref{*print-readably*, SYM} is @term{true},
 some special rules for printing @term{objects} go into effect.
 Specifically, printing any @term{object} @mat{O@sub{1}} produces a printed
 representation that, when seen by the @term{Lisp reader}
@@ -5298,7 +5298,7 @@ while the @term{standard readtable} is in effect,
 will produce
 an @term{object} @mat{O@sub{2}} that is @term{similar} to @mat{O@sub{1}}.
 The printed representation produced might or might not be the same as
-the printed representation produced when @symbolref{*print-readably*} is @term{false}.
+the printed representation produced when @symbolref{*print-readably*, SYM} is @term{false}.
 If printing an @term{object} @term{readably} is not possible,
 an error @oftype{print-not-readable} is signaled rather than
 using a syntax (@eg{} the ``@f{#<}'' syntax) that would not be readable by
@@ -5307,24 +5307,24 @@ If the @term{value} of some other @term{printer control variable} is such
 that these requirements would be violated, the @term{value} of that other
 @term{variable} is ignored.
 
-Specifically, if @symbolref{*print-readably*} is @term{true},
+Specifically, if @symbolref{*print-readably*, SYM} is @term{true},
 printing proceeds as if
-@symbolref{*print-escape*},
-@symbolref{*print-array*},
-and @symbolref{*print-gensym*} were also @term{true},
+@symbolref{*print-escape*, SYM},
+@symbolref{*print-array*, SYM},
+and @symbolref{*print-gensym*, SYM} were also @term{true},
 and as if
-@symbolref{*print-length*},
-@symbolref{*print-level*},
-and @symbolref{*print-lines*} were @term{false}.
+@symbolref{*print-length*, SYM},
+@symbolref{*print-level*, SYM},
+and @symbolref{*print-lines*, SYM} were @term{false}.
 
-If @symbolref{*print-readably*} is @term{false},
+If @symbolref{*print-readably*, SYM} is @term{false},
 the normal rules for printing and the normal interpretations
 of other @term{printer control variables} are in effect.
 
-Individual @term{methods} for @symbolref{print-object}, including user-defined
+Individual @term{methods} for @symbolref{print-object, SYM}, including user-defined
 @term{methods}, are responsible for implementing these requirements.
 
-If @symbolref{*read-eval*} is @term{false} and @symbolref{*print-readably*} is @term{true},
+If @symbolref{*read-eval*, SYM} is @term{false} and @symbolref{*print-readably*, SYM} is @term{true},
 any such method that would output a reference to the ``@f{#.}'' @term{reader macro}
 will either output something else or will signal an error (as described above).
 
@@ -5432,20 +5432,20 @@ requiring the language to provide support for fonts.
 
 
 @subsubheading Class Precedence List:
-@symbolref{print-not-readable},
+@symbolref{print-not-readable, SYM},
 @code{error},
-@symbolref{serious-condition},
-@symbolref{condition},
+@symbolref{serious-condition, SYM},
+@symbolref{condition, SYM},
 @code{t}
 
 @subsubheading Description:
 
 @Thetype{print-not-readable} consists of error conditions that occur during
-output while @symbolref{*print-readably*} is @term{true}, as a result of attempting
+output while @symbolref{*print-readably*, SYM} is @term{true}, as a result of attempting
 to write a printed representation with the @term{Lisp printer}
 that would not be correctly read back with the @term{Lisp reader}.
 The object which could not be printed is initialized by
-@theinitkeyarg{object} to @symbolref{make-condition}, and is @term{accessed} by
+@theinitkeyarg{object} to @symbolref{make-condition, SYM}, and is @term{accessed} by
 @thefunction{print-not-readable-object}.
 
 @subsubheading See Also:
@@ -5505,7 +5505,7 @@ otherwise, a @term{string}.
 
 @subsubheading Description:
 
-@symbolref{format} produces formatted output by outputting the characters
+@symbolref{format, SYM} produces formatted output by outputting the characters
 of @param{control-string} and observing that a @term{tilde}
 introduces a directive.  The character after the tilde, possibly preceded
 by prefix parameters and modifiers, specifies what kind of formatting
@@ -5516,8 +5516,8 @@ If @param{destination} is a @term{string}, a @term{stream}, or @code{t},
 then the @param{result} is @nil{}.  Otherwise, the @param{result} is
 a @term{string} containing the `output.'
 
-@symbolref{format} is useful for producing nicely formatted text, producing
-good-looking messages, and so on.  @symbolref{format} can generate and return
+@symbolref{format, SYM} is useful for producing nicely formatted text, producing
+good-looking messages, and so on.  @symbolref{format, SYM} can generate and return
 a @term{string} or output to @param{destination}.
 
 For details on how the @param{control-string} is interpreted,
@@ -5525,17 +5525,17 @@ see @ref{Formatted Output}.
 
 @subsubheading Affected By:
 
-@symbolref{*standard-output*},
-@symbolref{*print-escape*},
-@symbolref{*print-radix*},
-@symbolref{*print-base*},
-@symbolref{*print-circle*},
-@symbolref{*print-pretty*},
-@symbolref{*print-level*},
-@symbolref{*print-length*},
-@symbolref{*print-case*},
-@symbolref{*print-gensym*},
-@symbolref{*print-array*}.
+@symbolref{*standard-output*, SYM},
+@symbolref{*print-escape*, SYM},
+@symbolref{*print-radix*, SYM},
+@symbolref{*print-base*, SYM},
+@symbolref{*print-circle*, SYM},
+@symbolref{*print-pretty*, SYM},
+@symbolref{*print-level*, SYM},
+@symbolref{*print-length*, SYM},
+@symbolref{*print-case*, SYM},
+@symbolref{*print-gensym*, SYM},
+@symbolref{*print-array*, SYM}.
 
 @subsubheading Exceptional Situations:
 

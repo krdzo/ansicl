@@ -32,8 +32,8 @@
 @end macro
 
 @c referece to a symbol
-@macro symbolref {symbol}
-@code{@ref{SYM_\symbol\, \symbol\}}
+@macro symbolref {symbol, type}
+@code{@ref{\type\_\symbol\, \symbol\}}
 @end macro
 
 @macro bglos {arg}
@@ -863,11 +863,11 @@ The @code{\arg\} @term{macro}
 @end macro
 
 @macro theGF {arg}
-the @term{generic function} @code{\arg\}
+the @term{generic function} @stymbolref{\arg\, SYM}
 @end macro
 
 @macro TheGF {arg}
-The @term{generic function} @code{\arg\}
+The @term{generic function} @symbolref{\arg\, SYM}
 @end macro
 
 @macro Thespecop {arg}

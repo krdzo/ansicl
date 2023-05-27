@@ -61,8 +61,8 @@ for which the @term{element type} of the @term{string} does not include that @te
 @subsubheading Class Precedence List:
 @code{string},
 @code{vector},
-@symbolref{array},
-@symbolref{sequence},
+@symbolref{array, SYM},
+@symbolref{sequence, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -108,11 +108,11 @@ that is, the set of @term{strings} of size @param{size}.
 
 @subsubheading Supertypes:
 
-@symbolref{base-string},
+@symbolref{base-string, SYM},
 @code{string},
 @code{vector},
-@symbolref{array},
-@symbolref{sequence},
+@symbolref{array, SYM},
+@symbolref{sequence, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -149,12 +149,12 @@ that is, the set of @term{base strings} of size @param{size}.
 
 @subsubheading Supertypes:
 
-@symbolref{simple-string},
+@symbolref{simple-string, SYM},
 @code{string},
 @code{vector},
-@symbolref{simple-array},
-@symbolref{array},
-@symbolref{sequence},
+@symbolref{simple-array, SYM},
+@symbolref{array, SYM},
+@symbolref{sequence, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -162,7 +162,7 @@ that is, the set of @term{base strings} of size @param{size}.
 A @term{simple string} is a specialized one-dimensional
 @term{simple array} whose @term{elements} are @oftypes{character}.
 When used as a @term{type specifier} for object creation,
-@symbolref{simple-string} means @f{(simple-array character (@i{size}))}.
+@symbolref{simple-string, SYM} means @f{(simple-array character (@i{size}))}.
 
 @subsubheading Compound Type Specifier Kind:
 
@@ -191,14 +191,14 @@ This denotes the union of all @term{types}
 
 @subsubheading Supertypes:
 
-@symbolref{simple-base-string},
-@symbolref{base-string},
-@symbolref{simple-string},
+@symbolref{simple-base-string, SYM},
+@symbolref{base-string, SYM},
+@symbolref{simple-string, SYM},
 @code{string},
 @code{vector},
-@symbolref{simple-array},
-@symbolref{array},
-@symbolref{sequence},
+@symbolref{simple-array, SYM},
+@symbolref{array, SYM},
+@symbolref{sequence, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -281,8 +281,8 @@ that is, the set of @term{simple} @term{base strings} of size @param{size}.
 
 @subsubheading Arguments and Values:
 
-@param{string}---for @symbolref{char},  a @term{string};
-for @symbolref{schar}, a @term{simple string}.
+@param{string}---for @symbolref{char, SYM},  a @term{string};
+for @symbolref{schar, SYM}, a @term{simple string}.
 
 @param{index}---a @term{valid array index} for the @param{string}.
 
@@ -290,10 +290,10 @@ for @symbolref{schar}, a @term{simple string}.
 
 @subsubheading Description:
 
-@symbolref{char} and @symbolref{schar} @term{access} the @term{element} of @param{string}
+@symbolref{char, SYM} and @symbolref{schar, SYM} @term{access} the @term{element} of @param{string}
 specified by @param{index}.
 
-@symbolref{char} ignores @term{fill pointers} when @term{accessing} @term{elements}.
+@symbolref{char, SYM} ignores @term{fill pointers} when @term{accessing} @term{elements}.
 
 @subsubheading Examples:
 
@@ -383,11 +383,11 @@ by the @term{implementation}, an error @oftype{type-error} is signaled.
 
 @subsubheading Notes:
 
-@symbolref{coerce} can be used to convert a @term{sequence} of @term{characters}
+@symbolref{coerce, SYM} can be used to convert a @term{sequence} of @term{characters}
 to a @term{string}.
 
-@symbolref{prin1-to-string}, @symbolref{princ-to-string}, @symbolref{write-to-string},
-or @symbolref{format} (with a first argument of @nil{}) can be used to get a
+@symbolref{prin1-to-string, SYM}, @symbolref{princ-to-string, SYM}, @symbolref{write-to-string, SYM},
+or @symbolref{format, SYM} (with a first argument of @nil{}) can be used to get a
 @term{string} representation of a @term{number} or any other @term{object}.
 
 
@@ -422,9 +422,9 @@ or @symbolref{format} (with a first argument of @nil{}) can be used to get a
 @subsubheading Arguments and Values:
 
 @param{string}---a @term{string designator}.
-For @symbolref{nstring-upcase},
-@symbolref{nstring-downcase},
-and @symbolref{nstring-capitalize},
+For @symbolref{nstring-upcase, SYM},
+@symbolref{nstring-downcase, SYM},
+and @symbolref{nstring-capitalize, SYM},
 the @param{string} @term{designator} must be a @term{string}.
 
 @param{start}, @param{end}---@term{bounding index designators} of @param{string}.
@@ -434,8 +434,8 @@ the @param{string} @term{designator} must be a @term{string}.
 
 @subsubheading Description:
 
-@symbolref{string-upcase},  @symbolref{string-downcase},  @symbolref{string-capitalize},
-@symbolref{nstring-upcase}, @symbolref{nstring-downcase}, @symbolref{nstring-capitalize}
+@symbolref{string-upcase, SYM},  @symbolref{string-downcase, SYM},  @symbolref{string-capitalize, SYM},
+@symbolref{nstring-upcase, SYM}, @symbolref{nstring-downcase, SYM}, @symbolref{nstring-capitalize, SYM}
 change the case of the subsequence of @param{string}
 @term{bounded} by @param{start} and @param{end}
 as follows:
@@ -445,7 +445,7 @@ as follows:
 @item @id{@bf{string-upcase}}
 
 
-@symbolref{string-upcase} returns a @term{string} just like @param{string}
+@symbolref{string-upcase, SYM} returns a @term{string} just like @param{string}
 with all lowercase characters replaced by the corresponding uppercase
 characters.  More precisely, each character of the result @term{string}
 is produced by applying @thefunction{char-upcase} to the corresponding
@@ -454,18 +454,18 @@ character of @param{string}.
 @item @id{@bf{string-downcase}}
 
 
-@symbolref{string-downcase} is like @symbolref{string-upcase}
+@symbolref{string-downcase, SYM} is like @symbolref{string-upcase, SYM}
 except that all uppercase characters are replaced by the corresponding
-lowercase characters (using @symbolref{char-downcase}).
+lowercase characters (using @symbolref{char-downcase, SYM}).
 
 @item @id{@bf{string-capitalize}}
 
 
-@symbolref{string-capitalize} produces a copy of @param{string} such that,
+@symbolref{string-capitalize, SYM} produces a copy of @param{string} such that,
 for every word in the copy, the first @term{character} of the ``word,''
 if it has @term{case}, is @term{uppercase} and
 any other @term{characters} with @term{case} in the word are @term{lowercase}.
-For the purposes of @symbolref{string-capitalize},
+For the purposes of @symbolref{string-capitalize, SYM},
 a ``word'' is defined to be a
 consecutive subsequence consisting of @term{alphanumeric} @term{characters},
 delimited at each end either by a non-@term{alphanumeric} @term{character}
@@ -474,14 +474,14 @@ or by an end of the @term{string}.
 @item @id{@bf{nstring-upcase, nstring-downcase, nstring-capitalize }}
 
 
-@symbolref{nstring-upcase}, @symbolref{nstring-downcase},
-and @symbolref{nstring-capitalize} are identical to @symbolref{string-upcase},
-@symbolref{string-downcase}, and @symbolref{string-capitalize}
+@symbolref{nstring-upcase, SYM}, @symbolref{nstring-downcase, SYM},
+and @symbolref{nstring-capitalize, SYM} are identical to @symbolref{string-upcase, SYM},
+@symbolref{string-downcase, SYM}, and @symbolref{string-capitalize, SYM}
 respectively except that they  modify @param{string}.
 @end table
 
 
-For @symbolref{string-upcase}, @symbolref{string-downcase}, and @symbolref{string-capitalize},
+For @symbolref{string-upcase, SYM}, @symbolref{string-downcase, SYM}, and @symbolref{string-capitalize, SYM},
 @param{string} is not modified.  However, if no characters in @param{string}
 require conversion, the result may be either @param{string} or a copy of it,
 at the implementation's discretion.
@@ -512,9 +512,9 @@ at the implementation's discretion.
 
 @subsubheading Side Effects:
 
-@symbolref{nstring-upcase},
-@symbolref{nstring-downcase},
-and @symbolref{nstring-capitalize} modify @param{string} as appropriate
+@symbolref{nstring-upcase, SYM},
+@symbolref{nstring-downcase, SYM},
+and @symbolref{nstring-capitalize, SYM} modify @param{string} as appropriate
 rather than constructing a new @term{string}.
 
 @subsubheading See Also:
@@ -552,10 +552,10 @@ as @param{string}.
 
 @subsubheading Description:
 
-@symbolref{string-trim} returns a substring of @param{string},
+@symbolref{string-trim, SYM} returns a substring of @param{string},
 with all characters in @param{character-bag} stripped off the beginning and end.
-@symbolref{string-left-trim} is similar but strips characters off only the beginning;
-@symbolref{string-right-trim} strips off only the end.
+@symbolref{string-left-trim, SYM} is similar but strips characters off only the beginning;
+@symbolref{string-right-trim, SYM} strips off only the end.
 
 If no @term{characters} need to be trimmed from the @param{string},
 then either @param{string} itself or a copy of it may be returned,
@@ -653,7 +653,7 @@ The @term{implementation}.
 @subsubheading Description:
 
 These functions perform lexicographic comparisons on @param{string1} and @param{string2}.
-@symbolref{string=} and @symbolref{string-equal} are called equality functions;
+@symbolref{string=, SYM} and @symbolref{string-equal, SYM} are called equality functions;
 the others are called inequality functions.
 The comparison operations these @term{functions} perform are restricted
 to the subsequence of @param{string1} @term{bounded} by @param{start1} and @param{end1}
@@ -661,11 +661,11 @@ and to the subsequence of @param{string2} @term{bounded} by @param{start2} and @
 
 A string @i{a} is equal to a string @i{b} if it contains the same number
 of characters, and the corresponding characters are the @term{same}
-under @symbolref{char=} or @symbolref{char-equal}, as appropriate.
+under @symbolref{char=, SYM} or @symbolref{char-equal, SYM}, as appropriate.
 
 A string @i{a} is less than a string @i{b} if in the first position in
 which they differ the character of @i{a} is less than the corresponding
-character of @i{b} according to @symbolref{char<} or @symbolref{char-lessp}
+character of @i{b} according to @symbolref{char<, SYM} or @symbolref{char-lessp, SYM}
 as appropriate, or if string @i{a} is a proper prefix of string @i{b}
 (of shorter length and matching in all the characters of @i{a}).
 
@@ -685,66 +685,66 @@ The comparison has one of the following results:
 
 @table @asis
 
-@item @id{@symbolref{string=}}
+@item @id{@symbolref{string=, SYM}}
 
 
-@symbolref{string=} is @term{true} if the supplied substrings are of
+@symbolref{string=, SYM} is @term{true} if the supplied substrings are of
 the same length and contain the @term{same} characters in corresponding
 positions; otherwise it is @term{false}.
 
-@item @id{@symbolref{string/=}}
+@item @id{@symbolref{string/=, SYM}}
 
 
-@symbolref{string/=} is @term{true} if the supplied substrings are
+@symbolref{string/=, SYM} is @term{true} if the supplied substrings are
 different; otherwise it is @term{false}.
 
-@item @id{@symbolref{string-equal}}
+@item @id{@symbolref{string-equal, SYM}}
 
 
-@symbolref{string-equal} is just like @symbolref{string=}
+@symbolref{string-equal, SYM} is just like @symbolref{string=, SYM}
 except that differences in case are ignored;
-two characters are considered to be the same if @symbolref{char-equal} is @term{true} of them.
+two characters are considered to be the same if @symbolref{char-equal, SYM} is @term{true} of them.
 
-@item @id{@symbolref{string<}}
+@item @id{@symbolref{string<, SYM}}
 
 
-@symbolref{string<} is @term{true} if substring1 is less than substring2;
+@symbolref{string<, SYM} is @term{true} if substring1 is less than substring2;
 otherwise it is @term{false}.
 
-@item @id{@symbolref{string>}}
+@item @id{@symbolref{string>, SYM}}
 
 
-@symbolref{string>} is @term{true} if substring1 is greater than substring2;
+@symbolref{string>, SYM} is @term{true} if substring1 is greater than substring2;
 otherwise it is @term{false}.
 
-@item @id{@symbolref{string-lessp}, @symbolref{string-greaterp}}
+@item @id{@symbolref{string-lessp, SYM}, @symbolref{string-greaterp, SYM}}
 
 
-@symbolref{string-lessp} and @symbolref{string-greaterp}
-are exactly like @symbolref{string<} and @symbolref{string>}, respectively,
+@symbolref{string-lessp, SYM} and @symbolref{string-greaterp, SYM}
+are exactly like @symbolref{string<, SYM} and @symbolref{string>, SYM}, respectively,
 except that distinctions between uppercase and lowercase letters are ignored.
-It is as if @symbolref{char-lessp} were used instead of @symbolref{char<}
+It is as if @symbolref{char-lessp, SYM} were used instead of @symbolref{char<, SYM}
 for comparing characters.
 
-@item @id{@symbolref{string<=}}
+@item @id{@symbolref{string<=, SYM}}
 
 
-@symbolref{string<=} is @term{true} if substring1 is less than or equal to substring2;
+@symbolref{string<=, SYM} is @term{true} if substring1 is less than or equal to substring2;
 otherwise it is @term{false}.
 
-@item @id{@symbolref{string>=}}
+@item @id{@symbolref{string>=, SYM}}
 
 
-@symbolref{string>=} is @term{true} if substring1 is greater than or equal to substring2;
+@symbolref{string>=, SYM} is @term{true} if substring1 is greater than or equal to substring2;
 otherwise it is @term{false}.
 
-@item @id{@symbolref{string-not-greaterp}, @symbolref{string-not-lessp}}
+@item @id{@symbolref{string-not-greaterp, SYM}, @symbolref{string-not-lessp, SYM}}
 
 
-@symbolref{string-not-greaterp} and @symbolref{string-not-lessp}
-are exactly like @symbolref{string<=} and @symbolref{string>=}, respectively,
+@symbolref{string-not-greaterp, SYM} and @symbolref{string-not-lessp, SYM}
+are exactly like @symbolref{string<=, SYM} and @symbolref{string>=, SYM}, respectively,
 except that distinctions between uppercase and lowercase letters are ignored.
-It is as if @symbolref{char-lessp} were used instead of @symbolref{char<}
+It is as if @symbolref{char-lessp, SYM} were used instead of @symbolref{char<, SYM}
 for comparing characters.
 @end table
 
@@ -774,7 +774,7 @@ for comparing characters.
 
 @subsubheading Notes:
 
-@symbolref{equal} calls @symbolref{string=} if applied to two @term{strings}.
+@symbolref{equal, SYM} calls @symbolref{string=, SYM} if applied to two @term{strings}.
 
 
 @node stringp
@@ -842,7 +842,7 @@ for comparing characters.
 
 @subsubheading Description:
 
-@symbolref{make-string} returns a @term{simple string} of length @param{size}
+@symbolref{make-string, SYM} returns a @term{simple string} of length @param{size}
 whose elements have been initialized to @param{initial-element}.
 
 The @param{element-type} names the @term{type} of the @term{elements} of the @term{string};

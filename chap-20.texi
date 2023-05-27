@@ -57,8 +57,8 @@ Normally, when a @term{stream associated with a file} is used as a
 open the @term{file}; this may be, but is not required to be, the
 actual name of the @term{file}.
 
-Some functions, such as @symbolref{truename} and @symbolref{delete-file},
-coerce @term{streams} to @term{pathnames} in a different way that
+Some functions, such as @symbolref{truename, SYM} and @symbolref{delete-file, SYM},
+coerce @term{sequences} to @term{pathnames} in a different way that
 involves referring to the actual @term{file} that is open, which might
 or might not be the file whose name was opened originally.  Such special
 situations are always notated specifically and are not the default.
@@ -209,7 +209,7 @@ and returns a
 those @term{files}.
 
 An @term{implementation} may be extended to accept
-@term{implementation-defined} keyword arguments to @symbolref{directory}.
+@term{implementation-defined} keyword arguments to @symbolref{directory, SYM}.
 
 @subsubheading Affected By:
 
@@ -234,8 +234,8 @@ an error @oftype{file-error} is signaled.
 If the @param{pathspec} is not @term{wild},
 the resulting list will contain either zero or one elements.
 
-@clisp{}@spc{}specifies ``@keyparam{}'' in the argument list to @symbolref{directory}
-even though no @term{standardized} keyword arguments to @symbolref{directory} are defined.
+@clisp{}@spc{}specifies ``@keyparam{}'' in the argument list to @symbolref{directory, SYM}
+even though no @term{standardized} keyword arguments to @symbolref{directory, SYM} are defined.
 ``@f{:allow-other-keys t}''
 may be used in @term{conforming programs} in order to quietly ignore any
 additional keywords which are passed by the program but not supported
@@ -260,13 +260,13 @@ by the @term{implementation}.
 
 @subsubheading Description:
 
-@symbolref{probe-file} tests whether a file exists.
+@symbolref{probe-file, SYM} tests whether a file exists.
 
-@symbolref{probe-file} returns @term{false} if there is no file named @param{pathspec},
+@symbolref{probe-file, SYM} returns @term{false} if there is no file named @param{pathspec},
 and otherwise returns the @term{truename} of @param{pathspec}.
 
 If the @param{pathspec} @term{designator} is an open @term{stream},
-then @symbolref{probe-file} produces the @term{truename} of its associated @term{file}.
+then @symbolref{probe-file, SYM} produces the @term{truename} of its associated @term{file}.
 If @param{pathspec} is a @term{stream}, whether open or closed,
 it is coerced to a @term{pathname} as if by @thefunction{pathname}.
 
@@ -368,13 +368,13 @@ within the @term{file system}.
 
 @subsubheading Description:
 
-@symbolref{truename} tries to find the @term{file} indicated by
+@symbolref{truename, SYM} tries to find the @term{file} indicated by
 @param{filespec} and returns its @term{truename}.
 If the @param{filespec} @term{designator} is an open @term{stream},
 its associated @term{file} is used.
 If @param{filespec} is a @term{stream},
-@symbolref{truename} can be used whether the @term{stream}
-is open or closed. It is permissible for @symbolref{truename}
+@symbolref{truename, SYM} can be used whether the @term{stream}
+is open or closed. It is permissible for @symbolref{truename, SYM}
 to return more specific information after the @term{stream}
 is closed than when the @term{stream} was open.
 If @param{filespec} is a @term{pathname}
@@ -428,7 +428,7 @@ An error @oftype{file-error} is signaled if @param{pathname} is @term{wild}.
 
 @subsubheading Notes:
 
-@symbolref{truename} may be used to account for any @term{filename} translations
+@symbolref{truename, SYM} may be used to account for any @term{filename} translations
 performed by the @term{file system}.
 
 
@@ -561,7 +561,7 @@ other than a @term{stream}.
 
 @subsubheading Description:
 
-@symbolref{rename-file} modifies the file system in such a way
+@symbolref{rename-file, SYM} modifies the file system in such a way
 that the file indicated by @param{filespec} is renamed to
 @param{defaulted-new-name}.
 
@@ -572,13 +572,13 @@ components of @param{new-name} from @param{filespec} to contain a @nil{}@spc{}co
 where the file system does not permit a @nil{}@spc{}component.
 
 If @param{new-name} is a @term{logical pathname},
-@symbolref{rename-file} returns a @term{logical pathname} as its @term{primary value}.
+@symbolref{rename-file, SYM} returns a @term{logical pathname} as its @term{primary value}.
 
-@symbolref{rename-file}
+@symbolref{rename-file, SYM}
 returns three values if successful.  The @term{primary value}, @param{defaulted-new-name},
 is the resulting name which is composed of
 @param{new-name} with any missing components filled in by performing
-a @symbolref{merge-pathnames} operation using @param{filespec} as the defaults.
+a @symbolref{merge-pathnames, SYM} operation using @param{filespec} as the defaults.
 The @term{secondary value}, @param{old-truename},
 is the @term{truename} of the @term{file} before it was renamed.
 The @term{tertiary value}, @param{new-truename},
@@ -647,7 +647,7 @@ depending on the requirements of the file system.
 It is @term{implementation-dependent} whether an attempt
 to delete a nonexistent file is considered to be successful.
 
-@symbolref{delete-file} returns @term{true} if it succeeds,
+@symbolref{delete-file, SYM} returns @term{true} if it succeeds,
 or signals an error @oftype{file-error} if it does not.
 
 The consequences are undefined
@@ -691,10 +691,10 @@ An error @oftype{file-error} might be signaled if @param{filespec} is @term{wild
 
 
 @subsubheading Class Precedence List:
-@symbolref{file-error},
+@symbolref{file-error, SYM},
 @code{error},
-@symbolref{serious-condition},
-@symbolref{condition},
+@symbolref{serious-condition, SYM},
+@symbolref{condition, SYM},
 @code{t}
 
 @subsubheading Description:
@@ -702,7 +702,7 @@ An error @oftype{file-error} might be signaled if @param{filespec} is @term{wild
 @Thetype{file-error} consists of error conditions that occur during
 an attempt to open or close a file, or during some low-level transactions
 with a file system.  The ``offending pathname'' is initialized by
-@theinitkeyarg{pathname} to @symbolref{make-condition}, and is @term{accessed}
+@theinitkeyarg{pathname} to @symbolref{make-condition, SYM}, and is @term{accessed}
 by @thefunction{file-error-pathname}.
 
 @subsubheading See Also:

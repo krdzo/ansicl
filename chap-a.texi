@@ -83,10 +83,10 @@ The @term{special operator} @f{compiler-let} was removed.
 @node Removed Argument Conventions
 @subsection Removed Argument Conventions
 
-The @param{font} argument to @symbolref{digit-char}
+The @param{font} argument to @symbolref{digit-char, SYM}
 @cindex digit-char
 was removed.
-The @param{bits} and @param{font} arguments to @symbolref{code-char}
+The @param{bits} and @param{font} arguments to @symbolref{code-char, SYM}
 @cindex code-char
 
 were removed.

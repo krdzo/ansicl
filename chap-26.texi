@@ -170,7 +170,7 @@ when that @term{package} is current, regardless of whether the
 
 @item @bglos{accessor}  @Noun{}
 an @term{operator} that performs an @term{access}.
-See @ref{glos-reader, reader} and @term{writer}.
+See @ref{reader} and @term{writer}.
 
 @item @bglos{active}  @Adjective{}@spc{} @anchor{glos-Active}
 1. (of a @term{handler}, a @term{restart}, or a @term{catch tag})
@@ -185,7 +185,7 @@ all @term{elements} are considered @term{active}.
  @Noun{}@spc{}(of an @term{array})
 a @term{generalized boolean} that is associated with the @term{array},
 representing whether the @term{array} is @term{actually adjustable}.
-See also @ref{glos-expressed adjustability, expressed adjustability} and @symbolref{adjustable-array-p}.
+See also @ref{expressed adjustability} and @symbolref{adjustable-array-p, SYM}.
 
 @item @bglos{actual argument}  @Noun{}@spc{}@Traditional{}@spc{}
 an @term{argument}.
@@ -205,12 +205,12 @@ are actually represented, which is the @term{upgraded complex part type} of the
 an @term{argument}.
 
 @item @bglos{actually adjustable}  @Adjective{}@spc{}(of an @term{array})
-such that @symbolref{adjust-array} can adjust its characteristics
+such that @symbolref{adjust-array, SYM} can adjust its characteristics
 by direct modification.
 A @term{conforming program} may depend on
 an @term{array} being @term{actually adjustable}
 only if either that @term{array} is known to have been @term{expressly adjustable}
-or if that @term{array} has been explicitly tested by @symbolref{adjustable-array-p}.
+or if that @term{array} has been explicitly tested by @symbolref{adjustable-array-p, SYM}.
 
 @item @bglos{adjustability}  @Noun{}@spc{}(of an @term{array})
 1. @term{expressed adjustability}.
@@ -421,9 +421,9 @@ being both an @term{input} @term{stream} and an @term{output} @term{stream}.
 1. (of a @term{stream})
 being a @term{stream} that has an @term{element type} that is a @subtypeof{integer}.
 The most fundamental operation on a @term{binary} @term{input} @term{stream}
-is @symbolref{read-byte} and on a @term{binary} @term{output} @term{stream}
-is @symbolref{write-byte}.
-See @ref{glos-character, character}.
+is @symbolref{read-byte, SYM} and on a @term{binary} @term{output} @term{stream}
+is @symbolref{write-byte, SYM}.
+See @ref{character}.
 2. (of a @term{file})
 having been created by opening a @term{binary} @term{stream}.
 (It is @term{implementation-dependent} whether this is an detectable aspect
@@ -444,9 +444,9 @@ name and its value.}
 When the term @term{binding} is qualified by the name of a @term{namespace},
 such as ``variable'' or ``function,''
 it restricts the binding to the indicated namespace, as in:
-@gexample{@symbolref{let} establishes variable bindings.}
+@gexample{@symbolref{let, SYM} establishes variable bindings.}
 or
-@gexample{@symbolref{let} establishes bindings of variables.}
+@gexample{@symbolref{let, SYM} establishes bindings of variables.}
 
 @item @bglos{bit}  @Noun{}@spc{}
 an @term{object} @oftype{bit};
@@ -462,31 +462,31 @@ and whose elements are @oftype{bit}.
 
 @item @bglos{bit-wise logical operation specifier}  @Noun{}@spc{}
 an @term{object} which names one of the sixteen possible bit-wise logical
-operations that can be performed by the @symbolref{boole} function,
+operations that can be performed by the @symbolref{boole, SYM} function,
 and which is the @term{value} of exactly one of the
 @term{constant variables}
-@symbolref{boole-clr},     @symbolref{boole-set},
-@symbolref{boole-1},       @symbolref{boole-2},
-@symbolref{boole-c1},      @symbolref{boole-c2},
-@symbolref{boole-and},     @symbolref{boole-ior},
-@symbolref{boole-xor},     @symbolref{boole-eqv},
-@symbolref{boole-nand},    @symbolref{boole-nor},
-@symbolref{boole-andc1},   @symbolref{boole-andc2},
-@symbolref{boole-orc1}, or @symbolref{boole-orc2}.
+@symbolref{boole-clr, SYM},     @symbolref{boole-set, SYM},
+@symbolref{boole-1, SYM},       @symbolref{boole-2, SYM},
+@symbolref{boole-c1, SYM},      @symbolref{boole-c2, SYM},
+@symbolref{boole-and, SYM},     @symbolref{boole-ior, SYM},
+@symbolref{boole-xor, SYM},     @symbolref{boole-eqv, SYM},
+@symbolref{boole-nand, SYM},    @symbolref{boole-nor, SYM},
+@symbolref{boole-andc1, SYM},   @symbolref{boole-andc2, SYM},
+@symbolref{boole-orc1, SYM}, or @symbolref{boole-orc2, SYM}.
 
 @item @bglos{block}  @Noun{}
 a named lexical @term{exit point},
-@term{established} explicitly by @symbolref{block}
+@term{established} explicitly by @symbolref{block, SYM}
 or implicitly by @term{operators}
-such as @symbolref{loop}, @symbolref{do} and @symbolref{prog},
+such as @symbolref{loop, SYM}, @symbolref{do, SYM} and @symbolref{prog, SYM},
 to which control and values may be transfered by
-using a @symbolref{return-from} @term{form} with the name of the @term{block}.
+using a @symbolref{return-from, SYM} @term{form} with the name of the @term{block}.
 
 @item @bglos{block tag}  @Noun{}@spc{}
 the @term{symbol} that, within the @term{lexical scope}
-of a @symbolref{block} @term{form}, names the @term{block}
-@term{established} by that @symbolref{block} @term{form}.
-See @symbolref{return} or @symbolref{return-from}.
+of a @symbolref{block, SYM} @term{form}, names the @term{block}
+@term{established} by that @symbolref{block, SYM} @term{form}.
+See @symbolref{return, SYM} or @symbolref{return-from, SYM}.
 
 @item @bglos{boa lambda list}  @Noun{}
 a @term{lambda list} that is syntactically like an @term{ordinary lambda list},
@@ -523,13 +523,13 @@ when both @mat{O@sub{1}} and @mat{O@sub{2}} are viewed as @term{generalized bool
 @item @b{bound}
  @Adjective{}, @TransitiveVerb{}@spc{}
 1. @Adjective{}@spc{}having an associated denotation in a @term{binding}.
-@gexample{The variables named by a @symbolref{let} are bound within
+@gexample{The variables named by a @symbolref{let, SYM} are bound within
 its body.}
-See @ref{glos-unbound, unbound}.
+See @ref{unbound}.
 2. @Adjective{}@spc{}having a local @term{binding} which
 @term{shadows}@sub{2} another.
-@gexample{The variable @symbolref{*print-escape*} is bound while in
-the @symbolref{princ} function.}
+@gexample{The variable @symbolref{*print-escape*, SYM} is bound while in
+the @symbolref{princ, SYM} function.}
 3. @TransitiveVerb{}@spc{}the past tense of @term{bind}.
 
 @item @bglos{bound declaration}  @Noun{}@spc{}
@@ -590,13 +590,13 @@ one of the @term{types} in @ref{StandardizedAtomicTypeSpecs, Figure 4.2}.
 see the @term{function} @ref{byte}.)
 2. an integer in a specified range.
 (The specific range can vary from point to point in the program;
-see the @term{functions} @ref{open} and @symbolref{write-byte}.)
+see the @term{functions} @ref{open} and @symbolref{write-byte, SYM}.)
 
 @item @bglos{byte specifier}  @Noun{}
 An @term{object} of @term{implementation-dependent} nature
 that is returned by @thefunction{byte} and
 that specifies the range of bits in an @term{integer} to be used
-as a @term{byte} by @term{functions} such as @symbolref{ldb}.
+as a @term{byte} by @term{functions} such as @symbolref{ldb, SYM}.
 
 
 @end table
@@ -623,19 +623,19 @@ in which the @term{form} that defined the @term{initialization form}
 was @term{evaluated}.
 @gexample{Each newly added shared slot is set to the result of evaluating
 the captured initialization form for the slot that was specified
-in the @symbolref{defclass} form for the new class.}
+in the @symbolref{defclass, SYM} form for the new class.}
 
 @item @bglos{car}  @Noun{}
 1. a. (of a @term{cons})
 the component of a @term{cons} corresponding to the first
 @term{argument} to @code{cons}; the other component is the
 @term{cdr}.
-@gexample{The function @symbolref{rplaca} modifies the car of a cons.}
+@gexample{The function @symbolref{rplaca, SYM} modifies the car of a cons.}
 b. (of a @term{list})
 the first @term{element} of the @term{list}, or @nil{}@spc{}if the
 @term{list} is the @term{empty list}.
 2. the @term{object} that is held in the @term{car}@sub{1}.
-@gexample{The function @symbolref{car} returns the car of a cons.}
+@gexample{The function @symbolref{car, SYM} returns the car of a cons.}
 
 @item @bglos{case}  @Noun{}@spc{}(of a @term{character})  @anchor{glos-Case}
 the property of being either @term{uppercase} or @term{lowercase}.
@@ -649,7 +649,7 @@ one of the @term{symbols}
 @kwd{upcase}, @kwd{downcase}, @kwd{preserve}, or @kwd{invert}.
 
 @item @bglos{catch}  @Noun{}
-an @term{exit point} which is @term{established} by a @symbolref{catch}
+an @term{exit point} which is @term{established} by a @symbolref{catch, SYM}
 @term{form} within the @term{dynamic scope} of its body,
 which is named by a @term{catch tag},
 and to which control and @term{values} may be @i{thrown}.
@@ -669,13 +669,13 @@ the @term{cdr} of the @term{cdr} of that @term{object}.
 1. a. (of a @term{cons})
 the component of a @term{cons} corresponding to the second @term{argument}
 to @code{cons}; the other component is the @term{car}.
-@gexample{The function @symbolref{rplacd} modifies the cdr of a cons.}
+@gexample{The function @symbolref{rplacd, SYM} modifies the cdr of a cons.}
 b. (of a @term{list} @mat{L@sub{1}})
 either the @term{list} @mat{L@sub{2}} that contains
 the @term{elements} of @mat{L@sub{1}} that follow after the first,
 or else @nil{}@spc{}if @mat{L@sub{1}} is the @term{empty list}.
 2. the @term{object} that is held in the @term{cdr}@sub{1}.
-@gexample{The function @symbolref{cdr} returns the cdr of a cons.}
+@gexample{The function @symbolref{cdr, SYM} returns the cdr of a cons.}
 
 @item @bglos{cell}
  @Noun{}@spc{}@Traditional{}@spc{}(of an @term{object})
@@ -693,8 +693,8 @@ see @ref{Character Concepts}.
 a. (of a @term{stream})
 having an @term{element type} that is a @subtypeof{character}.
 The most fundamental operation on a @term{character} @term{input} @term{stream}
-is @symbolref{read-char} and on a @term{character} @term{output} @term{stream}
-is @symbolref{write-char}. See @ref{glos-binary, binary}.
+is @symbolref{read-char, SYM} and on a @term{character} @term{output} @term{stream}
+is @symbolref{write-char, SYM}. See @ref{binary}.
 b. (of a @term{file})
 having been created by opening a @term{character} @term{stream}.
 (It is @term{implementation-dependent} whether this is an inspectable aspect
@@ -732,7 +732,7 @@ that contributes structure and behavior to a set of
 other @term{objects} called its @term{indirect instances},
 and that acts as a @term{type specifier} for a set of objects
 called its @term{generalized instances}.
-@gexample{The class @symbolref{integer} is a subclass of the class @symbolref{number}.}
+@gexample{The class @symbolref{integer, SYM} is a subclass of the class @symbolref{number, SYM}.}
 (Note that the phrase ``the @term{class} @f{foo}'' is often substituted for
 the more precise phrase ``the @term{class} named @f{foo}''---in both
 cases, a @term{class} @term{object} (not a @term{symbol}) is denoted.)
@@ -740,8 +740,8 @@ cases, a @term{class} @term{object} (not a @term{symbol}) is denoted.)
 the uniquely determined @term{class} of which the @term{object} is
 a @term{direct instance}.
 See the @term{function} @ref{class-of}.
-@gexample{The class of the object returned by @symbolref{gensym}
-is @symbolref{symbol}.}
+@gexample{The class of the object returned by @symbolref{gensym, SYM}
+is @symbolref{symbol, SYM}.}
 (Note that with this usage a phrase such as ``its @term{class} is @f{foo}''
 is often substituted for the more precise phrase
 ``its @term{class} is the @term{class} named @f{foo}''---in both
@@ -773,7 +773,7 @@ and to free any external resources which might have been locked by the
 @term{stream} when it was opened.
 
 @item @bglos{closed}  @Adjective{}@spc{}(of a @term{stream})
-having been @term{closed} (see @ref{glos-close, close}).
+having been @term{closed} (see @ref{close}).
 Some (but not all) operations that are valid on @term{open} @term{streams}
 are not valid on @term{closed} @term{streams}.
 See @ref{Open and Closed Streams}.
@@ -878,7 +878,7 @@ to @term{load time values}.
 a facility that is part of Lisp and that translates @term{code}
 into an @term{implementation-dependent} form
 that might be represented or @term{executed} efficiently.
-The functions @symbolref{compile} and @symbolref{compile-file}
+The functions @symbolref{compile, SYM} and @symbolref{compile-file, SYM}
 permit programs to invoke the @term{compiler}.
 
 @item @bglos{compiler macro}  @Noun{} @anchor{glos-Compiler macro} @anchor{glos-Compiler macros}
@@ -899,7 +899,7 @@ by a @term{compiler macro}.
 @item @bglos{compiler macro form}  @Noun{}
 a @term{function form} or @term{macro form} whose @term{operator}
 has a definition as a @term{compiler macro},
-or a @symbolref{funcall} @term{form} whose first @term{argument} is a
+or a @symbolref{funcall, SYM} @term{form} whose first @term{argument} is a
 @code{function} @term{form} whose @term{argument} is the @term{name}
 of a @term{function} that has a definition as a @term{compiler macro}.
 
@@ -935,13 +935,13 @@ see @ref{Rule of Canonical Representation for Complex Rationals}.
 
 @item @bglos{complex single float}  @Noun{}
 an @term{object} @oftype{complex} which has a @term{complex part type}
-that is a @term{subtype} of @symbolref{single-float}.
+that is a @term{subtype} of @symbolref{single-float, SYM}.
 A @term{complex single float} is a @term{complex},
 but it is not a @term{single float}.
 
 @item @bglos{composite stream}  @Noun{}
 a @term{stream} that is composed of one or more other @term{streams}.
-@gexample{@symbolref{make-synonym-stream} creates a composite stream.}
+@gexample{@symbolref{make-synonym-stream, SYM} creates a composite stream.}
 
 @item @bglos{compound form}  @Noun{}
 a @term{non-empty} @term{list} which is a @term{form}:
@@ -977,7 +977,7 @@ or to @term{decline}.  See @ref{Signaling}.
 
 @item @bglos{condition reporter}  @Noun{}
 a @term{function} that describes how a @term{condition} is to be printed
-when the @term{Lisp printer} is invoked while @symbolref{*print-escape*}
+when the @term{Lisp printer} is invoked while @symbolref{*print-escape*, SYM}
 is @term{false}.  See @ref{Printing Conditions}.
 
 @item @bglos{conditional newline}  @Noun{}
@@ -1044,20 +1044,20 @@ and
 that neither affects nor is affected by the state of any @term{object}
 except those @term{objects} that are @term{otherwise inaccessible parts}
 of @term{objects} created by the @term{form} itself.
-@gexample{A @symbolref{car} form in which the argument is a
-@symbolref{quote} form is a constant form.}
+@gexample{A @symbolref{car, SYM} form in which the argument is a
+@symbolref{quote, SYM} form is a constant form.}
 
 @item @bglos{constant object}  @Noun{}
 an @term{object} that is constrained (@eg{} by its context in a @term{program}
 or by the source from which it was obtained) to be @term{immutable}.
-@gexample{A literal object that has been processed by @symbolref{compile-file}
+@gexample{A literal object that has been processed by @symbolref{compile-file, SYM}
 is a constant object.}
 
 @item @bglos{constant variable}  @Noun{} @anchor{glos-Constant variables}
 a @term{variable}, the @term{value} of which can never change;
 that is, a @term{keyword}@sub{1} or a @term{named constant}.
 @gexample{The symbols @code{t}, @nil{}, @kwd{direction}, and
-@symbolref{most-positive-fixnum}@spc{}are constant variables.}
+@symbolref{most-positive-fixnum, SYM}@spc{}are constant variables.}
 
 @item @bglos{constituent}  @Noun{}, @Adjective{} @anchor{glos-Constituent}
 1. a. @Noun{}@spc{}the @term{syntax type} of a @term{character} that is part of a @term{token}.
@@ -1130,7 +1130,7 @@ second definition.)
 1. (by a @term{restart} other than @t{abort}
 that has been associated with the @term{error})
 capable of being corrected by invoking that @term{restart}.
-@gexample{The function @symbolref{cerror} signals an error
+@gexample{The function @symbolref{cerror, SYM} signals an error
 that is correctable by the @t{continue} @term{restart}.}
 (Note that correctability is not a property of an
 @term{error} @term{object}, but rather a property of the
@@ -1141,7 +1141,7 @@ the @term{error} @term{condition} @term{object}.
 See @ref{Associating a Restart with a Condition}.)
 2. (when no specific @term{restart} is mentioned)
 @term{correctable}@sub{1} by at least one @term{restart}.
-@gexample{@symbolref{import} signals a correctable error @oftype{package-error}
+@gexample{@symbolref{import, SYM} signals a correctable error @oftype{package-error}
 if any of the imported symbols has the same name as
 some distinct symbol already accessible in the package.}
 
@@ -1151,7 +1151,7 @@ and that is the default @term{radix} employed by the @term{Lisp reader}
 and its related @term{functions}.
 
 @item @bglos{current logical block}  @Noun{}
-the context of the innermost lexically enclosing use of @symbolref{pprint-logical-block}.
+the context of the innermost lexically enclosing use of @symbolref{pprint-logical-block, SYM}.
 
 @item @bglos{current output base}  @Noun{}@spc{}(in a @term{dynamic environment})
 the @term{radix} that is @thevalueof{*print-base*} in that @term{environment},
@@ -1170,7 +1170,7 @@ employed by the @term{pretty printer}.
 
 @item @bglos{current random state}  @Noun{}@spc{}(in a @term{dynamic environment})
 the @term{random state} that is @thevalueof{*random-state*} in that @term{environment},
-and that is the default @term{random state} employed by @symbolref{random}.
+and that is the default @term{random state} employed by @symbolref{random, SYM}.
 
 @item @bglos{current readtable}  @Noun{}@spc{}(in a @term{dynamic environment})
 the @term{readtable} that is @thevalueof{*readtable*} in that @term{environment},
@@ -1202,31 +1202,31 @@ a @term{global declaration} or @term{local declaration}.
 
 @item @bglos{declaration identifier}  @Noun{}
 one of the @term{symbols}
-@symbolref{declaration},
-@symbolref{dynamic-extent},
-@symbolref{ftype},
+@symbolref{declaration, SYM},
+@symbolref{dynamic-extent, SYM},
+@symbolref{ftype, SYM},
 @code{function},
-@symbolref{ignore},
-@symbolref{inline},
-@symbolref{notinline},
-@symbolref{optimize},
-@symbolref{special},
-or @symbolref{type};
+@symbolref{ignore, SYM},
+@symbolref{inline, SYM},
+@symbolref{notinline, SYM},
+@symbolref{optimize, SYM},
+@symbolref{special, SYM},
+or @symbolref{type, SYM};
 or a @term{symbol} which is the @term{name} of a @term{type};
 or a @term{symbol} which has been @term{declared}
-to be a @term{declaration identifier} by using a @symbolref{declaration}
+to be a @term{declaration identifier} by using a @symbolref{declaration, SYM}
 @term{declaration}.
 
 @item @bglos{declaration specifier}  @Noun{}
 an @term{expression} that can appear at top level of a @t{declare}
-expression or a @symbolref{declaim} form, or as the argument to @symbolref{proclaim},
+expression or a @symbolref{declaim, SYM} form, or as the argument to @symbolref{proclaim, SYM},
 and which has a @term{car} which is a @term{declaration identifier},
 and which has a @term{cdr} that is data interpreted according to rules
 specific to the @term{declaration identifier}.
 
 @item @bglos{declare}  @Verb{}@spc{}
 to @term{establish} a @term{declaration}.
-See @ref{declare}, @symbolref{declaim}, or @symbolref{proclaim}.
+See @ref{declare}, @symbolref{declaim, SYM}, or @symbolref{proclaim, SYM}.
 
 @item @bglos{decline}  @Verb{}@spc{}(of a @term{handler})
 to return normally without having @term{handled} the @term{condition}
@@ -1252,13 +1252,13 @@ a @term{list} of alternating initialization argument @term{names} and
 defaulted, used in the protocol for initializing and reinitializing
 @term{instances} of @term{classes}.
 
-@item @bglos{define-method-combination arguments lambda list}  @Noun{} @anchor{glos-Define-method-combination arguments lambda lists}
+@item @bglos{define-method-combination arguments lambda list}  @Noun{}
 a @term{lambda list} used by the @kwd{arguments} option
-to @symbolref{define-method-combination}.
+to @symbolref{define-method-combination, SYM}.
 See @ref{Define-method-combination Arguments Lambda Lists}.
 
-@item @bglos{define-modify-macro lambda list}  @Noun{} @anchor{glos-Define-modify-macro lambda lists}
-a @term{lambda list} used by @symbolref{define-modify-macro}.
+@item @bglos{define-modify-macro lambda list}  @Noun{}
+a @term{lambda list} used by @symbolref{define-modify-macro, SYM}.
 See @ref{Define-modify-macro Lambda Lists}.
 
 @item @bglos{defined name}  @Noun{} @anchor{glos-Defined names}
@@ -1266,7 +1266,7 @@ a @term{symbol} the meaning of which is defined by @clisp{}.
 
 @item @bglos{defining form}  @Noun{}
 a @term{form} that has the side-effect of @term{establishing} a definition.
-@gexample{@symbolref{defun} and @symbolref{defparameter} are defining forms.}
+@gexample{@symbolref{defun, SYM} and @symbolref{defparameter, SYM} are defining forms.}
 
 @item @bglos{defsetf lambda list}  @Noun{}
 a @term{lambda list} that is like an @term{ordinary lambda list}
@@ -1293,7 +1293,7 @@ have less precision than @term{normalized} @term{floats}.
 
 @item @bglos{derived type}  @Noun{}
 a @term{type specifier} which is defined in terms of an expansion into another
-@term{type specifier}.  @symbolref{deftype} defines @term{derived types},
+@term{type specifier}.  @symbolref{deftype, SYM} defines @term{derived types},
 and there may be other @term{implementation-defined} @term{operators}
 which do so as well.
 
@@ -1315,15 +1315,15 @@ capable of modifying some program-visible aspect of one or more
 @term{operator} or that can be obtained directly or indirectly
 from the @term{global environment} by the @term{operator}.
 
-@item @bglos{destructuring lambda list}  @Noun{} @anchor{glos-Destructuring lambda lists}
-an @term{extended lambda list} used in @symbolref{destructuring-bind} and
+@item @bglos{destructuring lambda list}  @Noun{}
+an @term{extended lambda list} used in @symbolref{destructuring-bind, SYM} and
 nested within @term{macro lambda lists}.
 See @ref{Destructuring Lambda Lists}.
 
 @item @bglos{different}  @Adjective{}@spc{}
 not the @term{same}
 @gexample{The strings @f{"FOO"} and @f{"foo"} are different under
-@symbolref{equal} but not under @symbolref{equalp}.}
+@symbolref{equal, SYM} but not under @symbolref{equalp, SYM}.}
 
 @item @bglos{digit}  @Noun{}@spc{}(in a @term{radix})
 a @term{character} that is among the possible digits (@f{0} to @f{9},
@@ -1343,7 +1343,7 @@ the @term{fill pointer} is ignored.
 @item @bglos{direct instance}  @Noun{}@spc{}(of a @term{class} @mat{C})
 an @term{object} whose @term{class} is @mat{C} itself,
 rather than some @term{subclass} of @mat{C}.
-@gexample{The function @symbolref{make-instance} always returns a
+@gexample{The function @symbolref{make-instance, SYM} always returns a
 direct instance of the class which is (or is named by)
 its first argument.}
 
@@ -1391,7 +1391,7 @@ aspect of the @term{string}) is taken as documentation.
 In some cases, the @term{documentation string} is saved in such a
 way that it can later be obtained by supplying either an @term{object},
 or by supplying a @term{name} and a ``kind'' to @thefunction{documentation}.
-@gexample{The body of code in a @symbolref{defmacro} form can be preceded
+@gexample{The body of code in a @symbolref{defmacro, SYM} form can be preceded
 by a documentation string of kind @t{function}.}
 
 @item @bglos{dot}  @Noun{}
@@ -1426,11 +1426,11 @@ a @term{binding} in a @term{dynamic environment}.
 that part of an @term{environment} that contains @term{bindings}
 with @term{dynamic extent}.  A @term{dynamic environment} contains,
 among other things:
-@term{exit points} established by @symbolref{unwind-protect},
+@term{exit points} established by @symbolref{unwind-protect, SYM},
 and
 @term{bindings} of
 @term{dynamic variables},
-@term{exit points} established by @symbolref{catch},
+@term{exit points} established by @symbolref{catch, SYM},
 @term{condition handlers},
 and
 @term{restarts}.
@@ -1462,7 +1462,7 @@ the combination of @term{applicable methods} that are executed
 when a @term{generic function} is invoked with a particular sequence
 of @term{arguments}.
 
-@item @bglos{element}  @Noun{} @anchor{glos-Elements}
+@item @bglos{element}  @Noun{}
 1. (of a @term{list})
 an @term{object} that is the @term{car} of one of the @term{conses}
 that comprise the @term{list}.
@@ -1478,14 +1478,14 @@ designated by the @term{type}.
 a @term{character} or @term{number} (as appropriate to the
 @term{element type} of the @term{stream})
 that is among the ordered series of @term{objects} that can be
-read from the @term{stream} (using @symbolref{read-char} or @symbolref{read-byte},
+read from the @term{stream} (using @symbolref{read-char, SYM} or @symbolref{read-byte, SYM},
 as appropriate to the @term{stream}).
 6. (of an @term{output} @term{stream})
 a @term{character} or @term{number} (as appropriate to the
 @term{element type} of the @term{stream})
 that is among the ordered series of @term{objects} that has been
-or will be written to the @term{stream} (using @symbolref{write-char}
-or @symbolref{write-byte}, as appropriate to the @term{stream}).
+or will be written to the @term{stream} (using @symbolref{write-char, SYM}
+or @symbolref{write-byte, SYM}, as appropriate to the @term{stream}).
 7. (of a @term{class}) a @term{generalized instance} of the @term{class}.
 
 @item @bglos{element type}  @Noun{}@spc{}
@@ -1526,13 +1526,13 @@ is @term{implementation-defined}.
 @item @bglos{environment}  @Noun{}
 1. a set of @term{bindings}. See @ref{Introduction to Environments}.
 2. an @term{environment object}.
-@gexample{@symbolref{macroexpand} takes an optional environment argument.}
+@gexample{@symbolref{macroexpand, SYM} takes an optional environment argument.}
 
 @item @bglos{environment object}  @Noun{}
 an @term{object} representing a set of @term{lexical bindings},
 used in the processing of a @term{form} to provide meanings for
 @term{names} within that @term{form}.
-@gexample{@symbolref{macroexpand} takes an optional environment argument.}
+@gexample{@symbolref{macroexpand, SYM} takes an optional environment argument.}
 (The @term{object} @nil{}@spc{}when used as an @term{environment object}
 denotes the @term{null lexical environment};
 the @term{values} of @term{environment parameters}
@@ -1558,7 +1558,7 @@ See @ref{Error Terminology}.
 
 @item @bglos{error output}  @Noun{}@spc{}
 the @term{output} @term{stream} which is the @term{value} of the @term{dynamic variable}
-@symbolref{*error-output*}.
+@symbolref{*error-output*, SYM}.
 
 @item @bglos{escape}  @Noun{}, @Adjective{}
 1. @Noun{}@spc{}a @term{single escape} or a @term{multiple escape}.
@@ -1573,7 +1573,7 @@ a  @term{tag},
 a  @term{handler},
 a @term{restart},
 or an @term{environment}.
-@gexample{@symbolref{let} establishes lexical bindings.}
+@gexample{@symbolref{let, SYM} establishes lexical bindings.}
 
 @item @bglos{evaluate}  @TransitiveVerb{}@spc{}(a @term{form} or an @term{implicit progn}) @anchor{glos-Evaluate}
 to @term{execute} the @term{code} represented by the @term{form}
@@ -1594,7 +1594,7 @@ See @ref{The Evaluation Model}.
 
 @item @bglos{evaluation environment}  @Noun{}
 a @term{run-time environment} in which macro expanders
-and code specified by @symbolref{eval-when} to be evaluated
+and code specified by @symbolref{eval-when, SYM} to be evaluated
 are evaluated.  All evaluations initiated by the @term{compiler}
 take place in the @term{evaluation environment}.
 
@@ -1614,25 +1614,25 @@ whose union contains all @term{elements} of that @term{type}.
 
 @item @bglos{exit point}  @Noun{}
 a point in a @term{control form}
-from which (@eg{} @symbolref{block}),
-through which (@eg{} @symbolref{unwind-protect}),
-or to which (@eg{} @symbolref{tagbody})
+from which (@eg{} @symbolref{block, SYM}),
+through which (@eg{} @symbolref{unwind-protect, SYM}),
+or to which (@eg{} @symbolref{tagbody, SYM})
 control and possibly @term{values} can be transferred both actively by using
 another @term{control form} and passively through the normal control and
 data flow of @term{evaluation}.
-@gexample{@symbolref{catch} and @symbolref{block} establish bindings for
-exit points to which @symbolref{throw} and @symbolref{return-from},
+@gexample{@symbolref{catch, SYM} and @symbolref{block, SYM} establish bindings for
+exit points to which @symbolref{throw, SYM} and @symbolref{return-from, SYM},
 respectively, can transfer control and values;
-@symbolref{tagbody} establishes a binding for an exit point
-with lexical extent to which @symbolref{go} can transfer control;
-and @symbolref{unwind-protect} establishes an exit point
+@symbolref{tagbody, SYM} establishes a binding for an exit point
+with lexical extent to which @symbolref{go, SYM} can transfer control;
+and @symbolref{unwind-protect, SYM} establishes an exit point
 through which control might be transferred by
-operators such as @symbolref{throw}, @symbolref{return-from},
-and @symbolref{go}.}
+operators such as @symbolref{throw, SYM}, @symbolref{return-from, SYM},
+and @symbolref{go, SYM}.}
 
 @item @bglos{explicit return}  @Noun{}@spc{}
 the act of transferring control (and possibly @term{values})
-to a @term{block} by using @symbolref{return-from} (or @symbolref{return}).
+to a @term{block} by using @symbolref{return-from, SYM} (or @symbolref{return, SYM}).
 
 @item @bglos{explicit use}  @Noun{}@spc{}(of a @term{variable} @mat{V} in a @term{form} @mat{F})
 a reference to @mat{V} that is directly apparent in the normal semantics of @mat{F};
@@ -1653,13 +1653,13 @@ that this number is to be represented as a double float.}
 
 @float Figure,fig26.1
 @cartouche
-@multitable{@f{D} or @f{d}}{@code{float} (see @symbolref{*read-default-float-format*})}
+@multitable{@f{D} or @f{d}}{@code{float} (see @symbolref{*read-default-float-format*, SYM})}
 @headitem Marker @tab Meaning
-@item @f{D} or @f{d} @tab @symbolref{double-float}
-@item @f{E} or @f{e} @tab @code{float} (see @symbolref{*read-default-float-format*})
-@item @f{F} or @f{f} @tab @symbolref{single-float}
-@item @f{L} or @f{l} @tab @symbolref{long-float}
-@item @f{S} or @f{s} @tab @symbolref{short-float}
+@item @f{D} or @f{d} @tab @symbolref{double-float, SYM}
+@item @f{E} or @f{e} @tab @code{float} (see @symbolref{*read-default-float-format*, SYM})
+@item @f{F} or @f{f} @tab @symbolref{single-float, SYM}
+@item @f{L} or @f{l} @tab @symbolref{long-float, SYM}
+@item @f{S} or @f{s} @tab @symbolref{short-float, SYM}
 @end multitable
 @end cartouche
 @caption{Exponent Markers}
@@ -1714,7 +1714,7 @@ the @term{upgraded complex part type} of the
 1. an @term{object}, often used to emphasize the use
 of the @term{object} to encode or represent information in a specialized
 format, such as program text.
-@gexample{The second expression in a @symbolref{let} form is a list
+@gexample{The second expression in a @symbolref{let, SYM} form is a list
 of bindings.}
 2. the textual notation used to notate an @term{object} in a source file.
 @gexample{The expression @f{'sample} is equivalent to @f{(quote sample)}.}
@@ -1751,7 +1751,7 @@ See also @ref{glos-function designator, function designator}.
 a list resembling an @term{ordinary lambda list} in form and purpose, but
 offering additional syntax or functionality not available in an
 @term{ordinary lambda list}.
-@gexample{@symbolref{defmacro} uses extended lambda lists.}
+@gexample{@symbolref{defmacro, SYM} uses extended lambda lists.}
 
 @item @bglos{extension}  @Noun{}
 a facility in an @term{implementation} of @clisp{}@spc{}
@@ -1825,7 +1825,7 @@ Further, defining a @term{setf expander} @param{F} does not cause the @term{setf
 of a @term{setf expander} @param{F}, the @term{function} @f{(setf @param{F})}
 can be @term{fbound} if and only if, by design or coincidence, a
 function binding for @f{(setf @param{F})} has been independently established.)
-See the @term{functions} @ref{fboundp} and @symbolref{symbol-function}.
+See the @term{functions} @ref{fboundp} and @symbolref{symbol-function, SYM}.
 
 @item @bglos{feature}  @Noun{}
 1. an aspect or attribute
@@ -1851,7 +1851,7 @@ having an @term{implementation-defined} nature.
 
 @item @bglos{file compiler}  @Noun{}
 any @term{compiler} which @term{compiles} @term{source code} contained in a @term{file},
-producing a @term{compiled file} as output.  The @symbolref{compile-file}
+producing a @term{compiled file} as output.  The @symbolref{compile-file, SYM}
 function is the only interface to such a @term{compiler} provided by @clisp{},
 but there might be other, @term{implementation-defined} mechanisms for
 invoking the @term{file compiler}.
@@ -1901,7 +1901,7 @@ Not all @term{vectors} have @term{fill pointers}.)
 @item @bglos{finite}  @Adjective{}@spc{}(of a @term{type})
 having a finite number of @term{elements}.
 @gexample{The type specifier @f{(integer 0 5)} denotes a finite type,
-but the type specifiers @symbolref{integer} and @f{(integer 0)} do not.}
+but the type specifiers @symbolref{integer, SYM} and @f{(integer 0)} do not.}
 
 @item @bglos{fixnum}  @Noun{}@spc{}
 an @term{integer} @oftype{fixnum}.
@@ -1913,14 +1913,14 @@ an @term{object} @oftype{float}.
 being a @term{reference} that @term{reads}@sub{1}
 the @term{value} of the @term{binding}.
 
-@item @bglos{form}  @Noun{} @anchor{glos-Forms}
+@item @bglos{form}  @Noun{}
 1. any @term{object} meant to be @term{evaluated}.
 2.    a @term{symbol},
 a @term{compound form},
 or a @term{self-evaluating object}.
 3. (for an @term{operator}, as in ``@metavar{operator} @term{form}'')
 a @term{compound form} having that @term{operator} as its first element.
-@gexample{A @symbolref{quote} form is a constant form.}
+@gexample{A @symbolref{quote, SYM} form is a constant form.}
 
 @item @bglos{formal argument}  @Noun{}@spc{}@Traditional{}@spc{}
 a @term{parameter}.
@@ -1929,11 +1929,11 @@ a @term{parameter}.
 a @term{parameter}.
 
 @item @bglos{format}  @TransitiveVerb{}@spc{}(a @term{format control} and @term{format arguments})
-to perform output as if by @symbolref{format},
+to perform output as if by @symbolref{format, SYM},
 using the @term{format string} and @term{format arguments}.
 
 @item @bglos{format argument}  @Noun{}
-an @term{object} which is used as data by functions such as @symbolref{format}
+an @term{object} which is used as data by functions such as @symbolref{format, SYM}
 which interpret @term{format controls}.
 
 @item @bglos{format control}  @Noun{}
@@ -1959,7 +1959,7 @@ which use the same dispatch character.
 @item @bglos{format string}  @Noun{}
 a @term{string} which can contain both ordinary text and @term{format directives},
 and which is used in conjunction with @term{format arguments} to describe how
-text output should be formatted by certain functions, such as @symbolref{format}.
+text output should be formatted by certain functions, such as @symbolref{format, SYM}.
 
 @item @bglos{free declaration}  @Noun{}
 a declaration that is not a @term{bound declaration}.
@@ -2006,7 +2006,7 @@ must specify for each how the corresponding @term{function block name} is comput
 @item @bglos{function cell}  @Noun{}@spc{}@Traditional{}@spc{}(of a @term{symbol})
 The @term{place} which holds the @i{definition} of the
 global @term{function} @term{binding}, if any, named by that @term{symbol},
-and which is @term{accessed} by @symbolref{symbol-function}.
+and which is @term{accessed} by @symbolref{symbol-function, SYM}.
 See @ref{glos-cell, cell}.
 
 @item @bglos{function designator}
@@ -2125,8 +2125,8 @@ See the @term{function} @ref{gensym}.
 
 @item @bglos{global declaration}  @Noun{}@spc{}
 a @term{form} that makes certain kinds of information about
-code globally available; that is, a @symbolref{proclaim} @term{form}
-or a @symbolref{declaim} @term{form}.
+code globally available; that is, a @symbolref{proclaim, SYM} @term{form}
+or a @symbolref{declaim, SYM} @term{form}.
 
 @item @bglos{global environment}  @Noun{}@spc{}
 that part of an @term{environment} that contains @term{bindings}
@@ -2145,13 +2145,13 @@ See the @term{special operator} @ref{go}.
 
 @item @bglos{go point}
 one of possibly several @term{exit points} that are @term{established}
-by @symbolref{tagbody} (or other abstractions, such as @symbolref{prog},
-which are built from @symbolref{tagbody}).
+by @symbolref{tagbody, SYM} (or other abstractions, such as @symbolref{prog, SYM},
+which are built from @symbolref{tagbody, SYM}).
 
 @item @bglos{go tag}  @Noun{}@spc{}
 the @term{symbol} or @term{integer} that, within the @term{lexical scope}
-of a @symbolref{tagbody} @term{form}, names an @term{exit point}
-@term{established} by that @symbolref{tagbody} @term{form}.
+of a @symbolref{tagbody, SYM} @term{form}, names an @term{exit point}
+@term{established} by that @symbolref{tagbody, SYM} @term{form}.
 
 @item @bglos{graphic}  @Adjective{}@spc{}(of a @term{character})
 being a ``printing'' or ``displayable'' @term{character}
@@ -2213,7 +2213,7 @@ to be an @term{I/O customization variable}.
 
 
 @item @bglos{identical}  @Adjective{}@spc{}
-the @term{same} under @symbolref{eq}.
+the @term{same} under @symbolref{eq, SYM}.
 
 @item @bglos{identifier}  @Noun{}@spc{}
 1. a @term{symbol} used to identify or to distinguish @term{names}.
@@ -2255,7 +2255,7 @@ not vary between @term{conforming implementations}.
 
 @item @bglos{implicit block}  @Noun{}@spc{}
 a @term{block} introduced by a @term{macro form}
-rather than by an explicit @symbolref{block} @term{form}.
+rather than by an explicit @symbolref{block, SYM} @term{form}.
 
 @item @bglos{implicit compilation}  @Noun{}@spc{}
 @term{compilation} performed during @term{evaluation}.
@@ -2263,12 +2263,12 @@ rather than by an explicit @symbolref{block} @term{form}.
 @item @bglos{implicit progn}  @Noun{}@spc{}
 an ordered set of adjacent @term{forms} appearing in another
 @term{form}, and defined by their context in that @term{form}
-to be executed as if within a @symbolref{progn}.
+to be executed as if within a @symbolref{progn, SYM}.
 
 @item @bglos{implicit tagbody}  @Noun{}@spc{}
 an ordered set of adjacent @term{forms} and/or @term{tags}
 appearing in another @term{form}, and defined by their context
-in that @term{form} to be executed as if within a @symbolref{tagbody}.
+in that @term{form} to be executed as if within a @symbolref{tagbody, SYM}.
 
 @item @bglos{import}  @TransitiveVerb{}@spc{}(a @term{symbol} into a @term{package})
 to make the @term{symbol} be @term{present} in the @term{package}.
@@ -2295,7 +2295,7 @@ a @term{property indicator}.
 @item @bglos{indirect instance}  @Noun{}@spc{}(of a @term{class} @mat{C@sub{1}})
 an @term{object} of @term{class} @mat{C@sub{2}},
 where @mat{C@sub{2}} is a @term{subclass} of @mat{C@sub{1}}.
-@gexample{An integer is an indirect instance of the class @symbolref{number}.}
+@gexample{An integer is an indirect instance of the class @symbolref{number, SYM}.}
 
 @item @bglos{inherit}  @TransitiveVerb{}@spc{}
 1. to receive or acquire a quality, trait, or characteristic;
@@ -2303,7 +2303,7 @@ to gain access to a feature defined elsewhere.
 2. (a @term{class}) to acquire the structure and behavior defined
 by a @term{superclass}.
 3. (a @term{package}) to make @term{symbols} @term{exported} by another
-@term{package} @term{accessible} by using @symbolref{use-package}.
+@term{package} @term{accessible} by using @symbolref{use-package, SYM}.
 
 @item @bglos{initial pprint dispatch table}  @Noun{}
 @thevalueof{*print-pprint-dispatch*} at the time the @term{Lisp image} is started.
@@ -2319,7 +2319,7 @@ See @ref{Object Creation and Initialization}.
 @item @bglos{initialization form}  @Noun{}@spc{}
 a @term{form} used to supply the initial @term{value} for a @term{slot}
 or @term{variable}.
-@gexample{The initialization form for a slot in a @symbolref{defclass} form
+@gexample{The initialization form for a slot in a @symbolref{defclass, SYM} form
 is introduced by the keyword @kwd{initform}.}
 
 @item @bglos{input}  @Adjective{}@spc{}(of a @term{stream})
@@ -2635,7 +2635,7 @@ are not involved.)
 @item @bglos{literal}  @Adjective{}@spc{}(of an @term{object}) @anchor{glos-Literal}
 referenced directly in a program rather than being computed by the program;
 that is,
-appearing as data in a @symbolref{quote} @term{form},
+appearing as data in a @symbolref{quote, SYM} @term{form},
 or, if the @term{object} is a @term{self-evaluating object},
 appearing as unquoted data.
 @gexample{In the form @f{(cons "one" '("two"))},
@@ -2650,7 +2650,7 @@ See the @term{function} @ref{load}.
 the duration of time that the loader is @term{loading} @term{compiled code}.
 
 @item @bglos{load time value}  @Noun{}@spc{}
-an @term{object} referred to in @term{code} by a @symbolref{load-time-value}
+an @term{object} referred to in @term{code} by a @symbolref{load-time-value, SYM}
 @term{form}.  The @term{value} of such a @term{form} is some specific
 @term{object} which can only be computed in the run-time @term{environment}.
 In the case of @term{file} @term{compilation}, the @term{value} is
@@ -2706,8 +2706,8 @@ an @term{object} @oftype{long-float}.
 
 @item @bglos{loop keyword}  @Noun{}@spc{}@Traditional{} @anchor{glos-Loop keywords}
 a symbol that is a specially recognized part of the syntax of
-an extended @symbolref{loop} @term{form}.  Such symbols are recognized by their
-@term{name} (using @symbolref{string=}), not by their identity; as such, they
+an extended @symbolref{loop, SYM} @term{form}.  Such symbols are recognized by their
+@term{name} (using @symbolref{string=, SYM}), not by their identity; as such, they
 may be in any package.  A @term{loop keyword} is not a @term{keyword}.
 
 @item @bglos{lowercase}  @Adjective{}@spc{}(of a @term{character})
@@ -2755,11 +2755,11 @@ argument @term{form}.
 
 @item @bglos{macro lambda list}  @Noun{}
 an @term{extended lambda list} used in @term{forms} that @term{establish}
-@term{macro} definitions, such as @symbolref{defmacro} and @symbolref{macrolet}.
+@term{macro} definitions, such as @symbolref{defmacro, SYM} and @symbolref{macrolet, SYM}.
 See @ref{Macro Lambda Lists}.
 
 @item @bglos{macro name}  @Noun{}@spc{}
-a @term{name} for which @symbolref{macro-function} returns @term{true}
+a @term{name} for which @symbolref{macro-function, SYM} returns @term{true}
 and which when used as the first element of a @term{compound form}
 identifies that @term{form} as a @term{macro form}.
 
@@ -2820,7 +2820,7 @@ a list resembling an @term{ordinary lambda list} in form and purpose,
 but which deviates in syntax or functionality from the definition of an
 @term{ordinary lambda list}.
 See @ref{glos-ordinary lambda list, ordinary lambda list}.
-@gexample{@symbolref{deftype} uses a modified lambda list.}
+@gexample{@symbolref{deftype, SYM} uses a modified lambda list.}
 
 @item @bglos{most recent}  @Adjective{}
 innermost;
@@ -2841,11 +2841,11 @@ having the @term{multiple escape} @term{syntax type}.
 
 @item @bglos{multiple values}  @Noun{}@spc{}
 1. more than one @term{value}.
-@gexample{The function @symbolref{truncate} returns multiple values.}
+@gexample{The function @symbolref{truncate, SYM} returns multiple values.}
 2. a variable number of @term{values}, possibly including zero or one.
 @gexample{The function @code{values} returns multiple values.}
 3. a fixed number of values other than one.
-@gexample{The macro @symbolref{multiple-value-bind} is among the few
+@gexample{The macro @symbolref{multiple-value-bind, SYM} is among the few
 operators in @clisp{}@spc{}which can detect and manipulate
 multiple values.}
 
@@ -2863,10 +2863,10 @@ is referred to by association using a @term{binding}.
 3. @Noun{}@spc{}(of an @term{object} having a name component)
 the @term{object} which is that component.
 @gexample{The string which is a symbol's name is returned
-by @symbolref{symbol-name}.}
+by @symbolref{symbol-name, SYM}.}
 4. @Noun{}@spc{}(of a @term{pathname})
-a. the name component, returned by @symbolref{pathname-name}.
-b. the entire namestring, returned by @symbolref{namestring}.
+a. the name component, returned by @symbolref{pathname-name, SYM}.
+b. the entire namestring, returned by @symbolref{namestring, SYM}.
 5. @Noun{}@spc{}(of a @term{character})
 a @term{string} that names the @term{character}
 and that has @term{length} greater than one.
@@ -2952,8 +2952,8 @@ other than a @term{list}; @ie{} a @term{non-nil} @term{atom}.
 @item @bglos{non-local exit}  @Noun{}@spc{}
 a transfer of control (and sometimes @term{values}) to
 an @term{exit point} for reasons other than a @term{normal return}.
-@gexample{The operators @symbolref{go}, @symbolref{throw},
-and @symbolref{return-from} cause a non-local exit.}
+@gexample{The operators @symbolref{go, SYM}, @symbolref{throw, SYM},
+and @symbolref{return-from, SYM} cause a non-local exit.}
 
 @item @bglos{non-nil}  @Noun{}, @Adjective{}@spc{}
 not @nil{}.  Technically, any @term{object} which is not @nil{}@spc{}can be
@@ -3029,15 +3029,15 @@ to two other objects.}
 an @term{object} which is of that @term{type}, used to emphasize that the
 @term{object} is not just a @term{name} for an object of that @term{type}
 but really an @term{element} of the @term{type} in cases where @term{objects}
-of that @term{type} (such as @code{function} or @symbolref{class}) are commonly
+of that @term{type} (such as @code{function} or @symbolref{class, SYM}) are commonly
 referred to by @term{name}.
-@gexample{The function @symbolref{symbol-function} takes a function name
+@gexample{The function @symbolref{symbol-function, SYM} takes a function name
 and returns a function object.}
 
 @item @bglos{object-traversing}  @Adjective{}@spc{}
 operating in succession on components of an @term{object}.
-@gexample{The operators @symbolref{mapcar}, @symbolref{maphash},
-@symbolref{with-package-iterator} and @symbolref{count}
+@gexample{The operators @symbolref{mapcar, SYM}, @symbolref{maphash, SYM},
+@symbolref{with-package-iterator, SYM} and @symbolref{count, SYM}
 perform object-traversing operations.}
 
 @item @bglos{open}  @Adjective{}, @TransitiveVerb{}@spc{}(a @term{file})
@@ -3061,7 +3061,7 @@ or a @term{lambda expression}, and which is never @f{(setf @term{symbol})}.
 one of several aspects of a program that might be optimizable by
 certain compilers.  Since optimizing one such quality
 might conflict with optimizing another, relative priorities for
-qualities can be established in an @symbolref{optimize} @term{declaration}.
+qualities can be established in an @symbolref{optimize, SYM} @term{declaration}.
 The @term{standardized} @term{optimize qualities} are
 @f{compilation-speed} (speed of the compilation process),
 @f{debug} (ease of debugging),
@@ -3083,7 +3083,7 @@ a @term{function} that is not a @term{generic function}.
  @Noun{}@spc{}
 the kind of @term{lambda list} used by @t{lambda}.
 See @ref{glos-modified lambda list, modified lambda list} and @term{extended lambda list}.
-@gexample{@symbolref{defun} uses an ordinary lambda list.}
+@gexample{@symbolref{defun, SYM} uses an ordinary lambda list.}
 
 @item @bglos{otherwise inaccessible part}  @Noun{}@spc{}(of an @term{object}, @mat{O@sub{1}})
 an @term{object}, @mat{O@sub{2}}, which would be made @term{inaccessible} if
@@ -3138,10 +3138,10 @@ the symbol is looked up in the indicated @term{package}.
 A mapping of @term{names} to @term{package} @term{objects}.
 It is possible for there to be a @term{package} @term{object} which is not
 in this mapping; such a @term{package} is called an @term{unregistered package}.
-@term{Operators} such as @symbolref{find-package} consult this mapping in order
+@term{Operators} such as @symbolref{find-package, SYM} consult this mapping in order
 to find a @term{package} from its @term{name}.
-@term{Operators} such as @symbolref{do-all-symbols}, @symbolref{find-all-symbols},
-and @symbolref{list-all-packages} operate only on @term{packages} that exist
+@term{Operators} such as @symbolref{do-all-symbols, SYM}, @symbolref{find-all-symbols, SYM},
+and @symbolref{list-all-packages, SYM} operate only on @term{packages} that exist
 in the @term{package registry}.
 
 @item @bglos{pairwise}  @Adverb{}@spc{}(of an adjective on a set)
@@ -3153,9 +3153,9 @@ applying individually to all possible pairings of elements of the set.
 
 @item @bglos{parallel}
  @Adjective{}@spc{}@Traditional{}@spc{}(of @term{binding} or @i{assignment})
-done in the style of @symbolref{psetq}, @symbolref{let}, or @symbolref{do};
+done in the style of @symbolref{psetq, SYM}, @symbolref{let, SYM}, or @symbolref{do, SYM};
 that is, first evaluating all of the @term{forms} that produce @term{values},
-and only then @term{assigning} or @term{binding} the @term{variables} (or @term{places}).
+and only then @term{assigning} or @term{binding} the @term{variables} (or @term{cons}).
 Note that this does not imply traditional computational ``parallelism''
 since the @term{forms} that produce @term{values} are evaluated @term{sequentially}.
 See @ref{glos-sequential, sequential}.
@@ -3252,7 +3252,7 @@ See @ref{Potential Numbers as Tokens}.
 @item @bglos{pprint dispatch table}  @Noun{}@spc{}
 an @term{object} that can be @thevalueof{*print-pprint-dispatch*}
 and hence can control how @term{objects} are printed when
-@symbolref{*print-pretty*} is @term{true}.
+@symbolref{*print-pretty*, SYM} is @term{true}.
 See @ref{Pretty Print Dispatch Tables}.
 
 @item @bglos{predicate}  @Noun{}@spc{}
@@ -3273,7 +3273,7 @@ to invoke the @term{pretty printer} on the @term{object}.
 @item @bglos{pretty printer}  @Noun{}@spc{}
 the procedure that prints the character representation of an
 @term{object} onto a @term{stream} when the @term{value} of
-@symbolref{*print-pretty*} is @term{true},
+@symbolref{*print-pretty*, SYM} is @term{true},
 and that uses layout techniques (@eg{} indentation) that
 tend to highlight the structure of the @term{object} in a way that
 makes it easier for human readers to parse visually.
@@ -3295,7 +3295,7 @@ see @ref{Introduction to Methods}.
 @item @bglos{primary value}  @Noun{}@spc{}(of @term{values} resulting from the
 @term{evaluation} of a @term{form})
 the first @term{value}, if any, or else @nil{}@spc{}if there are no @term{values}.
-@gexample{The primary value returned by @symbolref{truncate} is an
+@gexample{The primary value returned by @symbolref{truncate, SYM} is an
 integer quotient, truncated toward zero.}
 
 @item @bglos{principal}  @Adjective{}@spc{}(of a value returned by a @clisp{}@spc{}@term{function} that
@@ -3317,10 +3317,10 @@ defined by the @term{implementation} to be a @term{printer control variable}.
 
 @item @bglos{printer escaping}  @Noun{}
 The combined state of the @term{printer control variables}
-@symbolref{*print-escape*} and @symbolref{*print-readably*}.
-If the value of either @symbolref{*print-readably*} or @symbolref{*print-escape*} is @term{true},
+@symbolref{*print-escape*, SYM} and @symbolref{*print-readably*, SYM}.
+If the value of either @symbolref{*print-readably*, SYM} or @symbolref{*print-escape*, SYM} is @term{true},
 then @newterm{printer escaping} is ``enabled'';
-otherwise (if the values of both @symbolref{*print-readably*} and @symbolref{*print-escape*}
+otherwise (if the values of both @symbolref{*print-readably*, SYM} and @symbolref{*print-escape*, SYM}
 are @term{false}),
 then @term{printer escaping} is ``disabled''.
 
@@ -3364,7 +3364,7 @@ See @ref{glos-improper list, improper list}.
 @item @bglos{proper name}  @Noun{}@spc{}(of a @term{class})
 a @term{symbol} that @term{names} the @term{class} whose @term{name}
 is that @term{symbol}.
-See the @term{functions} @ref{class-name} and @symbolref{find-class}.
+See the @term{functions} @ref{class-name} and @symbolref{find-class, SYM}.
 
 @item @bglos{proper sequence}  @Noun{}@spc{}
 a @term{sequence} which is not an @term{improper list};
@@ -3434,7 +3434,7 @@ that is the @term{value} of @thevariable{*query-io*}.
 
 @item @bglos{quoted object}  @Noun{}@spc{}
 an @term{object} which is the second element of a
-@symbolref{quote} @term{form}.
+@symbolref{quote, SYM} @term{form}.
 
 
 @end table
@@ -3505,7 +3505,7 @@ or the conceptual pairing of a @term{dispatching macro character} and the
 @item @bglos{reader macro function}  @Noun{}
 a @term{function} @term{designator} that denotes a @term{function}
 that implements a @term{reader macro}@sub{2}.
-See the @term{functions} @ref{set-macro-character} and @symbolref{set-dispatch-macro-character}.
+See the @term{functions} @ref{set-macro-character} and @symbolref{set-dispatch-macro-character, SYM}.
 
 @item @bglos{readtable}  @Noun{}
 an @term{object} @oftype{readtable}.
@@ -3539,14 +3539,14 @@ or an @term{environment}.
 @term{exit point}, a @term{tag}, or an @term{environment},
 usually by @term{name}.
 
-@item @bglos{registered package}  @Noun{} @anchor{glos-Registered packages}
+@item @bglos{registered package}  @Noun{}
 a @term{package} @term{object} that is installed in the @term{package registry}.
 (Every @term{registered package} has a @term{name} that is a @term{string},
 as well as zero or more @term{string} nicknames.
 All @term{packages} that are initially specified by @clisp{}@spc{}
-or created by @symbolref{make-package} or @symbolref{defpackage}
+or created by @symbolref{make-package, SYM} or @symbolref{defpackage, SYM}
 are @term{registered packages}.  @term{Registered packages} can be turned into
-@term{unregistered packages} by @symbolref{delete-package}.)
+@term{unregistered packages} by @symbolref{delete-package, SYM}.)
 
 @item @bglos{relative}
  @Adjective{}
@@ -3597,8 +3597,8 @@ a @term{non-nil} @term{symbol}
 @term{restart} whose @term{name} is that @term{symbol}),
 or a @term{restart} (denoting itself).
 
-@item @bglos{restart function}  @Noun{} @anchor{glos-Restart functions}
-a @term{function} that invokes a @term{restart}, as if by @symbolref{invoke-restart}.
+@item @bglos{restart function}  @Noun{}
+a @term{function} that invokes a @term{restart}, as if by @symbolref{invoke-restart, SYM}.
 The primary purpose of a @term{restart function} is to provide an alternate
 interface. By convention, a @term{restart function} usually has the same name
 as the @term{restart} which it invokes. @Thenextfigure{}@spc{}shows a list of the
@@ -3638,7 +3638,7 @@ See @ref{StdCharsThree, Figure 2.5}.
 2. @term{execution time}
 
 @item @bglos{run-time compiler}  @Noun{}
-refers to the @symbolref{compile} function or to @term{implicit compilation},
+refers to the @symbolref{compile, SYM} function or to @term{implicit compilation},
 for which the compilation and run-time @term{environments} are maintained
 in the same @term{Lisp image}.
 
@@ -3673,14 +3673,14 @@ For more detailed information, see @ref{Safe and Unsafe Calls}.
 1. (of @term{objects} under a specified @term{predicate})
 indistinguishable by that @term{predicate}.
 @gexample{The symbol @f{car}, the string @f{"car"}, and the string @f{"CAR"}
-are the @f{same} under @symbolref{string-equal}}.
+are the @f{same} under @symbolref{string-equal, SYM}}.
 2. (of @term{objects} if no predicate is implied by context)
 indistinguishable by @code{eql}.
-Note that @symbolref{eq} might be capable of distinguishing some
+Note that @symbolref{eq, SYM} might be capable of distinguishing some
 @term{numbers} and @term{characters} which @code{eql} cannot
 distinguish, but the nature of such, if any,
 is @term{implementation-dependent}.
-Since @symbolref{eq} is used only rarely in this specification,
+Since @symbolref{eq, SYM} is used only rarely in this specification,
 @code{eql} is the default predicate when none is mentioned explicitly.
 @gexample{The conses returned by two successive calls to @code{cons}
 are never the same.}
@@ -3729,7 +3729,7 @@ of the type @code{character}.  See @ref{Character Scripts}.
 @term{evaluation} of a @term{form})
 the second @term{value}, if any,
 or else @nil{}@spc{}if there are fewer than two @term{values}.
-@gexample{The secondary value returned by @symbolref{truncate} is a remainder.}
+@gexample{The secondary value returned by @symbolref{truncate, SYM} is a remainder.}
 
 @item @bglos{section}  @Noun{}
 a partitioning of output by a @term{conditional newline} on a @term{pretty printing stream}.
@@ -3765,11 +3765,11 @@ or an @term{implementation-defined} @term{function}
 that operates on one or more @term{sequences}.
 and that is defined by the @term{implementation} to be a @term{sequence function}.
 
-@item @bglos{sequential} @anchor{glos-Sequential}
+@item @bglos{sequential}
  @Adjective{}@spc{}@Traditional{}@spc{}(of @term{binding} or @i{assignment})
-done in the style of @symbolref{setq}, @symbolref{let*}, or @symbolref{do*};
+done in the style of @symbolref{setq, SYM}, @symbolref{let*, SYM}, or @symbolref{do*, SYM};
 that is, interleaving the evaluation of the @term{forms} that produce @term{values}
-with the @i{assignments} or @term{bindings} of the @term{variables} (or @term{places}).
+with the @i{assignments} or @term{bindings} of the @term{variables} (or @term{cons}).
 See @ref{glos-parallel, parallel}.
 
 @item @bglos{sequentially}  @Adverb{}
@@ -3791,7 +3791,7 @@ is the @term{name} of a @term{dynamic variable})
 to @term{assign} the @term{variable}.
 
 @item @bglos{setf expander}  @Noun{}@spc{}
-a function used by @symbolref{setf} to compute the @term{setf expansion}
+a function used by @symbolref{setf, SYM} to compute the @term{setf expansion}
 of a @term{place}.
 
 @item @bglos{setf expansion}  @Noun{}@spc{}
@@ -3811,8 +3811,8 @@ the @term{list} @f{(setf @param{S})}.
 1. to override the meaning of.
 @gexample{That binding of @f{X} shadows an outer one.}
 2. to hide the presence of.
-@gexample{That @symbolref{macrolet} of @f{F} shadows the
-outer @symbolref{flet} of @f{F}.}
+@gexample{That @symbolref{macrolet, SYM} of @f{F} shadows the
+outer @symbolref{flet, SYM} of @f{F}.}
 3. to replace.
 @gexample{That package shadows the symbol @f{cl:car} with
 its own symbol @f{car}.}
@@ -3945,7 +3945,7 @@ A @term{slot} option pertains only to a single @term{slot}.
 
 @item @bglos{source code}  @Noun{}@spc{}
 @term{code} representing @term{objects} suitable for @term{evaluation}
-(@eg{} @term{objects} created by @symbolref{read},
+(@eg{} @term{objects} created by @symbolref{read, SYM},
 by @term{macro expansion},
 or by @term{compiler macro expansion}).
 
@@ -3993,7 +3993,7 @@ five that is specialized for bits.}
 
 @item @bglos{specialized lambda list}  @Noun{}
 an @term{extended lambda list} used in @term{forms} that @term{establish}
-@term{method} definitions, such as @symbolref{defmethod}.
+@term{method} definitions, such as @symbolref{defmethod, SYM}.
 See @ref{Specialized Lambda Lists}.
 
 @item @bglos{spreadable argument list designator}  @Noun{}
@@ -4033,7 +4033,7 @@ a @term{function} @oftype{standard-generic-function}.
 
 @item @bglos{standard input}  @Noun{}@spc{}
 the @term{input} @term{stream} which is the @term{value} of the @term{dynamic variable}
-@symbolref{*standard-input*}.
+@symbolref{*standard-input*, SYM}.
 
 @item @bglos{standard method combination}  @Noun{}@spc{}
 the @term{method combination} named @code{standard}.
@@ -4045,7 +4045,7 @@ a @term{generalized instance}
 
 @item @bglos{standard output}  @Noun{}@spc{}
 the @term{output} @term{stream} which is the @term{value} of the @term{dynamic variable}
-@symbolref{*standard-output*}.
+@symbolref{*standard-output*, SYM}.
 
 @item @bglos{standard pprint dispatch table}  @Noun{}
 A @term{pprint dispatch table} that is @term{different} from
@@ -4105,12 +4105,12 @@ identify an appropriate source or sink of @term{characters} or
 a @term{file stream}, or a @term{synonym stream} the @term{target}
 of which is a @term{stream associated with a file}.
 Such a @term{stream} cannot be created with
-@symbolref{make-two-way-stream},
-@symbolref{make-echo-stream},
-@symbolref{make-broadcast-stream},
-@symbolref{make-concatenated-stream},
-@symbolref{make-string-input-stream},
-or @symbolref{make-string-output-stream}.
+@symbolref{make-two-way-stream, SYM},
+@symbolref{make-echo-stream, SYM},
+@symbolref{make-broadcast-stream, SYM},
+@symbolref{make-concatenated-stream, SYM},
+@symbolref{make-string-input-stream, SYM},
+or @symbolref{make-string-output-stream, SYM}.
 
 @item @bglos{stream designator}  @Noun{}
 a @term{designator} for a @term{stream}; that is,
@@ -4133,10 +4133,10 @@ a @term{variable} whose @term{value} must be a @term{stream}.
 a @term{designator} for a @term{stream variable}; that is,
 a @term{symbol} that denotes a @term{stream variable}
 and that is one of:
-@code{t}@spc{}(denoting @symbolref{*terminal-io*}),
-@nil{}@spc{}(denoting @symbolref{*standard-input*}
+@code{t}@spc{}(denoting @symbolref{*terminal-io*, SYM}),
+@nil{}@spc{}(denoting @symbolref{*standard-input*, SYM}
 for @term{input} @term{stream variable designators}
-or denoting @symbolref{*standard-output*}
+or denoting @symbolref{*standard-output*, SYM}
 for @term{output} @term{stream variable designators}),
 or some other @term{symbol} (denoting itself).
 
@@ -4157,7 +4157,7 @@ The intent is that this term be consistent with the behavior of @code{string};
 this term in a compatible way.
 
 @item @bglos{string equal}  @Adjective{}@spc{}
-the @term{same} under @symbolref{string-equal}.
+the @term{same} under @symbolref{string-equal, SYM}.
 
 @item @bglos{string stream}  @Noun{}@spc{}
 a @term{stream} @oftype{string-stream}.
@@ -4169,10 +4169,10 @@ an @term{object} @oftype{structure-object}.
 a @term{class} that is a @term{generalized instance} @ofclass{structure-class}.
 
 @item @bglos{structure name}  @Noun{}
-a @term{name} defined with @symbolref{defstruct}.
+a @term{name} defined with @symbolref{defstruct, SYM}.
 Usually, such a @term{type} is also a @term{structure class},
 but there may be @term{implementation-dependent} situations
-in which this is not so, if the @kwd{type} option to @symbolref{defstruct} is used.
+in which this is not so, if the @kwd{type} option to @symbolref{defstruct, SYM} is used.
 
 @item @bglos{style warning}  @Noun{}
 a @term{condition} @oftype{style-warning}.
@@ -4262,7 +4262,7 @@ and hence cannot be inherited by @term{classes} defined by @term{conforming prog
 
 @item @bglos{system code}  @Noun{}@spc{}
 @term{code} supplied by the @term{implementation} to implement this specification
-(@eg{} the definition of @symbolref{mapcar})
+(@eg{} the definition of @symbolref{mapcar, SYM})
 or generated automatically in support of this specification
 (@eg{} during method combination);
 that is, @term{code} that is not @term{programmer code}.
@@ -4350,8 +4350,8 @@ is in effect.)
 a textual representation for a @term{number} or a @term{symbol}.
 See @ref{Interpretation of Tokens}.
 
-@item @bglos{top level form}  @Noun{}@spc{} @anchor{glos-Top level forms}
-a @term{form} which is processed specially by @symbolref{compile-file} for
+@item @bglos{top level form}  @Noun{}@spc{}
+a @term{form} which is processed specially by @symbolref{compile-file, SYM} for
 the purposes of enabling @term{compile time} @term{evaluation} of that
 @term{form}.
 @term{Top level forms} include those @term{forms} which
@@ -4360,7 +4360,7 @@ and certain other cases.  See @ref{Processing of Top Level Forms}.
 
 @item @bglos{trace output}  @Noun{}@spc{}
 the @term{output} @term{stream} which is the @term{value} of the @term{dynamic variable}
-@symbolref{*trace-output*}.
+@symbolref{*trace-output*, SYM}.
 
 @item @bglos{tree}  @Noun{}@spc{}
 1. a binary recursive data structure made up of @term{conses} and
@@ -4545,11 +4545,11 @@ an active entity, typically a human, that invokes or interacts with a
 @item @bglos{valid array dimension}  @Noun{}@spc{}
 a @term{fixnum} suitable for use as an @term{array} @term{dimension}.
 Such a @term{fixnum} must be greater than or equal to zero,
-and less than the @term{value} of @symbolref{array-dimension-limit}.
+and less than the @term{value} of @symbolref{array-dimension-limit, SYM}.
 When multiple @term{array} @term{dimensions} are to be used together to specify a
 multi-dimensional @term{array}, there is also an implied constraint
 that the product of all of the @term{dimensions} be less than the @term{value} of
-@symbolref{array-total-size-limit}.
+@symbolref{array-total-size-limit, SYM}.
 
 @item @bglos{valid array index}  @Noun{}@spc{}(of an @term{array})
 a @term{fixnum} suitable for use as one of possibly several indices needed
@@ -4668,7 +4668,7 @@ or a  @term{hash table}.
 @item @bglos{value cell}  @Noun{}@spc{}@Traditional{}@spc{}(of a @term{symbol})
 The @term{place} which holds the @term{value}, if any, of the
 @term{dynamic variable} named by that @term{symbol},
-and which is @term{accessed} by @symbolref{symbol-value}.
+and which is @term{accessed} by @symbolref{symbol-value, SYM}.
 See @ref{glos-cell, cell}.
 
 @item @bglos{variable}  @Noun{}@spc{} @anchor{glos-Variables}
