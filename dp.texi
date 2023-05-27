@@ -9,10 +9,24 @@
 @include dph.texi
 @end ifnotinfo
 
-@c put SYMBOL in symbol index and make an anchor of TYPE_SYMBOL
-@c type is to disambiguate different meaning for the same symbol
-@c ie. how the same symbol can be a Function and System Class
-@c if we don't need to disambiguate then we pass SYM for symbol index
+@c the folowing two macros are there for cross referencing
+@c defined symbols in the manual
+@c SYMBOL is the name of the symbol
+@c TYPE is what type of object that symbol represents
+@c types are there to distinguish different objects that have
+@c the same symbol i.e. type 'integer' from function 'integer'
+@c types are:
+@c SYM - catch all symbol for symbols that have only one type
+@c SC - System Class
+@c CT - Condition Type
+@c CV - Constant Value
+@c SO - Special Operator
+@c TS - Type Specifier
+@c S - Symbol
+@c M - Macro
+@c A - Assessor
+@c F - Function
+@c D - Declaration
 @macro syindexanchor {symbol, type}
 @anchor{\type\_\symbol\} @syindex \symbol\
 @end macro
@@ -20,6 +34,10 @@
 @c referece to a symbol
 @macro symbolref {symbol}
 @code{@ref{SYM_\symbol\, \symbol\}}
+@end macro
+
+@macro bglos {arg}
+@b{\arg\} @anchor{glos-\arg\}
 @end macro
 
 @macro spc {}
