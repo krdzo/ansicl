@@ -1156,27 +1156,27 @@ documentation (@var{x} @symbolref{symbol, SYM}) (@var{doc-type} @f{(eql 'symbol)
 
 documentation (@var{x} @symbolref{symbol, SYM}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
-documentation (@var{x} @code{list}) (@var{doc-type} @f{(eql 'list)}) list
+documentation (@var{x} @symbolref{list, SC}) (@var{doc-type} @f{(eql 'list)}) list
 
-documentation (@var{x} @code{list}) (@var{doc-type} @f{(eql 'list)}) list
+documentation (@var{x} @symbolref{list, SC}) (@var{doc-type} @f{(eql 'list)}) list
 
-documentation (@var{x} @code{function}) (@var{doc-type} @f{(eql 'function)}) function
+documentation (@var{x} @symbolref{function, SC}) (@var{doc-type} @f{(eql 'function)}) function
 
-documentation (@var{x} @code{function}) (@var{doc-type} @f{(eql 'function)}) function
-
-(setf documentation) @var{new-value} (@var{x} @symbolref{symbol, SYM}) (@var{doc-type} @f{(eql 'symbol)}) symbol
+documentation (@var{x} @symbolref{function, SC}) (@var{doc-type} @f{(eql 'function)}) function
 
 (setf documentation) @var{new-value} (@var{x} @symbolref{symbol, SYM}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
 (setf documentation) @var{new-value} (@var{x} @symbolref{symbol, SYM}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
-(setf documentation) @var{new-value} (@var{x} @code{list}) (@var{doc-type} @f{(eql 'list)}) list
+(setf documentation) @var{new-value} (@var{x} @symbolref{symbol, SYM}) (@var{doc-type} @f{(eql 'symbol)}) symbol
 
-(setf documentation) @var{new-value} (@var{x} @code{list}) (@var{doc-type} @f{(eql 'list)}) list
+(setf documentation) @var{new-value} (@var{x} @symbolref{list, SC}) (@var{doc-type} @f{(eql 'list)}) list
 
-(setf documentation) @var{new-value} (@var{x} @code{function}) (@var{doc-type} @f{(eql 'function)}) function
+(setf documentation) @var{new-value} (@var{x} @symbolref{list, SC}) (@var{doc-type} @f{(eql 'list)}) list
 
-(setf documentation) @var{new-value} (@var{x} @code{function}) (@var{doc-type} @f{(eql 'function)}) function
+(setf documentation) @var{new-value} (@var{x} @symbolref{function, SC}) (@var{doc-type} @f{(eql 'function)}) function
+
+(setf documentation) @var{new-value} (@var{x} @symbolref{function, SC}) (@var{doc-type} @f{(eql 'function)}) function
 
 
 

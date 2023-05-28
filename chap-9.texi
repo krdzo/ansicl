@@ -34,7 +34,7 @@ be represented by @term{conditions}, but not all
 Signaling is the process by which a @term{condition} can alter
 the flow of control in a program by raising the
 @term{condition} which can then be @term{handled}.  The functions
-@code{error}, @symbolref{cerror, SYM}, @symbolref{signal, SYM}, and
+@symbolref{error, F}, @symbolref{cerror, SYM}, @symbolref{signal, SYM}, and
 @symbolref{warn, SYM} are used to signal @term{conditions}.
 
 The process of signaling involves the selection and invocation of a
@@ -67,7 +67,7 @@ It can decline to @term{handle} the @term{condition}.  It does this by
 simply returning rather than transferring control.
 When this happens, any values returned by the handler are
 ignored and the next most recently established handler is invoked.
-If there is no such handler and the signaling function is @code{error}
+If there is no such handler and the signaling function is @symbolref{error, F}
 or @symbolref{cerror, SYM}, the debugger is entered in the
 @term{dynamic environment} of the signaler. If there is no such
 handler and the signaling function is either @symbolref{signal, SYM} or
@@ -79,7 +79,7 @@ handler and the signaling function is either @symbolref{signal, SYM} or
 It can @term{handle} the @term{condition} by performing a non-local
 transfer of control.  This can be done either primitively by using
 @symbolref{go, SYM}, @symbolref{return, SYM}, @symbolref{throw, SYM} or more
-abstractly by using a function such as @code{abort} or
+abstractly by using a function such as @symbolref{abort, F} or
 @symbolref{invoke-restart, SYM}.
 
 @item @id{@b{Defer}}
@@ -188,7 +188,7 @@ the @term{value} of @term{condition} @term{slots}.
 
 A @term{serious condition} is a @term{condition} serious
 enough to require interactive intervention if not handled.
-@term{Serious conditions} are typically signaled with @code{error} or @symbolref{cerror, SYM};
+@term{Serious conditions} are typically signaled with @symbolref{error, F} or @symbolref{cerror, SYM};
 non-serious @term{conditions} are typically signaled with @symbolref{signal, SYM} or @symbolref{warn, SYM}.
 
 
@@ -197,7 +197,7 @@ non-serious @term{conditions} are typically signaled with @symbolref{signal, SYM
 @subsection Creating Conditions
 
 The function @symbolref{make-condition, SYM} can be used to construct
-a @term{condition} @term{object} explicitly.  Functions such as @code{error},
+a @term{condition} @term{object} explicitly.  Functions such as @symbolref{error, F},
 @symbolref{cerror, SYM}, @symbolref{signal, SYM}, and @symbolref{warn, SYM} operate on
 @term{conditions} and might create @term{condition} @term{objects}
 implicitly.  Macros such as @symbolref{ccase, SYM}, @symbolref{ctypecase, SYM},
@@ -495,7 +495,7 @@ If there are no applicable handlers for a @term{condition} that
 has been signaled, or if all applicable handlers decline, the
 @term{condition} is unhandled.
 
-The functions @symbolref{cerror, SYM} and @code{error} invoke the
+The functions @symbolref{cerror, SYM} and @symbolref{error, F} invoke the
 interactive @term{condition} handler (the debugger) rather than
 return if the @term{condition} being signaled, regardless of
 its @term{type}, is unhandled.  In contrast, @symbolref{signal, SYM}
@@ -644,9 +644,9 @@ action of the debugger on those values is @term{implementation-defined}.
 @subsubsection Interfaces to Restarts
 
 Some @term{restarts} have functional interfaces,
-such as @code{abort}, @code{continue},
-@code{muffle-warning}, @code{store-value}, and
-@code{use-value}.
+such as @symbolref{abort, F}, @symbolref{continue, F},
+@symbolref{muffle-warning, F}, @symbolref{store-value, F}, and
+@symbolref{use-value, F}.
 They are ordinary functions that use
 @symbolref{find-restart, SYM} and @symbolref{invoke-restart, SYM} internally,
 that have the same name as the @term{restarts} they manipulate,
@@ -933,10 +933,10 @@ Signaling a @term{serious condition} does not itself force entry into
 the debugger.   However, except in the unusual situation where the
 programmer can assure that no harm will come from failing to
 @term{handle} a @term{serious condition}, such a @term{condition} is
-usually signaled with @code{error} rather than @symbolref{signal, SYM} in
+usually signaled with @symbolref{error, F} rather than @symbolref{signal, SYM} in
 order to assure that the program does not continue without
 @i{handling} the @term{condition}.  (And conversely, it is
-conventional to use @symbolref{signal, SYM} rather than @code{error} to signal
+conventional to use @symbolref{signal, SYM} rather than @symbolref{error, F} to signal
 conditions which are not @term{serious conditions}, since normally the
 failure to handle a non-serious condition is not reason enough for the
 debugger to be entered.)
@@ -1124,7 +1124,7 @@ Evaluated each time an error is to be signaled,
 or not at all if no error is to be signaled.
 
 @param{datum}, @param{arguments}---@term{designators} for a @term{condition}
-of default type @code{error}.  (These @term{designators} are the
+of default type @symbolref{error, CT}.  (These @term{designators} are the
 result of evaluating @param{datum-form} and each of the @param{argument-forms}.)
 
 @subsubheading Description:
@@ -1234,11 +1234,11 @@ of default type @symbolref{simple-error, SYM}.
 
 @subsubheading Description:
 
-@code{error} effectively invokes @symbolref{signal, SYM} on the denoted @term{condition}.
+@symbolref{error, F} effectively invokes @symbolref{signal, SYM} on the denoted @term{condition}.
 
 If the @term{condition} is not handled, @f{(invoke-debugger @i{condition})} is done.
-As a consequence of calling @symbolref{invoke-debugger, SYM}, @code{error}
-cannot directly return; the only exit from @code{error}
+As a consequence of calling @symbolref{invoke-debugger, SYM}, @symbolref{error, F}
+cannot directly return; the only exit from @symbolref{error, F}
 can come by non-local transfer of control in a handler or by use of
 an interactive debugging command.
 
@@ -1321,7 +1321,7 @@ about writing code like:
 @end lisp
 
 In this scenario, there should be no chance that
-@code{error} will return
+@symbolref{error, F} will return
 and the button will get pushed.
 
 While the meaning of this program is clear and it might be proven `safe'
@@ -1356,9 +1356,9 @@ of default type @symbolref{simple-error, SYM}.
 
 @subsubheading Description:
 
-@symbolref{cerror, SYM} effectively invokes @code{error} on the
+@symbolref{cerror, SYM} effectively invokes @symbolref{error, F} on the
 @term{condition} named by @param{datum}.  As with any function that
-implicitly calls @code{error}, if the @term{condition} is not handled,
+implicitly calls @symbolref{error, F}, if the @term{condition} is not handled,
 @f{(invoke-debugger @i{condition})} is executed.  While signaling is going on,
 and while in the debugger if it is reached, it is possible to continue
 code execution (@ie{} to return from @symbolref{cerror, SYM}) using @therestart{continue}.
@@ -1665,7 +1665,7 @@ The implementation.
 @subsubheading Description:
 
 @Thetype{simple-error} consists of @term{conditions} that
-are signaled by @code{error} or @symbolref{cerror, SYM} when a
+are signaled by @symbolref{error, F} or @symbolref{cerror, SYM} when a
 @term{format control}
 is supplied as the function's first argument.
 
@@ -2227,7 +2227,7 @@ or @nil{}.
 
 When @thevalueof{*debugger-hook*} is @term{non-nil}, it is called prior to
 normal entry into the debugger, either due to a call to @symbolref{invoke-debugger, SYM}
-or due to automatic entry into the debugger from a call to @code{error}
+or due to automatic entry into the debugger from a call to @symbolref{error, F}
 or @symbolref{cerror, SYM} with a condition that is not handled.
 The @term{function} may either handle the @term{condition}
 (transfer control) or return normally (allowing the standard debugger to run).
@@ -2302,7 +2302,7 @@ a @term{type specifier}.
 @subsubheading Description:
 
 When @f{(typep @i{condition} *break-on-signals*)} returns @term{true},
-calls to @symbolref{signal, SYM}, and to other @term{operators} such as @code{error}
+calls to @symbolref{signal, SYM}, and to other @term{operators} such as @symbolref{error, F}
 that implicitly call @symbolref{signal, SYM}, enter the debugger prior to
 @term{signaling} the @term{condition}.
 
@@ -2366,7 +2366,7 @@ that are used in code called only incidentally.
 
 @symbolref{*break-on-signals*, SYM} enables an early entry to the debugger but such an
 entry does not preclude an additional entry to the debugger in the case of
-operations such as @code{error} and @symbolref{cerror, SYM}.
+operations such as @symbolref{error, F} and @symbolref{cerror, SYM}.
 
 
 @node handler-bind
@@ -2413,7 +2413,7 @@ If the @term{handler} @term{declines}, the search continues for another @term{ha
 
 If no appropriate @term{handler} is found, other @term{handlers} are sought
 from dynamically enclosing contours.  If no @term{handler} is found outside,
-then @symbolref{signal, SYM} returns or @code{error} enters the debugger.
+then @symbolref{signal, SYM} returns or @symbolref{error, F} enters the debugger.
 
 @subsubheading Examples:
 
@@ -2453,7 +2453,7 @@ in the associated function.
 
 Note that ``Foo.'' is not printed because the condition made
 by @symbolref{signal, SYM} is a @term{simple condition}, which is not @oftype{error},
-so it doesn't trigger the handler for @code{error} set up by @f{trap-errors}.
+so it doesn't trigger the handler for @symbolref{error, CT} set up by @f{trap-errors}.
 
 @subsubheading See Also:
 
@@ -2936,7 +2936,7 @@ in the definition of a condition type @f{C} is equivalent to:
 If the value supplied by the argument to @kwd{report} (@param{report-name})
 is a @term{symbol} or a @term{lambda expression},
 it must be acceptable to
-@code{function}. @f{(function @param{report-name})}
+@symbolref{function, SO}. @f{(function @param{report-name})}
 is evaluated
 in the current @term{lexical environment}.
 It should return a @term{function}
@@ -3002,7 +3002,7 @@ The @term{readers} @f{peg/hole-mismatch-peg-shape} and @f{peg/hole-mismatch-hole
 apply to objects of this type, as illustrated in the @kwd{report} information.
 
 The following form defines a @term{condition} @term{type} named @f{machine-error}
-which inherits from @code{error}:
+which inherits from @symbolref{error, CT}:
 
 @lisp
 (define-condition machine-error
@@ -3686,7 +3686,7 @@ about how to compute a proper argument list.
 
 
 The @param{value} supplied by @f{:interactive @param{value}}
-must be a suitable argument to @code{function}.
+must be a suitable argument to @symbolref{function, SO}.
 @f{(function @param{value})} is evaluated in the current lexical
 environment.  It should return a @term{function} of no arguments which
 returns arguments to be used by
@@ -3705,7 +3705,7 @@ list.
 
 If the @param{value} supplied by @f{:report @param{value}}
 is a @term{lambda expression} or a @term{symbol}, it
-must be acceptable to @code{function}.
+must be acceptable to @symbolref{function, SO}.
 @f{(function @param{value})} is evaluated in the current lexical
 environment.  It should return a @term{function} of one
 argument, a @term{stream}, which prints on the @term{stream} a
@@ -3745,7 +3745,7 @@ but no @kwd{report} option is provided.
 
 
 The @param{value} supplied by @f{:test @param{value}}
-must be a suitable argument to @code{function}.
+must be a suitable argument to @symbolref{function, SO}.
 @f{(function @param{value})} is evaluated in the current lexical
 environment.  It should return a @term{function} of one @term{argument}, the
 @term{condition}, that
@@ -3756,7 +3756,7 @@ The default for this option is equivalent to @f{(lambda (c) (declare (ignore c))
 
 
 If the @param{restartable-form} is a @term{list} whose @term{car} is any of
-the @term{symbols} @symbolref{signal, SYM}, @code{error}, @symbolref{cerror, SYM},
+the @term{symbols} @symbolref{signal, SYM}, @symbolref{error, F}, @symbolref{cerror, SYM},
 or @symbolref{warn, SYM} (or is a @term{macro form} which macroexpands into such a
 @term{list}), then @symbolref{with-condition-restarts, SYM} is used implicitly
 to associate the indicated @term{restarts} with the @term{condition} to be
@@ -4115,11 +4115,11 @@ None.
 
 The intent of the @t{abort} restart is to allow return to the
 innermost ``command level.''  Implementors are encouraged to make
-sure that there is always a restart named @code{abort}
-around any user code so that user code can call @code{abort}
+sure that there is always a restart named @symbolref{abort, R}
+around any user code so that user code can call @symbolref{abort, R}
 at any time and expect something reasonable to happen;
 exactly what the reasonable thing is may vary somewhat.  Typically,
-in an interactive listener, the invocation of @code{abort}
+in an interactive listener, the invocation of @symbolref{abort, F}
 returns to the @term{Lisp reader} phase of the @term{Lisp read-eval-print loop},
 though in some batch or multi-processing
 situations there may be situations in which having it kill the running
@@ -4354,13 +4354,13 @@ and so on.
 
 If no such @term{restart} exists,
 the functions
-@code{continue},
-@code{store-value},
-and @code{use-value}
+@symbolref{continue, F},
+@symbolref{store-value, F},
+and @symbolref{use-value, F}
 return @nil{}, and
 the functions
-@code{abort}
-and @code{muffle-warning}
+@symbolref{abort, F}
+and @symbolref{muffle-warning, F}
 signal an error @oftype{control-error}.
 
 When @param{condition} is @term{non-nil},

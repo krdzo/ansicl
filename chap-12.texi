@@ -347,10 +347,10 @@ value will be @oftype{single-float}
 part of the true mathematical result is zero) or @f{(complex single-float)}.
 
 Float substitutability applies neither to the rational @term{functions}
-@code{+},
-@code{-},
-@code{*},
-and @code{/}
+@symbolref{+, F},
+@symbolref{-, F},
+@symbolref{*, F},
+and @symbolref{/, F}
 nor to the related @term{operators}
 @symbolref{1+, SYM},
 @symbolref{1-, SYM},
@@ -516,9 +516,9 @@ which is the real part.
 This rule does not apply to @term{complex} numbers whose parts
 are @term{floats}.
 For example, @f{#C(5 0)} and @f{5} are not @term{different} @term{objects} in @clisp{}
-(they are always the @term{same} under @code{eql});
+(they are always the @term{same} under @symbolref{eql, F});
 @f{#C(5.0 0.0)} and @f{5.0} are always @term{different} @term{objects} in @clisp{}
-(they are never the @term{same} under @code{eql},
+(they are never the @term{same} under @symbolref{eql, F},
 although they are the @term{same} under @symbolref{equalp, SYM} and @symbolref{=, SYM}).
 
 @node Examples of Rule of Canonical Representation for Complex Rationals
@@ -762,13 +762,13 @@ This denotes the absence of an upper bound on the interval.
 
 @Thetype{number} contains @term{objects} which represent
 mathematical numbers.
-The @term{types} @symbolref{real, SYM} and @code{complex} are @term{disjoint}
+The @term{types} @symbolref{real, SYM} and @symbolref{complex, SC} are @term{disjoint}
 @term{subtypes} of @symbolref{number, SYM}.
 
 @Thefunction{=} tests for numerical equality.
 @Thefunction{eql}, when its arguments are both @term{numbers},
 tests that they have both the same @term{type} and numerical value.
-Two @term{numbers} that are the @term{same} under @code{eql} or @symbolref{=, SYM}
+Two @term{numbers} that are the @term{same} under @symbolref{eql, F} or @symbolref{=, SYM}
 are not necessarily the @term{same} under @symbolref{eq, SYM}.
 
 @subsubheading Notes:
@@ -829,7 +829,7 @@ real part and imaginary part are each of type
 @f{(upgraded-complex-part-type @param{typespec})}.
 This @term{type} encompasses those @term{complexes}
 that can result by giving numbers of @term{type} @param{typespec}
-to @code{complex}.
+to @symbolref{complex, F}.
 
 @tt{(complex @param{type-specifier})}
 refers to all @term{complexes} that can result from giving
@@ -873,7 +873,7 @@ numbers (@eg{} irrational numbers) that do not have an exact representation
 in @clisp{}.  Only @i{reals} can be ordered using the
 @symbolref{<, SYM}, @symbolref{>, SYM}, @symbolref{<=, SYM}, and @symbolref{>=, SYM} functions.
 
-The @term{types} @code{rational} and @code{float} are @term{disjoint}
+The @term{types} @symbolref{rational, SC} and @symbolref{float, SC} are @term{disjoint}
 @subtypesof{real}.
 
 @realtypespec{real}
@@ -1178,7 +1178,7 @@ where @i{lower} and @i{upper}
 are @symbolref{most-negative-fixnum, SYM} and @symbolref{most-positive-fixnum, SYM}, respectively,
 is also called @symbolref{fixnum, SYM}.
 
-The @term{type} @f{(integer 0 1)} is also called @code{bit}.
+The @term{type} @f{(integer 0 1)} is also called @symbolref{bit, T}.
 The @term{type} @f{(integer 0 *)} is also called @symbolref{unsigned-byte, SYM}.
 
 @node signed-byte
@@ -1268,7 +1268,7 @@ the type @f{(integer 0 *)}, the set of non-negative @term{integers}.
 
 @subsubheading Notes:
 
-The @term{type} @f{(unsigned-byte 1)} is also called @code{bit}.
+The @term{type} @f{(unsigned-byte 1)} is also called @symbolref{bit, T}.
 
 
 @node mod (Type Specifier)
@@ -1300,7 +1300,7 @@ where @mat{@hbox{@param{m}}=@hbox{@param{n}}-1}.
 
 The argument is required, and cannot be @t{*}.
 
-The symbol @code{mod} is not valid as a @term{type specifier}.
+The symbol @symbolref{mod, TS} is not valid as a @term{type specifier}.
 
 
 @node bit (Type)
@@ -1499,10 +1499,10 @@ Might signal @symbolref{arithmetic-error, SYM} if otherwise unable to fulfill it
 
 @subsubheading Notes:
 
-@symbolref{=, SYM} differs from @code{eql} in that
+@symbolref{=, SYM} differs from @symbolref{eql, F} in that
 @f{(= 0.0 -0.0)} is always true,
 because @symbolref{=, SYM} compares the mathematical values of its operands,
-whereas @code{eql} compares the representational values, so to speak.
+whereas @symbolref{eql, F} compares the representational values, so to speak.
 
 
 @node max; min
@@ -3141,10 +3141,10 @@ The implementation.
 
 @subsubheading Description:
 
-@code{mod} and @symbolref{rem, SYM} are generalizations of the modulus
+@symbolref{mod, F} and @symbolref{rem, SYM} are generalizations of the modulus
 and remainder functions respectively.
 
-@code{mod} performs the operation @symbolref{floor, SYM}
+@symbolref{mod, F} performs the operation @symbolref{floor, SYM}
 on @param{number} and @param{divisor}
 and returns the remainder of the @symbolref{floor, SYM} operation.
 
@@ -3152,7 +3152,7 @@ and returns the remainder of the @symbolref{floor, SYM} operation.
 on @param{number} and @param{divisor}
 and returns the remainder of the @symbolref{truncate, SYM} operation.
 
-@code{mod} and @symbolref{rem, SYM} are
+@symbolref{mod, F} and @symbolref{rem, SYM} are
 the modulus and remainder functions
 when @param{number} and @param{divisor} are @term{integers}.
 
@@ -3181,7 +3181,7 @@ when @param{number} and @param{divisor} are @term{integers}.
 
 @subsubheading Notes:
 
-The result of @code{mod} is either zero or a
+The result of @symbolref{mod, F} is either zero or a
 @symbolref{real, SYM}
 with the same sign as @param{divisor}.
 
@@ -3695,13 +3695,13 @@ imaginary part is equal to the sine of @param{radians}.
 
 @subsubheading Description:
 
-@code{complex} returns a @term{number}
+@symbolref{complex, F} returns a @term{number}
 whose real      part is @param{realpart}
 and whose imaginary part is @param{imagpart}.
 
 If @param{realpart} is a @term{rational}
 and @param{imagpart} is the @term{rational} number zero,
-the result of @code{complex} is @param{realpart}, a @term{rational}.
+the result of @symbolref{complex, F} is @param{realpart}, a @term{rational}.
 Otherwise, the result is a @term{complex}.
 
 If either @param{realpart} or @param{imagpart} is a @term{float},
@@ -4105,20 +4105,20 @@ and @symbolref{denominator, SYM} returns 1.
 
 @subsubheading Description:
 
-@code{rational} and @symbolref{rationalize, SYM} convert
+@symbolref{rational, F} and @symbolref{rationalize, SYM} convert
 @i{reals}
 to @term{rationals}.
 
 If @param{number} is already @term{rational}, it is returned.
 
 If @param{number} is a @term{float},
-@code{rational} returns a @term{rational}
+@symbolref{rational, F} returns a @term{rational}
 that is mathematically equal in value to the @term{float}.
 @symbolref{rationalize, SYM} returns a @term{rational} that
 approximates the @term{float} to the accuracy of
 the underlying floating-point representation.
 
-@code{rational} assumes that the @term{float} is completely accurate.
+@symbolref{rational, F} assumes that the @term{float} is completely accurate.
 
 @symbolref{rationalize, SYM} assumes that the
 @term{float} is accurate only to the precision of the
@@ -5613,7 +5613,7 @@ and
 
 @subsubheading Description:
 
-@code{float} converts a
+@symbolref{float, F} converts a
 @symbolref{real, SYM}
 number to a @term{float}.
 

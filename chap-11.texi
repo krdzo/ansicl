@@ -1012,7 +1012,7 @@ Current state of the package system.
 
 @symbolref{import, SYM} signals a @term{correctable} error @oftype{package-error}
 if any of the @param{symbols} to be @term{imported} has the @term{same} @term{name}
-(under @symbolref{string=, SYM}) as some distinct @term{symbol} (under @code{eql})
+(under @symbolref{string=, SYM}) as some distinct @term{symbol} (under @symbolref{eql, F})
 already @term{accessible} in the @param{package}, even if the conflict is
 with a @term{shadowing symbol} of the @param{package}.
 

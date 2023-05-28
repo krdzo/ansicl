@@ -1070,7 +1070,7 @@ by @symbolref{*read-default-float-format*, SYM} is used.
 See @ref{SyntaxForNumericTokens, Figure 2.9}.
 
 An implementation may provide one or more kinds of @term{float}
-that collectively make up @thetype{float}.
+that collectively make up the @term{type} @symbolref{float, SC}.
 The letters @f{s}, @f{f}, @f{d}, and @f{l} (or their
 respective uppercase equivalents) explicitly specify the
 use of the @term{types} @symbolref{short-float, SYM}, @symbolref{single-float, SYM},
@@ -2001,7 +2001,7 @@ Any @param{expression} preceded by @f{#'}
 as in @f{#'@param{expression}},
 is treated by the @term{Lisp reader} as an abbreviation for and parsed identically
 to the @term{expression} @f{(function @param{expression})}.
-See @code{function}.  For example,
+See @symbolref{function, SO}.  For example,
 
 @lisp
 (apply #'+ l) @EQ{} (apply (function +) l)

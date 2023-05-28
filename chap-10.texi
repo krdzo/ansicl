@@ -1114,7 +1114,7 @@ left-to-right evaluation rules, but its @term{value} is ignored.
 
 @term{Numbers} and @term{characters} are not recommended for use
 as @param{indicators} in portable code since @symbolref{get, SYM} tests
-with @symbolref{eq, SYM} rather than @code{eql}, and consequently
+with @symbolref{eq, SYM} rather than @symbolref{eql, F}, and consequently
 the effect of using such @param{indicators} is
 @term{implementation-dependent}.
 
@@ -1207,7 +1207,7 @@ The @term{property list} of @param{symbol} is modified.
 
 @term{Numbers} and @term{characters} are not recommended for use as
 @param{indicators} in portable code since @symbolref{remprop, SYM} tests with
-@symbolref{eq, SYM} rather than @code{eql}, and consequently the effect of
+@symbolref{eq, SYM} rather than @symbolref{eql, F}, and consequently the effect of
 using such @param{indicators} is @term{implementation-dependent}.
 Of course, if you've gotten as far as needing to remove such a
 @term{property}, you don't have much choice---the time to have been

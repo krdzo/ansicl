@@ -108,9 +108,9 @@ that are particularly relevant to the @CLOS{}.
 
 @item
 @Thetypes{cons}, @symbolref{symbol, SYM}, @symbolref{array, SYM}, @symbolref{number, SYM},
-@code{character}, @symbolref{hash-table, SYM},
-@code{function},
-@symbolref{readtable, SYM}, @symbolref{package, SYM}, @code{pathname}, @symbolref{stream, SYM},
+@symbolref{character, SC}, @symbolref{hash-table, SYM},
+@symbolref{function, SC},
+@symbolref{readtable, SYM}, @symbolref{package, SYM}, @symbolref{pathname, SC}, @symbolref{stream, SYM},
 @symbolref{random-state, SYM}, @symbolref{condition, SYM}, @symbolref{restart, SYM},
 and any single other @term{type} created by @symbolref{defstruct, SYM},
 @symbolref{define-condition, SYM},
@@ -118,7 +118,7 @@ or @symbolref{defclass, SYM} are @term{pairwise} @term{disjoint},
 except for type relations explicitly established by specifying
 @term{superclasses} in @symbolref{defclass, SYM}
 or @symbolref{define-condition, SYM}
-or the @kwd{include} option of @code{destruct}.
+or the @kwd{include} option of @symbolref{defstruct, SYM}.
 
 
 
@@ -1348,7 +1348,7 @@ Specializing.
 @editornote{Sandra: Still need clarification about what happens if the
 number of arguments doesn't match the FUNCTION type declaration.}
 
-The list form of the @code{function} @term{type specifier}
+The list form of the @symbolref{function, SC} @term{type specifier}
 can be used only for declaration and not for discrimination.
 Every element of this @term{type} is
 a @term{function} that accepts arguments of the
@@ -1370,7 +1370,7 @@ as must be supplied in the actual arguments of a
 call.
 This is usually a @term{symbol} in the @code{KEYWORD} @term{package} but can be any @term{symbol}.
 When @keyref{key} is given in a
-@code{function} @term{type specifier} @term{lambda list},
+@symbolref{function, SC} @term{type specifier} @term{lambda list},
 the @term{keyword parameters} given
 are exhaustive unless @keyref{allow-other-keys} is also present.
 @keyref{allow-other-keys} is an indication
@@ -1384,7 +1384,7 @@ the @term{type} of @thefunction{make-list} could be declared as follows:
 @end lisp
 
 
-The @param{value-type} can be a @code{values}
+The @param{value-type} can be a @symbolref{values, TS}
 @term{type specifier} in order to indicate the
 @term{types} of @term{multiple values}.
 
@@ -1831,7 +1831,7 @@ Combining.
 @subsubheading Compound Type Specifier Description:
 
 This denotes the set containing the named @param{objects}. An
-@term{object} is of this @term{type} if and only if it is @code{eql}
+@term{object} is of this @term{type} if and only if it is @symbolref{eql, F}
 to one of the specified @param{objects}.
 
 The @term{type specifiers} @f{(member)} and @nil{}@spc{}are equivalent.
@@ -1870,7 +1870,7 @@ This denotes the set of all @term{objects} that are not of the @term{type} @para
 
 The argument is required, and cannot be @t{*}.
 
-The symbol @code{not} is not valid as a @term{type specifier}.
+The symbol @symbolref{not, TS} is not valid as a @term{type specifier}.
 
 
 @node and (Type Specifier)
@@ -1932,7 +1932,7 @@ Also, the value returned by @symbolref{position, SYM} is an @objectoftype{(or nu
 @t{*} is not permitted as an argument.
 
 The @term{type specifiers} @f{(or)} and @nil{}@spc{}are equivalent.
-The symbol @code{or} is not valid as a @term{type specifier};
+The symbol @symbolref{or, TS} is not valid as a @term{type specifier};
 and, specifically, it is not an abbreviation for @f{(or)}.
 
 
@@ -1961,7 +1961,7 @@ Specializing.
 @subsubheading Compound Type Specifier Description:
 
 This @term{type specifier} can be used only as the @param{value-type} in a
-@code{function} @term{type specifier} or a @symbolref{the, SYM}
+@symbolref{function, SC} @term{type specifier} or a @symbolref{the, SYM}
 @term{special form}.  It is used to specify individual @term{types}
 when @term{multiple values} are involved.
 The @keyref{optional} and @keyref{rest} markers can appear in the @param{value-type} list;
@@ -2042,12 +2042,12 @@ according to the following rules:
 
 
 
-If the @param{result-type} is a @term{recognizable subtype} of @code{list},
+If the @param{result-type} is a @term{recognizable subtype} of @symbolref{list, SC},
 and the @term{object} is a @term{sequence},
 then the @param{result} is a @term{list}
 that has the @term{same} @term{elements} as @param{object}.
 
-If the @param{result-type} is a @term{recognizable subtype} of @code{vector},
+If the @param{result-type} is a @term{recognizable subtype} of @symbolref{vector, SC},
 and the @term{object} is a @term{sequence},
 then the @param{result} is a @term{vector}
 that has the @term{same} @term{elements} as @param{object}.
@@ -2058,18 +2058,18 @@ If no element type is specified, the element type defaults to @symbolref{t, SC}.
 If the @term{implementation} cannot determine the element type, an error is signaled.
 
 
-@item @id{@code{character}}
+@item @id{@symbolref{character, SC}}
 
 
-If the @param{result-type} is @code{character}
+If the @param{result-type} is @symbolref{character, SC}
 and the @term{object} is a @term{character designator},
 the @param{result} is the @term{character} it denotes.
 
 
-@item @id{@code{complex}}
+@item @id{@symbolref{complex, SC}}
 
 
-If the @param{result-type} is @code{complex}
+If the @param{result-type} is @symbolref{complex, SC}
 and the @term{object} is a @symbolref{real, SYM},
 then the @param{result} is obtained by constructing a @term{complex}
 whose real part is the @term{object} and
@@ -2081,10 +2081,10 @@ than a @term{complex}; see @ref{Rule of Canonical Representation for Complex Rat
 So, for example, @f{(coerce 3 'complex)} is permissible,
 but will return @f{3}, which is not a @term{complex}.)
 
-@item @id{@code{float}}
+@item @id{@symbolref{float, SC}}
 
 
-If the @param{result-type} is any of @code{float},
+If the @param{result-type} is any of @symbolref{float, SC},
 @symbolref{short-float, SYM},
 @symbolref{single-float, SYM},
 @symbolref{double-float, SYM},
@@ -2094,21 +2094,21 @@ and the @term{object} is a
 then the @param{result} is a @term{float} of @term{type} @param{result-type}
 which is equal in sign and magnitude to the @term{object} to whatever degree of
 representational precision is permitted by that @term{float} representation.
-(If the @param{result-type} is @code{float}
+(If the @param{result-type} is @symbolref{float, SC}
 and @param{object} is not already a @term{float},
 then the @param{result} is a @term{single float}.)
 
-@item @id{@code{function}}
+@item @id{@symbolref{function, SC}}
 
 
-If the @param{result-type} is @code{function},
+If the @param{result-type} is @symbolref{function, SC},
 and @param{object} is any
 @term{function name}
 that is @term{fbound}
 but that is globally defined neither as a @term{macro name} nor as a @term{special operator},
 then the @param{result} is the @term{functional value} of @param{object}.
 
-If the @param{result-type} is @code{function},
+If the @param{result-type} is @symbolref{function, SC},
 and @param{object} is a @term{lambda expression},
 then the @param{result} is a @term{closure} of @param{object}
 in the @term{null lexical environment}.
@@ -2157,7 +2157,7 @@ If a coercion is not possible, an error @oftype{type-error} is signaled.
 
 An error
 @oftype{error} is signaled
-if the @param{result-type} is @code{function} but
+if the @param{result-type} is @symbolref{function, SC} but
 @param{object} is a @term{symbol} that is not @term{fbound} or
 if the @term{symbol} names a @term{macro} or a @term{special operator}.
 
@@ -2241,7 +2241,7 @@ are nested within the expansion.
 
 The consequences are undefined if the result of fully expanding a
 @term{type specifier} contains any circular structure, except within
-the @term{objects} referred to by @code{member} and @code{eql}
+the @term{objects} referred to by @symbolref{member, TS} and @symbolref{eql, TS}
 @term{type specifiers}.
 
 @param{Documentation} is attached to @param{name} as a @term{documentation string}
@@ -2346,15 +2346,15 @@ that might result.
 @symbolref{subtypep, SYM} is permitted to return the
 @term{values} @term{false} and @term{false} only when at least
 one argument involves one of these @term{type specifiers}:
-@code{and},
-@code{eql},
-the list form of @code{function},
-@code{member},
-@code{not},
-@code{or},
+@symbolref{and, TS},
+@symbolref{eql, TS},
+the list form of @symbolref{function, SC},
+@symbolref{member, TS},
+@symbolref{not, TS},
+@symbolref{or, TS},
 @symbolref{satisfies, SYM},
 or
-@code{values}.
+@symbolref{values, TS}.
 (A @term{type specifier} `involves' such a @term{symbol} if,
 after being @term{type expanded},
 it contains that @term{symbol} in a position that would call for
@@ -2520,7 +2520,7 @@ That implies that the following set of tests are also true:
 @subsubheading Notes:
 
 The small differences between the @symbolref{subtypep, SYM} specification for
-the @symbolref{array, SYM} and @code{complex} types are necessary because there
+the @symbolref{array, SYM} and @symbolref{complex, SC} types are necessary because there
 is no creation function for @term{complexes} which allows
 the specification of the resultant part type independently of
 the actual types of the parts.  Thus in the case of @thetype{complex},
@@ -2529,7 +2529,7 @@ can be a member of more than one @term{type}.
 For example, @f{17} is of @term{type} @f{(mod 18)}
 as well as @term{type} @f{(mod 256)} and @term{type} @symbolref{integer, SYM};
 and @f{2.3f5} is @oftype{single-float}
-as well as @term{type} @code{float}.
+as well as @term{type} @symbolref{float, SC}.
 
 
 
@@ -2584,7 +2584,7 @@ For all @param{objects}, @f{(typep @param{object} (type-of @param{object}))}
 returns @term{true}.
 Implicit in this is that @term{type specifiers} which are
 not valid for use with @symbolref{typep, SYM}, such as the @term{list} form of the
-@code{function} @term{type specifier}, are never returned by @symbolref{type-of, SYM}.
+@symbolref{function, SO} @term{type specifier}, are never returned by @symbolref{type-of, SYM}.
 
 @item
 The @term{type} returned by @symbolref{type-of, SYM} is always a @term{recognizable subtype}

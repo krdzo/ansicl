@@ -191,7 +191,7 @@ will @term{upgrade} a given @term{type}.
 @subsubsection Required Kinds of Specialized Arrays
 
 @term{Vectors} whose @term{elements} are restricted to @term{type}
-@code{character} or a @term{subtype} of @code{character}
+@symbolref{character, SC} or a @term{subtype} of @symbolref{character, SC}
 are called
 @cindex string
 @dfn{strings}.
@@ -225,7 +225,7 @@ see instead @ref{Strings, Chapter 16 (Strings)}.
 
 
 @term{Vectors} whose @term{elements} are restricted to @term{type}
-@code{bit} are called
+@symbolref{bit, T} are called
 @cindex bit vector
 @dfn{bit vectors}.
 @term{Bit vectors} are @oftype{bit-vector}.
@@ -530,8 +530,8 @@ is equivalent to the @term{type} @f{(array @param{e} (@param{s}))}.
 The type @f{(vector bit)} has the name @symbolref{bit-vector, SYM}.
 
 The union of all @term{types} @f{(vector @mat{C})},
-where @mat{C} is any @term{subtype} of @code{character},
-has the name @code{string}.
+where @mat{C} is any @term{subtype} of @symbolref{character, SC},
+has the name @symbolref{string, SC}.
 
 @tt{(vector *)} refers to all @term{vectors}
 regardless of element type, @tt{(vector @param{type-specifier})}
@@ -1924,11 +1924,11 @@ The @param{typespec} is a @term{subtype} of
 (and possibly @term{type equivalent} to)
 the @param{upgraded-typespec}.
 
-If @param{typespec} is @code{bit},
+If @param{typespec} is @symbolref{bit, T},
 the result is @term{type equivalent} to @f{bit}.
 If @param{typespec} is @symbolref{base-char, SYM},
 the result is @term{type equivalent} to @f{base-char}.
-If @param{typespec} is @code{character},
+If @param{typespec} is @symbolref{character, SC},
 the result is @term{type equivalent} to @f{character}.
 
 The purpose of @symbolref{upgraded-array-element-type, SYM} is to reveal how
@@ -2163,7 +2163,7 @@ The @term{vector} is initialized to contain the @param{objects}.
 
 @subsubheading Notes:
 
-@code{vector} is analogous to @code{list}.
+@symbolref{vector, F} is analogous to @symbolref{list, F}.
 
 @lisp
  (vector a@ssso{} a@ssst{} ... a@sssn{})
@@ -2382,7 +2382,7 @@ have a @term{fill pointer}.
 
 @subsubheading Arguments and Values:
 
-@param{bit-array}---for @code{bit},  a @term{bit array};
+@param{bit-array}---for @symbolref{bit, A},  a @term{bit array};
 for @symbolref{sbit, SYM}, a @term{simple bit array}.
 
 @param{subscripts}---a @term{list} of @i{valid array indices}
@@ -2392,7 +2392,7 @@ for the @param{bit-array}.
 
 @subsubheading Description:
 
-@code{bit} and @symbolref{sbit, SYM} @term{access} the @param{bit-array}
+@symbolref{bit, A} and @symbolref{sbit, SYM} @term{access} the @param{bit-array}
 @term{element} specified by @param{subscripts}.
 
 These @term{functions} ignore the @term{fill pointer} when @term{accessing} @term{elements}.
@@ -2419,11 +2419,11 @@ These @term{functions} ignore the @term{fill pointer} when @term{accessing} @ter
 
 @subsubheading Notes:
 
-@code{bit} and @symbolref{sbit, SYM} are like @symbolref{aref, SYM}
+@symbolref{bit, A} and @symbolref{sbit, SYM} are like @symbolref{aref, SYM}
 except that they require @param{arrays} to be
 a @term{bit array} and a @term{simple bit array}, respectively.
 
-@code{bit} and @symbolref{sbit, SYM}, unlike @symbolref{char, SYM} and @symbolref{schar, SYM},
+@symbolref{bit, A} and @symbolref{sbit, SYM}, unlike @symbolref{char, SYM} and @symbolref{schar, SYM},
 allow the first argument to be an @term{array} of any @term{rank}.
 
 

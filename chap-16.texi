@@ -70,7 +70,7 @@ for which the @term{element type} of the @term{string} does not include that @te
 A @term{string} is a @term{specialized} @term{vector}
 whose @term{elements} are @oftypes{character}.
 When used as a @term{type specifier} for object creation,
-@code{string} means @f{(vector character)}.
+@symbolref{string, SC} means @f{(vector character)}.
 
 
 @subsubheading Compound Type Specifier Kind:
@@ -90,7 +90,7 @@ or the @term{symbol} @t{*}.
 
 This denotes the union of all @term{types}
 @f{(array @i{c} (@param{size}))}
-for all @term{subtypes} @i{c} of @code{character};
+for all @term{subtypes} @i{c} of @symbolref{character, SC};
 that is, the set of @term{strings} of size @param{size}.
 
 @subsubheading See Also:
@@ -181,7 +181,7 @@ or the @term{symbol} @t{*}.
 
 This denotes the union of all @term{types}
 @tt{(simple-array @i{c} (@param{size}))} for all @term{subtypes} @i{c} of
-@code{character}; that is, the set of @term{simple strings} of size @param{size}.
+@symbolref{character, SC}; that is, the set of @term{simple strings} of size @param{size}.
 
 @node simple-base-string
 @syindexanchor{simple-base-string, SYM}
@@ -358,7 +358,7 @@ Returns a @term{string} described by @param{x}; specifically:
 If @param{x} is a @term{character},
 then a @term{string} containing that one @term{character} is returned.
 @item
-@code{string} might perform additional, @term{implementation-defined} conversions.
+@symbolref{string, F} might perform additional, @term{implementation-defined} conversions.
 @end itemize
 
 
@@ -836,7 +836,7 @@ for comparing characters.
 @Default{@term{implementation-dependent}}
 
 @param{element-type}---a @term{type specifier}.
-@Default{@code{character}}
+@Default{@symbolref{character, SC}}
 
 @param{string}---a @term{simple string}.
 

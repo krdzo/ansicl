@@ -15,7 +15,7 @@ implemented as either a @term{vector} or a @term{list}.
 @term{Sequences} can be created by @thefunction{make-sequence},
 as well as other @term{functions} that create @term{objects}
 of @term{types} that are @term{subtypes} of @symbolref{sequence, SYM}
-(@eg{} @code{list}, @symbolref{make-list, SYM}, @symbolref{mapcar, SYM}, and @code{vector}).
+(@eg{} @symbolref{list, F}, @symbolref{make-list, SYM}, @symbolref{mapcar, SYM}, and @symbolref{vector, F}).
 
 A @newterm{sequence function} is a @term{function}
 defined by this specification
@@ -482,10 +482,10 @@ with @param{item}.
 Returns a @term{sequence} of the type @param{result-type} and of length @param{size},
 each of the @term{elements} of which has been initialized to @param{initial-element}.
 
-If the @param{result-type} is a @term{subtype} of @code{list},
+If the @param{result-type} is a @term{subtype} of @symbolref{list, SC},
 the result will be a @term{list}.
 
-If the @param{result-type} is a @term{subtype} of @code{vector},
+If the @param{result-type} is a @term{subtype} of @symbolref{vector, SC},
 then if the implementation can determine the element type specified
 for the @param{result-type}, the element type of the resulting array
 is the result of @term{upgrading} that element type; or, if the
@@ -521,8 +521,8 @@ The consequences are unspecified if @param{initial-element}
 is not an @term{object} which can be stored in the resulting @term{sequence}.
 
 An error @oftype{type-error} must be signaled if the @param{result-type} is neither
-a @term{recognizable subtype} of @code{list},
-nor a @term{recognizable subtype} of @code{vector}.
+a @term{recognizable subtype} of @symbolref{list, SC},
+nor a @term{recognizable subtype} of @symbolref{vector, SC}.
 
 An error @oftype{type-error} should be signaled if @param{result-type} specifies
 the number of elements and @param{size} is different from that number.
@@ -654,10 +654,10 @@ The consequences are undefined if the result of applying @param{function}
 to the successive elements of the @param{sequences} cannot
 be contained in a @term{sequence} of the @term{type} given by @param{result-type}.
 
-If the @param{result-type} is a @term{subtype} of @code{list},
+If the @param{result-type} is a @term{subtype} of @symbolref{list, SC},
 the result will be a @term{list}.
 
-If the @param{result-type} is a @term{subtype} of @code{vector},
+If the @param{result-type} is a @term{subtype} of @symbolref{vector, SC},
 then if the implementation can determine the element type specified
 for the @param{result-type}, the element type of the resulting array
 is the result of @term{upgrading} that element type; or, if the
@@ -690,8 +690,8 @@ otherwise, an error is signaled.
 @subsubheading Exceptional Situations:
 
 An error @oftype{type-error} must be signaled if the @param{result-type} is
-not a @term{recognizable subtype} of @code{list},
-not a @term{recognizable subtype} of @code{vector},
+not a @term{recognizable subtype} of @symbolref{list, SC},
+not a @term{recognizable subtype} of @symbolref{vector, SC},
 and not @nil{}.
 
 @Lazycheckanytype{sequence, a @term{proper sequence}}
@@ -1888,10 +1888,10 @@ It is an error if any element of the @param{sequences} cannot be an
 element of the @term{sequence} result.
 @reviewer{Barmar: Should signal?}
 
-If the @param{result-type} is a @term{subtype} of @code{list},
+If the @param{result-type} is a @term{subtype} of @symbolref{list, SC},
 the result will be a @term{list}.
 
-If the @param{result-type} is a @term{subtype} of @code{vector},
+If the @param{result-type} is a @term{subtype} of @symbolref{vector, SC},
 then if the implementation can determine the element type specified
 for the @param{result-type}, the element type of the resulting array
 is the result of @term{upgrading} that element type; or, if the
@@ -1917,8 +1917,8 @@ otherwise, an error is signaled.
 @subsubheading Exceptional Situations:
 
 An error is signaled if the @param{result-type} is neither
-a @term{recognizable subtype} of @code{list},
-nor a @term{recognizable subtype} of @code{vector}.
+a @term{recognizable subtype} of @symbolref{list, SC},
+nor a @term{recognizable subtype} of @symbolref{vector, SC}.
 
 An error @oftype{type-error} should be signaled if @param{result-type}
 specifies the number of elements and the sum of @param{sequences}
@@ -2003,10 +2003,10 @@ precede those from @param{sequence-2} in the result.
 
 @param{sequence-1} and/or @param{sequence-2} may be destroyed.
 
-If the @param{result-type} is a @term{subtype} of @code{list},
+If the @param{result-type} is a @term{subtype} of @symbolref{list, SC},
 the result will be a @term{list}.
 
-If the @param{result-type} is a @term{subtype} of @code{vector},
+If the @param{result-type} is a @term{subtype} of @symbolref{vector, SC},
 then if the implementation can determine the element type specified
 for the @param{result-type}, the element type of the resulting array
 is the result of @term{upgrading} that element type; or, if the
@@ -2036,8 +2036,8 @@ otherwise, an error is signaled.
 @subsubheading Exceptional Situations:
 
 An error must be signaled if the @param{result-type} is neither
-a @term{recognizable subtype} of @code{list},
-nor a @term{recognizable subtype} of @code{vector}.
+a @term{recognizable subtype} of @symbolref{list, SC},
+nor a @term{recognizable subtype} of @symbolref{vector, SC}.
 
 An error @oftype{type-error} should be signaled
 if @param{result-type} specifies the number of elements

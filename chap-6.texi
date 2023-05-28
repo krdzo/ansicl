@@ -426,7 +426,7 @@ loop body.
 The @param{d-type-spec} argument is used for destructuring.
 If the
 @param{d-type-spec} argument consists solely of @thetype{fixnum},
-@code{float}, @symbolref{t, SC}, or @nil{}, the @loopref{of-type} keyword is optional.
+@symbolref{float, SC}, @symbolref{t, SC}, or @nil{}, the @loopref{of-type} keyword is optional.
 The @loopref{of-type} construct is optional in these cases to provide backwards
 compatibility; thus, the following two expressions are the same:
 
@@ -856,7 +856,7 @@ end of the @term{list} is reached.
 In the @i{for-as-on-list} subclause, the @loopref{for} or @loopref{as}
 construct iterates over
 a @term{list}. It checks for the
-end of the @term{list} as if by using @code{atom}.
+end of the @term{list} as if by using @symbolref{atom, F}.
 The variable @param{var} is bound to the successive tails of the
 @term{list} in
 @param{form1}.  At the end of each iteration, the function @param{step-fun}
@@ -1159,7 +1159,7 @@ If the optional @param{type-spec} argument is supplied for the variable
 @param{var}, but there is no related expression to be evaluated, @param{var}
 is initialized to an appropriate default value for its @term{type}.
 For example, for the types @symbolref{t, SC}, @symbolref{number, SYM},
-and @code{float},
+and @symbolref{float, SC},
 the default values are @nil{}, @f{0}, and @f{0.0} respectively.
 The consequences are undefined if a
 @param{type-spec} argument is supplied for @param{var} if

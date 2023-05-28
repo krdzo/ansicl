@@ -540,7 +540,7 @@ In place of a @term{string}, at any point in the @term{list}, @term{symbols}
 can occur to indicate special file notations.
 @Thenextfigure{}@spc{}lists the @term{symbols} that have standard meanings.
 Implementations are permitted to add additional @term{objects}
-of any @term{type} that is disjoint from @code{string}
+of any @term{type} that is disjoint from @symbolref{string, SC}
 if necessary to represent features of their file systems that cannot be
 represented with the standard @term{strings} and @term{symbols}.
 
@@ -1021,9 +1021,9 @@ Returns the @term{pathname} denoted by @param{pathspec}.
 
 If the @param{pathspec} @term{designator} is a @term{stream},
 the @term{stream} can be either open or closed;
-in both cases, the @code{pathname} returned
+in both cases, the @symbolref{pathname, F} returned
 corresponds to the @term{filename} used to open the @term{file}.
-@code{pathname} returns the same @term{pathname} for a @term{file stream}
+@symbolref{pathname, F} returns the same @term{pathname} for a @term{file stream}
 after it is closed as it did when it was open.
 
 If the @param{pathspec} @term{designator} is
@@ -1695,7 +1695,7 @@ or a @term{stream}.
 If @param{pathspec} is a @term{logical pathname} @term{namestring},
 it should contain a host component and its following @term{colon}.
 If @param{pathspec} is a @term{stream}, it should be one
-for which @code{pathname} returns a @term{logical pathname}.
+for which @symbolref{pathname, F} returns a @term{logical pathname}.
 
 If @param{pathspec} is a @term{stream}, the @term{stream} can be either open or closed.
 @symbolref{logical-pathname, SYM} returns the same @term{logical pathname} after a
@@ -2074,7 +2074,7 @@ or @nil{}.
 
 @symbolref{wild-pathname-p, SYM} tests @param{pathname} for the presence of wildcard components.
 
-If @param{pathname} is a @term{pathname} (as returned by @code{pathname})
+If @param{pathname} is a @term{pathname} (as returned by @symbolref{pathname, F})
 it represents the name used to open the file. This may be, but is
 not required to be, the actual name of the file.
 

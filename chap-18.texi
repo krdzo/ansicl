@@ -30,7 +30,7 @@ the @term{hash table} is modified.
 @item
 There are four kinds of @term{hash tables}:
 those whose keys are compared with @symbolref{eq, SYM},
-those whose keys are compared with @code{eql},
+those whose keys are compared with @symbolref{eql, F},
 those whose keys are compared with @symbolref{equal, SYM}, and
 those whose keys are compared with @symbolref{equalp, SYM}.
 
@@ -115,7 +115,7 @@ visible modifications of the @term{object}.
 @subsubsection Visible Modification of Objects with respect to EQ and EQL
 
 No @term{standardized} @term{function} is provided that is capable of visibly
-modifying an @term{object} with regard to @symbolref{eq, SYM} or @code{eql}.
+modifying an @term{object} with regard to @symbolref{eq, SYM} or @symbolref{eql, F}.
 
 
 @node Visible Modification of Objects with respect to EQUAL
@@ -262,10 +262,10 @@ is required to use any particular technique to implement the mapping.
 
 @param{test}---a @term{designator} for one of the @term{functions}
 @symbolref{eq, SYM},
-@code{eql},
+@symbolref{eql, F},
 @symbolref{equal, SYM}, or
 @symbolref{equalp, SYM}.
-@Default{@code{eql}}
+@Default{@symbolref{eql, F}}
 
 @param{size}---a non-negative @term{integer}.
 @Default{@term{implementation-dependent}}

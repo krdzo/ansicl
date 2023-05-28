@@ -1490,7 +1490,7 @@ the class precedence list of the class of the argument.
 
 If just one of a pair of corresponding @term{parameter specializers} is @tt{(eql @i{object})},
 the @term{method} with that @term{parameter specializer} precedes the
-other @term{method}.  If both @term{parameter specializers} are @code{eql}
+other @term{method}.  If both @term{parameter specializers} are @symbolref{eql, F}
 @term{expressions}, the
 specializers must agree (otherwise the two @term{methods} would
 not both have been applicable to this argument).
@@ -2579,7 +2579,7 @@ If in the old @term{class} there is any @term{slot} of the
 same name as a local @term{slot} in the @param{new-class},
 the value of that @term{slot} is retained.  This means that if
 the @term{slot} has a value, the value returned by @symbolref{slot-value, SYM}
-after @symbolref{change-class, SYM} is invoked is @code{eql} to the
+after @symbolref{change-class, SYM} is invoked is @symbolref{eql, F} to the
 value returned by @symbolref{slot-value, SYM} before @symbolref{change-class, SYM} is
 invoked.  Similarly, if the @term{slot} was unbound, it remains
 unbound.  The other @term{slots} are initialized as described in
@@ -4579,7 +4579,7 @@ specialized.  If @i{parameter-specializer-name} is a @term{symbol} it names a
 @term{class}; if it is a @term{list},
 it is of the form @f{(eql @param{eql-specializer-form})}.  The parameter
 specializer name @f{(eql @param{eql-specializer-form})} indicates
-that the corresponding argument must be @code{eql} to the @term{object} that
+that the corresponding argument must be @symbolref{eql, F} to the @term{object} that
 is the value of @param{eql-specializer-form} for the @term{method} to be applicable.
 The @param{eql-specializer-form} is evaluated at the time
 that the expansion of the @symbolref{defmethod, SYM} macro is evaluated.
@@ -5113,7 +5113,7 @@ exactly one applicable method and it is a primary method, that method
 serves as the effective method and @param{operator} is not called.
 This optimization avoids the need to create a new effective method and
 avoids the overhead of a @term{function} call.  This option is designed to be
-used with operators such as @symbolref{progn, SYM}, @code{and}, @code{+}, and
+used with operators such as @symbolref{progn, SYM}, @symbolref{and, M}, @symbolref{+, F}, and
 @symbolref{max, SYM}.
 
 @item
@@ -5301,7 +5301,7 @@ the effective method form consists entirely of an invocation of
 the @symbolref{call-method, SYM} macro whose first @term{subform} is a method object and
 whose second @term{subform} is @nil{}@spc{}or unsupplied.  Each
 @symbolref{define-method-combination, SYM} body is responsible for stripping off
-redundant invocations of @symbolref{progn, SYM}, @code{and},
+redundant invocations of @symbolref{progn, SYM}, @symbolref{and, M},
 @symbolref{multiple-value-prog1, SYM}, and the like, if this optimization is desired.
 
 

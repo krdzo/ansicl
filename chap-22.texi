@@ -2857,9 +2857,9 @@ The consequences of using it elsewhere are undefined.
 @cindex P (format directive)
 @cindex Tilde P (format directive)
 
-If @j{arg} is not @code{eql}
+If @j{arg} is not @symbolref{eql, F}
 to the integer @f{1}, a lowercase @f{s} is
-printed; if @j{arg} is @code{eql} to @f{1}, nothing is printed.
+printed; if @j{arg} is @symbolref{eql, F} to @f{1}, nothing is printed.
 If @j{arg} is a floating-point @f{1.0}, the @f{s} is
 printed.
 

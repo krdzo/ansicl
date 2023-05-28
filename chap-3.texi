@@ -780,7 +780,7 @@ In the code fragment
 
 the function @f{(lambda (x) (+ x 2))} contains no references to any outside
 object. In this case, the same @term{closure} might be returned
-for all evaluations of the @code{function} @term{form}.
+for all evaluations of the @symbolref{function, SO} @term{form}.
 
 
 @node Shadowing
@@ -852,7 +852,7 @@ refers to the outer outstanding @term{exit point}
 inner one (here@ssst{}).
 It
 refers to that @term{exit point} textually visible at the point of
-execution of @code{function}
+execution of @symbolref{function, SO}
 (here abbreviated by the @f{#'} syntax) that resulted
 in creation of the @term{function} @term{object} actually invoked by
 @symbolref{funcall, SYM}.
@@ -872,7 +872,7 @@ returned from has nothing to do with its
 being innermost or outermost; rather,
 it depends on the lexical environment
 that is packaged up with a @term{lambda expression} when
-@code{function} is executed.
+@symbolref{function, SO} is executed.
 
 
 @node Extent
@@ -1027,8 +1027,8 @@ A @term{constant variable} is not itself a @term{literal} @term{object}.
 The term @newterm{coalesce} is defined as follows.
 Suppose @f{A} and @f{B} are two @term{literal} @term{constants} in the @term{source code},
 and that @f{A'} and @f{B'} are the corresponding @term{objects} in the @term{compiled code}.
-If @f{A'} and @f{B'} are @code{eql} but
-@f{A} and @f{B} are not @code{eql}, then it is said
+If @f{A'} and @f{B'} are @symbolref{eql, F} but
+@f{A} and @f{B} are not @symbolref{eql, F}, then it is said
 that @f{A} and @f{B} have been coalesced by the compiler.
 
 The term @newterm{minimal compilation} refers to actions the compiler
@@ -1355,7 +1355,7 @@ beginning with a @term{symbol} that does not name a
 @term{compilation environment} is treated by the compiler as a
 function call.
 
-@item @code{Special} proclamations for @term{dynamic variables}
+@item @ref{special, @code{Special}} proclamations for @term{dynamic variables}
 must be made in the @term{compilation environment}.  Any @term{binding}
 for which there is no @symbolref{special, SYM} declaration or proclamation in
 the @term{compilation environment} is treated by the compiler as
@@ -1771,7 +1771,7 @@ indicated for that @term{type}.
 Two @term{numbers} @mat{S} and @mat{C} are @term{similar} if they are of the same @term{type}
 and represent the same mathematical value.
 
-@item @id{@code{character}}
+@item @id{@symbolref{character, SC}}
 
 
 
@@ -1827,7 +1827,7 @@ assuming equivalent @param{limit} @term{arguments} in each case.
 it cannot be used directly as an @term{argument} to @symbolref{random, SYM}
 because @symbolref{random, SYM} would perform a side effect.)
 
-@item @id{@code{cons}}
+@item @id{@symbolref{cons, SC}}
 
 
 Two @term{conses}, @mat{S} and @mat{C}, are @term{similar} if
@@ -1869,7 +1869,7 @@ three requirements:
 
 @enumerate 1
 @item  They both have the same test
-(@eg{} they are both @code{eql} @term{hash tables}).
+(@eg{} they are both @symbolref{eql, F} @term{hash tables}).
 
 @item  There is a unique one-to-one correspondence between the keys of
 the two @term{hash tables}, such that the corresponding keys are
@@ -1885,13 +1885,13 @@ the keys of @mat{S} and @mat{C}, the consequences are unspecified.
 A @term{conforming program} cannot use a table such as @mat{S} as an
 @i{externalizable constant}.
 
-@item @id{@code{pathname}}
+@item @id{@symbolref{pathname, SC}}
 
 
 Two @term{pathnames} @mat{S} and @mat{C} are @term{similar} if all corresponding
 @term{pathname} @i{components} are @term{similar}.
 
-@item @id{@code{function}}
+@item @id{@symbolref{function, SC}}
 
 
 @term{Functions} are not @term{externalizable objects}.
@@ -1915,7 +1915,8 @@ calling @symbolref{make-load-form, SYM} on @mat{S}.
 @node Extensions to Similarity Rules
 @subsubsection Extensions to Similarity Rules
 
-Some @term{objects}, such as @term{streams}, @code{readtables}, and @code{methods}
+Some @term{objects}, such as @term{streams}, @ref{readtable, @code{readtables}},
+and @ref{method, @code{methods}}
 are not @term{externalizable objects} under the definition of similarity given above.
 That is, such @term{objects} may not portably appear as @term{literal} @term{objects}
 in @term{code} to be processed by the @term{file compiler}.
@@ -1951,9 +1952,9 @@ they may only be @term{coalesced} if and only if they are @term{identical}.
 
 @term{Objects} containing circular references can
 be @term{externalizable objects}.
-The @term{file compiler} is required to preserve @code{eql}ness of
+The @term{file compiler} is required to preserve @symbolref{eql, F}ness of
 substructures within a @term{file}.
-Preserving @code{eql}ness means that subobjects that are
+Preserving @symbolref{eql, F}ness means that subobjects that are
 the @term{same}
 in the @term{source code} must
 be
@@ -2149,7 +2150,7 @@ In general, an @term{implementation} is free to ignore
 @symbolref{notinline, SYM}
 @cindex notinline
 ,
-@code{safety}
+@ref{optimize, @code{safety}}
 @cindex safety
 ,
 and @symbolref{special, SYM}
@@ -2166,7 +2167,7 @@ that supports inline functions or @term{compiler macros} in order to disable tho
 An @term{implementation} that does not use inline functions or @term{compiler macros}
 may safely ignore this @term{declaration}.
 
-A @code{safety} @term{declaration} that increases the current safety level
+A @ref{optimize, @code{safety}} @term{declaration} that increases the current safety level
 must always be recognized.  An @term{implementation} that always processes
 code as if safety were high may safely ignore this @term{declaration}.
 
@@ -3256,7 +3257,7 @@ The @keyref{optional}, @keyref{rest}, @keyref{aux},
 The way these @term{lambda list keywords} differ from their
 use in an @term{ordinary lambda list} follows.
 
-Consider this example, which describes how @code{destruct} processes
+Consider this example, which describes how @symbolref{defstruct, SYM} processes
 its @kwd{constructor} option.
 
 @lisp
@@ -3511,7 +3512,7 @@ it is considered @term{safe} if all of the following are
 @item
 For the form @f{(coerce @param{x} 'function)},
 where @param{x} is a @term{lambda expression},
-the value of the @term{optimize quality} @code{safety}
+the value of the @term{optimize quality} @ref{optimize, @code{safety}}
 in the global environment at the time the @symbolref{coerce, SYM}
 is @term{executed} applies to the resulting @term{function}.
 
@@ -3519,13 +3520,13 @@ is @term{executed} applies to the resulting @term{function}.
 
 @item
 For a call to @thefunction{ensure-generic-function}, the value of the
-@term{optimize quality} @code{safety} in the @term{environment}
+@term{optimize quality} @ref{optimize, @code{safety}} in the @term{environment}
 @term{object} passed as the @kwd{environment} @term{argument} applies
 to the resulting @term{generic function}.
 
 @item
 For a call to @symbolref{compile, SYM} with a @term{lambda expression} as the
-@term{argument}, the value of the @term{optimize quality} @code{safety}
+@term{argument}, the value of the @term{optimize quality} @ref{optimize, @code{safety}}
 in the @term{global environment} at the time @symbolref{compile, SYM} is @term{called}
 applies to the resulting @term{compiled function}.
 
@@ -3744,7 +3745,7 @@ are considered @term{destructive}:
 
 Using it as an @term{argument} to @thefunction{random}.
 
-@item @id{@code{cons}}
+@item @id{@symbolref{cons, SC}}
 
 
 Changing the @term{car}@sub{1} or @term{cdr}@sub{1} of the @term{cons},
@@ -3813,14 +3814,14 @@ or @i{closing} the @term{stream}.
 @item @id{All other standardized types}
 
 
-[This category includes, for example, @code{character},
+[This category includes, for example, @symbolref{character, SC},
 @symbolref{condition, SYM},
-@code{function},
+@symbolref{function, SC},
 @symbolref{method-combination, SYM},
 @symbolref{method, SYM},
 @symbolref{number, SYM},
 @symbolref{package, SYM},
-@code{pathname},
+@symbolref{pathname, SC},
 @symbolref{restart, SYM},
 and @symbolref{symbol, SYM}.]
 
@@ -3978,7 +3979,7 @@ is semantically equivalent to the @term{function form}
 
 @subsubheading Description:
 
-Provides a shorthand notation for a @code{function} @term{special form}
+Provides a shorthand notation for a @symbolref{function, SO} @term{special form}
 involving a @term{lambda expression} such that:
 
 @lisp
@@ -4064,7 +4065,7 @@ and the @param{name} is returned as the @term{primary value}.
 @term{Literal} @term{objects} appearing in code processed by
 the @symbolref{compile, SYM} function are neither copied nor @term{coalesced}.
 The code resulting from the execution of @symbolref{compile, SYM}
-references @term{objects} that are @code{eql} to the corresponding
+references @term{objects} that are @symbolref{eql, F} to the corresponding
 @term{objects} in the source code.
 
 @symbolref{compile, SYM} is permitted, but not required, to @term{establish}
@@ -4147,7 +4148,7 @@ processed by @symbolref{eval, SYM} are
 not copied nor coalesced. The code resulting from the execution of
 @symbolref{eval, SYM}
 references @term{objects}
-that are @code{eql} to the corresponding @term{objects} in
+that are @symbolref{eql, F} to the corresponding @term{objects} in
 the source code.
 
 @subsubheading Examples:
@@ -4900,7 +4901,7 @@ are implicitly enclosed in a @term{block} whose name is @param{name}.
 The @param{lambda-list} conforms to the requirements described in @ref{Macro Lambda Lists}.
 
 @param{Documentation} is attached as a @term{documentation string}
-to @param{name} (as kind @code{function})
+to @param{name} (as kind @symbolref{function, SO})
 and to the @term{macro function}.
 
 @symbolref{defmacro, SYM} can be used to redefine a @term{macro} or to replace
@@ -5347,7 +5348,7 @@ is treated as if it were a @symbolref{setf, SYM}.
 @symbolref{psetq, SYM} of @param{symbol}
 is treated as if it were a @symbolref{psetf, SYM}, and
 @symbolref{multiple-value-setq, SYM}
-is treated as if it were a @symbolref{setf, SYM} of @code{values}.
+is treated as if it were a @symbolref{setf, SYM} of @symbolref{values, A}.
 
 A @term{binding} for a @term{symbol macro} can be @term{shadowed}@sub{2}
 by @symbolref{let, SYM} or @symbolref{symbol-macrolet, SYM}.
@@ -5438,7 +5439,7 @@ is treated as if it were a @symbolref{setf, SYM}.
 @symbolref{psetq, SYM} of a @term{symbol} defined as a symbol macro
 is treated as if it were a @symbolref{psetf, SYM}, and
 @symbolref{multiple-value-setq, SYM}
-is treated as if it were a @symbolref{setf, SYM} of @code{values}.
+is treated as if it were a @symbolref{setf, SYM} of @symbolref{values, A}.
 
 The use of @symbolref{symbol-macrolet, SYM} can be shadowed by @symbolref{let, SYM}.
 In other words, @symbolref{symbol-macrolet, SYM} only substitutes for occurrences
@@ -6542,7 +6543,7 @@ applies to that local definition and not to the global function definition.
 The lexically apparent bindings of @param{function-names} must not be
 @term{macro} definitions.  (This is because @symbolref{ftype, SYM} declares the
 functional definition of each @term{function name} to be of a particular
-subtype of @code{function}, and @term{macros} do not denote
+subtype of @symbolref{function, SC}, and @term{macros} do not denote
 @term{functions}.)
 
 @symbolref{ftype, SYM}
@@ -6663,7 +6664,7 @@ neutral value.
 @f{(@param{quality} 3)} can be abbreviated to @param{quality}.
 
 Note that @term{code} which has the optimization @f{(safety 3)},
-or just @code{safety},
+or just @ref{optimize, @code{safety}},
 is called @term{safe} @term{code}.
 
 The consequences are unspecified if a @param{quality} appears more than once
@@ -7013,7 +7014,7 @@ are not of the @term{type} specified by @param{value-type}.
 
 @subsubheading Notes:
 
-The @code{values} @term{type specifier} can be used to indicate the types
+The @symbolref{values, TS} @term{type specifier} can be used to indicate the types
 of @term{multiple values}:
 
 @lisp

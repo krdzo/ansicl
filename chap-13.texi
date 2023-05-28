@@ -80,7 +80,7 @@ The following figures contain lists of @term{defined names} applicable to
 @subsubsection Character Scripts
 
 A @term{script} is one of possibly several sets that form an @term{exhaustive partition}
-of the type @code{character}.
+of the type @symbolref{character, SC}.
 
 The number of such sets and boundaries between them is @term{implementation-defined}.
 @clisp{}@spc{}does not require these sets to be @term{types}, but an @term{implementation}
@@ -326,7 +326,7 @@ are @term{digits} with weight @f{15}.
 @node Identity of Characters
 @subsection Identity of Characters
 
-Two @term{characters} that are @code{eql}, @symbolref{char=, SYM}, or @symbolref{char-equal, SYM}
+Two @term{characters} that are @symbolref{eql, F}, @symbolref{char=, SYM}, or @symbolref{char-equal, SYM}
 are not necessarily @symbolref{eq, SYM}.
 
 
@@ -601,7 +601,7 @@ An @term{implementation} can support additional @subtypesof{character}
 (besides the ones listed in this standard)
 that might or might not be @supertypesof{base-char}.
 In addition, an @term{implementation} can define @symbolref{base-char, SYM}
-to be the @term{same} @term{type} as @code{character}.
+to be the @term{same} @term{type} as @symbolref{character, SC}.
 
 @term{Base characters} are distinguished in the following respects:
 
@@ -881,7 +881,7 @@ as @term{characters}, but in some sense on the basis of a lower level
 implementation characteristic.
 If @f{(eq c1 c2)} is @term{true},
 then @f{(char= c1 c2)} is also true.
-@code{eql} and @symbolref{equal, SYM}
+@symbolref{eql, F} and @symbolref{equal, SYM}
 compare @term{characters} in the same
 way that @symbolref{char=, SYM} does.
 
