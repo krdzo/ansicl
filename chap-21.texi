@@ -3606,13 +3606,13 @@ and the output is incrementally appended to @param{string} as
 if by use of @symbolref{vector-push-extend, SYM}.
 
 The @term{output} @term{stream}
-is automatically closed on exit from @symbolref{with-output-from-string, SYM},
+is automatically closed on exit from @code{with-output-from-string},
 no matter whether the exit is normal or abnormal.
 The @term{output} @term{string stream} to which the @term{variable} @param{var}
 is @term{bound} has @term{dynamic extent};
 its @term{extent} ends when the @term{form} is exited.
 
-If no @param{string} is provided, then @symbolref{with-output-from-string, SYM}
+If no @param{string} is provided, then @code{with-output-from-string}
 produces a @term{stream} that accepts characters and returns a @term{string}
 of the indicated @param{element-type}.
 If @param{string} is provided,

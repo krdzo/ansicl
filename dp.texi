@@ -393,8 +393,9 @@ or@EV{}
 @end macro
 
 @macro newterm {arg}
-@cindex \arg\
 @dfn{\arg\}
+@cindex \arg\
+
 @end macro
 
 @rmacro hbox {arg}
