@@ -44,10 +44,6 @@
 @w{ }
 @end macro
 
-@macro subN {}
-@sub{1}
-@end macro
-
 @macro tild {}
 ~
 @end macro
@@ -123,9 +119,6 @@
 X3J13/94-101R
 @end macro
 
-@macro omit {}
-@end macro
-
 @macro Vtop {}
 @end macro
 
@@ -133,15 +126,7 @@ X3J13/94-101R
 \arg\
 @end macro
 
-@macro dot {}
-.
-@end macro
-
 @macro ampers {}
-&
-@end macro
-
-@macro ampersand {}
 &
 @end macro
 
@@ -1341,7 +1326,7 @@ object system
 @end macro
 
 @macro sssi {}
-@subs1{i}
+@sub{i}
 @end macro
 
 @macro sssk {}
@@ -1349,19 +1334,19 @@ object system
 @end macro
 
 @macro sssn {}
-@subs1{n}
+@sub{n}
 @end macro
 
 @macro sssx {}
-@subs1{x}
+@sub{x}
 @end macro
 
 @macro sssy {}
-@subs1{y}
+@sub{y}
 @end macro
 
 @macro sssz {}
-@subs1{z}
+@sub{z}
 @end macro
 
 @macro SpecializedVar {}
@@ -1438,54 +1423,54 @@ Protocol}.
 
 @macro withaccessors {}
 @lisp
-(with-accessors (@var{slot-entry}@sub{1}, @dots{} @var{slot-entry}@subs1{n})
-@var{instance-form} @var{form}@sub{1} @dots{} @var{form}@subs1{k})
+(with-accessors (@var{slot-entry}@sub{1}, @dots{} @var{slot-entry}@sub{n})
+@var{instance-form} @var{form}@sub{1} @dots{} @var{form}@sub{k})
 @end lisp
 
 expands into the equivalent of
 
 @lisp
 (let ((in @var{instance-form}))
-  (symbol-macrolet (@var{Q}@sub{1} @dots{} @var{Q}@subs1{n}) @var{form}@sub{1} @dots{} @var{form}@subs1{k}))
+  (symbol-macrolet (@var{Q}@sub{1} @dots{} @var{Q}@sub{n}) @var{form}@sub{1} @dots{} @var{form}@sub{k}))
 @end lisp
 
-where @var{Q}@subs1{i} is
+where @var{Q}@sub{i} is
 
 @lisp
-(@var{variable-name}@subs1{i} () (@var{accessor-name}@subs1{i} in))
+(@var{variable-name}@sub{i} () (@var{accessor-name}@sub{i} in))
 @end lisp
 
 @end macro
 
 @macro withslots {}
 @lisp
-(with-accessors (@var{slot-entry}@sub{1}, @dots{} @var{slot-entry}@subs1{n})
-@var{instance-form} @var{form}@sub{1} @dots{} @var{form}@subs1{k})
+(with-accessors (@var{slot-entry}@sub{1}, @dots{} @var{slot-entry}@sub{n})
+@var{instance-form} @var{form}@sub{1} @dots{} @var{form}@sub{k})
 @end lisp
 
 expands into the equivalent of
 
 @lisp
 (let ((in @var{instance-form}))
-  (symbol-macrolet (@var{Q}@sub{1} @dots{} @var{Q}@subs1{n}) @var{form}@sub{1} @dots{} @var{form}@subs1{k}))
+  (symbol-macrolet (@var{Q}@sub{1} @dots{} @var{Q}@sub{n}) @var{form}@sub{1} @dots{} @var{form}@sub{k}))
 @end lisp
 
-where @var{Q}@subs1{i} is
+where @var{Q}@sub{i} is
 
 @lisp
-(@var{slot-entry}@subs1{i} () (slot-value in '@var{slot-entry}@subs1{i}))
+(@var{slot-entry}@sub{i} () (slot-value in '@var{slot-entry}@sub{i}))
 @end lisp
 
-if @var{slot-entry}@subs1{i} is a @term{symbol} and is
+if @var{slot-entry}@sub{i} is a @term{symbol} and is
 
 @lisp
-(@var{variable-name}@subs1{i} () (slot-value in '@var{slot-name}@subs1{i}))
+(@var{variable-name}@sub{i} () (slot-value in '@var{slot-name}@sub{i}))
 @end lisp
 
-if @var{slot-entry}@subs1{i} is of the form
+if @var{slot-entry}@sub{i} is of the form
 
 @lisp
-(@var{variable-name}@subs1{i} @var{slot-name}@subs1{i})
+(@var{variable-name}@sub{i} @var{slot-name}@sub{i})
 @end lisp
 
 @end macro

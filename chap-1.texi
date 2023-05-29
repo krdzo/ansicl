@@ -221,7 +221,7 @@ endorsement of this document by that individual or organization.
 @item Computer Sciences @tab National Bureau of Standards
 @item CONTEL @tab Prime Computer
 @item Digital Equipment Corporation @tab Siemens
-@item Evans @ampersand{} Sutherland @tab Southern Illinois University
+@item Evans & Sutherland @tab Southern Illinois University
 @item Encore @tab Sperry
 @item Franz, Inc. @tab SRI
 @item Gigamos @tab Sun Microsystems
@@ -755,28 +755,28 @@ be of the form
 
 
 @quotation
-@mat{O@sub{1}@spc{}@vert{}@spc{}@ldots{}@spc{}@vert{}@spc{}O@subs1{l}}
+@mat{O@sub{1}@spc{}@vert{}@spc{}@ldots{}@spc{}@vert{}@spc{}O@sub{l}}
 @end quotation
 
 
 @noindent
- where each @mat{O@subs1{i}} can be of the form @mat{S} or of
-the form @star{@mat{S}} or of the form @one{@mat{S}}.
+ where each @mat{O@sub{i}} can be of the form @mat{S} or of
+the form @star{@mat{S}} or of the form @mat{S}@sup{1}.
 The expression @interleave{@mat{O}} means that a list of the form
 
 
 @quotation
-@mat{(O@subs{i@sub{1}}@ldots{} O@subs{i@subs1{j}})@quad{} 1@leq{} j}
+@mat{(O@sub{i@sub{1}}@ldots{} O@sub{i@sub{j}})@quad{} 1@leq{} j}
 @end quotation
 
 
 @noindent
  is spliced into the enclosing expression,
 such that if @mat{n @neq{} m} and @mat{1@leq{} n,m@leq{} j},
-then either @mat{O@subs{i@subs1{n}}@neq{} O@subs{i@subs1{m}}}
-or @mat{O@subs{i@subs1{n}} = O@subs{i@subs1{m}} = Q@subs1{k}},
-where for some @mat{1@leq{} k @leq{} n}, @mat{O@subs1{k}} is of the form @star{@mat{Q@subs1{k}}}.
-Furthermore, for each @mat{O@subs{i@subs1{n}}} that is of the form @one{@mat{Q@subs1{k}}},
+then either @mat{O@sub{i@sub{n}}@neq{} O@sub{i@sub{m}}}
+or @mat{O@sub{i@sub{n}} = O@sub{i@sub{m}} = Q@sub{k}},
+where for some @mat{1@leq{} k @leq{} n}, @mat{O@sub{k}} is of the form @star{@mat{Q@sub{k}}}.
+Furthermore, for each @mat{O@sub{i@sub{n}}} that is of the form @mat{Q@sub{k}}@sup{1},
 that element is required to appear somewhere in the list to be spliced.
 
 For example, the expression
@@ -847,7 +847,7 @@ and in the third case @tt{C} appears too often.
 
 Also, the expression:
 
-@f{(x @interleave{@one{A} | @one{B} | C} y)}
+@f{(x @interleave{A@sup{1} | B@sup{1} | C} y)}
 
 @noindent
  can generate exactly these and no others:
@@ -1123,12 +1123,12 @@ are in decimal notation unless explicitly noted otherwise.
 
 The dot appearing by itself in an @term{expression} such as
 
-@f{(@param{item1} @param{item2} @dot{} @param{tail})}
+@f{(@param{item1} @param{item2} . @param{tail})}
 
 means that @param{tail} represents a @term{list} of @term{objects}
 at the end of a list.  For example,
 
-@f{(A B C @dot{} (D E F))}
+@f{(A B C . (D E F))}
 
 is notationally equivalent to:
 

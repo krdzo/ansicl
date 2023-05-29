@@ -2645,7 +2645,7 @@ The @term{primary value} of each @param{form} is assigned to the corresponding @
 
 @subsubheading Pronunciation:
 
-@symbolref{psetq, SYM}: @pronounced{@maybeStress{p@harde{}}@Stress{set}@stress{ky@uumlaut{}}}
+@symbolref{psetq, SYM}: @pronounced{:p@harde{}@Stress{set}@stress{ky@uumlaut{}}}
 
 @subsubheading Arguments and Values:
 
@@ -5398,13 +5398,13 @@ then it is @term{assigned} as if by @symbolref{setf, SYM}.  Specifically,
 
 @begingroup{}
 @lisp
- (multiple-value-setq (@i{symbol}@sub{1} ... @i{symbol}@subN{}) @i{value-producing-form})
+ (multiple-value-setq (@i{symbol}@sub{1} ... @i{symbol}@sub{1}) @i{value-producing-form})
 @end lisp
 
 is defined to always behave in the same way as
 
 @lisp
- (values (setf (values @i{symbol}@sub{1} ... @i{symbol}@subN{}) @i{value-producing-form}))
+ (values (setf (values @i{symbol}@sub{1} ... @i{symbol}@sub{1}) @i{value-producing-form}))
 @end lisp
 
 @endgroup{}

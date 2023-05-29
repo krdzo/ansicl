@@ -132,22 +132,6 @@
 ō
 @end macro
 
-@macro maybeStress {arg}
-ː\arg\
-@end macro
-
-@macro one {arg}
-\arg\@sup{1}
-@end macro
-
-@rmacro subs {arg}
-@sub{@{\arg\@}}
-@end rmacro
-
-@rmacro subs1 {arg}
-_\arg\
-@end rmacro
-
 @macro le {}
 ≤
 @end macro

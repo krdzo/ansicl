@@ -169,11 +169,11 @@ becomes the @newterm{actual array element type} of the @term{array} that is crea
 
 @term{Type} @term{upgrading} implies a movement upwards in the type hierarchy lattice.
 A @term{type} is always a @term{subtype} of its @term{upgraded array element type}.
-Also, if a @term{type} @mat{T@subs1{x}} is a @term{subtype} of another @term{type} @mat{T@subs1{y}},
+Also, if a @term{type} @mat{T@sub{x}} is a @term{subtype} of another @term{type} @mat{T@sub{y}},
 then
-the @term{upgraded array element type} of @mat{T@subs1{x}}
+the @term{upgraded array element type} of @mat{T@sub{x}}
 must be a @term{subtype} of
-the @term{upgraded array element type} of @mat{T@subs1{y}}.
+the @term{upgraded array element type} of @mat{T@sub{y}}.
 Two @term{disjoint} @term{types} can be @term{upgraded} to the same @term{type}.
 
 The @term{upgraded array element type} @mat{T@sub{2}} of a @term{type} @mat{T@sub{1}}
@@ -304,10 +304,10 @@ An @term{array} contains @term{objects} arranged according to a
 Cartesian coordinate system.
 An @term{array} provides mappings from a set of
 @term{fixnums}
-@mat{@left{}@lcurly{}i@sub{0},i@sub{1},@dots{},i@subs{r-1}@right{}@rcurly{}} to corresponding @term{elements}
+@mat{@left{}@lcurly{}i@sub{0},i@sub{1},@dots{},i@sub{r-1}@right{}@rcurly{}} to corresponding @term{elements}
 of the @term{array},
-where @mat{0 @le{} i@subs1{j} < d@subs1{j}},
-@mat{r} is the rank of the array, and @mat{d@subs1{j}} is the size of @term{dimension} @mat{j} of
+where @mat{0 @le{} i@sub{j} < d@sub{j}},
+@mat{r} is the rank of the array, and @mat{d@sub{j}} is the size of @term{dimension} @mat{j} of
 the array.
 
 When an @term{array} is created, the program requesting its creation may

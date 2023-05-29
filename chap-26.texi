@@ -545,16 +545,16 @@ the @term{declaration} is what the @term{scope} of the
 
 @item @bglos{bounded}  @Adjective{}@spc{}(of a @term{sequence} @mat{S},
 by an ordered pair
-of @i{bounding indices} @mat{i@subs{start}} and @mat{i@subs{end}})
+of @i{bounding indices} @mat{i@sub{start}} and @mat{i@sub{end}})
 restricted to a subrange of the @term{elements} of @mat{S} that includes each @term{element}
-beginning with (and including) the one indexed by @mat{i@subs{start}} and
-continuing up to (but not including) the one indexed by @mat{i@subs{end}}.
+beginning with (and including) the one indexed by @mat{i@sub{start}} and
+continuing up to (but not including) the one indexed by @mat{i@sub{end}}.
 
 @item @bglos{bounding index}  @Noun{}@spc{}(of a @term{sequence} with @term{length} @mat{n})
-either of a conceptual pair of @term{integers}, @mat{i@subs{start}} and @mat{i@subs{end}},
+either of a conceptual pair of @term{integers}, @mat{i@sub{start}} and @mat{i@sub{end}},
 respectively called the ``lower bounding index'' and ``upper bounding index'',
-such that @mat{0 @leq{} i@subs{start} @leq{} i@subs{end} @leq{} n}, and which therefore delimit
-a subrange of the @term{sequence} @term{bounded} by @mat{i@subs{start}} and @mat{i@subs{end}}.
+such that @mat{0 @leq{} i@sub{start} @leq{} i@sub{end} @leq{} n}, and which therefore delimit
+a subrange of the @term{sequence} @term{bounded} by @mat{i@sub{start}} and @mat{i@sub{end}}.
 
 @item @bglos{bounding index designator}  (for a @term{sequence})
 one of two @term{objects} that, taken together as an ordered pair,
@@ -1099,9 +1099,9 @@ a @term{fresh} @term{list} with the @term{same} @term{elements} as @mat{L}.
 (Only the @term{list structure} is @term{fresh};
 the @term{elements} are the @term{same}.)
 See the @term{function} @ref{copy-list}.
-3. (of an @term{association list} @mat{A} with @term{elements} @mat{A@subs1{i}})
-a @term{fresh} @term{list} @mat{B} with @term{elements} @mat{B@subs1{i}}, each of which is
-@nil{}@spc{}if @mat{A@subs1{i}} is @nil{}, or else a @term{copy} of the @term{cons} @mat{A@subs1{i}}.
+3. (of an @term{association list} @mat{A} with @term{elements} @mat{A@sub{i}})
+a @term{fresh} @term{list} @mat{B} with @term{elements} @mat{B@sub{i}}, each of which is
+@nil{}@spc{}if @mat{A@sub{i}} is @nil{}, or else a @term{copy} of the @term{cons} @mat{A@sub{i}}.
 See the @term{function} @ref{copy-alist}.
 4. (of a @term{tree} @mat{T})
 a @term{fresh} @term{tree} with the @term{same} @term{leaves} as @mat{T}.
@@ -3999,7 +3999,7 @@ an @term{object} that denotes a @term{list}
 and that is a @i{non-null} @term{list} @mat{L1} of length @mat{n},
 whose last element is a @term{list} @mat{L2} of length @mat{m}
 (denoting a list @mat{L3} of length @mat{m+n-1} whose @term{elements} are
-@mat{L1@subs1{i}} for @mat{i < n-1} followed by @mat{L2@subs1{j}} for @mat{j < m}).
+@mat{L1@sub{i}} for @mat{i < n-1} followed by @mat{L2@sub{j}} for @mat{j < m}).
 @gexample{The list (1 2 (3 4 5)) is a spreadable argument list designator for
 the list (1 2 3 4 5).}
 
@@ -4397,9 +4397,9 @@ and sends    its output to   an associated @term{output} @term{stream}.
 
 @item @bglos{type}  @Noun{}@spc{} @anchor{glos-Type} @anchor{glos-Types}
 1. a set of @term{objects}, usually with common structure, behavior, or purpose.
-(Note that the expression ``@i{X} is of type @param{S@mat{@subs1{a}}}''
-naturally implies that ``@i{X} is of type @param{S@mat{@subs1{b}}}'' if
-@param{S@mat{@subs1{a}}} is a @term{subtype} of @param{S@mat{@subs1{b}}}.)
+(Note that the expression ``@i{X} is of type @param{S@mat{@sub{a}}}''
+naturally implies that ``@i{X} is of type @param{S@mat{@sub{b}}}'' if
+@param{S@mat{@sub{a}}} is a @term{subtype} of @param{S@mat{@sub{b}}}.)
 2. (immediately following the name of a @term{type})
 a @term{subtype} of that @term{type}.
 @gexample{The type @symbolref{vector, SC} is an array type.}

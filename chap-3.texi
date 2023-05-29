@@ -5943,20 +5943,20 @@ for such a @term{variable} @param{v} has unspecified consequences.
 
 
 In some containing @term{form}, @param{F}, this declaration
-asserts for each @param{var@mat{@subs1{i}}} (which need not be bound by @param{F}),
-and for each @term{value} @param{v@mat{@subs{ij}}} that @param{var@mat{@subs1{i}}} takes on,
-and for each @term{object} @param{x@mat{@subs{ijk}}} that
+asserts for each @param{var@mat{@sub{i}}} (which need not be bound by @param{F}),
+and for each @term{value} @param{v@mat{@sub{ij}}} that @param{var@mat{@sub{i}}} takes on,
+and for each @term{object} @param{x@mat{@sub{ijk}}} that
 is
-an @term{otherwise inaccessible part} of @param{v@mat{@subs{ij}}} at any time when
-@param{v@mat{@subs{ij}}}
-becomes the value of @param{var@mat{@subs1{i}}},
+an @term{otherwise inaccessible part} of @param{v@mat{@sub{ij}}} at any time when
+@param{v@mat{@sub{ij}}}
+becomes the value of @param{var@mat{@sub{i}}},
 that just after the execution of @param{F} terminates,
-@param{x@mat{@subs{ijk}}} is either @term{inaccessible}
-(if @param{F} established a @term{binding} for @param{var@mat{@subs1{i}}})
+@param{x@mat{@sub{ijk}}} is either @term{inaccessible}
+(if @param{F} established a @term{binding} for @param{var@mat{@sub{i}}})
 or still an @term{otherwise inaccessible part} of the current value of
-@param{var@mat{@subs1{i}}} (if @param{F} did not establish a @term{binding}
-for @param{var@mat{@subs1{i}}}).
-The same relation holds for each @param{fn@mat{@subs1{i}}},
+@param{var@mat{@sub{i}}} (if @param{F} did not establish a @term{binding}
+for @param{var@mat{@sub{i}}}).
+The same relation holds for each @param{fn@mat{@sub{i}}},
 except that the @term{bindings} are in the @term{function} @term{namespace}.
 
 The compiler is permitted to use

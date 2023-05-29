@@ -580,10 +580,10 @@ possible optimizations.
 @section Changing the Class of an Instance
 
 @Thefunction{change-class} can be used to change the @term{class}
-of an @term{instance} from its current class, @mat{C@subs{@hbox{@prmseven{from}}}},
-to a different class, @mat{C@subs{@hbox{@prmseven{to}}}}; it changes the
+of an @term{instance} from its current class, @mat{C@sub{@hbox{@prmseven{from}}}},
+to a different class, @mat{C@sub{@hbox{@prmseven{to}}}}; it changes the
 structure of the @term{instance} to conform to the definition of the class
-@mat{C@subs{@hbox{@prmseven{to}}}}.
+@mat{C@sub{@hbox{@prmseven{to}}}}.
 
 Note that changing the @term{class} of an @term{instance} may cause
 @term{slots} to be added or deleted.  Changing the @term{class} of an
@@ -606,15 +606,22 @@ two following sections.
 @node Modifying the Structure of the Instance
 @subsection Modifying the Structure of the Instance
 
-In order to make the @term{instance} conform to the class @mat{C@subs{@hbox{@prmseven{to}}}}, @term{local slots} specified by the class @mat{C@subs{@hbox{@prmseven{to}}}} that are not specified by the class @mat{C@subs{@hbox{@prmseven{from}}}} are added, and @term{local slots} not specified by
-the class @mat{C@subs{@hbox{@prmseven{to}}}} that are specified by the
-class @mat{C@subs{@hbox{@prmseven{from}}}} are discarded.
+In order to make the @term{instance} conform to the class
+@mat{C@sub{@hbox{@prmseven{to}}}}, @term{local slots}
+specified by the class @mat{C@sub{@hbox{@prmseven{to}}}}
+that are not specified by the class @mat{C@sub{@hbox{@prmseven{from}}}} are added,
+and @term{local slots} not specified by
+the class @mat{C@sub{@hbox{@prmseven{to}}}} that are specified by the
+class @mat{C@sub{@hbox{@prmseven{from}}}} are discarded.
 
-The values of @term{local slots} specified by both the class @mat{C@subs{@hbox{@prmseven{to}}}} and the class @mat{C@subs{@hbox{@prmseven{
-from}}}} are retained. If such a @term{local slot} was unbound, it remains
-unbound.
+The values of @term{local slots} specified by both the
+class @mat{C@sub{@hbox{@prmseven{to}}}} and the class
+@mat{C@sub{@hbox{@prmseven{from}}}} are retained.
+If such a @term{local slot} was unbound, it remains unbound.
 
-The values of @term{slots} specified as shared in the class @mat{C@subs{@hbox{@prmseven{from}}}} and as local in the class @mat{C@subs{@hbox{@prmseven{to}}}} are retained.
+The values of @term{slots} specified as shared
+in the class @mat{C@sub{@hbox{@prmseven{from}}}}
+and as local in the class @mat{C@sub{@hbox{@prmseven{to}}}} are retained.
 
 This first step of the update does not affect the values of any
 @term{shared slots}.
@@ -633,10 +640,10 @@ completed.
 The generic function @symbolref{update-instance-for-different-class, SYM} is
 invoked on arguments computed by @symbolref{change-class, SYM}.
 The first argument passed is a copy of the @term{instance} being updated
-and is an @term{instance} of the class @mat{C@subs{@hbox{@prmseven{from}}}};
+and is an @term{instance} of the class @mat{C@sub{@hbox{@prmseven{from}}}};
 this copy has @term{dynamic extent} within the generic function @symbolref{change-class, SYM}.
 The second argument is the @term{instance} as updated so far by @symbolref{change-class, SYM}
-and is an @term{instance} of the class @mat{C@subs{@hbox{@prmseven{to}}}}.
+and is an @term{instance} of the class @mat{C@sub{@hbox{@prmseven{to}}}}.
 The remaining arguments are an @term{initialization argument list}.
 
 
@@ -954,7 +961,7 @@ contains an @kwd{initform} slot option, the @term{slot}
 has no default initial value form.
 
 @item The contents of a @term{slot} will always be of type
-@f{(and @mat{T@sub{1}} @mat{@ldots{}} @mat{T@subs1{n}})} where @mat{T@sub{1}@ldots{} T@subs1{n}} are
+@f{(and @mat{T@sub{1}} @mat{@ldots{}} @mat{T@sub{n}})} where @mat{T@sub{1}@ldots{} T@sub{n}} are
 the values of the @kwd{type} slot options contained in all of the
 @term{slot specifiers}.  If no @term{slot specifier} contains the
 @kwd{type} slot option, the contents of the @term{slot} will always be
@@ -1232,12 +1239,12 @@ specializers are satisfied by their corresponding arguments.  The
 following definition specifies what it means for a method to be
 applicable and for an argument to satisfy a @term{parameter specializer}.
 
-Let @mat{@langle{} A@sub{1}, @ldots{}, A@subs1{n}@rangle{}} be the required
+Let @mat{@langle{} A@sub{1}, @ldots{}, A@sub{n}@rangle{}} be the required
 arguments to a generic function in order. Let @mat{@langle{} P@sub{1},
-@ldots{}, P@subs1{n}@rangle{}} be the @term{parameter specializers} corresponding to
+@ldots{}, P@sub{n}@rangle{}} be the @term{parameter specializers} corresponding to
 the required parameters of the method @mat{M} in order.  The method @mat{M} is
-applicable when each @mat{A@subs1{i}} is of the @term{type} specified by
-the @term{type specifier} @mat{P@subs1{i}}.
+applicable when each @mat{A@sub{i}} is of the @term{type} specified by
+the @term{type specifier} @mat{P@sub{i}}.
 Because every valid @term{parameter specializer} is
 also a valid @term{type specifier}, @thefunction{typep} can be used during method
 selection to determine whether an argument satisfies a @term{parameter specializer}.
@@ -1282,15 +1289,15 @@ and @term{qualifiers} if the following conditions hold:
 
 @item Both methods have the same number of required parameters.
 Suppose the @term{parameter specializers} of the two methods are
-@mat{P@subs{1,1}@ldots{} P@subs{1,n}} and @mat{P@subs{2,1}@ldots{} P@subs{2,n}}.
+@mat{P@sub{1,1}@ldots{} P@sub{1,n}} and @mat{P@sub{2,1}@ldots{} P@sub{2,n}}.
 
-@item For each @mat{1@leq{} i@leq{} n}, @mat{P@subs{1,i}} agrees with @mat{P@subs{2,i}}.
-The @term{parameter specializer} @mat{P@subs{1,i}} agrees with @mat{P@subs{2,i}} if
-@mat{P@subs{1,i}} and @mat{P@subs{2,i}} are the same class or if
-@mat{P@subs{1,i}=@hbox{@tt{(@b{eql} }@hbox{@i{object}}@sub{1}@mat{)}}},
-@mat{P@subs{2,i}=@hbox{@tt{(@b{eql} }@hbox{@i{object}}@sub{2}@mat{)}}}, and
+@item For each @mat{1@leq{} i@leq{} n}, @mat{P@sub{1,i}} agrees with @mat{P@sub{2,i}}.
+The @term{parameter specializer} @mat{P@sub{1,i}} agrees with @mat{P@sub{2,i}} if
+@mat{P@sub{1,i}} and @mat{P@sub{2,i}} are the same class or if
+@mat{P@sub{1,i}=@hbox{@tt{(@b{eql} }@hbox{@i{object}}@sub{1}@mat{)}}},
+@mat{P@sub{2,i}=@hbox{@tt{(@b{eql} }@hbox{@i{object}}@sub{2}@mat{)}}}, and
 @tt{(@b{eql} @mat{@hbox{@i{object}}@sub{1}} @mat{@hbox{@i{object}}@sub{2}})}.
-Otherwise @mat{P@subs{1,i}} and @mat{P@subs{2,i}} do not agree.
+Otherwise @mat{P@sub{1,i}} and @mat{P@sub{2,i}} do not agree.
 
 @item The two @term{lists} of @term{qualifiers} are the @term{same}
 under @symbolref{equal, SYM}.
@@ -1769,28 +1776,28 @@ and the call to the generic function is of the form
 
 
 @quotation
-@mat{(@hbox{@i{generic-function}}@spc{}a@sub{1}@ldots{} a@subs1{n})}
+@mat{(@hbox{@i{generic-function}}@spc{}a@sub{1}@ldots{} a@sub{n})}
 @end quotation
 
 
-@item Let @mat{M@sub{1},@ldots{},M@subs1{k}} be the applicable primary methods
+@item Let @mat{M@sub{1},@ldots{},M@sub{k}} be the applicable primary methods
 in order; then the derived Lisp form is
 
 
 @quotation
 @mat{(@hbox{@i{operator}}@spc{}@langle{} M@sub{1}
-@spc{}a@sub{1}@ldots{} a@subs1{n}@rangle{}@ldots{}@langle{}
-M@subs1{k}@spc{}a@sub{1}@ldots{} a@subs1{n}@rangle{})}
+@spc{}a@sub{1}@ldots{} a@sub{n}@rangle{}@ldots{}@langle{}
+M@sub{k}@spc{}a@sub{1}@ldots{} a@sub{n}@rangle{})}
 @end quotation
 
 
-@item If the expression @mat{@langle{} M@subs1{i}@spc{}a@sub{1}@ldots{} a@subs1{n}@rangle{}} is
-evaluated, the method @mat{M@subs1{i}} will be applied to the arguments
-@mat{a@sub{1}@ldots{} a@subs1{n}}.
+@item If the expression @mat{@langle{} M@sub{i}@spc{}a@sub{1}@ldots{} a@sub{n}@rangle{}} is
+evaluated, the method @mat{M@sub{i}} will be applied to the arguments
+@mat{a@sub{1}@ldots{} a@sub{n}}.
 For example,
 if @i{operator} is @tt{or},
-the expression @mat{@langle{} M@subs1{i}@spc{}a@sub{1}@ldots{} a@subs1{n}@rangle{}} is
-evaluated only if @mat{@langle{} M@subs1{j}@spc{}a@sub{1}@ldots{} a@subs1{n}@rangle{}},
+the expression @mat{@langle{} M@sub{i}@spc{}a@sub{1}@ldots{} a@sub{n}@rangle{}} is
+evaluated only if @mat{@langle{} M@sub{j}@spc{}a@sub{1}@ldots{} a@sub{n}@rangle{}},
 @mat{1@leq{} j<i}, returned @tt{nil}.
 
 @item The default order for the primary methods is

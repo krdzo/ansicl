@@ -2670,8 +2670,8 @@ The ``extended'' @symbolref{loop, SYM} @term{form}:
 @auxbnf{for-as-arithmetic, @param{var} @brac{@param{type-spec}} @down{for-as-arithmetic-subclause}}
 @auxbnf{for-as-arithmetic-subclause, @down{arithmetic-up} | @down{arithmetic-downto} | @down{arithmetic-downfrom}}
 @auxbnf{arithmetic-up, @begininterleave{}@curly{@loopref{from} | @loopref{upfrom}} @param{form1} | @extrainterleave{}@curly{@loopref{to} | @loopref{upto} | @loopref{below}} @param{form2} | @extrainterleave{}@loopref{by} @param{form3}@endinterleave{}@prevplus{}}
-@auxbnf{arithmetic-downto, @begininterleave{}@one{@curly{@loopref{from} @param{form1}}} | @extrainterleave{}@one{@curly{@curly{@loopref{downto} | @loopref{above}} @param{form2}}} | @extrainterleave{}@loopref{by} @param{form3}@endinterleave{}}
-@auxbnf{arithmetic-downfrom, @begininterleave{}@one{@curly{@loopref{downfrom} @param{form1}}} | @extrainterleave{}@curly{@loopref{to} | @loopref{downto} | @loopref{above}} @param{form2} | @extrainterleave{}@loopref{by} @param{form3}@endinterleave{}}
+@auxbnf{arithmetic-downto, @begininterleave{}@curly{@loopref{from} @param{form1}}@sup{1} | @extrainterleave{}@curly{@curly{@loopref{downto} | @loopref{above}} @param{form2}}@sup{1} | @extrainterleave{}@loopref{by} @param{form3}@endinterleave{}}
+@auxbnf{arithmetic-downfrom, @begininterleave{}@curly{@loopref{downfrom} @param{form1}}@sup{1} | @extrainterleave{}@curly{@loopref{to} | @loopref{downto} | @loopref{above}} @param{form2} | @extrainterleave{}@loopref{by} @param{form3}@endinterleave{}}
 @auxbnf{for-as-in-list, @param{var} @brac{@param{type-spec}} @loopref{in} @param{form1} @brac{@loopref{by} @param{step-fun}}}
 @auxbnf{for-as-on-list, @param{var} @brac{@param{type-spec}} @loopref{on} @param{form1} @brac{@loopref{by} @param{step-fun}}}
 @auxbnf{for-as-equals-then, @param{var} @brac{@param{type-spec}} @mat{=} @param{form1} @brac{@loopref{then} @param{form2}}}
