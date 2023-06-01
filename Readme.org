@@ -1,0 +1,15 @@
+* ANSI Common Lisp
+Texinfo source files for "The Common Lisp draft proposed American National Standard".
+Original TeX sources converted to texinfo with the help of [[https://github.com/rebcabin/dpans2texi][dpans2texi]]. The resulting texinfo files are cleaned so that they can be compiled with =makeinfo= and some enhancement are made, like added index, added hyperlinks etc.
+
+** Usage
+You can convert this source to html or info manual or other supported formats with the [[https://www.gnu.org/software/texinfo/][texinfo]] program.
+There is a [[./Makefile][Makefile]] with some make commands.
+If you want to generate some rudimentary html you can run:
+#+begin_src shell
+  make html
+  # or
+  make html-with-highlights
+#+end_src
+
+NOTE: when generating files with =makeinfo= on macOS, because of the case insensitive file system there is no TOC page (the TOC should be on the index.html page). If you want the generated manual with TOC  use the =make html-one-page= command.
